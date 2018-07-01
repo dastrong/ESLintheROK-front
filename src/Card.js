@@ -5,7 +5,7 @@ import './Card.css';
 const Card = ({handleClick, name, isX, classNames, frontColor}) => (
   <div className={classNames}>
     <ReactFitText 
-      compressor={0.7}
+      compressor={1}
       minFontSize={0}
       maxFontSize={500}
     >

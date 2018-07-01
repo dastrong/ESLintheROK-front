@@ -1,0 +1,50 @@
+i.link.icon.info-modal-icon {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  z-index: 100;
+  opacity: 0;
+  color: teal;
+  transition: 1s all;
+}
+
+i.link.icon.info-modal-icon:hover {
+  opacity: 1;
+}
+
+.info-modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.1em;
+}
+
+.info-modal-item.header {
+  font-weight: bold;
+  font-size: 1.2em;
+  text-decoration: underline;
+  height: auto;
+  border: none;
+  margin-bottom: 5px;
+}
+
+.info-modal-item {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  border: 1px solid green;
+  width: 100%;
+  max-width: 500px;
+  height: 65px;
+  border-radius: 50px;
+  margin: 2px 0;
+}
+
+.info-modal-item-key {
+  text-align: center;
+  width: 30%;
+}
+
+.info-modal-item-des {
+  width: 70%;
+}

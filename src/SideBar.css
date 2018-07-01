@@ -1,0 +1,12 @@
+.ui.button.sideBarBtn {
+  position: absolute;
+  z-index: 1;
+  background-color: rgb(255, 255, 255, 0);
+  opacity: 0;
+  transition: 0.5s all;
+}
+
+.ui.button.sideBarBtn:hover {
+  background-color: rgb(255, 255, 255, 0);
+  opacity: 1;
+}

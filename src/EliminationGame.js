@@ -10,7 +10,7 @@ const xCount = 3;
 class EliminationGame extends Component {
   constructor(props){
     super(props);
-    // const allData = this.props.fruits.slice();
+    // const allData = this.props.data.slice();
     // const gameData = this.handleGameData(allData);
     this.state = {
       // allData,
@@ -21,20 +21,29 @@ class EliminationGame extends Component {
       clicked: [],
       height: '25vh',
       targetedId: null,
-      targetedIds : []
+      targetedIds : [],
+      resetting: false,
     }
     this.handleClick = this.handleClick.bind(this);
     this.handleGame = this.handleGameData.bind(this);
+    this.handleKeyEvent = this.handleKeyEvent.bind(this);
   }
 
   componentDidMount(){
+    // document level keypress to handle game hotkeys
+    document.addEventListener('keydown', this.handleKeyEvent);
     // copy data from props
-    const allData  = this.props.fruits.slice();
+    const allData  = this.props.data.slice();
     // returns an array of shuffled data equal to our boxCount var
     const gameData = this.handleGameData(allData);
     // returns an array of 
     const Xs = this.getXs(gameData).map(x => gameData[x].text);
     this.setState({allData, gameData, Xs})
+  }
+
+  componentWillUnmount(){
+    // document level keypress to handle game hotkeys
+    document.removeEventListener('keydown', this.handleKeyEvent)
   }
 
   handleGameData(data = this.state.allData){
@@ -113,9 +122,49 @@ class EliminationGame extends Component {
     },1000)
     
   }
+
+  handleReset(){
+    const gameData = this.handleGameData();
+    // need to force the state update after 1s, so our font-sizes can re-adjust to their new container width
+    this.setState({
+      gameData,
+      Xs: [],
+      clicked: [],
+      height: '25vh',
+      targetedId: null,
+      targetedIds : [],
+      resetting: true,
+    }, () => {
+      setTimeout(()=>{
+        this.setState({resetting: false});
+      },1000)
+    });
+  }
+
+  handleKeyEvent(e){
+    // r/spacebar/enter was clicked; reset the game
+    if(e.keyCode === 82 || e.keyCode === 32 || e.keyCode === 13){
+      this.handleReset();
+    }
+    // s was clicked; reset the state and uses sentences
+    if(e.keyCode === 83){
+      console.log(e.keyCode)
+    }
+    // v was clicked; reset the game and use vocab
+    if(e.keyCode === 86){
+      console.log(e.keyCode)
+    }
+    // p was clicked; reset the game and use pictures
+    if(e.keyCode === 80){
+      console.log(e.keyCode)
+    }
+  }
   
   render(){
     const {gameData, Xs, height, clicked, targetedId, targetedIds} = this.state;
+    const containerClasses = classNames('container', {
+      resetting: this.state.resetting
+    });
     const cards = gameData.map((card, i) => {
       const cardClasses = classNames('flipper', {
         'flipping':     card.clickTarget.inProgress,
@@ -124,9 +173,9 @@ class EliminationGame extends Component {
         'slideLeft':    card.clickTarget.isCompleted && i % 2 === 0 && !targetedIds.includes(i),
         'slideRight':   card.clickTarget.isCompleted && i % 2 !== 0 && !targetedIds.includes(i),
         'slideUp':      card.clickTarget.isCompleted && height !== '25vh',
-        'vert33':  !card.clickTarget.isCompleted && height === '33.3vh',
-        'vert50':  !card.clickTarget.isCompleted && height === '50vh',
-        'vert100': !card.clickTarget.isCompleted && height === '100vh',
+        'vert33':      !card.clickTarget.isCompleted && height === '33.3vh',
+        'vert50':      !card.clickTarget.isCompleted && height === '50vh',
+        'vert100':     !card.clickTarget.isCompleted && height === '100vh',
         'enlargeText': height !== '25vh' && !clicked.includes(i)
       });
       const colors = ['gold', 'purple', 'darkslateblue', 'aqua', 'teal', 'fuchsia', 'plum', 'olive'];
@@ -143,8 +192,8 @@ class EliminationGame extends Component {
       );
     });
     return (
-      <div className='container'>
-          {cards}
+      <div className={containerClasses}>
+        {cards}
       </div>
     );
   }

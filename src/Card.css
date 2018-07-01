@@ -8,7 +8,6 @@
   width: 50vw;
   height: 25vh;
   display: inline-block;
-  /* box-sizing: border-box; */
 }
 
 .front, .back {
@@ -31,7 +30,7 @@
   cursor: pointer;
   user-select: none;
   background-color: lightblue;
-  transition: 1s font-size;
+  transition: 0.3s font-size;
 }
 
 /* hidden */
@@ -82,14 +81,6 @@
   font-size: 0;
 }
 
-.vert33 {
-  height: 33.4vh;
-}
-
-.vert50 {
-  height: 50vh;
-}
-
-.vert100 {
-  height: 100vh;
-}
+.vert33  { height: 33.4vh; }
+.vert50  { height: 50vh; }
+.vert100 { height: 100vh; }

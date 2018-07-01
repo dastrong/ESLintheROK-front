@@ -7,17 +7,19 @@ class LessonHolder extends Component {
   constructor(props){
     super(props);
     this.state = {
-      fruits: ['apple', 'banana', 'pear', 'grape', 'strawberry', 'orange', 'raspberry', 'blueberry', 'mango']
+      data: ['apple', 'banana', 'pear', 'grape', 'strawberry', 'orange', 'raspberry', 'blueberry', 'mango']
     }
   }
 
-  // componentDidMount(){
+  componentDidMount(){
     
-  // }
+  }
   
   render(){
     return (
-      <EliminationGame fruits={this.state.fruits} />
+      <div>
+      </div>
+      // <EliminationGame data={this.state.data} />
     );
   }
 }

@@ -8,6 +8,7 @@
     "react-dom": "^16.4.1",
     "react-fittext": "^1.0.0",
     "react-scripts": "1.1.4",
+    "semantic-ui-react": "^0.81.3",
     "shuffle-array": "^1.0.1"
   },
   "scripts": {
