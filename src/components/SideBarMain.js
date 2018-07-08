@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { Button, Icon, Menu, Sidebar } from 'semantic-ui-react';
-import './SideBar.css';
+import '../styles/SideBar.css';
 
 class SideBarMain extends Component {
   constructor(props){
@@ -20,7 +21,7 @@ class SideBarMain extends Component {
 
   render() {
     const { visible } = this.state
-    const { handleHomeClick } = this.props;
+    // const { handleHomeClick } = this.props;
     return (
       <div className='sidebar sidebar-main'>
         <Button 
@@ -42,20 +43,22 @@ class SideBarMain extends Component {
         >
           <Menu.Item>
             <Button.Group style={{width: '100%'}} size='massive'>
-              <Button 
-                basic 
-                inverted 
-                color='teal' 
-                icon='home' 
-                onClick={() => {
-                  handleHomeClick();
-                  this.handleButtonClick();
-                }}
-              />
-              <Button basic inverted color='violet' icon='x' onClick={this.handleButtonClick} />
+              <Button basic 
+                      inverted 
+                      as={Link}
+                      to='/'
+                      color='teal' 
+                      icon='home' 
+                      onClick={this.handleButtonClick} />
+              <Button basic 
+                      inverted
+                      color='violet' 
+                      icon='x' 
+                      onClick={this.handleButtonClick} />
             </Button.Group>
           </Menu.Item>
-          <Menu.Item as='a'>
+          <Menu.Item as={Link}
+                     to='/elimination'>
             <Icon name='x' />
             Elimination
           </Menu.Item>

@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 // import shuffle from 'shuffle-array';
 import classNames from 'classnames';
-import Card from './Card';
-import './EliminationGame.css';
+import Card from '../components/Card';
+import '../styles/EliminationGame.css';
 
 const boxCount = 8;
 const xCount = 3;
 
 class EliminationGame extends Component {
   constructor(props){
-    super(props);
+    super(props); 
     // const allData = this.props.data.slice();
     // const gameData = this.handleGameData(allData);
     this.state = {
@@ -33,6 +33,7 @@ class EliminationGame extends Component {
     // document level keypress to handle game hotkeys
     document.addEventListener('keydown', this.handleKeyEvent);
     // copy data from props
+    console.log(this.props)
     const allData  = this.props.data.slice();
     // returns an array of shuffled data equal to our boxCount var
     const gameData = this.handleGameData(allData);
@@ -162,7 +163,7 @@ class EliminationGame extends Component {
   
   render(){
     const {gameData, Xs, height, clicked, targetedId, targetedIds} = this.state;
-    const containerClasses = classNames('container', {
+    const containerClasses = classNames('elim-container', {
       resetting: this.state.resetting
     });
     const cards = gameData.map((card, i) => {

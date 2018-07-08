@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { Header, Icon, Modal } from 'semantic-ui-react';
-import './InfoModal.css';
+import '../styles/InfoModal.css';
 
 class InfoModal extends Component {
   constructor(props){

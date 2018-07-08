@@ -1,0 +1,45 @@
+.lesHold {
+  min-height: 100vh;
+  width: 100%;
+  background: #D3CCE3;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #E9E4F0, #D3CCE3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .ui.form.lesHold-form {
+  width: 100vw;
+} */
+
+/* 
+.ui.padded.table td {
+  padding: 0;
+} */
+
+.ui.padded.table input {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+}
+
+.ui.form {
+  width: 100%;
+}
+
+.ui.form .fields {
+  margin: 0 0 1em;
+}
+
+.ui.form .fields .wide.field {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.ui.form input {
+  border-left-width: 0.5px;
+  border-right-width: 0.5px;
+}
