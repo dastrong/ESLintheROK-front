@@ -10,10 +10,10 @@ class SideBarMain extends Component {
   }
 
   // document level keypress to handle game hotkeys
-  componentDidMount()   { document.addEventListener('keydown', this.handleKeyEvent); };
-  componentWillUnmount(){ document.removeEventListener('keydown', this.handleKeyEvent); };
+  // componentDidMount()   { document.addEventListener('keydown', this.handleKeyEvent); };
+  // componentWillUnmount(){ document.removeEventListener('keydown', this.handleKeyEvent); };
 
-  handleKeyEvent = (e) => { if(e.keyCode === 77) this.handleButtonClick(); };
+  // handleKeyEvent = (e) => { if(e.keyCode === 77) this.handleButtonClick(); };
 
   handleButtonClick = () => this.setState({ visible: !this.state.visible });
 

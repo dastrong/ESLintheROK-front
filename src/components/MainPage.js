@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { Button, Header } from 'semantic-ui-react';
-import LessonHolder from '../components/LessonHolder';
 import '../styles/MainPage.css';
 
 const MainPage = () => (
@@ -25,14 +24,4 @@ const MainPage = () => (
   </section>
 );
 
-// const MainPageRoutes = () => (
-//   <Router>
-//     <Switch>
-//       <Route path='/'     component={MainPage}     exact={true} />
-//       <Route path='/data' component={LessonHolder} exact={true} />
-//     </Switch>
-//   </Router>
-// );
-
-// export default MainPageRoutes;
 export default MainPage;

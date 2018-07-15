@@ -9,10 +9,10 @@ class InfoModal extends Component {
   }
 
   // document level keypress to handle game hotkeys
-  componentDidMount()   { document.addEventListener('keydown', this.handleKeyEvent); };
-  componentWillUnmount(){ document.removeEventListener('keydown', this.handleKeyEvent); };
+  // componentDidMount()   { document.addEventListener('keydown', this.handleKeyEvent); };
+  // componentWillUnmount(){ document.removeEventListener('keydown', this.handleKeyEvent); };
 
-  handleKeyEvent = (e) => { if(e.keyCode === 73) this.handleButtonClick(); };
+  // handleKeyEvent = (e) => { if(e.keyCode === 73) this.handleButtonClick(); };
 
   handleButtonClick = () => this.setState({ visible: !this.state.visible });
 
@@ -51,19 +51,7 @@ class InfoModal extends Component {
                   Description
                 </div>
               </div>
-              <div className='info-modal-item'>
-                <div className='info-modal-item-key'>
-                  R
-                  <br></br>
-                  Spacebar
-                  <br></br>
-                  Enter
-                </div>
-                <div className='info-modal-item-des'>
-                  Refresh the game data
-                </div>
-              </div>
-              <div className='info-modal-item'>
+              {/* <div className='info-modal-item'>
                 <div className='info-modal-item-key'>
                   M
                 </div>
@@ -78,21 +66,47 @@ class InfoModal extends Component {
                 <div className='info-modal-item-des'>
                   Shows the info menu 
                 </div>
+              </div> */}
+              <div className='info-modal-item'>
+                <div className='info-modal-item-key'>
+                  Spacebar
+                  <br></br>
+                  Enter
+                </div>
+                <div className='info-modal-item-des'>
+                  Refresh the game
+                </div>
               </div>
               <div className='info-modal-item'>
                 <div className='info-modal-item-key'>
-                  S
+                  Left-Arrow
                 </div>
                 <div className='info-modal-item-des'>
-                  Changes the game data to key expressions
+                  Refresh the game and use vocabulary
                 </div>
               </div>
               <div className='info-modal-item'>
                 <div className='info-modal-item-key'>
-                  V
+                  Right-Arrow
                 </div>
                 <div className='info-modal-item-des'>
-                  Changes the game data to vocabulary
+                  Refresh the game and use expressions
+                </div>
+              </div>
+              <div className='info-modal-item'>
+                <div className='info-modal-item-key'>
+                  Up-Arrow
+                </div>
+                <div className='info-modal-item-des'>
+                  Increase the font size
+                </div>
+              </div>
+              <div className='info-modal-item'>
+                <div className='info-modal-item-key'>
+                  Down-Arrow
+                </div>
+                <div className='info-modal-item-des'>
+                  Decrease the font-size
                 </div>
               </div>
             </div>

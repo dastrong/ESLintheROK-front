@@ -1,17 +1,17 @@
 import React from 'react';
 import { Table, Icon } from 'semantic-ui-react';
 
-const DataTable = ({vocabularyData, handleDelete, handleEdit}) => {
-  const items = vocabularyData.map((data, i)=>(
+const DataTable = ({data, handleDelete, handleEdit}) => {
+  const items = data.map((item, i)=>(
     <Table.Row key={i}>
       <Table.Cell>
-        {data.text}
+        {item.text}
       </Table.Cell>
       <Table.Cell>
-        {data.translation}
+        {item.translation}
       </Table.Cell>
       <Table.Cell>
-        <a href={data.image}>{data.image}</a>
+        <a href={item.image}>{item.image}</a>
       </Table.Cell>
       <Table.Cell style={{textAlign: 'center'}}>
         <Icon link id={i} onClick={handleEdit}   size='large' color='blue' name='edit'   style={{textAlign: 'left'}}/>

@@ -2,20 +2,16 @@ import React, { Component } from "react";
 // import shuffle from 'shuffle-array';
 import classNames from 'classnames';
 import Card from '../components/Card';
+import { handleGameData, handleAnimations, handleReset, getXs } from '../helpers'
 import '../styles/EliminationGame.css';
 
-const boxCount = 8;
 const xCount = 3;
 
 class EliminationGame extends Component {
   constructor(props){
     super(props); 
-    // const allData = this.props.data.slice();
-    // const gameData = this.handleGameData(allData);
     this.state = {
-      // allData,
-      // gameData,
-      allData: [],
+      allData: {},
       gameData: [],
       Xs: [],
       clicked: [],
@@ -23,22 +19,29 @@ class EliminationGame extends Component {
       targetedId: null,
       targetedIds : [],
       resetting: false,
+      isVocab: true,
+      handlingClick: false,
+      abort: false,
+      compressor: 1,
     }
-    this.handleClick = this.handleClick.bind(this);
-    this.handleGame = this.handleGameData.bind(this);
-    this.handleKeyEvent = this.handleKeyEvent.bind(this);
+    this.handleGameData   = handleGameData.bind(this);
+    this.handleReset      = handleReset.bind(this);
+    this.getXs            = getXs.bind(this);
+    this.handleAnimations = handleAnimations.bind(this);
   }
 
   componentDidMount(){
     // document level keypress to handle game hotkeys
     document.addEventListener('keydown', this.handleKeyEvent);
     // copy data from props
-    console.log(this.props)
-    const allData  = this.props.data.slice();
-    // returns an array of shuffled data equal to our boxCount var
+    const { data } = this.props;
+    const vocabularyData = data.vocabularyData.map(data=>data.text);
+    const expressionData = data.expressionData.map(data=>data.text);
+    const allData = {vocabularyData, expressionData};
+    // returns an array of shuffled data equal to our boxCount variable
     const gameData = this.handleGameData(allData);
-    // returns an array of 
-    const Xs = this.getXs(gameData).map(x => gameData[x].text);
+    // returns an array of Xs
+    const Xs = this.getXs(gameData.length, xCount);
     this.setState({allData, gameData, Xs})
   }
 
@@ -47,36 +50,17 @@ class EliminationGame extends Component {
     document.removeEventListener('keydown', this.handleKeyEvent)
   }
 
-  handleGameData(data = this.state.allData){
-    let arr = [];
-    while(arr.length < boxCount){
-      const randNum = Math.floor(Math.random()*data.length);
-      if(arr.indexOf(randNum) === -1) arr.push(randNum);
-    }
-    return arr.map((val, i) => ({ 
-      text: data[val], 
-      id: i, 
-      clickTarget: {isCompleted: false, inProgress: false}
-    }));
-  }
-  
-  getXs(data){
-    let arr = [];
-    while(arr.length < xCount){
-      const randNum = Math.floor(Math.random()*data.length);
-      if(arr.indexOf(randNum) === -1) arr.push(randNum);
-    }
-    return arr;
-  }
-
-  handleClick(e){
-    let clickedId = this.state.gameData.find(val => val.text === e.target.textContent).id;
-    // sets the id of the card to the left/right
+  handleClick = (e) => {
+    // return if we're still running an animation
+    if(this.state.handlingClick) return;
+    // gets the id from the clicked card
+    let clickedId = Number(e.target.id);
+    // sets the id of the card to the left/right for animations
     let targetedId = clickedId % 2 === 0 ? clickedId + 1 : clickedId - 1;
     // flips the cards boolean to show the backside
     const gameData = this.state.gameData.map((data, i) => {
-      if(data.text === e.target.textContent) { 
-        // sets the clicked cards state for our flip animation
+      if(i === clickedId) { 
+        // sets inProgress for the flip animation
         data = {
           ...data,
           clickTarget: {isCompleted:false, inProgress: true}
@@ -84,101 +68,72 @@ class EliminationGame extends Component {
       }
       return data;
     });
-    // add index of card that was clicked
+    // adds index/id of card that was clicked
+    // used to keep track of what needs animations
     const clicked = [...this.state.clicked, clickedId];
-    // sets the state and passes a function that handles our animations
-    this.setState({gameData, clicked, targetedId: null}, this.handleAnimations(targetedId));
-  }
+    // sets the state and calls our animations function
+    // this will flip the clicked card
+    // sets targetedId as null and passes the targetedId value as a param for animation timing purposes
+    // sets handlingClick flag variable to restrict clickability until animations are complete
+    this.setState({gameData, clicked, targetedId: null, handlingClick: true}, this.handleAnimations(targetedId));
+  };
 
-  handleAnimations = (targetedId) => {
-    setTimeout(()=>{
-      // determines how many cards have been clicked in a row
-      const rows = this.state.clicked.reduce((acc, cVal) => {
-        if(cVal <= 1) acc.row1++;
-        if(cVal >= 6) acc.row4++;
-        if(cVal === 2 || cVal === 3) acc.row2++;
-        if(cVal === 4 || cVal === 5) acc.row3++;
-        return acc;
-      }, {'row1': 0, 'row2': 0, 'row3': 0, 'row4': 0, })
-      const num_Rows_Flipped = Object.values(rows).filter(val=>val===2);
-
-      let height = this.state.height;
-      if(num_Rows_Flipped.length === 1) height='33.3vh';
-      if(num_Rows_Flipped.length === 2) height='50vh';
-      if(num_Rows_Flipped.length === 3) height='100vh';
-
-      if(this.state.clicked.includes(targetedId)) targetedId = null;
-      const gameData = this.state.gameData.map(data => {
-        if(data.clickTarget.inProgress){
-          data = {...data, clickTarget: {isCompleted:true, inProgress: true}}
-        }
-        return data;
-      });
-      this.setState({gameData, height, targetedId, targetedIds: [...this.state.targetedIds, targetedId]}, ()=>{
-        // recalls the state after all the animations are done to resize the text
-        setTimeout(()=>{
-          this.setState({});
-        }, 1000)
-      })
-    },1000)
-    
-  }
-
-  handleReset(){
-    const gameData = this.handleGameData();
-    // need to force the state update after 1s, so our font-sizes can re-adjust to their new container width
-    this.setState({
-      gameData,
-      Xs: [],
-      clicked: [],
-      height: '25vh',
-      targetedId: null,
-      targetedIds : [],
-      resetting: true,
-    }, () => {
-      setTimeout(()=>{
-        this.setState({resetting: false});
-      },1000)
-    });
-  }
-
-  handleKeyEvent(e){
-    // r/spacebar/enter was clicked; reset the game
-    if(e.keyCode === 82 || e.keyCode === 32 || e.keyCode === 13){
+  handleKeyEvent = (e) => {
+    // spacebar/enter was clicked; reset the game
+    if(e.keyCode === 32 || e.keyCode === 13){
       this.handleReset();
     }
-    // s was clicked; reset the state and uses sentences
-    if(e.keyCode === 83){
-      console.log(e.keyCode)
+    // right arrow was clicked; reset the state and uses sentences
+    if(e.keyCode === 39){
+      this.setState({isVocab:false}, () => this.handleReset());
     }
-    // v was clicked; reset the game and use vocab
-    if(e.keyCode === 86){
-      console.log(e.keyCode)
+    // left arrow was clicked; reset the game and use pvocab
+    if(e.keyCode === 37){
+      this.setState({isVocab:true}, () => this.handleReset());
     }
-    // p was clicked; reset the game and use pictures
-    if(e.keyCode === 80){
-      console.log(e.keyCode)
+    // up arrow was clicked; increase the font size
+    if(e.keyCode === 38){
+      const compressor = this.state.compressor - 0.05;
+      this.setState({compressor})
+    }
+    // down arrow was clicked; decrease the font size
+    if(e.keyCode === 40){
+      const compressor = this.state.compressor + 0.05;
+      this.setState({compressor})
     }
   }
   
-  render(){
-    const {gameData, Xs, height, clicked, targetedId, targetedIds} = this.state;
-    const containerClasses = classNames('elim-container', {
-      resetting: this.state.resetting
+  handleClasses = (card, i) => {
+    const { height, clicked, targetedId, targetedIds, isVocab } = this.state;
+    const CardClasses = classNames('flipper', {
+      'flipping':     card.clickTarget.inProgress,
+      'expanding':    targetedId === i,
+      'expanded':     targetedIds.includes(i),
+      'slideLeft':    card.clickTarget.isCompleted && i % 2 === 0 && !targetedIds.includes(i),
+      'slideRight':   card.clickTarget.isCompleted && i % 2 !== 0 && !targetedIds.includes(i),
     });
-    const cards = gameData.map((card, i) => {
-      const cardClasses = classNames('flipper', {
-        'flipping':     card.clickTarget.inProgress,
-        'expanding':    targetedId === i,
-        'expanded':     targetedIds.includes(i),
-        'slideLeft':    card.clickTarget.isCompleted && i % 2 === 0 && !targetedIds.includes(i),
-        'slideRight':   card.clickTarget.isCompleted && i % 2 !== 0 && !targetedIds.includes(i),
+    return isVocab ? 
+      classNames(CardClasses, {
         'slideUp':      card.clickTarget.isCompleted && height !== '25vh',
-        'vert33':      !card.clickTarget.isCompleted && height === '33.3vh',
+        'vert33':      !card.clickTarget.isCompleted && height === '33.4vh',
         'vert50':      !card.clickTarget.isCompleted && height === '50vh',
         'vert100':     !card.clickTarget.isCompleted && height === '100vh',
         'enlargeText': height !== '25vh' && !clicked.includes(i)
+      }) :
+      classNames(CardClasses, {
+        'slideUp':      card.clickTarget.isCompleted && height !== '33.4vh',
+        'vert33':       height === '33.4vh',
+        'vert50':      !card.clickTarget.isCompleted && height === '50vh',
+        'vert100':     !card.clickTarget.isCompleted && height === '100vh',
+        'enlargeText': height !== '33.4vh' && !clicked.includes(i)
       });
+  }
+
+  render(){
+    const {gameData, Xs, resetting, compressor} = this.state;
+    const containerClasses = classNames('elim-container', { resetting });
+    const cards = gameData.map((card, i) => {
+      const allCardClasses = this.handleClasses(card, i);
       const colors = ['gold', 'purple', 'darkslateblue', 'aqua', 'teal', 'fuchsia', 'plum', 'olive'];
       return (
         <Card 
@@ -186,9 +141,10 @@ class EliminationGame extends Component {
           index={i}
           name={card.text}
           handleClick={this.handleClick}
-          isX={Xs.includes(card.text)}
+          isX={Xs.includes(i)}
           frontColor={colors[i]}
-          classNames={cardClasses}
+          classNames={allCardClasses}
+          compressor={compressor}
         />
       );
     });

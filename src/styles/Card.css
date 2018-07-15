@@ -31,6 +31,11 @@
   user-select: none;
   background-color: lightblue;
   transition: 0.3s font-size;
+  display: flex;
+  flex-wrap: wrap;
+  line-height: 12.5vh;
+  text-align: center;
+  padding: 10px;
 }
 
 /* hidden */
@@ -39,7 +44,6 @@
   transform: rotateY(180deg);
   color: #fff;
 }
-
 
 /* expands our element alongside the clicked one */
 .expanding {

@@ -5,12 +5,13 @@
   flex-wrap: wrap;
   transform: rotateX(0deg) scale(1);
   opacity: 1;
-  transition: .7s transform, .4s opacity;
+  transition: 2s transform, 1s opacity, 1s border-radius;
 }
 
 /* animation for whole container */
 .resetting {
   transform: rotateX(180deg) scale(0);
+  border-radius: 50%;
   opacity: 0;
   font-size: 0;
 }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom'
-import { Button, Grid, Image, Reveal, Header, Label, Segment } from 'semantic-ui-react';
+import { Button, Grid, Image, Reveal, Header, Segment } from 'semantic-ui-react';
 // import '../styles/LessonsPage.css';
 
 const style={height: '100%', width: '100%'};
