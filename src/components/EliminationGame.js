@@ -135,15 +135,17 @@ class EliminationGame extends Component {
     const cards = gameData.map((card, i) => {
       const allCardClasses = this.handleClasses(card, i);
       const colors = ['gold', 'purple', 'darkslateblue', 'aqua', 'teal', 'fuchsia', 'plum', 'olive'];
+      const isX = Xs.includes(i);
       return (
         <Card 
           key={i}
           index={i}
-          name={card.text}
           handleClick={this.handleClick}
-          isX={Xs.includes(i)}
-          frontColor={colors[i]}
           classNames={allCardClasses}
+          frontColor={colors[i]}
+          frontText={card.text}
+          backColor={isX ? 'red' : 'lime'}
+          backText={isX ? 'X' : 'O'}
           compressor={compressor}
         />
       );

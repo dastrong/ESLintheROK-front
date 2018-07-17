@@ -2,7 +2,7 @@ import React from 'react';
 import ReactFitText from 'react-fittext';
 import '../styles/Card.css';
 
-const Card = ({handleClick, name, index, isX, classNames, frontColor, compressor}) => (
+const Card = ({handleClick, index, classNames, frontColor, frontText, backColor, backText, compressor}) => (
   <div className={classNames}>
     <ReactFitText 
       compressor={compressor}
@@ -13,12 +13,12 @@ const Card = ({handleClick, name, index, isX, classNames, frontColor, compressor
            id={index}
            style={{backgroundColor: frontColor}}
            onClick={handleClick}>
-        {name}
+        {frontText}
       </div>
     </ReactFitText>
     <div className='back'
-         style={{backgroundColor: isX ? 'red' : 'lime'}} >
-      {isX ? 'X' : 'O'}
+         style={{backgroundColor: backColor}} >
+      {backText}
     </div>
   </div>
 );
