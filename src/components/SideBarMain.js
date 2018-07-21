@@ -62,11 +62,13 @@ class SideBarMain extends Component {
             <Icon name='x' />
             Elimination
           </Menu.Item>
-          <Menu.Item as='a'>
+          <Menu.Item as={Link}
+                     to='/whatsbehind'>
             <Icon name='find' />
             What's Behind
           </Menu.Item>
-          <Menu.Item as='a'>
+          <Menu.Item as={Link}
+                     to='/stars'>
             <Icon name='star' />
             Stars Writing
           </Menu.Item>

@@ -2,27 +2,27 @@ import React, { Component } from "react";
 import classNames from 'classnames';
 import Card from '../components/Card';
 import { handleGameData, handleAnimations, handleKeyEvent, handleReset, handleClasses, handleClick } from '../helpers'
-import '../styles/EliminationGame.css';
+// import '../styles/StarsWritingGame.css';
 
 const xCount = 3;
 
-class EliminationGame extends Component {
+class StarsWritingGame extends Component {
   constructor(props){
     super(props); 
     this.state = {
       allData: {},
       gameData: [],
       Xs: [],
-      clickedIDs: [],
-      targetedIDs : [],
-      colors: ['chocolate', 'purple', 'darkslateblue', 'aqua', 'teal', 'fuchsia', 'plum', 'olive'],
+      clicked: [],
+      targetedIds : [],
+      colors: ['gold', 'purple', 'darkslateblue', 'aqua', 'teal', 'fuchsia', 'plum', 'olive'],
       height: '25vh',
       targetedId: null,
       handlingClick: false,
-      isResetting: false,
+      resetting: false,
       isVocab: true,
+      abort: false,
       compressor: 1,
-      isGameOver: false
     }
     this.handleGameData   = handleGameData.bind(this);
     this.handleKeyEvent   = handleKeyEvent.bind(this);
@@ -52,11 +52,6 @@ class EliminationGame extends Component {
     document.removeEventListener('keydown', this.handleKeyEvent)
   }
 
-  componentDidUpdate(){
-    if(!this.state.isGameOver) return;
-    this.handleReset();
-  }
-
   _getXs = (dataLength, xCount) => {
     let arr = [];
     // used when our component mounts
@@ -69,8 +64,8 @@ class EliminationGame extends Component {
   };
   
   render(){
-    const {gameData, Xs, isResetting, compressor, colors} = this.state;
-    const containerClasses = classNames('elim-container', { isResetting });
+    const {gameData, Xs, resetting, compressor, colors} = this.state;
+    const containerClasses = classNames('elim-container', { resetting });
     const cards = gameData.map((card, i) => {
       const allCardClasses = this.handleClasses(card, i);
       const isX = Xs.includes(i);
@@ -96,4 +91,4 @@ class EliminationGame extends Component {
   }
 }
 
-export default EliminationGame;
+export default StarsWritingGame;

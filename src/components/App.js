@@ -5,6 +5,8 @@ import InfoModal       from '../components/InfoModal';
 import MainPage        from '../components/MainPage';
 import DataEntryPage   from '../components/dataEntry/DataEntryPage';
 import EliminationGame from '../components/EliminationGame';
+import StarsWritingGame from '../components/StarsWritingGame';
+import WhatsBehind     from '../components/WhatsBehind';
 import GamesPage       from '../components/GamesPage';
 import '../styles/App.css';
 
@@ -114,6 +116,12 @@ class App extends Component {
                    exact={true} />
             <Route path='/elimination'
                    render={()=> <EliminationGame data={data} />}
+                   exact={true} />
+            <Route path='/stars'
+                   render={()=> <StarsWritingGame data={data} />}
+                   exact={true} />
+            <Route path='/whatsbehind'
+                   render={()=> <WhatsBehind data={data} />}
                    exact={true} />
           </Switch>
         </div>
