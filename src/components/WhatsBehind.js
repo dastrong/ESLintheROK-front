@@ -61,7 +61,7 @@ class WhatsBehind extends Component {
 
   _fetchGIF = async () => {
     const searchTerms = ['fail', 'funny+cat', 'funny+dog'];
-    const urls = searchTerms.map(searchTerm=>`http://api.giphy.com/v1/gifs/search?q=${searchTerm}&limit=10&rating=g&api_key=juEv23YnNSJVWcAgT3xhwtEH9AKb56KI`);
+    const urls = searchTerms.map(searchTerm=>`https://api.giphy.com/v1/gifs/search?q=${searchTerm}&limit=10&rating=g&api_key=juEv23YnNSJVWcAgT3xhwtEH9AKb56KI`);
     let gifURLs = [];
     await Promise
       .all(urls.map(url=>fetch(url)

@@ -2,11 +2,13 @@ import React from 'react';
 import { Button, Modal, Image } from 'semantic-ui-react';
 
 const GifModal = ({url, handleReset}) => (
-  <Modal size='large' open={true} onClose={handleReset}>
-    <Modal.Content>
+  <Modal size='fullscreen'
+         open={true} 
+         onClose={handleReset}>
+    <Modal.Content scrolling={false}>
       <Image src={url} 
              alt='Loading...'
-             size='large' 
+             size='huge' 
              centered={true} 
              verticalAlign='middle' />
     </Modal.Content>
