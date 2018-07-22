@@ -98,7 +98,7 @@ class WhatsBehind extends Component {
         />
       );
     });
-    const confetti = Xs.every(X=>clickedIDs.includes(X))
+    const confetti = Xs.length > 0 && Xs.every(X=>clickedIDs.includes(X))
       ? <Confetti {...this.props} />
       : null;
     const gif = isGameOver
