@@ -72,7 +72,8 @@ class SideBarMain extends Component {
             <Icon name='star' />
             Stars Writing
           </Menu.Item>
-          <Menu.Item as='a'>
+          <Menu.Item as={Link}
+                     to='/lotto'>
             <Icon name='won' />
             Word Lotto
           </Menu.Item>

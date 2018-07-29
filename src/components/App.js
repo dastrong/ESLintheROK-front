@@ -7,6 +7,7 @@ import DataEntryPage   from '../components/dataEntry/DataEntryPage';
 import EliminationGame from '../components/EliminationGame';
 import StarsWritingGame from '../components/StarsWritingGame';
 import WhatsBehind     from '../components/WhatsBehind';
+import WordLotto       from '../components/WordLotto';
 import GamesPage       from '../components/GamesPage';
 import '../styles/App.css';
 
@@ -21,6 +22,7 @@ class App extends Component {
       {text:'red'},
       {text:'blue'},
       {text:'raspberry'},
+      {text:'pink'},
     ],
     expressionData: [
       {text:'I like fruit.'},
@@ -31,7 +33,10 @@ class App extends Component {
       {text:'I like red.'},
       {text:'I like blue.'},
       {text:'I like raspberry.'},
-    ]
+    ],
+    colors: [
+      'chocolate', 'purple', 'darkslateblue', 'aqua', 'teal', 'fuchsia', 'plum', 'olive', 'violet'
+    ],
   }
   constructor(props){
     super(props);
@@ -85,6 +90,7 @@ class App extends Component {
 
   render() {
     const { vocabularyData, expressionData, isDataReady } = this.state;
+    const { colors } = this.props;
     let data;
     // if there's no data, send default props
     if(vocabularyData.length<8 && expressionData.length<6){
@@ -115,13 +121,16 @@ class App extends Component {
                    component={GamesPage}
                    exact={true} />
             <Route path='/elimination'
-                   render={()=> <EliminationGame data={data} />}
-                   exact={true} />
-            <Route path='/stars'
-                   render={()=> <StarsWritingGame data={data} />}
+                   render={()=> <EliminationGame data={data} colors={colors} />}
                    exact={true} />
             <Route path='/whatsbehind'
-                   render={()=> <WhatsBehind data={data} />}
+                   render={()=> <WhatsBehind data={data} colors={colors} />}
+                   exact={true} />
+            <Route path='/stars'
+                   render={()=> <StarsWritingGame data={data} colors={colors} />}
+                   exact={true} />
+            <Route path='/lotto'
+                   render={()=> <WordLotto data={data} colors={colors} />}
                    exact={true} />
           </Switch>
         </div>

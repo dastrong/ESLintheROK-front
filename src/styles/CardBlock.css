@@ -1,0 +1,49 @@
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-shadow: 3px 3px 1px black;
+  border-radius: 20px;
+  padding: 10px;
+  transition: all 1s;
+  margin: 0.5vh 0.5vw;
+}
+
+.box-square {
+  height: 32.33vh;
+  width: 32.33vw;
+}
+
+.box-rectan {
+  height: 24vh;
+  width: 99vw;
+}
+
+.box-exit {
+  opacity: 1;
+}
+
+.box-exit-active {
+  opacity: 1;
+  transition: opacity 1s ease-in;
+}
+
+.box-exit-done {
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+
+.box-enter {
+  opacity: 0.01;
+}
+
+.box-enter-active {
+  opacity: 1;
+  transition: opacity 1s ease-in;
+}
+
+.box-enter-done {
+  opacity: 1;
+  transition: opacity 1s ease-in;
+}

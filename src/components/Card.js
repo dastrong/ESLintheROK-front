@@ -17,7 +17,8 @@ const Card = ({handleClick, index, classNames, frontColor, frontText, backColor,
       </div>
     </ReactFitText>
     <div className='back'
-         style={{backgroundColor: backColor}} >
+         style={{backgroundColor: backColor}}
+         onClick={handleClick} >
       {backText}
     </div>
   </div>

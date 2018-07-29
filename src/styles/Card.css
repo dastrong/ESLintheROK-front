@@ -1,7 +1,7 @@
 .flipper {
   font-size: 8vw;
   font-weight: bold;
-  color: white;
+  color: #fff;
   text-shadow: 3px 3px 1px black;
   transition: 1s all;
   transform-style: preserve-3d;
@@ -20,6 +20,9 @@
   left: 0;
   height: inherit;
   width: inherit;
+  line-height: 100%;
+  text-align: center;
+  padding: 10px;
 }
 
 /* shown */
@@ -29,13 +32,7 @@
   /* removes unwanted default behaviours */
   cursor: pointer;
   user-select: none;
-  background-color: lightblue;
   transition: 0.3s font-size;
-  display: flex;
-  flex-wrap: wrap;
-  line-height: 12.5vh;
-  text-align: center;
-  padding: 10px;
 }
 
 /* hidden */
@@ -85,6 +82,7 @@
   font-size: 0;
 }
 
+.vert25  { height: 25vh; }
 .vert33  { height: 33.4vh; }
 .vert50  { height: 50vh; }
 .vert100 { height: 100vh; }

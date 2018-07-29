@@ -34,13 +34,13 @@ class DataEntryPage extends Component {
       currentImage: '',
     });
   }
+
   handleChange = (e) => {
     e.preventDefault();
     const name = `current${e.target.name}`;
     const value = e.target.value;
     this.setState({[name]:value})
   }
-
 
   handleEdit   = (e) => {
     const { vocabularyData, expressionData, onEdit } = this.props;
@@ -62,8 +62,7 @@ class DataEntryPage extends Component {
       currentTranslation: translation,
       currentImage: image,
     });
-  }  
-
+  }
 
   handleDelete = (e) => {
     if(this.state.isVocab){
@@ -74,7 +73,6 @@ class DataEntryPage extends Component {
       this.props.onEdit(expressionData, this.state.isVocab)
     }
   }
-
 
   handleClick = (e, titleProps) => {
     const { index } = titleProps
@@ -102,12 +100,16 @@ class DataEntryPage extends Component {
     const { vocabularyData, expressionData, isDataReady } = this.props;
     return (
       <div className='lesHold'>
-        <Accordion style={{width: '90%'}}>
-          <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
+        <Accordion fluid>
+          <Accordion.Title id='accordion-title'
+                           active={activeIndex === 0} 
+                           index={0}
+                           onClick={this.handleClick}>
             <Icon name='dropdown' />
             Enter your vocabulary here!
           </Accordion.Title>
-          <Accordion.Content active={activeIndex === 0}>
+          <Accordion.Content id='accordion-content'
+                             active={activeIndex === 0}>
             <DataAccordion handleChange={this.handleChange}
                            handleSubmit={this.handleSubmit}
                            handleDelete={this.handleDelete}
@@ -119,11 +121,15 @@ class DataEntryPage extends Component {
                            isDataReady={isDataReady} />
           </Accordion.Content>
 
-          <Accordion.Title active={activeIndex === 1} index={1} onClick={this.handleClick}>
+          <Accordion.Title id='accordion-title'
+                           active={activeIndex === 1}
+                           index={1}
+                           onClick={this.handleClick}>
             <Icon name='dropdown' />
             Enter your key expressions here!
           </Accordion.Title>
-          <Accordion.Content active={activeIndex === 1}>
+          <Accordion.Content id='accordion-content' 
+                             active={activeIndex === 1}>
             <DataAccordion handleChange={this.handleChange}
                            handleSubmit={this.handleSubmit}
                            handleDelete={this.handleDelete}

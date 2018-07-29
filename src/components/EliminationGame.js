@@ -15,7 +15,7 @@ class EliminationGame extends Component {
       Xs: [],
       clickedIDs: [],
       targetedIDs : [],
-      colors: ['chocolate', 'purple', 'darkslateblue', 'aqua', 'teal', 'fuchsia', 'plum', 'olive'],
+      colors: this.props.colors,
       height: '25vh',
       targetedId: null,
       handlingClick: false,

@@ -175,6 +175,33 @@ export function handleClasses(card, i){
     });
 };
 
+// STARS
+export function handleStarClasses(card, i){
+  const { height, clickedIDs, targetedID, targetedIDs, isVocab } = this.state;
+  const CardClasses = classNames('flipper', {
+    'flipping':     card.clickTarget.inProgress,
+    'expanding':    targetedID === i,
+    'expanded':     targetedIDs.includes(i),
+    'slideLeft':    card.clickTarget.isCompleted && i % 2 === 0 && !targetedIDs.includes(i),
+    'slideRight':   card.clickTarget.isCompleted && i % 2 !== 0 && !targetedIDs.includes(i),
+  });
+  return isVocab ? 
+    classNames(CardClasses, {
+      'slideUp':      card.clickTarget.isCompleted && height !== '25vh',
+      'vert33':      !card.clickTarget.isCompleted && height === '33.4vh',
+      'vert50':      !card.clickTarget.isCompleted && height === '50vh',
+      'vert100':     !card.clickTarget.isCompleted && height === '100vh',
+      'enlargeText': height !== '25vh' && !clickedIDs.includes(i)
+    }) :
+    classNames(CardClasses, {
+      'slideUp':      card.clickTarget.isCompleted && height !== '33.4vh',
+      'vert33':       height === '33.4vh',
+      'vert50':      !card.clickTarget.isCompleted && height === '50vh',
+      'vert100':     !card.clickTarget.isCompleted && height === '100vh',
+      'enlargeText': height !== '33.4vh' && !clickedIDs.includes(i)
+    });
+};
+
 function handleHeight(isVocab, clickedIDs){
   // determines how many cards have been CLICKED IN A ROW
   // used to adjust the cards height

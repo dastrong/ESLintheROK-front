@@ -7,8 +7,6 @@ import GifModal from '../components/GifModal';
 import { Icon } from 'semantic-ui-react';
 import { handleGameData, handleAnimations, handleKeyEvent, handleReset, handleClasses, handleClick } from '../helpers'
 
-const xCount = 1;
-
 class WhatsBehind extends Component {
   constructor(props){
     super(props); 
@@ -20,7 +18,7 @@ class WhatsBehind extends Component {
       targetedIDs : [],
       gifURLs: [],
       counter: 0,
-      colors: ['chocolate', 'purple', 'darkslateblue', 'aqua', 'teal', 'fuchsia', 'plum', 'olive'],
+      colors: this.props.colors,
       height: '25vh',
       targetedID: null,
       handlingClick: false,
@@ -48,7 +46,7 @@ class WhatsBehind extends Component {
     // returns an array of shuffled data equal to our boxCount variable
     const gameData = this.handleGameData(allData);
     // returns the winning cards location
-    const Xs = this._getXs(gameData.length, xCount);
+    const Xs = this._getXs(gameData.length);
     // fetch all the gif links to show during a win
     const gifURLs = await this._fetchGIF();
     this.setState({allData, gameData, Xs, gifURLs})
@@ -74,7 +72,7 @@ class WhatsBehind extends Component {
     return shuffle(gifURLs);
   }
 
-  _getXs = (dataLength, xCount) => {
+  _getXs = (dataLength) => {
     return [Math.floor(Math.random()*dataLength)];
   };
   
