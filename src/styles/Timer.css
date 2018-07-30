@@ -1,0 +1,9 @@
+.timer {
+  background-color: green;
+  height: 15vh;
+  width: 100%;
+  text-align: center;
+  line-height: 15vh;
+  font-size: 10vh;
+  user-select: none;
+}

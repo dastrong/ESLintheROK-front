@@ -77,6 +77,11 @@ class SideBarMain extends Component {
             <Icon name='won' />
             Word Lotto
           </Menu.Item>
+          <Menu.Item as={Link}
+                     to='/sparkle'>
+            <Icon name='diamond' />
+            Sparkle Die
+          </Menu.Item>
         </Sidebar>
       </div>
     )

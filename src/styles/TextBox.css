@@ -1,0 +1,9 @@
+.textbox {
+  background-color: violet;
+  height: 85vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}

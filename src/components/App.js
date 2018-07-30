@@ -8,6 +8,7 @@ import EliminationGame from '../components/EliminationGame';
 import StarsWritingGame from '../components/StarsWritingGame';
 import WhatsBehind     from '../components/WhatsBehind';
 import WordLotto       from '../components/WordLotto';
+import SparkleDie      from '../components/SparkleDie';
 import GamesPage       from '../components/GamesPage';
 import '../styles/App.css';
 
@@ -131,6 +132,9 @@ class App extends Component {
                    exact={true} />
             <Route path='/lotto'
                    render={()=> <WordLotto data={data} colors={colors} />}
+                   exact={true} />
+            <Route path='/sparkle'
+                   render={()=> <SparkleDie data={data.expressionData} colors={colors} />}
                    exact={true} />
           </Switch>
         </div>
