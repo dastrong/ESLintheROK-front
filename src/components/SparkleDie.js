@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TextBox from '../components/TextBox';
-import Timer from '../components/Timer';
+import { Timer, startTimer, resetTimer } from '../components/Timer';
 
 class SparkleDie extends Component {
   constructor(props){
@@ -10,13 +10,19 @@ class SparkleDie extends Component {
       data: [],
       text: '',
       textIndex: undefined,
+      timer: 15,
+      timeRemaining: 15,
     };
+    this.startTimer = startTimer.bind(this);
+    this.resetTimer = resetTimer.bind(this);
   }
 
   componentDidMount(){
     const data = this.props.data.map(val=>val.text); 
     this.setState({data}, ()=>this.handleGame());    
   }
+
+  componentWillUnmount(){ clearInterval(this.intervalID) }
 
   handleGame = (data = this.state.data) => {
     const random = this.getRandomIndex(data.length);
@@ -39,19 +45,25 @@ class SparkleDie extends Component {
 
   handleReset = (e) => this.handleGame();
 
+  handleClick = (e) => {
+    this.startTimer();
+    this.handleGame();
+  }
+
   render(){
-    const { compressor, text } = this.state;
-    console.log(text)
+    const { compressor, text, timer, timeRemaining } = this.state;
+    const width = (((timer-timeRemaining)/timer)*100)+'%';
     return (
       <div 
         className='container'
-        onClick={this.handleReset} 
+        onClick={this.handleClick}
       >
         <TextBox 
           text={text}
           compressor={compressor} />
         <Timer 
-          timeRemaining={15} />
+          timeRemaining={timeRemaining}
+          width={width} />
       </div>
     )
   }

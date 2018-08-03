@@ -1,9 +1,25 @@
 .timer {
-  background-color: green;
-  height: 15vh;
+  background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(237,16,188,1) 13%, rgba(231,15,233,1) 28%, rgba(135,18,237,1) 42%, rgba(65,18,232,1) 56%, rgba(13,186,236,1) 72%, rgba(14,236,117,1) 86%, rgba(39,255,0,1) 100%);  height: 15vh;
   width: 100%;
   text-align: center;
   line-height: 15vh;
   font-size: 10vh;
   user-select: none;
+  color: #fff;
+  z-index: -2;
+}
+
+.timer-bar {
+  background-color: #fff;
+  height: inherit;
+  position: absolute;
+  right: 0;
+  width: 0;
+  z-index: -1;
+  transition: 1s width cubic-bezier(0, 0, 1, 1);
+}
+
+.timer-text {
+  z-index: 0;
+  color: black;  
 }
