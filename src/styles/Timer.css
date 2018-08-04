@@ -5,7 +5,6 @@
   line-height: 15vh;
   font-size: 10vh;
   user-select: none;
-  color: #fff;
   z-index: -2;
 }
 
@@ -21,5 +20,7 @@
 
 .timer-text {
   z-index: 0;
-  color: black;  
+  color: #000;
+  font-weight: bold;
+  text-shadow: 0px 0px 14px #763aad;
 }

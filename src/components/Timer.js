@@ -1,8 +1,7 @@
 import React from 'react';
 import '../styles/Timer.css';
 
-// timer and timeRemaining variables needed in 
-  // component's initial state (in seconds)
+// timer and timeRemaining variables needed in component's initial state (in seconds)
 // bind startTimer and resetTimer in the constructor too
 
 function startTimer() {
@@ -13,15 +12,14 @@ function startTimer() {
   clearInterval(this.intervalID);
   // countdown interval
   this.intervalID = setInterval(()=>{
-    this.setState(prevState => ({
-      isRunning: true,
-      timeRemaining: prevState.timeRemaining - 1,
-    }), ()=>{
-      // once the remaining time hits zero
-      // flip the variable and stop the interval
-      if(this.state.timeRemaining) return;
-      this.setState({ isTimeUp: true }, clearInterval(this.intervalID));
-    });
+    // stop at 1, so our animation has 1 second to complete
+    // flip the variable and stop the interval
+    this.state.timeRemaining <= 1
+      ? this.setState({ isTimeUp: true }, clearInterval(this.intervalID))
+      : this.setState(prevState => ({
+          isRunning: true,
+          timeRemaining: prevState.timeRemaining - 1,
+        }));
   }, 1000);
 }
 
@@ -33,13 +31,14 @@ function resetTimer(){
   }, this.startTimer);
 }
 
-const Timer = ({timeRemaining, width}) => (
+// make sure when you calculate width in the parent to minus 1 in the denominator so this behaves correctly
+const Timer = ({timeRemaining, isTimeUp, width}) => (
   <div className='timer'>
     <div className='timer-bar' 
         style={{width}}>
     </div>
     <div className='timer-text'>
-      {timeRemaining}</div>
+      {isTimeUp ? 0 : timeRemaining}</div>
   </div>
 )
 
