@@ -1,0 +1,33 @@
+.updated-settings-cover {
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  font-size: 100px;
+  line-height: 100%;
+  color: #7b7b7b;
+  font-family: bold;
+  position: absolute;
+  display: flex;
+  align-items: flex-end;
+  padding: 10px;
+  opacity: 0;
+  user-select: none;
+}
+
+.updated-settings-cover-enter {
+  opacity: 0
+}
+
+.updated-settings-cover-enter-done {
+  opacity: 1;
+  transition: 0.5s opacity;
+}
+
+.updated-settings-cover-exit {
+  opacity: 1;
+}
+
+.updated-settings-cover-exit-done {
+  opacity: 0;
+  transition: 0.5s opacity;
+}

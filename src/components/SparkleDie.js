@@ -99,6 +99,8 @@ class SparkleDie extends Component {
             classNames='textBox' >
           <TextBox 
             text={text}
+            width='100%'
+            height='85vh'
             compressor={compressor} />
         </CSSTransition>
         <Timer 

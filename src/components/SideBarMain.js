@@ -82,6 +82,11 @@ class SideBarMain extends Component {
             <Icon name='diamond' />
             Sparkle Die
           </Menu.Item>
+          <Menu.Item as={Link}
+                     to='/kimchi'>
+            <Icon name='heart' />
+            Kimchi Elimination
+          </Menu.Item>
         </Sidebar>
       </div>
     )

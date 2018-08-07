@@ -9,6 +9,7 @@ import StarsWritingGame from '../components/StarsWritingGame';
 import WhatsBehind     from '../components/WhatsBehind';
 import WordLotto       from '../components/WordLotto';
 import SparkleDie      from '../components/SparkleDie';
+import Kimchi          from '../components/Kimchi';
 import GamesPage       from '../components/GamesPage';
 import '../styles/App.css';
 
@@ -134,7 +135,10 @@ class App extends Component {
                    render={()=> <WordLotto data={data} colors={colors} />}
                    exact={true} />
             <Route path='/sparkle'
-                   render={()=> <SparkleDie data={data.expressionData} colors={colors} />}
+                   render={()=> <SparkleDie data={data.expressionData} />}
+                   exact={true} />
+            <Route path='/kimchi'
+                   render={()=> <Kimchi data={data.expressionData} />}
                    exact={true} />
           </Switch>
         </div>

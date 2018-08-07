@@ -1,0 +1,56 @@
+.kim-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kim-img, 
+.poo-img {
+  position: absolute;
+  transform: translateX(100vw);
+  user-select: none;
+}
+
+.poo-img {
+  line-height: 100%;
+  height: 350px;
+  font-size: 300px;
+}
+
+.kimchiImg-enter {
+  transform: translateX(100vw);
+}
+
+.kimchiImg-enter-done {
+  transform: translateX(0);
+  transition: transform 1s ease-in;
+}
+
+.kimchiImg-exit {
+  transform: translateX(0);
+}
+
+.kimchiImg-exit-done {
+  transform: translateX(-100vw);
+  transition: transform 1s ease-in;
+}
+
+
+.kimchiText-enter {
+  transform: translateX(100vw);
+}
+
+.kimchiText-enter-done {
+  transform: translateX(0);
+  transition: transform 1s ease-in;
+}
+
+.kimchiText-exit {
+  transform: translateX(0);
+}
+
+.kimchiText-exit-done {
+  transform: translateX(-100vw);
+  transition: transform 1s ease-in;
+}
