@@ -56,7 +56,7 @@ class Kimchi extends Component {
   handleLogic = (percent) => this.getRandomNum(100) > percent - 1;
 
   handleKeyEvent = (e) => {
-    const { compressor, frequencyPercent } = this.state;
+    const { compressor, frequencyPercent, noClick } = this.state;
     // spacebar/enter was clicked; reset the game
     if(e.keyCode === 32 || e.keyCode === 13) return this.handleClick(); 
     // up arrow was clicked; increase the font size
@@ -65,6 +65,7 @@ class Kimchi extends Component {
     if(e.keyCode === 40) return this.setState({compressor:compressor + 0.05});
     // right arrow was clicked; increase the frequent
     if(e.keyCode === 39){
+      if(noClick) return;
       if(frequencyPercent >= 1 && frequencyPercent < 99){
         return this.setState(prevSt=>({ 
           freqUpdated: true,
@@ -75,6 +76,7 @@ class Kimchi extends Component {
     }
     // left arrow was clicked; decrease the frequent
     if(e.keyCode === 37){
+      if(noClick) return;
       if(frequencyPercent > 1 && frequencyPercent <= 99){
         return this.setState(prevSt=>({
           freqUpdated: true,

@@ -1,7 +1,7 @@
 .updated-settings-cover {
   width: 100vw;
   height: 100vh;
-  z-index: 1000;
+  /* z-index: 1000; */
   font-size: 100px;
   line-height: 100%;
   color: #7b7b7b;

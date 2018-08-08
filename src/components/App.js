@@ -9,6 +9,7 @@ import StarsWritingGame from '../components/StarsWritingGame';
 import WhatsBehind     from '../components/WhatsBehind';
 import WordLotto       from '../components/WordLotto';
 import SparkleDie      from '../components/SparkleDie';
+import Kimchi          from '../components/Kimchi';
 import Drop            from '../components/Drop';
 import GamesPage       from '../components/GamesPage';
 import '../styles/App.css';
