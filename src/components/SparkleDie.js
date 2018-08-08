@@ -22,7 +22,7 @@ class SparkleDie extends Component {
     // document level keypress to handle game hotkeys
     document.addEventListener('keydown', this.handleKeyEvent);
     const data = this.props.data.map(val=>val.text); 
-    this.setState({data}, ()=>this.handleGame());    
+    this.setState({data}, this.handleGame);    
   }
 
   componentWillUnmount(){ 
@@ -58,19 +58,19 @@ class SparkleDie extends Component {
   handleKeyEvent = (e) => {
     const { timer, compressor } = this.state;
     // spacebar/enter was clicked; reset the game
-    if(e.keyCode === 32 || e.keyCode === 13){ this.handleReset() }
+    if(e.keyCode === 32 || e.keyCode === 13) return this.handleReset();
     // right arrow was clicked; increase the timer
     if(e.keyCode === 39){
       if(timer >= 5 && timer < 20){
         const time = timer + 1;
-        this.setState({timer:time, timeRemaining: time}, () => this.handleReset());
+        this.setState({timer:time, timeRemaining: time}, this.handleReset);
       }
     }
     // left arrow was clicked; decrease the timer
     if(e.keyCode === 37){
       if(timer > 5 && timer <= 20){
         const time = timer - 1;
-        this.setState({timer:time, timeRemaining: time}, () => this.handleReset());
+        this.setState({timer:time, timeRemaining: time}, this.handleReset);
       }
     }
     // up arrow was clicked; increase the font size
