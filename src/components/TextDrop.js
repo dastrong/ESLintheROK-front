@@ -9,7 +9,7 @@ const TextDrop = ({styles, text, isIn, timeout}) => (
   >
     <span 
       className='letterDrop'
-      style={{...styles}}>
+      style={{...styles}} >
         {text}
     </span>
   </CSSTransition>

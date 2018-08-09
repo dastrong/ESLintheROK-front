@@ -1,23 +1,16 @@
 .letterDrop {
   position: absolute;
-  top: 0;
+  top: 100vh;
   padding: 20px;
 }
 
 .letterDrop-enter {
-  transform: translateY(-180px);
+  top: 100vh;
 }
 
 .letterDrop-enter-done {
-  transform: translateY(100vh);
-  transition: 6s transform;
-}
-
-.letterDrop-exit {
-  transform: translateY(100vh);
-}
-
-.letterDrop-exit-done {
-  transform: translateY(-180px);
-  transition: 6s transform;
+  left: calc(50vw - 60px) !important;
+  top: 10vh;
+  opacity: 0;
+  transition: 10s left, 10s top, 0.5s opacity 8s;
 }

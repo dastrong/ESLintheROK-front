@@ -16,6 +16,7 @@ class Drop extends Component {
       colors: this.props.colors,
       isVocab: true,
       isGameOver: false,
+      isActive: false,
       width: window.innerWidth,
       height: window.innerHeight,
     }
@@ -83,32 +84,31 @@ class Drop extends Component {
 
   splitText = (text) => shuffle(text.split(''));
 
-  // we have a shuffled array of letters
-  // iterate over that array and randomly choose a spot on the screen to start the letter
-  // add an animation class to adjust the height from the top to bottom of the screen
-
-  // startDropping = () => {
-  //   this.state.splitText.map((x, i)=>( setTimeout(()=>( <span key={i}>{text}</span> ), 500));
-  // }
-
   render(){
-    const letters = this.state.splitText.map((x, i)=>( 
+    const letters = this.state.splitText.map((x, i)=>(
                       <TextDrop 
                         key={i}
+                        isIn={this.state.isActive}
                         styles={{left: this.getRandomNum(this.state.width)}}
                         text={x}
-                        timeout={this.getRandomNum(5000)}
+                        timeout={this.getRandomNum(10000)}
                       />
                     ));
     return (
-      <div style={{
-        height: '100vh',
-        overflow: 'hidden',
-        position: 'relative',
-        fontSize: '10em',
-        lineHeight: '100%'
-      }}>
-       {letters}
+      <div 
+        style={{
+          height: '100vh',
+          overflow: 'hidden',
+          position: 'relative',
+          fontSize: '10em',
+          lineHeight: '100%',
+          backgroundImage: 'url(https://img.clipartxtras.com/14ddc73c6473050c836eebabb5ff4724_bowling-lane-clipart-free-clip-art-library-bowling-alley-clipart_1400-980.jpeg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+        onClick={this.handleGame}
+      >
+        {letters}
       </div>
     );
   }  
