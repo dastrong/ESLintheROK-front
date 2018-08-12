@@ -10,7 +10,7 @@ import WhatsBehind     from '../components/WhatsBehind';
 import WordLotto       from '../components/WordLotto';
 import SparkleDie      from '../components/SparkleDie';
 import Kimchi          from '../components/Kimchi';
-import Drop            from '../components/Drop';
+import Bowling         from '../components/Bowling';
 import GamesPage       from '../components/GamesPage';
 import '../styles/App.css';
 
@@ -141,8 +141,8 @@ class App extends Component {
             <Route path='/kimchi'
                    render={()=> <Kimchi data={data.expressionData} />}
                    exact={true} />
-            <Route path='/drop'
-                   render={()=> <Drop data={data} colors={colors} />}
+            <Route path='/bowling'
+                   render={()=> <Bowling data={data.vocabularyData} colors={colors} />}
                    exact={true} />
           </Switch>
         </div>

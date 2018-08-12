@@ -5,7 +5,7 @@ const TextDrop = ({styles, text, isIn, timeout}) => (
   <CSSTransition
     classNames='letterDrop'
     in={isIn}
-    timeout={timeout}
+    timeout={Number(timeout)}
   >
     <span 
       className='letterDrop'

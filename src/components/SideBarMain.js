@@ -87,6 +87,11 @@ class SideBarMain extends Component {
             <Icon name='heart' />
             Kimchi Elimination
           </Menu.Item>
+          <Menu.Item as={Link}
+                     to='/bowling'>
+            <Icon name='bowling ball' />
+            Letter Bowling
+          </Menu.Item>
         </Sidebar>
       </div>
     )

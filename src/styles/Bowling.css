@@ -12,5 +12,5 @@
   left: calc(50vw - 60px) !important;
   top: 10vh;
   opacity: 0;
-  transition: 10s left, 10s top, 0.5s opacity 8s;
+  transition: 10s left cubic-bezier(0.14, 0.4, 0.46, 0.33), 10s top cubic-bezier(0.05, 0.23, 0.46, 0.33), 1s opacity 9s;
 }

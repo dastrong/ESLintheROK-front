@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TextBox from '../components/TextBox';
 import { CSSTransition } from 'react-transition-group';
+import { setData, getRandomNum, getRandomIndex, addListeners, rmvListeners } from '../phase2helpers';
 import { Timer, startTimer, resetTimer } from '../components/Timer';
 
 class SparkleDie extends Component {
@@ -16,18 +17,20 @@ class SparkleDie extends Component {
     };
     this.startTimer = startTimer.bind(this);
     this.resetTimer = resetTimer.bind(this);
+    this.setData        = setData.bind(this);
+    this.getRandomNum   = getRandomNum.bind(this);
+    this.getRandomIndex = getRandomIndex.bind(this);
+    this.addListeners   = addListeners.bind(this);
+    this.rmvListeners   = rmvListeners.bind(this);
   }
 
   componentDidMount(){
-    // document level keypress to handle game hotkeys
-    document.addEventListener('keydown', this.handleKeyEvent);
-    const data = this.props.data.map(val=>val.text); 
-    this.setState({data}, this.handleGame);    
+    this.addListeners();
+    this.setData(this.props.data);
   }
 
   componentWillUnmount(){ 
-    // document level keypress to handle game hotkeys
-    document.removeEventListener('keydown', this.handleKeyEvent)
+    this.rmvListeners();
     clearInterval(this.intervalID)
   }
 
@@ -39,38 +42,27 @@ class SparkleDie extends Component {
     });
   }
 
-  getRandomIndex = (length) => {
-    const { textIndex } = this.state;
-    let i = undefined;
-    while(i === undefined || i === textIndex){
-      i = this.getRandomNum(length);
-    }
-    return i;
-  }
-
-  getRandomNum = (length) => Math.floor(Math.random()*length);
-
-  handleReset = (e) => {
-    if(this.state.isRunning) this.handleGame();
+  handleClick = () => {
+    if(this.state.isActive) this.handleGame();
     this.startTimer();
   }
 
   handleKeyEvent = (e) => {
     const { timer, compressor } = this.state;
     // spacebar/enter was clicked; reset the game
-    if(e.keyCode === 32 || e.keyCode === 13) return this.handleReset();
+    if(e.keyCode === 32 || e.keyCode === 13) return this.handleClick();
     // right arrow was clicked; increase the timer
     if(e.keyCode === 39){
       if(timer >= 5 && timer < 20){
         const time = timer + 1;
-        this.setState({timer:time, timeRemaining: time}, this.handleReset);
+        this.setState({timer:time, timeRemaining: time}, this.handleClick);
       }
     }
     // left arrow was clicked; decrease the timer
     if(e.keyCode === 37){
       if(timer > 5 && timer <= 20){
         const time = timer - 1;
-        this.setState({timer:time, timeRemaining: time}, this.handleReset);
+        this.setState({timer:time, timeRemaining: time}, this.handleClick);
       }
     }
     // up arrow was clicked; increase the font size
@@ -91,7 +83,7 @@ class SparkleDie extends Component {
     return (
       <div 
         className='container'
-        onClick={this.handleReset}
+        onClick={this.handleClick}
       >
         <CSSTransition
             in={!isTimeUp}

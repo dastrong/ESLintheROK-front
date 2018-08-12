@@ -3,6 +3,7 @@ import TextBox from '../components/TextBox';
 import Emoji from '../components/Emoji';
 import ShowUpdatedSetting from '../components/ShowUpdatedSetting';
 import { CSSTransition } from 'react-transition-group';
+import { setData, getRandomNum, getRandomIndex, addListeners, rmvListeners } from '../phase2helpers';
 import '../styles/Kimchi.css';
 
 class Kimchi extends Component {
@@ -17,23 +18,23 @@ class Kimchi extends Component {
       textIndex: undefined,
       showAnswer: false,
     };
+    this.setData        = setData.bind(this);
+    this.getRandomNum   = getRandomNum.bind(this);
+    this.getRandomIndex = getRandomIndex.bind(this);
+    this.addListeners   = addListeners.bind(this);
+    this.rmvListeners   = rmvListeners.bind(this);
   }
 
   componentDidMount(){
-    // document level keypress to handle game hotkeys
-    document.addEventListener('keydown', this.handleKeyEvent);
-    const data = this.props.data.map(val=>val.text); 
-    this.setState({data}, ()=>this.handleGame());    
+    this.addListeners();
+    this.setData(this.props.data);  
   }
 
-  componentWillUnmount(){ 
-    // document level keypress to handle game hotkeys
-    document.removeEventListener('keydown', this.handleKeyEvent)
-  }
+  componentWillUnmount(){ this.rmvListeners() }
 
   handleGame = (data = this.state.data) => {
     const random = this.getRandomIndex(data.length);
-    const isKimchi = this.handleLogic(this.state.frequencyPercent);
+    const isKimchi = this._isKimchiLogic(this.state.frequencyPercent);
     this.setState({
       text: data[random],
       textIndex: random,
@@ -42,18 +43,12 @@ class Kimchi extends Component {
     });
   }
 
-  getRandomIndex = (length) => {
-    const { textIndex } = this.state;
-    let i = undefined;
-    while(i === undefined || i === textIndex){
-      i = this.getRandomNum(length);
-    }
-    return i;
+  handleClick = () => {
+    if(this.state.noClick) return;
+    !this.state.showAnswer 
+    ? this.setState({showAnswer:true, noClick:true}, () => setTimeout(this._getText, 1000))
+    : this.setState({showAnswer:false, noClick:true}, () => setTimeout(this._getIsKimchi, 1000));
   }
-
-  getRandomNum = (length) => Math.floor(Math.random()*length);
-
-  handleLogic = (percent) => this.getRandomNum(100) > percent - 1;
 
   handleKeyEvent = (e) => {
     const { compressor, frequencyPercent, noClick } = this.state;
@@ -71,7 +66,7 @@ class Kimchi extends Component {
           freqUpdated: true,
           showAnswer: false, 
           frequencyPercent: prevSt.frequencyPercent + 1 
-        }), this._handleChange);
+        }), this._freqChange);
       }
     }
     // left arrow was clicked; decrease the frequent
@@ -82,29 +77,24 @@ class Kimchi extends Component {
           freqUpdated: true,
           showAnswer: false, 
           frequencyPercent: prevSt.frequencyPercent - 1 
-        }), this._handleChange);
+        }), this._freqChange);
       }
     }
   };
 
-  _handleChange(){
+  _isKimchiLogic = (percent) => this.getRandomNum(100) > percent - 1;
+
+  _freqChange = () => {
     clearInterval(this.intervalID);
-    this.intervalID = setTimeout(this.getIsKimchi, 1000)
+    this.intervalID = setTimeout(this._getIsKimchi, 1000)
   }
-  
-  handleClick = (e) => {
-    if(this.state.noClick) return;
-    !this.state.showAnswer 
-    ? this.setState({showAnswer:true, noClick:true}, () => setTimeout(this.getText, 1000))
-    : this.setState({showAnswer:false, noClick:true}, () => setTimeout(this.getIsKimchi, 1000));
-  }
-  
-  getIsKimchi = () => {
-    const isKimchi = this.handleLogic(this.state.frequencyPercent);
+
+  _getIsKimchi = () => {
+    const isKimchi = this._isKimchiLogic(this.state.frequencyPercent);
     this.setState({isKimchi, freqUpdated:false, noClick:false});
   }
 
-  getText = (data = this.state.data) => {
+  _getText = (data = this.state.data) => {
     const random = this.getRandomIndex(data.length);
     this.setState({
       text: data[random],
@@ -112,7 +102,7 @@ class Kimchi extends Component {
       noClick: false
     });
   }
-
+  
   render(){
     const { compressor, text, showAnswer, isKimchi, frequencyPercent, freqUpdated } = this.state;
     const pic = isKimchi

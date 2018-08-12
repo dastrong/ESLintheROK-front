@@ -6,7 +6,7 @@ import '../styles/Timer.css';
 
 function startTimer() {
   // resets timer
-  if(this.state.isRunning) return this.resetTimer();
+  if(this.state.isActive) return this.resetTimer();
   // helps prevent against multiple clicks
   // will only keep the last clicked interval
   clearInterval(this.intervalID);
@@ -17,7 +17,7 @@ function startTimer() {
     this.state.timeRemaining <= 1
       ? this.setState({ isTimeUp: true }, clearInterval(this.intervalID))
       : this.setState(prevState => ({
-          isRunning: true,
+          isActive: true,
           timeRemaining: prevState.timeRemaining - 1,
         }));
   }, 1000);
@@ -26,7 +26,7 @@ function startTimer() {
 function resetTimer(){
   this.setState({
     isTimeUp: false,
-    isRunning: false,
+    isActive: false,
     timeRemaining: this.state.timer,
   }, this.startTimer);
 }
