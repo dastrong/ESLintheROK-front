@@ -1,11 +1,18 @@
 import React from 'react';
+import { CSSTransition } from 'react-transition-group';
 import '../styles/Round.css';
 
-const Round = ({num}) => (
+const Round = ({num, isIn, timeout, classname}) => (
 	<div className='outer-round'>
-		<div className='inner-round'>
-			{num}
-		</div>
+		<CSSTransition
+			in={isIn}
+			timeout={timeout}
+			classNames={classname}
+		>
+			<div className='inner-round'>
+				{num}
+			</div>
+		</CSSTransition>
 	</div>
 )
 

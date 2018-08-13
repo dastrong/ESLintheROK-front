@@ -41,6 +41,7 @@ class Bowling extends Component {
       text,
       textIndex,
       splitText,
+      isShowingAnswer: false,
       isGameOver: false,
       isActive: false,
       round: 1,
@@ -48,21 +49,21 @@ class Bowling extends Component {
   }
 
   handleReset = () => {
+    clearInterval(this.intervalID)
     this.handleGame();
   }
 
   handleClick = () => {
-    if(this.state.isActive) return;
-    this.state.isGameOver
-      ? this.handleReset()
-      // : this.setState({isActive: true});
-      : this._startBowling();
+    const { isShowingAnswer, isGameOver, isActive } = this.state;
+    if(isShowingAnswer) return this.setState({isShowingAnswer: false}, this.handleReset);
+    if(isGameOver) return this.setState({isShowingAnswer: true});
+    if(!isActive) this._startBowling();
   }
 
   _startBowling = () => {
     const roundBuffer = 3;
     const animationDuration = 10;
-    const interval = (this.state.splitText.length + animationDuration + roundBuffer) * 1000;
+    const interval = ((this.state.splitText.length * 2) + roundBuffer + animationDuration) * 1000;
     this.setState({isActive: true}, this._startInterval(interval));
   }
 
@@ -74,7 +75,10 @@ class Bowling extends Component {
           return {isGameOver: true}
         }
         return {round: prevState.round + 1, isActive: false}
-      }, () => this.setState({isActive: true}));
+      }, () => {
+        if(this.state.isGameOver) return;
+        setTimeout(()=>this.setState({isActive: true}), 2000)
+      });
     }, interval);
   }
 
@@ -84,7 +88,7 @@ class Bowling extends Component {
   };
 
   render(){
-    const { splitText, round, isActive, isGameOver, width } = this.state;
+    const { splitText, round, isActive, isGameOver, isShowingAnswer, width, text } = this.state;
     const letters = splitText.map((x, i)=>(
                       <TextDrop 
                         key={i}
@@ -94,7 +98,19 @@ class Bowling extends Component {
                         timeout={(i*2)+'000'}
                       />
                     ));
-    const roundInfo = <Round num={isGameOver ? `What's the answer?` : round} />
+    const roundInfo = <Round 
+                        num={isGameOver ? `???` : round}
+                        timeout={0}
+                        isIn={(!isActive || isGameOver) && !isShowingAnswer}
+                        classname='round-text'
+                      />
+    const answer = <Round
+                    num={text}
+                    timeout={0}
+                    isIn={isShowingAnswer}
+                    classname='round-answer'
+                   />
+
     return (
       <div 
         style={{
@@ -110,6 +126,7 @@ class Bowling extends Component {
         onClick={this.handleClick}
       >
         {roundInfo}
+        {answer}
         {letters}
       </div>
     );
