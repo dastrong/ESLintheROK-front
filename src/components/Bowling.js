@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TextDrop from '../components/TextDrop';
+import Round from '../components/Round';
 import { setData, getRandomNum, getRandomIndex, splitText, addListeners, rmvListeners } from '../phase2helpers';
 import '../styles/Bowling.css';
 
@@ -27,15 +28,18 @@ class Bowling extends Component {
     this.setData(this.props.data);
   }
 
-  componentWillUnmount(){ this.rmvListeners() }
+  componentWillUnmount(){ 
+    this.rmvListeners();
+    clearInterval(this.intervalID)
+  }
 
   handleGame = (data = this.state.data) => {
-    const random = this.getRandomIndex(data.length);
-    const text = data[random];
+    const textIndex = this.getRandomIndex(data.length);
+    const text = data[textIndex];
     const splitText = this.splitText(text)
     this.setState({
       text,
-      textIndex: random,
+      textIndex,
       splitText,
       isGameOver: false,
       isActive: false,
@@ -59,14 +63,19 @@ class Bowling extends Component {
     const roundBuffer = 3;
     const animationDuration = 10;
     const interval = (this.state.splitText.length + animationDuration + roundBuffer) * 1000;
+    this.setState({isActive: true}, this._startInterval(interval));
+  }
 
+  _startInterval = (interval) => {
     this.intervalID = setInterval(()=>{
-      console.log('hey')
-    }, interval)
-    this.setState(prevState => {
-      if(prevState.round === 3) return clearInterval(this.intervalID);
-      return ({round: prevState.round + 1})
-    })
+      this.setState(prevState => {
+        if(prevState.round === 3) {
+          clearInterval(this.intervalID)
+          return {isGameOver: true}
+        }
+        return {round: prevState.round + 1, isActive: false}
+      }, () => this.setState({isActive: true}));
+    }, interval);
   }
 
   handleKeyEvent = (e) => {
@@ -75,15 +84,17 @@ class Bowling extends Component {
   };
 
   render(){
-    const letters = this.state.splitText.map((x, i)=>(
+    const { splitText, round, isActive, isGameOver, width } = this.state;
+    const letters = splitText.map((x, i)=>(
                       <TextDrop 
                         key={i}
-                        isIn={this.state.isActive}
-                        styles={{left: this.getRandomNum(this.state.width)}}
+                        isIn={isActive}
+                        styles={{left: this.getRandomNum(width)}}
                         text={x}
                         timeout={(i*2)+'000'}
                       />
                     ));
+    const roundInfo = <Round num={isGameOver ? `What's the answer?` : round} />
     return (
       <div 
         style={{
@@ -98,6 +109,7 @@ class Bowling extends Component {
         }}
         onClick={this.handleClick}
       >
+        {roundInfo}
         {letters}
       </div>
     );

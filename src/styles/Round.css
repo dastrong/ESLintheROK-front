@@ -1,0 +1,11 @@
+.outer-round {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.inner-round {
+	color: #fff;
+	text-shadow: black 1px 1px 200px;
+}
