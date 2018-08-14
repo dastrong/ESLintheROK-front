@@ -1,0 +1,24 @@
+.letterDrop {
+  position: absolute;
+  top: 100vh;
+  padding: 20px;
+  border-radius: 50%;
+  text-shadow: 3px 3px 1px #000;
+  color: #fff;
+  width: 190px;
+  height: 190px;
+  text-align: center;
+}
+
+.letterDrop-enter {
+  top: 100vh;
+}
+
+.letterDrop-enter-done {
+  left: calc(50vw - 60px) !important;
+  top: 10vh;
+  opacity: 0;
+  transition: 7s left cubic-bezier(0.14, 0.4, 0.46, 0.33), 
+              7s top cubic-bezier(0.05, 0.23, 0.46, 0.33), 
+              0.5s opacity 6.5s;
+}

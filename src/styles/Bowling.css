@@ -1,18 +1,20 @@
-.letterDrop {
+.bowling-container {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  font-size: 10em;
+  line-height: 100%;
+  background-image: url(https://img.clipartxtras.com/14ddc73c6473050c836eebabb5ff4724_bowling-lane-clipart-free-clip-art-library-bowling-alley-clipart_1400-980.jpeg);
+  background-size: cover;
+  background-position: center;
+  user-select: none;
+}
+
+.total-round-counter {
   position: absolute;
-  top: 100vh;
-  padding: 20px;
-}
-
-.letterDrop-enter {
-  top: 100vh;
-}
-
-.letterDrop-enter-done {
-  left: calc(50vw - 60px) !important;
-  top: 10vh;
-  opacity: 0;
-  transition: 10s left cubic-bezier(0.14, 0.4, 0.46, 0.33), 
-              10s top cubic-bezier(0.05, 0.23, 0.46, 0.33), 
-              1s opacity 9s;
+  right: 0;
+  top: 25vh;
+  font-size: 0.8em;
+  color: #333;
+  text-shadow: 1px 1px 25px #fff;
 }

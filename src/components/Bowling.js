@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import shuffle from 'shuffle-array';
 import TextDrop from '../components/TextDrop';
 import Round from '../components/Round';
 import { setData, getRandomNum, getRandomIndex, splitText, addListeners, rmvListeners } from '../phase2helpers';
 import '../styles/Bowling.css';
+
+// increases the time between letter being shot off
+const letterBuffer = 3;
 
 class Bowling extends Component {
   constructor(props){
@@ -12,8 +16,8 @@ class Bowling extends Component {
       text: '',
       textIndex: undefined,
       splitText: [],
+      totalRound: 3,
       colors: this.props.colors,
-      width: window.innerWidth,
     }
     this.setData        = setData.bind(this);
     this.splitText      = splitText.bind(this);
@@ -36,11 +40,15 @@ class Bowling extends Component {
   handleGame = (data = this.state.data) => {
     const textIndex = this.getRandomIndex(data.length);
     const text = data[textIndex];
-    const splitText = this.splitText(text)
+    const splitText = this.splitText(text);
+    const colors = shuffle(this.props.colors);
+    const left = splitText.map(()=>this.getRandomNum(window.innerWidth))
     this.setState({
       text,
       textIndex,
       splitText,
+      colors,
+      left, 
       isShowingAnswer: false,
       isGameOver: false,
       isActive: false,
@@ -61,16 +69,16 @@ class Bowling extends Component {
   }
 
   _startBowling = () => {
-    const roundBuffer = 3;
-    const animationDuration = 10;
-    const interval = ((this.state.splitText.length * 2) + roundBuffer + animationDuration) * 1000;
+    const roundBuffer = 2;
+    const animationDuration = 7;
+    const interval = ((this.state.splitText.length * letterBuffer) + roundBuffer + animationDuration) * 1000;
     this.setState({isActive: true}, this._startInterval(interval));
   }
 
   _startInterval = (interval) => {
     this.intervalID = setInterval(()=>{
       this.setState(prevState => {
-        if(prevState.round === 3) {
+        if(prevState.round === prevState.totalRound) {
           clearInterval(this.intervalID)
           return {isGameOver: true}
         }
@@ -83,19 +91,33 @@ class Bowling extends Component {
   }
 
   handleKeyEvent = (e) => {
+    const { totalRound, round } = this.state;
     // spacebar/enter was clicked; reset the game
     if(e.keyCode === 32 || e.keyCode === 13) return this.handleReset();
+    // right arrow was clicked; increase the totalRounds
+    if(e.keyCode === 39){
+      if(totalRound === 5) return 
+      this.setState(prevState => ({ totalRound: prevState.totalRound + 1 }));
+    }
+    // right arrow was clicked; decrease the totalRounds
+    if(e.keyCode === 37){
+      if(totalRound === 1 || totalRound === round) return 
+      this.setState(prevState => ({ totalRound: prevState.totalRound - 1 }));
+    }
   };
 
   render(){
-    const { splitText, round, isActive, isGameOver, isShowingAnswer, width, text } = this.state;
+    const { splitText, round, isActive, isGameOver, isShowingAnswer, text, colors, left, totalRound } = this.state;
     const letters = splitText.map((x, i)=>(
                       <TextDrop 
                         key={i}
                         isIn={isActive}
-                        styles={{left: this.getRandomNum(width)}}
+                        styles={{
+                          left: left[i],
+                          backgroundColor: colors[i] || colors[i-colors.length]
+                        }}
                         text={x}
-                        timeout={(i*2)+'000'}
+                        timeout={(i * letterBuffer)+'000'}
                       />
                     ));
     const roundInfo = <Round 
@@ -113,18 +135,12 @@ class Bowling extends Component {
 
     return (
       <div 
-        style={{
-          height: '100vh',
-          overflow: 'hidden',
-          position: 'relative',
-          fontSize: '10em',
-          lineHeight: '100%',
-          backgroundImage: 'url(https://img.clipartxtras.com/14ddc73c6473050c836eebabb5ff4724_bowling-lane-clipart-free-clip-art-library-bowling-alley-clipart_1400-980.jpeg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
+        className='bowling-container'
         onClick={this.handleClick}
       >
+        <div className='total-round-counter'>
+          {round}/{totalRound}
+        </div>
         {roundInfo}
         {answer}
         {letters}
