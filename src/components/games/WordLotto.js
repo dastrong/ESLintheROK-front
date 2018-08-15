@@ -16,7 +16,7 @@ class WordLotto extends Component {
 			isGameOver:  false,
 			isAnimating: false,
 			isResetting: false,
-			compressor: 1,
+			compressor: 0.6,
 			colors: this.props.colors,
 		};
 	}

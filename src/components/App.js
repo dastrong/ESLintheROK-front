@@ -12,6 +12,7 @@ import WordLotto       from './games/WordLotto';
 import Sparkle         from './games/Sparkle';
 import Kimchi          from './games/Kimchi';
 import Bowling         from './games/Bowling';
+import ChaseTheVocab   from './games/ChaseTheVocab';
 import '../styles/App.css';
 
 class App extends Component {
@@ -125,6 +126,9 @@ class App extends Component {
                    exact={true} />
             <Route path='/bowling'
                    render={()=> <Bowling data={data.vocabularyData} colors={colors} />}
+                   exact={true} />
+            <Route path='/chase'
+                   render={()=> <ChaseTheVocab data={data.vocabularyData} colors={colors} />}
                    exact={true} />
           </Switch>
         </div>

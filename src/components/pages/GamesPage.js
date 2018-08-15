@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom'
 import { Button, Grid, Image, Reveal, Header, Segment } from 'semantic-ui-react';
 import '../../styles/pages/GamesPage.css'
@@ -17,7 +17,7 @@ const gamesInfo = [
       'O = stay standing',
       'Last student standing wins'
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vQ76oba9R2vRvJqG9bU-nJS5q-J-Rw0YJkw8juGLNXT_Li62RLb0Cdl_etoWk-VPXlQ2OfZlzZSXaA2/pub?w=1215&h=778'
+    image: 'https://docs.google.com/drawings/d/e/2PACX-1vQ76oba9R2vRvJqG9bU-nJS5q-J-Rw0YJkw8juGLNXT_Li62RLb0Cdl_etoWk-VPXlQ2OfZlzZSXaA2/pub?w=405&h=259'
   },
   {
     URL: 'whatsbehind',
@@ -29,7 +29,7 @@ const gamesInfo = [
       'Continue until they find the hidden item',
       'Student that finds the item gets a stamp/sticker/prize'
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vTn474h_5n4F6ONruuEmd27f1waAp-TAM_yQahYYbISWKz6hZHaMZxnMoF3hF5ZX_IbfyKI3NCSQTv-/pub?w=1215&h=778'
+    image: 'https://docs.google.com/drawings/d/e/2PACX-1vTn474h_5n4F6ONruuEmd27f1waAp-TAM_yQahYYbISWKz6hZHaMZxnMoF3hF5ZX_IbfyKI3NCSQTv-/pub?w=405&h=259'
   },
   {
     URL: 'stars',
@@ -44,7 +44,7 @@ const gamesInfo = [
       'Repeat as desired',
       'Winner has the most stars'
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vSlcDGnwEaXVmPvyip_dWMdjkIZceuOfhXd7fivJSR1WLWf-DciD5VTnDH9xYb8Rz_k3pTQgaCflK3A/pub?w=1215&h=778'
+    image: 'https://docs.google.com/drawings/d/e/2PACX-1vSlcDGnwEaXVmPvyip_dWMdjkIZceuOfhXd7fivJSR1WLWf-DciD5VTnDH9xYb8Rz_k3pTQgaCflK3A/pub?w=405&h=259'
   },
   {
     URL: 'lotto',
@@ -60,7 +60,7 @@ const gamesInfo = [
       'Repeat as desired',
       'Winner has the most points'
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vSfKc_oNXd5qNmasfu-63PUoZnRGBwAqPE3yiyVSPP92U-D7l0ZwFZDcULTz2v54d2PYiFfpMHeEs-H/pub?w=1215&h=778'
+    image: 'https://docs.google.com/drawings/d/e/2PACX-1vSfKc_oNXd5qNmasfu-63PUoZnRGBwAqPE3yiyVSPP92U-D7l0ZwFZDcULTz2v54d2PYiFfpMHeEs-H/pub?w=405&h=259'
   },
   {
     URL: 'sparkle',
@@ -76,7 +76,7 @@ const gamesInfo = [
       'The next student sits down',
       'Repeat until you have one survivor left'
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vSfp1p5SNU_vfmvcj8yi_DEzRbKd27ozg6a_IFPNbIjBW6yRXh-PpZ6bJFkbx8DjI9-78wLhz3mLeQQ/pub?w=1215&h=778'
+    image: 'https://docs.google.com/drawings/d/e/2PACX-1vSfp1p5SNU_vfmvcj8yi_DEzRbKd27ozg6a_IFPNbIjBW6yRXh-PpZ6bJFkbx8DjI9-78wLhz3mLeQQ/pub?w=405&h=259'
   },
   {
     URL: 'drop',
@@ -89,7 +89,7 @@ const gamesInfo = [
       'Students raise their hand if they think they know',
       'Teacher picks a student and can reward them, if correct'
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vTMJYt1jRJrDHJbsOFS17KjmFp_HNaAiCyCQOKWGthkz9TZQ6iV8SOI15-6enV7akZOeaQNE74i4mzY/pub?w=1215&h=778'
+    image: 'https://docs.google.com/drawings/d/e/2PACX-1vTMJYt1jRJrDHJbsOFS17KjmFp_HNaAiCyCQOKWGthkz9TZQ6iV8SOI15-6enV7akZOeaQNE74i4mzY/pub?w=405&h=259'
   },
   {
     URL: 'disappear',
@@ -102,7 +102,7 @@ const gamesInfo = [
       'Students raise their hand if they think they know',
       'Teacher picks a student and can reward them, if correct'
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vRzkelJ3MjHPSVcqjzgMNun8Ztlk1NvDWFJoi4jqCqAsvO0V9k0KkV7KM9Gd-6E7nF7y1UD5A335Ecz/pub?w=1215&h=778'
+    image: 'https://docs.google.com/drawings/d/e/2PACX-1vRzkelJ3MjHPSVcqjzgMNun8Ztlk1NvDWFJoi4jqCqAsvO0V9k0KkV7KM9Gd-6E7nF7y1UD5A335Ecz/pub?w=405&h=259'
   },
   {
     URL: 'kimchi',
@@ -113,7 +113,7 @@ const gamesInfo = [
       // 'Students raise their hand and take turns trying to match two cards',
       // 'If a student matches two cards, you can reward them',
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vSXPupQmOFWx1aQx6jlWRmn5DRPhY0VRQABqe-A-RAFbpdz5u6Ls5XRPdiuL73AQgUIG-1l6PJMPVCE/pub?w=1215&h=778'
+    image: 'https://docs.google.com/drawings/d/e/2PACX-1vSXPupQmOFWx1aQx6jlWRmn5DRPhY0VRQABqe-A-RAFbpdz5u6Ls5XRPdiuL73AQgUIG-1l6PJMPVCE/pub?w=405&h=259'
   },
   {
     URL: 'chasethevocab',
@@ -126,7 +126,7 @@ const gamesInfo = [
       'Students raise their hands and take turns',
       'Teacher picks a student and can reward them, if correct'
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vReildEgt4DwSmQWgeujXSF1Tas58BDKsJsuchgnnKq5gJQnAjaFGTa8QRP2c_tF2nvx57G_GdKc5tA/pub?w=1215&h=778'
+    image: 'https://docs.google.com/drawings/d/e/2PACX-1vReildEgt4DwSmQWgeujXSF1Tas58BDKsJsuchgnnKq5gJQnAjaFGTa8QRP2c_tF2nvx57G_GdKc5tA/pub?w=405&h=259'
   },
   {
     URL: 'match',
@@ -137,7 +137,7 @@ const gamesInfo = [
       'Students raise their hand and take turns trying to match two cards',
       'If a student matches two cards, you can reward them',
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vT91t-zFpD4zFDoc2zHhNswDQOtR-kIO9Z8S2m0uTltrOB9CHN78TUYNA3k1qcczk6D2vozbs4WjvTh/pub?w=1215&h=778'
+    image: 'https://docs.google.com/drawings/d/e/2PACX-1vT91t-zFpD4zFDoc2zHhNswDQOtR-kIO9Z8S2m0uTltrOB9CHN78TUYNA3k1qcczk6D2vozbs4WjvTh/pub?w=405&h=259'
   },
   {
     URL: 'hangman',
@@ -204,43 +204,37 @@ const gamesInfo = [
   },
 ]
 
-class GamesPage extends Component {
-  render() {
-    const grid = gamesInfo.map((game, i) => (
-      <Grid.Column key={game.URL}>
-        <Reveal style={style} 
-                animated={i % 2 ? 'move right' : 'move'} >
-          <Reveal.Content style={style} visible >
-            <Segment style={style}>
-              <Image centered
-                     label={{ as: 'a', color: 'blue', content:game.skills, ribbon: true }}
-                     src={game.image} />
-            </Segment>
-          </Reveal.Content>
-          <Reveal.Content style={style} hidden>
-            <div style={{...style, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-              <h1>{game.title}</h1>
-              <p>{game.description}</p>
-              <PlayGameButton url={game.URL} />
-            </div>
-          </Reveal.Content>
-        </Reveal>
-      </Grid.Column>
-    ));
-    return (
-      <div className='games-container'>
-        <Header as='h1' textAlign='center' content='Browse Our Game Selection Below' />
-        <Grid columns={3}>
-          {grid}
-        </Grid>
-      </div>
-    );
-  }
-};
+const GamesPage = () => (
+  <div className='games-container'>
+    <Header as='h1' textAlign='center' content='Browse Our Game Selection Below' />
+    <Grid columns={3}>
+      { gamesInfo.map((game, i) => (
+        <Grid.Column key={game.URL}>
+          <Reveal style={style} 
+                  animated='move up' >
+            <Reveal.Content style={style} visible >
+              <Segment style={style}>
+                <Image centered
+                      label={{ as: 'a', color: 'blue', content:game.skills, ribbon: true }}
+                      src={game.image} />
+              </Segment>
+            </Reveal.Content>
+            <Reveal.Content style={style} hidden>
+              <div style={{...style, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                <h1>{game.title}</h1>
+                <p>{game.description}</p>
+                <PlayGameButton url={game.URL} />
+              </div>
+            </Reveal.Content>
+          </Reveal>
+        </Grid.Column>
+      )) }
+    </Grid>
+  </div>
+);
 
 const PlayGameButton = ({url}) => (
   <Button as={Link} to={`/${url}`} color='green' content='Play Game'/>
 );
 
 export default GamesPage;
-

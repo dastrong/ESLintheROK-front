@@ -21,8 +21,8 @@ function setData(data){
   this.setState({data: data.map(val=>val.text)}, this.handleGame);    
 }
 
-function addListeners(){ document.addEventListener('keydown', this.handleKeyEvent) }
+function addListeners() { document.addEventListener('keydown', this.handleKeyEvent) }
 
-function rmvListeners  (){ document.removeEventListener('keydown', this.handleKeyEvent) }
+function rmvListeners() { document.removeEventListener('keydown', this.handleKeyEvent) }
 
 export { setData, getRandomIndex, getRandomNum, splitText, chooseDataSet, addListeners, rmvListeners };
