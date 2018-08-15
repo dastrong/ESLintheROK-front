@@ -1,6 +1,6 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
-import '../styles/ShowUpdatedSetting.css';
+import '../../styles/reusable/ShowUpdatedSetting.css';
 
 const ShowUpdatedSetting = ({isIn, text, symbol}) => (
   <CSSTransition

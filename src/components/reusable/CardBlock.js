@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactFitText from 'react-fittext';
 import { CSSTransition } from 'react-transition-group';
-import '../styles/CardBlock.css'
+import '../../styles/reusable/CardBlock.css'
 
 const CardBlock = ({text, compressor, shouldAnimate, timeout, boxClass, backColor}) => (
   <ReactFitText 

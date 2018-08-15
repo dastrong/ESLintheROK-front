@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { Button, Header } from 'semantic-ui-react';
-import '../styles/MainPage.css';
+import '../../styles/pages/MainPage.css';
 
 const MainPage = () => (
   <section>

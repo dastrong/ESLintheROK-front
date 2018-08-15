@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import TextBox from '../components/TextBox';
-import Emoji from '../components/Emoji';
-import ShowUpdatedSetting from '../components/ShowUpdatedSetting';
+import TextBox from '../reusable/TextBox';
+import Emoji from '../reusable/Emoji';
+import ShowUpdatedSetting from '../reusable/ShowUpdatedSetting';
 import { CSSTransition } from 'react-transition-group';
-import { setData, getRandomNum, getRandomIndex, addListeners, rmvListeners } from '../phase2helpers';
-import '../styles/Kimchi.css';
+import { setData, getRandomNum, getRandomIndex, addListeners, rmvListeners } from '../../helpers/phase2helpers';
+import '../../styles/games/Kimchi.css';
 
 class Kimchi extends Component {
   constructor(props){

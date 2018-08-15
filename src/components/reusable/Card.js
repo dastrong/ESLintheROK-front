@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactFitText from 'react-fittext';
-import '../styles/Card.css';
+import '../../styles/reusable/Card.css';
 
 const Card = ({handleClick, index, classNames, frontColor, frontText, backColor, backText, compressor}) => (
   <div className={classNames}>

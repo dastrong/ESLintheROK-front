@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { Header, Icon, Modal } from 'semantic-ui-react';
-import '../styles/InfoModal.css';
+import '../../styles/navInfo/InfoModal.css';
 
 class InfoModal extends Component {
   constructor(props){
@@ -8,20 +8,12 @@ class InfoModal extends Component {
     this.state = { visible: false }
   }
 
-  // document level keypress to handle game hotkeys
-  // componentDidMount()   { document.addEventListener('keydown', this.handleKeyEvent); };
-  // componentWillUnmount(){ document.removeEventListener('keydown', this.handleKeyEvent); };
-
-  // handleKeyEvent = (e) => { if(e.keyCode === 73) this.handleButtonClick(); };
-
   handleButtonClick = () => this.setState({ visible: !this.state.visible });
 
   handleInfoModalHide = () => this.setState({ visible: false });
 
-
   render() {
     const { visible } = this.state
-
     return (
       <div>
         <Icon
@@ -35,8 +27,6 @@ class InfoModal extends Component {
           open={visible}
           size='small'
           className='info-modal' 
-          // trigger={
-          // } 
           onClose={this.handleInfoModalHide}
           closeIcon
         >
@@ -51,22 +41,6 @@ class InfoModal extends Component {
                   Description
                 </div>
               </div>
-              {/* <div className='info-modal-item'>
-                <div className='info-modal-item-key'>
-                  M
-                </div>
-                <div className='info-modal-item-des'>
-                  Show the main menu
-                </div>
-              </div>
-              <div className='info-modal-item'>
-                <div className='info-modal-item-key'>
-                  I
-                </div>
-                <div className='info-modal-item-des'>
-                  Shows the info menu 
-                </div>
-              </div> */}
               <div className='info-modal-item'>
                 <div className='info-modal-item-key'>
                   Spacebar

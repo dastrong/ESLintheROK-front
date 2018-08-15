@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom'
 import { Button, Grid, Image, Reveal, Header, Segment } from 'semantic-ui-react';
-// import '../styles/LessonsPage.css';
+import '../../styles/pages/GamesPage.css'
 
 const style={height: '100%', width: '100%'};
 const gamesInfo = [
@@ -228,9 +228,9 @@ class GamesPage extends Component {
       </Grid.Column>
     ));
     return (
-      <div>
+      <div className='games-container'>
         <Header as='h1' textAlign='center' content='Browse Our Game Selection Below' />
-        <Grid container columns={2}>
+        <Grid columns={3}>
           {grid}
         </Grid>
       </div>

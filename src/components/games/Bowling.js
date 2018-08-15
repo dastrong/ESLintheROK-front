@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import shuffle from 'shuffle-array';
-import TextDrop from '../components/TextDrop';
-import Round from '../components/Round';
-import { setData, getRandomNum, getRandomIndex, splitText, addListeners, rmvListeners } from '../phase2helpers';
-import '../styles/Bowling.css';
+import TextDrop from '../reusable/TextDrop';
+import Round from '../reusable/Round';
+import { setData, getRandomNum, getRandomIndex, splitText, addListeners, rmvListeners } from '../../helpers/phase2helpers';
+import '../../styles/games/Bowling.css';
 
 // increases the time between letter being shot off
 const letterBuffer = 3;

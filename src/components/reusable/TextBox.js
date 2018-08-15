@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactFitText from 'react-fittext';
-import '../styles/TextBox.css';
+import '../../styles/reusable/TextBox.css';
 
 const TextBox = ({text, compressor, width, height}) => (
   <ReactFitText

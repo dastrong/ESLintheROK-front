@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Accordion, Icon } from 'semantic-ui-react';
 import DataAccordion  from './DataAccordion';
-import '../../styles/DataEntryPage.css';
+import '../../../styles/pages/DataEntryPage.css';
 
 class DataEntryPage extends Component {
   static defaultProps = {

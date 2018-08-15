@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import SideBarMain     from '../components/SideBarMain';
-import InfoModal       from '../components/InfoModal';
-import MainPage        from '../components/MainPage';
-import DataEntryPage   from '../components/dataEntry/DataEntryPage';
-import EliminationGame from '../components/EliminationGame';
-import StarsWritingGame from '../components/StarsWritingGame';
-import WhatsBehind     from '../components/WhatsBehind';
-import WordLotto       from '../components/WordLotto';
-import SparkleDie      from '../components/SparkleDie';
-import Kimchi          from '../components/Kimchi';
-import Bowling         from '../components/Bowling';
-import GamesPage       from '../components/GamesPage';
+import SideBar         from './navInfo/SideBar';
+import InfoModal       from './navInfo/InfoModal';
+import MainPage        from './pages/MainPage';
+import GamesPage       from './pages/GamesPage';
+import DataEntryPage   from './pages/dataEntry/DataEntryPage';
+import Elimination     from './games/Elimination';
+import Stars           from './games/Stars';
+import WhatsBehind     from './games/WhatsBehind';
+import WordLotto       from './games/WordLotto';
+import Sparkle         from './games/Sparkle';
+import Kimchi          from './games/Kimchi';
+import Bowling         from './games/Bowling';
 import '../styles/App.css';
 
 class App extends Component {
@@ -46,13 +46,6 @@ class App extends Component {
     this.state = {
       vocabularyData: [],
       expressionData: [],
-      isDataReady: false, 
-      games: [
-        {name: 'EliminationGame',  isActive: true},
-        {name: 'WhatsBehind',      isActive: false},
-        {name: 'StarsWriting',     isActive: false},
-        {name: 'WordLotto',        isActive: false},
-      ],
     };
   }
 
@@ -80,23 +73,12 @@ class App extends Component {
     }
   }
 
-  handleHomeClick = () => {
-    // const games = this.state.games.map(game => {
-    //   game.isActive = false;
-    //   return game
-    // });
-    // this.setState({
-    //   isAnyGameActive: false,
-    //   games
-    // });
-  }
-
   render() {
     const { vocabularyData, expressionData, isDataReady } = this.state;
     const { colors } = this.props;
     let data;
     // if there's no data, send default props
-    if(vocabularyData.length<8 && expressionData.length<6){
+    if(vocabularyData.length < 8 && expressionData.length < 6){
       data = {vocabularyData: this.props.vocabularyData, expressionData: this.props.expressionData}
     } else {
       data = {vocabularyData, expressionData};
@@ -104,7 +86,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <SideBarMain handleHomeClick={this.handleHomeClick} />
+          <SideBar />
           <InfoModal />
           <Switch>
             <Route path='/'
@@ -124,19 +106,19 @@ class App extends Component {
                    component={GamesPage}
                    exact={true} />
             <Route path='/elimination'
-                   render={()=> <EliminationGame data={data} colors={colors} />}
+                   render={()=> <Elimination data={data} colors={colors} />}
                    exact={true} />
             <Route path='/whatsbehind'
                    render={()=> <WhatsBehind data={data} colors={colors} />}
                    exact={true} />
             <Route path='/stars'
-                   render={()=> <StarsWritingGame data={data} colors={colors} />}
+                   render={()=> <Stars data={data} colors={colors} />}
                    exact={true} />
             <Route path='/lotto'
                    render={()=> <WordLotto data={data} colors={colors} />}
                    exact={true} />
             <Route path='/sparkle'
-                   render={()=> <SparkleDie data={data.expressionData} />}
+                   render={()=> <Sparkle data={data.expressionData} />}
                    exact={true} />
             <Route path='/kimchi'
                    render={()=> <Kimchi data={data.expressionData} />}

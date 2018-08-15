@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import shuffle from 'shuffle-array';
-import CardBlock from './CardBlock';
-import '../styles/WordLotto.css';
+import CardBlock from '../reusable/CardBlock';
+import '../../styles/games/WordLotto.css';
 
 class WordLotto extends Component {
 	constructor(props){

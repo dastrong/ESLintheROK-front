@@ -1,6 +1,6 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
-import '../styles/Round.css';
+import '../../styles/reusable/Round.css';
 
 const Round = ({num, isIn, timeout, classname}) => (
 	<div className='outer-round'>

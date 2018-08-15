@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import classNames from 'classnames';
-import shuffle from 'shuffle-array';
-import Card from '../components/Card';
-import Confetti from '../components/Confetti';
-import GifModal from '../components/GifModal';
-import { Icon } from 'semantic-ui-react';
-import { handleGameData, handleAnimations, handleKeyEvent, handleReset, handleClasses, handleClick } from '../helpers'
+import Card from '../reusable/Card';
+import { handleGameData, handleAnimations, handleKeyEvent, handleReset, handleClasses, handleClick } from '../../helpers/helpers'
+import '../../styles/games/Elimination.css';
 
-class WhatsBehind extends Component {
+const xCount = 3;
+
+class Elimination extends Component {
   constructor(props){
     super(props); 
     this.state = {
@@ -16,11 +15,9 @@ class WhatsBehind extends Component {
       Xs: [],
       clickedIDs: [],
       targetedIDs : [],
-      gifURLs: [],
-      counter: 0,
       colors: this.props.colors,
       height: '25vh',
-      targetedID: null,
+      targetedId: null,
       handlingClick: false,
       isResetting: false,
       isVocab: true,
@@ -35,7 +32,7 @@ class WhatsBehind extends Component {
     this.handleAnimations = handleAnimations.bind(this);
   }
 
-  async componentDidMount(){
+  componentDidMount(){
     // document level keypress to handle game hotkeys
     document.addEventListener('keydown', this.handleKeyEvent);
     // copy data from props
@@ -45,11 +42,9 @@ class WhatsBehind extends Component {
     const allData = {vocabularyData, expressionData};
     // returns an array of shuffled data equal to our boxCount variable
     const gameData = this.handleGameData(allData);
-    // returns the winning cards location
-    const Xs = this._getXs(gameData.length);
-    // fetch all the gif links to show during a win
-    const gifURLs = await this._fetchGIF();
-    this.setState({allData, gameData, Xs, gifURLs})
+    // returns an array of Xs
+    const Xs = this._getXs(gameData.length, xCount);
+    this.setState({allData, gameData, Xs})
   }
 
   componentWillUnmount(){
@@ -57,27 +52,24 @@ class WhatsBehind extends Component {
     document.removeEventListener('keydown', this.handleKeyEvent)
   }
 
-  _fetchGIF = async () => {
-    const searchTerms = ['fail', 'funny+cat', 'funny+dog'];
-    const urls = searchTerms.map(searchTerm=>`https://api.giphy.com/v1/gifs/search?q=${searchTerm}&limit=10&rating=g&api_key=juEv23YnNSJVWcAgT3xhwtEH9AKb56KI`);
-    let gifURLs = [];
-    await Promise
-      .all(urls.map(url=>fetch(url)
-      .then(res=> res.json())
-      .then(json=>{
-        json.data.forEach(gif=>gifURLs.push(gif.images.original.url))
-      })
-      .catch(err=>console.log(err))
-    ));
-    return shuffle(gifURLs);
+  componentDidUpdate(){
+    if(!this.state.isGameOver) return;
+    this.handleReset();
   }
 
-  _getXs = (dataLength) => {
-    return [Math.floor(Math.random()*dataLength)];
+  _getXs = (dataLength, xCount) => {
+    let arr = [];
+    // used when our component mounts
+    // randomly chooses an 'xCount' amount of numbers
+    while(arr.length < xCount){
+      const randNum = Math.floor(Math.random()*dataLength);
+      if(arr.indexOf(randNum) === -1) arr.push(randNum);
+    }
+    return arr;
   };
   
   render(){
-    const {gameData, Xs, clickedIDs, isResetting, compressor, colors, isGameOver, gifURLs, counter} = this.state;
+    const {gameData, Xs, isResetting, compressor, colors} = this.state;
     const containerClasses = classNames('elim-container', { isResetting });
     const cards = gameData.map((card, i) => {
       const allCardClasses = this.handleClasses(card, i);
@@ -90,27 +82,18 @@ class WhatsBehind extends Component {
           classNames={allCardClasses}
           frontColor={colors[i]}
           frontText={card.text}
-          backColor={isX ? 'gold' : 'white'}
-          backText={isX ? <Icon name='trophy' size='large' /> : ''}
+          backColor={isX ? 'red' : 'lime'}
+          backText={isX ? 'X' : 'O'}
           compressor={compressor}
         />
       );
     });
-    const confetti = Xs.length > 0 && Xs.every(X=>clickedIDs.includes(X))
-      ? <Confetti {...this.props} />
-      : null;
-    const gif = isGameOver
-      ? <GifModal handleReset={this.handleReset} 
-                  url={gifURLs[counter]} />
-      : null;
     return (
-      <div className={containerClasses}> 
+      <div className={containerClasses}>
         {cards}
-        {confetti}
-        {gif}
       </div>
     );
   }
 }
 
-export default WhatsBehind;
+export default Elimination;

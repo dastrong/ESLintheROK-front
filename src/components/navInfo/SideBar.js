@@ -1,27 +1,20 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Icon, Menu, Sidebar } from 'semantic-ui-react';
-import '../styles/SideBar.css';
+import '../../styles/navInfo/SideBar.css';
 
-class SideBarMain extends Component {
+class SideBar extends Component {
   constructor(props){
     super(props);
     this.state = { visible: false }
   }
 
-  // document level keypress to handle game hotkeys
-  // componentDidMount()   { document.addEventListener('keydown', this.handleKeyEvent); };
-  // componentWillUnmount(){ document.removeEventListener('keydown', this.handleKeyEvent); };
-
-  // handleKeyEvent = (e) => { if(e.keyCode === 77) this.handleButtonClick(); };
-
   handleButtonClick = () => this.setState({ visible: !this.state.visible });
 
-  handleSidebarHide = () => this.setState({ visible: false });
+  handleSideBarHide = () => this.setState({ visible: false });
 
   render() {
     const { visible } = this.state
-    // const { handleHomeClick } = this.props;
     return (
       <div className='sidebar sidebar-main'>
         <Button 
@@ -36,7 +29,7 @@ class SideBarMain extends Component {
           animation='overlay'
           icon='labeled'
           inverted
-          onHide={this.handleSidebarHide}
+          onHide={this.handleSideBarHide}
           vertical
           visible={visible}
           width='wide'
@@ -98,4 +91,4 @@ class SideBarMain extends Component {
   }
 }
 
-export default SideBarMain;
+export default SideBar;

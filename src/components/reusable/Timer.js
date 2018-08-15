@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/Timer.css';
+import '../../styles/reusable/Timer.css';
 
 // timer and timeRemaining variables needed in component's initial state (in seconds)
 // bind startTimer and resetTimer in the constructor too

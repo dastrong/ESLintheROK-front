@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import classNames from 'classnames';
 import shuffle from 'shuffle-array';
-import Card from '../components/Card';
+import Card from '../reusable/Card';
 import { Icon } from 'semantic-ui-react';
-import { handleGameData } from '../helpers'
+import { handleGameData } from '../../helpers/helpers'
 
-class StarsWritingGame extends Component {
+class Stars extends Component {
   constructor(props){
     super(props); 
     this.state = {
@@ -189,4 +189,4 @@ class StarsWritingGame extends Component {
   }
 }
 
-export default StarsWritingGame;
+export default Stars;

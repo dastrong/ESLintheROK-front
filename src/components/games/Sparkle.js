@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import TextBox from '../components/TextBox';
+import TextBox from '../reusable/TextBox';
+import { Timer, startTimer, resetTimer } from '../reusable/Timer';
 import { CSSTransition } from 'react-transition-group';
-import { setData, getRandomNum, getRandomIndex, addListeners, rmvListeners } from '../phase2helpers';
-import { Timer, startTimer, resetTimer } from '../components/Timer';
+import { setData, getRandomNum, getRandomIndex, addListeners, rmvListeners } from '../../helpers/phase2helpers';
 
-class SparkleDie extends Component {
+class Sparkle extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -104,4 +104,4 @@ class SparkleDie extends Component {
   }
 }
 
-export default SparkleDie;
+export default Sparkle;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
-import '../styles/TextDrop.css';
+import '../../styles/reusable/TextDrop.css';
 
 const TextDrop = ({styles, text, isIn, timeout}) => (
   <CSSTransition
