@@ -1,25 +1,21 @@
 import React from 'react';
 import ReactFitText from 'react-fittext';
-import { CSSTransition } from 'react-transition-group';
 import '../../styles/reusable/CardBlock.css'
 
-const CardBlock = ({text, compressor, shouldAnimate, timeout, boxClass, backColor}) => (
+const CardBlock = ({text, compressor, boxClass, backColor, handleClick, id}) => (
   <ReactFitText 
     compressor={compressor}
     minFontSize={0}
     maxFontSize={500}
   >
-    <CSSTransition
-      in={shouldAnimate}
-      timeout={timeout}
-      classNames='box'
+    <div
+      id={id}
+      onClick={handleClick}
+      className={boxClass}
+      style={{backgroundColor: backColor}}
     >
-      <div 
-        className={boxClass}
-        style={{backgroundColor: backColor}}>
-        {text}
-      </div>
-    </CSSTransition>
+      {text}
+    </div>
   </ReactFitText>
 )
 

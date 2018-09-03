@@ -8,14 +8,15 @@
   padding: 10px;
   transition: all 1s;
   margin: 0.5vh 0.5vw;
+  user-select: none;
 }
 
-.box-square {
+.box-grid {
   height: 32.33vh;
   width: 32.33vw;
 }
 
-.box-rectan {
+.box-list {
   height: 24vh;
   width: 99vw;
 }
@@ -46,4 +47,50 @@
 .box-enter-done {
   opacity: 1;
   transition: opacity 1s ease-in;
+}
+
+.box-chase {
+  border: 5px solid #111;
+}
+
+.box-number {
+  position: absolute;
+  opacity: 0;
+  color: transparent;
+  text-shadow: none;
+}
+
+.box-show-text {
+  color: #fff;
+  text-shadow: 3px 3px 1px black;
+  opacity: 1;
+  transition: opacity 1s, color 1s 1.5s, text-shadow 1s 1.5s;
+}
+
+.box-number-enter {
+  opacity: 0;
+}
+
+.box-number-enter-active {
+  opacity: 1;  
+  transition: opacity 1s ease-in 0.5s;
+}
+
+.box-number-enter-done {
+  opacity: 1;  
+  transition: opacity 1s ease-in 0.5s;
+}
+
+.box-number-exit {
+  opacity: 1;
+}
+
+.box-number-exit-active {
+  opacity: 1;
+  transition: opacity 0.25s ease-in;
+}
+
+.box-number-exit-done {
+  opacity: 0;
+  transition: opacity 0.25s ease-in;
 }

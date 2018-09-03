@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import shuffle from 'shuffle-array';
+import classNames from 'classnames';
+import { CSSTransition } from 'react-transition-group';
+
 import CardBlock from '../reusable/CardBlock';
 import '../../styles/games/WordLotto.css';
 
@@ -39,7 +42,10 @@ class WordLotto extends Component {
 
 	componentWillUnmount(){
     // document level keypress to handle game hotkeys
-    document.removeEventListener('keydown', this.handleKeyEvent)
+		document.removeEventListener('keydown', this.handleKeyEvent);
+		clearTimeout(this.resetID);
+		clearTimeout(this.animationID);
+		clearTimeout(this.autoResetID);
   }
 	
 	handleGameData = (allData = this.state.allData) => {
@@ -80,7 +86,7 @@ class WordLotto extends Component {
 			isGameOver: false,
 		}, () => {
 			// resets our flag variables
-			setTimeout(()=>this.setState({isResetting: false}),1000)
+			this.resetID = setTimeout(()=>this.setState({isResetting: false}), 1000);
 		});
 	}
 
@@ -91,13 +97,13 @@ class WordLotto extends Component {
 		this.setState({isAnimating: true}, ()=>{
 			// allow 10 seconds for animations
 			// set flag variable to allow clicks again
-			setTimeout(()=>{
+			this.animationID = setTimeout(()=>{
 				this.setState({isGameOver:true}, ()=>{
-					// automatically resets the board after 8 seconds
-					setTimeout(()=>{
+					// automatically resets the board after 10 seconds
+					this.autoResetID = setTimeout(()=>{
 						if(!this.state.isGameOver) return;
 						this.handleReset()
-					}, 8000);
+					}, 10000);
 				});
 			}, 10000);
 		});
@@ -140,16 +146,24 @@ class WordLotto extends Component {
 
 	render(){
 		const { gameData, compressor, isResetting, isAnimating, isGameOver, Xs, isVocab, colors } = this.state;
+		const boxClass = classNames('box',
+			{ 'box-grid':  isVocab },
+			{ 'box-list': !isVocab });
 		const boxes = gameData.map((text,i)=>(
-			<CardBlock 
-				key={i}
-				classNames='box'
-				text={text}
-				shouldAnimate={isResetting || !(isAnimating && !Xs.includes(i))}
+			<CSSTransition
+				in={isResetting || !(isAnimating && !Xs.includes(i))}
 				timeout={Math.floor(Math.random()*8*1000)+500}
-				compressor={compressor}
-				boxClass={isVocab ? 'box box-square' : 'box box-rectan'}
-				backColor={colors[i]} />	
+				classNames='box'
+			>
+				<CardBlock 
+					key={i}
+					classNames='box'
+					text={text}
+					compressor={compressor}
+					boxClass={boxClass}
+					backColor={colors[i]} />	
+			</CSSTransition>
+
 		));
 		return (
 			<div 

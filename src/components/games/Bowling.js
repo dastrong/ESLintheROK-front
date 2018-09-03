@@ -96,12 +96,12 @@ class Bowling extends Component {
     if(e.keyCode === 32 || e.keyCode === 13) return this.handleReset();
     // right arrow was clicked; increase the totalRounds
     if(e.keyCode === 39){
-      if(totalRound === 5) return 
+      if(totalRound === 5) return;
       this.setState(prevState => ({ totalRound: prevState.totalRound + 1 }));
     }
-    // right arrow was clicked; decrease the totalRounds
+    // left arrow was clicked; decrease the totalRounds
     if(e.keyCode === 37){
-      if(totalRound === 1 || totalRound === round) return 
+      if(totalRound === 1 || totalRound === round) return;
       this.setState(prevState => ({ totalRound: prevState.totalRound - 1 }));
     }
   };
