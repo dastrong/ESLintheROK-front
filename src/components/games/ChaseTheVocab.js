@@ -14,9 +14,11 @@ class ChaseTheVocab extends Component {
       gameData: [],
       clickedIDs: [],
       isVocab: true,
-      shuffDuration: 500,
-      shuffBuffer: 200,
-      shuffRounds: 5,
+      settings: {
+        shuffDuration: 2000,
+        shuffBuffer: 500,
+        shuffRounds: 5,
+      },
       delay: 500,
       compressor: 0.6,
       colors: this.props.colors,
@@ -60,7 +62,7 @@ class ChaseTheVocab extends Component {
   }
 
   _startShuffling = () => {
-    const { shuffDuration, shuffRounds, shuffBuffer} = this.state;
+    const { shuffDuration, shuffRounds, shuffBuffer} = this.state.settings;
     this.intervalID = setInterval(this._handleShuffle, shuffDuration + shuffBuffer);
     this._stopShuffling(shuffDuration, shuffRounds, shuffBuffer);
   }
@@ -105,18 +107,37 @@ class ChaseTheVocab extends Component {
     if(e.keyCode === 37){ this.setState({isVocab:true}, this.handleReset) }
     // c was clicked; change the cards background color
     if(e.keyCode === 67){ this.setState(prevState => {
-      if(prevState.color >= colors.length - 1) return {color: 0};
-      return {color: prevState.color + 1}});
+      if(!prevState.color) return {color: colors.length};
+      return {color: prevState.color - 1}});
     };
-    
-      // push a number key for a difficulty scale
-        // 1 - easy
-        // 9 - hard
-
+    // a number was clicked; change difficulty
+    if(e.code.includes('Digit')){
+      const key = Number(e.key);
+      if(!key) return;
+      const shuffBuffer = this._changeDelay(key);
+      const shuffRounds = this._changeRound(key);
+      const shuffDuration = this._changeSpeed(key);
+      this.setState({ settings: { shuffBuffer, shuffRounds, shuffDuration } }, this.handleReset);
+    };
   };
 
+  _changeDelay(key){ return 1000 - (key * 100); }
+
+  _changeRound(key){
+    if(key < 4) return 3;
+    return key;
+  }
+
+  _changeSpeed(key){
+    const base = 2000;
+    const increaseDifficultyIncrement = (2000 -  500) / 4;
+    const decreaseDifficultyIncrement = (5000 - 2000) / 4;
+    if(key >= 5) return base - (increaseDifficultyIncrement * (key - 5));
+    if(key < 5)  return base + (decreaseDifficultyIncrement * (5 - key));
+  }
+
   render(){
-    const { compressor, isVocab, colors, isAnimating, isShuffleDone, clickedIDs, color, shuffDuration } = this.state;
+    const { compressor, gameData, isVocab, colors, isAnimating, isShuffleDone, clickedIDs, color, settings } = this.state;
     const boxClass = classNames(
       'box',
       'box-chase',
@@ -127,7 +148,7 @@ class ChaseTheVocab extends Component {
       boxClass,
       'box-number', 
       { 'box-number-show': isShuffleDone });
-    const boxes = this.state.gameData.map((x,i)=>(
+    const boxes = gameData.map((x,i)=>(
       <div 
         key={x.id}
       >
@@ -150,14 +171,18 @@ class ChaseTheVocab extends Component {
           text={x.text}
           compressor={compressor}
           boxClass={boxClass}
-          backColor={colors[color]} />
+          backColor={!clickedIDs.includes(i) ? colors[color] : '#676767'} />
       </div>
     ));
     return (
       <FlipMove 
-        onClick={!isAnimating ? this.handleClick : null}
+        onClick={!isAnimating 
+                  ? this.handleClick
+                  : clickedIDs.length === gameData.length
+                    ? this.handleReset
+                    : null}
         className='container'
-        duration={shuffDuration}
+        duration={settings.shuffDuration}
       >
         {boxes}
       </FlipMove>
