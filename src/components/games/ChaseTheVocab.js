@@ -14,9 +14,10 @@ class ChaseTheVocab extends Component {
       gameData: [],
       clickedIDs: [],
       isVocab: true,
-      shuffDuration: 1500,
-      shuffDelay: 0,
+      shuffDuration: 500,
+      shuffBuffer: 200,
       shuffRounds: 5,
+      delay: 500,
       compressor: 0.6,
       colors: this.props.colors,
       color: 2,
@@ -59,16 +60,16 @@ class ChaseTheVocab extends Component {
   }
 
   _startShuffling = () => {
-    const { shuffDuration, shuffRounds } = this.state;
-    this.intervalID = setInterval(this._handleShuffle, shuffDuration);
-    this._stopShuffling(shuffDuration, shuffRounds);
+    const { shuffDuration, shuffRounds, shuffBuffer} = this.state;
+    this.intervalID = setInterval(this._handleShuffle, shuffDuration + shuffBuffer);
+    this._stopShuffling(shuffDuration, shuffRounds, shuffBuffer);
   }
 
-  _stopShuffling(shuffDuration, shuffRounds){
+  _stopShuffling(shuffDuration, shuffRounds, shuffBuffer){
     this.timeoutID = setTimeout(()=>{
       clearInterval(this.intervalID);
       this.setState({isShuffleDone: true});
-    }, shuffRounds * shuffDuration);
+    }, shuffRounds * (shuffDuration + shuffBuffer));
   }
 
   _handleShuffle = () => {
@@ -115,16 +116,17 @@ class ChaseTheVocab extends Component {
   };
 
   render(){
-    const { compressor, isVocab, colors, isAnimating, isShuffleDone, clickedIDs, color, shuffDuration, shuffDelay } = this.state;
+    const { compressor, isVocab, colors, isAnimating, isShuffleDone, clickedIDs, color, shuffDuration } = this.state;
     const boxClass = classNames(
       'box',
       'box-chase',
       { 'box-grid':  isVocab },
-      { 'box-list': !isVocab });
+      { 'box-list': !isVocab },
+      { 'box-shrink': isAnimating && !isShuffleDone });
     const numClass = classNames(
       boxClass,
       'box-number', 
-      { 'box-show-text': isShuffleDone });
+      { 'box-number-show': isShuffleDone });
     const boxes = this.state.gameData.map((x,i)=>(
       <div 
         key={x.id}
@@ -135,7 +137,7 @@ class ChaseTheVocab extends Component {
           classNames='box-number'
         >
           <CardBlock 
-            text={i}
+            text={i+1}
             compressor={compressor}
             boxClass={numClass}
             backColor={colors[color]}
@@ -156,7 +158,6 @@ class ChaseTheVocab extends Component {
         onClick={!isAnimating ? this.handleClick : null}
         className='container'
         duration={shuffDuration}
-        delay={shuffDelay}
       >
         {boxes}
       </FlipMove>

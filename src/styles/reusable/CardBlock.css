@@ -55,16 +55,24 @@
 
 .box-number {
   position: absolute;
+  z-index: 2;
   opacity: 0;
   color: transparent;
   text-shadow: none;
+  border-width: 8px;
+  transition: border-width 0.2s 0.5s;
 }
 
-.box-show-text {
+.box-number-show {
   color: #fff;
   text-shadow: 3px 3px 1px black;
   opacity: 1;
-  transition: opacity 1s, color 1s 1.5s, text-shadow 1s 1.5s;
+  transition: all 1s;
+}
+
+.box-shrink {
+  transform: scale(0.93);
+  transition: all 0.5s;
 }
 
 .box-number-enter {
@@ -73,12 +81,14 @@
 
 .box-number-enter-active {
   opacity: 1;  
-  transition: opacity 1s ease-in 0.5s;
+  border-width: 10px;
+  transition: opacity 0.5s ease-in;
 }
 
 .box-number-enter-done {
   opacity: 1;  
-  transition: opacity 1s ease-in 0.5s;
+  border-width: 10px;
+  transition: opacity 0.5s ease-in;
 }
 
 .box-number-exit {
@@ -87,10 +97,12 @@
 
 .box-number-exit-active {
   opacity: 1;
-  transition: opacity 0.25s ease-in;
+  border-width: 5px;
+  transition: all 0.25s ease-in;
 }
 
 .box-number-exit-done {
   opacity: 0;
-  transition: opacity 0.25s ease-in;
+  border-width: 5px;
+  transition: all 0.25s ease-in;
 }
