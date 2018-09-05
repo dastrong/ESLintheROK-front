@@ -7,7 +7,7 @@
   border-radius: 20px;
   padding: 10px;
   transform: scale(1);
-  transition: all 1s, transform 0.4s 1.4s;
+  transition: all 1s;
   margin: 0.5vh 0.5vw;
   user-select: none;
 }
@@ -22,37 +22,21 @@
   width: 99vw;
 }
 
-.box-exit {
-  opacity: 1;
-}
-
-.box-exit-active {
-  opacity: 1;
-  transition: opacity 1s ease-in;
-}
-
+.box-exit { opacity: 1; }
+.box-exit-active,
 .box-exit-done {
   opacity: 0;
-  transition: opacity 1s ease-in;
+  transition: opacity 0.5s ease-in;
 }
 
-.box-enter {
-  opacity: 0.01;
-}
-
-.box-enter-active {
-  opacity: 1;
-  transition: opacity 1s ease-in;
-}
-
+.box-enter { opacity: 0; }
+.box-enter-active,
 .box-enter-done {
   opacity: 1;
-  transition: opacity 1s ease-in;
+  transition: opacity 0.5s ease-in;
 }
 
-.box-chase {
-  border: 4px solid #111;
-}
+.box-chase { border: 4px solid #111; }
 
 .box-number {
   position: absolute;
@@ -61,47 +45,31 @@
   color: transparent;
   text-shadow: none;
   border-width: 8px;
-  transition: all 1s;
+  transition: all 0.5s;
 }
 
 .box-number-show {
   color: #fff;
   text-shadow: 3px 3px 1px black;
   opacity: 1;
-  transition: all 1s 1s;
+  transition: all 0.5s;
 }
 
 .box-shrink {
   transform: scale(0.9);
-  transition: transform 0.4s;
+  transition: transform 0.5s;
 }
 
-.box-number-enter {
-  opacity: 0;
-}
-
-.box-number-enter-active {
-  opacity: 1;  
-  border-width: 10px;
-  transition: all 0.4s ease-in;
-}
-
+.box-number-enter { opacity: 0; }
+.box-number-enter-active,
 .box-number-enter-done {
   opacity: 1;  
   border-width: 10px;
-  transition: all 0.4s ease-in;
-}
-
-.box-number-exit {
-  opacity: 1;
-}
-
-.box-number-exit-active {
-  opacity: 1;
-  border-width: 5px;
   transition: all 0.25s ease-in;
 }
 
+.box-number-exit { opacity: 1; }
+.box-number-exit-active,
 .box-number-exit-done {
   opacity: 0;
   border-width: 5px;

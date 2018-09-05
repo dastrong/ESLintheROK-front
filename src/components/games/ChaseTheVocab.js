@@ -19,7 +19,6 @@ class ChaseTheVocab extends Component {
         shuffBuffer: 500,
         shuffRounds: 5,
       },
-      delay: 500,
       compressor: 0.6,
       colors: this.props.colors,
       color: 2,
@@ -36,7 +35,9 @@ class ChaseTheVocab extends Component {
 
   componentWillUnmount(){ 
     clearInterval(this.intervalID);
-    clearInterval(this.timeoutID);
+    clearTimeout(this.resetID);
+    clearTimeout(this.timeoutID);
+    clearTimeout(this.delayedStartID);
     this.rmvListeners();
   }
 
@@ -58,7 +59,12 @@ class ChaseTheVocab extends Component {
 
   handleClick = () => {
     if(this.intervalID) return;
-    this.setState({isAnimating: true}, this._startShuffling);
+    this.setState({isAnimating: true}, () => {
+      this.delayedStartID = setTimeout(()=>{
+        this._handleShuffle();
+        this._startShuffling();
+      }, 1000);
+    });
   }
 
   _startShuffling = () => {
@@ -87,9 +93,13 @@ class ChaseTheVocab extends Component {
 
   handleReset = () => { 
     clearInterval(this.intervalID);
-    clearInterval(this.timeoutID);
+    clearTimeout(this.resetID);
+    clearTimeout(this.timeoutID);
+    clearTimeout(this.delayedStartID);
     this.intervalID = null;
+    this.resetID = null;
     this.timeoutID = null;
+    this.delayedStartID = null;
     this.handleGame();
   }
 
@@ -102,9 +112,9 @@ class ChaseTheVocab extends Component {
     // down arrow was clicked; decrease the font size
     if(e.keyCode === 40) return this.setState({compressor:compressor + 0.05});  
     // right arrow was clicked; reset the state and uses sentences
-    if(e.keyCode === 39){ this.setState({isVocab:false}, this.handleReset) }
+    if(e.keyCode === 39) return this.setState({isVocab:false}, () => this.resetID = setTimeout(this.handleReset, 1000));
     // left arrow was clicked; reset the game and use vocab
-    if(e.keyCode === 37){ this.setState({isVocab:true}, this.handleReset) }
+    if(e.keyCode === 37) return this.setState({isVocab:true}, () => this.resetID = setTimeout(this.handleReset, 1000));
     // c was clicked; change the cards background color
     if(e.keyCode === 67){ this.setState(prevState => {
       if(!prevState.color) return {color: colors.length};
@@ -182,7 +192,7 @@ class ChaseTheVocab extends Component {
                     ? this.handleReset
                     : null}
         className='container'
-        duration={settings.shuffDuration}
+        duration={!isAnimating && !isShuffleDone ? 500 : settings.shuffDuration}
       >
         {boxes}
       </FlipMove>
