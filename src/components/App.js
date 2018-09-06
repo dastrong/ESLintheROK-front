@@ -18,25 +18,51 @@ import '../styles/App.css';
 class App extends Component {
   static defaultProps = {
     vocabularyData: [
-      {text:'fruit'},
-      {text:'banana'},
-      {text:'grape'},
-      {text:'purple'},
-      {text:'green'},
-      {text:'red'},
-      {text:'blue'},
-      {text:'raspberry'},
-      {text:'pink'},
+      {text:'went'},
+      {text:'saw'},
+      {text:'rode'},
+      {text:'swam'},
+      {text:'was'},
+      {text:'read'},
+      {text:'visited'},
+      {text:'played'},
+      {text:'ate'},
     ],
     expressionData: [
-      {text:'I like fruit.'},
-      {text:'I like banana.'},
-      {text:'I like grape.'},
-      {text:'I like purple.'},
-      {text:'I like green.'},
-      {text:'I like red.'},
-      {text:'I like blue.'},
-      {text:'I like raspberry.'},
+      {text:'How was your weekend?'},
+      {text:'How was your vacation?'},
+      {text:'What did you do?'},
+      {text:'It was great.'},
+      {text:'It was good.'},
+      {text:'It was not good.'},
+      {text:'I went to a science museum.'},
+      {text:'I saw a future car.'},
+      {text:'I rode my bike.'},
+      {text:'I saw a robot.'},
+      {text:'I visited my grandpa.'},
+      {text:'I visited my grandma.'},
+      {text:'I play computer games.'},
+      {text:'I ate delicious food.'},
+      {text:'I read many books.'},
+      {text:'I swam in a river.'},
+      {text:'I went to Jeju-do.'},
+      {text:'How was your weekend? It was great.'},
+      {text:'How was your vacation? It was great.'},
+      {text:'How was your weekend? It was good.'},
+      {text:'How was your vacation? It was good.'},
+      {text:'How was your weekend? It was not good.'},
+      {text:'How was your vacation? It was not good.'},
+      {text:'What did you do? I went to a science museum.'},
+      {text:'What did you do? I saw a future car.'},
+      {text:'What did you do? I rode my bike.'},
+      {text:'What did you do? I saw a robot.'},
+      {text:'What did you do? I visited my grandpa.'},
+      {text:'What did you do? I visited my grandma.'},
+      {text:'What did you do? I play computer games.'},
+      {text:'What did you do? I ate delicious food.'},
+      {text:'What did you do? I read many books.'},
+      {text:'What did you do? I swam in a river.'},
+      {text:'What did you do? I went to Jeju-do.'},
     ],
     colors: [
       'chocolate', 'purple', 'darkslateblue', 'aqua', 'teal', 'fuchsia', 'plum', 'olive', 'violet'
@@ -86,52 +112,55 @@ class App extends Component {
     }
     return (
       <Router>
-        <div className="App">
-          <SideBar />
-          <InfoModal />
-          <Switch>
-            <Route path='/'
-                   component={MainPage}
-                   exact={true} />
-            <Route path='/data' 
-                   render={()=> 
-                    <DataEntryPage 
-                      vocabularyData={vocabularyData}
-                      expressionData={expressionData}
-                      isDataReady={isDataReady}
-                      onSave={this.onSave} 
-                      onEdit={this.onEdit} 
-                   />}
-                   exact={true} />
-            <Route path='/games'
-                   component={GamesPage}
-                   exact={true} />
-            <Route path='/elimination'
-                   render={()=> <Elimination data={data} colors={colors} />}
-                   exact={true} />
-            <Route path='/whatsbehind'
-                   render={()=> <WhatsBehind data={data} colors={colors} />}
-                   exact={true} />
-            <Route path='/stars'
-                   render={()=> <Stars data={data} colors={colors} />}
-                   exact={true} />
-            <Route path='/lotto'
-                   render={()=> <WordLotto data={data} colors={colors} />}
-                   exact={true} />
-            <Route path='/sparkle'
-                   render={()=> <Sparkle data={data.expressionData} />}
-                   exact={true} />
-            <Route path='/kimchi'
-                   render={()=> <Kimchi data={data.expressionData} />}
-                   exact={true} />
-            <Route path='/bowling'
-                   render={()=> <Bowling data={data.vocabularyData} colors={colors} />}
-                   exact={true} />
-            <Route path='/chase'
-                   render={()=> <ChaseTheVocab data={data.vocabularyData} colors={colors} />}
-                   exact={true} />
-          </Switch>
-        </div>
+        <Route render={({location})=>{
+          return(
+          <div className="App">
+            <SideBar />
+            <InfoModal pathName={location.pathname.slice(1,location.pathname.length)} />
+            <Switch>
+              <Route path='/'
+                    component={MainPage}
+                    exact={true} />
+              <Route path='/data' 
+                    render={()=> 
+                      <DataEntryPage 
+                        vocabularyData={vocabularyData}
+                        expressionData={expressionData}
+                        isDataReady={isDataReady}
+                        onSave={this.onSave} 
+                        onEdit={this.onEdit} 
+                    />}
+                    exact={true} />
+              <Route path='/games'
+                    component={GamesPage}
+                    exact={true} />
+              <Route path='/elimination'
+                    render={()=> <Elimination data={data} colors={colors} />}
+                    exact={true} />
+              <Route path='/whatsbehind'
+                    render={()=> <WhatsBehind data={data} colors={colors} />}
+                    exact={true} />
+              <Route path='/stars'
+                    render={()=> <Stars data={data} colors={colors} />}
+                    exact={true} />
+              <Route path='/lotto'
+                    render={()=> <WordLotto data={data} colors={colors} />}
+                    exact={true} />
+              <Route path='/sparkle'
+                    render={()=> <Sparkle data={data.expressionData} />}
+                    exact={true} />
+              <Route path='/kimchi'
+                    render={()=> <Kimchi data={data.expressionData} />}
+                    exact={true} />
+              <Route path='/bowling'
+                    render={()=> <Bowling data={data.vocabularyData} colors={colors} />}
+                    exact={true} />
+              <Route path='/chase'
+                    render={()=> <ChaseTheVocab data={data.vocabularyData} colors={colors} />}
+                    exact={true} />
+            </Switch>
+          </div>
+        )}} />
       </Router>
     );
   }

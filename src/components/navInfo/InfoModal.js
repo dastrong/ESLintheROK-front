@@ -2,6 +2,59 @@ import React, {Component} from 'react'
 import { Header, Icon, Modal } from 'semantic-ui-react';
 import '../../styles/navInfo/InfoModal.css';
 
+const info = [
+  {
+    path: ['elimination', 'whatsbehind', 'stars', 'lotto'],
+    keyCuts: [
+      {key: 'Space / Enter', description: 'Refresh the game'},
+      {key: 'Left-Arrow', description: 'Refresh the game and use vocabulary'},
+      {key: 'Right-Arrow', description: 'Refresh the game and use expressions'},
+      {key: 'Up-Arrow', description: 'Increase the font size'},
+      {key: 'Down-Arrow', description: 'Decrease the font size'}
+    ]
+  },
+  {
+    path: 'kimchi',
+    keyCuts: [
+      {key: 'Space / Enter', description: 'Refresh the game'},
+      {key: 'Left-Arrow', description: 'Increase kimchi frequency'},
+      {key: 'Right-Arrow', description: 'Decrease kimchi frequency'},
+      {key: 'Up-Arrow', description: 'Increase the font size'},
+      {key: 'Down-Arrow', description: 'Decrease the font size'}
+    ]
+  },
+  {
+    path: 'sparkle',
+    keyCuts: [
+      {key: 'Space / Enter', description: 'Refresh the game'},
+      {key: 'Left-Arrow', description: 'Decrease the timer (min: 5s)'},
+      {key: 'Right-Arrow', description: 'Increase the timer (max: 20s)'},
+      {key: 'Up-Arrow', description: 'Increase the font size'},
+      {key: 'Down-Arrow', description: 'Decrease the font size'}
+    ]
+  },
+  {
+    path: 'bowling',
+    keyCuts: [
+      {key: 'Space / Enter', description: 'Refresh the game'},
+      {key: 'Left-Arrow', description: 'Decrease the total rounds'},
+      {key: 'Right-Arrow', description: 'Increase the total rounds'},
+    ]
+  },
+  {
+    path: 'chase',
+    keyCuts: [
+      {key: 'Space / Enter', description: 'Refresh the game'},
+      {key: 'Left-Arrow', description: 'Refresh the game and use vocabulary'},
+      {key: 'Right-Arrow', description: 'Refresh the game and use expressions'},
+      {key: 'Up-Arrow', description: 'Increase the font size'},
+      {key: 'Down-Arrow', description: 'Decrease the font size'},
+      {key: 'C', description: 'Change the block color'},
+      {key: '1-9', description: 'Change the difficulty (easiest:1, hardest:9, default:5)'}
+    ]
+  },
+]
+
 class InfoModal extends Component {
   constructor(props){
     super(props);
@@ -13,7 +66,23 @@ class InfoModal extends Component {
   handleInfoModalHide = () => this.setState({ visible: false });
 
   render() {
-    const { visible } = this.state
+    const { visible } = this.state;
+    // returns an object containing hotkey info or undefined
+    const gameInfoObj = info.find(x=>(x.path.includes(this.props.pathName)));
+    if(!gameInfoObj){ console.log('no hotkey object found') };
+
+    // returns a list of hotkeys for the chosen game
+    const hotkeys = gameInfoObj.keyCuts.map((x, i)=>(
+      <div className='info-modal-item' key={i}>
+        <div className='info-modal-item-key'>
+          {x.key}
+        </div>
+        <div className='info-modal-item-des'>
+          {x.description}
+        </div>
+      </div>
+    ));
+
     return (
       <div>
         <Icon
@@ -41,48 +110,7 @@ class InfoModal extends Component {
                   Description
                 </div>
               </div>
-              <div className='info-modal-item'>
-                <div className='info-modal-item-key'>
-                  Spacebar
-                  <br></br>
-                  Enter
-                </div>
-                <div className='info-modal-item-des'>
-                  Refresh the game
-                </div>
-              </div>
-              <div className='info-modal-item'>
-                <div className='info-modal-item-key'>
-                  Left-Arrow
-                </div>
-                <div className='info-modal-item-des'>
-                  Refresh the game and use vocabulary
-                </div>
-              </div>
-              <div className='info-modal-item'>
-                <div className='info-modal-item-key'>
-                  Right-Arrow
-                </div>
-                <div className='info-modal-item-des'>
-                  Refresh the game and use expressions
-                </div>
-              </div>
-              <div className='info-modal-item'>
-                <div className='info-modal-item-key'>
-                  Up-Arrow
-                </div>
-                <div className='info-modal-item-des'>
-                  Increase the font size
-                </div>
-              </div>
-              <div className='info-modal-item'>
-                <div className='info-modal-item-key'>
-                  Down-Arrow
-                </div>
-                <div className='info-modal-item-des'>
-                  Decrease the font-size
-                </div>
-              </div>
+              {hotkeys}
             </div>
           </Modal.Content>
         </Modal>
