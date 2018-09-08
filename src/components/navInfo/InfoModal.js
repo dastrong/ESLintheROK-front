@@ -71,17 +71,19 @@ class InfoModal extends Component {
     const gameInfoObj = info.find(x=>(x.path.includes(this.props.pathName)));
     if(!gameInfoObj){ console.log('no hotkey object found') };
 
-    // returns a list of hotkeys for the chosen game
-    const hotkeys = gameInfoObj.keyCuts.map((x, i)=>(
-      <div className='info-modal-item' key={i}>
-        <div className='info-modal-item-key'>
-          {x.key}
-        </div>
-        <div className='info-modal-item-des'>
-          {x.description}
-        </div>
-      </div>
-    ));
+    // returns a list of hotkeys for the chosen game or null
+    const hotkeys = gameInfoObj
+      ? gameInfoObj.keyCuts.map((x, i)=>(
+          <div className='info-modal-item' key={i}>
+            <div className='info-modal-item-key'>
+              {x.key}
+            </div>
+            <div className='info-modal-item-des'>
+              {x.description}
+            </div>
+          </div>
+        ))
+      : null;
 
     return (
       <div>

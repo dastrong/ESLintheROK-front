@@ -85,6 +85,11 @@ class SideBar extends Component {
             <Icon name='bowling ball' />
             Letter Bowling
           </Menu.Item>
+          <Menu.Item as={Link}
+                     to='/chase'>
+            <Icon name='exchange' />
+            Chase the Vocab
+          </Menu.Item>
         </Sidebar>
       </div>
     )

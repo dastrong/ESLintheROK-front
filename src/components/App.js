@@ -113,10 +113,11 @@ class App extends Component {
     return (
       <Router>
         <Route render={({location})=>{
-          return(
+          const pathName = location.pathname.slice(1,location.pathname.length);
+          return (
           <div className="App">
             <SideBar />
-            <InfoModal pathName={location.pathname.slice(1,location.pathname.length)} />
+            <InfoModal pathName={pathName} />
             <Switch>
               <Route path='/'
                     component={MainPage}

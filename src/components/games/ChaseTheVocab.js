@@ -36,7 +36,6 @@ class ChaseTheVocab extends Component {
   componentWillUnmount(){ 
     clearInterval(this.intervalID);
     clearTimeout(this.resetID);
-    clearTimeout(this.timeoutID);
     clearTimeout(this.delayedStartID);
     this.rmvListeners();
   }
@@ -54,6 +53,7 @@ class ChaseTheVocab extends Component {
       clickedIDs: [],
       isAnimating: false,
       isShuffleDone: false,
+      round: 0,
     });
   }
 
@@ -68,20 +68,26 @@ class ChaseTheVocab extends Component {
   }
 
   _startShuffling = () => {
-    const { shuffDuration, shuffRounds, shuffBuffer} = this.state.settings;
+    const { shuffDuration, shuffBuffer} = this.state.settings;
     this.intervalID = setInterval(this._handleShuffle, shuffDuration + shuffBuffer);
-    this._stopShuffling(shuffDuration, shuffRounds, shuffBuffer);
   }
 
-  _stopShuffling(shuffDuration, shuffRounds, shuffBuffer){
-    this.timeoutID = setTimeout(()=>{
-      clearInterval(this.intervalID);
-      this.setState({isShuffleDone: true});
-    }, shuffRounds * (shuffDuration + shuffBuffer));
+  _stopShuffling = () => {
+    clearInterval(this.intervalID);
+    return { isShuffleDone: true };
   }
 
   _handleShuffle = () => {
-    this.setState({ gameData: shuffle(this.state.gameData.slice()) });
+    const { round, settings } = this.state;
+    this.setState(prevState=>{
+      if(round === settings.shuffRounds){
+        return this._stopShuffling();
+      }
+      return {
+        gameData: shuffle(this.state.gameData.slice()),
+        round: prevState.round + 1
+      }
+    })
   }
 
   _handleBoxClick = (e) => {
@@ -94,11 +100,9 @@ class ChaseTheVocab extends Component {
   handleReset = () => { 
     clearInterval(this.intervalID);
     clearTimeout(this.resetID);
-    clearTimeout(this.timeoutID);
     clearTimeout(this.delayedStartID);
     this.intervalID = null;
     this.resetID = null;
-    this.timeoutID = null;
     this.delayedStartID = null;
     this.handleGame();
   }
