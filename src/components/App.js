@@ -71,10 +71,15 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
+      isSideBarVisible: false,
       vocabularyData: [],
       expressionData: [],
     };
   }
+
+  showSideBar = () => this.setState({ isSideBarVisible: !this.state.isSideBarVisible });
+
+  hideSideBar = () => this.setState({ isSideBarVisible: false })
 
   // save a new entry
   onSave = (newEntry, isVocab) => {
@@ -101,7 +106,7 @@ class App extends Component {
   }
 
   render() {
-    const { vocabularyData, expressionData, isDataReady } = this.state;
+    const { isSideBarVisible, vocabularyData, expressionData, isDataReady } = this.state;
     const { colors } = this.props;
     let data;
     // if there's no data, send default props
@@ -116,49 +121,112 @@ class App extends Component {
           const pathName = location.pathname.slice(1,location.pathname.length);
           return (
           <div className="App">
-            <SideBar />
-            <InfoModal pathName={pathName} />
+            <SideBar 
+              showSideBar={this.showSideBar}
+              hideSideBar={this.hideSideBar}
+              isSideBarVisible={isSideBarVisible} 
+            />
+            <InfoModal 
+              pathName={pathName}
+            />
             <Switch>
-              <Route path='/'
-                    component={MainPage}
-                    exact={true} />
-              <Route path='/data' 
-                    render={()=> 
-                      <DataEntryPage 
-                        vocabularyData={vocabularyData}
-                        expressionData={expressionData}
-                        isDataReady={isDataReady}
-                        onSave={this.onSave} 
-                        onEdit={this.onEdit} 
-                    />}
-                    exact={true} />
-              <Route path='/games'
-                    component={GamesPage}
-                    exact={true} />
-              <Route path='/elimination'
-                    render={()=> <Elimination data={data} colors={colors} />}
-                    exact={true} />
-              <Route path='/whatsbehind'
-                    render={()=> <WhatsBehind data={data} colors={colors} />}
-                    exact={true} />
-              <Route path='/stars'
-                    render={()=> <Stars data={data} colors={colors} />}
-                    exact={true} />
-              <Route path='/lotto'
-                    render={()=> <WordLotto data={data} colors={colors} />}
-                    exact={true} />
-              <Route path='/sparkle'
-                    render={()=> <Sparkle data={data.expressionData} />}
-                    exact={true} />
-              <Route path='/kimchi'
-                    render={()=> <Kimchi data={data.expressionData} />}
-                    exact={true} />
-              <Route path='/bowling'
-                    render={()=> <Bowling data={data.vocabularyData} colors={colors} />}
-                    exact={true} />
-              <Route path='/chase'
-                    render={()=> <ChaseTheVocab data={data.vocabularyData} colors={colors} />}
-                    exact={true} />
+              <Route 
+                path='/'
+                render={()=>
+                  <MainPage 
+                    showSideBar={this.showSideBar}
+                    hideSideBar={this.hideSideBar}
+                    isSideBarVisible={isSideBarVisible} 
+                  />}
+                exact={true}
+              />
+              <Route 
+                path='/data' 
+                render={()=> 
+                  <DataEntryPage 
+                    vocabularyData={vocabularyData}
+                    expressionData={expressionData}
+                    isDataReady={isDataReady}
+                    onSave={this.onSave} 
+                    onEdit={this.onEdit} 
+                  />}
+                exact={true}
+              />
+              <Route 
+                path='/games'
+                component={GamesPage}
+                exact={true}
+              />
+              <Route 
+                path='/elimination'
+                render={()=> 
+                  <Elimination 
+                      data={data}
+                      colors={colors}
+                  />}
+                exact={true}
+              />
+              <Route 
+                path='/whatsbehind'
+                render={()=> 
+                  <WhatsBehind 
+                    data={data} 
+                    colors={colors}
+                  />}
+                exact={true}
+              />
+              <Route 
+                path='/stars'
+                render={()=> 
+                  <Stars 
+                    data={data} 
+                    colors={colors}
+                  />}
+                exact={true}
+              />
+              <Route 
+                path='/lotto'
+                render={()=> 
+                  <WordLotto 
+                    data={data} 
+                    colors={colors}
+                  />}
+                exact={true}
+              />
+              <Route 
+                path='/sparkle'
+                render={()=> 
+                  <Sparkle 
+                    data={data.expressionData}
+                  />}
+                exact={true}
+              />
+              <Route 
+                path='/kimchi'
+                render={()=> 
+                  <Kimchi 
+                    data={data.expressionData}
+                  />}
+                exact={true}
+              />
+              <Route 
+                path='/bowling'
+                render={()=> 
+                  <Bowling 
+                    data={data.vocabularyData}
+                    colors={colors}
+                  />}
+                exact={true}
+              />
+              <Route 
+                path='/chase'
+                render={()=> 
+                  <ChaseTheVocab
+                    data={data.vocabularyData}
+                    colors={colors}
+                  />}
+                exact={true}
+              />
             </Switch>
           </div>
         )}} />
