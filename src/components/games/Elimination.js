@@ -3,6 +3,8 @@ import classNames from 'classnames';
 import Card from '../reusable/Card';
 import { handleGameData, handleAnimations, handleKeyEvent, handleReset, handleClasses, handleClick } from '../../helpers/helpers'
 import '../../styles/games/Elimination.css';
+import AudioGameOver from '../../assets/sounds/game-over.wav';
+import AudioOhYeah from '../../assets/sounds/oh-yeah.mp3';
 
 const xCount = 3;
 
@@ -24,6 +26,8 @@ class Elimination extends Component {
       compressor: 1,
       isGameOver: false
     }
+    this.AudioGameOver    = new Audio(AudioGameOver);
+    this.AudioOhYeah      = new Audio(AudioOhYeah);
     this.handleGameData   = handleGameData.bind(this);
     this.handleKeyEvent   = handleKeyEvent.bind(this);
     this.handleClick      = handleClick.bind(this);
@@ -49,7 +53,7 @@ class Elimination extends Component {
 
   componentWillUnmount(){
     // document level keypress to handle game hotkeys
-    document.removeEventListener('keydown', this.handleKeyEvent)
+    document.removeEventListener('keydown', this.handleKeyEvent);
   }
 
   componentDidUpdate(){
@@ -67,9 +71,11 @@ class Elimination extends Component {
     }
     return arr;
   };
+
+  onPlay = (name) => { this[name].play(); }
   
   render(){
-    const {gameData, Xs, isResetting, compressor, colors} = this.state;
+    const {gameData, Xs, isResetting, isGameOver, compressor, colors, clickedIDs} = this.state;
     const containerClasses = classNames('elim-container', { isResetting });
     const cards = gameData.map((card, i) => {
       const allCardClasses = this.handleClasses(card, i);
@@ -91,6 +97,11 @@ class Elimination extends Component {
     return (
       <div className={containerClasses}>
         {cards}
+        {isGameOver || isResetting || !clickedIDs.length
+          ? null
+          : Xs.includes(clickedIDs[clickedIDs.length - 1]) 
+            ? this.onPlay('AudioGameOver')
+            : this.onPlay('AudioOhYeah') }
       </div>
     );
   }
