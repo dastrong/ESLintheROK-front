@@ -17,7 +17,7 @@ const gamesInfo = [
       'O = stay standing',
       'Last student standing wins'
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vQ76oba9R2vRvJqG9bU-nJS5q-J-Rw0YJkw8juGLNXT_Li62RLb0Cdl_etoWk-VPXlQ2OfZlzZSXaA2/pub?w=405&h=259'
+    image: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Elimination.png'
   },
   {
     URL: 'whatsbehind',
@@ -29,7 +29,7 @@ const gamesInfo = [
       'Continue until they find the hidden item',
       'Student that finds the item gets a stamp/sticker/prize'
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vTn474h_5n4F6ONruuEmd27f1waAp-TAM_yQahYYbISWKz6hZHaMZxnMoF3hF5ZX_IbfyKI3NCSQTv-/pub?w=405&h=259'
+    image: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/What_s_Behind.png'
   },
   {
     URL: 'stars',
@@ -44,7 +44,7 @@ const gamesInfo = [
       'Repeat as desired',
       'Winner has the most stars'
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vSlcDGnwEaXVmPvyip_dWMdjkIZceuOfhXd7fivJSR1WLWf-DciD5VTnDH9xYb8Rz_k3pTQgaCflK3A/pub?w=405&h=259'
+    image: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Stars.png'
   },
   {
     URL: 'lotto',
@@ -60,7 +60,7 @@ const gamesInfo = [
       'Repeat as desired',
       'Winner has the most points'
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vSfKc_oNXd5qNmasfu-63PUoZnRGBwAqPE3yiyVSPP92U-D7l0ZwFZDcULTz2v54d2PYiFfpMHeEs-H/pub?w=405&h=259'
+    image: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Lotto.png'
   },
   {
     URL: 'sparkle',
@@ -76,10 +76,10 @@ const gamesInfo = [
       'The next student sits down',
       'Repeat until you have one survivor left'
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vSfp1p5SNU_vfmvcj8yi_DEzRbKd27ozg6a_IFPNbIjBW6yRXh-PpZ6bJFkbx8DjI9-78wLhz3mLeQQ/pub?w=405&h=259'
+    image: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Sparkle_Die.png'
   },
   {
-    URL: 'drop',
+    URL: 'bowling',
     title: 'Letter Bowling',
     skills: ['reading'],
     description: 'Word Solving Game',
@@ -89,7 +89,7 @@ const gamesInfo = [
       'Students raise their hand if they think they know',
       'Teacher picks a student and can reward them, if correct'
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vTMJYt1jRJrDHJbsOFS17KjmFp_HNaAiCyCQOKWGthkz9TZQ6iV8SOI15-6enV7akZOeaQNE74i4mzY/pub?w=405&h=259'
+    image: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Letter_Bowling.png'
   },
   {
     URL: 'disappear',
@@ -102,7 +102,7 @@ const gamesInfo = [
       'Students raise their hand if they think they know',
       'Teacher picks a student and can reward them, if correct'
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vRzkelJ3MjHPSVcqjzgMNun8Ztlk1NvDWFJoi4jqCqAsvO0V9k0KkV7KM9Gd-6E7nF7y1UD5A335Ecz/pub?w=405&h=259'
+    image: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Disappear.png'
   },
   {
     URL: 'kimchi',
@@ -113,7 +113,7 @@ const gamesInfo = [
       // 'Students raise their hand and take turns trying to match two cards',
       // 'If a student matches two cards, you can reward them',
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vSXPupQmOFWx1aQx6jlWRmn5DRPhY0VRQABqe-A-RAFbpdz5u6Ls5XRPdiuL73AQgUIG-1l6PJMPVCE/pub?w=405&h=259'
+    image: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Kimchi.png'
   },
   {
     URL: 'chasethevocab',
@@ -126,7 +126,7 @@ const gamesInfo = [
       'Students raise their hands and take turns',
       'Teacher picks a student and can reward them, if correct'
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vReildEgt4DwSmQWgeujXSF1Tas58BDKsJsuchgnnKq5gJQnAjaFGTa8QRP2c_tF2nvx57G_GdKc5tA/pub?w=405&h=259'
+    image: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Chase_the_Vocab.png'
   },
   {
     URL: 'match',
@@ -137,71 +137,71 @@ const gamesInfo = [
       'Students raise their hand and take turns trying to match two cards',
       'If a student matches two cards, you can reward them',
     ],
-    image: 'https://docs.google.com/drawings/d/e/2PACX-1vT91t-zFpD4zFDoc2zHhNswDQOtR-kIO9Z8S2m0uTltrOB9CHN78TUYNA3k1qcczk6D2vozbs4WjvTh/pub?w=405&h=259'
+    image: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Matching.png'
   },
-  {
-    URL: 'hangman',
-    title: 'Hangman Game',
-    skills: ['speaking', 'reading'],
-    description: 'Solve the Puzzle Game',
-    instructions: [
-      'Students raise their hand and take turns saying a letter',
-    ],
-    image: 'https://i.pinimg.com/originals/41/50/8c/41508cc2c447eb989753fd6720a38db7.jpg'
-  },
-  {
-    URL: 'bank',
-    title: 'Unlock the Bank',
-    skills: ['listening'],
-    description: 'Crack the Code',
-    instructions: [
-      'Students listen to the teacher',
-      'Students can write or memorize their code',
-      'Teacher picks a student to give their answer',
-      'If correct, that student gets a reward',
-    ],
-    image: 'https://png.icons8.com/color/1600/safe-in.png'
-  },
-  {
-    URL: 'connectfour',
-    title: 'Connect 4',
-    skills: ['speaking'],
-    description: '4 in a row wins',
-    instructions: [
-      'Split the class into two teams (i.e. boys vs girls)',
-      'The teams take turns saying an expression',
-      'Teams get 40 seconds, or else a random color gets dropped',
-      'First team with four in a row wins',
-    ],
-    image: 'https://images-na.ssl-images-amazon.com/images/I/51lhRVg%2BJBL.jpg'
-  },
-  {
-    URL: 'fourcorners',
-    title: 'Four Corners',
-    skills: ['reading', 'speaking'],
-    description: 'Pick a corner and try to survive the round',
-    instructions: [
-      'Students stand up and push their chairs in',
-      'Students have ten seconds to pick a corner and walk there',
-      'Corners take turns saying their expression',
-      'Bombed corner students sit down',
-      'Repeat for three rounds',
-      'Survivors get 1 point',
-      'All students stand up and repeat'
-    ],
-    image: 'https://mnliteracy.org/sites/default/files/styles/medium/public/four_corners.png'
-  },
-  {
-    URL: 'twinkler',
-    title: 'Twinkler',
-    skills: ['reading', 'speaking'],
-    description: 'Review vocabulary and key expressions',
-    instructions: [
-      'Students need to focus on the screen',
-      'Follow the directions on the screen',
-    ],
-    image: 'https://cdn.pixabay.com/photo/2017/08/19/11/51/radio-2658263__340.jpg'
-  },
+  // {
+  //   URL: 'hangman',
+  //   title: 'Hangman Game',
+  //   skills: ['speaking', 'reading'],
+  //   description: 'Solve the Puzzle Game',
+  //   instructions: [
+  //     'Students raise their hand and take turns saying a letter',
+  //   ],
+  //   image: 'https://i.pinimg.com/originals/41/50/8c/41508cc2c447eb989753fd6720a38db7.jpg'
+  // },
+  // {
+  //   URL: 'bank',
+  //   title: 'Unlock the Bank',
+  //   skills: ['listening'],
+  //   description: 'Crack the Code',
+  //   instructions: [
+  //     'Students listen to the teacher',
+  //     'Students can write or memorize their code',
+  //     'Teacher picks a student to give their answer',
+  //     'If correct, that student gets a reward',
+  //   ],
+  //   image: 'https://png.icons8.com/color/1600/safe-in.png'
+  // },
+  // {
+  //   URL: 'connectfour',
+  //   title: 'Connect 4',
+  //   skills: ['speaking'],
+  //   description: '4 in a row wins',
+  //   instructions: [
+  //     'Split the class into two teams (i.e. boys vs girls)',
+  //     'The teams take turns saying an expression',
+  //     'Teams get 40 seconds, or else a random color gets dropped',
+  //     'First team with four in a row wins',
+  //   ],
+  //   image: 'https://images-na.ssl-images-amazon.com/images/I/51lhRVg%2BJBL.jpg'
+  // },
+  // {
+  //   URL: 'fourcorners',
+  //   title: 'Four Corners',
+  //   skills: ['reading', 'speaking'],
+  //   description: 'Pick a corner and try to survive the round',
+  //   instructions: [
+  //     'Students stand up and push their chairs in',
+  //     'Students have ten seconds to pick a corner and walk there',
+  //     'Corners take turns saying their expression',
+  //     'Bombed corner students sit down',
+  //     'Repeat for three rounds',
+  //     'Survivors get 1 point',
+  //     'All students stand up and repeat'
+  //   ],
+  //   image: 'https://mnliteracy.org/sites/default/files/styles/medium/public/four_corners.png'
+  // },
+  // {
+  //   URL: 'twinkler',
+  //   title: 'Twinkler',
+  //   skills: ['reading', 'speaking'],
+  //   description: 'Review vocabulary and key expressions',
+  //   instructions: [
+  //     'Students need to focus on the screen',
+  //     'Follow the directions on the screen',
+  //   ],
+  //   image: 'https://cdn.pixabay.com/photo/2017/08/19/11/51/radio-2658263__340.jpg'
+  // },
 ]
 
 const GamesPage = () => (
