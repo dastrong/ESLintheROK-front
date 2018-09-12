@@ -11,7 +11,7 @@ class Kimchi extends Component {
     super(props);
     this.state = {
       compressor: 0.6,
-      frequencyPercent: 10,
+      frequencyPercent: 90,
       isKimchi: null,
       data: [],
       text: '',

@@ -4,6 +4,7 @@ import SideBar         from './navInfo/SideBar';
 import InfoModal       from './navInfo/InfoModal';
 import MainPage        from './pages/MainPage';
 import GamesPage       from './pages/GamesPage';
+import GameScreen     from './pages/gamePages/GameScreen';
 import DataEntryPage   from './pages/dataEntry/DataEntryPage';
 import Elimination     from './games/Elimination';
 import Stars           from './games/Stars';
@@ -155,6 +156,11 @@ class App extends Component {
               <Route 
                 path='/games'
                 component={GamesPage}
+                exact={true}
+              />
+              <Route 
+                path='/game'
+                component={GameScreen}
                 exact={true}
               />
               <Route 
