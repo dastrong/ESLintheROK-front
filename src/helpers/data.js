@@ -11,10 +11,10 @@ export const games = [
       description: 'Last Student Standing Game',
       players: 1,
       completed: true,
-      images: [{
+      images: {
         bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Elimination.png',
-        topText: '',
-      }],
+        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Elimination.png',
+      },
     },
     instructions: [{
       forTeachers: {
@@ -60,10 +60,10 @@ export const games = [
       description: 'Find the Hidden Item',
       players: 1,
       completed: true,
-      images: [{
+      images: {
         bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/What_s_Behind.png',
-        topText: '',
-      }],
+        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/What_s_Behind.png',
+      },
     },
     instructions: [{
       forTeachers: {
@@ -106,10 +106,10 @@ export const games = [
       description: 'Collect as many stars as possible',
       players: 1,
       completed: true,
-      images: [{
+      images: {
         bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Stars.png',
-        topText: '',
-      }],
+        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Stars.png',
+      },
     },
     instructions: [{
       forTeachers: {
@@ -154,10 +154,10 @@ export const games = [
       description: 'Get as many points as possible',
       players: 1,
       completed: true,
-      images: [{
+      images: {
         bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Lotto.png',
-        topText: '',
-      }],
+        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Lotto.png',
+      },
     },
     instructions: [{
       forTeachers: {
@@ -205,10 +205,10 @@ export const games = [
       description: 'Fun review activity',
       players: 1,
       completed: true,
-      images: [{
+      images: {
         bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Sparkle_Die.png',
-        topText: '',
-      }],
+        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Sparkle_Die.png',
+      },
     },
     instructions: [{
       forTeachers: {
@@ -260,10 +260,10 @@ export const games = [
       description: 'Word Puzzle Solving Game',
       players: 1,
       completed: true,
-      images: [{
+      images: {
         bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Letter_Bowling.png',
-        topText: '',
-      }],
+        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Letter_Bowling.png',
+      },
     },
     instructions: [{
       forTeachers: {
@@ -312,10 +312,10 @@ export const games = [
       description: '',
       players: 1,
       completed: true,
-      images: [{
+      images: {
         bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Kimchi.png',
-        topText: '',
-      }],
+        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Kimchi.png',
+      },
     },
     instructions: [{
       forTeachers: {
@@ -373,10 +373,10 @@ export const games = [
       description: 'Follow the Vocab',
       players: 1,
       completed: true,
-      images: [{
+      images: {
         bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Chase_the_Vocab.png',
-        topText: '',
-      }],
+        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Chase_the_Vocab.png',
+      },
     },
     instructions: [{
       forTeachers: {
@@ -423,10 +423,10 @@ export const games = [
       description: 'Find all the pairs',
       players: 1,
       completed: false,
-      images: [{
+      images: {
         bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Matching.png',
-        topText: '',
-      }],
+        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Matching.png',
+      },
     },
     instructions: [{
       forTeachers: {
@@ -462,10 +462,10 @@ export const games = [
       description: 'Word Puzzle Solving Game',
       players: 1,
       completed: false,
-      images: [{
+      images: {
         bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Disappear.png',
-        topText: '',
-      }],
+        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Disappear.png',
+      },
     },
     instructions: [{
       forTeachers: {

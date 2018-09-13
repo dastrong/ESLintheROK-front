@@ -1,0 +1,47 @@
+.gameScreen-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.gameScreen-buttons {
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gameScreen-buttons > .ui.button {
+  margin: 0;
+}
+
+.gameScreen-buttons > .outer-btn {
+  width: 175px;
+}
+
+.gameScreen-buttons > .start-btn {
+  height: 175px;
+  width: 175px;
+  position: absolute;
+  left: calc(50vw - 87.5px);
+  font-size: 3.5em;
+  padding: 0;
+}
+
+.gameScreen-buttons > .left-btn {
+  border-top-left-radius: 10em;
+  border-bottom-left-radius: 10em;
+  text-align: left;
+  padding-left: 0.85em;
+  padding-right: 0.85em;
+}
+
+.gameScreen-buttons > .right-btn {
+  border-top-right-radius: 10em;
+  border-bottom-right-radius: 10em;
+  text-align: right;
+  padding-left: 0.85em;
+  padding-right: 0.85em;
+}
