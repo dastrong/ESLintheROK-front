@@ -2,15 +2,16 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
 }
 
 .gameScreen-buttons {
-  width: 500px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 525px;
+  padding: 25px 0;
 }
 
 .gameScreen-buttons > .ui.button {
@@ -18,30 +19,45 @@
 }
 
 .gameScreen-buttons > .outer-btn {
-  width: 175px;
+  width: 200px;
+  border: 1.5px solid #030f61;
+}
+
+.gameScreen-buttons > .outer-btn > span {
+  font-size: 13px;
 }
 
 .gameScreen-buttons > .start-btn {
-  height: 175px;
+  height: 125px;
   width: 175px;
   position: absolute;
   left: calc(50vw - 87.5px);
-  font-size: 3.5em;
-  padding: 0;
+  font-size: 44px;
+  padding: 38.5px 0;
+  border: 2px solid #074605
 }
 
 .gameScreen-buttons > .left-btn {
   border-top-left-radius: 10em;
   border-bottom-left-radius: 10em;
-  text-align: left;
-  padding-left: 0.85em;
-  padding-right: 0.85em;
 }
 
 .gameScreen-buttons > .right-btn {
   border-top-right-radius: 10em;
   border-bottom-right-radius: 10em;
-  text-align: right;
-  padding-left: 0.85em;
-  padding-right: 0.85em;
+}
+
+.gameScreen-buttons > .ui.labeled.icon.button > .icon {
+  background-color: rgba(0,0,0,0);
+  width: 1.18em;
+}
+
+.gameScreen-buttons > .left-btn.ui.labeled.icon.button {
+  padding-left: 1.77em !important;
+  padding-right: 25px !important;
+}
+
+.gameScreen-buttons > .right-btn.ui.labeled.icon.button {
+  padding-left: 25px !important;
+  padding-right: 1.77em !important;
 }
