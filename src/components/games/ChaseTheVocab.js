@@ -30,7 +30,7 @@ class ChaseTheVocab extends Component {
   
   componentDidMount(){
     this.addListeners();
-    this.setData(this.props.data);
+    this.setData(this.props.vocabularyData);
   }
 
   componentWillUnmount(){ 

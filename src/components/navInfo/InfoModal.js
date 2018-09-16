@@ -68,7 +68,7 @@ class InfoModal extends Component {
   render() {
     const { visible } = this.state;
     // returns an object containing hotkey info or undefined
-    const gameInfoObj = info.find(x=>(x.path.includes(this.props.pathName)));
+    const gameInfoObj = info.find(x=>(x.path.includes(this.props.path)));
     if(!gameInfoObj){ console.log('no hotkey object found') };
 
     // returns a list of hotkeys for the chosen game or null

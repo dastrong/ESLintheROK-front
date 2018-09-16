@@ -29,9 +29,9 @@ class WordLotto extends Component {
     document.addEventListener('keydown', this.handleKeyEvent);
     // copy data from props
 		const { xCount, boxCount } = this.state;
-		const { data } = this.props;
-		const vocabularyData = data.vocabularyData.map(data=>data.text);
-    const expressionData = data.expressionData.map(data=>data.text);
+		// const { data } = this.props;
+		const vocabularyData = this.props.vocabularyData.map(data=>data.text);
+    const expressionData = this.props.expressionData.map(data=>data.text);
 		const allData = {vocabularyData, expressionData};
 		// returns an array of shuffled data equal to our boxCount variable
     const gameData = this.handleGameData(allData);
@@ -151,12 +151,12 @@ class WordLotto extends Component {
 			{ 'box-list': !isVocab });
 		const boxes = gameData.map((text,i)=>(
 			<CSSTransition
+				key={i}
 				in={isResetting || !(isAnimating && !Xs.includes(i))}
 				timeout={Math.floor(Math.random()*8*1000)+500}
 				classNames='box'
 			>
 				<CardBlock 
-					key={i}
 					classNames='box'
 					text={text}
 					compressor={compressor}

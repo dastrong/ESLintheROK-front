@@ -1,8 +1,17 @@
+import Elimination     from '../components/games/Elimination';
+import Stars           from '../components/games/Stars';
+import WhatsBehind     from '../components/games/WhatsBehind';
+import WordLotto       from '../components/games/WordLotto';
+import Sparkle         from '../components/games/Sparkle';
+import Kimchi          from '../components/games/Kimchi';
+import Bowling         from '../components/games/Bowling';
+import ChaseTheVocab   from '../components/games/ChaseTheVocab';
+
 export const games = [
   {
     router: {
       path: '/elimination',
-      component: 'Elimination',
+      component: Elimination,
       requiredProps: [],
     },
     info: {
@@ -16,7 +25,7 @@ export const games = [
         topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Elimination.png',
       },
     },
-    instructions: [{
+    instructions: {
       forTeachers: {
         english: [
           'Individual Game',
@@ -46,12 +55,12 @@ export const games = [
           '',
         ]
       }
-    }],
+    },
   },
   {
     router: {
       path: '/whatsbehind',
-      component: 'WhatsBehind',
+      component: WhatsBehind,
       requiredProps: [],
     },
     info: {
@@ -65,7 +74,7 @@ export const games = [
         topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/What_s_Behind.png',
       },
     },
-    instructions: [{
+    instructions: {
       forTeachers: {
         english: [
           'Individual Game',
@@ -92,12 +101,12 @@ export const games = [
           '',
         ]
       }
-    }],
+    },
   },
   {
     router: {
       path: '/stars',
-      component: 'Stars',
+      component: Stars,
       requiredProps: [],
     },
     info: {
@@ -111,7 +120,7 @@ export const games = [
         topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Stars.png',
       },
     },
-    instructions: [{
+    instructions: {
       forTeachers: {
         english: [
           'Individual Game',
@@ -140,12 +149,12 @@ export const games = [
           '',
         ]
       }
-    }],
+    },
   },
   {
     router: {
       path: '/lotto',
-      component: 'WordLotto',
+      component: WordLotto,
       requiredProps: [],
     },
     info: {
@@ -159,7 +168,7 @@ export const games = [
         topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Lotto.png',
       },
     },
-    instructions: [{
+    instructions: {
       forTeachers: {
         english: [
           'Individual Game',
@@ -191,12 +200,12 @@ export const games = [
           '',
         ]
       }
-    }],
+    },
   },
   {
     router: {
       path: '/sparkle',
-      component: 'Sparkle',
+      component: Sparkle,
       requiredProps: [],
     },
     info: {
@@ -210,7 +219,7 @@ export const games = [
         topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Sparkle_Die.png',
       },
     },
-    instructions: [{
+    instructions: {
       forTeachers: {
         english: [
           'Individual Game',
@@ -246,12 +255,12 @@ export const games = [
           '',
         ]
       }
-    }],
+    },
   },
   {
     router: {
       path: '/bowling',
-      component: 'Bowling',
+      component: Bowling,
       requiredProps: [],
     },
     info: {
@@ -265,7 +274,7 @@ export const games = [
         topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Letter_Bowling.png',
       },
     },
-    instructions: [{
+    instructions: {
       forTeachers: {
         english: [
           'Individual, Pair, or Group Game',
@@ -298,12 +307,12 @@ export const games = [
           '',
         ]
       }
-    }],
+    },
   },
   {
     router: {
       path: '/kimchi',
-      component: 'Kimchi',
+      component: Kimchi,
       requiredProps: [],
     },
     info: {
@@ -317,7 +326,7 @@ export const games = [
         topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Kimchi.png',
       },
     },
-    instructions: [{
+    instructions: {
       forTeachers: {
         english: [
           'Individual Game',
@@ -359,12 +368,12 @@ export const games = [
           '',
         ]
       }
-    }],
+    },
   },
   {
     router: {
       path: '/chase',
-      component: 'ChaseTheVocab',
+      component: ChaseTheVocab,
       requiredProps: [],
     },
     info: {
@@ -378,7 +387,7 @@ export const games = [
         topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Chase_the_Vocab.png',
       },
     },
-    instructions: [{
+    instructions: {
       forTeachers: {
         english: [
           'Individual Game',
@@ -409,7 +418,7 @@ export const games = [
           '',
         ]
       }
-    }],
+    },
   },
   {
     router: {
@@ -428,7 +437,7 @@ export const games = [
         topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Matching.png',
       },
     },
-    instructions: [{
+    instructions: {
       forTeachers: {
         english: [
           'Individual Game',
@@ -448,7 +457,7 @@ export const games = [
           '',
         ]
       }
-    }],
+    },
   },
   {
     router: {
@@ -467,7 +476,7 @@ export const games = [
         topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Disappear.png',
       },
     },
-    instructions: [{
+    instructions: {
       forTeachers: {
         english: [
           'Individual Game',
@@ -491,6 +500,6 @@ export const games = [
           '',
         ]
       }
-    }],
+    },
   },
 ];

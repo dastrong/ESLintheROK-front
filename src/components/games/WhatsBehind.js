@@ -39,9 +39,9 @@ class WhatsBehind extends Component {
     // document level keypress to handle game hotkeys
     document.addEventListener('keydown', this.handleKeyEvent);
     // copy data from props
-    const { data } = this.props;
-    const vocabularyData = data.vocabularyData.map(data=>data.text);
-    const expressionData = data.expressionData.map(data=>data.text);
+    // const { data } = this.props;
+    const vocabularyData = this.props.vocabularyData.map(data=>data.text);
+    const expressionData = this.props.expressionData.map(data=>data.text);
     const allData = {vocabularyData, expressionData};
     // returns an array of shuffled data equal to our boxCount variable
     const gameData = this.handleGameData(allData);

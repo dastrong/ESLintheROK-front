@@ -1,20 +1,22 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { Component, Fragment } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import SideBar         from './navInfo/SideBar';
 import InfoModal       from './navInfo/InfoModal';
 import MainPage        from './pages/MainPage';
 import GamesPage       from './pages/GamesPage';
-import GameScreen     from './pages/gamePages/GameScreen';
+import GameScreen      from './pages/gamePages/GameScreen';
 import DataEntryPage   from './pages/dataEntry/DataEntryPage';
-import Elimination     from './games/Elimination';
-import Stars           from './games/Stars';
-import WhatsBehind     from './games/WhatsBehind';
-import WordLotto       from './games/WordLotto';
-import Sparkle         from './games/Sparkle';
-import Kimchi          from './games/Kimchi';
-import Bowling         from './games/Bowling';
-import ChaseTheVocab   from './games/ChaseTheVocab';
 import '../styles/App.css';
+// import routes from '../helpers/routes';
+import Switch from '../helpers/Switch';
+import { games } from '../helpers/data';
+import TeacherInstructions from './pages/gamePages/TeacherInstructions';
+import StudentInstructions from './pages/gamePages/StudentInstructions';
+
+// if (process.env.NODE_ENV !== 'production') {
+//   const {whyDidYouUpdate} = require('why-did-you-update')
+//   whyDidYouUpdate(React, { groupByComponent: true })
+// }
 
 class App extends Component {
   static defaultProps = {
@@ -116,126 +118,86 @@ class App extends Component {
     } else {
       data = {vocabularyData, expressionData};
     }
+
     return (
       <Router>
-        <Route render={({location})=>{
-          const pathName = location.pathname.slice(1,location.pathname.length);
-          return (
-          <div className="App">
-            <SideBar 
-              showSideBar={this.showSideBar}
-              hideSideBar={this.hideSideBar}
-              isSideBarVisible={isSideBarVisible} 
+        <div className="App">
+          <Route 
+            render={({ location })=>
+              <SideBar 
+                showSideBar={this.showSideBar}
+                hideSideBar={this.hideSideBar}
+                isSideBarVisible={isSideBarVisible} 
+                {...location}
+              />} 
+          />
+          <Route 
+            render={({ location })=> {
+              const path = location.pathname;
+              const index = path.indexOf('/start'); 
+              const shouldShow = index !== -1;              
+              return (
+                shouldShow
+                  ? <InfoModal path={path.slice(1,index)} />
+                  : null 
+                )
+              }
+            }
+          />
+          <Switch>
+            <Route 
+              exact
+              path='/'
+              render={()=> <MainPage showSideBar={this.showSideBar} />}
             />
-            <InfoModal 
-              pathName={pathName}
+            <Route 
+              exact
+              path='/data' 
+              render={()=> 
+                <DataEntryPage 
+                  vocabularyData={vocabularyData}
+                  expressionData={expressionData}
+                  isDataReady={isDataReady}
+                  onSave={this.onSave} 
+                  onEdit={this.onEdit} 
+                />}
             />
-            <Switch>
-              <Route 
-                path='/'
-                render={()=>
-                  <MainPage 
-                    showSideBar={this.showSideBar}
-                    hideSideBar={this.hideSideBar}
-                    isSideBarVisible={isSideBarVisible} 
-                  />}
-                exact={true}
-              />
-              <Route 
-                path='/data' 
-                render={()=> 
-                  <DataEntryPage 
-                    vocabularyData={vocabularyData}
-                    expressionData={expressionData}
-                    isDataReady={isDataReady}
-                    onSave={this.onSave} 
-                    onEdit={this.onEdit} 
-                  />}
-                exact={true}
-              />
-              <Route 
-                path='/games'
-                component={GamesPage}
-                exact={true}
-              />
-              <Route 
-                path='/game'
-                component={GameScreen}
-                exact={true}
-              />
-              <Route 
-                path='/elimination'
-                render={()=> 
-                  <Elimination 
-                      data={data}
-                      colors={colors}
-                  />}
-                exact={true}
-              />
-              <Route 
-                path='/whatsbehind'
-                render={()=> 
-                  <WhatsBehind 
-                    data={data} 
-                    colors={colors}
-                  />}
-                exact={true}
-              />
-              <Route 
-                path='/stars'
-                render={()=> 
-                  <Stars 
-                    data={data} 
-                    colors={colors}
-                  />}
-                exact={true}
-              />
-              <Route 
-                path='/lotto'
-                render={()=> 
-                  <WordLotto 
-                    data={data} 
-                    colors={colors}
-                  />}
-                exact={true}
-              />
-              <Route 
-                path='/sparkle'
-                render={()=> 
-                  <Sparkle 
-                    data={data.expressionData}
-                  />}
-                exact={true}
-              />
-              <Route 
-                path='/kimchi'
-                render={()=> 
-                  <Kimchi 
-                    data={data.expressionData}
-                  />}
-                exact={true}
-              />
-              <Route 
-                path='/bowling'
-                render={()=> 
-                  <Bowling 
-                    data={data.vocabularyData}
-                    colors={colors}
-                  />}
-                exact={true}
-              />
-              <Route 
-                path='/chase'
-                render={()=> 
-                  <ChaseTheVocab
-                    data={data.vocabularyData}
-                    colors={colors}
-                  />}
-                exact={true}
-              />
-            </Switch>
-          </div>
-        )}} />
+            <Route 
+              exact
+              path='/games'
+              component={GamesPage}
+            />
+            {/* GAME ROUTES */}
+            {games.map(({ router })=>
+              <Fragment key={`${router.path}-routes`}>
+                <Route
+                  exact
+                  key={router.path}
+                  path={router.path}
+                  component={GameScreen}
+                />
+                <Route
+                  exact
+                  key={`${router.path}-teacher`}
+                  path={`${router.path}/teacher`}
+                  render={()=> <TeacherInstructions path={router.path} />}
+                />
+                <Route
+                  exact
+                  key={`${router.path}-student`}
+                  path={`${router.path}/student`}
+                  render={()=> <StudentInstructions path={router.path} />}
+                />
+                <Route
+                  exact
+                  key={`${router.path}-start}`}
+                  path={`${router.path}/start`}
+                  render={()=> <router.component {...this.props} /> }
+                />
+              </Fragment>
+            )}
+          </Switch>
+        </div>
       </Router>
     );
   }

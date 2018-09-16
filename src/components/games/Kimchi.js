@@ -27,7 +27,7 @@ class Kimchi extends Component {
 
   componentDidMount(){
     this.addListeners();
-    this.setData(this.props.data);  
+    this.setData(this.props.expressionData);  
   }
 
   componentWillUnmount(){ this.rmvListeners() }
