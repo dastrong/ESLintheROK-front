@@ -12,7 +12,10 @@ const GameScreen = ({ match }) => {
       <div className='gameScreen-buttons'>
         <Button  
           as={Link}
-          to={`${game.router.path}/teacher`}
+          to={{
+            pathname: `${game.router.path}/teacher`,
+            state: { left:true }
+          }}
           className='left-btn outer-btn huge'
           color='blue'
           icon labelPosition='left'
@@ -24,7 +27,10 @@ const GameScreen = ({ match }) => {
         </Button>
         <Button
           as={Link}
-          to={`${game.router.path}/student`}
+          to={{
+            pathname: `${game.router.path}/student`,
+            state: { right:true }
+          }}
           className='right-btn outer-btn huge'
           color='blue'
           icon labelPosition='right'
@@ -36,7 +42,10 @@ const GameScreen = ({ match }) => {
         </Button>
         <Button  
           as={Link}
-          to={`${game.router.path}/start`}
+          to={{
+            pathname: `${game.router.path}/start`,
+            state: { down:true }
+          }}
           className='start-btn circular'
           color='green'
         >

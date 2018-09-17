@@ -46,7 +46,10 @@ class TeacherInstructions extends Component {
           </Button>
           <Button  
             as={Link}
-            to={`${game.router.path}/start`}
+            to={{
+              pathname: `${game.router.path}/start`,
+              state: { down:true }
+            }}
             className='massive'
             color='green'
           >
@@ -54,7 +57,10 @@ class TeacherInstructions extends Component {
           </Button>
           <Button  
             as={Link}
-            to={`${game.router.path}`}
+            to={{
+              pathname: `${game.router.path}`,
+              state: { right:true }
+            }}
             className='massive'
             color='blue'
             icon labelPosition='right'

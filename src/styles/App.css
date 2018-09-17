@@ -1,3 +1,60 @@
 /* .App {
   overflow: hidden;
 } */
+
+.page {
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: transform 1s;
+}
+
+.page-enter {
+  transform: translate(100%, 0);
+}
+
+.page-enter-active {
+  transform: translate(0, 0);
+}
+
+.page-exit {
+  transform: translate(100%, 0);
+}
+
+.page--left.page-enter {
+  transform: translate(-100%, 0);
+}
+
+.page--left.page-enter-active {
+  transform: translate(0, 0);
+}
+
+.page--left.page-exit {
+  transform: translate(-100%, 0);
+}
+
+.page--right.page-enter {
+  transform: translate(100%, 0);
+}
+
+.page--right.page-enter-active {
+  transform: translate(0, 0);
+}
+
+.page--right.page-exit {
+  transform: translate(-100%, 0);
+}
+
+
+/* .page--down.page-enter {
+  transform: translate(0, 100%);
+}
+
+.page--down.page-enter-active {
+  transform: translate(0, 0);
+}
+
+.page--down.page-exit {
+  transform: translate(0, -100%);
+} */
