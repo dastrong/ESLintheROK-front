@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+// import { TransitionGroup, CSSTransition } from "react-transition-group";
 import SideBar         from './navInfo/SideBar';
 import InfoModal       from './navInfo/InfoModal';
 import MainPage        from './pages/MainPage';
@@ -44,7 +45,7 @@ class App extends Component {
       {text:'I saw a robot.'},
       {text:'I visited my grandpa.'},
       {text:'I visited my grandma.'},
-      {text:'I play computer games.'},
+      {text:'I played computer games.'},
       {text:'I ate delicious food.'},
       {text:'I read many books.'},
       {text:'I swam in a river.'},
