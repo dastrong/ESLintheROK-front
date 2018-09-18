@@ -7,79 +7,62 @@
   position: fixed;
   top: 0;
   width: 100%;
-  transition: transform 1s;
+  transition: all 1s;
 }
 
 .page-enter {
-  transform: translate(100%, 0);
+  opacity: 0;
 }
 
 .page-enter-active {
-  transform: translate(0, 0);
+  opacity: 1;
 }
 
 .page-exit {
-  transform: translate(-100%, 0);
+  opacity: 0;
 }
 
-.page.slideLeft-enter {
-  transform: translate(100%, 0);
+.page.page-slideLeft-enter {
+  transform: translate(100%, 0) scale(0.6);
+  opacity: 0;
 }
 
-.page.slideLeft-enter-active {
-  transform: translate(0, 0);
+.page.page-slideLeft-enter-active {
+  transform: translate(0, 0) scale(1);
+  opacity: 1;
 }
 
-.page.slideLeft-exit {
-  transform: translate(-100%, 0);
+.page.page-slideLeft-exit {
+  transform: translate(-100%, 0) scale(0.6);
+  opacity: 0;
 }
 
-.page.slideRight-enter {
-  transform: translate(-100%, 0);
+.page.page-slideRight-enter {
+  transform: translate(-100%, 0) scale(0.6);
+  opacity: 0;
 }
 
-.page.slideRight-enter-active {
-  transform: translate(0, 0);
+.page.page-slideRight-enter-active {
+  transform: translate(0, 0) scale(1);
+  opacity: 1;
 }
 
-.page.slideRight-exit {
-  transform: translate(100%, 0);
+.page.page-slideRight-exit {
+  transform: translate(100%, 0) scale(0.6);
+  opacity: 0;
 }
 
-/* .page--down.page-enter {
-  transform: translate(0, 100%);
+.page.page-slideDown-enter {
+  transform: translate(0, -100%) scale(0.6);
+  opacity: 0;
 }
 
-.page--down.page-enter-active {
-  transform: translate(0, 0);
+.page.page-slideDown-enter-active {
+  transform: translate(0, 0) scale(1);
+  opacity: 1;
 }
 
-.page--down.page-exit {
-  transform: translate(0, -100%);
-} */
-/* 
-.page--slideLeft.page-enter {
-  transform: translate(100%, 0);
+.page.page-slideDown-exit {
+  transform: translate(0, 100%) scale(0.6);
+  opacity: 0;
 }
-
-.page--slideLeft.page-enter-active {
-  transform: translate(0, 0);
-}
-
-.page--slideRight.page-enter {
-  transform: translate(-100%, 0);
-}
-
-.page--slideRight.page-enter-active {
-  transform: translate(0, 0);
-}
-
-.page.slideLeft-exit {
-  transform: translate(-100%, 0);
-}
-.page.slideRight-exit {
-  transform: translate(100%, 0);
-}
-.page.slideDown-exit {
-  transform: translate(0, -100%);
-} */

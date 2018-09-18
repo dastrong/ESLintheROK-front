@@ -16,9 +16,15 @@ import { games }           from '../helpers/data';
 class Routers extends Component {
   constructor(props){
     super(props);
+    // console.log(Object.keys(this.props.location.state))
     this.state = {
-      prevRoute: Object.keys(this.props.location.state),
+      prevRoute: [],
     }
+  }
+
+  componentDidMount(){
+    if(!this.props.location.state) return;
+    this.setState({ prevRoute: Object.keys(this.props.location.state) })
   }
 
   // keeps the current and previous routes
@@ -26,6 +32,7 @@ class Routers extends Component {
   componentDidUpdate(prevProps){
     if(prevProps.location.pathname === this.props.location.pathname) return;
     const { prevRoute } = this.state;
+    if(!this.props.location.state) return;
     console.log(...Object.keys(this.props.location.state))
     prevRoute.length < 2
       ? this.setState({ 
@@ -35,6 +42,8 @@ class Routers extends Component {
           prevRoute: [...prevRoute.slice(1, prevRoute.length), ...Object.keys(this.props.location.state)]
         });
   }
+
+  childFactoryCreator = (props) => child => React.cloneElement(child, props)
 
   render(){
     const { 
@@ -55,12 +64,12 @@ class Routers extends Component {
     // if you click to  screen slides right
     // add that class to the main page
     const exitClass = state && state.slideDown
-      ? 'slideDown'
+      ? 'page page-slideDown'
       : state && state.slideLeft
-        ? 'slideLeft'
+        ? 'page page-slideLeft'
         : state && state.slideRight
-          ? 'slideRight'
-          : '';
+          ? 'page page-slideRight'
+          : 'page';
     console.log(exitClass)
     
     return (
@@ -76,27 +85,18 @@ class Routers extends Component {
             ? <InfoModal path={pathname.slice(1,index)} />
             : null 
         }
-        <TransitionGroup>
+        <TransitionGroup
+          childFactory={this.childFactoryCreator({ classNames: `${exitClass}`, timeout:{ enter: 1000, exit: 1000 } })}
+        >
           <CSSTransition 
             key={pathname}
-            classNames="page"
-            onExit={()=>{console.log('heyyy')}}
-            // classNames={{
-            //   appear: `${exitClass}-appear`,
-            //   appearActive: `${exitClass}-active-appear`,
-            //   enter: `${exitClass}-enter`,
-            //   enterActive: `${exitClass}-active-enter`,
-            //   enterDone: `${exitClass}-done-enter`,
-            //   exit: `${exitClass}-exit`,
-            //   exitActive: `${exitClass}-active-exit`,
-            //   exitDone: `sdfsef`,
-            //  }}
+            classNames={exitClass}
             timeout={{ enter: 1000, exit: 1000 }}
           >
             <Route 
               location={location}
               render={()=> (
-                <Switch>
+                <Switch location={location}>
                   <Route 
                     exact
                     path='/'

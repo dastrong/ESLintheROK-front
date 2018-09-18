@@ -44,7 +44,7 @@ const GameScreen = ({ match }) => {
           as={Link}
           to={{
             pathname: `${game.router.path}/start`,
-            state: { SlideDown:true }
+            state: { slideDown:true }
           }}
           className='start-btn circular'
           color='green'
