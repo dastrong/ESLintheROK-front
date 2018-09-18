@@ -3,11 +3,14 @@ import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
 
 const PageWrapper = ({ location: {state}, children }) => {
-  const classes = classNames('page', {
-    'page--left': state && state.left, 
-    'page--right': state && state.right, 
-    'page--down': state && state.down, 
-  })
+  const classes = classNames('page')
+  // const classes = classNames('page', {
+  //   'page--left': state && state.left, 
+  //   'page--right': state && state.right, 
+  //   'page--down': state && state.down, 
+  //   'page--slideLeft': state && state.slideLeft,
+  //   'page--slideRight': state && state.slideRight,
+  // })
   return (
     <section className={classes}>
       {children}

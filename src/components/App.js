@@ -1,19 +1,6 @@
-import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { TransitionGroup, CSSTransition } from "react-transition-group";
-import SideBar         from './navInfo/SideBar';
-import InfoModal       from './navInfo/InfoModal';
-import MainPage        from './pages/MainPage';
-import GamesPage       from './pages/GamesPage';
-import GameScreen      from './pages/gamePages/GameScreen';
-import DataEntryPage   from './pages/dataEntry/DataEntryPage';
+import React, { Component } from 'react';
+import Routers from './Routers';
 import '../styles/App.css';
-// import routes from '../helpers/routes';
-import Switch from '../helpers/Switch';
-import { games } from '../helpers/data';
-import TeacherInstructions from './pages/gamePages/TeacherInstructions';
-import StudentInstructions from './pages/gamePages/StudentInstructions';
-import PageWrapper from './PageWrapper';
 
 // if (process.env.NODE_ENV !== 'production') {
 //   const {whyDidYouUpdate} = require('why-did-you-update')
@@ -82,7 +69,7 @@ class App extends Component {
     };
   }
 
-  showSideBar = () => this.setState({ isSideBarVisible: !this.state.isSideBarVisible });
+  showSideBar = () => this.setState({ isSideBarVisible: !this.state.isSideBarVisible })
 
   hideSideBar = () => this.setState({ isSideBarVisible: false })
 
@@ -111,8 +98,8 @@ class App extends Component {
   }
 
   render() {
-    const { isSideBarVisible, vocabularyData, expressionData, isDataReady } = this.state;
-    const { colors } = this.props;
+    const { vocabularyData, expressionData, isSideBarVisible } = this.state;
+    // const { colors } = this.props;
     let data;
     // if there's no data, send default props
     if(vocabularyData.length < 8 && expressionData.length < 6){
@@ -122,125 +109,14 @@ class App extends Component {
     }
 
     return (
-      <Router>
-        <Route 
-          render={({ location })=> {
-            const { pathname } = location;
-            const index = pathname.indexOf('/start'); 
-            const showInfoModal = index !== -1;
-            return (
-              <div>
-                <SideBar 
-                  showSideBar={this.showSideBar}
-                  hideSideBar={this.hideSideBar}
-                  isSideBarVisible={isSideBarVisible} 
-                  {...location}
-                />
-                { 
-                  showInfoModal
-                    ? <InfoModal path={pathname.slice(1,index)} />
-                    : null 
-                }
-                <TransitionGroup>
-                  <CSSTransition 
-                    key={pathname}
-                    classNames="page"
-                    timeout={{
-                      enter: 1000,
-                      exit: 1000,
-                    }}
-                  >
-                    <Route 
-                      location={location}
-                      render={()=> (
-                        <Switch>
-                          <Route 
-                            exact
-                            path='/'
-                            render={()=> 
-                              <PageWrapper>
-                                <MainPage showSideBar={this.showSideBar} />
-                              </PageWrapper>
-                            }
-                          />
-                          <Route 
-                            exact
-                            path='/data' 
-                            render={()=> 
-                              <PageWrapper>
-                                <DataEntryPage 
-                                  vocabularyData={vocabularyData}
-                                  expressionData={expressionData}
-                                  isDataReady={isDataReady}
-                                  onSave={this.onSave} 
-                                  onEdit={this.onEdit} 
-                                />
-                              </PageWrapper>
-                            }
-                          />
-                          <Route 
-                            exact
-                            path='/games'
-                            render={()=>
-                              <PageWrapper>
-                                <GamesPage />
-                              </PageWrapper>
-                            }
-                          />
-                          {/* GAME ROUTES */}
-                          {games.map(({ router })=>
-                            <Fragment key={`${router.path}-routes`}>
-                              <Route
-                                exact
-                                key={router.path}
-                                path={router.path}
-                                render={({ match })=>
-                                  <PageWrapper>
-                                    <GameScreen match={match}/>
-                                  </PageWrapper>
-                                }
-                              />
-                              <Route
-                                exact
-                                key={`${router.path}-teacher`}
-                                path={`${router.path}/teacher`}
-                                render={()=> 
-                                  <PageWrapper>
-                                    <TeacherInstructions path={router.path} />
-                                  </PageWrapper> 
-                                }
-                              />
-                              <Route
-                                exact
-                                key={`${router.path}-student`}
-                                path={`${router.path}/student`}
-                                render={()=>
-                                  <PageWrapper>
-                                    <StudentInstructions path={router.path} />
-                                  </PageWrapper>
-                                }
-                              />
-                              <Route
-                                exact
-                                key={`${router.path}-start}`}
-                                path={`${router.path}/start`}
-                                render={()=> 
-                                  <PageWrapper>
-                                    <router.component {...this.props} />
-                                  </PageWrapper>
-                                }
-                              />
-                            </Fragment>
-                          )}
-                        </Switch>
-                      )}
-                    />
-                  </CSSTransition>
-                </TransitionGroup> 
-              </div>
-            )}}
-          />
-      </Router>
+      <Routers 
+        onSave={this.onSave}
+        onEdit={this.onEdit}
+        showSideBar={this.showSideBar}
+        hideSideBar={this.hideSideBar}
+        isSideBarVisible={isSideBarVisible}
+        {...this.props}
+      />
     );
   }
 }

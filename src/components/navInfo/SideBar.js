@@ -41,7 +41,11 @@ const SideBar = ({ showSideBar, hideSideBar, isSideBarVisible }) => (
       <Menu.Item 
         as={Link}
         onClick={hideSideBar}
-        to='/elimination'
+        // to='/elimination'
+        to={{
+          pathname: '/elimination',
+          state: { gameScreen:true }
+        }}
       >
         <Icon name='x' />
         Elimination

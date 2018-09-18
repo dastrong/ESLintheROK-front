@@ -41,7 +41,7 @@ class StudentInstructions extends Component {
             as={Link}
             to={{
               pathname: `${game.router.path}`,
-              state: { left:true }
+              state: { slideRight:true }
             }}
             className='massive'
             color='blue'
@@ -55,7 +55,7 @@ class StudentInstructions extends Component {
             as={Link}
             to={{
               pathname: `${game.router.path}/start`,
-              state: { down:true }
+              state: { slideDown:true }
             }}
             className='massive'
             color='green'
