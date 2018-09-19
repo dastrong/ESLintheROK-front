@@ -17,6 +17,7 @@ class Kimchi extends Component {
       text: '',
       textIndex: undefined,
       showAnswer: false,
+      gameReady: false,
     };
     this.setData        = setData.bind(this);
     this.getRandomNum   = getRandomNum.bind(this);
@@ -40,6 +41,7 @@ class Kimchi extends Component {
       textIndex: random,
       showAnswer: false,
       isKimchi,
+      gameReady: true,
     });
   }
 
@@ -104,7 +106,7 @@ class Kimchi extends Component {
   }
   
   render(){
-    const { compressor, text, showAnswer, isKimchi, frequencyPercent, freqUpdated } = this.state;
+    const { compressor, gameReady, text, showAnswer, isKimchi, frequencyPercent, freqUpdated } = this.state;
     const pic = isKimchi
                   ? <img 
                       alt='kimchi'
@@ -127,6 +129,7 @@ class Kimchi extends Component {
           classNames='kimchiText'
         >
           <TextBox 
+            gameReady={gameReady}
             text={text}
             height='100vh'
             width='100%'

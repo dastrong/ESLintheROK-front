@@ -14,6 +14,7 @@ class Sparkle extends Component {
       textIndex: undefined,
       timer: 15,
       timeRemaining: 15,
+      gameReady: false,
     };
     this.startTimer = startTimer.bind(this);
     this.resetTimer = resetTimer.bind(this);
@@ -38,7 +39,8 @@ class Sparkle extends Component {
     const random = this.getRandomIndex(data.length);
     this.setState({
       text: data[random],
-      textIndex: random
+      textIndex: random,
+      gameReady:true
     });
   }
 
@@ -68,17 +70,17 @@ class Sparkle extends Component {
     // up arrow was clicked; increase the font size
     if(e.keyCode === 38){
       const c = compressor - 0.05;
-      this.setState({compressor:c})
+      this.setState({ compressor:c })
     }
     // down arrow was clicked; decrease the font size
     if(e.keyCode === 40){
       const c = compressor + 0.05;
-      this.setState({compressor:c})
+      this.setState({ compressor:c })
     }
   };
 
   render(){
-    const { compressor, text, timer, timeRemaining, isTimeUp } = this.state;
+    const { compressor, gameReady, text, timer, timeRemaining, isTimeUp } = this.state;
     const width = (((timer-timeRemaining)/(timer-1))*100)+'%';
     return (
       <div 
@@ -86,14 +88,15 @@ class Sparkle extends Component {
         onClick={this.handleClick}
       >
         <CSSTransition
-            in={!isTimeUp}
-            timeout={0}
-            classNames='textBox' >
+          in={!isTimeUp}
+          timeout={0}
+          classNames='textBox' >
           <TextBox 
             text={text}
-            width='100%'
-            height='85vh'
-            compressor={compressor} />
+            width={'100%'}
+            height={'85vh'}
+            compressor={compressor} 
+            gameReady={gameReady} />
         </CSSTransition>
         <Timer 
           timeRemaining={timeRemaining}

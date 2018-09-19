@@ -13,6 +13,7 @@ export const games = [
       path: '/elimination',
       component: Elimination,
       requiredProps: [],
+      icon: 'x',
     },
     info: {
       title: 'Elimination Game',
@@ -75,6 +76,7 @@ export const games = [
       path: '/whatsbehind',
       component: WhatsBehind,
       requiredProps: [],
+      icon: 'find',
     },
     info: {
       title: "What's Behind",
@@ -131,6 +133,7 @@ export const games = [
       path: '/stars',
       component: Stars,
       requiredProps: [],
+      icon: 'star',
     },
     info: {
       title: 'Stars Writing Game',
@@ -191,6 +194,7 @@ export const games = [
       path: '/lotto',
       component: WordLotto,
       requiredProps: [],
+      icon: 'won',
     },
     info: {
       title: 'Word Lotto',
@@ -257,6 +261,7 @@ export const games = [
       path: '/sparkle',
       component: Sparkle,
       requiredProps: [],
+      icon: 'diamond',
     },
     info: {
       title: 'Sparkle Die',
@@ -332,6 +337,7 @@ export const games = [
       path: '/bowling',
       component: Bowling,
       requiredProps: [],
+      icon: 'bowling ball',
     },
     info: {
       title: 'Letter Bowling',
@@ -400,6 +406,7 @@ export const games = [
       path: '/kimchi',
       component: Kimchi,
       requiredProps: [],
+      icon: 'heart',
     },
     info: {
       title: 'Kimchi Elimination',
@@ -487,6 +494,7 @@ export const games = [
       path: '/chase',
       component: ChaseTheVocab,
       requiredProps: [],
+      icon: 'exchange',
     },
     info: {
       title: 'Chase the Vocab',

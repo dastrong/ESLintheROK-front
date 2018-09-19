@@ -10,3 +10,28 @@
   background-color: rgb(255, 255, 255, 0);
   opacity: 1;
 }
+
+.ui.menu {
+  font-size: 1.1em;
+}
+
+.ui.menu .item.home-close-btn-group {
+  padding: 0;
+}
+
+.ui.menu .item.home-close-btn-group > div.ui.buttons {
+  width: 100%;
+}
+
+.ui.menu .item.home-close-btn-group > div.ui.buttons > * {
+  border-radius: 0;
+}
+
+.ui.inverted.menu a.item i {
+  transform: scale(1);
+  transition: all 0.45s;
+}
+
+.ui.inverted.menu a.item:hover i {
+  transform: scale(1.25);
+}

@@ -48,7 +48,7 @@ class TeacherInstructions extends Component {
             as={Link}
             to={{
               pathname: `${game.router.path}/start`,
-              state: { slideDown:true }
+              state: { slideUp:true }
             }}
             className='massive'
             color='green'

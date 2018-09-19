@@ -1,5 +1,6 @@
 .instructions-container {
   height: 100vh;
+  background-color: #eee;
 }
 
 .instructions-container img {

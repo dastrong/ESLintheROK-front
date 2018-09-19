@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { games } from '../../../helpers/data';
 import '../../../styles/pages/gamePages/GameScreen.css';
 
-const GameScreen = ({ match }) => {
-  const game = games.find(({router}) => match.path === router.path);
+const GameScreen = ({ path }) => {
+  const game = games.find(({router}) => path === router.path);
   return (
     <div className='gameScreen-container'>
       <img src={game.info.images.topText} alt='game logo'></img>
@@ -44,7 +44,7 @@ const GameScreen = ({ match }) => {
           as={Link}
           to={{
             pathname: `${game.router.path}/start`,
-            state: { slideDown:true }
+            state: { slideUp:true }
           }}
           className='start-btn circular'
           color='green'
