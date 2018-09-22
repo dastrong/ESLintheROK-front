@@ -29,7 +29,7 @@ const SideBar = ({ showSideBar, hideSideBar, isSideBarVisible }) => (
                   as={Link}
                   to={{
                     pathname: '/',
-                    state: { slideLeft:true }
+                    state: { pageTransition:'slideRight' }
                   }}
                   color='blue' 
                   icon='home' 
@@ -63,7 +63,7 @@ const MenuItem = ({ path, icon, title, hideSideBar }) => (
     onClick={hideSideBar}
     to={{
       pathname: `${path}`,
-      state: { slideLeft:true }
+      state: { pageTransition:'slideLeft' }
     }}
   >
     <Icon name={icon} />

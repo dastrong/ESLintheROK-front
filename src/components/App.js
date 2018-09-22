@@ -1,5 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Routers from './Routers';
+import SideBar   from './navInfo/SideBar';
+import InfoModal from './navInfo/InfoModal';
+import { withRouter } from 'react-router-dom';
 import '../styles/App.css';
 
 // if (process.env.NODE_ENV !== 'production') {
@@ -103,7 +106,7 @@ class App extends Component {
 
   render() {
     const { vocabularyData, expressionData, isSideBarVisible } = this.state;
-    // const { colors } = this.props;
+    const { location } = this.props;
     let data;
     // if there's no data, send default props
     if(vocabularyData.length < 8 && expressionData.length < 6){
@@ -112,17 +115,32 @@ class App extends Component {
       data = {vocabularyData, expressionData};
     }
 
+    const index = location.pathname.indexOf('/start'); 
+    const showInfoModal = index !== -1;
     return (
-      <Routers 
-        onSave={this.onSave}
-        onEdit={this.onEdit}
-        showSideBar={this.showSideBar}
-        hideSideBar={this.hideSideBar}
-        isSideBarVisible={isSideBarVisible}
-        {...this.props}
-      />
+      <Fragment>
+        <SideBar 
+          showSideBar={this.showSideBar}
+          hideSideBar={this.hideSideBar}
+          isSideBarVisible={isSideBarVisible} 
+          {...location}
+        />
+        { 
+          showInfoModal
+            ? <InfoModal path={location.pathname.slice(1,index)} />
+            : null 
+        }
+        <Routers 
+          onSave={this.onSave}
+          onEdit={this.onEdit}
+          showSideBar={this.showSideBar}
+          hideSideBar={this.hideSideBar}
+          isSideBarVisible={isSideBarVisible}
+          {...this.props}
+        />
+      </Fragment>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

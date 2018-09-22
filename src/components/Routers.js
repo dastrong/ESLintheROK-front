@@ -1,164 +1,141 @@
-import React, { Component, Fragment, PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import { Route, withRouter } from 'react-router-dom';
-import SideBar             from './navInfo/SideBar';
-import InfoModal           from './navInfo/InfoModal';
+import { Route } from 'react-router-dom';
 import MainPage            from './pages/MainPage';
 import GamesPage           from './pages/GamesPage';
 import GameScreen          from './pages/gamePages/GameScreen';
 import DataEntryPage       from './pages/dataEntry/DataEntryPage';
-import TeacherInstructions from './pages/gamePages/TeacherInstructions';
-import StudentInstructions from './pages/gamePages/StudentInstructions';
+import InstructionsPage    from './pages/gamePages/InstructionsPage';
 import Switch              from '../helpers/Switch';
 import { games }           from '../helpers/data';
 
-class Routers extends Component {
+class Routers extends PureComponent {
   constructor(props){
     super(props);
-    // console.log(Object.keys(this.props.location.state))
     this.state = {
-      prevRoute: [],
+      length: this.props.history.length
     }
   }
 
-  // componentDidMount(){
-  //   if(!this.props.location.state) return;
-  //   this.setState({ prevRoute: Object.keys(this.props.location.state) })
-  // }
-
-  // keeps the current and previous routes
-  // used to keep track of transitions
-  // componentDidUpdate(prevProps){
-  //   if(prevProps.location.pathname === this.props.location.pathname) return;
-  //   const { prevRoute } = this.state;
-  //   if(!this.props.location.state) return;
-  //   console.log(...Object.keys(this.props.location.state))
-  //   prevRoute.length < 2
-  //     ? this.setState({ 
-  //         prevRoute: [...prevRoute, ...Object.keys(this.props.location.state)] 
-  //       })
-  //     : this.setState({
-  //         prevRoute: [...prevRoute.slice(1, prevRoute.length), ...Object.keys(this.props.location.state)]
-  //       });
-  // }
-
+  componentDidUpdate(){
+    const { history } = this.props;
+    if(history.action === 'POP') return;
+    return history.length < this.state.length
+      ? this.setState({length: history.length})
+      : history.length !== this.state.length
+        ? this.setState(({length})=>({length: length + 1}))
+        : null;
+  }
+  
   childFactoryCreator = (props) => child => React.cloneElement(child, props)
 
   render(){
     const { 
-      isSideBarVisible, 
       vocabularyData, 
       expressionData,
       isDataReady,
       showSideBar,
-      hideSideBar,
       onSave,
       onEdit,
       colors,
-      location
-    } = this.props;    
-    const { pathname, state } = location;
-    const index = pathname.indexOf('/start'); 
-    const showInfoModal = index !== -1;
-    // if you click to  screen slides right
-    // add that class to the main page
-    const cx = state 
-                ? `page page-${String(Object.keys(state))}` 
-                : 'page';
+      location,
+      history,
+    } = this.props;
+    // returns an className for page transitions
+    const cx = history.length === this.state.length && history.action === 'POP'
+                ? 'page page-slideDown'
+                : location.state 
+                  ? `page page-${location.state.pageTransition}` 
+                  : 'page';
     return (
-      <div>
-        <SideBar 
-          showSideBar={showSideBar}
-          hideSideBar={hideSideBar}
-          isSideBarVisible={isSideBarVisible} 
-          {...location}
-        />
-        { 
-          showInfoModal
-            ? <InfoModal path={pathname.slice(1,index)} />
-            : null 
-        }
-        <TransitionGroup
-          component={null}
-          // updates exit classes so animations are correct
-          childFactory={this.childFactoryCreator({ classNames: `${cx}`, timeout:{ enter: 1000, exit: 1000 } })}
+      <TransitionGroup
+        component={null}
+        // updates exit classes so animations are correct
+        childFactory={this.childFactoryCreator({ classNames: `${cx}`, timeout:{ enter: 1000, exit: 1000 } })}
+      >
+        <CSSTransition 
+          key={location.pathname}
+          classNames={cx}
+          timeout={{ enter: 1000, exit: 1000 }}
         >
-          <CSSTransition 
-            key={pathname}
-            classNames={cx}
-            timeout={{ enter: 1000, exit: 1000 }}
-          >
-            <section>
-              <Route 
-                location={location}
-                render={()=> (
-                  <Switch location={location}>
-                    <Route 
-                      exact
-                      path='/'
-                      render={()=> <MainPage showSideBar={showSideBar} /> }
-                    />
-                    <Route 
-                      exact
-                      path='/data' 
-                      render={()=> 
-                        <DataEntryPage 
-                          vocabularyData={vocabularyData}
-                          expressionData={expressionData}
-                          isDataReady={isDataReady}
-                          onSave={onSave} 
-                          onEdit={onEdit} 
-                        />
-                      }
-                    />
-                    <Route 
-                      exact
-                      path='/games'
-                      render={()=> <GamesPage /> }
-                    />
-                    {/* GAME ROUTES */}
-                    {games.map(({ router })=>
-                      <Fragment key={`${router.path}-routes`}>
-                        <Route
-                          exact
-                          key={router.path}
-                          path={router.path}
-                          render={({ match })=> <GameScreen path={match.path}/> }
-                        />
-                        <Route
-                          exact
-                          key={`${router.path}-teacher`}
-                          path={`${router.path}/teacher`}
-                          render={()=> <TeacherInstructions path={router.path} /> }
-                        />
-                        <Route
-                          exact
-                          key={`${router.path}-student`}
-                          path={`${router.path}/student`}
-                          render={()=> <StudentInstructions path={router.path} /> }
-                        />
-                        <Route
-                          exact
-                          key={`${router.path}-start}`}
-                          path={`${router.path}/start`}
-                          render={()=>
-                            <router.component 
-                              expressionData={expressionData}
-                              vocabularyData={vocabularyData}
-                              colors={colors} />
-                          }
-                        />
-                      </Fragment>
-                    )}
-                  </Switch>
-                )}
-              />
-            </section>
-          </CSSTransition>
-        </TransitionGroup> 
-      </div>
+          <section>
+            <Route 
+              location={location}
+              render={()=> (
+                <Switch location={location}>
+                  <Route 
+                    exact
+                    path='/'
+                    render={()=> <MainPage showSideBar={showSideBar} /> }
+                  />
+                  <Route 
+                    exact
+                    path='/data' 
+                    render={()=> 
+                      <DataEntryPage 
+                        vocabularyData={vocabularyData}
+                        expressionData={expressionData}
+                        isDataReady={isDataReady}
+                        onSave={onSave} 
+                        onEdit={onEdit} 
+                      />
+                    }
+                  />
+                  <Route 
+                    exact
+                    path='/games'
+                    render={()=> <GamesPage /> }
+                  />
+                  {/* GAME ROUTES */}
+                  {games.map(({ router })=>
+                    <Fragment key={`${router.path}-routes`}>
+                      <Route
+                        exact
+                        key={router.path}
+                        path={router.path}
+                        render={({ match })=> <GameScreen path={match.path}/> }
+                      />
+                      <Route
+                        exact
+                        key={`${router.path}-teacher`}
+                        path={`${router.path}/teacher`}
+                        render={()=> <InstructionsPage
+                                      forPerson='forTeachers'
+                                      direction='right'
+                                      transitionClass='slideLeft'
+                                      path={router.path} /> }
+                      />
+                      <Route
+                        exact
+                        key={`${router.path}-student`}
+                        path={`${router.path}/student`}
+                        render={()=> <InstructionsPage
+                                      forPerson='forStudents'
+                                      direction='left'
+                                      transitionClass='slideRight'
+                                      path={router.path} /> }
+                      />
+                      <Route
+                        exact
+                        key={`${router.path}-start}`}
+                        path={`${router.path}/start`}
+                        render={()=>
+                          <router.component 
+                            expressionData={expressionData}
+                            vocabularyData={vocabularyData}
+                            colors={colors} />
+                        }
+                      />
+                    </Fragment>
+                  )}
+                </Switch>
+              )}
+            />
+          </section>
+        </CSSTransition>
+      </TransitionGroup> 
     )
   }
 }
 
-export default withRouter(Routers);
+export default Routers;

@@ -14,7 +14,7 @@ const GameScreen = ({ path }) => {
           as={Link}
           to={{
             pathname: `${game.router.path}/teacher`,
-            state: { slideRight:true }
+            state: { pageTransition:'slideRight' }
           }}
           className='left-btn outer-btn huge'
           color='blue'
@@ -29,7 +29,7 @@ const GameScreen = ({ path }) => {
           as={Link}
           to={{
             pathname: `${game.router.path}/student`,
-            state: { slideLeft:true }
+            state: { pageTransition:'slideLeft' }
           }}
           className='right-btn outer-btn huge'
           color='blue'
@@ -44,7 +44,7 @@ const GameScreen = ({ path }) => {
           as={Link}
           to={{
             pathname: `${game.router.path}/start`,
-            state: { slideUp:true }
+            state: { pageTransition:'slideUp' }
           }}
           className='start-btn circular'
           color='green'

@@ -21,7 +21,7 @@
 
 .instructions-list {
   margin: 0;
-  height: calc(100vh - 150px);
+  height: calc(100vh - 150px - 50px);
   list-style: none;
   padding: 0;
   display: flex;
@@ -31,6 +31,8 @@
   font-size: 20px;
   letter-spacing: 0.5px;
   padding: 10px 20px 5px;
+  cursor: pointer;
+  text-align: center;
 }
 
 .instructions-buttons {
@@ -42,6 +44,10 @@
   justify-content: center;
   align-items: center;
   transition: all 0.5s;
+}
+
+.instructions-buttons-reverse {
+  flex-direction: row-reverse;
 }
 
 .instructions-buttons > button {
@@ -76,4 +82,49 @@
     left: 230px;
     width: calc(100vw - 230px);
   }
+}
+
+.ui.steps {
+  margin: 0;
+  border: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  height: 50px;
+}
+
+.ui.steps .step.active,
+.ui.steps .step.active:after {
+  background-color: #eee;
+}
+
+.ui.steps .step:not(.active) {
+  border-bottom: 1px solid rgba(34,36,38,.15);
+}
+
+.instructions-list-item-single {
+  font-size: 100px;
+  line-height:120px;
+  text-align: center;
+  position: absolute;
+  transition: all 1s;
+}
+
+.instructions-list-item-single-enter {
+  transform: translate(100vw, 0);
+  opacity: 0;
+}
+
+.instructions-list-item-single-enter-active {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+.instructions-list-item-single-exit {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+.instructions-list-item-single-exit-active {
+  transform: translate(-100vw, 0);
+  opacity: 0;
 }
