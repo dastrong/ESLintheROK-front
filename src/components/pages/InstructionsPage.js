@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { InstructionsHolder } from './InstructionsHelper';
-import { games } from '../../../helpers/data';
-import { addListeners, rmvListeners } from '../../../helpers/phase2helpers';
-import '../../../styles/pages/gamePages/Instructions.css';
+import { games } from '../../helpers/data';
+import { addListeners, rmvListeners } from '../../helpers/phase2helpers';
+import '../../styles/pages/Instructions.css';
 
 const languages = { E: 'english', K: 'korean' };
 

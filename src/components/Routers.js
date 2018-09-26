@@ -3,9 +3,10 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { Route } from 'react-router-dom';
 import MainPage            from './pages/MainPage';
 import GamesPage           from './pages/GamesPage';
-import GameScreen          from './pages/gamePages/GameScreen';
-import DataEntryPage       from './pages/dataEntry/DataEntryPage';
-import InstructionsPage    from './pages/gamePages/InstructionsPage';
+import LessonsPage         from './pages/LessonsPage';
+import GamePage            from './pages/GamePage';
+import DataEntryPage       from './pages/DataEntryPage';
+import InstructionsPage    from './pages/InstructionsPage';
 import Switch              from '../helpers/Switch';
 import { games }           from '../helpers/data';
 
@@ -33,10 +34,9 @@ class Routers extends PureComponent {
     const { 
       vocabularyData, 
       expressionData,
-      isDataReady,
+      isGameReady,
       showSideBar,
-      onSave,
-      onEdit,
+      sendData,
       colors,
       location,
       history,
@@ -66,7 +66,9 @@ class Routers extends PureComponent {
                   <Route 
                     exact
                     path='/'
-                    render={()=> <MainPage showSideBar={showSideBar} /> }
+                    render={()=> 
+                      <MainPage 
+                        showSideBar={showSideBar} /> }
                   />
                   <Route 
                     exact
@@ -75,16 +77,25 @@ class Routers extends PureComponent {
                       <DataEntryPage 
                         vocabularyData={vocabularyData}
                         expressionData={expressionData}
-                        isDataReady={isDataReady}
-                        onSave={onSave} 
-                        onEdit={onEdit} 
+                        isGameReady={isGameReady}
+                        sendData={sendData}
                       />
                     }
                   />
                   <Route 
                     exact
                     path='/games'
-                    render={()=> <GamesPage /> }
+                    component={GamesPage}
+                  />
+                  <Route 
+                    exact
+                    path='/lessons'
+                    render={()=> 
+                      <LessonsPage
+                        sendData={sendData}
+                        isGameReady={isGameReady}
+                      />
+                    }
                   />
                   {/* GAME ROUTES */}
                   {games.map(({ router })=>
@@ -93,27 +104,34 @@ class Routers extends PureComponent {
                         exact
                         key={router.path}
                         path={router.path}
-                        render={({ match })=> <GameScreen path={match.path}/> }
+                        render={({ match })=> 
+                          <GamePage   
+                            path={match.path}
+                            isGameReady={isGameReady} /> }
                       />
                       <Route
                         exact
                         key={`${router.path}-teacher`}
                         path={`${router.path}/teacher`}
-                        render={()=> <InstructionsPage
-                                      forPerson='forTeachers'
-                                      direction='right'
-                                      transitionClass='slideLeft'
-                                      path={router.path} /> }
+                        render={()=> 
+                          <InstructionsPage
+                            forPerson='forTeachers'
+                            direction='right'
+                            transitionClass='slideLeft'
+                            path={router.path}
+                            isGameReady={isGameReady} /> }
                       />
                       <Route
                         exact
                         key={`${router.path}-student`}
                         path={`${router.path}/student`}
-                        render={()=> <InstructionsPage
-                                      forPerson='forStudents'
-                                      direction='left'
-                                      transitionClass='slideRight'
-                                      path={router.path} /> }
+                        render={()=> 
+                          <InstructionsPage
+                            forPerson='forStudents'
+                            direction='left'
+                            transitionClass='slideRight'
+                            path={router.path}
+                            isGameReady={isGameReady} /> }
                       />
                       <Route
                         exact
@@ -123,8 +141,8 @@ class Routers extends PureComponent {
                           <router.component 
                             expressionData={expressionData}
                             vocabularyData={vocabularyData}
-                            colors={colors} />
-                        }
+                            colors={colors}
+                            isGameReady={isGameReady} /> }
                       />
                     </Fragment>
                   )}

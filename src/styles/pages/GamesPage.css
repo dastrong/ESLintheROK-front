@@ -1,5 +1,47 @@
-.games-container {
-  height: 100vh;
-  width: 100%;
-  padding: 20px 28px;
+.gamesPage-container {
+  min-height: 100vh;
+}
+
+.ui.grid {
+  margin: 20px 10px;
+  justify-content: center;
+}
+
+.ui.card:first-child ,
+.ui.card {
+  margin: 10px;
+}
+
+.ui.card>.content {
+  padding: 10px 10px 30px;
+  opacity: 0;
+  z-index: 1;
+  height: 186px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.ui.card>.content>.description {
+  margin-bottom: 1em;
+}
+
+.ui.card>.content>.ui.button {
+  margin-right: 0;
+}
+
+.ui.card>.image {
+  position: absolute;
+  opacity: 1;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.ui.card:hover .content {
+  opacity: 1;
+}
+
+.ui.card:hover .image {
+  opacity: 0;
 }

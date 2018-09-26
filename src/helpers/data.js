@@ -341,7 +341,7 @@ export const games = [
     },
     info: {
       title: 'Letter Bowling',
-      skills: ['Reading', 'Writing?'],
+      skills: ['Reading', 'Writing'],
       description: 'Word Puzzle Solving Game',
       players: 1,
       completed: true,

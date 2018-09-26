@@ -8,7 +8,7 @@ export const InstructionsHolder = ({
   // from state
   game, instructions, language, index,
   // from props
-  direction, forPerson, transitionClass,
+  direction, forPerson, transitionClass, isGameReady,
   // functions
   handleClick, changeIndex, changeLanguage
 }) => (
@@ -37,6 +37,7 @@ export const InstructionsHolder = ({
       game={game}
       language={language}
       changeLanguage={changeLanguage}
+      isGameReady={isGameReady}
     />
     <Images 
       info={game.info}
@@ -120,9 +121,12 @@ const MultipleInstructions = ({ listData }) => (
 );
 
 // returns a group of buttons
-const ButtonGroup = ({ flipOrder, direction, transitionClass, game, language, changeLanguage }) => {
-  const cx = classNames('instructions-buttons', 
-    { 'instructions-buttons-reverse' : flipOrder })
+const ButtonGroup = ({ 
+  flipOrder, direction, transitionClass, game, language, changeLanguage, isGameReady
+}) => {
+  const cx = classNames('instructions-buttons', { 
+      'instructions-buttons-reverse' : flipOrder });
+  const startBtn = classNames('massive', { 'disabled': !isGameReady });
   return (
     <div className={cx}>
       <Button  
@@ -145,7 +149,7 @@ const ButtonGroup = ({ flipOrder, direction, transitionClass, game, language, ch
           pathname: `${game.router.path}/start`,
           state: { pageTransition:'slideUp' }
         }}
-        className='massive'
+        className={startBtn}
         color='green'
       >
         START

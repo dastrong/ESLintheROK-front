@@ -1,15 +1,17 @@
 import React from 'react';
+import classNames from 'classnames';
 import { Button, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
-import { games } from '../../../helpers/data';
-import '../../../styles/pages/gamePages/GameScreen.css';
+import { games } from '../../helpers/data';
+import '../../styles/pages/GamePage.css';
 
-const GameScreen = ({ path }) => {
+const GamePage = ({ path, isGameReady }) => {
   const game = games.find(({router}) => path === router.path);
+  const startBtn = classNames('start-btn circular', { disabled: !isGameReady })
   return (
-    <div className='gameScreen-container'>
+    <div className='gamePage-container'>
       <img src={game.info.images.topText} alt='game logo'></img>
-      <div className='gameScreen-buttons'>
+      <div className='gamePage-buttons'>
         <Button  
           as={Link}
           to={{
@@ -40,13 +42,14 @@ const GameScreen = ({ path }) => {
           <span>INSTRUCTIONS</span>
           <Icon size='large' name='angle right' />
         </Button>
+        <Button className='disabled-backer start-btn circular'></Button>
         <Button  
           as={Link}
           to={{
             pathname: `${game.router.path}/start`,
             state: { pageTransition:'slideUp' }
           }}
-          className='start-btn circular'
+          className={startBtn}
           color='green'
         >
           START
@@ -56,4 +59,4 @@ const GameScreen = ({ path }) => {
   )
 }
 
-export default GameScreen;
+export default GamePage;

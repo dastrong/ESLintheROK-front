@@ -11,8 +11,8 @@ const MainPage = ({ showSideBar }) => (
          alt="korea-flag" />
     
     <map name="flag-map">
-      <area alt="red-ying" 
-            href="/games"
+      <area alt="red-ying"
+            href="/lessons"
             shape="poly"
             coords="105,26,135,12,157,6,184,1,211,2,232,4,250,9,272,16,294,26,315,38,333,53,347,67,363,88,373,104,383,126,391,146,398,174,398,196,397,214,395,230,391,250,390,220,382,196,369,176,355,162,337,152,321,145,294,141,273,140,247,147,225,162,207,181,191,211,177,228,156,240,140,250,112,254,83,250,62,242,47,229,34,215,21,198,16,180,12,158,14,138,21,116,30,97,44,79,58,60,82,41" />
       <area alt="blue-yang"
@@ -35,11 +35,14 @@ const MainPage = ({ showSideBar }) => (
     </Link>
     
     <Link
-      to="/kimchi"
+      to={{
+        pathname: "/games",
+        state: { pageTransition:'slideUp' }
+      }}
       className='set nd-set'
     >
       <span className="text-row nd-text-row">
-        INFO
+        GAMES
       </span>
       <div className="row st-row">
         <span className="split-row"></span>
