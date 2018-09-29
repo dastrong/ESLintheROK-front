@@ -1,84 +1,98 @@
 import React, { Component } from "react";
 import classNames from 'classnames';
-import shuffle from 'shuffle-array';
+import shuffle from 'lodash/shuffle';
 import Card from '../reusable/Card';
 import Confetti from '../reusable/Confetti';
 import GifModal from '../reusable/GifModal';
 import { Icon } from 'semantic-ui-react';
-import { handleGameData, handleAnimations, handleKeyEvent, handleReset, handleClasses, handleClick } from '../../helpers/helpers'
+import { 
+  handleGameData, handleAnimations, handleEvents, handleReset, handleClasses, handleClick
+} from '../../helpers/phase1helpers';
+import { 
+  addListeners, rmvListeners, chooseDataSet, setAllData 
+} from '../../helpers/phase2helpers';
+import '../../styles/games/Generic.css';
 
 class WhatsBehind extends Component {
   constructor(props){
     super(props); 
     this.state = {
-      allData: {},
-      gameData: [],
-      Xs: [],
-      clickedIDs: [],
-      targetedIDs : [],
-      gifURLs: [],
-      counter: 0,
       colors: this.props.colors,
+      xCount: 1,
+      gameData: [],
+      clickedIDs: [],
+      Xs: [],
       height: '25vh',
-      targetedID: null,
       handlingClick: false,
       isResetting: false,
       isVocab: true,
       compressor: 1,
-      isGameOver: false
+      counter: 0,
+      gifURLs: [],
     }
     this.handleGameData   = handleGameData.bind(this);
-    this.handleKeyEvent   = handleKeyEvent.bind(this);
+    this.handleEvents     = handleEvents.bind(this);
     this.handleClick      = handleClick.bind(this);
     this.handleClasses    = handleClasses.bind(this);
     this.handleReset      = handleReset.bind(this);
     this.handleAnimations = handleAnimations.bind(this);
+    this.addListeners     = addListeners.bind(this);
+    this.rmvListeners     = rmvListeners.bind(this);
+    this.chooseDataSet    = chooseDataSet.bind(this);
+    this.setAllData       = setAllData.bind(this);
   }
 
-  componentDidMount(){
-    // document level keypress to handle game hotkeys
-    document.addEventListener('keydown', this.handleKeyEvent);
-    // copy data from props
-    // const { data } = this.props;
-    const vocabularyData = this.props.vocabularyData.map(data=>data.text);
-    const expressionData = this.props.expressionData.map(data=>data.text);
-    const allData = {vocabularyData, expressionData};
-    // returns an array of shuffled data equal to our boxCount variable
-    const gameData = this.handleGameData(allData);
-    // returns the winning cards location
-    const Xs = this._getXs(gameData.length);
-    // fetch all the gif links to show during a win
-    const gifURLs = this._fetchGIF();
-    this.setState({allData, gameData, Xs, gifURLs})
+  async componentDidMount(){
+    this.addListeners();
+    const gifURLs = await this._fetchGIF();
+    const { vocabularyData, expressionData } = this.props;
+    const allData = { vocabularyData, expressionData };
+    this.setAllData(allData, {gifURLs});
   }
 
-  componentWillUnmount(){
-    // document level keypress to handle game hotkeys
-    document.removeEventListener('keydown', this.handleKeyEvent)
+  componentWillUnmount(){ 
+    this.rmvListeners();
+    clearTimeout(this.timeout1);
+    clearTimeout(this.timeout2);
+    clearTimeout(this.timeout3);
+    clearTimeout(this.timeout4);
   }
 
-  _fetchGIF = () => {
-    const searchTerms = ['fail', 'funny+cat', 'funny+dog'];
-    const urls = searchTerms.map(searchTerm=>`https://api.giphy.com/v1/gifs/search?q=${searchTerm}&limit=10&rating=g&api_key=juEv23YnNSJVWcAgT3xhwtEH9AKb56KI`);
+  handleGame = (isVocab = this.state.isVocab) => {
+    const { gameData, Xs, height } = this.handleGameData(isVocab);
+    this.setState(prevState=>({
+      gameData, 
+      Xs,
+      height,
+      clickedIDs: [],
+      targetedIDs : [],
+      targetedID: null,
+      isVocab: isVocab === undefined
+                ? prevState.isVocab 
+                : isVocab,                
+      isGameOver: false,
+      colors: shuffle([...this.state.colors]),
+    }));
+  }
+
+  _fetchGIF = async () => {
+    const searchTerms = ['kpop', 'fail'];
+    const urls = searchTerms.map(searchTerm=>`https://api.giphy.com/v1/gifs/search?q=${searchTerm}&limit=20&rating=g&api_key=juEv23YnNSJVWcAgT3xhwtEH9AKb56KI`);
     let gifURLs = [];
-    Promise
-      .all(urls.map(url=>fetch(url)
+    await Promise
+    .all(urls.map(url=>fetch(url)
       .then(res=> res.json())
-      .then(json=>{
-        json.data.forEach(gif=>gifURLs.push(gif.images.original.url))
+      .then(({data})=>{
+        data.forEach(({images})=>gifURLs.push(images.original.url))
       })
       .catch(err=>console.log(err))
     ));
     return shuffle(gifURLs);
   }
-
-  _getXs = (dataLength) => {
-    return [Math.floor(Math.random()*dataLength)];
-  };
   
   render(){
     const {gameData, Xs, clickedIDs, isResetting, compressor, colors, isGameOver, gifURLs, counter} = this.state;
-    const containerClasses = classNames('elim-container', { isResetting });
+    const containerClasses = classNames('generic-container', { isResetting });
     const cards = gameData.map((card, i) => {
       const allCardClasses = this.handleClasses(card, i);
       const isX = Xs.includes(i);
@@ -97,14 +111,20 @@ class WhatsBehind extends Component {
       );
     });
     const confetti = Xs.length > 0 && Xs.every(X=>clickedIDs.includes(X))
-      ? <Confetti {...this.props} />
+      ? <Confetti 
+          height={window.innerHeight}
+          width={window.innerWidth}
+          recycle={true}
+          numberOfPieces={400}
+          gravity={0.35}
+        />
       : null;
     const gif = isGameOver
       ? <GifModal handleReset={this.handleReset} 
                   url={gifURLs[counter]} />
       : null;
     return (
-      <div className={containerClasses}> 
+      <div className={containerClasses}>
         {cards}
         {confetti}
         {gif}

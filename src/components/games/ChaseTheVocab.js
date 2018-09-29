@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import shuffle from 'shuffle-array';
+import shuffle from 'lodash/shuffle';
 import classNames from 'classnames';
 import FlipMove from 'react-flip-move';
 import { CSSTransition } from 'react-transition-group';
 import CardBlock from '../reusable/CardBlock';
 import { addListeners, rmvListeners, setData } from '../../helpers/phase2helpers';
+import '../../styles/games/ChaseTheVocab.css';
 
 class ChaseTheVocab extends Component {
   constructor(props){
@@ -107,7 +108,7 @@ class ChaseTheVocab extends Component {
     this.handleGame();
   }
 
-  handleKeyEvent = (e) => {
+  handleEvents = (e) => {
     const { compressor, colors } = this.state;
     // spacebar/enter was clicked; reset the game
     if(e.keyCode === 32 || e.keyCode === 13) return this.handleReset();
@@ -195,7 +196,7 @@ class ChaseTheVocab extends Component {
                   : clickedIDs.length === gameData.length
                     ? this.handleReset
                     : null}
-        className='container'
+        className='chase-container'
         duration={!isAnimating && !isShuffleDone ? 500 : settings.shuffDuration}
       >
         {boxes}

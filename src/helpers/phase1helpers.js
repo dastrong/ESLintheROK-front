@@ -1,83 +1,83 @@
-import shuffle from 'shuffle-array';
 import classNames from 'classnames';
 
-// ELIMINATION, WHATSBEHIND, STARS
-export function handleGameData(allData = this.state.allData){
-  // chooses which set of data to use
-  const data = this.state.isVocab ? allData.vocabularyData.slice() : allData.expressionData.slice();
-  // chooses how many boxes we need to fill with data
-  const boxCount = this.state.isVocab ? 8 : 6;
+// returns an array of numbers
+function arrOfRandNum(maxNum, numCount, options){
+  if(options) {
+    const { minStars, maxStars } = options;
+    return [...Array(numCount)].map(()=>minStars + Math.floor(Math.random()*(maxStars+1-minStars)));
+  }
   let arr = [];
-  // creates a shuffled array of numbers
-  while(arr.length < boxCount){
-    const randNum = Math.floor(Math.random()*data.length);
+  while(arr.length < numCount){
+    const randNum = Math.floor(Math.random()*maxNum);
     if(arr.indexOf(randNum) === -1) arr.push(randNum);
   }
+  return arr;
+}
+
+// ELIMINATION, WHATSBEHIND, STARS
+export function handleGameData(isVocab = this.state.isVocab){
+  const { xCount, options } = this.state;
+  // chooses which set of data to use
+  const data = this.chooseDataSet(isVocab);
+  // chooses how many boxes we need to fill with data and their height
+  const [boxCount, height] = isVocab 
+    ? [this.state.boxCount || 8, '25vh'] 
+    : [this.state.boxCount || 6, '33.4vh']; 
+  const arrOfNum = arrOfRandNum(data.length, boxCount, false);
+  const Xs = arrOfRandNum(boxCount, xCount, options);
   // adds an id, the text from the data array, and sets the beginning values used for animations
-  return arr.map((val, i) => ({ 
+  const gameData = arrOfNum.map((val, i) => ({ 
     text: data[val], 
     id: i, 
     clickTarget: {isCompleted: false, inProgress: false}
   }));
+  return {gameData, Xs, height};
 };
 
-// handling resets use getXs function
+export function handleLottoData(isVocab = this.state.isVocab){
+  const { options } = this.state;
+  // chooses which set of data to use
+  const data = this.chooseDataSet(isVocab);
+  // chooses how many boxes we need to fill with data and their height
+  const boxCount = isVocab ? 9 : 4;
+  const xCount = isVocab ? 3 : 1;
+  const arrOfNum = arrOfRandNum(data.length, boxCount, false);
+  const Xs = arrOfRandNum(boxCount, xCount, options);
+  const gameData = arrOfNum.map(val=>data[val]);
+  const timeouts = [...Array(boxCount)].map(()=> this.getRandomNum(8000)+500);
+  return {gameData, Xs, timeouts};
+}
+
+// handling resets use arrOfRandNum function
 // need to edit this on other games
 // ELIMINATION, WHATSBEHIND, STARS
-export function handleReset(){
-  // returns a new array of shuffled data
-  const gameData = this.handleGameData();
-  // returns a new array of chosen numbers
-  const Xs = this._getXs(gameData.length, 3);
-  // sets the height of our rows
-  const height = this.state.isVocab ? '25vh' : '33.4vh';
-  // refresh our state
-  this.setState({
-    gameData,
-    Xs,
-    height,
-    clickedIDs: [],
-    targetedID: null,
-    targetedIDs : [],
-    isResetting: true,
-    isGameOver: false,
-    colors: shuffle(this.state.colors, {'copy': true}),
-  }, () => {
-    setTimeout(()=>{
-      // fades the whole container in and out
-      // resets our flag variables
-      this.setState({
-        isResetting: false, 
-        handlingClick: false, 
-      });
-    },1000)
-  });
+export function handleReset(isVocab = this.state.isVocab){
+  this.setState({ isResetting:true }, this.handleGame(isVocab));
+  this.timeout4 = setTimeout(()=> this.setState({ isResetting:false, handlingClick:false }), 1000);
 };
 
 // ELIMINATION, WHATSBEHIND, STARS
-export function handleKeyEvent(e){
+export function handleEvents(e){
+  const { isResetting, isVocab, compressor } = this.state;
+  if(isResetting) return;
+  if(e.type === 'wheel'){
+    const c = e.deltaY < 0 ? -0.05 : 0.05;
+    return e.buttons === 4
+      ? this.handleReset(c < 0)
+      : this.setState({ compressor: compressor + c });
+  }
   // spacebar/enter was clicked; reset the game
-  if(e.keyCode === 32 || e.keyCode === 13){
-    this.handleReset();
-  }
+  if(e.keyCode === 32 || e.keyCode === 13) return this.handleReset(isVocab);
   // right arrow was clicked; reset the state and uses sentences
-  if(e.keyCode === 39){
-    this.setState({isVocab:false}, () => this.handleReset());
-  }
-  // left arrow was clicked; reset the game and use pvocab
-  if(e.keyCode === 37){
-    this.setState({isVocab:true}, () => this.handleReset());
-  }
+  if(e.keyCode === 39) return this.handleReset(false);
+  // left arrow was clicked; reset the game and use vocab
+  if(e.keyCode === 37) return this.handleReset(true);
   // up arrow was clicked; increase the font size
-  if(e.keyCode === 38){
-    const compressor = this.state.compressor - 0.05;
-    this.setState({compressor})
-  }
+  if(e.keyCode === 38) return this.setState({ compressor: compressor - 0.05 });
   // down arrow was clicked; decrease the font size
-  if(e.keyCode === 40){
-    const compressor = this.state.compressor + 0.05;
-    this.setState({compressor})
-  }
+  if(e.keyCode === 40) return this.setState({ compressor: compressor + 0.05 });
+  // if theres more game specific event handlers handle now
+  return this.handleMoreEvents ? this.handleMoreEvents(e) : null;
 };
 
 // ELIMINATION, WHATSBEHIND
@@ -89,7 +89,7 @@ export function handleClick(e){
   // sets the id of the card to the left/right for animations
   let targetedID = clickedID % 2 === 0 ? clickedID + 1 : clickedID - 1;
   // flips the cards boolean to show the backside
-  const gameData = this.state.gameData.map((data, i) => {
+  const gameData = this.state.gameData.map((data, i) => { 
     if(i === clickedID) { 
       // sets inProgress for the flip animation
       data = {
@@ -113,12 +113,12 @@ export function handleClick(e){
 export function handleAnimations(targetedID){
   // handles the secondary animations
   // will execute once the clicked card has been flipped
-  setTimeout(()=>{
+  this.timeout1 = setTimeout(()=>{
     const { Xs, clickedIDs, isResetting, isVocab } = this.state;
     // if everything has been found stop the game
-    if(Xs.every(X=>clickedIDs.includes(X))) return setTimeout(()=>{
-      this.setState((prevState) => ({
-        counter: prevState.counter + 1,
+    if(Xs.every(X=>clickedIDs.includes(X))) return this.timeout2 = setTimeout(()=>{
+      this.setState(({counter}) => ({
+        counter: counter + 1,
         isGameOver:true
     }))},3000);
     // stops the following if we're isResetting
@@ -141,7 +141,7 @@ export function handleAnimations(targetedID){
     this.setState({gameData, height, targetedID, targetedIDs: [...this.state.targetedIDs, targetedID]}, ()=>{
       // recalls the state after all the animations are done to resize the text
       // resets the handlingClick flag variable to restore clickabilty
-      setTimeout(()=>{
+      this.timeout3 = setTimeout(()=>{
         this.setState({handlingClick: false});
       }, 1000)
     })

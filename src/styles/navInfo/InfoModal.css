@@ -34,7 +34,7 @@ i.link.icon.info-modal-icon:hover {
   align-items: center;
   border: 1px solid green;
   width: 100%;
-  max-width: 500px;
+  max-width: 700px;
   height: 65px;
   border-radius: 50px;
   margin: 2px 0;
@@ -42,9 +42,9 @@ i.link.icon.info-modal-icon:hover {
 
 .info-modal-item-key {
   text-align: center;
-  width: 30%;
+  width: 45%;
 }
 
 .info-modal-item-des {
-  width: 70%;
+  width: 53%;
 }

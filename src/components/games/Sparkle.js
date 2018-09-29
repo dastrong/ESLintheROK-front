@@ -3,6 +3,7 @@ import TextBox from '../reusable/TextBox';
 import { Timer, startTimer, resetTimer } from '../reusable/Timer';
 import { CSSTransition } from 'react-transition-group';
 import { setData, getRandomNum, getRandomIndex, addListeners, rmvListeners } from '../../helpers/phase2helpers';
+import '../../styles/games/Sparkle.css';
 
 class Sparkle extends Component {
   constructor(props){
@@ -49,8 +50,15 @@ class Sparkle extends Component {
     this.startTimer();
   }
 
-  handleKeyEvent = (e) => {
+  handleEvents = (e) => {
     const { timer, compressor } = this.state;
+    if(e.type === 'wheel'){
+      const c = e.deltaY < 0 ? -0.05 : 0.05;
+      const t = e.deltaY < 0 ? 1 : -1;
+      return e.buttons === 4
+        ? this.setState({ timer: timer + t, timeRemaining: timer + t })
+        : this.setState({ compressor: compressor + c });
+    }
     // spacebar/enter was clicked; reset the game
     if(e.keyCode === 32 || e.keyCode === 13) return this.handleClick();
     // right arrow was clicked; increase the timer
@@ -68,15 +76,9 @@ class Sparkle extends Component {
       }
     }
     // up arrow was clicked; increase the font size
-    if(e.keyCode === 38){
-      const c = compressor - 0.05;
-      this.setState({ compressor:c })
-    }
+    if(e.keyCode === 38) return this.setState({ compressor: compressor - 0.05 });
     // down arrow was clicked; decrease the font size
-    if(e.keyCode === 40){
-      const c = compressor + 0.05;
-      this.setState({ compressor:c })
-    }
+    if(e.keyCode === 40) return this.setState({ compressor: compressor + 0.05 });
   };
 
   render(){
@@ -84,7 +86,7 @@ class Sparkle extends Component {
     const width = (((timer-timeRemaining)/(timer-1))*100)+'%';
     return (
       <div 
-        className='container'
+        className='spark-container'
         onClick={this.handleClick}
       >
         <CSSTransition

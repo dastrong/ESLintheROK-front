@@ -1,5 +1,6 @@
-/* .spark-container {
-  height: 85vh;
-  width: 100%;
-  background-color: violet;
-} */
+.spark-container {
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+} 

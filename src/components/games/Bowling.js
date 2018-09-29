@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import shuffle from 'shuffle-array';
+import shuffle from 'lodash/shuffle';
 import TextDrop from '../reusable/TextDrop';
 import Round from '../reusable/Round';
 import { setData, getRandomNum, getRandomIndex, splitText, addListeners, rmvListeners } from '../../helpers/phase2helpers';
@@ -34,7 +34,8 @@ class Bowling extends Component {
 
   componentWillUnmount(){ 
     this.rmvListeners();
-    clearInterval(this.intervalID)
+    clearInterval(this.intervalID);
+    clearTimeout(this.timeoutActive);
   }
 
   handleGame = (data = this.state.data) => {
@@ -57,7 +58,8 @@ class Bowling extends Component {
   }
 
   handleReset = () => {
-    clearInterval(this.intervalID)
+    clearInterval(this.intervalID);
+    clearTimeout(this.timeoutActive);
     this.handleGame();
   }
 
@@ -85,12 +87,13 @@ class Bowling extends Component {
         return {round: prevState.round + 1, isActive: false}
       }, () => {
         if(this.state.isGameOver) return;
-        setTimeout(()=>this.setState({isActive: true}), 2000)
+        this.timeoutActive = setTimeout(()=>this.setState({isActive: true}), 2000)
       });
     }, interval);
   }
 
-  handleKeyEvent = (e) => {
+  handleEvents = (e) => {
+    if(e.type === 'wheel') return;
     const { totalRound, round } = this.state;
     // spacebar/enter was clicked; reset the game
     if(e.keyCode === 32 || e.keyCode === 13) return this.handleReset();

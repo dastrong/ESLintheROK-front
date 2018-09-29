@@ -637,3 +637,88 @@ export const games = [
     },
   },
 ];
+
+export const hotKeyInfo = [
+  {
+    path: '/elimination',
+    keyCuts: [
+      {key: ['Space', 'Enter'], description: 'Refresh the game'},
+      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Refresh the game and use vocabulary'},
+      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Refresh the game and use expressions'},
+      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
+      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+      {key: '1-7', description: "Change the number of X's (default: 3)"}
+    ]
+  },
+  {
+    path: '/whatsbehind',
+    keyCuts: [
+      {key: ['Space', 'Enter'], description: 'Refresh the game'},
+      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Refresh the game and use vocabulary'},
+      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Refresh the game and use expressions'},
+      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
+      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+    ]
+  },
+  {
+    path: '/stars',
+    keyCuts: [
+      {key: ['Space', 'Enter'], description: 'Refresh the game'},
+      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Refresh the game and use vocabulary'},
+      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Refresh the game and use expressions'},
+      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
+      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+      {key: '1-5', description: 'Change the minimum number of stars a card can have (default: 0)'}
+    ]
+  },
+  {
+    path: '/lotto',
+    keyCuts: [
+      {key: ['Space', 'Enter'], description: 'Refresh the game'},
+      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Refresh the game and use vocabulary'},
+      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Refresh the game and use expressions'},
+      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
+      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+    ]
+  },
+  {
+    path: '/kimchi',
+    keyCuts: [
+      {key: ['Space', 'Enter'], description: 'Refresh the game'},
+      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Increase kimchi frequency'},
+      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Decrease kimchi frequency'},
+      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
+      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'}
+    ]
+  },
+  {
+    path: '/sparkle',
+    keyCuts: [
+      {key: ['Space', 'Enter'], description: 'Refresh the game'},
+      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Decrease the timer (min: 5s)'},
+      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Increase the timer (max: 20s)'},
+      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
+      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+    ]
+  },
+  {
+    path: '/bowling',
+    keyCuts: [
+      {key: ['Space', 'Enter'], description: 'Refresh the game'},
+      {key: 'Left-Arrow', description: 'Decrease the total rounds'},
+      {key: 'Right-Arrow', description: 'Increase the total rounds'},
+    ]
+  },
+  {
+    path: '/chase',
+    keyCuts: [
+      {key: ['Space', 'Enter'], description: 'Refresh the game'},
+      {key: 'Left-Arrow', description: 'Refresh the game and use vocabulary'},
+      {key: 'Right-Arrow', description: 'Refresh the game and use expressions'},
+      {key: 'Up-Arrow', description: 'Increase the font size'},
+      {key: 'Down-Arrow', description: 'Decrease the font size'},
+      {key: 'C', description: 'Change the block color'},
+      {key: '1-9', description: 'Change the difficulty (easiest:1, hardest:9, default:5)'}
+    ]
+  },
+]

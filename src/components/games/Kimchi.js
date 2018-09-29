@@ -11,7 +11,7 @@ class Kimchi extends Component {
     super(props);
     this.state = {
       compressor: 0.6,
-      frequencyPercent: 90,
+      frequencyPercent: 50,
       isKimchi: null,
       data: [],
       text: '',
@@ -31,7 +31,12 @@ class Kimchi extends Component {
     this.setData(this.props.expressionData);  
   }
 
-  componentWillUnmount(){ this.rmvListeners() }
+  componentWillUnmount(){ 
+    this.rmvListeners();
+    clearTimeout(this.timeout1);
+    clearTimeout(this.timeout2);
+    clearTimeout(this.timeoutID);
+  }
 
   handleGame = (data = this.state.data) => {
     const random = this.getRandomIndex(data.length);
@@ -48,12 +53,20 @@ class Kimchi extends Component {
   handleClick = () => {
     if(this.state.noClick) return;
     !this.state.showAnswer 
-    ? this.setState({showAnswer:true, noClick:true}, () => setTimeout(this._getText, 1000))
-    : this.setState({showAnswer:false, noClick:true}, () => setTimeout(this._getIsKimchi, 1000));
+    ? this.setState({showAnswer:true, noClick:true}, () => this.timeout1 = setTimeout(this._getText, 1000))
+    : this.setState({showAnswer:false, noClick:true}, () => this.timeout2 = setTimeout(this._getIsKimchi, 1000));
   }
 
-  handleKeyEvent = (e) => {
-    const { compressor, frequencyPercent, noClick } = this.state;
+  handleEvents = (e) => {
+    const { compressor } = this.state;
+    if(e.type === 'wheel'){
+      const c = e.deltaY < 0 ? -0.05 : 0.05;
+      return e.buttons !== 4 
+        ? this.setState({ compressor: compressor + c })
+        : c < 0
+          ? this.increaseFreq()
+          : this.decreaseFreq()
+    }
     // spacebar/enter was clicked; reset the game
     if(e.keyCode === 32 || e.keyCode === 13) return this.handleClick(); 
     // up arrow was clicked; increase the font size
@@ -61,34 +74,41 @@ class Kimchi extends Component {
     // down arrow was clicked; decrease the font size
     if(e.keyCode === 40) return this.setState({compressor:compressor + 0.05});
     // right arrow was clicked; increase the frequent
-    if(e.keyCode === 39){
-      if(noClick) return;
-      if(frequencyPercent >= 1 && frequencyPercent < 99){
-        return this.setState(prevSt=>({ 
-          freqUpdated: true,
-          showAnswer: false, 
-          frequencyPercent: prevSt.frequencyPercent + 1 
-        }), this._freqChange);
-      }
-    }
+    if(e.keyCode === 39) return this.increaseFreq();
     // left arrow was clicked; decrease the frequent
-    if(e.keyCode === 37){
-      if(noClick) return;
-      if(frequencyPercent > 1 && frequencyPercent <= 99){
-        return this.setState(prevSt=>({
-          freqUpdated: true,
-          showAnswer: false, 
-          frequencyPercent: prevSt.frequencyPercent - 1 
-        }), this._freqChange);
-      }
-    }
+    if(e.keyCode === 37) return this.decreaseFreq();
   };
 
+  increaseFreq = () => {
+    const { frequencyPercent, noClick } = this.state;
+    if(noClick) return;
+    if(frequencyPercent >= 1 && frequencyPercent < 99) {
+      this.setState(prevSt=> ({ 
+        freqUpdated: true,
+        showAnswer: false, 
+        frequencyPercent: prevSt.frequencyPercent + 1 
+      }), this._freqChange);
+    }
+  }
+
+  decreaseFreq = () => {
+    const { frequencyPercent, noClick } = this.state;
+    if(noClick) return;
+    if(frequencyPercent > 1 && frequencyPercent <= 99) {
+      this.setState(prevSt=>({ 
+        freqUpdated: true,
+        showAnswer: false, 
+        frequencyPercent: prevSt.frequencyPercent - 1 
+      }), this._freqChange);
+    }
+  }
+    
+  
   _isKimchiLogic = (percent) => this.getRandomNum(100) > percent - 1;
 
   _freqChange = () => {
-    clearInterval(this.intervalID);
-    this.intervalID = setTimeout(this._getIsKimchi, 1000)
+    clearTimeout(this.timeoutID);
+    this.timeoutID = setTimeout(this._getIsKimchi, 1000)
   }
 
   _getIsKimchi = () => {

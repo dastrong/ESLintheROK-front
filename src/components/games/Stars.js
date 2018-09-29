@@ -1,55 +1,79 @@
 import React, { Component } from "react";
 import classNames from 'classnames';
-import shuffle from 'shuffle-array';
+import shuffle from 'lodash/shuffle';
 import Card from '../reusable/Card';
 import { Icon } from 'semantic-ui-react';
-import { handleGameData } from '../../helpers/helpers'
+import { 
+  handleGameData, handleEvents, handleReset,
+} from '../../helpers/phase1helpers';
+import { 
+  addListeners, rmvListeners, chooseDataSet, setAllData 
+} from '../../helpers/phase2helpers';
+import '../../styles/games/Generic.css';
 
 class Stars extends Component {
   constructor(props){
     super(props); 
     this.state = {
-      allData: {},
-      gameData: [],
-      Xs: [],
-      clickedID: undefined,
-      clickedIDs: [],
-      counter: 0,
       colors: this.props.colors,
-      starColors: ['red', 'orange', 'yellow', 'olive', 'green', 'teal', 'blue', 'violet', 'purple', 'pink'],
+      xCount: 8,
+      gameData: [],
+      clickedIDs: [],
+      Xs: [],
       height: '25vh',
       handlingClick: false,
       isResetting: false,
       isVocab: true,
       compressor: 1,
-      isGameOver: false
+      counter: 0,
+      options: { minStars: 0, maxStars: 6}, 
+      starColors: ['red', 'orange', 'yellow', 'olive', 'green', 'teal', 'blue', 'violet', 'purple', 'pink'],
     }
-    this.handleGameData   = handleGameData.bind(this);
+    this.handleGameData = handleGameData.bind(this);
+    this.handleEvents   = handleEvents.bind(this);
+    this.handleReset    = handleReset.bind(this);
+    this.addListeners   = addListeners.bind(this);
+    this.rmvListeners   = rmvListeners.bind(this);
+    this.chooseDataSet  = chooseDataSet.bind(this);
+    this.setAllData     = setAllData.bind(this);
   }
 
   componentDidMount(){
-    // document level keypress to handle game hotkeys
-    document.addEventListener('keydown', this.handleKeyEvent);
-    // copy data from props
-    // const { data } = this.props;
-    const vocabularyData = this.props.vocabularyData.map(data=>data.text);
-    const expressionData = this.props.expressionData.map(data=>data.text);
-    const allData = {vocabularyData, expressionData};
-    // returns an array of shuffled data equal to our boxCount variable
-    const gameData = this.handleGameData(allData);
-    // returns an array of numbers used to show stars
-    const Xs = this._getXs(gameData.length);
-    this.setState({allData, gameData, Xs})
+    this.addListeners();
+    const { vocabularyData, expressionData } = this.props;
+    const allData = { vocabularyData, expressionData };
+    this.setAllData(allData);
   }
 
-  componentWillUnmount(){
-    // document level keypress to handle game hotkeys
-    document.removeEventListener('keydown', this.handleKeyEvent)
+  componentWillUnmount(){ 
+    this.rmvListeners();
+    clearTimeout(this.timeout4);
+    clearTimeout(this.timeout5);
+    clearTimeout(this.timeout6);
   }
 
-  _getXs = (dataLength) => {
-    // returns an array of numbers between 0-6
-    return [...Array(dataLength)].map(()=>Math.floor(Math.random()*7));
+  componentDidUpdate(){ 
+    if(!this.state.isGameOver) return;
+    this.timeout5 = setTimeout(this.handleReset, 3000); 
+  }
+
+  handleGame = (isVocab = this.state.isVocab) => {
+    const { gameData, Xs, height } = this.handleGameData(isVocab);
+    this.setState(prevState=>({
+      gameData, 
+      Xs,
+      height,
+      clickedIDs: [],
+      clickedID: null, 
+      targetedIDs : [],
+      targetedID: null,
+      isVocab: isVocab === undefined
+                ? prevState.isVocab 
+                : isVocab,                
+      isGameOver: false,
+      colors: shuffle([...this.state.colors]),
+      starColors: shuffle([...this.state.starColors]),
+    }));
   }
 
   _handleCardFlip = (id) => {
@@ -65,7 +89,7 @@ class Stars extends Component {
     }, ()=>{
       // wait a seconds for animations to be complete
       // reset clicking flag variables
-      setTimeout(()=>{
+      this.timeout6 = setTimeout(()=>{
         this.setState({
           handlingClick:false,
           isGameOver: arr.length === gameData.length
@@ -94,33 +118,6 @@ class Stars extends Component {
       : this._handleNextCardUp();
   }
 
-  handleReset = (e) => {
-    // returns a new array of shuffled data
-    const gameData = this.handleGameData();
-    // returns a new array of chosen numbers
-    const Xs = this._getXs(gameData.length, 3);
-    // refresh our state
-    this.setState({
-      gameData,
-      Xs,
-      clickedID: undefined,
-      clickedIDs: [],
-      isResetting: true,
-      isGameOver: false,
-      colors: shuffle(this.state.colors, {'copy': true}),
-      starColors: shuffle(this.state.starColors, {'copy': true}),
-    }, () => {
-      setTimeout(()=>{
-        // fades the whole container in and out
-        // resets our flag variables
-        this.setState({
-          isResetting: false, 
-          handlingClick: false, 
-        });
-      },1000)
-    });
-  }
-
   handleClasses = (i) => {
     const { isVocab, clickedID, clickedIDs } = this.state;
     const classes = classNames('flipper', {
@@ -131,42 +128,29 @@ class Stars extends Component {
       : classNames(classes, 'vert33');
   }
 
-  handleKeyEvent = (e) => {
-    // spacebar/enter was clicked
-    if(e.keyCode === 32 || e.keyCode === 13){
-      this._handleNextCardUp();
-    }
-    // right arrow was clicked; reset the state and use sentences
-    if(e.keyCode === 39){
-      this.setState({isVocab:false}, () => this.handleReset());
-    }
-    // left arrow was clicked; reset the game and use vocab
-    if(e.keyCode === 37){
-      this.setState({isVocab:true}, () => this.handleReset());
-    }
-    // up arrow was clicked; increase the font size
-    if(e.keyCode === 38){
-      const compressor = this.state.compressor - 0.05;
-      this.setState({compressor})
-    }
-    // down arrow was clicked; decrease the font size
-    if(e.keyCode === 40){
-      const compressor = this.state.compressor + 0.05;
-      this.setState({compressor})
-    }
+  handleMoreEvents = (e) => {
+    // numbers being clicked
+    if(e.code.includes('Digit')){
+      const { minStars, maxStars } = this.state.options;
+      const num = Number(e.key);
+      if(num === minStars || num >= maxStars) return;
+      const options = { minStars: num, maxStars };
+      this.setState({ options }, this.handleReset);
+    };
   }
   
   render(){
     const {gameData, Xs, isResetting, compressor, colors, starColors} = this.state;
-    const containerClasses = classNames('elim-container', { isResetting });
+    const containerClasses = classNames('generic-container', { isResetting });
     const cards = gameData.map((card, i) => {
       const cardClasses = this.handleClasses(i);
       const icons = [...Array(Xs[i])].map((x,j)=>
-        <Icon loading 
-              name='star' 
-              color={starColors[i]} 
-              size='small'
-              key={j} />
+        <Icon
+          name='star' 
+          color={starColors[i]} 
+          size='small'
+          key={j}
+        />
       );
       return (
         <Card 
