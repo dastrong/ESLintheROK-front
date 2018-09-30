@@ -13,7 +13,7 @@
 }
 
 .ui.card>.content {
-  padding: 10px 10px 30px;
+  padding: 30px 10px;
   opacity: 0;
   z-index: 1;
   height: 186px;
@@ -44,4 +44,8 @@
 
 .ui.card:hover .image {
   opacity: 0;
+}
+
+.ui.top.attached.label:first-child+:not(.attached) {
+  margin-top: 0!important;
 }

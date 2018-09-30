@@ -25,6 +25,11 @@ const GridItems = ({ games }) => (
   .map(({ router, info }) => (
     <Card key={router.path}>
       <Card.Content textAlign='center'>
+        <Label 
+          attached='top'
+          color='grey'
+          content={info.dataUsed.join(', ')}
+        />
         <Card.Header content={info.title} />
         <Card.Description content={info.description} />
         <PlayGameButton url={router.path} />

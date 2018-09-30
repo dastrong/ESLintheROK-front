@@ -9,7 +9,7 @@ class Sparkle extends Component {
   constructor(props){
     super(props);
     this.state = {
-      compressor: 0.6,
+      compressor: 0.8,
       data: [],
       text: '',
       textIndex: undefined,
@@ -51,35 +51,42 @@ class Sparkle extends Component {
   }
 
   handleEvents = (e) => {
-    const { timer, compressor } = this.state;
+    const {  compressor } = this.state;
     if(e.type === 'wheel'){
       const c = e.deltaY < 0 ? -0.05 : 0.05;
-      const t = e.deltaY < 0 ? 1 : -1;
-      return e.buttons === 4
-        ? this.setState({ timer: timer + t, timeRemaining: timer + t })
-        : this.setState({ compressor: compressor + c });
+      return e.buttons !== 4 
+        ? this.setState({ compressor: compressor + c })
+        : c < 0
+          ? this._increaseTimer()
+          : this._decreaseTimer()
     }
     // spacebar/enter was clicked; reset the game
     if(e.keyCode === 32 || e.keyCode === 13) return this.handleClick();
     // right arrow was clicked; increase the timer
-    if(e.keyCode === 39){
-      if(timer >= 5 && timer < 20){
-        const time = timer + 1;
-        this.setState({timer:time, timeRemaining: time}, this.handleClick);
-      }
-    }
+    if(e.keyCode === 39) return this._increaseTimer();
     // left arrow was clicked; decrease the timer
-    if(e.keyCode === 37){
-      if(timer > 5 && timer <= 20){
-        const time = timer - 1;
-        this.setState({timer:time, timeRemaining: time}, this.handleClick);
-      }
-    }
+    if(e.keyCode === 37) return this._decreaseTimer();
     // up arrow was clicked; increase the font size
     if(e.keyCode === 38) return this.setState({ compressor: compressor - 0.05 });
     // down arrow was clicked; decrease the font size
     if(e.keyCode === 40) return this.setState({ compressor: compressor + 0.05 });
   };
+
+  _increaseTimer = () => {
+    const { timer } = this.state;
+    if(timer >= 5 && timer < 20){
+      const time = timer + 1;
+      this.setState({timer:time, timeRemaining: time}, this.handleClick);
+    }
+  }
+
+  _decreaseTimer = () => {
+    const { timer } = this.state;
+    if(timer > 5 && timer <= 20){
+      const time = timer - 1;
+      this.setState({timer:time, timeRemaining: time}, this.handleClick);
+    }
+  }
 
   render(){
     const { compressor, gameReady, text, timer, timeRemaining, isTimeUp } = this.state;

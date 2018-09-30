@@ -10,7 +10,7 @@ class Kimchi extends Component {
   constructor(props){
     super(props);
     this.state = {
-      compressor: 0.6,
+      compressor: 0.8,
       frequencyPercent: 50,
       isKimchi: null,
       data: [],
@@ -64,8 +64,8 @@ class Kimchi extends Component {
       return e.buttons !== 4 
         ? this.setState({ compressor: compressor + c })
         : c < 0
-          ? this.increaseFreq()
-          : this.decreaseFreq()
+          ? this._increaseFreq()
+          : this._decreaseFreq()
     }
     // spacebar/enter was clicked; reset the game
     if(e.keyCode === 32 || e.keyCode === 13) return this.handleClick(); 
@@ -74,12 +74,12 @@ class Kimchi extends Component {
     // down arrow was clicked; decrease the font size
     if(e.keyCode === 40) return this.setState({compressor:compressor + 0.05});
     // right arrow was clicked; increase the frequent
-    if(e.keyCode === 39) return this.increaseFreq();
+    if(e.keyCode === 39) return this._increaseFreq();
     // left arrow was clicked; decrease the frequent
-    if(e.keyCode === 37) return this.decreaseFreq();
+    if(e.keyCode === 37) return this._decreaseFreq();
   };
 
-  increaseFreq = () => {
+  _increaseFreq = () => {
     const { frequencyPercent, noClick } = this.state;
     if(noClick) return;
     if(frequencyPercent >= 1 && frequencyPercent < 99) {
@@ -91,7 +91,7 @@ class Kimchi extends Component {
     }
   }
 
-  decreaseFreq = () => {
+  _decreaseFreq = () => {
     const { frequencyPercent, noClick } = this.state;
     if(noClick) return;
     if(frequencyPercent > 1 && frequencyPercent <= 99) {

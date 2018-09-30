@@ -18,6 +18,7 @@ export const games = [
     info: {
       title: 'Elimination Game',
       skills: ['Reading', 'Speaking'],
+      dataUsed: ['Vocabulary', 'Expressions'],
       description: 'Last Student Standing Game',
       players: 1,
       completed: true,
@@ -81,6 +82,7 @@ export const games = [
     info: {
       title: "What's Behind",
       skills: ['Reading', 'Speaking'],
+      dataUsed: ['Vocabulary', 'Expressions'],
       description: 'Find the Hidden Item',
       players: 1,
       completed: true,
@@ -138,6 +140,7 @@ export const games = [
     info: {
       title: 'Stars Writing Game',
       skills: ['Reading', 'Speaking', 'Writing'],
+      dataUsed: ['Vocabulary', 'Expressions'],
       description: 'Collect as many stars as possible',
       players: 1,
       completed: true,
@@ -199,6 +202,7 @@ export const games = [
     info: {
       title: 'Word Lotto',
       skills: ['Reading', 'Speaking', 'Writing'],
+      dataUsed: ['Vocabulary', 'Expressions'],
       description: 'Get as many points as possible',
       players: 1,
       completed: true,
@@ -266,6 +270,7 @@ export const games = [
     info: {
       title: 'Sparkle Die',
       skills: ['Reading', 'Speaking', 'Listening'],
+      dataUsed: ['Expressions'],
       description: 'Fun review activity',
       players: 1,
       completed: true,
@@ -342,6 +347,7 @@ export const games = [
     info: {
       title: 'Letter Bowling',
       skills: ['Reading', 'Writing'],
+      dataUsed: ['Vocabulary'],
       description: 'Word Puzzle Solving Game',
       players: 1,
       completed: true,
@@ -411,6 +417,7 @@ export const games = [
     info: {
       title: 'Kimchi Elimination',
       skills: ['Reading', 'Speaking'],
+      dataUsed: ['Expressions'],
       description: '',
       players: 1,
       completed: true,
@@ -499,6 +506,7 @@ export const games = [
     info: {
       title: 'Chase the Vocab',
       skills: ['Speaking'],
+      dataUsed: ['Vocabulary'],
       description: 'Follow the Vocab',
       players: 1,
       completed: true,
@@ -563,6 +571,7 @@ export const games = [
     info: {
       title: 'Matching',
       skills: ['Reading', 'Speaking'],
+      dataUsed: ['Vocabulary'],
       description: 'Find all the pairs',
       players: 1,
       completed: false,
@@ -602,6 +611,7 @@ export const games = [
     info: {
       title: 'Disappear',
       skills: ['Reading'],
+      dataUsed: ['Vocabulary'],
       description: 'Word Puzzle Solving Game',
       players: 1,
       completed: false,
@@ -713,12 +723,10 @@ export const hotKeyInfo = [
     path: '/chase',
     keyCuts: [
       {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: 'Left-Arrow', description: 'Refresh the game and use vocabulary'},
-      {key: 'Right-Arrow', description: 'Refresh the game and use expressions'},
-      {key: 'Up-Arrow', description: 'Increase the font size'},
-      {key: 'Down-Arrow', description: 'Decrease the font size'},
+      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
+      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
       {key: 'C', description: 'Change the block color'},
-      {key: '1-9', description: 'Change the difficulty (easiest:1, hardest:9, default:5)'}
+      {key: '1-9', description: 'Change the difficulty (easiest: 1, hardest: 9, default: 5)'}
     ]
   },
 ]

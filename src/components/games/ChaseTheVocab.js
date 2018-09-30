@@ -36,18 +36,12 @@ class ChaseTheVocab extends Component {
 
   componentWillUnmount(){ 
     clearInterval(this.intervalID);
-    clearTimeout(this.resetID);
     clearTimeout(this.delayedStartID);
     this.rmvListeners();
   }
 
   handleGame = () => {
-    const dataWID = this.state.data.map((x, i)=>{
-      return {
-        text: x,
-        id: i,
-      };
-    })
+    const dataWID = this.state.data.map((x, i)=>({ text: x, id: i }));
     const gameData = shuffle(dataWID).slice(0,9);
     this.setState({
       gameData,
@@ -58,7 +52,7 @@ class ChaseTheVocab extends Component {
     });
   }
 
-  handleClick = () => {
+  handleClick = (e) => {
     if(this.intervalID) return;
     this.setState({isAnimating: true}, () => {
       this.delayedStartID = setTimeout(()=>{
@@ -103,26 +97,26 @@ class ChaseTheVocab extends Component {
     clearTimeout(this.resetID);
     clearTimeout(this.delayedStartID);
     this.intervalID = null;
-    this.resetID = null;
     this.delayedStartID = null;
     this.handleGame();
   }
 
   handleEvents = (e) => {
     const { compressor, colors } = this.state;
+    if(e.type === 'wheel'){
+      if(e.buttons) return;
+      const c = e.deltaY < 0 ? -0.05 : 0.05;
+      return this.setState({ compressor: compressor + c });
+    }
     // spacebar/enter was clicked; reset the game
     if(e.keyCode === 32 || e.keyCode === 13) return this.handleReset();
     // up arrow was clicked; increase the font size
     if(e.keyCode === 38) return this.setState({compressor:compressor - 0.05});
     // down arrow was clicked; decrease the font size
     if(e.keyCode === 40) return this.setState({compressor:compressor + 0.05});  
-    // right arrow was clicked; reset the state and uses sentences
-    if(e.keyCode === 39) return this.setState({isVocab:false}, () => this.resetID = setTimeout(this.handleReset, 1000));
-    // left arrow was clicked; reset the game and use vocab
-    if(e.keyCode === 37) return this.setState({isVocab:true}, () => this.resetID = setTimeout(this.handleReset, 1000));
     // c was clicked; change the cards background color
     if(e.keyCode === 67){ this.setState(prevState => {
-      if(!prevState.color) return {color: colors.length};
+      if(!prevState.color) return {color: colors.length - 1};
       return {color: prevState.color - 1}});
     };
     // a number was clicked; change difficulty
@@ -138,10 +132,7 @@ class ChaseTheVocab extends Component {
 
   _changeDelay(key){ return 1000 - (key * 100); }
 
-  _changeRound(key){
-    if(key < 4) return 3;
-    return key;
-  }
+  _changeRound(key){ return key < 4 ? 3 : key; }
 
   _changeSpeed(key){
     const base = 2000;

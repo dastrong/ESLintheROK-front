@@ -40,8 +40,11 @@ class InstructionsPage extends Component {
     return this.setState(({index})=>({index: index + 1})); 
   }
 
-  handleKeyEvent = (e) => {
-    const { index, instructions, language } = this.state;
+  handleEvents = (e) => {
+    if(e.type === 'wheel'){
+      if(e.buttons) return;
+      return e.deltaY < 0 ? this._increaseIndex() : this._decreaseIndex();
+    }
     // spacebar/enter was clicked; next index
     if(e.keyCode === 32 || e.keyCode === 13) return this.handleClick();
     // E clicked; change language to English
@@ -55,15 +58,20 @@ class InstructionsPage extends Component {
       return this.setState({language: languages.K});
     }
     // right arrow was clicked; increase the index
-    if(e.keyCode === 39) {
-      if(index >= instructions[language].length) return;
-      this.setState(({index})=>({index: index + 1}));
-    }
+    if(e.keyCode === 39) return this._increaseIndex();
     // left arrow was clicked; decrease the index
-    if(e.keyCode === 37) {
-      if(index <= 0) return;
-      this.setState(({index})=>({index: index - 1}));
-    }
+    if(e.keyCode === 37) return this._decreaseIndex();
+  }
+
+  _increaseIndex = () => {
+    const { index, instructions, language } = this.state;
+    if(index >= instructions[language].length) return;
+    return this.setState(({index})=>({index: index + 1}));
+  }
+
+  _decreaseIndex = () => {
+    if(this.state.index <= 0) return;
+    return this.setState(({index})=>({index: index - 1}));
   }
 
   render(){
