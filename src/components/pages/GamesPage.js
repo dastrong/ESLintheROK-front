@@ -1,23 +1,32 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { Button, Grid, Image, Label, Card } from 'semantic-ui-react';
 import PageHeader from './PageHeader';
 import { games } from '../../helpers/data';
 import '../../styles/pages/GamesPage.css'
 
-const GamesPage = () => (
-  <div className='gamesPage-container'>
-    <PageHeader 
-      icon='game'
-      text='GAMES'
-      color='blue'
-      info='Select a game for more information'
-    />
-    <Grid>
-      <GridItems games={games} />
-    </Grid>
-  </div>
-);
+class GamesPage extends Component {
+  
+  componentDidMount(){
+    document.title = 'Games - ESL in the ROK'
+  }
+
+  render(){
+    return (
+      <div style={{minHeight: '100vh'}} className='gamesPage-container'>
+        <PageHeader 
+          icon='game'
+          text='GAMES'
+          color='blue'
+          info='Select a game for more information'
+        />
+        <Grid>
+          <GridItems games={games} />
+        </Grid>
+      </div>
+    );
+  }
+}
 
 const GridItems = ({ games }) => (
   games

@@ -1,11 +1,14 @@
 import React from 'react';
-import { Header, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Header, Icon, Image } from 'semantic-ui-react';
+import Favicon from '../../assets/images/Favicon.svg';
 
 const styleHeader = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  paddingTop: '20px'
+  padding: '14px 0 14px 10px',
+  margin: '0',
 }
 
 const styleHR = {
@@ -13,20 +16,48 @@ const styleHR = {
   margin: '7px 5px 3px',
 }
 
+const styleImg = {
+  marginTop: '.14em',
+  width: '2.4em',
+  height: 'auto',
+  verticalAlign: 'middle',
+}
+
+const styleContent = {
+  paddingLeft: '.725rem',
+  paddingRight: '.75rem',
+  width: '300px',
+}
+
 const PageHeader = ({ icon, text, info, color }) => (
   <Header 
     as='h2'
+    color={color}
     textAlign='center'
     style={styleHeader}
   >
-    <Icon name={icon} circular color={color} />
-    <Header.Content>
+    <Image
+      as={Link}
+      to={{
+        pathname: '/',
+        state: {pageTransition: 'slideUp'}
+      }}
+      style={styleImg}
+      src={Favicon} 
+      alt='logo'
+    />
+    <Header.Content style={styleContent}>
       {text}
       <Header.Subheader>
         {info}
       </Header.Subheader>
       <hr style={styleHR}></hr>
     </Header.Content>
+    <Icon
+      name={icon}
+      circular
+      color={color}
+    />
   </Header>
 )
 

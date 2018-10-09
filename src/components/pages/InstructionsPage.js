@@ -20,7 +20,10 @@ class InstructionsPage extends Component {
     this.rmvListeners = rmvListeners.bind(this);
   }
 
-  componentDidMount(){ this.addListeners(); }
+  componentDidMount(){ 
+    this.addListeners(); 
+    document.title = `${this.props.title} - ESL in the ROK`;
+  }
 
   componentWillUnmount(){ this.rmvListeners(); }
 

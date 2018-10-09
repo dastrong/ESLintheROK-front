@@ -14,8 +14,8 @@ function getRandomIndex(length) {
 
 // use if you need to decide which type of data to use
 function chooseDataSet(isVocab) {
-  const { vocabularyData, expressionData } = this.state;
-  return isVocab ? vocabularyData.slice() : expressionData.slice();
+  const { vocabulary, expressions } = this.state;
+  return isVocab ? vocabulary.slice() : expressions.slice();
 }
 
 function splitText(text) { return shuffle(text.split('')) }
@@ -26,11 +26,11 @@ function setData(data){
 }
 
 // use if games uses both vocabulary and expressions
-function setAllData({vocabularyData, expressionData}, ...rest){
+function setAllData({vocabulary, expressions}, ...rest){
   const extras = Object.assign({}, ...rest)
   this.setState({
-    vocabularyData: stripData(vocabularyData),
-    expressionData: stripData(expressionData),
+    vocabulary: stripData(vocabulary),
+    expressions: stripData(expressions),
     ...extras,
   }, this.handleGame)
 }

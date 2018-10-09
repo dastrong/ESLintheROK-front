@@ -18,6 +18,13 @@
   opacity: 0;
 }
 
+.page.page-slideUp-enter-done,
+.page.page-slideDown-enter-done,
+.page.page-slideLeft-enter-done, 
+.page.page-slideRight-enter-done { 
+  position: absolute;
+}
+
 .page.page-slideLeft-enter {
   transform: translate(100%, 0) scale(0.6);
   opacity: 0;

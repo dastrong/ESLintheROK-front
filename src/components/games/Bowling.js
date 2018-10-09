@@ -29,7 +29,7 @@ class Bowling extends Component {
 
   componentDidMount(){
     this.addListeners();
-    this.setData(this.props.vocabularyData);
+    this.setData(this.props.vocabulary);
   }
 
   componentWillUnmount(){ 

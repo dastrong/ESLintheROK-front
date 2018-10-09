@@ -1,15 +1,36 @@
 .lessons-container {
-  min-height: 100vh;
+  min-height: calc(100vh - 100px);
   background-color: #eee;
+}
+
+.lessons-container .ui.green.message {
+  border-radius: 0;
+  text-align: center;
+  margin: 0;
+  position: absolute;
+  width: 100%;
 }
 
 .lessons-container .ui.steps {
   height: 80px;
+  margin: 0;
+  border: 0;
+  border-top: 1px solid rgba(34,36,38,.15);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.lessons-container .ui.steps .step.active {
+  background-color: #eee;
+}
+
+.lessons-container .ui.steps .step:not(.active) {
+  border-bottom: 1px solid rgba(34,36,38,.15);
 }
 
 .lessons-container div.ui.active.dimmer {
   position: relative;
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 100px - 80px);
 }
 
 .lessons-container-inner {
@@ -17,7 +38,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 80px - 100px);
 }
 
 .lessons-item {
@@ -30,7 +51,7 @@
 
 .lessons-item:hover {
   transform: scale(0.99);
-  box-shadow: 0 0 20px #a332e6;
+  box-shadow: 0 0 20px #19b1b1;
 }
 
 .lessons-item-grade {
@@ -38,9 +59,9 @@
   align-items: center;
   font-size: 100px;
   font-family: cursive;
-  margin: 2.5vh 2.5vw;
-  height: calc(45vh - 40px);
-  width: 45vw;
+  margin: 20px;
+  height: 200px;
+  width: 200px;
 }
 
 .lessons-item-book {
@@ -49,16 +70,22 @@
   font-size: 1.5em;
   text-align: center;
   line-height: 1.5em;
-  padding: 20px;
-  margin: 5vh 5vw;
+  padding: 10px 10px 20px;
+  margin: 20px;
   box-shadow: 0 0 10px #a8a8a8;  
   transition: all 0.25s;
+  height: 100%;
+}
+
+.lessons-item-book img {
+  width: 210px;
 }
 
 .chosen-book-container {
   display: flex;
   box-shadow: 0px 0px 10px #a8a8a8;
   padding: 10px;
+  margin: 20px;
 }
 
 .chosen-book-container img {
@@ -68,10 +95,16 @@
 
 .chosen-book-content {
   padding: 10px;
+  text-align: center;
 }
 
 .chosen-book-content h1 {
   font-variant: small-caps;
+  margin-bottom: 5px;
+}
+
+.chosen-book-content .ui.button {
+  margin-bottom: 5px;
 }
 
 .chosen-book-lessons-list {
@@ -80,6 +113,7 @@
   font-size: 1.5em;
   line-height: 1.5em;
   margin: 0;
+  text-align: left;
 }
 
 .chosen-book-lessons-list > * {

@@ -177,7 +177,7 @@ export const games = [
       forStudents: {
         english: [
           'Choose and write one block',
-          'Put your hands on you head when you are ready',
+          'Put your hands on your head when you are ready',
           'When Teacher points at your block, say it aloud',
           'Keep track of your stars',
           'Most stars wins',

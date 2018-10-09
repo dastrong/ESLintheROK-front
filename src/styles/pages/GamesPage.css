@@ -7,7 +7,8 @@
   justify-content: center;
 }
 
-.ui.card:first-child ,
+.ui.card:first-child,
+.ui.card:last-child,
 .ui.card {
   margin: 10px;
 }

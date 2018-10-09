@@ -45,8 +45,8 @@ class WhatsBehind extends Component {
   async componentDidMount(){
     this.addListeners();
     const gifURLs = await this._fetchGIF();
-    const { vocabularyData, expressionData } = this.props;
-    const allData = { vocabularyData, expressionData };
+    const { vocabulary, expressions } = this.props;
+    const allData = { vocabulary, expressions };
     this.setAllData(allData, {gifURLs});
   }
 

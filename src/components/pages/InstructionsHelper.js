@@ -22,7 +22,7 @@ export const InstructionsHolder = ({
       className='instructions-list'
       onClick={handleClick}  
     >
-      <InstructionsList 
+      <InstructionsList
         index={index}
         instructions={instructions}
         language={language}
