@@ -13,7 +13,7 @@ class GamesPage extends Component {
 
   render(){
     return (
-      <div style={{minHeight: '100vh'}} className='gamesPage-container'>
+      <div className='gamesPage-container'>
         <PageHeader 
           icon='game'
           text='GAMES'

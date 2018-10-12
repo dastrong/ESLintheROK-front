@@ -32,7 +32,7 @@ export function handleSubmit(e){
   const dataType = this.checkDataType(isVocab);
   this.setState({
     ...clearFields,
-    [dataType]: [...this.state[dataType], newEntry],
+    [dataType]: [newEntry, ...this.state[dataType]],
     dataChanged: true,
   });
 }

@@ -35,3 +35,7 @@
 .ui.inverted.menu a.item:hover i {
   transform: scale(1.25);
 }
+
+.ui.overlay.sidebar {
+  z-index: 1001;
+}

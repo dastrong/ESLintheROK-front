@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import { Button, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import { games } from '../../helpers/data';
 import '../../styles/pages/GamePage.css';
 
-class GamePage extends Component {
+class GamePage extends PureComponent {
   
   componentDidMount(){
     document.title = `${this.props.title} - ESL in the ROK`
@@ -15,6 +15,24 @@ class GamePage extends Component {
     const { path, isGameReady } = this.props;
     const game = games.find(({router}) => path === router.path);
     const startBtn = classNames('start-btn circular', { disabled: !isGameReady })
+    const tooltip = !isGameReady
+      ? <div className='tooltip'>
+          You need data to play!
+          <span>
+            Select a lesson {
+              <Link to={{
+                pathname: '/lessons',
+                state: { pageTransition:'slideUp' }
+              }}> here</Link>
+            } or enter your own data {
+              <Link to={{
+                pathname: '/data',
+                state: { pageTransition:'slideUp' }
+              }}> here</Link>
+            }
+          </span>
+        </div>
+      : null;
     return (
       <div className='gamePage-container'>
         <img src={game.info.images.topText} alt='game logo'></img>
@@ -61,6 +79,7 @@ class GamePage extends Component {
           >
             START
           </Button>
+          {tooltip}
         </div>
       </div>
     )

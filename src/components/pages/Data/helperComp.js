@@ -33,7 +33,6 @@ export const DataForm = ({handleSubmit, handleChange, image, text, translation})
         value={text || ''}
         onChange={handleChange} 
         placeholder='ex) tree' 
-        autoFocus 
       />
       <Form.Input 
         width={4}

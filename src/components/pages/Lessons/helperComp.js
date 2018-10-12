@@ -69,7 +69,9 @@ export const Steps = ({ index, handleClick }) => (
 );
 
 export const Grades = ({ grades, handleClick }) => (
-  grades.map(({ grade, _id }, i)=> 
+  grades
+  .sort((a,b)=>a.grade-b.grade)
+  .map(({ grade, _id }, i)=> 
     <div 
       onClick={handleClick}
       className='lessons-item lessons-item-grade' 
@@ -82,7 +84,9 @@ export const Grades = ({ grades, handleClick }) => (
 );
 
 export const Books = ({ books, handleClick })=> (
-  books.map(({ publisher, author, imageURL, _id }, i)=> (
+  books
+  .sort((a,b)=>a.publisher>b.publisher)
+  .map(({ publisher, author, imageURL, _id }, i)=> (
     <div 
       onClick={handleClick}
       className='lessons-item lessons-item-book' 
@@ -115,7 +119,9 @@ export const Lessons = props => (
 
 export const LessonList = ({ book, handleClick, isAPI }) => (
   <ul className='chosen-book-lessons-list'>
-    {book.lessons.map(({ chapter, title, _id }, i)=> (
+    {book.lessons
+    .sort((a,b)=>a.chapter-b.chapter)
+    .map(({ chapter, title, _id }, i)=>(
       <li 
         key={i}
         onClick={!isAPI ? handleClick : null}
