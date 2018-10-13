@@ -73,7 +73,6 @@ export default ContactPage;
 
 const EmailForm = () => (
   <Form
-    name='contact'
     method='post'
   >
     <input type="hidden" name="form-name" value="contact" />
