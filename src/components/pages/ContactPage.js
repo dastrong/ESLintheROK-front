@@ -71,54 +71,70 @@ class ContactPage extends Component {
 
 export default ContactPage;
 
-const EmailForm = () => (
-  <form method="post">
-    <input type="hidden" name="form-name" value="contact" />
-    <p>
-      <label>
-        Your Name: <input type="text" name="name" />
-      </label>
-    </p>
-    <p>
-      <label>
-        Your Email: <input type="email" name="email" />
-      </label>
-    </p>
-    <p>
-      <label>
-        Message: <textarea name="text" />
-      </label>
-    </p>
-    <p>
-      <button type="submit">Send</button>
-    </p>
-  </form>
-  // <Form
-  //   method='post'
-  // >
-  //   <input type="hidden" name="form-name" value="contact" />
-  //   <Form.Input 
-  //     required
-  //     name='name'
-  //     placeholder='Name'
-  //     />
-  //   <Form.Input 
-  //     required
-  //     name='email'
-  //     placeholder='Email'
-  //     type='email'
-  //   />
-  //   <Form.TextArea 
-  //     required
-  //     name='text'
-  //     rows='5'
-  //     placeholder='Enter your question here'
-  //   />
-  //   <Form.Button 
-  //     fluid 
-  //     color='blue'
-  //     type='submit' 
-  //     content='Submit' 
-  //   />
-  // </Form> 
-)
+
+const encode = (data) => {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&");
+}
+
+class EmailForm extends Component {
+  constructor(props){
+    super(props);
+    this.state = { name: '', email: '', text: '' }
+  }
+
+  handleChange = e => this.setState({ [e.target.name]: e.target.value });
+
+  handleSubmit = e => {
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encode({ "form-name": "contact", ...this.state })
+    })
+    .then(resp => {
+      console.log(resp);
+      alert("Success!")
+    })
+    .catch(error => alert(error));
+    e.preventDefault();
+  };
+
+  render() {
+    const { name, email, text } = this.state
+    return (
+      <Form onSubmit={this.handleSubmit}>
+        <input type="hidden" name="form-name" value="contact" />
+        <Form.Input 
+          required
+          name='name'
+          value={name}
+          placeholder='Name'
+          onChange={this.handleChange}
+          />
+        <Form.Input 
+          required
+          name='email'
+          value={email}
+          type='email'
+          placeholder='Email'
+          onChange={this.handleChange}
+        />
+        <Form.TextArea 
+          required
+          name='text'
+          value={text}
+          rows='5'
+          placeholder='Enter your question here'
+          onChange={this.handleChange}
+        />
+        <Form.Button 
+          fluid 
+          color='blue'
+          type='submit' 
+          content='Submit' 
+        />
+      </Form> 
+    )
+  }
+}
