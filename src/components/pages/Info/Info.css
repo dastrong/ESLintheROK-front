@@ -52,7 +52,7 @@
 }
 
 .interactive-chats h3 {
-  text-decoration: teal underline wavy;
+  text-decoration: #2185d0 underline wavy;
 }
 
 .interactive-chats {
@@ -66,4 +66,12 @@
 
 .interactive-chats i {
   margin: 17px;
+}
+
+.contact-holders .ui.form .disabled.field {
+  opacity: 1;
+}
+
+.contact-holders .ui.form .disabled.button {
+  opacity: 0.85!important;
 }

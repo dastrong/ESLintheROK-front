@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PageHeader from './PageHeader';
-import '../../styles/pages/ContentPages.css';
+import PageHeader from '../PageHeader';
+import './Info.css';
 
 class AboutPage extends Component {
   

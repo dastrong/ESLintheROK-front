@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Accordion } from 'semantic-ui-react';
-import PageHeader from './PageHeader';
-import '../../styles/pages/ContentPages.css';
+import PageHeader from '../PageHeader';
+import './Info.css';
 
 const panels = [
   {
