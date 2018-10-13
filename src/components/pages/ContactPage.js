@@ -74,11 +74,9 @@ export default ContactPage;
 const EmailForm = () => (
   <Form
     name='contact'
-    method='POST'
-    data-netlify='true'
-    data-netlify-honeypot='bot-field'
+    method='post'
   >
-    <input type="hidden" name="contact" value="contact" />
+    <input type="hidden" name="form-name" value="contact" />
     <Form.Input 
       required
       name='name'
