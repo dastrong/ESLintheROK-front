@@ -72,32 +72,53 @@ class ContactPage extends Component {
 export default ContactPage;
 
 const EmailForm = () => (
-  <Form
-    method='post'
-  >
+  <form method="post">
     <input type="hidden" name="form-name" value="contact" />
-    <Form.Input 
-      required
-      name='name'
-      placeholder='Name'
-      />
-    <Form.Input 
-      required
-      name='email'
-      placeholder='Email'
-      type='email'
-    />
-    <Form.TextArea 
-      required
-      name='text'
-      rows='5'
-      placeholder='Enter your question here'
-    />
-    <Form.Button 
-      fluid 
-      color='blue'
-      type='submit' 
-      content='Submit' 
-    />
-  </Form> 
+    <p>
+      <label>
+        Your Name: <input type="text" name="name" />
+      </label>
+    </p>
+    <p>
+      <label>
+        Your Email: <input type="email" name="email" />
+      </label>
+    </p>
+    <p>
+      <label>
+        Message: <textarea name="text" />
+      </label>
+    </p>
+    <p>
+      <button type="submit">Send</button>
+    </p>
+  </form>
+  // <Form
+  //   method='post'
+  // >
+  //   <input type="hidden" name="form-name" value="contact" />
+  //   <Form.Input 
+  //     required
+  //     name='name'
+  //     placeholder='Name'
+  //     />
+  //   <Form.Input 
+  //     required
+  //     name='email'
+  //     placeholder='Email'
+  //     type='email'
+  //   />
+  //   <Form.TextArea 
+  //     required
+  //     name='text'
+  //     rows='5'
+  //     placeholder='Enter your question here'
+  //   />
+  //   <Form.Button 
+  //     fluid 
+  //     color='blue'
+  //     type='submit' 
+  //     content='Submit' 
+  //   />
+  // </Form> 
 )
