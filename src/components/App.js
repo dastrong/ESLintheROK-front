@@ -14,16 +14,11 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      isSideBarVisible: false,
       vocabulary: [],
       expressions: [],
       isGameReady: false,
     };
   }
-
-  showSideBar = () => this.setState({ isSideBarVisible: !this.state.isSideBarVisible })
-
-  hideSideBar = () => this.setState({ isSideBarVisible: false })
 
   setData = (vocabulary, expressions) => {
     this.setState({
@@ -39,22 +34,10 @@ class App extends Component {
     const showInfoModal = index !== -1;
     return (
       <Fragment>
-        <SideBar 
-          showSideBar={this.showSideBar}
-          hideSideBar={this.hideSideBar}
-          isSideBarVisible={this.state.isSideBarVisible} 
-          {...location}
-        />
-        { 
-          showInfoModal
-            ? <InfoModal path={location.pathname.slice(0,index)} />
-            : null 
-        }
+        <SideBar {...location} />
+        { showInfoModal && <InfoModal path={location.pathname.slice(0,index)} /> }
         <Routers
           sendData={this.setData}
-          showSideBar={this.showSideBar}
-          hideSideBar={this.hideSideBar}
-          isSideBarVisible={this.state.isSideBarVisible}
           {...this.state}
           {...this.props}
         />

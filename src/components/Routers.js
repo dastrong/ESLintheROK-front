@@ -8,6 +8,7 @@ import DataPage         from './pages/Data/DataPage';
 import HomeAPI          from './pages/HomeAPI';
 import GamePage         from './pages/GamePage';
 import InstructionsPage from './pages/InstructionsPage';
+import ContactPage      from './pages/ContactPage';
 import AboutPage        from './pages/AboutPage';
 import FAQPage          from './pages/FAQPage';
 import ErrorPage        from './pages/ErrorPage';
@@ -40,7 +41,6 @@ class Routers extends PureComponent {
       vocabulary, 
       expressions,
       isGameReady,
-      showSideBar,
       sendData,
       colors,
       location,
@@ -71,9 +71,7 @@ class Routers extends PureComponent {
                   <Route 
                     exact
                     path='/'
-                    render={()=> 
-                      <MainPage 
-                        showSideBar={showSideBar} /> }
+                    component={MainPage}
                   />
                   <Route 
                     exact
@@ -134,6 +132,11 @@ class Routers extends PureComponent {
                     exact
                     path='/games'
                     component={GamesPage}
+                  />
+                  <Route 
+                    exact
+                    path='/contact'
+                    component={ContactPage}
                   />
                   <Route 
                     exact

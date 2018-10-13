@@ -12,12 +12,58 @@
   border-radius: 10px;
 }
 
-.content-info h1 {
+.content-info.about h1 {
   font-variant: small-caps;
   text-decoration: underline #6435c9;
 }
 
-.content-info p {
+.content-info .accordion p {
   margin-left: 2%;
   margin-right: 2%;
+}
+
+.content-info.contact {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.content-info .contact-holders {
+  width: 45%;
+}
+
+.contact .ui.vertical.divider {
+  position: relative;
+  height: 140px;
+  margin-top: 200px;
+  margin-left: 7.5px;
+  left: 0;
+  top: 0;
+}
+
+.contact-holders h1 {
+  font-variant: small-caps;
+  text-align: center;
+}
+
+.contact-interactive span {
+  font-style: italic;
+  font-size: 1.25em;
+}
+
+.interactive-chats h3 {
+  text-decoration: teal underline wavy;
+}
+
+.interactive-chats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.interactive-chats img {
+  height: 150px;
+}
+
+.interactive-chats i {
+  margin: 17px;
 }

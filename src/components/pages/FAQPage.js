@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Accordion } from 'semantic-ui-react';
 import PageHeader from './PageHeader';
-import kakaoQR from '../../assets/images/kakaoQR.jpg';
 import '../../styles/pages/ContentPages.css';
 
 const panels = [
@@ -23,8 +22,8 @@ const panels = [
       key: "question-that-isn't-listed-below-content",
       content: (
         <div>
-          <p>Scan the following QR code for the Kakao group chat:</p>
-          <img src={kakaoQR} alt='kakaoQR' />
+          <p>Head to our {<Link to={{pathname: '/contact', state:{pageTransition: 'slideUp'}}}>contact</Link>} page.</p>
+          <p>If you have an urgent question, use the Kakao group chat.</p>
         </div>
       )
     }
@@ -99,7 +98,7 @@ const panels = [
       content: (
         <div>
           <p>It depends.</p>
-          <p>Contact me to discuss.</p>
+          <p>{<Link to={{pathname: '/contact', state:{pageTransition: 'slideUp'}}}>Contact</Link>} me to discuss.</p>
         </div>
       )
     }
@@ -125,9 +124,9 @@ const panels = [
       key: 'lessons-data-slow-to-load-content',
       content: (
         <div>
-          <p>Well the server that holds all the lessons data is free so, it won't be blazing fast..</p>
-          <p>It shouldn't take longer than a couple seconds to load however.</p>
-          <p>If teachers want to pitch it for a grand total of 10,000W/month, I can make it blazing fast.</p>
+          <p>One server goes to sleep after 30 minutes, if it's not interacted with.</p>
+          <p>If you are the person to wake it up, it'll take a couple seconds.</p>
+          <p>In my tests, if it's awake it'll load under 2 seconds. The wake up process should take under 10 seconds.</p>
         </div>
       )
     }

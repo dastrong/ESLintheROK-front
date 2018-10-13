@@ -9,7 +9,6 @@ class MainPage extends Component {
   }
   
   render(){
-    const { showSideBar } = this.props;
     return (
       <div className="mainpage-container">
       
@@ -30,12 +29,14 @@ class MainPage extends Component {
         </map>
     
         <Link
-          to='#'
-          onClick={showSideBar}
+          to={{
+            pathname: "/games",
+            state: { pageTransition:'slideUp' }
+          }}
           className="set st-set"
         >
           <span className="text-row st-text-row">
-            MENU
+            GAMES
           </span>
           <div className="row st-row"></div>
           <div className="row nd-row"></div>
@@ -44,13 +45,13 @@ class MainPage extends Component {
         
         <Link
           to={{
-            pathname: "/games",
+            pathname: "/contact",
             state: { pageTransition:'slideUp' }
           }}
           className='set nd-set'
         >
           <span className="text-row nd-text-row">
-            GAMES
+            CONTACT
           </span>
           <div className="row st-row">
             <span className="split-row"></span>

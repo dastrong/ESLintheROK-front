@@ -70,7 +70,7 @@
   font-size: 1.5em;
   text-align: center;
   line-height: 1.5em;
-  padding: 10px 10px 20px;
+  padding: 10px 10px;
   margin: 20px;
   box-shadow: 0 0 10px #a8a8a8;  
   transition: all 0.25s;
@@ -79,6 +79,22 @@
 
 .lessons-item-book img {
   width: 210px;
+}
+
+.lessons-item-book div {
+  padding-top: 10px;
+  text-align: right;
+}
+
+.lessons-item-book div p {
+  display: inline-block;
+  margin: 0;
+  width: calc(100% - 1.18em);
+  text-align: center;
+}
+
+.lessons-item-book div i {
+  margin: 0;
 }
 
 .chosen-book-container {

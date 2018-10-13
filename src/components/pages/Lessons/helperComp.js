@@ -1,5 +1,5 @@
 import React from 'react';
-import { Step, Loader, Dimmer, Message, Button } from 'semantic-ui-react';
+import { Step, Loader, Dimmer, Message, Button, Icon } from 'semantic-ui-react';
 
 const stepInfo = [
   {
@@ -86,7 +86,7 @@ export const Grades = ({ grades, handleClick }) => (
 export const Books = ({ books, handleClick })=> (
   books
   .sort((a,b)=>a.publisher>b.publisher)
-  .map(({ publisher, author, imageURL, _id }, i)=> (
+  .map(({ lessons, publisher, author, imageURL, _id }, i)=> (
     <div 
       onClick={handleClick}
       className='lessons-item lessons-item-book' 
@@ -94,7 +94,13 @@ export const Books = ({ books, handleClick })=> (
       id={`/${_id}`}
     >
       <img src={imageURL} alt='book-cover' />
-      {`${publisher}, ${author}`}
+      <div>
+        <p>{`${publisher}, ${author}`}</p>
+        <Icon 
+          color={lessons.length > 0 ? 'green' : 'red'} 
+          name='folder open' 
+        />
+      </div>
     </div>
   ))
 )
