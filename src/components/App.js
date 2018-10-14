@@ -6,8 +6,6 @@ import InfoModal from './navInfo/InfoModal';
 import { withRouter } from 'react-router-dom';
 import '../styles/App.css';
 
-ReactGA.initialize(process.env.REACT_APP_ANALYTICS);
-
 class App extends Component {
   static defaultProps = {
     colors: [
@@ -32,6 +30,7 @@ class App extends Component {
   };
 
   componentDidMount(){
+    ReactGA.initialize(process.env.REACT_APP_ANALYTICS);
     const page = this.props.location.pathname;
     ReactGA.set({page})
     ReactGA.pageview(page)
@@ -41,6 +40,7 @@ class App extends Component {
     const lastPage = prevProps.location.pathname;
     const currentPage = this.props.location.pathname;
     if(currentPage === lastPage) return;
+    console.log('route changed')
     ReactGA.set({page: currentPage})
     ReactGA.pageview(currentPage)
   }
