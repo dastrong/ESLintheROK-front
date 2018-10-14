@@ -41,7 +41,7 @@ class App extends Component {
     const lastPage = prevProps.location.pathname;
     const currentPage = this.props.location.pathname;
     if(currentPage === lastPage) return;
-    ReactGA.set({page})
+    ReactGA.set({page: currentPage})
     ReactGA.pageview(currentPage)
   }
 
