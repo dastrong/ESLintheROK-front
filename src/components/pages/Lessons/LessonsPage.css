@@ -3,7 +3,8 @@
   background-color: #eee;
 }
 
-.lessons-container .ui.green.message {
+.lessons-container .ui.green.message, 
+.lessons-container .ui.red.message {
   border-radius: 0;
   text-align: center;
   margin: 0;
