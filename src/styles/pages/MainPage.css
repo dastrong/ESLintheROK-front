@@ -108,3 +108,9 @@
     transform: scale(1);
   }
 }
+
+.mainpage-container .ui.button.green {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}

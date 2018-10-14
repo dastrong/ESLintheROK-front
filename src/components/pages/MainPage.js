@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Button, Embed, Modal } from 'semantic-ui-react';
 import '../../styles/pages/MainPage.css';
 
 class MainPage extends Component {
@@ -100,6 +101,20 @@ class MainPage extends Component {
           </div>
         </Link>
         
+        <Modal 
+          trigger={<Button 
+            color='green'
+            content='Take the tour'
+            size='big'
+            icon='map'
+          />} 
+          basic 
+          size='small'
+        >
+          <Embed id='MSoCFQ2RV94' source='youtube'/>
+        </Modal>
+
+       
       </div>
     )
   }
