@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import FlipMove from 'react-flip-move';
 import { CSSTransition } from 'react-transition-group';
 import CardBlock from '../reusable/CardBlock';
-import { addListeners, rmvListeners, setData } from '../../helpers/phase2helpers';
+import { addListeners, rmvListeners, setData, addTitle, addGoogEvent } from '../../helpers/phase2helpers';
 import '../../styles/games/ChaseTheVocab.css';
 
 class ChaseTheVocab extends Component {
@@ -26,10 +26,13 @@ class ChaseTheVocab extends Component {
     }
     this.addListeners = addListeners.bind(this);
     this.rmvListeners = rmvListeners.bind(this);
-    this.setData = setData.bind(this);
+    this.setData      = setData.bind(this);
+    this.addTitle     = addTitle.bind(this);
+    this.addGoogEvent = addGoogEvent.bind(this);
   }
   
   componentDidMount(){
+    this.addTitle();
     this.addListeners();
     this.setData(this.props.vocabulary);
   }
@@ -41,6 +44,7 @@ class ChaseTheVocab extends Component {
   }
 
   handleGame = () => {
+    this.addGoogEvent();
     const dataWID = this.state.data.map((x, i)=>({ text: x, id: i }));
     const gameData = shuffle(dataWID).slice(0,9);
     this.setState({

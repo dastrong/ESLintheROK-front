@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import shuffle from 'lodash/shuffle';
 import TextDrop from '../reusable/TextDrop';
 import Round from '../reusable/Round';
-import { setData, getRandomNum, getRandomIndex, splitText, addListeners, rmvListeners } from '../../helpers/phase2helpers';
+import { setData, getRandomNum, getRandomIndex, splitText, addListeners, rmvListeners, addTitle, addGoogEvent } from '../../helpers/phase2helpers';
 import '../../styles/games/Bowling.css';
 
 // increases the time between letter being shot off
@@ -25,9 +25,12 @@ class Bowling extends Component {
     this.getRandomIndex = getRandomIndex.bind(this);
     this.addListeners   = addListeners.bind(this);
     this.rmvListeners   = rmvListeners.bind(this);
+    this.addTitle       = addTitle.bind(this);
+    this.addGoogEvent   = addGoogEvent.bind(this);
   }
 
   componentDidMount(){
+    this.addTitle();
     this.addListeners();
     this.setData(this.props.vocabulary);
   }
@@ -39,6 +42,7 @@ class Bowling extends Component {
   }
 
   handleGame = (data = this.state.data) => {
+    this.addGoogEvent();
     const textIndex = this.getRandomIndex(data.length);
     const text = data[textIndex];
     const splitText = this.splitText(text);

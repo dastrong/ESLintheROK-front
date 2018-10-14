@@ -3,7 +3,7 @@ import TextBox from '../reusable/TextBox';
 import Emoji from '../reusable/Emoji';
 import ShowUpdatedSetting from '../reusable/ShowUpdatedSetting';
 import { CSSTransition } from 'react-transition-group';
-import { setData, getRandomNum, getRandomIndex, addListeners, rmvListeners } from '../../helpers/phase2helpers';
+import { setData, getRandomNum, getRandomIndex, addListeners, rmvListeners, addTitle, addGoogEvent } from '../../helpers/phase2helpers';
 import '../../styles/games/Kimchi.css';
 
 class Kimchi extends Component {
@@ -24,9 +24,12 @@ class Kimchi extends Component {
     this.getRandomIndex = getRandomIndex.bind(this);
     this.addListeners   = addListeners.bind(this);
     this.rmvListeners   = rmvListeners.bind(this);
+    this.addTitle       = addTitle.bind(this);
+    this.addGoogEvent   = addGoogEvent.bind(this);
   }
 
   componentDidMount(){
+    this.addTitle();
     this.addListeners();
     this.setData(this.props.expressions);  
   }
@@ -39,6 +42,7 @@ class Kimchi extends Component {
   }
 
   handleGame = (data = this.state.data) => {
+    this.addGoogEvent();
     const random = this.getRandomIndex(data.length);
     const isKimchi = this._isKimchiLogic(this.state.frequencyPercent);
     this.setState({

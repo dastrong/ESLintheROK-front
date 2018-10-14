@@ -7,7 +7,7 @@ import {
   handleLottoData, handleEvents, handleReset,
 } from '../../helpers/phase1helpers';
 import { 
-  addListeners, rmvListeners, chooseDataSet, setAllData, getRandomNum 
+  addListeners, rmvListeners, chooseDataSet, setAllData, getRandomNum, addTitle, addGoogEvent
 } from '../../helpers/phase2helpers';
 import '../../styles/games/WordLotto.css';
 
@@ -33,10 +33,13 @@ class WordLotto extends Component {
     this.rmvListeners   = rmvListeners.bind(this);
     this.chooseDataSet  = chooseDataSet.bind(this);
     this.setAllData     = setAllData.bind(this);
-    this.getRandomNum   = getRandomNum.bind(this);
+		this.getRandomNum   = getRandomNum.bind(this);
+    this.addTitle       = addTitle.bind(this);
+    this.addGoogEvent   = addGoogEvent.bind(this);
 	}
 
 	componentDidMount(){
+		this.addTitle();
 		this.addListeners();
     const { vocabulary, expressions } = this.props;
     const allData = { vocabulary, expressions };
@@ -48,7 +51,8 @@ class WordLotto extends Component {
 		this._clearTimeOuts();
   }
 	
-	  handleGame = (isVocab = this.state.isVocab) => {
+	handleGame = (isVocab = this.state.isVocab) => {
+		this.addGoogEvent();
 		this._clearTimeOuts();
     const { gameData, Xs, timeouts } = this.handleLottoData(isVocab);
     this.setState(prevState=>({

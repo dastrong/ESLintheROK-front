@@ -13,7 +13,7 @@ class InfoModal extends Component {
   handleButtonClick = () => {
     ReactGA.event({
       category: 'Modal',
-      action: 'Clicked Help Modal',
+      action: `Clicked ${this.props.path} Modal`,
       label: this.props.path
     });
     this.setState({ visible: !this.state.visible });

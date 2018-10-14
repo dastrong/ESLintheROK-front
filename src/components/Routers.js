@@ -225,7 +225,7 @@ class Routers extends PureComponent {
                                   }}> here</Link>}.</p>}
                               />
                             : <router.component 
-                                title={`Playing ${info.title}`}
+                                title={info.title}
                                 expressions={expressions}
                                 vocabulary={vocabulary}
                                 colors={colors}

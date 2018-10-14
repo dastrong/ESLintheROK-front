@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TextBox from '../reusable/TextBox';
 import { Timer, startTimer, resetTimer } from '../reusable/Timer';
 import { CSSTransition } from 'react-transition-group';
-import { setData, getRandomNum, getRandomIndex, addListeners, rmvListeners } from '../../helpers/phase2helpers';
+import { setData, getRandomNum, getRandomIndex, addListeners, rmvListeners, addTitle, addGoogEvent } from '../../helpers/phase2helpers';
 import '../../styles/games/Sparkle.css';
 
 class Sparkle extends Component {
@@ -24,9 +24,12 @@ class Sparkle extends Component {
     this.getRandomIndex = getRandomIndex.bind(this);
     this.addListeners   = addListeners.bind(this);
     this.rmvListeners   = rmvListeners.bind(this);
+    this.addTitle       = addTitle.bind(this);
+    this.addGoogEvent   = addGoogEvent.bind(this);
   }
 
   componentDidMount(){
+    this.addTitle();
     this.addListeners();
     this.setData(this.props.expressions);
   }
@@ -37,6 +40,7 @@ class Sparkle extends Component {
   }
 
   handleGame = (data = this.state.data) => {
+    this.addGoogEvent();
     const random = this.getRandomIndex(data.length);
     this.setState({
       text: data[random],

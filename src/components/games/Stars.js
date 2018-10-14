@@ -7,7 +7,7 @@ import {
   handleGameData, handleEvents, handleReset,
 } from '../../helpers/phase1helpers';
 import { 
-  addListeners, rmvListeners, chooseDataSet, setAllData 
+  addListeners, rmvListeners, chooseDataSet, setAllData, addTitle, addGoogEvent
 } from '../../helpers/phase2helpers';
 import '../../styles/games/Generic.css';
 
@@ -36,9 +36,12 @@ class Stars extends Component {
     this.rmvListeners   = rmvListeners.bind(this);
     this.chooseDataSet  = chooseDataSet.bind(this);
     this.setAllData     = setAllData.bind(this);
+    this.addTitle       = addTitle.bind(this);
+    this.addGoogEvent   = addGoogEvent.bind(this);
   }
 
   componentDidMount(){
+    this.addTitle();
     this.addListeners();
     const { vocabulary, expressions } = this.props;
     const allData = { vocabulary, expressions };
@@ -58,6 +61,7 @@ class Stars extends Component {
   }
 
   handleGame = (isVocab = this.state.isVocab) => {
+    this.addGoogEvent();
     const { gameData, Xs, height } = this.handleGameData(isVocab);
     this.setState(prevState=>({
       gameData, 

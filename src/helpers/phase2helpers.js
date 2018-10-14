@@ -1,5 +1,6 @@
 import shuffle from 'lodash/shuffle';
 import throttle from 'lodash/throttle';
+import ReactGA from 'react-ga';
 
 function getRandomNum(length) { return Math.floor(Math.random()*length) }
 
@@ -38,6 +39,10 @@ function setAllData({vocabulary, expressions}, ...rest){
 // strips data object down to an array of text values
 function stripData(data){ return data.map(val=>val.text); }
 
+function addTitle() {
+  document.title = `Playing: ${this.props.title} - ESL in the ROK`;
+}
+
 function addListeners() { 
   document.addEventListener('keydown', throttle(this.handleEvents, 200));
   document.addEventListener('wheel', throttle(this.handleEvents, 200));
@@ -48,8 +53,16 @@ function rmvListeners() {
   document.removeEventListener('wheel', this.handleEvents);
 }
 
+function addGoogEvent(){
+  ReactGA.event({
+    category: 'Games',
+    action: `New Round - ${this.props.title}`,
+    label: this.props.title
+  });
+}
+
 export { 
   setData, setAllData, chooseDataSet, stripData,
   getRandomIndex, getRandomNum, splitText, 
-  addListeners, rmvListeners, 
+  addListeners, rmvListeners, addTitle, addGoogEvent
 };

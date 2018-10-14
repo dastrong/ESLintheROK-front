@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import classNames from 'classnames';
 import shuffle from 'lodash/shuffle';
 import Card from '../reusable/Card';
@@ -9,11 +9,11 @@ import {
   handleGameData, handleAnimations, handleEvents, handleReset, handleClasses, handleClick
 } from '../../helpers/phase1helpers';
 import { 
-  addListeners, rmvListeners, chooseDataSet, setAllData 
+  addListeners, rmvListeners, chooseDataSet, setAllData, addTitle, addGoogEvent
 } from '../../helpers/phase2helpers';
 import '../../styles/games/Generic.css';
 
-class WhatsBehind extends Component {
+class WhatsBehind extends PureComponent {
   constructor(props){
     super(props); 
     this.state = {
@@ -40,9 +40,12 @@ class WhatsBehind extends Component {
     this.rmvListeners     = rmvListeners.bind(this);
     this.chooseDataSet    = chooseDataSet.bind(this);
     this.setAllData       = setAllData.bind(this);
+    this.addTitle       = addTitle.bind(this);
+    this.addGoogEvent   = addGoogEvent.bind(this);
   }
 
   async componentDidMount(){
+    this.addTitle();
     this.addListeners();
     const gifURLs = await this._fetchGIF();
     const { vocabulary, expressions } = this.props;
@@ -59,6 +62,7 @@ class WhatsBehind extends Component {
   }
 
   handleGame = (isVocab = this.state.isVocab) => {
+    this.addGoogEvent();
     const { gameData, Xs, height } = this.handleGameData(isVocab);
     this.setState(prevState=>({
       gameData, 
@@ -91,6 +95,7 @@ class WhatsBehind extends Component {
   }
   
   render(){
+    console.log(this.props)
     const {gameData, Xs, clickedIDs, isResetting, compressor, colors, isGameOver, gifURLs, counter} = this.state;
     const containerClasses = classNames('generic-container', { isResetting });
     const cards = gameData.map((card, i) => {
