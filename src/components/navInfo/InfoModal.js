@@ -9,7 +9,10 @@ class InfoModal extends Component {
     this.state = { visible: false }
   }
 
-  handleButtonClick = () => this.setState({ visible: !this.state.visible });
+  handleButtonClick = () => {
+    ReactGA.modalview(`${this.props.path}-modal`);
+    this.setState({ visible: !this.state.visible });
+  }
 
   handleInfoModalHide = () => this.setState({ visible: false });
 
