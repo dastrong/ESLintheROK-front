@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import ReactGA from 'react-ga';
 import { Header, Icon, Modal } from 'semantic-ui-react';
 import { hotKeyInfo } from '../../helpers/data';
 import '../../styles/navInfo/InfoModal.css';
