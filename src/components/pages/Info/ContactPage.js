@@ -29,7 +29,7 @@ class ContactPage extends Component {
                 <div>
                   <h3>KorShare Chat</h3>
                   <a 
-                    href='http://www.korshare.org'
+                    href="http://korshare.org/index.php?act=ST&f=7&t=2261"
                     target='_blank'
                     rel='noopener noreferrer'
                   >
@@ -48,7 +48,7 @@ class ContactPage extends Component {
               <br />
               <span>Vote for the games you want 
                 <a 
-                  href='http://www.korshare.org' 
+                  href="http://korshare.org/index.php?act=ST&f=7&t=2260" 
                   target='_blank' 
                   rel='noopener noreferrer'
                 > here</a>.
