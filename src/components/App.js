@@ -31,10 +31,18 @@ class App extends Component {
     });
   };
 
+  componentDidMount(){
+    const page = this.props.location.pathname;
+    ReactGA.set({page})
+    ReactGA.pageview(page)
+  }
+
   componentDidUpdate(prevProps){
     const lastPage = prevProps.location.pathname;
     const currentPage = this.props.location.pathname;
-    if(currentPage !== lastPage) return ReactGA.pageview(currentPage);
+    if(currentPage === lastPage) return;
+    ReactGA.set({page})
+    ReactGA.pageview(currentPage)
   }
 
   render() {
