@@ -1,9 +1,12 @@
 import React, { Component, Fragment } from 'react';
+import withAnalytics, { initAnalytics } from 'react-with-analytics';
 import Routers from './Routers';
 import SideBar   from './navInfo/SideBar';
 import InfoModal from './navInfo/InfoModal';
 import { withRouter } from 'react-router-dom';
 import '../styles/App.css';
+
+initAnalytics(process.env.REACT_APP_ANALYTICS);
 
 class App extends Component {
   static defaultProps = {
@@ -46,4 +49,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+export default withRouter(withAnalytics(App));

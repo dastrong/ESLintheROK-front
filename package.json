@@ -4,14 +4,17 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.6",
+    "dotenv": "^6.1.0",
     "react": "^16.4.1",
     "react-confetti": "^2.3.0",
     "react-dom": "^16.4.1",
     "react-fittext": "^1.0.0",
     "react-flip-move": "^3.0.2",
+    "react-ga": "^2.5.3",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "react-transition-group": "^2.4.0",
+    "react-with-analytics": "0.0.5",
     "semantic-ui-react": "^0.81.3"
   },
   "scripts": {

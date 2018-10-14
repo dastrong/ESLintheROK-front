@@ -25,7 +25,7 @@ class LessonsPage extends PureComponent {
       },
       showMessage: false,
       showLoader: false,
-      baseURL: 'https://eslintherok.herokuapp.com/api',
+      baseURL: process.env.REACT_APP_LESSONS_API_URL,
       apiRoute: '',
       isAPI: this.props.isAPI,
     }
