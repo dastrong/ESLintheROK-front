@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react';
-import withAnalytics, { initAnalytics } from 'react-with-analytics';
+import ReactGA from 'react-ga';
 import Routers from './Routers';
 import SideBar   from './navInfo/SideBar';
 import InfoModal from './navInfo/InfoModal';
 import { withRouter } from 'react-router-dom';
 import '../styles/App.css';
 
-initAnalytics(process.env.REACT_APP_ANALYTICS);
+ReactGA.initialize(process.env.REACT_APP_ANALYTICS);
 
 class App extends Component {
   static defaultProps = {
@@ -31,6 +31,12 @@ class App extends Component {
     });
   };
 
+  componentDidUpdate(prevProps){
+    const lastPage = prevProps.location.pathname;
+    const currentPage = this.props.location.pathname;
+    if(currentPage !== lastPage) return ReactGA.pageview(currentPage);
+  }
+
   render() {
     const { location } = this.props;
     const index = location.pathname.indexOf('/start'); 
@@ -49,4 +55,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(withAnalytics(App));
+export default withRouter(App);
