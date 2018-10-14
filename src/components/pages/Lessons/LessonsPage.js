@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import DataPageAPI from '../Data/DataPageAPI';
 import DataPage    from '../Data/DataPage';
 import {
@@ -7,7 +7,7 @@ import {
 } from './helperFunc';
 import {
   LoadIcon, MessageBanner, Steps,
-  Grades, Books, Lessons,
+  Grades, Books, Lessons, ErrorMessageBanner,
 } from './helperComp';
 import './LessonsPage.css'
 
@@ -60,10 +60,17 @@ class LessonsPage extends PureComponent {
       />
 
     const booksList = index === 1 && books._id && !showLoader && 
-      <Books 
-        books={books.books}
-        handleClick={this.handleBookClick}
-      />
+      <Fragment>
+        <ErrorMessageBanner 
+          color='red'
+          header='A quick heads up'
+          content="If your book has a red icon, there's no lesson data for it..YET. Contact me to volunteer and help out"
+        />
+        <Books 
+          books={books.books}
+          handleClick={this.handleBookClick}
+        />
+      </Fragment>
     
     const lessonsList = index === 2 && lessons._id && !showLoader &&
       <Lessons 

@@ -36,6 +36,12 @@ export const MessageBanner = props => (
   />
 )
 
+export const ErrorMessageBanner = props => (
+  <Message error
+    {...props}
+  />
+)
+
 export const Steps = ({ index, handleClick }) => (
   <Step.Group
     fluid
