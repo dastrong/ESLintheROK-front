@@ -29,7 +29,7 @@ const styleContent = {
   width: '300px',
 }
 
-const PageHeader = ({ icon, text, info, color }) => (
+const PageHeader = ({ icon, text, color }) => (
   <Header 
     as='h2'
     color={color}
@@ -47,9 +47,9 @@ const PageHeader = ({ icon, text, info, color }) => (
       alt='logo'
     />
     <Header.Content style={styleContent}>
-      {text}
+      ESL in the ROK
       <Header.Subheader>
-        {info}
+        {text}
       </Header.Subheader>
       <hr style={styleHR}></hr>
     </Header.Content>

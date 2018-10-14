@@ -57,8 +57,11 @@ class DataPage extends PureComponent {
           onClick={()=> this.setState({ dataChanged: false }, 
             sendData(vocabulary, expressions))
           }
-          to='/games'
-          color={!isDataReady || dataChanged ? 'violet' : 'blue'}
+          to={{
+            pathname: "/games",
+            state: { pageTransition:'slideUp' }
+          }}
+          color={!isDataReady || dataChanged ? 'green' : 'blue'}
           className={cxBtn}
           content={
             !isDataReady 

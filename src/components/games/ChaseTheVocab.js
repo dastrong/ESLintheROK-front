@@ -4,7 +4,9 @@ import classNames from 'classnames';
 import FlipMove from 'react-flip-move';
 import { CSSTransition } from 'react-transition-group';
 import CardBlock from '../reusable/CardBlock';
-import { addListeners, rmvListeners, setData, addTitle, addGoogEvent } from '../../helpers/phase2helpers';
+import { 
+  addListeners, rmvListeners, setData, addTitle, addGoogEvent, goFullScreen
+ } from '../../helpers/phase2helpers';
 import '../../styles/games/ChaseTheVocab.css';
 
 class ChaseTheVocab extends Component {
@@ -29,11 +31,13 @@ class ChaseTheVocab extends Component {
     this.setData      = setData.bind(this);
     this.addTitle     = addTitle.bind(this);
     this.addGoogEvent = addGoogEvent.bind(this);
+    this.goFullScreen     = goFullScreen.bind(this);
   }
   
   componentDidMount(){
     this.addTitle();
     this.addListeners();
+    this.goFullScreen();
     this.setData(this.props.vocabulary);
   }
 

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import shuffle from 'lodash/shuffle';
 import TextDrop from '../reusable/TextDrop';
 import Round from '../reusable/Round';
-import { setData, getRandomNum, getRandomIndex, splitText, addListeners, rmvListeners, addTitle, addGoogEvent } from '../../helpers/phase2helpers';
+import { 
+  setData, getRandomNum, getRandomIndex, splitText, addListeners, rmvListeners, addTitle, addGoogEvent, goFullScreen
+ } from '../../helpers/phase2helpers';
 import '../../styles/games/Bowling.css';
 
 // increases the time between letter being shot off
@@ -27,11 +29,13 @@ class Bowling extends Component {
     this.rmvListeners   = rmvListeners.bind(this);
     this.addTitle       = addTitle.bind(this);
     this.addGoogEvent   = addGoogEvent.bind(this);
+    this.goFullScreen     = goFullScreen.bind(this);
   }
 
   componentDidMount(){
     this.addTitle();
     this.addListeners();
+    this.goFullScreen();
     this.setData(this.props.vocabulary);
   }
 

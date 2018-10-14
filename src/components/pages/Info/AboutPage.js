@@ -14,9 +14,8 @@ class AboutPage extends Component {
       <div className='content-container'>
         <PageHeader 
           icon='user'
-          text='ABOUT'
-          info="Learn about this site and it's creator"
-          color='violet'
+          text="Learn more about us"
+          color='blue'
         />
         <div className='content-info about'>
           <h1>The Site</h1>

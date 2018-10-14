@@ -7,7 +7,7 @@ import {
   handleLottoData, handleEvents, handleReset,
 } from '../../helpers/phase1helpers';
 import { 
-  addListeners, rmvListeners, chooseDataSet, setAllData, getRandomNum, addTitle, addGoogEvent
+  addListeners, rmvListeners, chooseDataSet, setAllData, getRandomNum, addTitle, addGoogEvent, goFullScreen
 } from '../../helpers/phase2helpers';
 import '../../styles/games/WordLotto.css';
 
@@ -35,12 +35,14 @@ class WordLotto extends Component {
     this.setAllData     = setAllData.bind(this);
 		this.getRandomNum   = getRandomNum.bind(this);
     this.addTitle       = addTitle.bind(this);
-    this.addGoogEvent   = addGoogEvent.bind(this);
+		this.addGoogEvent   = addGoogEvent.bind(this);
+		this.goFullScreen   = goFullScreen.bind(this);
 	}
 
 	componentDidMount(){
 		this.addTitle();
 		this.addListeners();
+		this.goFullScreen();
     const { vocabulary, expressions } = this.props;
     const allData = { vocabulary, expressions };
     this.setAllData(allData);

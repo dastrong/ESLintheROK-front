@@ -16,9 +16,8 @@ class GamesPage extends Component {
       <div className='gamesPage-container'>
         <PageHeader 
           icon='game'
-          text='GAMES'
+          text='Select a game for more information'
           color='blue'
-          info='Select a game for more information'
         />
         <Grid>
           <GridItems games={games} />

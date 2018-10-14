@@ -53,27 +53,24 @@ class LessonsPage extends PureComponent {
           } = this.state;
     const { sendData, isGameReady } = this.props;
 
-    const gradesList = index === 0 && !showLoader
-      ? <Grades 
-          grades={grades}
-          handleClick={this.handleGradeClick}
-        />
-      : null;
+    const gradesList = index === 0 && !showLoader &&
+      <Grades
+        grades={grades}
+        handleClick={this.handleGradeClick}
+      />
 
-    const booksList = index === 1 && books._id && !showLoader
-      ? <Books 
-          books={books.books}
-          handleClick={this.handleBookClick}
-        />
-      : null;
+    const booksList = index === 1 && books._id && !showLoader && 
+      <Books 
+        books={books.books}
+        handleClick={this.handleBookClick}
+      />
     
-    const lessonsList = index === 2 && lessons._id && !showLoader
-      ? <Lessons 
-          isAPI={isAPI}
-          book={lessons}
-          handleClick={isAPI ? this.handleLessonAPIClick : this.handleLessonClick}
-        />
-      : null;
+    const lessonsList = index === 2 && lessons._id && !showLoader &&
+      <Lessons 
+        isAPI={isAPI}
+        book={lessons}
+        handleClick={isAPI ? this.handleLessonAPIClick : this.handleLessonClick}
+      />
     
     const dataPage = index === 3 && data._id && !isAPI && !showLoader
       ? <DataPage
@@ -83,13 +80,12 @@ class LessonsPage extends PureComponent {
           vocabulary={data.vocabulary} 
           expressions={data.expressions} 
         />
-      : index === 3 && isAPI && !showLoader
-        ? <DataPageAPI 
-            postRoute={baseURL+apiRoute}
-            handlePost={this.handlePost}
-            handleMessage={this.handleMessage}
-          />
-        : null;
+      : index === 3 && isAPI && !showLoader && 
+        <DataPageAPI 
+          postRoute={baseURL+apiRoute}
+          handlePost={this.handlePost}
+          handleMessage={this.handleMessage}
+        />
 
     return (
       <div className='lessons-container'>

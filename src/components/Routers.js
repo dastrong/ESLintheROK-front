@@ -12,9 +12,9 @@ import HomeAPI          from './pages/HomeAPI';
 import GamePage         from './pages/GamePage';
 import InstructionsPage from './pages/InstructionsPage';
 import ErrorPage        from './pages/ErrorPage';
+import PageHeader       from './pages/PageHeader';
 import Switch           from '../helpers/Switch';
 import { games }        from '../helpers/data';
-import PageHeader from './pages/PageHeader';
 
 class Routers extends PureComponent {
   constructor(props){
@@ -80,9 +80,8 @@ class Routers extends PureComponent {
                       <Fragment>
                         <PageHeader 
                           icon='cogs'
-                          text='Custom Lesson'
-                          info='Enter your own lesson data below'
-                          color='teal'
+                          text='Enter your own lesson data below'
+                          color='blue'
                         />
                         <DataPage
                           vocabulary={vocabulary}
@@ -100,8 +99,7 @@ class Routers extends PureComponent {
                       <Fragment>
                         <PageHeader 
                           icon='cogs'
-                          text='Hidden Home'
-                          info='Enter a lesson for everyone to use'
+                          text='Enter a lesson for everyone to use'
                           color='teal'
                         />
                         <HomeAPI 
@@ -120,8 +118,7 @@ class Routers extends PureComponent {
                       <Fragment>
                         <PageHeader 
                           icon='cogs'
-                          text='Hidden Data'
-                          info='Enter your own lesson data below'
+                          text='Enter a lesson for everyone to use'
                           color='teal'
                         />
                         <LessonsPage isAPI={true} />
@@ -155,9 +152,8 @@ class Routers extends PureComponent {
                       <Fragment>
                         <PageHeader 
                           icon='book'
-                          text='Ready Made Lessons'
-                          info='Choose your lesson below'
-                          color='orange'
+                          text="Get your book's lesson data below"
+                          color='blue'
                         />
                         <LessonsPage
                           sendData={sendData}

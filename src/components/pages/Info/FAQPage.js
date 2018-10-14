@@ -155,9 +155,8 @@ class FAQPage extends Component {
       <div className='content-container'>
         <PageHeader 
           icon='question'
-          text='FAQ'
-          info="View frequently asked questions"
-          color='brown'
+          text='View frequently asked questions'
+          color='blue'
         />
         <div className='content-info'>
           <Accordion defaultActiveIndex={0} panels={panels} />

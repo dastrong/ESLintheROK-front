@@ -16,8 +16,7 @@ class ContactPage extends Component {
       <div className='content-container'>
         <PageHeader 
           icon='mail'
-          text='Contact Us'
-          info='Join a conversation below'
+          text='Connect with other teachers'
           color='blue'
         />
         <div className='content-info contact'>

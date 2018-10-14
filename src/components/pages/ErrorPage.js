@@ -30,8 +30,7 @@ class ErrorPage extends Component {
         <PageHeader 
           icon='exclamation'
           color='red'
-          text='Error'
-          info="Noooooooo!"
+          text='Report your errors'
         />
         <div style={containerStyle}>
           <Message
