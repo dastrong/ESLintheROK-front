@@ -1,14 +1,14 @@
 import React from 'react';
 import PageHeader from './pages/PageHeader';
-import '../styles/MobileError.css'
+import '../styles/StartUpError.css'
 
 const MobileError = () => (
-  <div className='mobile-container'>
+  <div className='startUpError-container'>
     <PageHeader 
       icon='mobile'
       text="Welco. . . nvm."
     />
-    <div className='mobile-inner'>
+    <div className='startUpError-inner'>
       <h2>ESL in the ROK is <span>not</span> optimized for this screen size.</h2>
       <h3>Please adjust the size or visit us again on a larger screen</h3>
       <hr />

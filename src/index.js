@@ -4,13 +4,16 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import App from './components/App';
 import MobileError from './components/MobileError';
+import IEError from './components/IEError';
 import './index.css';
 
 const Site = () => (
   <Router>
-    { window.innerWidth > 768
-      ? <App />
-      : <MobileError /> }
+    {window.innerWidth < 768
+      ? <MobileError /> 
+      : !!document.documentMode
+        ? <IEError />
+        : <App /> }
   </Router>
 );
 
