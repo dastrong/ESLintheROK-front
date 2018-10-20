@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import ReactGA from 'react-ga';
-import { Header, Icon, Modal } from 'semantic-ui-react';
-import { hotKeyInfo } from '../../helpers/data';
+import { Header, Icon, Modal, Popup, Dropdown } from 'semantic-ui-react';
+import { fonts } from '../../helpers/data';
 import '../../styles/navInfo/InfoModal.css';
 
 class InfoModal extends Component {
@@ -11,10 +11,11 @@ class InfoModal extends Component {
   }
 
   handleButtonClick = () => {
+    const { path } = this.props.gameData.router;
     ReactGA.event({
       category: 'Modal',
-      action: `Clicked ${this.props.path} Modal`,
-      label: this.props.path
+      action: `Clicked ${path} Modal`,
+      label: path
     });
     this.setState({ visible: !this.state.visible });
   }
@@ -23,10 +24,9 @@ class InfoModal extends Component {
 
   render() {
     const { visible } = this.state;
-    // returns an object containing hotkey info or undefined
-    const game = hotKeyInfo.find(({ path })=> path === this.props.path);
+    const { gameData, opacity, font, changeFont } = this.props;
     // returns a list of hotkeys for the chosen game
-    const hotkeys = game.keyCuts.map((x, i)=>(
+    const hotkeys = gameData.keyCuts.map((x, i)=>(
       <div className='info-modal-item' key={i}>
         <div className='info-modal-item-key'>
           {typeof x.key !== 'string' 
@@ -41,21 +41,43 @@ class InfoModal extends Component {
 
     return (
       <div>
-        <Icon
-          className='info-modal-icon'
-          size='huge' 
-          name='info circle'
-          onClick={this.handleButtonClick} 
-          link
+        <Popup 
+          wide='very'
+          trigger={
+            <Icon
+              link
+              className='info-modal-icon'
+              size='huge' 
+              name='help circle'
+              onClick={this.handleButtonClick} 
+              style={{opacity: opacity}}
+            />
+          }
+          content={
+            <Fragment>
+              <h3>{gameData.info.title} Help</h3>
+              <p>You can view these in game too.</p>
+              <p>Just hover up here and click.</p>
+              <p><span style={{fontWeight: 'bold'}}>Note:</span> Each game has different helpers</p>
+            </Fragment>
+          }
+          position='bottom center'
+          horizontalOffset={-12}
         />
         <Modal 
           open={visible}
-          size='large'
           className='info-modal' 
           onClose={this.handleInfoModalHide}
           closeIcon
         >
-          <Header icon='info' content='Game Shortcuts' />
+          <Header icon='info' content={`${gameData.info.title} Options`} />
+          <Dropdown
+            fluid
+            selection
+            onChange={(e, {value}) => changeFont(value)}
+            placeholder={`Select a new font (Current Font: ${font.slice(0, font.indexOf(','))})`}
+            options={fonts}
+          />
           <Modal.Content>
             <div className='info-modal-container'>
               <div className='info-modal-item header'>

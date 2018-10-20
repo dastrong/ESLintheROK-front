@@ -172,7 +172,7 @@ class Stars extends Component {
       );
     });
     return (
-      <div className={containerClasses}> 
+      <div className={containerClasses} style={{fontFamily: this.props.font}}> 
         {cards}
       </div>
     );

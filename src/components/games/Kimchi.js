@@ -150,6 +150,7 @@ class Kimchi extends Component {
       <div 
         className='kim-container'
         onClick={this.handleClick}
+        style={{fontFamily: this.props.font}}
       >
         <CSSTransition
           in={!showAnswer}

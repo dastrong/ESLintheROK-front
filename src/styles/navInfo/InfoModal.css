@@ -3,13 +3,28 @@ i.link.icon.info-modal-icon {
   top: 5px;
   right: 0;
   z-index: 100;
-  opacity: 0;
-  color: teal;
+  color: #14027b;
   transition: 1s all;
 }
 
 i.link.icon.info-modal-icon:hover {
-  opacity: 1;
+  opacity: 1!important;
+}
+
+.info-modal .ui.selection.dropdown {
+  padding-left: 2.1em;
+  font-size: 1.2em;
+  line-height: 1.2em;
+  text-align: center;
+}
+
+.info-modal .ui.selection.dropdown .menu {
+  max-height: 35rem; 
+}
+
+.info-modal .ui.dropdown .menu .item {
+  text-align: center;
+  font-size: 1.4em;
 }
 
 .info-modal-container {

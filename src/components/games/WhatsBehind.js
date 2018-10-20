@@ -97,6 +97,7 @@ class WhatsBehind extends PureComponent {
   }
   
   render(){
+    console.log(this.state.isVocab)
     const {gameData, Xs, clickedIDs, isResetting, compressor, colors, isGameOver, gifURLs, counter} = this.state;
     const containerClasses = classNames('generic-container', { isResetting });
     const cards = gameData.map((card, i) => {

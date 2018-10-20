@@ -196,6 +196,7 @@ class ChaseTheVocab extends Component {
                     ? this.handleReset
                     : null}
         className='chase-container'
+        style={{fontFamily: this.props.font}}
         duration={!isAnimating && !isShuffleDone ? 500 : settings.shuffDuration}
       >
         {boxes}

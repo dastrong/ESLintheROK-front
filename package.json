@@ -14,8 +14,13 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "react-transition-group": "^2.4.0",
-    "react-with-analytics": "0.0.5",
-    "semantic-ui-react": "^0.81.3"
+    "semantic-ui-react": "^0.81.3",
+    "typeface-bree-serif": "0.0.54",
+    "typeface-mali": "0.0.63",
+    "typeface-muli": "0.0.54",
+    "typeface-niramit": "0.0.63",
+    "typeface-poppins": "0.0.54",
+    "typeface-quicksand": "0.0.54"
   },
   "scripts": {
     "start": "react-scripts start",

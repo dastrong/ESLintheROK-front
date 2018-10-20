@@ -19,9 +19,10 @@ class SideBar extends Component {
       <div className='sidebar sidebar-main'>
         <Button 
           className='sideBarBtn'
-          icon='list' 
+          icon='list'
           size='massive' 
           onClick={this.showSideBar} 
+          style={{ opacity: this.props.opacity}}
         />
         <Sidebar
           as={Menu}

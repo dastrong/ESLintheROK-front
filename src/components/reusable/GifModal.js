@@ -4,7 +4,7 @@ import { Button, Modal, Image } from 'semantic-ui-react';
 const GifModal = ({url, handleReset}) => (
   <Modal size='fullscreen'
          open={true} 
-         onClose={handleReset}>
+         onClose={() => handleReset()}>
     <Modal.Content scrolling={false}>
       <Image src={url} 
              alt='Loading...'
@@ -17,7 +17,7 @@ const GifModal = ({url, handleReset}) => (
               icon='angle right' 
               labelPosition='right' 
               content='Play Again?' 
-              onClick={handleReset} />
+              onClick={() => handleReset()}/>
     </Modal.Actions>
   </Modal>
 );

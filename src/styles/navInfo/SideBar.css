@@ -2,13 +2,12 @@
   position: absolute;
   z-index: 100;
   background-color: rgb(255, 255, 255, 0);
-  opacity: 0;
   transition: 0.5s all;
 }
 
 .ui.button.sideBarBtn:hover {
   background-color: rgb(255, 255, 255, 0);
-  opacity: 1;
+  opacity: 1!important;
 }
 
 .ui.menu {

@@ -148,6 +148,7 @@ class Bowling extends Component {
       <div 
         className='bowling-container'
         onClick={this.handleClick}
+        style={{fontFamily: this.props.font}}
       >
         <div className='total-round-counter'>
           {round}/{totalRound}

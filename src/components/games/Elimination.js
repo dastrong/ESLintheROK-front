@@ -39,8 +39,8 @@ class Elimination extends Component {
     this.rmvListeners     = rmvListeners.bind(this);
     this.chooseDataSet    = chooseDataSet.bind(this);
     this.setAllData       = setAllData.bind(this);
-    this.addTitle       = addTitle.bind(this);
-    this.addGoogEvent   = addGoogEvent.bind(this);
+    this.addTitle         = addTitle.bind(this);
+    this.addGoogEvent     = addGoogEvent.bind(this);
     this.goFullScreen     = goFullScreen.bind(this);
   }
 
@@ -61,8 +61,22 @@ class Elimination extends Component {
     clearTimeout(this.timeout4);
   }
 
-  componentDidUpdate(){ 
-    if(this.state.isGameOver) return this.handleReset(); 
+  componentDidUpdate(prevProps, prevState){
+    const {Xs, isResetting, isGameOver, compressor, clickedIDs} = this.state;
+    // if the game is over, reset everything
+    if(isGameOver) return this.handleReset();
+    // if the font size changed do nothing
+    if(prevState.compressor !== compressor) return;
+    // if the font changed do nothing
+    if(prevProps.font !== this.props.font) return;
+    // if the state hasn't changed do nothing
+    if(prevState === this.state) return;
+    // should we play a sound effect?
+    const playSound = !(isGameOver || isResetting || !clickedIDs.length);
+    if(!playSound) return;
+    Xs.includes(clickedIDs[clickedIDs.length - 1]) 
+      ? this.onPlay('AudioGameOver')
+      : this.onPlay('AudioOhYeah') 
   }
 
   handleGame = (isVocab = this.state.isVocab) => {
@@ -96,7 +110,7 @@ class Elimination extends Component {
   onPlay = name => { this[name].play(); }
   
   render(){
-    const {gameData, Xs, isResetting, isGameOver, compressor, colors, clickedIDs} = this.state;
+    const { gameData, Xs, isResetting, compressor, colors } = this.state;
     const containerClasses = classNames('generic-container', { isResetting });
     const cards = gameData.map((card, i) => {
       const allCardClasses = this.handleClasses(card, i);
@@ -116,13 +130,8 @@ class Elimination extends Component {
       );
     });
     return (
-      <div className={containerClasses}>
+      <div className={containerClasses} style={{fontFamily: this.props.font}}>
         {cards}
-        {isGameOver || isResetting || !clickedIDs.length
-          ? null
-          : Xs.includes(clickedIDs[clickedIDs.length - 1]) 
-            ? this.onPlay('AudioGameOver')
-            : this.onPlay('AudioOhYeah') }
       </div>
     );
   }

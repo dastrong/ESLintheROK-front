@@ -126,13 +126,15 @@ class WordLotto extends Component {
 		);
 		return (
 			<div 
-				className='lotto-container' 
+				className='lotto-container'
+				style={{fontFamily: this.props.font}}
 				onClick={()=>{
 					isGameOver 
 						? this.handleReset()
 						: this._showWinners();
-				}} >
-					{boxes}
+				}}
+			>
+				{boxes}
 			</div>
 		);
 	}

@@ -7,6 +7,16 @@ import Kimchi          from '../components/games/Kimchi';
 import Bowling         from '../components/games/Bowling';
 import ChaseTheVocab   from '../components/games/ChaseTheVocab';
 
+export const fonts = [
+  {text:'Sans-Serif', value:'sans-serif', style:{fontFamily:'sans-serif'}},
+  {text:'Bree Serif', value:'Bree Serif, serif', style:{fontFamily:'Bree Serif, serif'}},
+  {text:'Mali', value:'Mali, cursive', style:{fontFamily:'Mali, cursive'}},
+  {text:'Niramit', value:'Niramit, sans-serif', style:{fontFamily:'Niramit, sans-serif'}},
+  {text:'Poppins', value:'Poppins, sans-serif', style:{fontFamily:'Poppins, sans-serif'}},
+  {text:'Muli', value:'Muli, sans-serif', style:{fontFamily:'Muli, sans-serif'}},
+  {text:'Quicksand', value:'Quicksand, sans-serif', style:{fontFamily:'Quicksand, sans-serif'}},
+]
+
 export const games = [
   {
     router: {
@@ -27,6 +37,15 @@ export const games = [
         topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Elimination.png',
       },
     },
+    keyCuts: [
+      {key: 'Left-Click', description: 'Starts the game'},
+      {key: ['Space', 'Enter'], description: 'Refresh the game'},
+      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Refresh the game and use vocabulary'},
+      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Refresh the game and use expressions'},
+      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
+      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+      {key: '1-7', description: "Change the number of X's (default: 3)"}
+    ],
     instructions: {
       forTeachers: {
         english: [
@@ -91,6 +110,14 @@ export const games = [
         topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/What_s_Behind.png',
       },
     },
+    keyCuts: [
+      {key: 'Left-Click', description: 'Starts the game'},
+      {key: ['Space', 'Enter'], description: 'Refresh the game'},
+      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Refresh the game and use vocabulary'},
+      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Refresh the game and use expressions'},
+      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
+      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+    ],
     instructions: {
       forTeachers: {
         english: [
@@ -149,6 +176,15 @@ export const games = [
         topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Stars.png',
       },
     },
+    keyCuts: [
+      {key: 'Left-Click', description: 'Starts the game'},
+      {key: ['Space', 'Enter'], description: 'Refresh the game'},
+      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Refresh the game and use vocabulary'},
+      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Refresh the game and use expressions'},
+      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
+      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+      {key: '1-5', description: 'Change the minimum number of stars a card can have (default: 0)'}
+    ],
     instructions: {
       forTeachers: {
         english: [
@@ -211,6 +247,14 @@ export const games = [
         topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Lotto.png',
       },
     },
+    keyCuts: [
+      {key: 'Left-Click', description: 'Starts the game'},
+      {key: ['Space', 'Enter'], description: 'Refresh the game'},
+      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Refresh the game and use vocabulary'},
+      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Refresh the game and use expressions'},
+      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
+      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+    ],
     instructions: {
       forTeachers: {
         english: [
@@ -279,6 +323,14 @@ export const games = [
         topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Sparkle_Die.png',
       },
     },
+    keyCuts: [
+      {key: 'Left-Click', description: 'Starts the game'},
+      {key: ['Space', 'Enter'], description: 'Refresh the game'},
+      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Decrease the timer (min: 5s)'},
+      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Increase the timer (max: 20s)'},
+      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
+      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+    ],
     instructions: {
       forTeachers: {
         english: [
@@ -356,6 +408,12 @@ export const games = [
         topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Letter_Bowling.png',
       },
     },
+    keyCuts: [
+      {key: 'Left-Click', description: 'Starts the game'},
+      {key: ['Space', 'Enter'], description: 'Refresh the game'},
+      {key: 'Left-Arrow', description: 'Decrease the total rounds'},
+      {key: 'Right-Arrow', description: 'Increase the total rounds'},
+    ],
     instructions: {
       forTeachers: {
         english: [
@@ -426,6 +484,14 @@ export const games = [
         topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Kimchi.png',
       },
     },
+    keyCuts: [
+      {key: 'Left-Click', description: 'Starts the game'},
+      {key: ['Space', 'Enter'], description: 'Refresh the game'},
+      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Increase kimchi frequency'},
+      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Decrease kimchi frequency'},
+      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
+      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'}
+    ],
     instructions: {
       forTeachers: {
         english: [
@@ -515,6 +581,14 @@ export const games = [
         topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Chase_the_Vocab.png',
       },
     },
+    keyCuts: [
+      {key: 'Left-Click', description: 'Starts the game'},
+      {key: ['Space', 'Enter'], description: 'Refresh the game'},
+      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
+      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+      {key: 'C', description: 'Change the block color'},
+      {key: '1-9', description: 'Change the difficulty (easiest: 1, hardest: 9, default: 5)'}
+    ],
     instructions: {
       forTeachers: {
         english: [
@@ -647,86 +721,3 @@ export const games = [
     },
   },
 ];
-
-export const hotKeyInfo = [
-  {
-    path: '/elimination',
-    keyCuts: [
-      {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Refresh the game and use vocabulary'},
-      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Refresh the game and use expressions'},
-      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
-      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
-      {key: '1-7', description: "Change the number of X's (default: 3)"}
-    ]
-  },
-  {
-    path: '/whatsbehind',
-    keyCuts: [
-      {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Refresh the game and use vocabulary'},
-      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Refresh the game and use expressions'},
-      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
-      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
-    ]
-  },
-  {
-    path: '/stars',
-    keyCuts: [
-      {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Refresh the game and use vocabulary'},
-      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Refresh the game and use expressions'},
-      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
-      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
-      {key: '1-5', description: 'Change the minimum number of stars a card can have (default: 0)'}
-    ]
-  },
-  {
-    path: '/lotto',
-    keyCuts: [
-      {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Refresh the game and use vocabulary'},
-      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Refresh the game and use expressions'},
-      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
-      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
-    ]
-  },
-  {
-    path: '/kimchi',
-    keyCuts: [
-      {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Increase kimchi frequency'},
-      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Decrease kimchi frequency'},
-      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
-      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'}
-    ]
-  },
-  {
-    path: '/sparkle',
-    keyCuts: [
-      {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Decrease the timer (min: 5s)'},
-      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Increase the timer (max: 20s)'},
-      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
-      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
-    ]
-  },
-  {
-    path: '/bowling',
-    keyCuts: [
-      {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: 'Left-Arrow', description: 'Decrease the total rounds'},
-      {key: 'Right-Arrow', description: 'Increase the total rounds'},
-    ]
-  },
-  {
-    path: '/chase',
-    keyCuts: [
-      {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
-      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
-      {key: 'C', description: 'Change the block color'},
-      {key: '1-9', description: 'Change the difficulty (easiest: 1, hardest: 9, default: 5)'}
-    ]
-  },
-]

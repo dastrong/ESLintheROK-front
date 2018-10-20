@@ -103,6 +103,7 @@ class Sparkle extends Component {
       <div 
         className='spark-container'
         onClick={this.handleClick}
+        style={{fontFamily: this.props.font}}
       >
         <CSSTransition
           in={!isTimeUp}
