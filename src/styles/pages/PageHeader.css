@@ -4,6 +4,7 @@
   justify-content: center;
   padding: 14px 0 14px 10px;
   margin: 0;
+  width: 100%;
 }
 
 .ui.header.aligned.center hr {
@@ -25,4 +26,24 @@
   padding-left: .725rem;
   padding-right: .75rem;
   width: 300px;
+}
+
+@media only screen and (max-width: 425px) {
+  .ui.header.aligned.center .content {
+    width: 250px;
+  }
+}
+
+@media only screen and (max-width: 374px) {
+  .ui.header>.icon {
+    font-size: 1.7em;
+  }
+  .ui.header i.circular.icon {
+    line-height: 1.1!important;
+    padding: .35em 0!important;
+    box-shadow: 0 0 0 0.1em rgba(0, 0, 0, 0) inset;
+    width: 1.5em!important;
+    height: 1.75em!important;
+  }
+
 }
