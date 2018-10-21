@@ -47,4 +47,4 @@ class Site extends Component {
 // );
 
 ReactDOM.render(<Site />, document.getElementById('root'));
-registerServiceWorker(siteUpdated);
+registerServiceWorker(handleSiteUpdate);
