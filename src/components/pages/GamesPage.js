@@ -33,7 +33,7 @@ const GridItems = ({ games }) => (
   .map(({ router, info }) => (
     <Card key={router.path}>
       <Card.Content textAlign='center'>
-        <Label 
+        <Label
           attached='top'
           color='grey'
           content={info.dataUsed.join(', ')}
@@ -47,7 +47,16 @@ const GridItems = ({ games }) => (
           content={info.skills.join(', ')}
         />
       </Card.Content>      
-      <Image src={info.images.bottomText} />
+      <Image 
+        src={info.images.bottomText} 
+        label={info.attachments && {
+          as: 'a', 
+          corner: 'right', 
+          color:'red', 
+          icon: 'download', 
+          href: "https://drive.google.com/drive/folders/1gaVcobvZ3zPp-EsGlfQr9_yQh97k7IQn?usp=sharing",
+          target: '_blank'}}
+      />
     </Card>
   ))
 )

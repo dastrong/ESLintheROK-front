@@ -30,6 +30,7 @@ export const games = [
       skills: ['Reading', 'Speaking'],
       dataUsed: ['Vocabulary', 'Expressions'],
       description: 'Last Student Standing Game',
+      attachments: false,
       players: 1,
       completed: true,
       images: {
@@ -103,6 +104,7 @@ export const games = [
       skills: ['Reading', 'Speaking'],
       dataUsed: ['Vocabulary', 'Expressions'],
       description: 'Find the Hidden Item',
+      attachments: false,
       players: 1,
       completed: true,
       images: {
@@ -169,6 +171,7 @@ export const games = [
       skills: ['Reading', 'Speaking', 'Writing'],
       dataUsed: ['Vocabulary', 'Expressions'],
       description: 'Collect as many stars as possible',
+      attachments: true,
       players: 1,
       completed: true,
       images: {
@@ -240,6 +243,7 @@ export const games = [
       skills: ['Reading', 'Speaking', 'Writing'],
       dataUsed: ['Vocabulary', 'Expressions'],
       description: 'Get as many points as possible',
+      attachments: true,
       players: 1,
       completed: true,
       images: {
@@ -316,6 +320,7 @@ export const games = [
       skills: ['Reading', 'Speaking', 'Listening'],
       dataUsed: ['Expressions'],
       description: 'Fun review activity',
+      attachments: false,
       players: 1,
       completed: true,
       images: {
@@ -401,6 +406,7 @@ export const games = [
       skills: ['Reading', 'Writing'],
       dataUsed: ['Vocabulary'],
       description: 'Word Puzzle Solving Game',
+      attachments: true,
       players: 1,
       completed: true,
       images: {
@@ -477,6 +483,7 @@ export const games = [
       skills: ['Reading', 'Speaking'],
       dataUsed: ['Expressions'],
       description: '',
+      attachments: false,
       players: 1,
       completed: true,
       images: {
@@ -574,6 +581,7 @@ export const games = [
       skills: ['Speaking'],
       dataUsed: ['Vocabulary'],
       description: 'Follow the Vocab',
+      attachments: false,
       players: 1,
       completed: true,
       images: {
@@ -647,6 +655,7 @@ export const games = [
       skills: ['Reading', 'Speaking'],
       dataUsed: ['Vocabulary'],
       description: 'Find all the pairs',
+      attachments: false,
       players: 1,
       completed: false,
       images: {
@@ -687,6 +696,7 @@ export const games = [
       skills: ['Reading'],
       dataUsed: ['Vocabulary'],
       description: 'Word Puzzle Solving Game',
+      attachments: false,
       players: 1,
       completed: false,
       images: {

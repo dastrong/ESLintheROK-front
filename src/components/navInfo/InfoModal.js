@@ -70,7 +70,15 @@ class InfoModal extends Component {
           onClose={this.handleInfoModalHide}
           closeIcon
         >
-          <Header icon='info' content={`${gameData.info.title} Options`} />
+          <Header textAlign='center'>
+            <Icon name='info' />
+            {`${gameData.info.title} Options`}
+            {gameData.info.attachments && <Icon
+              link
+              name='download'
+              onClick={()=> window.open("https://drive.google.com/drive/folders/1gaVcobvZ3zPp-EsGlfQr9_yQh97k7IQn?usp=sharing", "_blank")}
+            />}
+          </Header>
           <Dropdown
             fluid
             selection

@@ -35,6 +35,9 @@
 
 .ui.card>.image {
   position: absolute;
+}
+
+.ui.card>.image>img {
   opacity: 1;
   transition: opacity 0.25s ease-in-out;
 }
@@ -43,7 +46,7 @@
   opacity: 1;
 }
 
-.ui.card:hover .image {
+.ui.card:hover img {
   opacity: 0;
 }
 
