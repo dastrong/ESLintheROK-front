@@ -22,4 +22,4 @@ const Site = () => (
 );
 
 ReactDOM.render(<Site />, document.getElementById('root'));
-registerServiceWorker(siteUpdated);
+// registerServiceWorker(siteUpdated);
