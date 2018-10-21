@@ -7,6 +7,10 @@ import MobileError from './components/MobileError';
 import IEError from './components/IEError';
 import './index.css';
 
+const siteUpdated = () => (
+  console.log('siteUpdated')
+)
+
 const Site = () => (
   <Router>
     {window.innerWidth < 768
@@ -18,4 +22,4 @@ const Site = () => (
 );
 
 ReactDOM.render(<Site />, document.getElementById('root'));
-registerServiceWorker();
+registerServiceWorker(siteUpdated);

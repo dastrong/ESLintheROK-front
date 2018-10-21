@@ -9,7 +9,7 @@ import {
   handleGameData, handleAnimations, handleEvents, handleReset, handleClasses, handleClick
 } from '../../helpers/phase1helpers';
 import { 
-  addListeners, rmvListeners, chooseDataSet, setAllData, addTitle, addGoogEvent, goFullScreen
+  addListeners, rmvListeners, chooseDataSet, setAllData, addTitle, addGoogEvent
 } from '../../helpers/phase2helpers';
 import '../../styles/games/Generic.css';
 
@@ -42,13 +42,11 @@ class WhatsBehind extends PureComponent {
     this.setAllData       = setAllData.bind(this);
     this.addTitle         = addTitle.bind(this);
     this.addGoogEvent     = addGoogEvent.bind(this);
-    this.goFullScreen     = goFullScreen.bind(this);
   }
 
   async componentDidMount(){
     this.addTitle();
     this.addListeners();
-    this.goFullScreen();
     const gifURLs = await this._fetchGIF();
     const { vocabulary, expressions } = this.props;
     const allData = { vocabulary, expressions };
@@ -97,7 +95,6 @@ class WhatsBehind extends PureComponent {
   }
   
   render(){
-    console.log(this.state.isVocab)
     const {gameData, Xs, clickedIDs, isResetting, compressor, colors, isGameOver, gifURLs, counter} = this.state;
     const containerClasses = classNames('generic-container', { isResetting });
     const cards = gameData.map((card, i) => {

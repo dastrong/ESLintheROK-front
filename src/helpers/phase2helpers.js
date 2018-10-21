@@ -61,16 +61,8 @@ function addGoogEvent(){
   });
 }
 
-function goFullScreen() {
-  if(window.screen.height !== window.innerHeight) {
-    // window.confirm("It's time to go fullscreen. \n If you play on a second screen, drag the window over now before clicking OK") 
-    //   ? document.documentElement.webkitRequestFullScreen() 
-    alert('Press F11 to toggle fullscreen'); 
-  }  
-}
-
 export { 
   setData, setAllData, chooseDataSet, stripData,
   getRandomIndex, getRandomNum, splitText, 
-  addListeners, rmvListeners, addTitle, addGoogEvent, goFullScreen
+  addListeners, rmvListeners, addTitle, addGoogEvent
 };

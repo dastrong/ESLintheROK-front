@@ -7,7 +7,7 @@ import {
   handleGameData, handleEvents, handleReset,
 } from '../../helpers/phase1helpers';
 import { 
-  addListeners, rmvListeners, chooseDataSet, setAllData, addTitle, addGoogEvent, goFullScreen
+  addListeners, rmvListeners, chooseDataSet, setAllData, addTitle, addGoogEvent
 } from '../../helpers/phase2helpers';
 import '../../styles/games/Generic.css';
 
@@ -38,13 +38,11 @@ class Stars extends Component {
     this.setAllData     = setAllData.bind(this);
     this.addTitle       = addTitle.bind(this);
     this.addGoogEvent   = addGoogEvent.bind(this);
-    this.goFullScreen   = goFullScreen.bind(this);
   }
 
   componentDidMount(){
     this.addTitle();
     this.addListeners();
-    this.goFullScreen();
     const { vocabulary, expressions } = this.props;
     const allData = { vocabulary, expressions };
     this.setAllData(allData);

@@ -13,6 +13,7 @@ import GamePage         from './pages/GamePage';
 import InstructionsPage from './pages/InstructionsPage';
 import ErrorPage        from './pages/ErrorPage';
 import PageHeader       from './pages/PageHeader';
+import ConfirmBox       from './reusable/ConfirmBox';
 import Switch           from '../helpers/Switch';
 
 class Routers extends PureComponent {
@@ -211,7 +212,7 @@ class Routers extends PureComponent {
                         render={()=>
                           !isGameReady
                             ? <ErrorPage 
-                                header="Sorry... there wasn't enough data to start that game."
+                                header="Whoops, no data to play. Using the refresh button will lose your data."
                                 content={<p>Go back to the 
                                   {<Link to={{ 
                                     pathname: '/lessons', 
@@ -221,15 +222,32 @@ class Routers extends PureComponent {
                                   {<Link to={{ 
                                     pathname: '/data', 
                                     state: { pageTransition:'slideUp' }
-                                  }}> here</Link>}.</p>}
+                                }}> here</Link>}.</p> }
                               />
-                            : <gameData.router.component 
-                                title={gameData.info.title}
-                                expressions={expressions}
-                                vocabulary={vocabulary}
-                                colors={colors}
-                                font={font}
-                                isGameReady={isGameReady} /> }
+                            : <Fragment>
+                                <gameData.router.component 
+                                  title={gameData.info.title}
+                                  expressions={expressions}
+                                  vocabulary={vocabulary}
+                                  colors={colors}
+                                  font={font}
+                                  isGameReady={isGameReady} /> 
+                                <ConfirmBox 
+                                  open={window.screen.height !== window.innerHeight}
+                                  onConfirm={typeof InstallTrigger !== 'undefined'
+                                    ? ()=>document.documentElement.mozRequestFullScreen()
+                                    : ()=>document.documentElement.webkitRequestFullScreen()
+                                  }
+                                  cancelText="No, thanks."
+                                  confirmText="Do it."
+                                  header={`${gameData.info.title} should be played in fullscreen`}
+                                  content={
+                                    <div style={{padding: '10px'}}>
+                                      <p>You can toggle fullscreen with F11 by yourself too.</p>
+                                      <p><span style={{fontWeight: 'bold'}}>Note:</span> If you get a white screen next, contact me because this should've fixed it.</p>
+                                    </div> }
+                                />
+                              </Fragment> }
                       /> 
                     </Fragment>
                   }

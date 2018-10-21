@@ -3,7 +3,7 @@ import TextBox from '../reusable/TextBox';
 import { Timer, startTimer, resetTimer } from '../reusable/Timer';
 import { CSSTransition } from 'react-transition-group';
 import { 
-  setData, getRandomNum, getRandomIndex, addListeners, rmvListeners, addTitle, addGoogEvent, goFullScreen
+  setData, getRandomNum, getRandomIndex, addListeners, rmvListeners, addTitle, addGoogEvent
 } from '../../helpers/phase2helpers';
 import '../../styles/games/Sparkle.css';
 
@@ -28,13 +28,11 @@ class Sparkle extends Component {
     this.rmvListeners   = rmvListeners.bind(this);
     this.addTitle       = addTitle.bind(this);
     this.addGoogEvent   = addGoogEvent.bind(this);
-    this.goFullScreen   = goFullScreen.bind(this);
   }
 
   componentDidMount(){
     this.addTitle();
     this.addListeners();
-    this.goFullScreen();
     this.setData(this.props.expressions);
   }
 

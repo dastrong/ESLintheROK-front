@@ -84,7 +84,7 @@ class GamePage extends PureComponent {
                 }}
                 className={startBtn}
                 color='green'
-                >
+              >
                 START
               </Button>
             </div>
