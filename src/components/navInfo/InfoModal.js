@@ -39,20 +39,19 @@ class InfoModal extends Component {
       </div>
     ));
 
-    return (
-      <div>
-        <Popup 
+    const icon = <Icon
+                  link
+                  className='info-modal-icon'
+                  size='huge' 
+                  name='help circle'
+                  onClick={this.handleButtonClick} 
+                  style={{opacity: opacity}}
+                />
+    const opener = this.props.inGame 
+      ? icon
+      : <Popup 
           wide='very'
-          trigger={
-            <Icon
-              link
-              className='info-modal-icon'
-              size='huge' 
-              name='help circle'
-              onClick={this.handleButtonClick} 
-              style={{opacity: opacity}}
-            />
-          }
+          trigger={icon}
           content={
             <Fragment>
               <h3>{gameData.info.title} Help</h3>
@@ -64,6 +63,9 @@ class InfoModal extends Component {
           position='bottom center'
           horizontalOffset={-12}
         />
+    return (
+      <div>
+        {opener}
         <Modal 
           open={visible}
           className='info-modal' 

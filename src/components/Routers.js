@@ -15,6 +15,7 @@ import ErrorPage        from './pages/ErrorPage';
 import PageHeader       from './pages/PageHeader';
 import ConfirmBox       from './reusable/ConfirmBox';
 import Switch           from '../helpers/Switch';
+import HotPotato        from './games/HotPotato';
 
 class Routers extends PureComponent {
   constructor(props){
@@ -179,7 +180,6 @@ class Routers extends PureComponent {
                       <Fragment>
                         <Route
                           exact
-                          key={gameData.router.path}
                           path={gameData.router.path}
                           render={()=>
                             <GamePage
@@ -191,7 +191,6 @@ class Routers extends PureComponent {
                         />
                         <Route
                           exact
-                          key={`${gameData.router.path}-teacher`}
                           path={`${gameData.router.path}/teacher`}
                           render={()=> 
                             <InstructionsPage
@@ -204,7 +203,6 @@ class Routers extends PureComponent {
                         />
                         <Route
                           exact
-                          key={`${gameData.router.path}-student`}
                           path={`${gameData.router.path}/student`}
                           render={()=> 
                             <InstructionsPage
@@ -217,7 +215,6 @@ class Routers extends PureComponent {
                         />
                         <Route
                           exact
-                          key={`${gameData.router.path}-start}`}
                           path={`${gameData.router.path}/start`}
                           render={()=>
                             !isGameReady

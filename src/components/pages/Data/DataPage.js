@@ -61,7 +61,7 @@ class DataPage extends PureComponent {
             pathname: "/games",
             state: { pageTransition:'slideUp' }
           }}
-          color={!isDataReady || dataChanged ? 'green' : 'blue'}
+          color={!isDataReady || dataChanged ? 'blue' : 'green'}
           className={cxBtn}
           content={
             !isDataReady 

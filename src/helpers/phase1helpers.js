@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
 // returns an array of numbers
-function arrOfRandNum(maxNum, numCount, options){
+export function arrOfRandNum(maxNum, numCount, options){
   if(options) {
     const { minStars, maxStars } = options;
     return [...Array(numCount)].map(()=>minStars + Math.floor(Math.random()*(maxStars+1-minStars)));

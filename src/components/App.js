@@ -66,6 +66,7 @@ class App extends Component {
         />
         {inGame && this.state.isGameReady && 
           <InfoModal 
+            inGame={true}
             opacity={0}
             gameData={gameData}
             changeFont={this.changeFont}

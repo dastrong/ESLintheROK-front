@@ -6,6 +6,8 @@ import Sparkle         from '../components/games/Sparkle';
 import Kimchi          from '../components/games/Kimchi';
 import Bowling         from '../components/games/Bowling';
 import ChaseTheVocab   from '../components/games/ChaseTheVocab';
+import RedAndBlue      from '../components/games/RedAndBlue';
+import HotPotato       from '../components/games/HotPotato';
 
 export const fonts = [
   {text:'Sans-Serif', value:'sans-serif', style:{fontFamily:'sans-serif'}},
@@ -16,6 +18,29 @@ export const fonts = [
   {text:'Muli', value:'Muli, sans-serif', style:{fontFamily:'Muli, sans-serif'}},
   {text:'Quicksand', value:'Quicksand, sans-serif', style:{fontFamily:'Quicksand, sans-serif'}},
 ]
+
+export const sampleData = {
+  vocabulary: [
+    {text: 'apple'},
+    {text: 'banana'},
+    {text: 'oranges'},
+    {text: 'pizza'},
+    {text: 'vacation'},
+    {text: 'purple'},
+    {text: 'green'},
+    {text: 'basketball'},
+    {text: 'baseball' },
+    {text: 'cap'},
+  ],
+  expressions: [
+    {text: "Do you like pizza?"},
+    {text: "What are you doing?"},
+    {text: "I like baseball."},
+    {text: "Yes, I do. I like chicken."},
+    {text: "I want to ..."},
+    {text: "Let's play soccer."},
+  ]
+}
 
 export const games = [
   {
@@ -635,11 +660,112 @@ export const games = [
         ],
         korean: [
           '스크린에 집중하세요',
-          '카드를 몇 장 고른 후, 그 카드들이 움직이는 것을 눈으로 쫓아가세요',
-          '카드가 움직이기를 멈추면 손을 듭니다',
-          '발표하는 학생을 제외하고 모두 자기 차례를 조용히 기다리세요',
-          '숫자와 그 카드 뒷 면의 단어를 맞춥니다',
-          '정답 = 보상',
+        ]
+      }
+    },
+  },
+  {
+    router: {
+      path: '/redblue',
+      component: RedAndBlue,
+      requiredProps: [],
+      icon: 'road',
+    },
+    info: {
+      title: 'Red and Blue',
+      skills: ['Listening'],
+      dataUsed: ['Vocabulary'],
+      description: 'Slap the Correct Color',
+      attachments: true,
+      players: 2,
+      completed: true,
+      images: {
+        bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Red_and_Blue.png',
+        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Red_and_Blue.png',
+      },
+    },
+    keyCuts: [
+      {key: ['Left-Click', 'Space', 'Enter'], description: 'Start/Refresh the game'},
+      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
+      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+    ],
+    instructions: {
+      forTeachers: {
+        english: [
+          'Pair Game',
+          'Print out enough red and blue worksheets for half your class',
+          'I suggest laminating them so they last longer',
+          'Place evenly between the two students (Ss) desks',
+          'I suggest Ss put a book under the sheet as padding also',
+          'Ss put their hands up',
+          'Review the two words on the screen',
+          'Teacher says one word loudly',
+          'Ss slap whichever color that word is',
+          'First one gets a point',
+          "If it's a tie, RPS",
+          'Hands up and repeat',
+          'Winner has the most points',
+        ],
+        korean: [
+          'Coming Soon',
+        ]
+      },
+      forStudents: {
+        english: [
+          'Put your hands on your head',
+          'Listen to the teacher',
+          'Slap the correct color',
+          'Winner gets a point',
+          'Tied? RPS.',
+          'No cheating. Keep your hands up until the word is said.',
+          'Most points wins',
+        ],
+        korean: [
+          'Coming Soon',
+        ]
+      }
+    },
+  },
+  {
+    router: {
+      path: '/hotpotato',
+      component: HotPotato,
+      requiredProps: [],
+      icon: 'road',
+    },
+    info: {
+      title: 'Hot Potato',
+      skills: ['Speaking', 'Reading'],
+      dataUsed: ['Vocabulary'],
+      description: "Pass the 'potato'",
+      attachments: false,
+      players: 1,
+      completed: false,
+      images: {
+        bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Red_and_Blue.png',
+        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Red_and_Blue.png',
+      },
+    },
+    keyCuts: [
+      // {key: ['Left-Click', 'Space', 'Enter'], description: 'Start/Refresh the game'},
+      // {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
+      // {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+    ],
+    instructions: {
+      forTeachers: {
+        english: [
+          'Coming Soon',
+        ],
+        korean: [
+          'Coming Soon',
+        ]
+      },
+      forStudents: {
+        english: [
+          'Coming Soon',
+        ],
+        korean: [
+          'Coming Soon',
         ]
       }
     },
