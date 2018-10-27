@@ -15,7 +15,6 @@ import ErrorPage        from './pages/ErrorPage';
 import PageHeader       from './pages/PageHeader';
 import ConfirmBox       from './reusable/ConfirmBox';
 import Switch           from '../helpers/Switch';
-import HotPotato        from './games/HotPotato';
 
 class Routers extends PureComponent {
   constructor(props){

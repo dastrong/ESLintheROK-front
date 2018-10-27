@@ -1,6 +1,7 @@
 .hotpotato-container {
   overflow: hidden;
   height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -9,7 +10,105 @@
   background-color: #eee;
 }
 
-.hotpotato-text {
+.hotpotato-container img {
+  height: 100vh;
+}
+
+.hotpotato-container .countdown-timer {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  font-size: 150px;
+  line-height: 150px;
+  z-index: 5;
+  color: #000;
+  text-shadow: 1px 1px 7px #dfdffd;
+}
+
+.hotpotato-container div {
+  display: flex;
+  justify-content: center;
+  position: absolute;
   width: 100%;
+  height: 100%;
+}
+
+.hotpotato-countdown {
+  background-color: #ffcb04;
+}
+
+.hotpotato-active {
+  background-color: #fffbde;
+  opacity: 0;
+}
+
+.hotpotato-finished {
+  background-color: #a77c52;
+  opacity: 0;
+}
+
+.hotpotato-container .hotpotato-text {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  display: flex;
   text-align: center;
+  background-color: rgba(167, 124, 82, 0.7);
+  flex-direction: column;
+  justify-content: space-evenly;
+  overflow: hidden;
+  text-shadow: 1px 1px 7px #dfdffd;
+  padding: 15px;
+}
+
+.hotpotato-text p {
+  margin: 0;
+}
+
+.hotpotato-img-enter {
+  opacity: 0.01;
+}
+
+.hotpotato-img-enter-active {
+  opacity: 1;
+  transition: all 550ms;
+}
+
+.hotpotato-img-enter-done {
+  opacity: 1;
+}
+
+.hotpotato-img-exit {
+  opacity: 1;
+}
+
+.hotpotato-img-exit-active {
+  opacity: 0.01;
+  transition: all 550ms;
+}
+
+.hotpotato-img-exit-done {
+  opacity: 0;
+}
+
+.hotpotato-text-enter {
+  opacity: 0;
+  transform: translateY(-40px);
+}
+
+.hotpotato-text-enter-active {
+  opacity: 0.01;
+  transform: translateY(-40px);
+  transition: all 1s;
+}
+
+.hotpotato-text-enter-done {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: all 1s;
+}
+
+.hotpotato-text-exit-active,
+.hotpotato-text-exit-done {
+  opacity: 0;
 }

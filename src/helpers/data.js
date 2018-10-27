@@ -356,8 +356,8 @@ export const games = [
     keyCuts: [
       {key: 'Left-Click', description: 'Starts the game'},
       {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Decrease the timer (min: 5s)'},
-      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Increase the timer (max: 20s)'},
+      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Decrease the timer (min: 5s)'},
+      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Increase the timer (max: 20s)'},
       {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
       {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
     ],
@@ -731,30 +731,39 @@ export const games = [
       path: '/hotpotato',
       component: HotPotato,
       requiredProps: [],
-      icon: 'road',
+      icon: 'fire',
     },
     info: {
       title: 'Hot Potato',
       skills: ['Speaking', 'Reading'],
-      dataUsed: ['Vocabulary'],
+      dataUsed: ['Vocabulary, Expressions'],
       description: "Pass the 'potato'",
       attachments: false,
       players: 1,
-      completed: false,
+      completed: true,
       images: {
-        bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Red_and_Blue.png',
-        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Red_and_Blue.png',
+        bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Hot_Potato.png',
+        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Hot_Potato.png',
       },
     },
     keyCuts: [
-      // {key: ['Left-Click', 'Space', 'Enter'], description: 'Start/Refresh the game'},
-      // {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
-      // {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+      {key: 'Left-Click', description: 'Start/Stop the game'},
+      {key: ['Space', 'Enter'], description: 'Refresh the game'},
+      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Refresh the game and use vocabulary'},
+      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Refresh the game and use expressions'},
+      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
+      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+      {key: '1-3', description: "Change the number of vocab (default: 3, only 1 sentence available)"}
     ],
     instructions: {
       forTeachers: {
         english: [
-          'Coming Soon',
+          'Get a ball or something for the students (Ss) to pass',
+          'The concept is the same as pass the ball',
+          "When the music starts the Ss pass the ball around",
+          "I suggest only allowing underhand passes",
+          "Ss with the ball when the music stops says what's on the screen",
+          "Repeat as desired",
         ],
         korean: [
           'Coming Soon',
@@ -762,7 +771,10 @@ export const games = [
       },
       forStudents: {
         english: [
-          'Coming Soon',
+          'Pass the ball to a student next to you',
+          'Do NOT throw the ball',
+          'Underhand passes only',
+          "If you have the ball when the music stops, say what's on the screen",
         ],
         korean: [
           'Coming Soon',

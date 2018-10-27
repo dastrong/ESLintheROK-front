@@ -34,11 +34,10 @@ function resetTimer(){
 // make sure when you calculate width in the parent to minus 1 in the denominator so this behaves correctly
 const Timer = ({timeRemaining, isTimeUp, width}) => (
   <div className='timer'>
-    <div className='timer-bar' 
-        style={{width}}>
-    </div>
+    <div className='timer-bar' style={{width}}></div>
     <div className='timer-text'>
-      {isTimeUp ? 0 : timeRemaining}</div>
+      {isTimeUp ? 0 : timeRemaining}
+    </div>
   </div>
 )
 
