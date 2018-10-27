@@ -8,6 +8,7 @@ import Bowling         from '../components/games/Bowling';
 import ChaseTheVocab   from '../components/games/ChaseTheVocab';
 import RedAndBlue      from '../components/games/RedAndBlue';
 import HotPotato       from '../components/games/HotPotato';
+import Nunchi          from '../components/games/Nunchi';
 
 export const fonts = [
   {text:'Sans-Serif', value:'sans-serif', style:{fontFamily:'sans-serif'}},
@@ -775,6 +776,66 @@ export const games = [
           'Do NOT throw the ball',
           'Underhand passes only',
           "If you have the ball when the music stops, say what's on the screen",
+        ],
+        korean: [
+          'Coming Soon',
+        ]
+      }
+    },
+  },
+  {
+    router: {
+      path: '/nunchi',
+      component: Nunchi,
+      requiredProps: [],
+      icon: 'talk',
+    },
+    info: {
+      title: 'Nunchi Game',
+      skills: ['Speaking', 'Reading'],
+      dataUsed: ['Expressions'],
+      description: 'Stand up and speak',
+      attachments: false,
+      players: 1,
+      completed: true,
+      images: {
+        bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Nunchi.png',
+        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Nunchi.png',
+      },
+    },
+    keyCuts: [
+      {key: ['Left-Click', 'Space', 'Enter'], description: 'Start/Refresh the game'},
+      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
+      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+    ],
+    instructions: {
+      forTeachers: {
+        english: [
+          'Have the students (Ss) kneel behind their chairs',
+          'When Ss are quiet and ready, click to show a sentence',
+          'Ss stand up and say a word in the sentence',
+          'Ss can only say one word',
+          'The words must be read in order',
+          "If two Ss stand up and say the same word..",
+          "1) They're out and they sit in their chairs",
+          "2) The round is over. Click and Ss get ready again",
+          'Once the class completes a sentence successfully, everyone resets',
+          "I give a point to the groups of the Ss left standing",
+          'It helps to encourage group cooperation and teamwork',
+          'Group with the most points gets a prize'
+        ],
+        korean: [
+          'Coming Soon',
+        ]
+      },
+      forStudents: {
+        english: [
+          'Crouch behind your chair',
+          'Be quiet to start a round',
+          'Stand up and say one word in the sentence',
+          "If you say the same word as someone else, you're both out",
+          'If you complete a sentence, each person gets one point for their team',
+          'The group with the most points win',
         ],
         korean: [
           'Coming Soon',

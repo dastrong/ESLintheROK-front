@@ -167,6 +167,7 @@ class HotPotato extends Component {
       <div 
         className='hotpotato-container'
         onClick={this.handleClick}
+        style={{fontFamily: this.props.font}}
       >
         <CSSTransition
           in={stage === 1}

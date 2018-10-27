@@ -83,6 +83,7 @@ class RedAndBlue extends Component {
       <div 
         className='redblue-container'
         onClick={this.handleGame}
+        style={{fontFamily: this.props.font}}
       >
         {boxes}
       </div>
