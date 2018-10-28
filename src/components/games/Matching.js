@@ -6,7 +6,6 @@ import {
   addListeners, rmvListeners, setData, addTitle, addGoogEvent
  } from '../../helpers/phase2helpers';
 import '../../styles/games/Matching.css';
-import {sampleData} from '../../helpers/data';
 
 const emptyArr = {clicked: [], matched: []}
 const numBox16 = {numBox: 16, height: '24vh', width: '24vw', ...emptyArr };
@@ -21,7 +20,7 @@ class Matching extends Component {
     this.state = {
       data: [],
       gameData: [],
-      ...numBox9,
+      ...numBox12,
       compressor: 0.6,
       colors: this.props.colors,
       color: 2,
@@ -36,7 +35,7 @@ class Matching extends Component {
   componentDidMount(){
     this.addTitle();
     this.addListeners();
-    this.setData(sampleData.vocabulary);
+    this.setData(this.props.vocabulary);
   }
 
   componentWillUnmount(){ 
