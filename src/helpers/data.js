@@ -45,6 +45,10 @@ const Nunchi = Loadable({
   loader: ()=> import('../components/games/Nunchi'),
   loading: Loading,
 });
+const Matching = Loadable({
+  loader: ()=> import('../components/games/Matching'),
+  loading: Loading,
+});
 
 export const fonts = [
   {text:'Sans-Serif', value:'sans-serif', style:{fontFamily:'sans-serif'}},
@@ -882,8 +886,9 @@ export const games = [
   {
     router: {
       path: '/match',
-      component: 'Matching',
+      component: Matching,
       requiredProps: [],
+      icon: 'th'
     },
     info: {
       title: 'Matching',
@@ -892,30 +897,45 @@ export const games = [
       description: 'Find all the pairs',
       attachments: false,
       players: 1,
-      completed: false,
+      completed: true,
       images: {
         bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Matching.png',
         topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Matching.png',
       },
     },
+    keyCuts: [
+      {key: 'Left-Click', description: 'Show the word'},
+      {key: ['Space', 'Enter'], description: 'Refresh the game'},
+      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
+      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Decrease the number of boxes (min: 6)'},
+      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Increase the number of boxes (max: 16)'},
+    ],
     instructions: {
       forTeachers: {
         english: [
           'Individual Game',
           'Students raise their hand and take turns trying to match two cards',
+          "If the cards don't match they'll automatically flip back",
+          "If there's an odd number of cards, there will be 1 'poo' card",
+          "If a Ss gets the 'poo' card they lose their turn",
           'If a student matches two cards, you can reward them',
+          "Check out the options to learn how to change the number of cards",
         ],
         korean: [
-          '',
+          'Coming Soon',
         ]
       },
       forStudents: {
         english: [
-          'Students raise their hand and take turns trying to match two cards',
-          'If a student matches two cards, you can reward them',
+          'Raise your hand',
+          'Wait your turn', 
+          'Read two blocks',
+          'Match? = reward',
+          'Poo? = lose your turn'
         ],
         korean: [
-          '',
+          'Coming Soon',
         ]
       }
     },
