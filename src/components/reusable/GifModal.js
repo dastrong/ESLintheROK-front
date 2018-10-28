@@ -7,7 +7,7 @@ const GifModal = ({url, handleReset}) => (
          onClose={() => handleReset()}>
     <Modal.Content scrolling={false}>
       <Image src={url} 
-             alt='Loading...'
+             alt="Loading... unless your area has blocked GIPHY.com"
              size='huge' 
              centered={true} 
              verticalAlign='middle' />

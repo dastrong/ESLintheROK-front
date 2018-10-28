@@ -50,9 +50,7 @@ class Stars extends Component {
 
   componentWillUnmount(){ 
     this.rmvListeners();
-    clearTimeout(this.timeout4);
-    clearTimeout(this.timeout5);
-    clearTimeout(this.timeout6);
+    this._clearTimeouts();
   }
 
   componentDidUpdate(){ 
@@ -62,6 +60,7 @@ class Stars extends Component {
 
   handleGame = (isVocab = this.state.isVocab) => {
     this.addGoogEvent();
+    this._clearTimeouts();
     const { gameData, Xs, height } = this.handleGameData(isVocab);
     this.setState(prevState=>({
       gameData, 
@@ -78,6 +77,12 @@ class Stars extends Component {
       colors: shuffle([...this.state.colors]),
       starColors: shuffle([...this.state.starColors]),
     }));
+  }
+
+  _clearTimeouts = () => {
+    clearTimeout(this.timeout4);
+    clearTimeout(this.timeout5);
+    clearTimeout(this.timeout6);
   }
 
   _handleCardFlip = (id) => {
