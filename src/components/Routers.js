@@ -1,8 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { Route, Link } from 'react-router-dom';
-import Loadable from 'react-loadable';
-import Loading     from './Loading';
+import InstructionsPage from './pages/InstructionsPage';
 import DataPage    from './pages/Data/DataPage';
 import AboutPage   from './pages/Info/AboutPage';
 import ContactPage from './pages/Info/ContactPage';
@@ -10,20 +9,12 @@ import FAQPage     from './pages/Info/FAQPage';
 import LessonsPage from './pages/Lessons/LessonsPage';
 import MainPage    from './pages/MainPage';
 import GamesPage   from './pages/GamesPage';
+import GamePage    from './pages/GamePage';
 import HomeAPI     from './pages/HomeAPI';
 import ErrorPage   from './pages/ErrorPage';
 import PageHeader  from './pages/PageHeader';
 import ConfirmBox  from './reusable/ConfirmBox';
 import Switch      from '../helpers/Switch';
-
-const GamePage = Loadable({
-  loader: ()=> import('./pages/GamePage'),
-  loading: Loading,
-})
-const InstructionsPage = Loadable({
-  loader: ()=> import('./pages/InstructionsPage'),
-  loading: Loading,
-})
 
 class Routers extends PureComponent {
   constructor(props){
