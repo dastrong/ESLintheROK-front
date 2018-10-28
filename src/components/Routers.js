@@ -37,6 +37,7 @@ class Routers extends PureComponent {
   childFactoryCreator = (props) => child => React.cloneElement(child, props)
 
   render(){
+    console.log(window.swUpdated)
     const { 
       vocabulary, 
       expressions,
