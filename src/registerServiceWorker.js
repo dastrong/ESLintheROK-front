@@ -19,6 +19,7 @@ const isLocalhost = Boolean(
 );
 
 export default function register() {
+  console.log('register')
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location);
@@ -28,10 +29,14 @@ export default function register() {
       // serve assets; see https://github.com/facebookincubator/create-react-app/issues/2374
       return;
     }
-
+    
+    console.log('register load')
+    
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
+      console.log(swUrl)
+      
       if (isLocalhost) {
         // This is running on localhost. Lets check if a service worker still exists or not.
         checkValidServiceWorker(swUrl);
@@ -46,6 +51,7 @@ export default function register() {
         });
       } else {
         // Is not local host. Just register service worker
+        console.log('not localhost')
         registerValidSW(swUrl);
       }
     });
@@ -56,9 +62,12 @@ function registerValidSW(swUrl) {
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {
+      console.log('registration')
       registration.onupdatefound = () => {
+        console.log('onupdatefound')
         const installingWorker = registration.installing;
         installingWorker.onstatechange = () => {
+          console.log('onstatechange')
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
               // At this point, the old content will have been purged and
