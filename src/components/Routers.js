@@ -1,20 +1,29 @@
 import React, { PureComponent, Fragment } from 'react';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { Route, Link } from 'react-router-dom';
-import DataPage         from './pages/Data/DataPage';
-import AboutPage        from './pages/Info/AboutPage';
-import ContactPage      from './pages/Info/ContactPage';
-import FAQPage          from './pages/Info/FAQPage';
-import LessonsPage      from './pages/Lessons/LessonsPage';
-import MainPage         from './pages/MainPage';
-import GamesPage        from './pages/GamesPage';
-import HomeAPI          from './pages/HomeAPI';
-import GamePage         from './pages/GamePage';
-import InstructionsPage from './pages/InstructionsPage';
-import ErrorPage        from './pages/ErrorPage';
-import PageHeader       from './pages/PageHeader';
-import ConfirmBox       from './reusable/ConfirmBox';
-import Switch           from '../helpers/Switch';
+import Loadable from 'react-loadable';
+import Loading     from './Loading';
+import DataPage    from './pages/Data/DataPage';
+import AboutPage   from './pages/Info/AboutPage';
+import ContactPage from './pages/Info/ContactPage';
+import FAQPage     from './pages/Info/FAQPage';
+import LessonsPage from './pages/Lessons/LessonsPage';
+import MainPage    from './pages/MainPage';
+import GamesPage   from './pages/GamesPage';
+import HomeAPI     from './pages/HomeAPI';
+import ErrorPage   from './pages/ErrorPage';
+import PageHeader  from './pages/PageHeader';
+import ConfirmBox  from './reusable/ConfirmBox';
+import Switch      from '../helpers/Switch';
+
+const GamePage = Loadable({
+  loader: ()=> import('./pages/GamePage'),
+  loading: Loading,
+})
+const InstructionsPage = Loadable({
+  loader: ()=> import('./pages/InstructionsPage'),
+  loading: Loading,
+})
 
 class Routers extends PureComponent {
   constructor(props){
@@ -37,7 +46,6 @@ class Routers extends PureComponent {
   childFactoryCreator = (props) => child => React.cloneElement(child, props)
 
   render(){
-    console.log(window.swUpdated)
     const { 
       vocabulary, 
       expressions,
