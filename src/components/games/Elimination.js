@@ -6,7 +6,7 @@ import {
   handleGameData, handleAnimations, handleEvents, handleReset, handleClasses, handleClick
 } from '../../helpers/phase1helpers'
 import {
-  addListeners, rmvListeners, chooseDataSet, setAllData, addTitle, addGoogEvent
+  addListeners, rmvListeners, chooseDataSet, setAllData, addTitle, addGoogEvent, resetAndReload
 } from '../../helpers/phase2helpers'
 import '../../styles/games/Generic.css';
 import AudioGameOver from '../../assets/sounds/game-over.wav';
@@ -41,6 +41,7 @@ class Elimination extends Component {
     this.setAllData       = setAllData.bind(this);
     this.addTitle         = addTitle.bind(this);
     this.addGoogEvent     = addGoogEvent.bind(this);
+    this.resetAndReload   = resetAndReload.bind(this);
   }
 
   componentDidMount(){
@@ -60,6 +61,7 @@ class Elimination extends Component {
   }
 
   componentDidUpdate(prevProps, prevState){
+    this.resetAndReload(2)
     const {Xs, isResetting, isGameOver, compressor, clickedIDs} = this.state;
     // if the game is over, reset everything
     if(isGameOver) return this.handleReset();

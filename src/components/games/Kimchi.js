@@ -4,7 +4,7 @@ import Emoji from '../reusable/Emoji';
 import ShowUpdatedSetting from '../reusable/ShowUpdatedSetting';
 import { CSSTransition } from 'react-transition-group';
 import { 
-  setData, getRandomNum, getRandomIndex, addListeners, rmvListeners, addTitle, addGoogEvent
+  setData, getRandomNum, getRandomIndex, addListeners, rmvListeners, addTitle, addGoogEvent, resetAndReload
 } from '../../helpers/phase2helpers';
 import '../../styles/games/Kimchi.css';
 
@@ -28,6 +28,7 @@ class Kimchi extends Component {
     this.rmvListeners   = rmvListeners.bind(this);
     this.addTitle       = addTitle.bind(this);
     this.addGoogEvent   = addGoogEvent.bind(this);
+    this.resetAndReload = resetAndReload.bind(this);
   }
 
   componentDidMount(){
@@ -41,6 +42,10 @@ class Kimchi extends Component {
     clearTimeout(this.timeout1);
     clearTimeout(this.timeout2);
     clearTimeout(this.timeoutID);
+  }
+
+  componentDidUpdate(){
+    this.resetAndReload(1);
   }
 
   handleGame = (data = this.state.data) => {
@@ -64,6 +69,7 @@ class Kimchi extends Component {
   }
 
   handleEvents = (e) => {
+    if(this.props.showDataModal) return;
     const { compressor } = this.state;
     if(e.type === 'wheel'){
       const c = e.deltaY < 0 ? -0.05 : 0.05;

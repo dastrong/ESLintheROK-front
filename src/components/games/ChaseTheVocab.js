@@ -5,7 +5,7 @@ import FlipMove from 'react-flip-move';
 import { CSSTransition } from 'react-transition-group';
 import CardBlock from '../reusable/CardBlock';
 import { 
-  addListeners, rmvListeners, setData, addTitle, addGoogEvent
+  addListeners, rmvListeners, setData, addTitle, addGoogEvent, resetAndReload
  } from '../../helpers/phase2helpers';
 import '../../styles/games/ChaseTheVocab.css';
 
@@ -31,6 +31,7 @@ class ChaseTheVocab extends Component {
     this.setData      = setData.bind(this);
     this.addTitle     = addTitle.bind(this);
     this.addGoogEvent = addGoogEvent.bind(this);
+    this.resetAndReload = resetAndReload.bind(this);
   }
   
   componentDidMount(){
@@ -43,6 +44,10 @@ class ChaseTheVocab extends Component {
     clearInterval(this.intervalID);
     clearTimeout(this.delayedStartID);
     this.rmvListeners();
+  }
+
+  componentDidUpdate(){
+    this.resetAndReload(1);
   }
 
   handleGame = () => {
@@ -108,6 +113,7 @@ class ChaseTheVocab extends Component {
   }
 
   handleEvents = (e) => {
+    if(this.props.showDataModal) return;
     const { compressor, colors } = this.state;
     if(e.type === 'wheel'){
       if(e.buttons) return;

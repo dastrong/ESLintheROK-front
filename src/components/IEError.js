@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import classNames from 'classnames'
 import PageHeader from './pages/PageHeader';
 import ca from '../assets/images/ca.svg';
@@ -34,35 +34,37 @@ class IEError extends Component {
   render() {
     const { language } = this.state;
     return (
-      <div className='startUpError-container'>
+      <Fragment>
         <PageHeader 
           icon='internet explorer'
           text="Welco. . . nvm."
         />
-        <div className='startUpError-inner'>
-          <img 
-            alt='canadian flag'
-            src={ca}
-            className={classNames('flag-icon', { active: language === 'ca' })}
-            onClick={()=> this.changeLanguage('ca')}
-          />
-          <img 
-            alt='korean flag'
-            src={kr}
-            className={classNames('flag-icon', { active: language === 'kr' })}
-            onClick={()=> this.changeLanguage('kr')}
-          />
-          <h1>{text[language][0]}</h1>
-          <h2>{text[language][1]}</h2>
-          <h3>{text[language][2]}</h3>
-          <p>{text[language][3]}</p>
-          <hr />
-          <h3>{text[language][4]}</h3>
-          <p>{text[language][5]}</p>
-          <br />
-          <p>{text[language][6]}</p>
-        </div> 
-      </div>
+        <div className='startUpError-container'>
+          <div className='startUpError-inner'>
+            <img 
+              alt='canadian flag'
+              src={ca}
+              className={classNames('flag-icon', { active: language === 'ca' })}
+              onClick={()=> this.changeLanguage('ca')}
+            />
+            <img 
+              alt='korean flag'
+              src={kr}
+              className={classNames('flag-icon', { active: language === 'kr' })}
+              onClick={()=> this.changeLanguage('kr')}
+            />
+            <h1>{text[language][0]}</h1>
+            <h2>{text[language][1]}</h2>
+            <h3>{text[language][2]}</h3>
+            <p>{text[language][3]}</p>
+            <hr />
+            <h3>{text[language][4]}</h3>
+            <p>{text[language][5]}</p>
+            <br />
+            <p>{text[language][6]}</p>
+          </div> 
+        </div>
+      </Fragment>
     )
   }
 }

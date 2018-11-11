@@ -3,7 +3,7 @@ import shuffle from 'lodash/shuffle';
 import TextDrop from '../reusable/TextDrop';
 import Round from '../reusable/Round';
 import { 
-  setData, getRandomNum, getRandomIndex, splitText, addListeners, rmvListeners, addTitle, addGoogEvent
+  setData, getRandomNum, getRandomIndex, splitText, addListeners, rmvListeners, addTitle, addGoogEvent, resetAndReload
  } from '../../helpers/phase2helpers';
 import '../../styles/games/Bowling.css';
 
@@ -29,6 +29,7 @@ class Bowling extends Component {
     this.rmvListeners   = rmvListeners.bind(this);
     this.addTitle       = addTitle.bind(this);
     this.addGoogEvent   = addGoogEvent.bind(this);
+    this.resetAndReload = resetAndReload.bind(this);
   }
 
   componentDidMount(){
@@ -41,6 +42,10 @@ class Bowling extends Component {
     this.rmvListeners();
     clearInterval(this.intervalID);
     clearTimeout(this.timeoutActive);
+  }
+
+  componentDidUpdate(){
+    this.resetAndReload(1);
   }
 
   handleGame = (data = this.state.data) => {
@@ -99,6 +104,7 @@ class Bowling extends Component {
   }
 
   handleEvents = (e) => {
+    if(this.props.showDataModal) return;
     if(e.type === 'wheel') return;
     const { totalRound, round } = this.state;
     // spacebar/enter was clicked; reset the game

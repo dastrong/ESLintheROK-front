@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactFitText from 'react-fittext';
 import { CSSTransition } from 'react-transition-group';
 import { 
-  setData, getRandomNum, getRandomIndex, addListeners, rmvListeners, addTitle, addGoogEvent
+  setData, getRandomNum, getRandomIndex, addListeners, rmvListeners, addTitle, addGoogEvent, resetAndReload
 } from '../../helpers/phase2helpers';
 import '../../styles/games/Nunchi.css';
 
@@ -23,6 +23,7 @@ class Nunchi extends Component {
     this.rmvListeners   = rmvListeners.bind(this);
     this.addTitle       = addTitle.bind(this);
     this.addGoogEvent   = addGoogEvent.bind(this);
+    this.resetAndReload   = resetAndReload.bind(this);
   }
 
   componentDidMount(){
@@ -36,6 +37,7 @@ class Nunchi extends Component {
   }
 
   componentDidUpdate(x, prevState){
+    this.resetAndReload(1);
     if(prevState.showReady === this.state.showReady) return;
     if(!this.state.showReady) return this.handleGame();
   } 
@@ -50,6 +52,7 @@ class Nunchi extends Component {
   }
 
   handleEvents = (e) => {
+    if(this.props.showDataModal) return;
     const { compressor } = this.state;
     if(e.type === 'wheel'){
       const c = e.deltaY < 0 ? -0.03 : 0.03;

@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from 'react';
-import PageHeader from './PageHeader';
+import React, { Component } from 'react';
 import { Message } from 'semantic-ui-react';
 
 const containerStyle = {
@@ -26,28 +25,20 @@ class ErrorPage extends Component {
   render(){
     const { header, content } = this.props;
     return (
-      <Fragment>
-        <PageHeader 
-          icon='exclamation'
-          color='red'
-          text='Report your errors'
+      <div style={containerStyle}>
+        <Message
+          style={messageStyle} 
+          error
+          size='big'
+          header={header}
+          content={content}
         />
-        <div style={containerStyle}>
-          <Message
-            style={messageStyle} 
-            error
-            size='big'
-            header={header}
-            content={content}
-          />
-          <img 
-            style={imgStyle}
-            src='https://res.cloudinary.com/dastrong/image/upload/f_auto,q_45/v1539070526/TeacherSite/Misc/ErrorMeme.jpg'
-            alt='fry-meme'
-          />
-        </div>
-
-      </Fragment>
+        <img 
+          style={imgStyle}
+          src='https://res.cloudinary.com/dastrong/image/upload/f_auto,q_45/v1539070526/TeacherSite/Misc/ErrorMeme.jpg'
+          alt='fry-meme'
+        />
+      </div>
     );
   }
 }

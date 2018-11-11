@@ -58,6 +58,7 @@ export function handleReset(isVocab = this.state.isVocab){
 
 // ELIMINATION, WHATSBEHIND, STARS
 export function handleEvents(e){
+  if(this.props.showDataModal) return;
   const { isResetting, isVocab, compressor } = this.state;
   if(isResetting) return;
   if(e.type === 'wheel'){

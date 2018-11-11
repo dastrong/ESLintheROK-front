@@ -1,86 +1,99 @@
+/* common container on pages */
+.page-container {
+  height: calc(100vh - 100px);
+  padding: 30px 0;
+  overflow-y: auto;
+}
+
+.page-container-inner {
+  width: calc(100vw - 100px);
+  margin: 0 auto;
+  box-shadow: 0 0 7px rgba(0,0,0,0.6);
+  letter-spacing: 0.5px;
+  border-radius: 2px;
+  background: rgba(250, 250, 250, 1);
+  color: #000;
+  min-height: 440px;
+}
+
+.page-container .page-container-inner {
+  max-width: 900px;
+}
+
+/* specific data modal styles */
+.ui.page.modals.dimmer.transition.active {
+  overflow-y: scroll;
+  padding: 0!important;
+}
+
+.data-modal.ui.large.modal {
+  height: 93%;
+}
+
+.data-modal.ui.modal .content {
+  padding: 0;
+}
+
+.data-modal .page-container-inner {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+}
+
+.data-modal .data-container .ui.accordion .content.active {
+  min-height: calc(100vh - 184px);
+}
+
+.data-modal .lessons-container {
+  min-height: calc(100vh - 50px);
+}
+
+.data-modal .data-container {
+  min-height: calc(100vh - 50px);
+}
+
+/* page transitions */
 .page {
   height: 100vh;
   position: fixed;
+  overflow: hidden;
   top: 0;
   width: 100%;
   transition: all 1s;
 }
 
-.page-enter {
-  opacity: 0;
-}
+.page-enter { opacity: 0; }
+.page-enter-active { opacity: 1; }
+.page-exit { opacity: 0; }
 
-.page-enter-active {
-  opacity: 1;
-}
-
-.page-exit {
-  opacity: 0;
-}
-
-.page.page-slideUp-enter-done,
-.page.page-slideDown-enter-done,
-.page.page-slideLeft-enter-done, 
-.page.page-slideRight-enter-done { 
-  position: absolute;
-}
-
-.page.page-slideLeft-enter {
-  transform: translate(100%, 0) scale(0.7);
-  opacity: 0;
-}
-
-.page.page-slideLeft-enter-active {
-  transform: translate(0, 0) scale(1);
-  opacity: 1;
-}
-
-.page.page-slideLeft-exit {
-  transform: translate(-100%, 0) scale(0.7);
-  opacity: 0;
-}
-
+.page.page-slideLeft-exit,
 .page.page-slideRight-enter {
   transform: translate(-100%, 0) scale(0.7);
   opacity: 0;
 }
 
-.page.page-slideRight-enter-active {
-  transform: translate(0, 0) scale(1);
-  opacity: 1;
-}
-
-.page.page-slideRight-exit {
+.page.page-slideRight-exit,
+.page.page-slideLeft-enter {
   transform: translate(100%, 0) scale(0.7);
   opacity: 0;
 }
 
-.page.page-slideDown-enter {
+.page.page-slideDown-enter,
+.page.page-slideUp-exit {
   transform: translate(0, -100%) scale(0.8);
   opacity: 0;
 }
 
-.page.page-slideDown-enter-active {
-  transform: translate(0, 0) scale(1);
-  opacity: 1;
-}
-
-.page.page-slideDown-exit {
-  transform: translate(0, 100%) scale(0.8);
-  opacity: 0;
-}
-
+.page.page-slideDown-exit,
 .page.page-slideUp-enter {
   transform: translate(0, 100%) scale(0.8);
   opacity: 0;
 }
 
-.page.page-slideUp-enter-active {
+.page.page-slideDown-enter-active, 
+.page.page-slideUp-enter-active,
+.page.page-slideRight-enter-active,
+.page.page-slideLeft-enter-active {
   transform: translate(0, 0) scale(1);
   opacity: 1;
-}
-
-.page.page-slideUp-exit {
-  transform: translate(0, -100%) scale(0.8);
-  opacity: 0;
 }

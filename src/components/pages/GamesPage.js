@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { Button, Grid, Image, Label, Card } from 'semantic-ui-react';
-import PageHeader from './PageHeader';
 import { games } from '../../helpers/data';
 import '../../styles/pages/GamesPage.css'
 
@@ -14,11 +13,6 @@ class GamesPage extends Component {
   render(){
     return (
       <div className='gamesPage-container'>
-        <PageHeader 
-          icon='game'
-          text='Select a game for more information'
-          color='blue'
-        />
         <Grid>
           <GridItems games={games} />
         </Grid>

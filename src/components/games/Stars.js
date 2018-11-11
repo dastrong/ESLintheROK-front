@@ -7,7 +7,7 @@ import {
   handleGameData, handleEvents, handleReset,
 } from '../../helpers/phase1helpers';
 import { 
-  addListeners, rmvListeners, chooseDataSet, setAllData, addTitle, addGoogEvent
+  addListeners, rmvListeners, chooseDataSet, setAllData, addTitle, addGoogEvent, resetAndReload
 } from '../../helpers/phase2helpers';
 import '../../styles/games/Generic.css';
 
@@ -38,6 +38,7 @@ class Stars extends Component {
     this.setAllData     = setAllData.bind(this);
     this.addTitle       = addTitle.bind(this);
     this.addGoogEvent   = addGoogEvent.bind(this);
+    this.resetAndReload = resetAndReload.bind(this);
   }
 
   componentDidMount(){
@@ -53,7 +54,8 @@ class Stars extends Component {
     this._clearTimeouts();
   }
 
-  componentDidUpdate(){ 
+  componentDidUpdate(){
+    this.resetAndReload(2);
     if(!this.state.isGameOver) return;
     this.timeout5 = setTimeout(this.handleReset, 3000); 
   }

@@ -1,5 +1,5 @@
 .ui.button.sideBarBtn {
-  position: absolute;
+  position: fixed;
   z-index: 100;
   background-color: rgb(255, 255, 255, 0);
   transition: 0.5s all;
@@ -24,6 +24,17 @@
 
 .ui.menu .item.home-close-btn-group > div.ui.buttons > * {
   border-radius: 0;
+}
+
+.ui.menu .item.lesson-btns .ui.buttons button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+}
+
+.ui.menu .item.lesson-btns .ui.buttons button i {
+  margin: 0 0 8px;
 }
 
 .ui.inverted.menu a.item i {

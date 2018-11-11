@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Accordion } from 'semantic-ui-react';
-import PageHeader from '../PageHeader';
 import './Info.css';
 
 const panels = [
@@ -152,12 +151,7 @@ class FAQPage extends Component {
 
   render(){
     return (
-      <div className='content-container'>
-        <PageHeader 
-          icon='question'
-          text='View frequently asked questions'
-          color='blue'
-        />
+      <div className='page-container'>
         <div className='content-info'>
           <Accordion defaultActiveIndex={0} panels={panels} />
         </div>

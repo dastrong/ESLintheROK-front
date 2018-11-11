@@ -43,11 +43,14 @@ class Routers extends PureComponent {
       isGameReady,
       gameData,
       sendData,
+      openDataModal, 
       colors,
       font,
       changeFont,
       location,
       history,
+      dataUpdated,
+      showDataModal
     } = this.props;
     // returns an className for page transitions
     const cx = history.length === this.state.length && history.action === 'POP'
@@ -84,7 +87,7 @@ class Routers extends PureComponent {
                     <Route 
                       exact
                       path='/'
-                      component={MainPage}
+                      render={()=> <MainPage openDataModal={openDataModal} /> }
                     />
                     <Route 
                       exact
@@ -115,12 +118,7 @@ class Routers extends PureComponent {
                             text='Enter a lesson for everyone to use'
                             color='teal'
                           />
-                          <HomeAPI 
-                            vocabulary={vocabulary}
-                            expressions={expressions}
-                            isGameReady={isGameReady}
-                            sendData={sendData}
-                          />
+                          <HomeAPI />
                         </Fragment>
                       }
                     />
@@ -141,22 +139,58 @@ class Routers extends PureComponent {
                     <Route 
                       exact
                       path='/games'
-                      component={GamesPage}
+                      render={()=>
+                        <Fragment>
+                          <PageHeader
+                            icon='game'
+                            text='Select a game for more information'
+                            color='blue'
+                          />
+                          <GamesPage />
+                        </Fragment>
+                      }
                     />
                     <Route 
                       exact
                       path='/contact'
-                      component={ContactPage}
+                      render={()=>
+                        <Fragment>
+                          <PageHeader
+                            icon='mail'
+                            text='Connect with other teachers'
+                            color='blue'
+                          />
+                          <ContactPage />
+                        </Fragment>
+                      }
                     />
                     <Route 
                       exact
                       path='/about'
-                      component={AboutPage}
+                      render={()=>
+                        <Fragment>
+                          <PageHeader
+                            icon='user'
+                            text="Learn more about us"
+                            color='blue'
+                          />
+                          <AboutPage />
+                        </Fragment>
+                      }
                     />
                     <Route 
                       exact
                       path='/faq'
-                      component={FAQPage}
+                      render={()=>
+                        <Fragment>
+                          <PageHeader
+                            icon='question'
+                            text='View frequently asked questions'
+                            color='blue'
+                          />
+                          <FAQPage />
+                        </Fragment>
+                      }
                     />
                     <Route 
                       exact
@@ -217,24 +251,33 @@ class Routers extends PureComponent {
                           path={`${gameData.router.path}/start`}
                           render={()=>
                             !isGameReady
-                              ? <ErrorPage 
-                                  header="Whoops, no data to play. Using the refresh button will lose your data."
-                                  content={<p>Go back to the 
-                                    {<Link to={{ 
-                                      pathname: '/lessons', 
-                                      state: { pageTransition:'slideUp' }
-                                    }}> lessons </Link>}
-                                    page or enter your own data 
-                                    {<Link to={{ 
-                                      pathname: '/data', 
-                                      state: { pageTransition:'slideUp' }
-                                  }}> here</Link>}.</p> }
-                                />
+                              ? <Fragment>
+                                  <PageHeader 
+                                    icon='exclamation'
+                                    text='Report reoccuring errors'
+                                    color='red'
+                                  />
+                                  <ErrorPage
+                                    header="Whoops, no data to play. Using the refresh button will lose your data."
+                                    content={<p>Go back to the 
+                                      {<Link to={{ 
+                                        pathname: '/lessons', 
+                                        state: { pageTransition:'slideUp' }
+                                      }}> lessons </Link>}
+                                      page or enter your own data 
+                                      {<Link to={{ 
+                                        pathname: '/data', 
+                                        state: { pageTransition:'slideUp' }
+                                    }}> here</Link>}.</p> }
+                                  />
+                                </Fragment>
                               : <Fragment>
                                   <gameData.router.component 
                                     title={gameData.info.title}
                                     expressions={expressions}
                                     vocabulary={vocabulary}
+                                    dataUpdated={dataUpdated}
+                                    showDataModal={showDataModal}
                                     colors={colors}
                                     font={font}
                                     isGameReady={isGameReady} /> 
@@ -259,14 +302,21 @@ class Routers extends PureComponent {
                     }
                     <Route 
                       render={()=>
-                        <ErrorPage 
-                          header="Sorry... that page doesn't exist."
-                          content={<p>Double check the URL or head
-                            {<Link to={{ 
-                              pathname: '/', 
-                              state: { pageTransition:'slideUp' }
-                            }}> home</Link>}.</p>}
-                        />
+                        <Fragment>
+                          <PageHeader
+                            icon='exclamation'
+                            color='red'
+                            text='Report your errors'
+                          />
+                          <ErrorPage 
+                            header="Sorry... that page doesn't exist."
+                            content={<p>Double check the URL or head
+                              {<Link to={{ 
+                                pathname: '/', 
+                                state: { pageTransition:'slideUp' }
+                              }}> home</Link>}.</p>}
+                          />
+                        </Fragment>
                       }
                     />
                   </Switch>

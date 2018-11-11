@@ -3,7 +3,7 @@ import shuffle from 'lodash/shuffle';
 import { CSSTransition } from 'react-transition-group';
 import ReactFitText from 'react-fittext';
 import { 
-  addListeners, rmvListeners, setData, addTitle, addGoogEvent
+  addListeners, rmvListeners, setData, addTitle, addGoogEvent, resetAndReload
  } from '../../helpers/phase2helpers';
 import '../../styles/games/Matching.css';
 
@@ -30,6 +30,7 @@ class Matching extends Component {
     this.setData      = setData.bind(this);
     this.addTitle     = addTitle.bind(this);
     this.addGoogEvent = addGoogEvent.bind(this);
+    this.resetAndReload = resetAndReload.bind(this);
   }
   
   componentDidMount(){
@@ -44,6 +45,7 @@ class Matching extends Component {
   }
 
   componentDidUpdate(x, prevState){
+    this.resetAndReload(1);
     const { gameData, clicked, matched } = this.state;
     const gotPoo = gameData.length % 2 === 1 && clicked.some(x=>gameData[x] === 'poo');
     if(clicked.length < 2 && prevState.matched.length === matched.length && !gotPoo) return;
@@ -80,6 +82,7 @@ class Matching extends Component {
   });
 
   handleEvents = (e) => {
+    if(this.props.showDataModal) return;
     const { compressor } = this.state;
     if(e.type === 'wheel'){
       const c = e.deltaY < 0 ? -0.03 : 0.03;

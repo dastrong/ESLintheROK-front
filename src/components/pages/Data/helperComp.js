@@ -2,9 +2,7 @@ import React, { Fragment } from 'react';
 import { Form, Table, Icon } from 'semantic-ui-react';
 
 export const DataAccordion = ({
-  data,
-  // input fields
-  currentImage, currentText, currentTranslation, 
+  data, currentText, 
   // functions
   handleChange, handleSubmit, handleDelete, handleEdit
 }) => (
@@ -13,8 +11,6 @@ export const DataAccordion = ({
       handleChange={handleChange}
       handleSubmit={handleSubmit}
       text={currentText}
-      image={currentImage}
-      translation={currentTranslation}
     />
     <DataTable
       data={data} 
@@ -24,33 +20,16 @@ export const DataAccordion = ({
   </Fragment>
 );
 
-export const DataForm = ({handleSubmit, handleChange, image, text, translation}) => (
+export const DataForm = ({ handleSubmit, handleChange, text }) => (
   <Form onSubmit={handleSubmit}>
     <Form.Group>
       <Form.Input 
-        width={4}
         name='Text'
         value={text || ''}
         onChange={handleChange} 
-        placeholder='ex) tree' 
+        placeholder='ex) tree'
       />
-      <Form.Input 
-        width={4}
-        name='Translation'
-        value={translation || ''}
-        onChange={handleChange}
-        placeholder='ex) 나무'
-      />
-      <Form.Input 
-        width={6}
-        name='Image'
-        value={image || ''}
-        onChange={handleChange}
-        placeholder='ex) https://nothingToCHereSorry.jpg'
-      />
-      <Form.Button
-        width={2}
-        fluid
+      <Form.Button 
         color='green'
         type='submit'
       >
@@ -68,12 +47,6 @@ export const DataTable = ({ data, handleDelete, handleEdit }) => {
         {item.text}
       </Table.Cell>
       <Table.Cell>
-        {item.translation}
-      </Table.Cell>
-      <Table.Cell>
-        <a href={item.image}>{item.image}</a>
-      </Table.Cell>
-      <Table.Cell textAlign={'center'}>
         <Icon 
           link
           id={i}
@@ -96,19 +69,13 @@ export const DataTable = ({ data, handleDelete, handleEdit }) => {
     </Table.Row>
   ));
   return (
-    <Table celled striped>
+    <Table celled striped textAlign='center' widths={16}>
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell width={4}>
+          <Table.HeaderCell width={12}>
             Text
           </Table.HeaderCell>
-          <Table.HeaderCell width={4}>
-            Translation
-          </Table.HeaderCell>
-          <Table.HeaderCell width={6}>
-            Image URL
-          </Table.HeaderCell>
-          <Table.HeaderCell width={2} />
+          <Table.HeaderCell width={4} />
         </Table.Row>
       </Table.Header>
       <Table.Body>

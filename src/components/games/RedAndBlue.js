@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactFitText from 'react-fittext';
 import { arrOfRandNum } from '../../helpers/phase1helpers';
 import { 
-  addListeners, rmvListeners, setData, addTitle, addGoogEvent
+  addListeners, rmvListeners, setData, addTitle, addGoogEvent, resetAndReload
  } from '../../helpers/phase2helpers';
 import '../../styles/games/RedAndBlue.css';
 
@@ -20,6 +20,7 @@ class RedAndBlue extends Component {
     this.addTitle     = addTitle.bind(this);
     this.addGoogEvent = addGoogEvent.bind(this);
     this.arrOfRandNum = arrOfRandNum.bind(this);
+    this.resetAndReload = resetAndReload.bind(this);
   }
   
   componentDidMount(){
@@ -32,6 +33,10 @@ class RedAndBlue extends Component {
     this.rmvListeners();
   }
 
+  componentDidUpdate(){
+    this.resetAndReload(1);
+  }
+
   handleGame = () => {
     this.addGoogEvent();
     const indexes = arrOfRandNum(this.state.data.length, 2);
@@ -40,6 +45,7 @@ class RedAndBlue extends Component {
   }
 
   handleEvents = (e) => {
+    if(this.props.showDataModal) return;
     const { compressor } = this.state;
     if(e.type === 'wheel'){
       if(e.buttons) return;

@@ -3,7 +3,7 @@ import TextBox from '../reusable/TextBox';
 import { Timer, startTimer, resetTimer } from '../reusable/Timer';
 import { CSSTransition } from 'react-transition-group';
 import { 
-  setData, getRandomNum, getRandomIndex, addListeners, rmvListeners, addTitle, addGoogEvent
+  setData, getRandomNum, getRandomIndex, addListeners, rmvListeners, addTitle, addGoogEvent, resetAndReload
 } from '../../helpers/phase2helpers';
 import '../../styles/games/Sparkle.css';
 
@@ -28,6 +28,7 @@ class Sparkle extends Component {
     this.rmvListeners   = rmvListeners.bind(this);
     this.addTitle       = addTitle.bind(this);
     this.addGoogEvent   = addGoogEvent.bind(this);
+    this.resetAndReload = resetAndReload.bind(this);
   }
 
   componentDidMount(){
@@ -39,6 +40,10 @@ class Sparkle extends Component {
   componentWillUnmount(){ 
     this.rmvListeners();
     clearInterval(this.intervalID)
+  }
+
+  componentDidUpdate(){
+    this.resetAndReload(1);
   }
 
   handleGame = (data = this.state.data) => {
@@ -57,6 +62,7 @@ class Sparkle extends Component {
   }
 
   handleEvents = (e) => {
+    if(this.props.showDataModal) return;
     const {  compressor } = this.state;
     if(e.type === 'wheel'){
       const c = e.deltaY < 0 ? -0.05 : 0.05;

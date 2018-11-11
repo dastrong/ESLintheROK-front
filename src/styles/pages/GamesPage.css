@@ -1,9 +1,11 @@
 .gamesPage-container {
-  min-height: 100vh;
+  height: calc(100vh - 100px);
+  padding: 30px 0;
+  overflow-y: auto;
 }
 
 .ui.grid {
-  margin: 20px 10px;
+  margin: 0 10px;
   justify-content: center;
 }
 

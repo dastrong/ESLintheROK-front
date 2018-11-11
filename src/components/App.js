@@ -3,6 +3,7 @@ import ReactGA from 'react-ga';
 import Routers from './Routers';
 import SideBar   from './navInfo/SideBar';
 import InfoModal from './navInfo/InfoModal';
+import DataModal from './navInfo/DataModal';
 import { withRouter } from 'react-router-dom';
 import { games } from '../helpers/data';
 import "typeface-bree-serif";
@@ -25,19 +26,10 @@ class App extends Component {
       vocabulary: [],
       expressions: [],
       isGameReady: false,
+      showDataModal: false, 
       font: 'Poppins, sans-serif'
     };
   }
-
-  setData = (vocabulary, expressions) => {
-    this.setState({
-      vocabulary, 
-      expressions, 
-      isGameReady: true,
-    });
-  };
-
-  changeFont = (newFont) => this.setState({font:newFont})
 
   componentDidMount(){
     ReactGA.initialize(process.env.REACT_APP_ANALYTICS);
@@ -47,14 +39,32 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps){
+    if(this.state.dataUpdated) return this.setState({ dataUpdated:false });
     const lastPage = prevProps.location.pathname;
     const currentPage = this.props.location.pathname;
     if(currentPage === lastPage) return;
     ReactGA.set({page: currentPage})
     ReactGA.pageview(currentPage)
   }
+  
+  setData = (vocabulary, expressions) => {
+    this.setState({
+      vocabulary, 
+      expressions, 
+      isGameReady: true,
+      showDataModal: false,
+      dataUpdated: true,
+    });
+  };
+
+  changeFont = (newFont) => this.setState({ font:newFont })
+
+  openDataModal = name => this.setState({ showDataModal: true, dataModalName: name })
+
+  closeDataModal = () => this.setState({ showDataModal: false })
 
   render() {
+    const { isGameReady, font, showDataModal } = this.state;
     const { location } = this.props;
     const inGame = location.pathname.includes('start');
     const [gameData] = games.filter(({ router }) => location.pathname.includes(router.path));
@@ -62,18 +72,29 @@ class App extends Component {
       <Fragment>
         <SideBar
           opacity={location.pathname === '/' ? 1 : 0}
+          openDataModal={this.openDataModal}
+          isGameReady={isGameReady}
           {...location}
         />
-        {inGame && this.state.isGameReady && 
+        {inGame && isGameReady && 
           <InfoModal 
             inGame={true}
             opacity={0}
             gameData={gameData}
             changeFont={this.changeFont}
-            font={this.state.font}
+            font={font}
           /> }
+        <DataModal
+          closeModal={this.closeDataModal}
+          sendData={this.setData} 
+          {...this.state}
+        />
         <Routers
           sendData={this.setData}
+          showDataModal={showDataModal}
+          openDataModal={this.openDataModal}
+          closeDataModal={this.closeDataModal}
+          openData={this.openData}
           changeFont={this.changeFont}
           gameData={gameData}
           {...this.state}

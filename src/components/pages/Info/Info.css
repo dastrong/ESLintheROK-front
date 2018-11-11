@@ -1,15 +1,11 @@
-.content-container {
-  min-height: 100vh;
-}
-
 .content-info {
   max-width: 850px;
   width: calc(100vw - 100px);
-  margin: 20px auto;
+  margin: 0 auto;
   padding: 30px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+  box-shadow: 0 0 7px rgba(0,0,0,0.6);
   letter-spacing: 0.5px;
-  border-radius: 10px;
+  border-radius: 2px;
 }
 
 .content-info.about h1 {

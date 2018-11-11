@@ -3,7 +3,7 @@ import ReactFitText from 'react-fittext';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { arrOfRandNum } from '../../helpers/phase1helpers';
 import { 
-  addListeners, rmvListeners, setAllData, chooseDataSet, addTitle, addGoogEvent
+  addListeners, rmvListeners, setAllData, chooseDataSet, addTitle, addGoogEvent, resetAndReload
  } from '../../helpers/phase2helpers';
 import '../../styles/games/HotPotato.css';
 
@@ -28,6 +28,7 @@ class HotPotato extends Component {
     this.addTitle     = addTitle.bind(this);
     this.addGoogEvent = addGoogEvent.bind(this);
     this.arrOfRandNum = arrOfRandNum.bind(this);
+    this.resetAndReload = resetAndReload.bind(this);
   }
   
   componentDidMount(){
@@ -47,6 +48,7 @@ class HotPotato extends Component {
   }
 
   componentDidUpdate(x, prevState){
+    this.resetAndReload(2);
     const { countdown, stage, compressor } = this.state;
     if(prevState.compressor !== compressor) return;
     if(prevState === this.state) return;
@@ -72,6 +74,7 @@ class HotPotato extends Component {
   }
  
   handleEvents = (e) => {
+    if(this.props.showDataModal) return;
     const { compressor, isVocab, stage } = this.state;
     if(e.type === 'wheel'){
       const c = e.deltaY < 0 ? -0.03 : 0.03;

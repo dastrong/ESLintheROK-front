@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Divider, Icon} from 'semantic-ui-react';
 import ContactForm from './ContactForm';
-import PageHeader from '../PageHeader';
 import kakaoQR from '../../../assets/images/kakaoQR.jpg';
 import './Info.css';
 
@@ -13,12 +12,7 @@ class ContactPage extends Component {
 
   render(){
     return (
-      <div className='content-container'>
-        <PageHeader 
-          icon='mail'
-          text='Connect with other teachers'
-          color='blue'
-        />
+      <div className='page-container'>
         <div className='content-info contact'>
           <div className='contact-holders'>
             <h1>Interactive</h1>

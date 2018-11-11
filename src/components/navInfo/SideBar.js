@@ -14,15 +14,22 @@ class SideBar extends Component {
 
   hideSideBar = () => this.setState({ visible: false })
 
+  openAndClose = name => {
+    this.props.openDataModal(name);
+    this.hideSideBar();
+  }
+
   render(){
+    const { visible } = this.state;
+    const { opacity, isGameReady } = this.props;
     return (
       <div className='sidebar sidebar-main'>
         <Button 
           className='sideBarBtn'
           icon='list'
-          size='massive' 
+          size='massive'
           onClick={this.showSideBar} 
-          style={{ opacity: this.props.opacity}}
+          style={{ opacity }}
         />
         <Sidebar
           as={Menu}
@@ -31,13 +38,14 @@ class SideBar extends Component {
           inverted
           onHide={this.hideSideBar}
           vertical
-          visible={this.state.visible}
+          visible={visible}
           width='wide'
         >
           <Menu.Item className='home-close-btn-group'>
             <Button.Group size='massive'>
               <Button basic 
                       inverted
+                      size='massive'
                       as={Link}
                       to={{
                         pathname: '/',
@@ -51,6 +59,38 @@ class SideBar extends Component {
                       color='red' 
                       icon='x' 
                       onClick={this.hideSideBar} />
+            </Button.Group>
+          </Menu.Item>
+          <Menu.Item className='lesson-btns'>
+            <Button.Group>
+              <Button
+                basic
+                inverted
+                onClick={()=>this.openAndClose('lessons')}
+                color='green'
+              >        
+                <Icon size='big' name='book' />
+                Lessons
+              </Button>
+              <Button
+                basic
+                inverted
+                onClick={()=>this.openAndClose('data')}
+                color='yellow'
+              >        
+                <Icon size='big' name='cogs' />
+                Custom
+              </Button>
+              <Button
+                basic
+                inverted
+                onClick={()=>this.openAndClose('dataEdit')}
+                color='orange'
+                disabled={!isGameReady}
+              >        
+                <Icon size='big' name='edit' />
+                Edit Data
+              </Button>
             </Button.Group>
           </Menu.Item>
           {/* creates our menu links, if the game has been marked completed */}

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PageHeader from '../PageHeader';
 import './Info.css';
 
 class AboutPage extends Component {
@@ -11,12 +10,7 @@ class AboutPage extends Component {
 
   render(){
     return (
-      <div className='content-container'>
-        <PageHeader 
-          icon='user'
-          text="Learn more about us"
-          color='blue'
-        />
+      <div className='page-container'>
         <div className='content-info about'>
           <h1>The Site</h1>
           <p>I was created to assist public school English teachers in Korea.</p>

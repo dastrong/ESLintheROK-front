@@ -9,7 +9,7 @@ import {
   handleGameData, handleAnimations, handleEvents, handleReset, handleClasses, handleClick
 } from '../../helpers/phase1helpers';
 import { 
-  addListeners, rmvListeners, chooseDataSet, setAllData, addTitle, addGoogEvent
+  addListeners, rmvListeners, chooseDataSet, setAllData, addTitle, addGoogEvent, resetAndReload
 } from '../../helpers/phase2helpers';
 import '../../styles/games/Generic.css';
 
@@ -42,6 +42,7 @@ class WhatsBehind extends PureComponent {
     this.setAllData       = setAllData.bind(this);
     this.addTitle         = addTitle.bind(this);
     this.addGoogEvent     = addGoogEvent.bind(this);
+    this.resetAndReload   = resetAndReload.bind(this);
   }
 
   async componentDidMount(){
@@ -59,6 +60,10 @@ class WhatsBehind extends PureComponent {
     clearTimeout(this.timeout2);
     clearTimeout(this.timeout3);
     clearTimeout(this.timeout4);
+  }
+
+  componentDidUpdate(){
+    this.resetAndReload(2);
   }
 
   handleGame = (isVocab = this.state.isVocab) => {

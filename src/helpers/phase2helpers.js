@@ -61,8 +61,19 @@ function addGoogEvent(){
   });
 }
 
+function resetAndReload(numOfDataSources){
+  const { vocabulary, expressions, dataUpdated } = this.props;
+  if(!dataUpdated) return;
+  if(numOfDataSources === 1){
+    return this.setData(expressions);
+  } else {
+    const allData = { vocabulary, expressions };
+    return this.setAllData(allData);
+  }
+}
+
 export { 
   setData, setAllData, chooseDataSet, stripData,
   getRandomIndex, getRandomNum, splitText, 
-  addListeners, rmvListeners, addTitle, addGoogEvent
+  addListeners, rmvListeners, addTitle, addGoogEvent, resetAndReload
 };

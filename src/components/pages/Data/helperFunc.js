@@ -1,34 +1,30 @@
 // helper functions and variable for DataPage
 // clears our input fields
-export const clearFields = {
-  currentText: '',
-  currentTranslation: '',
-  currentImage: '',
-}
+export const clearFields = { currentText: '' }
 
 export function checkDataType(isVocab){ return isVocab ? 'vocabulary' : 'expressions'; }
 
-export function checkDataReadiness() {
-  const { vocabulary, expressions, chapter, title, postRoute } = this.state;
-  return postRoute
-    ? vocabulary.length >= 9 && expressions.length >= 6 && chapter && title
-    : vocabulary.length >= 9 && expressions.length >= 6;
+export function getProgress(){
+  const { vocabulary, expressions, chapter, title } = this.state;
+  const multiplier = this.props.isAPI ? 25 : 50
+  const v = vocabulary.length / 9 * multiplier;
+  const e = expressions.length / 6 * multiplier;
+  return this.props.isAPI
+    ? (v >= 25 ? 25 : v) + (e >= 25 ? 25 : e) + (chapter ? 25 : 0) + (title ? 25 : 0)
+    : (v >= 50 ? 50 : v) + (e >= 50 ? 50 : e);
 }
 
 export function checkDataArrays(){
-  const isDataReady = this.checkDataReadiness();
-  if(isDataReady === this.state.isDataReady) return;
-  this.setState({ isDataReady });
+  const percent = this.getProgress();
+  const isDataReady = percent === 100;
+  if(isDataReady === this.state.isDataReady && percent === this.state.progress) return;
+  this.setState({ isDataReady, percent });
 }
 
 export function handleSubmit(e){
   e.preventDefault();
-  const { currentText, currentTranslation, currentImage, isVocab } = this.state;
-  const newEntry = { 
-    text: currentText || '',
-    translation: currentTranslation || '',
-    imageURL: currentImage || '',
-  };
+  const { currentText, isVocab } = this.state;
+  const newEntry = { text: currentText || '' };
   const dataType = this.checkDataType(isVocab);
   this.setState({
     ...clearFields,
@@ -54,12 +50,10 @@ export function handleEdit(e){
       : acc.rest.push(cVal);
     return acc;
   },{ target: {}, rest:[] });
-  const {text, translation, image} = splitData.target;
+  const { text } = splitData.target;
   this.setState({
     [dataType]: splitData.rest,
     currentText: text,
-    currentTranslation: translation,
-    currentImage: image,
     dataChanged: true,
   });
 }
@@ -92,8 +86,8 @@ export function handleTitle(e){
   this.setState({[name]:value});
 }
 
-export function handlePostRequest(data){
-  fetch(this.state.postRoute, {
+export function handlePost(data){
+  fetch(this.props.postRoute, {
     method: "POST",
     body: JSON.stringify(data), 
     mode: 'cors',
@@ -102,6 +96,6 @@ export function handlePostRequest(data){
     },
   })
   .then(response=> response.json())
-  .then(() => this.props.handleMessage())
+  .then(() => this.props.changeScreen({screen:2}))
   .catch(err=> console.error(err))
 }
