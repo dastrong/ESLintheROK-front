@@ -1,4 +1,4 @@
-## About ESL in the ROK
+## About [ESL in the ROK](https://www.eslintherok.com)
 This is my first large project created with React, which I made for ESL teachers in Korea. Instead of using PPT games and which teachers need to download/change/save/share continuously with other teachers, I came up with a site where some popular games were completely dynamic and lesson data was automated.
 
 ## Typical User Flow

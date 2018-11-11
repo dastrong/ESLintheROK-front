@@ -48,8 +48,6 @@ class Books extends Component {
       content: `${label.text.slice(0, label.text.indexOf(':'))}`,
     })
 
-    console.log('INTERMITTENT ERROR. PLEASE RELOAD THE PAGE AND REPORT ERROR.')
-
     const items = 
       books.books
       .sort((a,b)=>a.publisher>b.publisher)
