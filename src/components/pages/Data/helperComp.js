@@ -44,7 +44,7 @@ export const DataTable = ({ data, handleDelete, handleEdit }) => {
   const items = data.map((item, i)=>(
     <Table.Row key={i}>
       <Table.Cell>
-        {item.text}
+        {item}
       </Table.Cell>
       <Table.Cell>
         <Icon 

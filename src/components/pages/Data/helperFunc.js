@@ -24,7 +24,7 @@ export function checkDataArrays(){
 export function handleSubmit(e){
   e.preventDefault();
   const { currentText, isVocab } = this.state;
-  const newEntry = { text: currentText || '' };
+  const newEntry = currentText || '';
   const dataType = this.checkDataType(isVocab);
   this.setState({
     ...clearFields,
@@ -35,9 +35,8 @@ export function handleSubmit(e){
 
 export function handleChange(e){
   e.preventDefault();
-  const name = `current${e.target.name}`;
   const value = e.target.value;
-  this.setState({[name]:value});
+  this.setState({currentText:value});
 }
 
 export function handleEdit(e){
@@ -49,11 +48,10 @@ export function handleEdit(e){
       ? acc.target = cVal
       : acc.rest.push(cVal);
     return acc;
-  },{ target: {}, rest:[] });
-  const { text } = splitData.target;
+  },{ target: '', rest:[] });
   this.setState({
     [dataType]: splitData.rest,
-    currentText: text,
+    currentText: splitData.target,
     dataChanged: true,
   });
 }

@@ -23,21 +23,18 @@ function splitText(text) { return shuffle(text.split('')) }
 
 // use if game uses only ONE type of data
 function setData(data){
-  this.setState({data: stripData(data)}, this.handleGame);    
+  this.setState({data}, this.handleGame);    
 }
 
 // use if games uses both vocabulary and expressions
 function setAllData({vocabulary, expressions}, ...rest){
   const extras = Object.assign({}, ...rest)
   this.setState({
-    vocabulary: stripData(vocabulary),
-    expressions: stripData(expressions),
+    vocabulary,
+    expressions,
     ...extras,
   }, this.handleGame)
 }
-
-// strips data object down to an array of text values
-function stripData(data){ return data.map(val=>val.text); }
 
 function addTitle() {
   document.title = `Playing: ${this.props.title} - ESL in the ROK`;
@@ -73,7 +70,7 @@ function resetAndReload(numOfDataSources){
 }
 
 export { 
-  setData, setAllData, chooseDataSet, stripData,
+  setData, setAllData, chooseDataSet,
   getRandomIndex, getRandomNum, splitText, 
   addListeners, rmvListeners, addTitle, addGoogEvent, resetAndReload
 };
