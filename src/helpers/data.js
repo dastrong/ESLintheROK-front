@@ -1,756 +1,876 @@
-import Loadable from 'react-loadable';
-import Loading from '../components/Loading';
+import Loadable from "react-loadable";
+import Loading from "../components/Loading";
 
 const Elimination = Loadable({
-  loader: ()=> import('../components/games/Elimination'),
-  loading: Loading,
+  loader: () => import("../components/games/Elimination"),
+  loading: Loading
 });
 const Stars = Loadable({
-  loader: ()=> import('../components/games/Stars'),
-  loading: Loading,
+  loader: () => import("../components/games/Stars"),
+  loading: Loading
 });
 const WhatsBehind = Loadable({
-  loader: ()=> import('../components/games/WhatsBehind'),
-  loading: Loading,
+  loader: () => import("../components/games/WhatsBehind"),
+  loading: Loading
 });
 const WordLotto = Loadable({
-  loader: ()=> import('../components/games/WordLotto'),
-  loading: Loading,
+  loader: () => import("../components/games/WordLotto"),
+  loading: Loading
 });
 const Sparkle = Loadable({
-  loader: ()=> import('../components/games/Sparkle'),
-  loading: Loading,
+  loader: () => import("../components/games/Sparkle"),
+  loading: Loading
 });
 const Kimchi = Loadable({
-  loader: ()=> import('../components/games/Kimchi'),
-  loading: Loading,
+  loader: () => import("../components/games/Kimchi"),
+  loading: Loading
 });
 const Bowling = Loadable({
-  loader: ()=> import('../components/games/Bowling'),
-  loading: Loading,
+  loader: () => import("../components/games/Bowling"),
+  loading: Loading
 });
 const ChaseTheVocab = Loadable({
-  loader: ()=> import('../components/games/ChaseTheVocab'),
-  loading: Loading,
+  loader: () => import("../components/games/ChaseTheVocab"),
+  loading: Loading
 });
 const RedAndBlue = Loadable({
-  loader: ()=> import('../components/games/RedAndBlue'),
-  loading: Loading,
+  loader: () => import("../components/games/RedAndBlue"),
+  loading: Loading
 });
 const HotPotato = Loadable({
-  loader: ()=> import('../components/games/HotPotato'),
-  loading: Loading,
+  loader: () => import("../components/games/HotPotato"),
+  loading: Loading
 });
 const Nunchi = Loadable({
-  loader: ()=> import('../components/games/Nunchi'),
-  loading: Loading,
+  loader: () => import("../components/games/Nunchi"),
+  loading: Loading
 });
 const Matching = Loadable({
-  loader: ()=> import('../components/games/Matching'),
-  loading: Loading,
+  loader: () => import("../components/games/Matching"),
+  loading: Loading
+});
+const BattleGround = Loadable({
+  loader: () => import("../components/games/BattleGround"),
+  loading: Loading
 });
 
 export const fonts = [
-  {text:'Sans-Serif', value:'sans-serif', style:{fontFamily:'sans-serif'}},
-  {text:'Bree Serif', value:'Bree Serif, serif', style:{fontFamily:'Bree Serif, serif'}},
-  {text:'Mali', value:'Mali, cursive', style:{fontFamily:'Mali, cursive'}},
-  {text:'Niramit', value:'Niramit, sans-serif', style:{fontFamily:'Niramit, sans-serif'}},
-  {text:'Poppins', value:'Poppins, sans-serif', style:{fontFamily:'Poppins, sans-serif'}},
-  {text:'Muli', value:'Muli, sans-serif', style:{fontFamily:'Muli, sans-serif'}},
-  {text:'Quicksand', value:'Quicksand, sans-serif', style:{fontFamily:'Quicksand, sans-serif'}},
-]
+  {
+    text: "Sans-Serif",
+    value: "sans-serif",
+    style: { fontFamily: "sans-serif" }
+  },
+  {
+    text: "Bree Serif",
+    value: "Bree Serif, serif",
+    style: { fontFamily: "Bree Serif, serif" }
+  },
+  {
+    text: "Mali",
+    value: "Mali, cursive",
+    style: { fontFamily: "Mali, cursive" }
+  },
+  {
+    text: "Niramit",
+    value: "Niramit, sans-serif",
+    style: { fontFamily: "Niramit, sans-serif" }
+  },
+  {
+    text: "Poppins",
+    value: "Poppins, sans-serif",
+    style: { fontFamily: "Poppins, sans-serif" }
+  },
+  {
+    text: "Muli",
+    value: "Muli, sans-serif",
+    style: { fontFamily: "Muli, sans-serif" }
+  },
+  {
+    text: "Quicksand",
+    value: "Quicksand, sans-serif",
+    style: { fontFamily: "Quicksand, sans-serif" }
+  }
+];
 
 export const sampleData = {
   vocabulary: [
-    {text: 'apple'},
-    {text: 'banana'},
-    {text: 'oranges'},
-    {text: 'pizza'},
-    {text: 'vacation'},
-    {text: 'purple'},
-    {text: 'green'},
-    {text: 'basketball'},
-    {text: 'baseball' },
-    {text: 'cap'},
+    "apple",
+    "banana",
+    "oranges",
+    "pizza",
+    "vacation",
+    "purple",
+    "green",
+    "basketball",
+    "baseball",
+    "cap"
   ],
   expressions: [
-    {text: "Do you like pizza?"},
-    {text: "What are you doing?"},
-    {text: "I like baseball."},
-    {text: "Yes, I do. I like chicken."},
-    {text: "I want to ..."},
-    {text: "Let's play soccer."},
+    "Do you like pizza?",
+    "What are you doing?",
+    "I like baseball.",
+    "Yes, I do. I like chicken.",
+    "I want to ...",
+    "Let's play soccer."
   ]
-}
+};
 
 export const games = [
   {
     router: {
-      path: '/elimination',
+      path: "/elimination",
       component: Elimination,
       requiredProps: [],
-      icon: 'x',
+      icon: "x"
     },
     info: {
-      title: 'Elimination Game',
-      skills: ['Reading', 'Speaking'],
-      dataUsed: ['Vocabulary', 'Expressions'],
-      description: 'Last Student Standing Game',
+      title: "Elimination Game",
+      skills: ["Reading", "Speaking"],
+      dataUsed: ["Vocabulary", "Expressions"],
+      description: "Last Student Standing Game",
       attachments: false,
       players: 1,
       completed: true,
       images: {
-        bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Elimination.png',
-        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Elimination.png',
-      },
+        bottomText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Elimination.png",
+        topText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Elimination.png"
+      }
     },
     keyCuts: [
-      {key: 'Left-Click', description: 'Starts the game'},
-      {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Refresh the game and use vocabulary'},
-      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Refresh the game and use expressions'},
-      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
-      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
-      {key: '1-7', description: "Change the number of X's (default: 3)"}
+      { key: "Left-Click", description: "Starts the game" },
+      { key: ["Space", "Enter"], description: "Refresh the game" },
+      {
+        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Up"],
+        description: "Refresh the game and use vocabulary"
+      },
+      {
+        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Down"],
+        description: "Refresh the game and use expressions"
+      },
+      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
+      {
+        key: ["Down-Arrow", "Scroll Down"],
+        description: "Decrease the font size"
+      },
+      { key: "1-7", description: "Change the number of X's (default: 3)" }
     ],
     instructions: {
       forTeachers: {
         english: [
-          'Individual Game',
-          'Every student starts the game standing',
-          'Students take turns reading a block',
-          'Click that block',
-          'X = sit down',
-          'O = stay standing',
-          'Last student standing wins',
-          'Let the class know who the first and last students are',
-          'I like to zig zag through the rows then return to the first student',
-          'You can switch from vocab to expressions using the left and right arrows',
+          "Individual Game",
+          "Every student starts the game standing",
+          "Students take turns reading a block",
+          "Click that block",
+          "X = sit down",
+          "O = stay standing",
+          "Last student standing wins",
+          "Let the class know who the first and last students are",
+          "I like to zig zag through the rows then return to the first student",
+          "You can switch from vocab to expressions using the left and right arrows"
         ],
         korean: [
-          '개인별 게임',
-          '모두 일어선 상태로 게임을 시작합니다',
-          '한 명씩 하나의 블록 안에 있는 단어/문장을 읽습니다',
-          '그리고 그 블록을 클릭합니다',
-          'X = 앉기',
-          'O = 그대로 서 있기',
-          '끝까지 살아서 서있는 사람이 우승!',
-          '처음 시작한 사람과 마지막 차례가 누군지 알려주세요',
+          "개인별 게임",
+          "모두 일어선 상태로 게임을 시작합니다",
+          "한 명씩 하나의 블록 안에 있는 단어/문장을 읽습니다",
+          "그리고 그 블록을 클릭합니다",
+          "X = 앉기",
+          "O = 그대로 서 있기",
+          "끝까지 살아서 서있는 사람이 우승!",
+          "처음 시작한 사람과 마지막 차례가 누군지 알려주세요",
           '처음 학생 다음 순서는 오른쪽 학생, 즉 반 전체를 봤을 때, "ㄹ"형태로 진행합니다',
-          '<- 키보드를 누르면 단어, -> 키보드를 누르면 표현(문장)입니다',
+          "<- 키보드를 누르면 단어, -> 키보드를 누르면 표현(문장)입니다"
         ]
       },
       forStudents: {
         english: [
-          'Everyone stands up',
-          'Read a block',
-          'X = sit down',
-          'O = stay standing',
-          'Last student standing wins',
+          "Everyone stands up",
+          "Read a block",
+          "X = sit down",
+          "O = stay standing",
+          "Last student standing wins"
         ],
         korean: [
-          '모두 일어섯',
-          '블록 안의 단어/표현을 읽으세요',
-          'X = 앉기',
-          'O = 일어서 있기',
-          '가장 마지막까지 서있는 사람이 우승',
+          "모두 일어섯",
+          "블록 안의 단어/표현을 읽으세요",
+          "X = 앉기",
+          "O = 일어서 있기",
+          "가장 마지막까지 서있는 사람이 우승"
         ]
       }
-    },
+    }
   },
   {
     router: {
-      path: '/whatsbehind',
+      path: "/whatsbehind",
       component: WhatsBehind,
       requiredProps: [],
-      icon: 'find',
+      icon: "find"
     },
     info: {
       title: "What's Behind",
-      skills: ['Reading', 'Speaking'],
-      dataUsed: ['Vocabulary', 'Expressions'],
-      description: 'Find the Hidden Item',
+      skills: ["Reading", "Speaking"],
+      dataUsed: ["Vocabulary", "Expressions"],
+      description: "Find the Hidden Item",
       attachments: false,
       players: 1,
       completed: true,
       images: {
-        bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/What_s_Behind.png',
-        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/What_s_Behind.png',
-      },
+        bottomText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/What_s_Behind.png",
+        topText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/What_s_Behind.png"
+      }
     },
     keyCuts: [
-      {key: 'Left-Click', description: 'Starts the game'},
-      {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Refresh the game and use vocabulary'},
-      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Refresh the game and use expressions'},
-      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
-      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+      { key: "Left-Click", description: "Starts the game" },
+      { key: ["Space", "Enter"], description: "Refresh the game" },
+      {
+        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Up"],
+        description: "Refresh the game and use vocabulary"
+      },
+      {
+        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Down"],
+        description: "Refresh the game and use expressions"
+      },
+      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
+      {
+        key: ["Down-Arrow", "Scroll Down"],
+        description: "Decrease the font size"
+      }
     ],
     instructions: {
       forTeachers: {
         english: [
-          'Individual Game',
-          'Choose a student to read a block',
-          'Click the block the student said',
-          'If a trophy appears reward that student',
-          'Continue until someone finds the trophy',
-          'When the trophy is found a GIF will appear',
-          'Reward student however you want, I give a stamp',
-          'Repeat as desired',
+          "Individual Game",
+          "Choose a student to read a block",
+          "Click the block the student said",
+          "If a trophy appears reward that student",
+          "Continue until someone finds the trophy",
+          "When the trophy is found a GIF will appear",
+          "Reward student however you want, I give a stamp",
+          "Repeat as desired"
         ],
         korean: [
-          '개인별 게임',
-          '한 학생이 블록 안의 단어/표현을 읽게 합니다',
-          '그 읽은 블록을 클릭합니다',
-          '트로피가 나오면 보상해줍니다',
-          '누군가가 트로피를 발견할 때까지 계속 진행합니다',
+          "개인별 게임",
+          "한 학생이 블록 안의 단어/표현을 읽게 합니다",
+          "그 읽은 블록을 클릭합니다",
+          "트로피가 나오면 보상해줍니다",
+          "누군가가 트로피를 발견할 때까지 계속 진행합니다",
           '트로피가 나타나면 "움직이는 사진"이 나타납니다',
-          '당신이 원하는 방식으로 보상을 해주세요 (저는 도장을 하나 줍니다)',
-          '계속 반복하시면 됩니다',
+          "당신이 원하는 방식으로 보상을 해주세요 (저는 도장을 하나 줍니다)",
+          "계속 반복하시면 됩니다"
         ]
       },
       forStudents: {
         english: [
-          'Raise your hand',
-          'Wait your turn', 
-          'Read a block',
-          'Trophy = reward',
+          "Raise your hand",
+          "Wait your turn",
+          "Read a block",
+          "Trophy = reward"
         ],
         korean: [
-          '손을 드세요',
-          '당신의 차례를 기다리세요',
-          '블록 안의 단어/표현을 읽으세요',
-          '트로피 = 보상',
+          "손을 드세요",
+          "당신의 차례를 기다리세요",
+          "블록 안의 단어/표현을 읽으세요",
+          "트로피 = 보상"
         ]
       }
-    },
+    }
   },
   {
     router: {
-      path: '/stars',
+      path: "/stars",
       component: Stars,
       requiredProps: [],
-      icon: 'star',
+      icon: "star"
     },
     info: {
-      title: 'Stars Writing Game',
-      skills: ['Reading', 'Speaking', 'Writing'],
-      dataUsed: ['Vocabulary', 'Expressions'],
-      description: 'Collect as many stars as possible',
+      title: "Stars Writing Game",
+      skills: ["Reading", "Speaking", "Writing"],
+      dataUsed: ["Vocabulary", "Expressions"],
+      description: "Most Stars Wins",
       attachments: true,
       players: 1,
       completed: true,
       images: {
-        bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Stars.png',
-        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Stars.png',
-      },
+        bottomText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Stars.png",
+        topText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Stars.png"
+      }
     },
     keyCuts: [
-      {key: 'Left-Click', description: 'Starts the game'},
-      {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Refresh the game and use vocabulary'},
-      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Refresh the game and use expressions'},
-      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
-      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
-      {key: '1-5', description: 'Change the minimum number of stars a card can have (default: 0)'}
+      { key: "Left-Click", description: "Starts the game" },
+      { key: ["Space", "Enter"], description: "Refresh the game" },
+      {
+        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Up"],
+        description: "Refresh the game and use vocabulary"
+      },
+      {
+        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Down"],
+        description: "Refresh the game and use expressions"
+      },
+      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
+      {
+        key: ["Down-Arrow", "Scroll Down"],
+        description: "Decrease the font size"
+      },
+      {
+        key: "1-5",
+        description:
+          "Change the minimum number of stars a card can have (default: 0)"
+      }
     ],
     instructions: {
       forTeachers: {
         english: [
-          'Individual Game',
-          'Students need a pencil',
-          'Students need a Stars WS or their notebook',
-          'Students choose a block and write it down',
-          'Point at a block and the students that chose it should say it together',
-          'Click that block',
-          'Students should mark down how many stars they got',
-          'Repeat as desired',
-          'Winner has the most stars'
+          "Individual Game",
+          "Students need a pencil",
+          "Students need a Stars WS or their notebook",
+          "Students choose a block and write it down",
+          "Point at a block and the students that chose it should say it together",
+          "Click that block",
+          "Students should mark down how many stars they got",
+          "Repeat as desired",
+          "Winner has the most stars"
         ],
         korean: [
-          '개인별 게임',
-          '학생들은 연필이 필요합니다',
-          '모두 활동지나 자신들의 공책이 필요합니다',
-          '학생들이 블록을 선택하여 그 단어/표현을 받아 적습니다',
-          '선생님이 선택한 블록의 단어/표현을 고른 학생들은 같이 읽어야 합니다',
-          '블록을 클릭하세요',
-          '학생들은 각 각 자신들이 얼마나 많은 별들을 획득했는지 기록합니다',
-          '계속 반복하세요',
-          '가장 많은 별을 가진 학생이 우승',
+          "개인별 게임",
+          "학생들은 연필이 필요합니다",
+          "모두 활동지나 자신들의 공책이 필요합니다",
+          "학생들이 블록을 선택하여 그 단어/표현을 받아 적습니다",
+          "선생님이 선택한 블록의 단어/표현을 고른 학생들은 같이 읽어야 합니다",
+          "블록을 클릭하세요",
+          "학생들은 각 각 자신들이 얼마나 많은 별들을 획득했는지 기록합니다",
+          "계속 반복하세요",
+          "가장 많은 별을 가진 학생이 우승"
         ]
       },
       forStudents: {
         english: [
-          'Choose and write one block',
-          'Put your hands on your head when you are ready',
-          'When Teacher points at your block, say it aloud',
-          'Keep track of your stars',
-          'Most stars wins',
+          "Choose and write one block",
+          "Put your hands on your head when you are ready",
+          "When Teacher points at your block, say it aloud",
+          "Keep track of your stars",
+          "Most stars wins"
         ],
         korean: [
-          '블록 하나를 선택하여 그 단어/표현을 받아 적습니다',
-          '다 적은 학생은 머리 위에 손을 올립니다',
-          '선생님이 가리키는 블록의 단어/표현을 같이 소리내어 읽습니다',
+          "블록 하나를 선택하여 그 단어/표현을 받아 적습니다",
+          "다 적은 학생은 머리 위에 손을 올립니다",
+          "선생님이 가리키는 블록의 단어/표현을 같이 소리내어 읽습니다",
           '여러분이 선택하여 적은 블록에서 "별"을 발견한다면, 개수를 기록하세요',
-          '가장 많은 별을 획득한 학생이 우승',
+          "가장 많은 별을 획득한 학생이 우승"
         ]
       }
-    },
+    }
   },
   {
     router: {
-      path: '/lotto',
+      path: "/lotto",
       component: WordLotto,
       requiredProps: [],
-      icon: 'won',
+      icon: "won"
     },
     info: {
-      title: 'Word Lotto',
-      skills: ['Reading', 'Speaking', 'Writing'],
-      dataUsed: ['Vocabulary', 'Expressions'],
-      description: 'Get as many points as possible',
+      title: "Word Lotto",
+      skills: ["Reading", "Speaking", "Writing"],
+      dataUsed: ["Vocabulary", "Expressions"],
+      description: "Most Points Wins",
       attachments: true,
       players: 1,
       completed: true,
       images: {
-        bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Lotto.png',
-        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Lotto.png',
-      },
+        bottomText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Lotto.png",
+        topText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Lotto.png"
+      }
     },
     keyCuts: [
-      {key: 'Left-Click', description: 'Starts the game'},
-      {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Refresh the game and use vocabulary'},
-      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Refresh the game and use expressions'},
-      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
-      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+      { key: "Left-Click", description: "Starts the game" },
+      { key: ["Space", "Enter"], description: "Refresh the game" },
+      {
+        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Up"],
+        description: "Refresh the game and use vocabulary"
+      },
+      {
+        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Down"],
+        description: "Refresh the game and use expressions"
+      },
+      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
+      {
+        key: ["Down-Arrow", "Scroll Down"],
+        description: "Decrease the font size"
+      }
     ],
     instructions: {
       forTeachers: {
         english: [
-          'Individual Game',
-          'Students need a pencil',
-          'Students need a Lotto WS or their notebook',
-          'For Vocab: Choose 3 blocks and write them down',
-          'For Expressions: Choose 1 block and write it down',
-          'Count down aloud (start from 10)',
-          'Click to reveal the correct answer',
-          '1 block = 1 point',
-          'Students mark down their points',
-          'Repeat as desired',
-          'Winner has the most points',
-          'Personally as the game progresses, I like to increase how many points a block is worth'
+          "Individual Game",
+          "Students need a pencil",
+          "Students need a Lotto WS or their notebook",
+          "For Vocab: Choose 3 blocks and write them down",
+          "For Expressions: Choose 1 block and write it down",
+          "Count down aloud (start from 10)",
+          "Click to reveal the correct answer",
+          "1 block = 1 point",
+          "Students mark down their points",
+          "Repeat as desired",
+          "Winner has the most points",
+          "Personally as the game progresses, I like to increase how many points a block is worth"
         ],
         korean: [
-          '개인별 게임',
-          '학생들은 연필이 필요합니다',
+          "개인별 게임",
+          "학생들은 연필이 필요합니다",
           '학생들 모두 "로또 활동지"나 공책이 필요합니다',
           '"단어"게임일 경우, 세 단어를 선택하여 받아 적습니다',
           '"문장"게임일 경우, 하나의 문장을 선택하여 받아 적습니다',
-          '10부터 카운트다운을 시작하세요',
-          '학생들이 다 적으면, 스크린 아무 곳에나 클릭을 하세요',
-          '1 블록 = 1점',
-          '학생들은 자신들의 점수를 기록합니다',
-          '반복 가능합니다',
-          '가장 높은 점수를 가진 학생이 우승',
-          '개인적으로는 게임이 진행되면, 블록의 점수를 높이기도 합니다',
+          "10부터 카운트다운을 시작하세요",
+          "학생들이 다 적으면, 스크린 아무 곳에나 클릭을 하세요",
+          "1 블록 = 1점",
+          "학생들은 자신들의 점수를 기록합니다",
+          "반복 가능합니다",
+          "가장 높은 점수를 가진 학생이 우승",
+          "개인적으로는 게임이 진행되면, 블록의 점수를 높이기도 합니다"
         ]
       },
       forStudents: {
         english: [
-          'Choose and write 1-3 blocks',
-          'Put your hands on you head when you are ready',
-          'When Teacher points at your block, say it aloud',
-          'Keep track of your points',
-          'Most points wins',
+          "Choose and write 1-3 blocks",
+          "Put your hands on you head when you are ready",
+          "When Teacher points at your block, say it aloud",
+          "Keep track of your points",
+          "Most points wins"
         ],
         korean: [
-          '1-3개의 블록을 선택하여 거기 적혀진 단어/표현을 적습니다',
-          '다 적었으면 머리에 손을 올립니다',
-          '만약 선생님이 여러분이 선택한 블록을 손가락으로 가리킨다면, 소리내어 읽습니다',
-          '점수를 계속 기록하세요',
-          '가장 많은 점수를 획득한 학생이 우승',
+          "1-3개의 블록을 선택하여 거기 적혀진 단어/표현을 적습니다",
+          "다 적었으면 머리에 손을 올립니다",
+          "만약 선생님이 여러분이 선택한 블록을 손가락으로 가리킨다면, 소리내어 읽습니다",
+          "점수를 계속 기록하세요",
+          "가장 많은 점수를 획득한 학생이 우승"
         ]
       }
-    },
+    }
   },
   {
     router: {
-      path: '/sparkle',
+      path: "/sparkle",
       component: Sparkle,
       requiredProps: [],
-      icon: 'diamond',
+      icon: "diamond"
     },
     info: {
-      title: 'Sparkle Die',
-      skills: ['Reading', 'Speaking', 'Listening'],
-      dataUsed: ['Expressions'],
-      description: 'Fun review activity',
+      title: "Sparkle Die",
+      skills: ["Reading", "Speaking", "Listening"],
+      dataUsed: ["Expressions"],
+      description: "Popular Review Activity",
       attachments: false,
       players: 1,
       completed: true,
       images: {
-        bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Sparkle_Die.png',
-        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Sparkle_Die.png',
-      },
+        bottomText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Sparkle_Die.png",
+        topText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Sparkle_Die.png"
+      }
     },
     keyCuts: [
-      {key: 'Left-Click', description: 'Starts the game'},
-      {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Decrease the timer (min: 5s)'},
-      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Increase the timer (max: 20s)'},
-      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
-      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+      { key: "Left-Click", description: "Starts the game" },
+      { key: ["Space", "Enter"], description: "Refresh the game" },
+      {
+        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Down"],
+        description: "Decrease the timer (min: 5s)"
+      },
+      {
+        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Up"],
+        description: "Increase the timer (max: 20s)"
+      },
+      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
+      {
+        key: ["Down-Arrow", "Scroll Down"],
+        description: "Decrease the font size"
+      }
     ],
     instructions: {
       forTeachers: {
         english: [
-          'Individual Game',
-          'Students stand up and make a U or circle around the room',
-          'Teacher picks the starting student and the direction',
-          'Students must pay attention to the screen and memorize the sentence',
-          'Once the timer runs out, the sentence will disappear',
-          'Timer starts @ 10 secs. Use the left/right arrows to decrease/increase the timer',
-          'Students take turns saying the next word in the sentence',
+          "Individual Game",
+          "Students stand up and make a U or circle around the room",
+          "Teacher picks the starting student and the direction",
+          "Students must pay attention to the screen and memorize the sentence",
+          "Once the timer runs out, the sentence will disappear",
+          "Timer starts @ 10 secs. Use the left/right arrows to decrease/increase the timer",
+          "Students take turns saying the next word in the sentence",
           'When the sentence is finished the next two words are "sparkle" "die"',
-          'The next student sits down',
+          "The next student sits down",
           '"Can" "I" "sit" "here?" "sparkle" "die" "ㅠㅠ"',
-          'Repeat until you have 1-5 survivors left',
-          'I tell the Ss before the game how many survivors there will be',
+          "Repeat until you have 1-5 survivors left",
+          "I tell the Ss before the game how many survivors there will be"
         ],
         korean: [
-          '개인별 게임',
-          '학생들은 교실 가운데를 중심으로 원이나 반원 형태로 섭니다',
-          '선생님은 시작할 학생과 방향을 알려줍니다',
-          '학생들은 스크린에 집중하여 해당 문장을 머리속에 기억합니다',
-          '시간이 종료되면 그 문장은 자동적으로 사라집니다',
-          '시간을 10초부터 카운트다운되며, 왼쪽/오른쪽 방향 화살표 키보드를 이용하여 시간을 줄이거나 늘릴 수 있음',
-          '학생들은 순서대로 그 문장의 단어를 하나씩 읽습니다',
+          "개인별 게임",
+          "학생들은 교실 가운데를 중심으로 원이나 반원 형태로 섭니다",
+          "선생님은 시작할 학생과 방향을 알려줍니다",
+          "학생들은 스크린에 집중하여 해당 문장을 머리속에 기억합니다",
+          "시간이 종료되면 그 문장은 자동적으로 사라집니다",
+          "시간을 10초부터 카운트다운되며, 왼쪽/오른쪽 방향 화살표 키보드를 이용하여 시간을 줄이거나 늘릴 수 있음",
+          "학생들은 순서대로 그 문장의 단어를 하나씩 읽습니다",
           '그 문장을 다 읽으면 그 다음 읽어야 하는 학생은 "Sparkle"이라고 읽고, 그 다음 학생은 "Die"라고 읽습니다',
           '"Die"를 읽은 학생 다음 사람은 자리에 앉습니다',
           '예)"Can" "I" "sit" "here?" "sparkle" "die" "ㅠㅠ"',
-          '1-5명의 학생이 살아남을 때 까지 반복합니다',
-          '게임 시작 전, 몇 명의 학생이 살아남아야 하는지 말해주는 것도 좋습니다',
+          "1-5명의 학생이 살아남을 때 까지 반복합니다",
+          "게임 시작 전, 몇 명의 학생이 살아남아야 하는지 말해주는 것도 좋습니다"
         ]
       },
       forStudents: {
         english: [
-          'Stand up and make a U shape around the room',
-          'Memorize the sentence',
-          'Say only 1 word in the sentence',
+          "Stand up and make a U shape around the room",
+          "Memorize the sentence",
+          "Say only 1 word in the sentence",
           '"Can" "I" "sit" "here?"',
           'Next say "sparkle" "die"',
           '"Can" "I" "sit" "here?" "sparkle" "die"',
-          'Next student sits down',
+          "Next student sits down",
           '"Can" "I" "sit" "here?" "sparkle" "die" "ㅠㅠ"',
-          'Last student standing wins',
+          "Last student standing wins"
         ],
         korean: [
-          '모두 일어서서 교실 중심을 기준으로 반원 형태로 섭니다',
-          '문장을 기억하세요',
-          '그 문장의 단어 하나씩 말하세요',
-          '예를 들어, ',
+          "모두 일어서서 교실 중심을 기준으로 반원 형태로 섭니다",
+          "문장을 기억하세요",
+          "그 문장의 단어 하나씩 말하세요",
+          "예를 들어, ",
           '"Can" "I" "sit" "here?" 문장의 단어를 한 명이 하나씩 읽고',
           '다 읽고난 다음 학생들은 차례대로 "sparkle" "die"를 읽습니다',
           '"Can" "I" "sit" "here?" "sparkle" "die"',
           '"die"를 읽은 학생 다음 차례는 자리에 앉습니다',
           '"Can" "I" "sit" "here?" "sparkle" "die" "ㅠㅠ"',
-          '마지막에 서있는 학생이 이깁니다',
+          "마지막에 서있는 학생이 이깁니다"
         ]
       }
-    },
+    }
   },
   {
     router: {
-      path: '/bowling',
+      path: "/bowling",
       component: Bowling,
       requiredProps: [],
-      icon: 'bowling ball',
+      icon: "bowling ball"
     },
     info: {
-      title: 'Letter Bowling',
-      skills: ['Reading', 'Writing'],
-      dataUsed: ['Vocabulary'],
-      description: 'Word Puzzle Solving Game',
+      title: "Letter Bowling",
+      skills: ["Reading", "Writing"],
+      dataUsed: ["Vocabulary"],
+      description: "Word Puzzle Solving Game",
       attachments: true,
       players: 1,
       completed: true,
       images: {
-        bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Letter_Bowling.png',
-        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Letter_Bowling.png',
-      },
+        bottomText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Letter_Bowling.png",
+        topText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Letter_Bowling.png"
+      }
     },
     keyCuts: [
-      {key: 'Left-Click', description: 'Starts the game'},
-      {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: 'Left-Arrow', description: 'Decrease the total rounds'},
-      {key: 'Right-Arrow', description: 'Increase the total rounds'},
+      { key: "Left-Click", description: "Starts the game" },
+      { key: ["Space", "Enter"], description: "Refresh the game" },
+      { key: "Left-Arrow", description: "Decrease the total rounds" },
+      { key: "Right-Arrow", description: "Increase the total rounds" }
     ],
     instructions: {
       forTeachers: {
         english: [
-          'Individual, Pair, or Group Game',
-          'Students need to focus on the screen',
-          'They can write or memorize the letters as they appear',
-          'Students need to unscramble the letters and figure out the word',
-          'Pair/Group - write the word down',
-          'Pair/Group - 1 point if that group is correct',
-          'Pair/Group - most points wins',
-          'Individual - put their hand up if they know. Teacher picks a student',
-          'Individual - reward the student that is correct',
-          'Repeat as desired',
-          'Letters will cycle through 3 rounds by default. Push the left/right arrows to decrease/increase the rounds',
+          "Individual, Pair, or Group Game",
+          "Students need to focus on the screen",
+          "They can write or memorize the letters as they appear",
+          "Students need to unscramble the letters and figure out the word",
+          "Pair/Group - write the word down",
+          "Pair/Group - 1 point if that group is correct",
+          "Pair/Group - most points wins",
+          "Individual - put their hand up if they know. Teacher picks a student",
+          "Individual - reward the student that is correct",
+          "Repeat as desired",
+          "Letters will cycle through 3 rounds by default. Push the left/right arrows to decrease/increase the rounds"
         ],
         korean: [
-          '개인별, 짝, 모둠 게임',
-          '학생들은 스크린에 집중합니다',
-          '스크린에 나타나는 글자들을 받아 적거나 기억하세요',
-          '뒤죽박죽으로 꼬여있는 글자들을 원래 순서대로 만들어 정답인 단어를 맞춥니다',
-          '짝/모둠 - 단어를 받아 적기',
-          '짝/모둠 - 맞추는 경우 1점 획득',
-          '짝/모둠 - 가장 높은 점수를 획득한 짝/모둠이 이깁니다',
-          '개인별  - 정답을 알겠다는 학생이 손을 들면 정답을 맞추게 합니다',
-          '개인별  - 정답일 경우 보상을 합니다',
-          '계속 반복하세요',
-          '글자들은 총 세 번 섞입니다. 왼쪽 방향키를 누르거나 오른쪽 방향키를 눌러서 라운드 수를 줄이거나 늘리세요',
+          "개인별, 짝, 모둠 게임",
+          "학생들은 스크린에 집중합니다",
+          "스크린에 나타나는 글자들을 받아 적거나 기억하세요",
+          "뒤죽박죽으로 꼬여있는 글자들을 원래 순서대로 만들어 정답인 단어를 맞춥니다",
+          "짝/모둠 - 단어를 받아 적기",
+          "짝/모둠 - 맞추는 경우 1점 획득",
+          "짝/모둠 - 가장 높은 점수를 획득한 짝/모둠이 이깁니다",
+          "개인별  - 정답을 알겠다는 학생이 손을 들면 정답을 맞추게 합니다",
+          "개인별  - 정답일 경우 보상을 합니다",
+          "계속 반복하세요",
+          "글자들은 총 세 번 섞입니다. 왼쪽 방향키를 누르거나 오른쪽 방향키를 눌러서 라운드 수를 줄이거나 늘리세요"
         ]
       },
       forStudents: {
         english: [
-          'Focus on the screen',
-          'Memorize or write down the letters',
-          'Unscramble the letters and make a word',
-          'Put your hand up',
-          'OR',
-          'Write the word down',
-          'Correct = reward/points',
+          "Focus on the screen",
+          "Memorize or write down the letters",
+          "Unscramble the letters and make a word",
+          "Put your hand up",
+          "OR",
+          "Write the word down",
+          "Correct = reward/points"
         ],
         korean: [
-          '스크린을 보고 집중하세요',
-          '글자들을 보고 받아적거나 기억하세요',
-          '글자들의 순서를 바꾸어 알맞은 단어를 만드세요',
-          '다 한 학생은 손을 드세요',
-          '아니면 ',
-          '그 단어를 적으세요',
-          '정답 = 보상/점수',
+          "스크린을 보고 집중하세요",
+          "글자들을 보고 받아적거나 기억하세요",
+          "글자들의 순서를 바꾸어 알맞은 단어를 만드세요",
+          "다 한 학생은 손을 드세요",
+          "아니면 ",
+          "그 단어를 적으세요",
+          "정답 = 보상/점수"
         ]
       }
-    },
+    }
   },
   {
     router: {
-      path: '/kimchi',
+      path: "/kimchi",
       component: Kimchi,
       requiredProps: [],
-      icon: 'heart',
+      icon: "heart"
     },
     info: {
-      title: 'Kimchi Elimination',
-      skills: ['Reading', 'Speaking'],
-      dataUsed: ['Expressions'],
-      description: '',
+      title: "Kimchi Elimination",
+      skills: ["Reading", "Speaking"],
+      dataUsed: ["Expressions"],
+      description: "Baskin Robbins 31 Variation",
       attachments: false,
       players: 1,
       completed: true,
       images: {
-        bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Kimchi.png',
-        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Kimchi.png',
-      },
+        bottomText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Kimchi.png",
+        topText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Kimchi.png"
+      }
     },
     keyCuts: [
-      {key: 'Left-Click', description: 'Starts the game'},
-      {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Increase kimchi frequency'},
-      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Decrease kimchi frequency'},
-      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
-      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'}
+      { key: "Left-Click", description: "Starts the game" },
+      { key: ["Space", "Enter"], description: "Refresh the game" },
+      {
+        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Up"],
+        description: "Increase kimchi frequency"
+      },
+      {
+        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Down"],
+        description: "Decrease kimchi frequency"
+      },
+      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
+      {
+        key: ["Down-Arrow", "Scroll Down"],
+        description: "Decrease the font size"
+      }
     ],
     instructions: {
       forTeachers: {
         english: [
-          'Individual Game',
-          'Every student starts the game standing',
-          'Students take turns reading 1, 2 or 3 words of the sentence',
+          "Individual Game",
+          "Every student starts the game standing",
+          "Students take turns reading 1, 2 or 3 words of the sentence",
           '"What" "did" "you" "do" "last" "summer?"',
           '"What did" "you" "do" "last summer?"',
           '"What did you" "do" "last summer?"',
-          'The next student..',
-          'Poo = sit down',
-          'Kimchi = stay standing',
-          'The last student standing wins',
-          'Let the class know who the first and last students are',
-          'I like to zig zag through the rows then return to the first student',
-          'You can switch from vocab to expressions using the left and right arrows',
-          'Similar to Baskin Robbins 31',
-          'Kimchi appear 90% of the time. Use the left/right arrows to decrease/increase the frequency of kimchi',
+          "The next student..",
+          "Poo = sit down",
+          "Kimchi = stay standing",
+          "The last student standing wins",
+          "Let the class know who the first and last students are",
+          "I like to zig zag through the rows then return to the first student",
+          "You can switch from vocab to expressions using the left and right arrows",
+          "Similar to Baskin Robbins 31",
+          "Kimchi appear 90% of the time. Use the left/right arrows to decrease/increase the frequency of kimchi"
         ],
         korean: [
-          '개인별 게임',
-          '모두 일어선 상태로 게임을 시작합니다',
-          '각 학생들은 1-3개의 단어를 읽을 수 있습니다',
+          "개인별 게임",
+          "모두 일어선 상태로 게임을 시작합니다",
+          "각 학생들은 1-3개의 단어를 읽을 수 있습니다",
           '"What" "did" "you" "do" "last" "summer?"',
           '"What did" "you" "do" "last summer?"',
           '"What did you" "do" "last summer?"',
-          '다음 학생이',
-          '똥(poo)단어를 읽게 되면 자리에 앉습니다',
-          '김치(kimchi)단어를 읽게 되면 그대로 서 있습니다',
-          '가장 마지막까지 서있는 학생이 이깁니다',
-          '처음 시작하는 학생과 마지막 차례가 누구인지 알려줍니다',
-          'ㄹ자 형태로 순서를 진행하는 것을 추천합니다',
-          '왼쪽 방향키와 오른쪽 방향키를 눌러서 단어 게임 혹은 문장 게임으로 전환할 수 있습니다',
-          '베스킨 로빈스 31 게임과 유사합니다',
-          '90퍼센트 이상은 김치가 나타납니다. 왼쪽 혹은 오른쪽 방향키를 이용해 김치가 나타날 확율을 조정할 수 있습니다',
-
+          "다음 학생이",
+          "똥(poo)단어를 읽게 되면 자리에 앉습니다",
+          "김치(kimchi)단어를 읽게 되면 그대로 서 있습니다",
+          "가장 마지막까지 서있는 학생이 이깁니다",
+          "처음 시작하는 학생과 마지막 차례가 누구인지 알려줍니다",
+          "ㄹ자 형태로 순서를 진행하는 것을 추천합니다",
+          "왼쪽 방향키와 오른쪽 방향키를 눌러서 단어 게임 혹은 문장 게임으로 전환할 수 있습니다",
+          "베스킨 로빈스 31 게임과 유사합니다",
+          "90퍼센트 이상은 김치가 나타납니다. 왼쪽 혹은 오른쪽 방향키를 이용해 김치가 나타날 확율을 조정할 수 있습니다"
         ]
       },
       forStudents: {
         english: [
-          'Everyone stands up',
-          'Read 1 word',
+          "Everyone stands up",
+          "Read 1 word",
           '"What" "did" "you" "do" "last" "summer?"',
-          'Read 2 words',
+          "Read 2 words",
           '"What did" "you" "do" "last summer?"',
-          'Or 3 word',
+          "Or 3 word",
           '"What did you" "do" "last summer?"',
-          'The next student..',
+          "The next student..",
           '"What did you" "do" "last summer?" "????"',
-          'Poo = sit down',
-          'Kimchi = stay standing',
-          'Last student standing wins',
+          "Poo = sit down",
+          "Kimchi = stay standing",
+          "Last student standing wins"
         ],
         korean: [
-          '모두 일어서세요',
-          '단어를 하나씩 읽을 경우',
+          "모두 일어서세요",
+          "단어를 하나씩 읽을 경우",
           '"What" "did" "you" "do" "last" "summer?"',
-          '단어를 두 개씩 읽을 경우',
+          "단어를 두 개씩 읽을 경우",
           '"What did" "you" "do" "last summer?"',
-          '아니면 단어를 세 개씩 읽을 경우엔',
+          "아니면 단어를 세 개씩 읽을 경우엔",
           '"What did you" "do" "last summer?"',
-          '마지막 단어를 읽은 학생 다음은',
+          "마지막 단어를 읽은 학생 다음은",
           '"What did you" "do" "last summer?" "????"',
-          '똥(poo)를 읽으며 자리에 앉습니다',
-          '만약 똥이 아닌 김치(kimchi)단어가 나타나면 서 있습니다',
-          '마지막까지 서 있는 학생이 우승',
+          "똥(poo)를 읽으며 자리에 앉습니다",
+          "만약 똥이 아닌 김치(kimchi)단어가 나타나면 서 있습니다",
+          "마지막까지 서 있는 학생이 우승"
         ]
       }
-    },
+    }
   },
   {
     router: {
-      path: '/chase',
+      path: "/chase",
       component: ChaseTheVocab,
       requiredProps: [],
-      icon: 'exchange',
+      icon: "exchange"
     },
     info: {
-      title: 'Chase the Vocab',
-      skills: ['Speaking'],
-      dataUsed: ['Vocabulary'],
-      description: 'Follow the Vocab',
+      title: "Chase the Vocab",
+      skills: ["Speaking"],
+      dataUsed: ["Vocabulary"],
+      description: "9 Card Monte",
       attachments: false,
       players: 1,
       completed: true,
       images: {
-        bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Chase_the_Vocab.png',
-        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Chase_the_Vocab.png',
-      },
+        bottomText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Chase_the_Vocab.png",
+        topText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Chase_the_Vocab.png"
+      }
     },
     keyCuts: [
-      {key: 'Left-Click', description: 'Starts the game'},
-      {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
-      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
-      {key: 'C', description: 'Change the block color'},
-      {key: '1-9', description: 'Change the difficulty (easiest: 1, hardest: 9, default: 5)'}
+      { key: "Left-Click", description: "Starts the game" },
+      { key: ["Space", "Enter"], description: "Refresh the game" },
+      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
+      {
+        key: ["Down-Arrow", "Scroll Down"],
+        description: "Decrease the font size"
+      },
+      { key: "C", description: "Change the block color" },
+      {
+        key: "1-9",
+        description:
+          "Change the difficulty (easiest: 1, hardest: 9, default: 5)"
+      }
     ],
     instructions: {
       forTeachers: {
         english: [
-          'Individual Game',
-          'Students need to focus on the screen',
-          'Once the cards flip over they will start moving',
-          'Students need to keep track of the cards',
-          'When the cards stop moving, students can raise their hands',
+          "Individual Game",
+          "Students need to focus on the screen",
+          "Once the cards flip over they will start moving",
+          "Students need to keep track of the cards",
+          "When the cards stop moving, students can raise their hands",
           'Choose students to guess (ie. "1 tree" or "5 computer")',
-          'If correct, you can reward them',
-          'Repeat as desired',
-          'You can switch from vocab to expressions using the left and right arrows',
-          'Difficulty starts @ 5. Press 1-9 to change it. 1-easiest---9-hardest',
+          "If correct, you can reward them",
+          "Repeat as desired",
+          "You can switch from vocab to expressions using the left and right arrows",
+          "Difficulty starts @ 5. Press 1-9 to change it. 1-easiest---9-hardest"
         ],
         korean: [
-          '개인별 게임',
-          '학생들은 스크린에 집중합니다',
-          '카드들이 한 번 뒤집히면 카드들이 움직이기 시작합니다',
-          '카드가 어떻게 움직이는지 잘 기억해야합니다',
-          '카드가 움직이는 것을 멈추면, 학생들은 손을 들어',
+          "개인별 게임",
+          "학생들은 스크린에 집중합니다",
+          "카드들이 한 번 뒤집히면 카드들이 움직이기 시작합니다",
+          "카드가 어떻게 움직이는지 잘 기억해야합니다",
+          "카드가 움직이는 것을 멈추면, 학생들은 손을 들어",
           '"1 tree" 아니면 "5 computer" 이렇게 말하며 단어를 추측합니다',
-          '정답일 경우, 보상을 해줍니다',
-          '계속 반복할 수 있습니다',
-          '왼쪽이나 오른쪽 방향키를 이용하여 단어 게임과 문장 게임을 모두 즐길 수 있습니다',
-          '레벨은 총 9단계로, 1단계부터 가장 쉬움, 9단계는 가장 어려움 입니다',
+          "정답일 경우, 보상을 해줍니다",
+          "계속 반복할 수 있습니다",
+          "왼쪽이나 오른쪽 방향키를 이용하여 단어 게임과 문장 게임을 모두 즐길 수 있습니다",
+          "레벨은 총 9단계로, 1단계부터 가장 쉬움, 9단계는 가장 어려움 입니다"
         ]
       },
       forStudents: {
         english: [
-          'Focus on the screen',
-          'Pick some cards and follow them',
-          'Raise your hand, when they stop',
-          'Wait your turn', 
-          'Say the number and what is behind it',
-          'Correct = reward',
+          "Focus on the screen",
+          "Pick some cards and follow them",
+          "Raise your hand, when they stop",
+          "Wait your turn",
+          "Say the number and what is behind it",
+          "Correct = reward"
         ],
         korean: [
-          '스크린에 집중하세요',
+          "스크린에 집중하세요",
           "카드를 선택한 후, 그 카드를 눈으로 쫓아가세요",
           "카드들이 멈추면, 손을 드세요.",
           "자기 차례가 올 때 까지 기다립니다. ",
           "카드 숫자를 말하고, 뒤에 적힌 것이 무엇인지 맞춰보세요.",
-          "정답 = 보상",
+          "정답 = 보상"
         ]
       }
-    },
+    }
   },
   {
     router: {
-      path: '/redblue',
+      path: "/redblue",
       component: RedAndBlue,
       requiredProps: [],
-      icon: 'road',
+      icon: "road"
     },
     info: {
-      title: 'Red and Blue',
-      skills: ['Listening'],
-      dataUsed: ['Vocabulary'],
-      description: 'Slap the Correct Color',
+      title: "Red and Blue",
+      skills: ["Listening"],
+      dataUsed: ["Vocabulary"],
+      description: "Slap the Correct Color",
       attachments: true,
       players: 2,
       completed: true,
       images: {
-        bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Red_and_Blue.png',
-        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Red_and_Blue.png',
-      },
+        bottomText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Red_and_Blue.png",
+        topText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Red_and_Blue.png"
+      }
     },
     keyCuts: [
-      {key: ['Left-Click', 'Space', 'Enter'], description: 'Start/Refresh the game'},
-      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
-      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+      {
+        key: ["Left-Click", "Space", "Enter"],
+        description: "Start/Refresh the game"
+      },
+      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
+      {
+        key: ["Down-Arrow", "Scroll Down"],
+        description: "Decrease the font size"
+      }
     ],
     instructions: {
       forTeachers: {
         english: [
-          'Pair Game',
-          'Print out enough red and blue worksheets for half of your class',
-          'I suggest laminating them so they last longer',
-          'Place evenly between the two students (Ss) desks',
-          'I suggest Ss put a book under the sheet as padding also',
-          'Ss put their hands up',
-          'Review the two words on the screen',
-          'Teacher says one word loudly',
-          'Ss slap whichever color that word is',
-          'First one gets a point',
+          "Pair Game",
+          "Print out enough red and blue worksheets for half of your class",
+          "I suggest laminating them so they last longer",
+          "Place evenly between the two students (Ss) desks",
+          "I suggest Ss put a book under the sheet as padding also",
+          "Ss put their hands up",
+          "Review the two words on the screen",
+          "Teacher says one word loudly",
+          "Ss slap whichever color that word is",
+          "First one gets a point",
           "If it's a tie, RPS",
-          'Hands up and repeat',
-          'Winner has the most points',
+          "Hands up and repeat",
+          "Winner has the most points"
         ],
         korean: [
           "짝 활동 게임",
@@ -765,18 +885,18 @@ export const games = [
           "먼저 정답에 손을 올린 학생이 점수를 얻습니다",
           "만약 동시에 손을 올렸다면, 가위 바위 보를 해서 정합니다",
           "다시 머리에 손을 올리고 대기하며, 이렇게 반복을 합니다",
-          "가장 많은 점수를 획득한 학생이 우승",
+          "가장 많은 점수를 획득한 학생이 우승"
         ]
       },
       forStudents: {
         english: [
-          'Put your hands on your head',
-          'Listen to the teacher',
-          'Slap the correct color',
-          'Winner gets a point',
-          'Tied? RPS.',
-          'No cheating. Keep your hands up until the word is said.',
-          'Most points wins',
+          "Put your hands on your head",
+          "Listen to the teacher",
+          "Slap the correct color",
+          "Winner gets a point",
+          "Tied? RPS.",
+          "No cheating. Keep your hands up until the word is said.",
+          "Most points wins"
         ],
         korean: [
           "머리에 손을 올리세요",
@@ -785,49 +905,64 @@ export const games = [
           "먼저 내려 놓은 사람이 점수를 얻습니다",
           "만약 동시에 내려놓았다면, 가위 바위 보로 정합니다",
           "반칙 안되고, 선생님이 단어를 말할 때 까지 머리 위에 올린 손을 절대 뗴지 않습니다",
-          "가장 많은 점수를 획득한 학생이 승리",
+          "가장 많은 점수를 획득한 학생이 승리"
         ]
       }
-    },
+    }
   },
   {
     router: {
-      path: '/hotpotato',
+      path: "/hotpotato",
       component: HotPotato,
       requiredProps: [],
-      icon: 'fire',
+      icon: "fire"
     },
     info: {
-      title: 'Hot Potato',
-      skills: ['Speaking', 'Reading'],
-      dataUsed: ['Vocabulary, Expressions'],
-      description: "Pass the 'potato'",
+      title: "Hot Potato",
+      skills: ["Speaking", "Reading"],
+      dataUsed: ["Vocabulary, Expressions"],
+      description: "Pass the Ball Variation",
       attachments: false,
       players: 1,
       completed: true,
       images: {
-        bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Hot_Potato.png',
-        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Hot_Potato.png',
-      },
+        bottomText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Hot_Potato.png",
+        topText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Hot_Potato.png"
+      }
     },
     keyCuts: [
-      {key: 'Left-Click', description: 'Start/Stop the game'},
-      {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Refresh the game and use vocabulary'},
-      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Refresh the game and use expressions'},
-      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
-      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
-      {key: '1-3', description: "Change the number of vocab (default: 3, only 1 sentence available)"}
+      { key: "Left-Click", description: "Start/Stop the game" },
+      { key: ["Space", "Enter"], description: "Refresh the game" },
+      {
+        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Up"],
+        description: "Refresh the game and use vocabulary"
+      },
+      {
+        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Down"],
+        description: "Refresh the game and use expressions"
+      },
+      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
+      {
+        key: ["Down-Arrow", "Scroll Down"],
+        description: "Decrease the font size"
+      },
+      {
+        key: "1-3",
+        description:
+          "Change the number of vocab (default: 3, only 1 sentence available)"
+      }
     ],
     instructions: {
       forTeachers: {
         english: [
-          'Get a ball or something for the students (Ss) to pass',
-          'The concept is the same as pass the ball',
+          "Get a ball or something for the students (Ss) to pass",
+          "The concept is the same as pass the ball",
           "When the music starts the Ss pass the ball around",
           "I suggest only allowing underhand passes",
           "Ss with the ball when the music stops says what's on the screen",
-          "Repeat as desired",
+          "Repeat as desired"
         ],
         korean: [
           "학생들이 서로 주고 받을 수 있도록 부드러운 공을 하나 준비합니다",
@@ -835,66 +970,73 @@ export const games = [
           "음악이 시작되면 학생들은 공을 주고 받습니다",
           "공을 살살 던지도록 지도합니다",
           "음악이 멈추었을 때 공을 가진 학생은 스크린을 보고 해당하는 말을 합니다",
-          "계속 반복 가능합니다",
+          "계속 반복 가능합니다"
         ]
       },
       forStudents: {
         english: [
-          'Pass the ball to a student next to you',
-          'Do NOT throw the ball',
-          'Underhand passes only',
-          "If you have the ball when the music stops, say what's on the screen",
+          "Pass the ball to a student next to you",
+          "Do NOT throw the ball",
+          "Underhand passes only",
+          "If you have the ball when the music stops, say what's on the screen"
         ],
         korean: [
           "공을 인접한 학생(앞/옆/뒤)에게 패스를 하세요",
           "절대! 공을 세게 던지지 않습니다",
           "살살 주고 받으세요",
-          "음악이 멈출 때, 공을 가진 학생은 스크린에 나오는 단어나 표현을 읽으세요",
-  
+          "음악이 멈출 때, 공을 가진 학생은 스크린에 나오는 단어나 표현을 읽으세요"
         ]
       }
-    },
+    }
   },
   {
     router: {
-      path: '/nunchi',
+      path: "/nunchi",
       component: Nunchi,
       requiredProps: [],
-      icon: 'talk',
+      icon: "talk"
     },
     info: {
-      title: 'Nunchi Game',
-      skills: ['Speaking', 'Reading'],
-      dataUsed: ['Expressions'],
-      description: 'Stand up and speak',
+      title: "Nunchi Game",
+      skills: ["Speaking", "Reading"],
+      dataUsed: ["Expressions"],
+      description: "Stand Up and Speak",
       attachments: false,
       players: 1,
       completed: true,
       images: {
-        bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Nunchi.png',
-        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Nunchi.png',
-      },
+        bottomText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Nunchi.png",
+        topText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Nunchi.png"
+      }
     },
     keyCuts: [
-      {key: ['Left-Click', 'Space', 'Enter'], description: 'Start/Refresh the game'},
-      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
-      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
+      {
+        key: ["Left-Click", "Space", "Enter"],
+        description: "Start/Refresh the game"
+      },
+      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
+      {
+        key: ["Down-Arrow", "Scroll Down"],
+        description: "Decrease the font size"
+      }
     ],
     instructions: {
       forTeachers: {
         english: [
-          'Have the students (Ss) kneel behind their chairs',
-          'When Ss are quiet and ready, click to show a sentence',
-          'Ss stand up and say a word in the sentence',
-          'Ss can only say one word',
-          'The words must be read in order',
+          "Have the students (Ss) kneel behind their chairs",
+          "When Ss are quiet and ready, click to show a sentence",
+          "Ss stand up and say a word in the sentence",
+          "Ss can only say one word",
+          "The words must be read in order",
           "If two Ss stand up and say the same word..",
           "1) They're out and they sit in their chairs",
           "2) The round is over. Click and Ss get ready again",
-          'Once the class completes a sentence successfully, everyone resets',
+          "Once the class completes a sentence successfully, everyone resets",
           "I give a point to the groups of the Ss left standing",
-          'It helps to encourage group cooperation and teamwork',
-          'Group with the most points gets a prize'
+          "It helps to encourage group cooperation and teamwork",
+          "Group with the most points gets a prize"
         ],
         korean: [
           "학생들이 의자를 책상에 밀어 넣고, 의자 뒤에 쭈그리고 앉게 합니다",
@@ -908,17 +1050,17 @@ export const games = [
           "한 문장을 실패 없이 성공적으로 다 읽으면, 일어서 있는 학생이 속한 그룹은 점수를 얻습니다",
           "그리고 다시 다음 라운드를 준비합니다",
           "이렇게 하면 그룹 협동 활동이 가능하며, 협동심을 기를 수 있습니다",
-          "가장 많은 점수를 획득한 그룹(모둠)이 이깁니다",
+          "가장 많은 점수를 획득한 그룹(모둠)이 이깁니다"
         ]
       },
       forStudents: {
         english: [
-          'Crouch behind your chair',
-          'Be quiet to start a round',
-          'Stand up and say one word in the sentence',
+          "Crouch behind your chair",
+          "Be quiet to start a round",
+          "Stand up and say one word in the sentence",
           "If you say the same word as someone else, you're both out",
-          'If you complete a sentence, each person gets one point for their team',
-          'The group with the most points win',
+          "If you complete a sentence, each person gets one point for their team",
+          "The group with the most points win"
         ],
         korean: [
           "모두 의자를 책상에 밀어넣고, 의자 뒤에 쭈그리고 앉습니다",
@@ -927,49 +1069,60 @@ export const games = [
           "단, 한 명당 단어를 하나만 말할 수 있고, 반드시 순서대로 말해야합니다",
           "만약 같은 단어를 말한 친구가 있다면, 둘 다 (셋 이상이 될 수도 있음) 아웃",
           "실패하지 않고 문장을 다 말하면, 일어서있는 친구들이 속한 모둠은 점수를 얻습니다",
-          "가장 많은 점수를 획득한 모둠이 우승",
+          "가장 많은 점수를 획득한 모둠이 우승"
         ]
       }
-    },
+    }
   },
   {
     router: {
-      path: '/match',
+      path: "/match",
       component: Matching,
       requiredProps: [],
-      icon: 'th'
+      icon: "th"
     },
     info: {
-      title: 'Matching',
-      skills: ['Reading', 'Speaking'],
-      dataUsed: ['Vocabulary'],
-      description: 'Find all the pairs',
+      title: "Matching",
+      skills: ["Reading", "Speaking"],
+      dataUsed: ["Vocabulary"],
+      description: "Find All The Pairs",
       attachments: false,
       players: 1,
       completed: true,
       images: {
-        bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Matching.png',
-        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Matching.png',
-      },
+        bottomText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Matching.png",
+        topText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Matching.png"
+      }
     },
     keyCuts: [
-      {key: 'Left-Click', description: 'Show the word'},
-      {key: ['Space', 'Enter'], description: 'Refresh the game'},
-      {key: ['Up-Arrow', 'Scroll Up'], description: 'Increase the font size'},
-      {key: ['Down-Arrow', 'Scroll Down'], description: 'Decrease the font size'},
-      {key: ['Left-Arrow', 'Wheel Click/Hold with Scroll Down'], description: 'Decrease the number of boxes (min: 6)'},
-      {key: ['Right-Arrow', 'Wheel Click/Hold with Scroll Up'], description: 'Increase the number of boxes (max: 16)'},
+      { key: "Left-Click", description: "Show the word" },
+      { key: ["Space", "Enter"], description: "Refresh the game" },
+      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
+      {
+        key: ["Down-Arrow", "Scroll Down"],
+        description: "Decrease the font size"
+      },
+      {
+        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Down"],
+        description: "Decrease the number of boxes (min: 6)"
+      },
+      {
+        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Up"],
+        description: "Increase the number of boxes (max: 16)"
+      }
     ],
     instructions: {
       forTeachers: {
         english: [
-          'Individual Game',
-          'Students raise their hand and take turns trying to match two cards',
+          "Individual Game",
+          "Students raise their hand and take turns trying to match two cards",
           "If the cards don't match they'll automatically flip back",
           "If there's an odd number of cards, there will be 1 'poo' card",
           "If a Ss gets the 'poo' card they lose their turn",
-          'If a student matches two cards, you can reward them',
-          "Check out the options to learn how to change the number of cards",
+          "If a student matches two cards, you can reward them",
+          "Check out the options to learn how to change the number of cards"
         ],
         korean: [
           "개인별 게임",
@@ -978,72 +1131,218 @@ export const games = [
           "만약 전체 카드 수가 짝수가 아닌 홀수라면, 그 카드 중에서 한 장은 '응가'카드입니다",
           "만약 '응가'카드를 뒤집은 학생이 나오면, 바로 꽝, 다른 사람에게 기회를 줍니다",
           "짝을 맞춘 학생이 나오면, 적절한 보상을 해줍니다",
-          "우측 상단에 마우스를 갖다 놓으면 나타나는 '?' 도움말을 클릭하여 카드 수를 늘리거나 줄일 수 있습니다",
-        
-
+          "우측 상단에 마우스를 갖다 놓으면 나타나는 '?' 도움말을 클릭하여 카드 수를 늘리거나 줄일 수 있습니다"
         ]
       },
       forStudents: {
         english: [
-          'Raise your hand',
-          'Wait your turn', 
-          'Read two blocks',
-          'Match? = reward',
-          'Poo? = lose your turn'
+          "Raise your hand",
+          "Wait your turn",
+          "Read two blocks",
+          "Match? = reward",
+          "Poo? = lose your turn"
         ],
         korean: [
           "손을 드세요",
           "선생님이 지목한 학생은",
           "카드 두 장을 골라 숫자를 말합니다",
           "짝이 맞으면, 점수!",
-          "만약 '응가'카드를 뽑으면, 즉시 다른 사람에게 기회가 돌아갑니다",
+          "만약 '응가'카드를 뽑으면, 즉시 다른 사람에게 기회가 돌아갑니다"
         ]
       }
-    },
+    }
   },
   {
     router: {
-      path: '/disappear',
-      component: 'Disappear',
+      path: "/battleground",
+      component: BattleGround,
       requiredProps: [],
+      icon: "bomb"
     },
     info: {
-      title: 'Disappear',
-      skills: ['Reading'],
-      dataUsed: ['Vocabulary'],
-      description: 'Word Puzzle Solving Game',
+      title: "Battleground 4 Corners",
+      skills: ["Reading", "Speaking"],
+      dataUsed: ["Vocabulary", "Expressions"],
+      description: "4 Corners Survival Game",
+      attachments: true,
+      players: 1,
+      completed: true,
+      images: {
+        bottomText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/PUBG_4_Corners.png",
+        topText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/PUBG_4_Corners.png"
+      }
+    },
+    keyCuts: [
+      { key: "Left-Click", description: "Starts the timer or shows the items" },
+      {
+        key: ["Space", "Enter"],
+        description: "Refresh the game (Map returns to original size)"
+      },
+      {
+        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Up"],
+        description: "Refresh the game and use vocabulary"
+      },
+      {
+        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Down"],
+        description: "Refresh the game and use expressions"
+      },
+      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
+      {
+        key: ["Down-Arrow", "Scroll Down"],
+        description: "Decrease the font size"
+      }
+    ],
+    instructions: {
+      forTeachers: {
+        english: [
+          "Individual or Team Game",
+          "Print health papers for each student(S)",
+          "Ss will carry that paper and a pencil around will them",
+          "Ss stand up and WALK to a corner",
+          "*Tell them to be careful with their pencils*",
+          "They get 10 seconds to pick a corner",
+          "If Ss are still running around, you can penalize them (ie -10 points)",
+          "Make each corner say the word/sentence together",
+          "If Ss are messing around or not speaking, you can penalize them (ie -10 points)",
+          "After each corner has spoken, left-click to show all the items",
+          "Ss keep track of their health on their paper",
+          "Their health can't go over 100 and 0 = dead",
+          "In the team version, Ss can 'revive' a dead team member with the syringe",
+          "Last student standing is the winner"
+        ],
+        korean: ["Coming Soon..."]
+      },
+      forStudents: {
+        english: [
+          "Get a pencil and a health paper",
+          "Everyone starts with 100 health",
+          "WALK to a corner",
+          "You only have 10 seconds, so choose quickly",
+          "If you are still moving after the timer, you'll lose extra health!",
+          "If you are being loud and playing around, you'll lose extra health!",
+          "Read your corner's sentence. Be confident while doing so!",
+          "Keep track of your health!",
+          "0 = dead... sit down",
+          "*Health can't go over 100*",
+          "If we're playing as a team, you can 'revive' a dead team member with the syringe",
+          "Last student standing is the winner"
+        ],
+        korean: ["Coming Soon..."]
+      }
+    }
+  },
+  {
+    router: {
+      path: "/disappear",
+      component: "Disappear",
+      requiredProps: []
+    },
+    info: {
+      title: "Disappear",
+      skills: ["Reading"],
+      dataUsed: ["Vocabulary"],
+      description: "Word Puzzle Solving Game",
       attachments: false,
       players: 1,
       completed: false,
       images: {
-        bottomText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Disappear.png',
-        topText: 'https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Disappear.png',
-      },
+        bottomText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Disappear.png",
+        topText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Disappear.png"
+      }
     },
     instructions: {
       forTeachers: {
         english: [
-          'Individual Game',
-          'Students need to focus on the screen and be quiet',
-          'Try to figure out what the word or sentence is',
-          'Students raise their hand if they think they know',
-          'Teacher picks a student and can reward them, if correct'
+          "Individual Game",
+          "Students need to focus on the screen and be quiet",
+          "Try to figure out what the word or sentence is",
+          "Students raise their hand if they think they know",
+          "Teacher picks a student and can reward them, if correct"
         ],
-        korean: [
-          '',
-        ]
+        korean: [""]
       },
       forStudents: {
         english: [
-          'Students need to focus on the screen and be quiet',
-          'Try to figure out what the word or sentence is',
-          'Students raise their hand if they think they know',
-          'Teacher picks a student and can reward them, if correct'
+          "Students need to focus on the screen and be quiet",
+          "Try to figure out what the word or sentence is",
+          "Students raise their hand if they think they know",
+          "Teacher picks a student and can reward them, if correct"
         ],
-        korean: [
-          '',
-        ]
+        korean: [""]
       }
-    },
-  },
+    }
+  }
+];
+
+export const pubgStats = [
+  // over 50 damage weapons
+  [
+    { name: "AWM", points: "-100" },
+    { name: "Berreta686", points: "-100" },
+    { name: "Crossbow", points: "-100" },
+    { name: "DP28", points: "-51" },
+    { name: "FNFal", points: "-58" },
+    { name: "Kar98k", points: "-75" },
+    { name: "M24", points: "-79" },
+    { name: "Mk14", points: "-61" },
+    { name: "Saiga12", points: "-100" },
+    { name: "SKS", points: "-53" },
+    { name: "Win1894", points: "-66" },
+    { name: "NagantM1895", points: "-55" },
+    { name: "Rhino", points: "-55" },
+    { name: "Sawnoff", points: "-100" },
+    { name: "Winchester", points: "-100" }
+  ],
+  // under 50 damage weapons
+  [
+    { name: "AK47", points: "-49" },
+    { name: "AUG", points: "-43" },
+    { name: "BerylM762", points: "-47" },
+    { name: "Groza", points: "-49" },
+    { name: "HK416", points: "-43" },
+    { name: "M16A4", points: "-43" },
+    { name: "M249", points: "-45" },
+    { name: "Mini14", points: "-46" },
+    { name: "Mk47Mutant", points: "-49" },
+    { name: "QBU88", points: "-48" },
+    { name: "QBZ95", points: "-43" },
+    { name: "SCAR-L", points: "-43" },
+    { name: "Thompson", points: "-40" },
+    { name: "UMP", points: "-39" },
+    { name: "UZI", points: "-26" },
+    { name: "Vector", points: "-34" },
+    { name: "VSS", points: "-41" },
+    { name: "G18", points: "-23" },
+    { name: "M9", points: "-35" },
+    { name: "M1911", points: "-41" }
+  ],
+  // melee items
+  [
+    { name: "crowbar", points: "0" },
+    { name: "machete", points: "0" },
+    { name: "pan", points: "0" },
+    { name: "sickle", points: "0" },
+    { name: "Apple", points: "0" },
+    { name: "Grenade", points: "0" },
+    { name: "Molotov", points: "0" }
+  ],
+  // health items
+  [
+    { name: "ArmorLv1", points: "+30" },
+    { name: "ArmorLv2", points: "+40" },
+    { name: "ArmorLv3", points: "+55" },
+    { name: "Bandage", points: "+10" },
+    { name: "EnergyDrink", points: "+40" },
+    { name: "FirstAid", points: "+75" },
+    { name: "HeadLv1", points: "+30" },
+    { name: "HeadLv2", points: "+40" },
+    { name: "HeadLv3", points: "+55" },
+    { name: "MedKit", points: "+100" },
+    { name: "PainKiller", points: "+60" },
+    { name: "Syringe", points: "+100" }
+  ]
 ];

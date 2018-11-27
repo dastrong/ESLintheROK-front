@@ -1,103 +1,112 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent, Fragment } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import { Route, Link } from 'react-router-dom';
-import InstructionsPage from './pages/InstructionsPage';
-import DataPage    from './pages/Data/DataPage';
-import AboutPage   from './pages/Info/AboutPage';
-import ContactPage from './pages/Info/ContactPage';
-import FAQPage     from './pages/Info/FAQPage';
-import LessonsPage from './pages/Lessons/LessonsPage';
-import MainPage    from './pages/MainPage';
-import GamesPage   from './pages/GamesPage';
-import GamePage    from './pages/GamePage';
-import HomeAPI     from './pages/HomeAPI';
-import ErrorPage   from './pages/ErrorPage';
-import PageHeader  from './pages/PageHeader';
-import ConfirmBox  from './reusable/ConfirmBox';
-import Switch      from '../helpers/Switch';
+import { Route, Link } from "react-router-dom";
+import InstructionsPage from "./pages/InstructionsPage";
+import DataPage from "./pages/Data/DataPage";
+import AboutPage from "./pages/Info/AboutPage";
+import ContactPage from "./pages/Info/ContactPage";
+import FAQPage from "./pages/Info/FAQPage";
+import LessonsPage from "./pages/Lessons/LessonsPage";
+import MainPage from "./pages/MainPage";
+import GamesPage from "./pages/GamesPage";
+import GamePage from "./pages/GamePage";
+import HomeAPI from "./pages/HomeAPI";
+import ErrorPage from "./pages/ErrorPage";
+import PageHeader from "./pages/PageHeader";
+import ConfirmBox from "./reusable/ConfirmBox";
+import Switch from "../helpers/Switch";
 
 class Routers extends PureComponent {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       length: this.props.history.length
-    }
+    };
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
     const { history } = this.props;
-    if(history.action === 'POP') return;
+    if (history.action === "POP") return;
     return history.length < this.state.length
-      ? this.setState({length: history.length})
+      ? this.setState({ length: history.length })
       : history.length !== this.state.length
-        ? this.setState(({length})=>({length: length + 1}))
-        : null;
+      ? this.setState(({ length }) => ({ length: length + 1 }))
+      : null;
   }
-  
-  childFactoryCreator = (props) => child => React.cloneElement(child, props)
 
-  render(){
-    const { 
-      vocabulary, 
+  childFactoryCreator = props => child => React.cloneElement(child, props);
+
+  render() {
+    const {
+      vocabulary,
       expressions,
       isGameReady,
       gameData,
       sendData,
-      openDataModal, 
+      openDataModal,
       colors,
       font,
       changeFont,
       location,
       history,
       dataUpdated,
-      showDataModal
+      isMenuOpen
     } = this.props;
     // returns an className for page transitions
-    const cx = history.length === this.state.length && history.action === 'POP'
-                ? 'page page-slideDown'
-                : location.state 
-                  ? `page page-${location.state.pageTransition}` 
-                  : 'page';
+    const cx =
+      history.length === this.state.length && history.action === "POP"
+        ? "page page-slideDown"
+        : location.state
+        ? `page page-${location.state.pageTransition}`
+        : "page";
     return (
       <Fragment>
-        { window.swUpdated && <ConfirmBox
-          open={true} 
-          header="ESL in the ROK has recently been updated"
-          content={<p style={{padding: '10px', margin: '0'}}>
-            Please refresh your browser to apply these changes</p>}
-          confirmText="Refresh"
-          cancelText="I don't like nice things."
-          onConfirm={()=> window.location.reload()}
-        /> }
+        {window.swUpdated && (
+          <ConfirmBox
+            open={true}
+            header="ESL in the ROK has recently been updated"
+            content={
+              <p style={{ padding: "10px", margin: "0" }}>
+                Please refresh your browser to apply these changes
+              </p>
+            }
+            confirmText="Refresh"
+            cancelText="I don't like nice things."
+            onConfirm={() => window.location.reload()}
+          />
+        )}
         <TransitionGroup
           component={null}
           // updates exit classes so animations are correct
-          childFactory={this.childFactoryCreator({ classNames: `${cx}`, timeout:{ enter: 1000, exit: 1000 } })}
+          childFactory={this.childFactoryCreator({
+            classNames: `${cx}`,
+            timeout: { enter: 1000, exit: 1000 }
+          })}
         >
-          <CSSTransition 
+          <CSSTransition
             key={location.pathname}
             classNames={cx}
             timeout={{ enter: 1000, exit: 1000 }}
           >
             <section>
-              <Route 
+              <Route
                 location={location}
-                render={()=> (
+                render={() => (
                   <Switch location={location}>
-                    <Route 
+                    <Route
                       exact
-                      path='/'
-                      render={()=> <MainPage openDataModal={openDataModal} /> }
+                      path="/"
+                      render={() => <MainPage openDataModal={openDataModal} />}
                     />
-                    <Route 
+                    <Route
                       exact
-                      path='/data' 
-                      render={()=>
+                      path="/data"
+                      render={() => (
                         <Fragment>
-                          <PageHeader 
-                            icon='cogs'
-                            text='Enter your own lesson data below'
-                            color='blue'
+                          <PageHeader
+                            icon="cogs"
+                            text="Enter your own lesson data below"
+                            color="blue"
                           />
                           <DataPage
                             vocabulary={vocabulary}
@@ -106,227 +115,289 @@ class Routers extends PureComponent {
                             sendData={sendData}
                           />
                         </Fragment>
-                      }
+                      )}
                     />
-                    <Route 
+                    <Route
                       exact
-                      path='/api' 
-                      render={()=>
+                      path="/api"
+                      render={() => (
                         <Fragment>
-                          <PageHeader 
-                            icon='cogs'
-                            text='Enter a lesson for everyone to use'
-                            color='teal'
+                          <PageHeader
+                            icon="cogs"
+                            text="Enter a lesson for everyone to use"
+                            color="teal"
                           />
                           <HomeAPI />
                         </Fragment>
-                      }
+                      )}
                     />
-                    <Route 
+                    <Route
                       exact
-                      path='/api/data'
-                      render={()=>
+                      path="/api/data"
+                      render={() => (
                         <Fragment>
-                          <PageHeader 
-                            icon='cogs'
-                            text='Enter a lesson for everyone to use'
-                            color='teal'
+                          <PageHeader
+                            icon="cogs"
+                            text="Enter a lesson for everyone to use"
+                            color="teal"
                           />
                           <LessonsPage isAPI={true} />
                         </Fragment>
-                      }
+                      )}
                     />
-                    <Route 
+                    <Route
                       exact
-                      path='/games'
-                      render={()=>
+                      path="/games"
+                      render={() => (
                         <Fragment>
                           <PageHeader
-                            icon='game'
-                            text='Select a game for more information'
-                            color='blue'
+                            icon="game"
+                            text="Select a game for more information"
+                            color="blue"
                           />
                           <GamesPage />
                         </Fragment>
-                      }
+                      )}
                     />
-                    <Route 
+                    <Route
                       exact
-                      path='/contact'
-                      render={()=>
+                      path="/contact"
+                      render={() => (
                         <Fragment>
                           <PageHeader
-                            icon='mail'
-                            text='Connect with other teachers'
-                            color='blue'
+                            icon="mail"
+                            text="Connect with other teachers"
+                            color="blue"
                           />
                           <ContactPage />
                         </Fragment>
-                      }
+                      )}
                     />
-                    <Route 
+                    <Route
                       exact
-                      path='/about'
-                      render={()=>
+                      path="/about"
+                      render={() => (
                         <Fragment>
                           <PageHeader
-                            icon='user'
+                            icon="user"
                             text="Learn more about us"
-                            color='blue'
+                            color="blue"
                           />
                           <AboutPage />
                         </Fragment>
-                      }
+                      )}
                     />
-                    <Route 
+                    <Route
                       exact
-                      path='/faq'
-                      render={()=>
+                      path="/faq"
+                      render={() => (
                         <Fragment>
                           <PageHeader
-                            icon='question'
-                            text='View frequently asked questions'
-                            color='blue'
+                            icon="question"
+                            text="View frequently asked questions"
+                            color="blue"
                           />
                           <FAQPage />
                         </Fragment>
-                      }
+                      )}
                     />
-                    <Route 
+                    <Route
                       exact
-                      path='/lessons'
-                      render={()=> 
+                      path="/lessons"
+                      render={() => (
                         <Fragment>
-                          <PageHeader 
-                            icon='book'
+                          <PageHeader
+                            icon="book"
                             text="Get your book's lesson data below"
-                            color='blue'
+                            color="blue"
                           />
                           <LessonsPage
                             sendData={sendData}
                             isGameReady={isGameReady}
                           />
                         </Fragment>
-                      }
+                      )}
                     />
-                    {gameData && 
+                    {gameData && (
                       <Fragment>
                         <Route
                           exact
                           path={gameData.router.path}
-                          render={()=>
+                          render={() => (
                             <GamePage
                               title={`Home - ${gameData.info.title}`}
                               gameData={gameData}
                               changeFont={changeFont}
                               font={font}
-                              isGameReady={isGameReady} /> }
+                              isGameReady={isGameReady}
+                            />
+                          )}
                         />
                         <Route
                           exact
                           path={`${gameData.router.path}/teacher`}
-                          render={()=> 
+                          render={() => (
                             <InstructionsPage
-                              title={`Teacher Instructions - ${gameData.info.title}`}
-                              forPerson='forTeachers'
-                              direction='right'
-                              transitionClass='slideLeft'
+                              title={`Teacher Instructions - ${
+                                gameData.info.title
+                              }`}
+                              forPerson="forTeachers"
+                              direction="right"
+                              transitionClass="slideLeft"
                               path={gameData.router.path}
-                              isGameReady={isGameReady} /> }
+                              isGameReady={isGameReady}
+                            />
+                          )}
                         />
                         <Route
                           exact
                           path={`${gameData.router.path}/student`}
-                          render={()=> 
+                          render={() => (
                             <InstructionsPage
-                              title={`Student Instructions - ${gameData.info.title}`}
-                              forPerson='forStudents'
-                              direction='left'
-                              transitionClass='slideRight'
+                              title={`Student Instructions - ${
+                                gameData.info.title
+                              }`}
+                              forPerson="forStudents"
+                              direction="left"
+                              transitionClass="slideRight"
                               path={gameData.router.path}
-                              isGameReady={isGameReady} /> }
+                              isGameReady={isGameReady}
+                            />
+                          )}
                         />
                         <Route
                           exact
                           path={`${gameData.router.path}/start`}
-                          render={()=>
-                            !isGameReady
-                              ? <Fragment>
-                                  <PageHeader 
-                                    icon='exclamation'
-                                    text='Report reoccuring errors'
-                                    color='red'
-                                  />
-                                  <ErrorPage
-                                    header="Whoops, no data to play. Using the refresh button will lose your data."
-                                    content={<p>Go back to the 
-                                      {<Link to={{ 
-                                        pathname: '/lessons', 
-                                        state: { pageTransition:'slideUp' }
-                                      }}> lessons </Link>}
-                                      page or enter your own data 
-                                      {<Link to={{ 
-                                        pathname: '/data', 
-                                        state: { pageTransition:'slideUp' }
-                                    }}> here</Link>}.</p> }
-                                  />
-                                </Fragment>
-                              : <Fragment>
-                                  <gameData.router.component 
-                                    title={gameData.info.title}
-                                    expressions={expressions}
-                                    vocabulary={vocabulary}
-                                    dataUpdated={dataUpdated}
-                                    showDataModal={showDataModal}
-                                    colors={colors}
-                                    font={font}
-                                    isGameReady={isGameReady} /> 
-                                  <ConfirmBox 
-                                    open={window.screen.height !== window.innerHeight}
-                                    onConfirm={typeof InstallTrigger !== 'undefined'
-                                      ? ()=>document.documentElement.mozRequestFullScreen()
-                                      : ()=>document.documentElement.webkitRequestFullScreen()
-                                    }
-                                    cancelText="No, thanks."
-                                    confirmText="Do it."
-                                    header={`${gameData.info.title} should be played in fullscreen`}
-                                    content={
-                                      <div style={{padding: '10px'}}>
-                                        <p>You can toggle fullscreen with F11 by yourself too.</p>
-                                        <p><span style={{fontWeight: 'bold'}}>Note:</span> If you get a white screen next, contact me because this should've fixed it.</p>
-                                      </div> }
-                                  />
-                                </Fragment> }
-                        /> 
+                          render={() =>
+                            !isGameReady ? (
+                              <Fragment>
+                                <PageHeader
+                                  icon="exclamation"
+                                  text="Report reoccuring errors"
+                                  color="red"
+                                />
+                                <ErrorPage
+                                  header="Whoops, no data to play. Using the refresh button will lose your data."
+                                  content={
+                                    <p>
+                                      Go back to the
+                                      {
+                                        <Link
+                                          to={{
+                                            pathname: "/lessons",
+                                            state: { pageTransition: "slideUp" }
+                                          }}
+                                        >
+                                          {" "}
+                                          lessons{" "}
+                                        </Link>
+                                      }
+                                      page or enter your own data
+                                      {
+                                        <Link
+                                          to={{
+                                            pathname: "/data",
+                                            state: { pageTransition: "slideUp" }
+                                          }}
+                                        >
+                                          {" "}
+                                          here
+                                        </Link>
+                                      }
+                                      .
+                                    </p>
+                                  }
+                                />
+                              </Fragment>
+                            ) : (
+                              <Fragment>
+                                <gameData.router.component
+                                  title={gameData.info.title}
+                                  expressions={expressions}
+                                  vocabulary={vocabulary}
+                                  dataUpdated={dataUpdated}
+                                  isMenuOpen={isMenuOpen}
+                                  colors={colors}
+                                  font={font}
+                                  isGameReady={isGameReady}
+                                />
+                                <ConfirmBox
+                                  open={
+                                    window.screen.height !== window.innerHeight
+                                  }
+                                  onConfirm={
+                                    typeof InstallTrigger !== "undefined"
+                                      ? () =>
+                                          document.documentElement.mozRequestFullScreen()
+                                      : () =>
+                                          document.documentElement.webkitRequestFullScreen()
+                                  }
+                                  cancelText="No, thanks."
+                                  confirmText="Do it."
+                                  header={`${
+                                    gameData.info.title
+                                  } should be played in fullscreen`}
+                                  content={
+                                    <div style={{ padding: "10px" }}>
+                                      <p>
+                                        You can toggle fullscreen with F11 by
+                                        yourself too.
+                                      </p>
+                                      <p>
+                                        <span style={{ fontWeight: "bold" }}>
+                                          Note:
+                                        </span>{" "}
+                                        If you get a white screen next, contact
+                                        me because this should've fixed it.
+                                      </p>
+                                    </div>
+                                  }
+                                />
+                              </Fragment>
+                            )
+                          }
+                        />
                       </Fragment>
-                    }
-                    <Route 
-                      render={()=>
+                    )}
+                    <Route
+                      render={() => (
                         <Fragment>
                           <PageHeader
-                            icon='exclamation'
-                            color='red'
-                            text='Report your errors'
+                            icon="exclamation"
+                            color="red"
+                            text="Report your errors"
                           />
-                          <ErrorPage 
+                          <ErrorPage
                             header="Sorry... that page doesn't exist."
-                            content={<p>Double check the URL or head
-                              {<Link to={{ 
-                                pathname: '/', 
-                                state: { pageTransition:'slideUp' }
-                              }}> home</Link>}.</p>}
+                            content={
+                              <p>
+                                Double check the URL or head
+                                {
+                                  <Link
+                                    to={{
+                                      pathname: "/",
+                                      state: { pageTransition: "slideUp" }
+                                    }}
+                                  >
+                                    {" "}
+                                    home
+                                  </Link>
+                                }
+                                .
+                              </p>
+                            }
                           />
                         </Fragment>
-                      }
+                      )}
                     />
                   </Switch>
                 )}
               />
             </section>
           </CSSTransition>
-        </TransitionGroup> 
+        </TransitionGroup>
       </Fragment>
-    )
+    );
   }
 }
 

@@ -1,49 +1,56 @@
-import React, { Component } from 'react';
-import TextBox from '../reusable/TextBox';
-import { Timer, startTimer, resetTimer } from '../reusable/Timer';
-import { CSSTransition } from 'react-transition-group';
-import { 
-  setData, getRandomNum, getRandomIndex, addListeners, rmvListeners, addTitle, addGoogEvent, resetAndReload
-} from '../../helpers/phase2helpers';
-import '../../styles/games/Sparkle.css';
+import React, { Component } from "react";
+import TextBox from "../reusable/TextBox";
+import { Timer, startTimer, resetTimer } from "../reusable/Timer";
+import { CSSTransition } from "react-transition-group";
+import {
+  setData,
+  getRandomNum,
+  getRandomIndex,
+  addListeners,
+  rmvListeners,
+  addTitle,
+  addGoogEvent,
+  resetAndReload
+} from "../../helpers/phase2helpers";
+import "../../styles/games/Sparkle.css";
 
 class Sparkle extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       compressor: 0.8,
       data: [],
-      text: '',
+      text: "",
       textIndex: undefined,
       timer: 15,
       timeRemaining: 15,
-      gameReady: false,
+      gameReady: false
     };
     this.startTimer = startTimer.bind(this);
     this.resetTimer = resetTimer.bind(this);
-    this.setData        = setData.bind(this);
-    this.getRandomNum   = getRandomNum.bind(this);
+    this.setData = setData.bind(this);
+    this.getRandomNum = getRandomNum.bind(this);
     this.getRandomIndex = getRandomIndex.bind(this);
-    this.addListeners   = addListeners.bind(this);
-    this.rmvListeners   = rmvListeners.bind(this);
-    this.addTitle       = addTitle.bind(this);
-    this.addGoogEvent   = addGoogEvent.bind(this);
+    this.addListeners = addListeners.bind(this);
+    this.rmvListeners = rmvListeners.bind(this);
+    this.addTitle = addTitle.bind(this);
+    this.addGoogEvent = addGoogEvent.bind(this);
     this.resetAndReload = resetAndReload.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.addTitle();
     this.addListeners();
     this.setData(this.props.expressions);
   }
 
-  componentWillUnmount(){ 
+  componentWillUnmount() {
     this.rmvListeners();
-    clearInterval(this.intervalID)
+    clearInterval(this.intervalID);
   }
 
-  componentDidUpdate(){
-    this.resetAndReload(1);
+  componentDidUpdate() {
+    this.resetAndReload(1, false);
   }
 
   handleGame = (data = this.state.data) => {
@@ -52,80 +59,88 @@ class Sparkle extends Component {
     this.setState({
       text: data[random],
       textIndex: random,
-      gameReady:true
+      gameReady: true
     });
-  }
+  };
 
   handleClick = () => {
-    if(this.state.isActive) this.handleGame();
+    if (this.state.isActive) this.handleGame();
     this.startTimer();
-  }
+  };
 
-  handleEvents = (e) => {
-    if(this.props.showDataModal) return;
-    const {  compressor } = this.state;
-    if(e.type === 'wheel'){
+  handleEvents = e => {
+    if (this.props.isMenuOpen) return;
+    const { compressor } = this.state;
+    if (e.type === "wheel") {
       const c = e.deltaY < 0 ? -0.05 : 0.05;
-      return e.buttons !== 4 
+      return e.buttons !== 4
         ? this.setState({ compressor: compressor + c })
         : c < 0
-          ? this._increaseTimer()
-          : this._decreaseTimer()
+        ? this._increaseTimer()
+        : this._decreaseTimer();
     }
     // spacebar/enter was clicked; reset the game
-    if(e.keyCode === 32 || e.keyCode === 13) return this.handleClick();
+    if (e.keyCode === 32 || e.keyCode === 13) return this.handleClick();
     // right arrow was clicked; increase the timer
-    if(e.keyCode === 39) return this._increaseTimer();
+    if (e.keyCode === 39) return this._increaseTimer();
     // left arrow was clicked; decrease the timer
-    if(e.keyCode === 37) return this._decreaseTimer();
+    if (e.keyCode === 37) return this._decreaseTimer();
     // up arrow was clicked; increase the font size
-    if(e.keyCode === 38) return this.setState({ compressor: compressor - 0.05 });
+    if (e.keyCode === 38)
+      return this.setState({ compressor: compressor - 0.05 });
     // down arrow was clicked; decrease the font size
-    if(e.keyCode === 40) return this.setState({ compressor: compressor + 0.05 });
+    if (e.keyCode === 40)
+      return this.setState({ compressor: compressor + 0.05 });
   };
 
   _increaseTimer = () => {
     const { timer } = this.state;
-    if(timer >= 5 && timer < 20){
+    if (timer >= 5 && timer < 20) {
       const time = timer + 1;
-      this.setState({timer:time, timeRemaining: time}, this.handleClick);
+      this.setState({ timer: time, timeRemaining: time }, this.handleClick);
     }
-  }
+  };
 
   _decreaseTimer = () => {
     const { timer } = this.state;
-    if(timer > 5 && timer <= 20){
+    if (timer > 5 && timer <= 20) {
       const time = timer - 1;
-      this.setState({timer:time, timeRemaining: time}, this.handleClick);
+      this.setState({ timer: time, timeRemaining: time }, this.handleClick);
     }
-  }
+  };
 
-  render(){
-    const { compressor, gameReady, text, timer, timeRemaining, isTimeUp } = this.state;
-    const width = (((timer-timeRemaining)/(timer-1))*100)+'%';
+  render() {
+    const {
+      compressor,
+      gameReady,
+      text,
+      timer,
+      timeRemaining,
+      isTimeUp
+    } = this.state;
+    const width = ((timer - timeRemaining) / (timer - 1)) * 100 + "%";
     return (
-      <div 
-        className='spark-container'
+      <div
+        className="spark-container"
         onClick={this.handleClick}
-        style={{fontFamily: this.props.font}}
+        style={{ fontFamily: this.props.font }}
       >
-        <CSSTransition
-          in={!isTimeUp}
-          timeout={0}
-          classNames='textBox' >
-          <TextBox 
+        <CSSTransition in={!isTimeUp} timeout={0} classNames="textBox">
+          <TextBox
             text={text}
-            width={'100%'}
-            height={'85vh'}
-            compressor={compressor} 
-            gameReady={gameReady} />
+            width={"100%"}
+            height={"85vh"}
+            compressor={compressor}
+            gameReady={gameReady}
+          />
         </CSSTransition>
-        <Timer 
+        <Timer
           timeRemaining={timeRemaining}
           isTimeUp={isTimeUp}
-          width={width} />
+          width={width}
+        />
       </div>
-    )
+    );
   }
 }
 

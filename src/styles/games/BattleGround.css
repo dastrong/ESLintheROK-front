@@ -1,0 +1,96 @@
+.battleground-container {
+  height: 100vh;
+  overflow: hidden;
+  background-color: #275f69;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.battleground-container img {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  transition: all 6s;
+}
+
+.battleground-container .blue-zone {
+  position: fixed;
+  height: 103vh;
+  width: 103vw;
+  z-index: 5;
+  transform: scale(1);
+  transition: transform 6s;
+  border-width: 1.5vh 1.5vw;
+  border-color: blue;
+  border-style: solid;
+  box-shadow: inset 0 0 3px 3px blue;
+  top: -1.5vh;
+  left: -1.5vw;
+}
+
+.corner-holder {
+  text-align: center;
+  overflow: hidden;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.battleground-container .corner {
+  height: 50vh;
+  width: 50vw;
+  z-index: 4;
+  line-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-shadow: 1px 1px 7px #000;
+  box-shadow: inset 0 0 5px 3px #000;
+}
+
+.cornersItem {
+  opacity: 0;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  font-size: 250px;
+  text-shadow: 1px 1px 7px #000;
+}
+
+.battleground-container .countdown-timer {
+  color: #fff;
+  z-index: 5;
+  position: absolute;
+  font-size: 150px;
+  height: 200px;
+  width: 200px;
+  line-height: 200px;
+  text-align: center;
+  background-color: rgb(0, 0, 0);
+  border-radius: 50%;
+}
+
+.cornersItem-enter-active {
+  opacity: 0.1;
+  transition: opacity 0.6s;
+}
+.cornersItem-enter-done {
+  opacity: 1;
+  transition: opacity 0.6s;
+}
+.cornersItem-exit {
+  opacity: 1;
+}
+.cornersItem-exit-active {
+  opacity: 1;
+  transition: opacity 0.6s;
+}
+.cornersItem-exit-done {
+  opacity: 0;
+  transition: opacity 0.6s;
+}

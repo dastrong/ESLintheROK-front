@@ -1,32 +1,35 @@
-import React from 'react';
-import { Dropdown } from 'semantic-ui-react';
+import React from "react";
+import { Dropdown } from "semantic-ui-react";
 
 // used in the first screen
-const GradesPrimary = ({ loading, options, getData }) => (
-  <div className='first-screen'>
+const GradesPrimary = ({ loading, options, getData, message }) => (
+  <div className="first-screen">
     What grade are you looking for?
     <Dropdown
       selection
       compact
-      onChange={e=> getData('books', { screen:2, url:e.target.id })}
+      onChange={e => getData("books", { screen: 2, url: e.target.id })}
       loading={loading}
       disabled={loading}
-      placeholder='Choose Here'
+      placeholder={message || "Choose One"}
       options={options}
     />
   </div>
-)
+);
 
 // used in the second screen
-const GradesSecondary = ({  options, grade, getData }) => (
-  <span className='current-grade'>Showing Books for Grade: {' '}
-    <Dropdown 
+const GradesSecondary = ({ options, grade, getData }) => (
+  <span className="current-grade">
+    Showing Books for Grade:{" "}
+    <Dropdown
       inline
       options={options}
-      placeholder={grade ? String(grade) : ''}
-      onChange={e=> getData('books', { screen:2, url:e.currentTarget.id, activePage:1 })}
+      placeholder={grade ? String(grade) : ""}
+      onChange={e =>
+        getData("books", { screen: 2, url: e.currentTarget.id, activePage: 1 })
+      }
     />
   </span>
-)
+);
 
 export { GradesPrimary, GradesSecondary };
