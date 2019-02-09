@@ -1,7 +1,12 @@
-## About [ESL in the ROK](https://www.eslintherok.com)
-This is my first large project created with React, which I made for ESL teachers in Korea. Instead of using PPT games and which teachers need to download/change/save/share continuously with other teachers, I came up with a site where some popular games were completely dynamic and lesson data was automated.
+# [ESL in the ROK](https://www.eslintherok.com)
 
-## Typical User Flow
+### What is it?
+It's a collection of ESL games recreated with React for teachers in South Korea.
+
+### Why did I make it?
+Instead of using PPT games, which teachers needed to download/change/save/share continuously with other teachers, I came up with the idea to recreate some popular games and make it into a site. I ended up creating a site with 13 games (so far) that are completely dynamic and plug and play ready.
+
+### Typical User Flow
 - Users grab lesson data from my API or enter their own data
 - Users choose a game
   - Each game contains:
@@ -12,7 +17,7 @@ This is my first large project created with React, which I made for ESL teachers
 - Users can change games at any time without losing data
 - Users can use certain games offline (only with custom data)
 
-## Why ESL in the ROK is better than PPT?
+### Why ESL in the ROK is better than PPT?
 - Each round is completely random
 - Game difficulties can be adjusted to suite your student levels
 - Font:
@@ -23,12 +28,12 @@ This is my first large project created with React, which I made for ESL teachers
 - Contains direct link to download and/or print external resources
 - Users can directly contact the creator of the games
 
-## Services Used
+### Services Used
 - Boilerplate: Create React App
 - Host: Netlify
 - API: Heroku
-- DB: Digital Ocean MongoDB Droplet
+- DB: mLab
 - Domain: GoDaddy
 
-## NPM Packages Used
+### NPM Packages Used
 - View package.json for a complete list
