@@ -5,7 +5,6 @@ import registerServiceWorker from "./registerServiceWorker";
 import App from "./components/App";
 import MobileError from "./components/MobileError";
 import IEError from "./components/IEError";
-import "./index.css";
 
 const Site = () => (
 	<Router>
