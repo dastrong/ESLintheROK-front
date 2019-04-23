@@ -1,27 +1,27 @@
 {
-  "name": "teachersite",
-  "version": "0.1.0",
+  "name": "eslintherok",
+  "version": "3.0.0",
   "private": true,
   "dependencies": {
     "classnames": "^2.2.6",
-    "dotenv": "^6.1.0",
-    "react": "^16.4.1",
-    "react-confetti": "^2.3.0",
-    "react-dom": "^16.4.1",
+    "dotenv": "^7.0.0",
+    "react": "^16.8.6",
+    "react-confetti": "^2.8.0",
+    "react-dom": "^16.8.6",
     "react-fittext": "^1.0.0",
-    "react-flip-move": "^3.0.2",
-    "react-ga": "^2.5.3",
+    "react-flip-move": "^3.0.3",
+    "react-ga": "^2.5.7",
     "react-loadable": "^5.5.0",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.4",
-    "react-transition-group": "^2.4.0",
-    "semantic-ui-react": "^0.81.3",
-    "typeface-bree-serif": "0.0.54",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "^3.0.0",
+    "react-transition-group": "^4.0.0",
+    "semantic-ui-react": "^0.86.0",
+    "typeface-bree-serif": "0.0.72",
     "typeface-mali": "0.0.63",
-    "typeface-muli": "0.0.54",
+    "typeface-muli": "0.0.71",
     "typeface-niramit": "0.0.63",
-    "typeface-poppins": "0.0.54",
-    "typeface-quicksand": "0.0.54"
+    "typeface-poppins": "0.0.72",
+    "typeface-quicksand": "0.0.71"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -30,6 +30,12 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "why-did-you-update": "^0.1.1"
-  }
+    "why-did-you-update": "^1.0.6"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
