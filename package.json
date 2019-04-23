@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.6",
-    "dotenv": "^7.0.0",
     "react": "^16.8.6",
     "react-confetti": "^2.8.0",
     "react-dom": "^16.8.6",
