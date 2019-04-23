@@ -1,58 +1,16 @@
-import Loadable from "react-loadable";
-import Loading from "../components/Loading";
-
-const Elimination = Loadable({
-  loader: () => import("../components/games/Elimination"),
-  loading: Loading
-});
-const Stars = Loadable({
-  loader: () => import("../components/games/Stars"),
-  loading: Loading
-});
-const WhatsBehind = Loadable({
-  loader: () => import("../components/games/WhatsBehind"),
-  loading: Loading
-});
-const WordLotto = Loadable({
-  loader: () => import("../components/games/WordLotto"),
-  loading: Loading
-});
-const Sparkle = Loadable({
-  loader: () => import("../components/games/Sparkle"),
-  loading: Loading
-});
-const Kimchi = Loadable({
-  loader: () => import("../components/games/Kimchi"),
-  loading: Loading
-});
-const Bowling = Loadable({
-  loader: () => import("../components/games/Bowling"),
-  loading: Loading
-});
-const ChaseTheVocab = Loadable({
-  loader: () => import("../components/games/ChaseTheVocab"),
-  loading: Loading
-});
-const RedAndBlue = Loadable({
-  loader: () => import("../components/games/RedAndBlue"),
-  loading: Loading
-});
-const HotPotato = Loadable({
-  loader: () => import("../components/games/HotPotato"),
-  loading: Loading
-});
-const Nunchi = Loadable({
-  loader: () => import("../components/games/Nunchi"),
-  loading: Loading
-});
-const Matching = Loadable({
-  loader: () => import("../components/games/Matching"),
-  loading: Loading
-});
-const BattleGround = Loadable({
-  loader: () => import("../components/games/BattleGround"),
-  loading: Loading
-});
+import Elimination from '../components/games/Elimination'
+import Stars from '../components/games/Stars'
+import WhatsBehind from '../components/games/WhatsBehind'
+import WordLotto from '../components/games/WordLotto'
+import Sparkle from '../components/games/Sparkle'
+import Kimchi from '../components/games/Kimchi'
+import Bowling from '../components/games/Bowling'
+import ChaseTheVocab from '../components/games/ChaseTheVocab'
+import RedAndBlue from '../components/games/RedAndBlue'
+import HotPotato from '../components/games/HotPotato'
+import Nunchi from '../components/games/Nunchi'
+import Matching from '../components/games/Matching'
+import BattleGround from '../components/games/BattleGround'
 
 export const fonts = [
   {
