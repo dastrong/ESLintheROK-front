@@ -1,24 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
 import registerServiceWorker from "./registerServiceWorker";
-import App from "./components/App";
 import MobileError from "./components/MobileError";
 import IEError from "./components/IEError";
-import { StoreProvider } from "./store";
+import App from "./components/App";
+import "typeface-bree-serif";
+import "typeface-mali";
+import "typeface-niramit";
+import "typeface-poppins";
+import "typeface-muli";
+import "typeface-quicksand";
 
 const Site = () =>
-	window.innerWidth < 768 ? (
-		<MobileError />
-	) : !!document.documentMode ? (
-		<IEError />
-	) : (
-		<Router>
-			<StoreProvider>
-				<App />
-			</StoreProvider>
-		</Router>
-	);
+  window.innerWidth < 768 ? (
+    <MobileError />
+  ) : !!document.documentMode ? (
+    <IEError />
+  ) : (
+    <App />
+  );
 
 ReactDOM.render(<Site />, document.getElementById("root"));
 registerServiceWorker();
