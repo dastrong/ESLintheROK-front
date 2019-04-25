@@ -1,8 +1,8 @@
 import React from "react";
 import { Modal } from "semantic-ui-react";
-import LessonsHolder from "../pages/Lessons/LessonsHolder";
-import DataHolder from "../pages/Data/DataHolder";
-import { useStore } from "../../store";
+import LessonsHolder from "./pages/Lessons/LessonsHolder";
+import DataHolder from "./pages/Data/DataHolder";
+import { useStore } from "../store";
 
 export default function DataModal() {
   const [{ showDataModal, dataModalType }, dispatch] = useStore();

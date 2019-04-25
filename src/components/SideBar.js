@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Icon, Menu, Sidebar } from "semantic-ui-react";
-import { games } from "../../helpers/data";
-import { useStore } from "../../store";
-import "../../styles/navInfo/SideBar.css";
+import { games } from "../helpers/data";
+import { useStore } from "../store";
+import "./SideBar.css";
 
 export default function SideBar(props) {
   const [{ showSideBar, isGameReady }, dispatch] = useStore();
