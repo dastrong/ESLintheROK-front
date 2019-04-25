@@ -37,7 +37,29 @@ const Routes = ({ history, location }) => {
         <Route exact path="/game/:name/teacher" component={InstructionsPage} />
         <Route exact path="/game/:name/student" component={InstructionsPage} />
         {/* <Route exact path='/game/:name/play' component={} /> */}
-        <Route component={Error} />
+        <Route
+          render={() => (
+            <Error
+              header="Sorry... that page doesn't exist."
+              content={
+                <p>
+                  Double check the URL and go back to the
+                  {
+                    <Link
+                      to={{
+                        pathname: "/",
+                        state: { pageTransition: "slideUp" },
+                      }}
+                    >
+                      {" "}
+                      home page.
+                    </Link>
+                  }
+                </p>
+              }
+            />
+          )}
+        />
       </Switch>
     </RouteTransition>
   );
