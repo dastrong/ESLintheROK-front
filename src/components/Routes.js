@@ -37,29 +37,7 @@ const Routes = ({ history, location }) => {
         <Route exact path="/game/:name/teacher" component={InstructionsPage} />
         <Route exact path="/game/:name/student" component={InstructionsPage} />
         {/* <Route exact path='/game/:name/play' component={} /> */}
-        <Route
-          render={() => (
-            <Error
-              header="Sorry... that page doesn't exist."
-              content={
-                <p>
-                  Double check the URL and go back to the
-                  {
-                    <Link
-                      to={{
-                        pathname: "/",
-                        state: { pageTransition: "slideUp" },
-                      }}
-                    >
-                      {" "}
-                      home page.
-                    </Link>
-                  }
-                </p>
-              }
-            />
-          )}
-        />
+        <Route component={Error} />
       </Switch>
     </RouteTransition>
   );
@@ -271,30 +249,4 @@ export default withRouter(Routes);
 //                 />
 //               </Fragment>
 //             )}
-//             <Route
-//               render={() => (
-//                 <Fragment>
-//                   <PageHeader icon="exclamation" color="red" text="Report your errors" />
-//                   <ErrorPage
-//                     header="Sorry... that page doesn't exist."
-//                     content={
-//                       <p>
-//                         Double check the URL or head
-//                         {
-//                           <Link
-//                             to={{
-//                               pathname: "/",
-//                               state: { pageTransition: "slideUp" },
-//                             }}
-//                           >
-//                             {" "}
-//                             home
-//                           </Link>
-//                         }
-//                         .
-//                       </p>
-//                     }
-//                   />
-//                 </Fragment>
-//               )}
-//             />
+//
