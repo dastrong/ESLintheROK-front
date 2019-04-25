@@ -5,7 +5,7 @@ import { StoreProvider } from "../store";
 import SideBar from "./navInfo/SideBar";
 import DataModal from "./navInfo/DataModal";
 import Routes from "./Routes";
-import "../styles/App.css";
+import "./App.css";
 
 export default function App() {
   useEffect(() => {
