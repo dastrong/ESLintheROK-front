@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { Route, Link, withRouter, Switch } from "react-router-dom";
 import RouteTransition from "./RouteTransitions";
 import Home from "./Home";
+import FAQ from "./FAQ";
 import InstructionsPage from "./pages/InstructionsPage";
 import DataPage from "./pages/Data/DataPage";
 import AboutPage from "./pages/Info/AboutPage";
 import ContactPage from "./pages/Info/ContactPage";
-import FAQPage from "./pages/Info/FAQPage";
 import LessonsPage from "./pages/Lessons/LessonsPage";
 import GamesPage from "./pages/GamesPage";
 import GamePage from "./pages/GamePage";
@@ -26,7 +26,7 @@ const Routes = ({ history, location }) => {
     <RouteTransition isBack={history.action === "POP"} location={location}>
       <Switch location={location}>
         <Route exact path="/" component={Home} />
-        <Route exact path="/faq" component={FAQPage} />
+        <Route exact path="/faq" component={FAQ} />
         <Route exact path="/about" component={AboutPage} />
         <Route exact path="/contact" component={ContactPage} />
         <Route exact path="/games" component={GamesPage} />
