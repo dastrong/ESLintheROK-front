@@ -1,5 +1,5 @@
 import React from "react";
-import PageHeader from "./pages/PageHeader";
+import PageHeader from "./reusable/PageHeader";
 import "./_StartUpError.css";
 
 export default () => (

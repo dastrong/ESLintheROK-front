@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames";
-import PageHeader from "./pages/PageHeader";
+import PageHeader from "./reusable/PageHeader";
 import ca from "../assets/images/ca.svg";
 import kr from "../assets/images/kr.svg";
 import "./_StartUpError.css";

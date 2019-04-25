@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import ReactGA from "react-ga";
 import { BrowserRouter } from "react-router-dom";
 import { StoreProvider } from "../store";
-import SideBar from "./navInfo/SideBar";
-import DataModal from "./navInfo/DataModal";
+import SideBar from "./SideBar";
+import DataModal from "./DataModal";
 import Routes from "./Routes";
 import "./App.css";
 

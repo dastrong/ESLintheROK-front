@@ -3,16 +3,15 @@ import { Route, Link, withRouter, Switch } from "react-router-dom";
 import RouteTransition from "./RouteTransitions";
 import Home from "./Home";
 import FAQ from "./FAQ";
+import About from "./About";
+import Contact from "./Contact";
 import InstructionsPage from "./pages/InstructionsPage";
 import DataPage from "./pages/Data/DataPage";
-import AboutPage from "./pages/Info/AboutPage";
-import ContactPage from "./pages/Info/ContactPage";
 import LessonsPage from "./pages/Lessons/LessonsPage";
 import GamesPage from "./pages/GamesPage";
 import GamePage from "./pages/GamePage";
 import HomeAPI from "./pages/HomeAPI";
 import ErrorPage from "./pages/ErrorPage";
-// import PageHeader from "./pages/PageHeader";
 
 const Routes = ({ history, location }) => {
   const { pathname } = location;
@@ -27,8 +26,8 @@ const Routes = ({ history, location }) => {
       <Switch location={location}>
         <Route exact path="/" component={Home} />
         <Route exact path="/faq" component={FAQ} />
-        <Route exact path="/about" component={AboutPage} />
-        <Route exact path="/contact" component={ContactPage} />
+        <Route exact path="/about" component={About} />
+        <Route exact path="/contact" component={Contact} />
         <Route exact path="/games" component={GamesPage} />
         <Route exact path="/data" component={DataPage} />
         <Route exact path="/lessons" component={LessonsPage} />
@@ -62,12 +61,6 @@ export default withRouter(Routes);
 //     isMenuOpen,
 //   } = props;
 //
-//           <Switch>
-//             <Route
-//               exact
-//               path="/"
-//               render={() => <MainPage openDataModal={openDataModal} />}
-//             />
 //             <Route
 //               exact
 //               path="/data"
@@ -126,44 +119,6 @@ export default withRouter(Routes);
 //                     color="blue"
 //                   />
 //                   <GamesPage />
-//                 </Fragment>
-//               )}
-//             />
-//             <Route
-//               exact
-//               path="/contact"
-//               render={() => (
-//                 <Fragment>
-//                   <PageHeader
-//                     icon="mail"
-//                     text="Connect with other teachers"
-//                     color="blue"
-//                   />
-//                   <ContactPage />
-//                 </Fragment>
-//               )}
-//             />
-//             <Route
-//               exact
-//               path="/about"
-//               render={() => (
-//                 <Fragment>
-//                   <PageHeader icon="user" text="Learn more about us" color="blue" />
-//                   <AboutPage />
-//                 </Fragment>
-//               )}
-//             />
-//             <Route
-//               exact
-//               path="/faq"
-//               render={() => (
-//                 <Fragment>
-//                   <PageHeader
-//                     icon="question"
-//                     text="View frequently asked questions"
-//                     color="blue"
-//                   />
-//                   <FAQPage />
 //                 </Fragment>
 //               )}
 //             />
@@ -334,12 +289,3 @@ export default withRouter(Routes);
 //                 </Fragment>
 //               )}
 //             />
-//           </Switch>
-//           )} />
-//         </CSSTransition>
-//       </TransitionGroup>
-//     </Fragment>
-//   );
-// };
-
-// export default withRouter(Routers);
