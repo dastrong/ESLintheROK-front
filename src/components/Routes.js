@@ -1,19 +1,18 @@
 import React, { useEffect } from "react";
 import { Route, Link, withRouter, Switch } from "react-router-dom";
 import RouteTransition from "./RouteTransitions";
+import Home from "./Home";
 import InstructionsPage from "./pages/InstructionsPage";
 import DataPage from "./pages/Data/DataPage";
 import AboutPage from "./pages/Info/AboutPage";
 import ContactPage from "./pages/Info/ContactPage";
 import FAQPage from "./pages/Info/FAQPage";
 import LessonsPage from "./pages/Lessons/LessonsPage";
-import MainPage from "./pages/MainPage";
 import GamesPage from "./pages/GamesPage";
 import GamePage from "./pages/GamePage";
 import HomeAPI from "./pages/HomeAPI";
 import ErrorPage from "./pages/ErrorPage";
 // import PageHeader from "./pages/PageHeader";
-// import ConfirmBox from "./reusable/ConfirmBox";
 
 const Routes = ({ history, location }) => {
   const { pathname } = location;
@@ -23,12 +22,10 @@ const Routes = ({ history, location }) => {
     console.log("effect");
   }, [pathname]);
 
-  console.log(window.swUpdated);
-
   return (
     <RouteTransition isBack={history.action === "POP"} location={location}>
       <Switch location={location}>
-        <Route exact path="/" component={MainPage} />
+        <Route exact path="/" component={Home} />
         <Route exact path="/faq" component={FAQPage} />
         <Route exact path="/about" component={AboutPage} />
         <Route exact path="/contact" component={ContactPage} />
@@ -49,8 +46,6 @@ const Routes = ({ history, location }) => {
 
 export default withRouter(Routes);
 
-// // class Routers extends PureComponent {
-// const Routers = props => {
 //   const {
 //     vocabulary,
 //     expressions,
@@ -66,43 +61,7 @@ export default withRouter(Routes);
 //     dataUpdated,
 //     isMenuOpen,
 //   } = props;
-//   // returns an className for page transitions
-//   const cx =
-//     history.action === "POP"
-//       ? "page page-slideDown"
-//       : location.state
-//       ? `page page-${location.state.pageTransition}`
-//       : "page";
-//   return (
-//     <Fragment>
-//       {window.swUpdated && (
-//         <ConfirmBox
-//           open={true}
-//           header="ESL in the ROK has recently been updated"
-//           content={
-//             <p style={{ padding: "10px", margin: "0" }}>
-//               Please refresh your browser to apply these changes
-//             </p>
-//           }
-//           confirmText="Refresh"
-//           cancelText="I don't like nice things."
-//           onConfirm={() => window.location.reload()}
-//         />
-//       )}
-//       <TransitionGroup
-//         component={null}
-//         // updates exit classes so animations are correct
-//         childFactory={childFactoryCreator({
-//           classNames: `${cx}`,
-//           timeout: { enter: 1000, exit: 1000 },
-//         })}
-//       >
-//         <CSSTransition
-//           key={location.key}
-//           classNames={cx}
-//           timeout={{ enter: 1000, exit: 1000 }}
-//           component="section"
-//         >
+//
 //           <Switch>
 //             <Route
 //               exact
