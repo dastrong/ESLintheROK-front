@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import registerServiceWorker from "./registerServiceWorker";
+import ServiceWorker from "./ServiceWorker";
 import MobileError from "./components/MobileError";
 import IEError from "./components/IEError";
 import App from "./components/App";
@@ -17,8 +17,10 @@ const Site = () =>
   ) : !!document.documentMode ? (
     <IEError />
   ) : (
-    <App />
+    <>
+      <ServiceWorker />
+      <App />
+    </>
   );
 
 ReactDOM.render(<Site />, document.getElementById("root"));
-registerServiceWorker();
