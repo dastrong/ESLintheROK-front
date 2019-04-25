@@ -5,13 +5,13 @@ import Home from "./Home";
 import FAQ from "./FAQ";
 import About from "./About";
 import Contact from "./Contact";
+import Games from "./Games";
 import InstructionsPage from "./pages/InstructionsPage";
 import DataPage from "./pages/Data/DataPage";
 import LessonsPage from "./pages/Lessons/LessonsPage";
-import GamesPage from "./pages/GamesPage";
 import GamePage from "./pages/GamePage";
 import HomeAPI from "./pages/HomeAPI";
-import ErrorPage from "./pages/ErrorPage";
+import Error from "./Error";
 
 const Routes = ({ history, location }) => {
   const { pathname } = location;
@@ -28,7 +28,7 @@ const Routes = ({ history, location }) => {
         <Route exact path="/faq" component={FAQ} />
         <Route exact path="/about" component={About} />
         <Route exact path="/contact" component={Contact} />
-        <Route exact path="/games" component={GamesPage} />
+        <Route exact path="/games" component={Games} />
         <Route exact path="/data" component={DataPage} />
         <Route exact path="/lessons" component={LessonsPage} />
         <Route exact path="/api" component={HomeAPI} />
@@ -37,7 +37,7 @@ const Routes = ({ history, location }) => {
         <Route exact path="/game/:name/teacher" component={InstructionsPage} />
         <Route exact path="/game/:name/student" component={InstructionsPage} />
         {/* <Route exact path='/game/:name/play' component={} /> */}
-        <Route component={ErrorPage} />
+        <Route component={Error} />
       </Switch>
     </RouteTransition>
   );
@@ -108,20 +108,7 @@ export default withRouter(Routes);
 //                 </Fragment>
 //               )}
 //             />
-//             <Route
-//               exact
-//               path="/games"
-//               render={() => (
-//                 <Fragment>
-//                   <PageHeader
-//                     icon="game"
-//                     text="Select a game for more information"
-//                     color="blue"
-//                   />
-//                   <GamesPage />
-//                 </Fragment>
-//               )}
-//             />
+//
 //             <Route
 //               exact
 //               path="/lessons"
