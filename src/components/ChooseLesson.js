@@ -19,8 +19,6 @@ export default function Lessons({ isAPI }) {
   const [books, setBooks] = useState([]);
   const [data, setData] = useState({ vocabulary: [], expressions: [] });
 
-  console.log(isAPI);
-
   useEffect(() => {
     // updates messaging during long heroku cold starts
     const id = setTimeout(() => setPlaceholder("Almost there.."), 2000);
