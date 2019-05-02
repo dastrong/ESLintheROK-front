@@ -8,7 +8,7 @@ import Contact from "./Contact";
 import Games from "./Games";
 import InstructionsPage from "./pages/InstructionsPage";
 import DataPage from "./pages/Data/DataPage";
-import LessonsPage from "./pages/Lessons/LessonsPage";
+import ChooseLessonPage from "./ChooseLessonPage";
 import GamePage from "./pages/GamePage";
 import HomeAPI from "./pages/HomeAPI";
 import Error from "./Error";
@@ -30,9 +30,9 @@ const Routes = ({ history, location }) => {
         <Route exact path="/contact" component={Contact} />
         <Route exact path="/games" component={Games} />
         <Route exact path="/data" component={DataPage} />
-        <Route exact path="/lessons" component={LessonsPage} />
+        <Route exact path="/lessons" component={ChooseLessonPage} />
         <Route exact path="/api" component={HomeAPI} />
-        <Route exact path="/api/data" component={LessonsPage} />
+        <Route exact path="/api/data" component={ChooseLessonPage} />
         <Route exact path="/game/:name" component={GamePage} />
         <Route exact path="/game/:name/teacher" component={InstructionsPage} />
         <Route exact path="/game/:name/student" component={InstructionsPage} />

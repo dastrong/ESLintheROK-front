@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal } from "semantic-ui-react";
-import LessonsHolder from "./pages/Lessons/LessonsHolder";
+import Lessons from "./ChooseLesson";
 import DataHolder from "./pages/Data/DataHolder";
 import { useStore } from "../store";
 
@@ -17,11 +17,7 @@ export default function DataModal() {
     >
       <Modal.Content>
         <div className="page-container-inner">
-          {dataModalType === "lessons" ? (
-            <LessonsHolder fromDataModal={true} />
-          ) : (
-            <DataHolder fromDataModal={true} />
-          )}
+          {dataModalType === "lessons" ? <Lessons /> : <DataHolder />}
         </div>
       </Modal.Content>
     </Modal>
