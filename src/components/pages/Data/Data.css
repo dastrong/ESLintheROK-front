@@ -1,5 +1,5 @@
 .data-container {
-  min-height: calc(100vh - 100px - 100px);
+  min-height: calc(100vh - 100px - 60px);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -22,12 +22,12 @@
 .data-container .extra-input.ui.input {
   width: 50%;
   border-radius: 0;
-} 
+}
 
 .data-container .ui.input.extra-input input {
   border-radius: 0;
   text-align: center;
-} 
+}
 
 .data-container .ui.input.extra-input.incomplete > input::placeholder {
   color: white;
@@ -60,7 +60,7 @@
 }
 
 .data-container .accordion .title:nth-child(1) {
-  border-bottom: 1px solid #D3CCE3;
+  border-bottom: 1px solid #d3cce3;
 }
 
 .data-container .accordion .title:not(.ui).complete {
@@ -80,8 +80,9 @@
   min-height: calc(100vh - 141.6px - 160px);
 }
 
-.data-container .ui.accordion:not(.styled) .accordion .title~.content:not(.ui), .ui.accordion:not(.styled) .title~.content:not(.ui) {
-  padding: 10px!important;
+.data-container .ui.accordion:not(.styled) .accordion .title ~ .content:not(.ui),
+.ui.accordion:not(.styled) .title ~ .content:not(.ui) {
+  padding: 10px !important;
 }
 
 .data-container .ui.accordion .content {
@@ -91,7 +92,7 @@
 
 .data-container .ui.celled.table {
   margin: 10px 0 0;
-} 
+}
 
 .data-container .ui.accordion .content button {
   border: 1px solid rgba(22, 171, 57, 0.5);
@@ -110,7 +111,7 @@
   padding-right: 0;
 }
 
-.data-container .ui.form .fields .field input[type=text] {
+.data-container .ui.form .fields .field input[type="text"] {
   width: 321px;
   border-left-width: 0.5px;
   border-right-width: 0.5px;
