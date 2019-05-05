@@ -10,7 +10,7 @@ import InstructionsPage from "./pages/InstructionsPage";
 import DataPage from "./DataPage";
 import ChooseLessonPage from "./ChooseLessonPage";
 import GamePage from "./pages/GamePage";
-import HomeAPI from "./pages/HomeAPI";
+import HomeAPI from "./HomeAPI";
 import Error from "./Error";
 
 const Routes = ({ history, location }) => {
@@ -45,84 +45,6 @@ const Routes = ({ history, location }) => {
 
 export default withRouter(Routes);
 
-//   const {
-//     vocabulary,
-//     expressions,
-//     isGameReady,
-//     gameData,
-//     sendData,
-//     openDataModal,
-//     colors,
-//     font,
-//     changeFont,
-//     location,
-//     history,
-//     dataUpdated,
-//     isMenuOpen,
-//   } = props;
-//
-//             <Route
-//               exact
-//               path="/data"
-//               render={() => (
-//                 <Fragment>
-//                   <PageHeader
-//                     icon="cogs"
-//                     text="Enter your own lesson data below"
-//                     color="blue"
-//                   />
-//                   <DataPage
-//                     vocabulary={vocabulary}
-//                     expressions={expressions}
-//                     isGameReady={isGameReady}
-//                     sendData={sendData}
-//                   />
-//                 </Fragment>
-//               )}
-//             />
-//             <Route
-//               exact
-//               path="/api"
-//               render={() => (
-//                 <Fragment>
-//                   <PageHeader
-//                     icon="cogs"
-//                     text="Enter a lesson for everyone to use"
-//                     color="teal"
-//                   />
-//                   <HomeAPI />
-//                 </Fragment>
-//               )}
-//             />
-//             <Route
-//               exact
-//               path="/api/data"
-//               render={() => (
-//                 <Fragment>
-//                   <PageHeader
-//                     icon="cogs"
-//                     text="Enter a lesson for everyone to use"
-//                     color="teal"
-//                   />
-//                   <LessonsPage isAPI={true} />
-//                 </Fragment>
-//               )}
-//             />
-//
-//             <Route
-//               exact
-//               path="/lessons"
-//               render={() => (
-//                 <Fragment>
-//                   <PageHeader
-//                     icon="book"
-//                     text="Get your book's lesson data below"
-//                     color="blue"
-//                   />
-//                   <LessonsPage sendData={sendData} isGameReady={isGameReady} />
-//                 </Fragment>
-//               )}
-//             />
 //             {gameData && (
 //               <Fragment>
 //                 <Route
