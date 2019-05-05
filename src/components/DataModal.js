@@ -5,8 +5,8 @@ import Data from "./Data";
 import { useStore } from "../store";
 
 export default function DataModal() {
-  const [{ showDataModal, dataModalType }, dispatch] = useStore();
-
+  const [{ showDataModal, dataModalName }, dispatch] = useStore();
+  console.log(dataModalName);
   return (
     <Modal
       basic
@@ -17,7 +17,7 @@ export default function DataModal() {
     >
       <Modal.Content>
         <div className="page-container-inner">
-          {dataModalType === "lessons" ? <Lessons /> : <Data />}
+          {dataModalName === "lessons" ? <Lessons /> : <Data />}
         </div>
       </Modal.Content>
     </Modal>
