@@ -48,6 +48,10 @@
   box-shadow: none;
 }
 
+.data-container .accordion.fluid .accordion {
+  margin-top: 0;
+}
+
 .data-container .ui.accordion .title:not(.ui) {
   display: flex;
   justify-content: center;
@@ -69,6 +73,10 @@
 
 .data-container .accordion .title:not(.ui).incomplete {
   background-color: #d41414;
+}
+
+.lessons-container .data-container .ui.accordion.isAPI .content.active {
+  min-height: calc(100vh - 340px);
 }
 
 .lessons-container .data-container .ui.accordion .content.active {

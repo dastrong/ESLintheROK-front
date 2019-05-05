@@ -2,7 +2,7 @@ import React from "react";
 import { CSSTransition } from "react-transition-group";
 import ChooseGrade from "./ChooseGrade";
 import ChooseBook from "./ChooseBook";
-import DataHolder from "./pages/Data/DataHolder";
+import Data from "./Data";
 
 const Transition = ({ isIn, cx, timeout, children }) => (
   <CSSTransition
@@ -40,6 +40,7 @@ const Second = ({
   books,
   activeGrade,
   setScreen,
+  setPostURL,
   setData,
 }) => (
   <Transition isIn={isIn} cx="second" timeout={800}>
@@ -57,6 +58,7 @@ const Second = ({
       <ChooseBook
         books={books}
         activeGradeId={activeGrade.id}
+        setPostURL={setPostURL}
         setScreen={setScreen}
         setData={setData}
         isAPI={isAPI}
@@ -65,9 +67,9 @@ const Second = ({
   </Transition>
 );
 
-const Third = ({ isIn, isAPI, data }) => (
+const Third = ({ isIn, isAPI, setScreen, postURL, data }) => (
   <Transition isIn={isIn} cx="third" timeout={0}>
-    <DataHolder isAPI={isAPI} {...data} />
+    <Data isAPI={isAPI} setScreen={setScreen} postURL={postURL} {...data} />
   </Transition>
 );
 

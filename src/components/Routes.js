@@ -7,7 +7,7 @@ import About from "./About";
 import Contact from "./Contact";
 import Games from "./Games";
 import InstructionsPage from "./pages/InstructionsPage";
-import DataPage from "./pages/Data/DataPage";
+import DataPage from "./DataPage";
 import ChooseLessonPage from "./ChooseLessonPage";
 import GamePage from "./pages/GamePage";
 import HomeAPI from "./pages/HomeAPI";

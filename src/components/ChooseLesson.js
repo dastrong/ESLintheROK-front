@@ -12,6 +12,7 @@ function createOptions(grades) {
 
 export default function Lessons({ isAPI }) {
   const [screenNum, setScreen] = useState(1);
+  const [postURL, setPostURL] = useState("");
   const [isServerAwake, wakeUpServer] = useState(false);
   const [placeholder, setPlaceholder] = useState("Waking up..");
   const [activeGrade, setActiveGrade] = useState({ num: "", id: "" });
@@ -36,7 +37,7 @@ export default function Lessons({ isAPI }) {
   async function handleGradeSelection(e, { value }) {
     const data = await apiRequest("/" + value);
     setBooks(data.books);
-    setActiveGrade({ num: data.grade, value: data._id });
+    setActiveGrade({ num: data.grade, id: data._id });
     setScreen(2);
   }
 
@@ -59,10 +60,17 @@ export default function Lessons({ isAPI }) {
         activeGrade={activeGrade}
         books={books}
         setScreen={setScreen}
+        setPostURL={setPostURL}
         setData={setData}
         handleGradeSelection={handleGradeSelection}
       />
-      <Screen.Third isIn={screenNum === 3} isAPI={isAPI} data={data} />
+      <Screen.Third
+        isIn={screenNum === 3}
+        isAPI={isAPI}
+        data={data}
+        setScreen={setScreen}
+        postURL={postURL}
+      />
     </TransitionGroup>
   );
 }

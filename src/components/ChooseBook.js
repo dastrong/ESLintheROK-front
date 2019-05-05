@@ -3,7 +3,14 @@ import classNames from "classnames";
 import { Icon, Button, Dropdown, Pagination } from "semantic-ui-react";
 import { apiRequest } from "../helpers/api";
 
-export default function ChooseBook({ activeGradeId, books, setScreen, setData, isAPI }) {
+export default function ChooseBook({
+  activeGradeId,
+  books,
+  setScreen,
+  setPostURL,
+  setData,
+  isAPI,
+}) {
   const [isLoadingLessons, setLoader] = useState(true);
   const [activePage, setActivePage] = useState(1);
   const [lessons, setLessons] = useState([]);
@@ -50,6 +57,12 @@ export default function ChooseBook({ activeGradeId, books, setScreen, setData, i
     setScreen(3);
   }
 
+  function apiSetScreen() {
+    const postURL = `${activeGradeId}/${bookId}`;
+    setScreen(3);
+    setPostURL(postURL);
+  }
+
   const whichPages = activePage === 1 ? [0, 5] : [5, books.length];
 
   const options = lessons
@@ -94,7 +107,7 @@ export default function ChooseBook({ activeGradeId, books, setScreen, setData, i
               content={isAPI ? "Create Lesson" : "Continue"}
               disabled={!(isAPI || targetLessons.length)}
               loading={isSendingData}
-              onClick={isAPI ? () => setScreen(3) : fetchLessonData}
+              onClick={isAPI ? apiSetScreen : fetchLessonData}
             />
             <Dropdown
               fluid
