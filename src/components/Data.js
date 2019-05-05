@@ -13,7 +13,7 @@ const initialState = {
   chapter: "",
   title: "",
   activeContent: "Vocabulary",
-  showConfirmBox: false,
+  showSuccessBox: false,
 };
 
 function reducer(state, action) {
@@ -45,8 +45,8 @@ function reducer(state, action) {
       return { ...state, chapter: value };
     case "Set_Active_Content":
       return { ...state, activeContent, text: "" };
-    case "Toggle_Confirm_Box":
-      return { ...state, showConfirmBox: bool };
+    case "Toggle_Success_Box":
+      return { ...state, showSuccessBox: bool };
     default:
       return state;
   }
@@ -55,7 +55,7 @@ function reducer(state, action) {
 export default function Data({ isAPI, setScreen, postURL, ...data }) {
   const [store, storeDispatch] = useStore();
   const [
-    { text, vocabulary, expressions, chapter, title, activeContent, showConfirmBox },
+    { text, vocabulary, expressions, chapter, title, activeContent, showSuccessBox },
     dispatch,
   ] = useReducer(reducer, initialState);
   const { percent, color } = useProgress(isAPI, vocabulary, expressions, chapter, title);
@@ -94,7 +94,7 @@ export default function Data({ isAPI, setScreen, postURL, ...data }) {
 
   function setData() {
     storeDispatch({ type: "setData", vocabulary, expressions });
-    dispatch({ type: "Toggle_Confirm_Box", bool: true });
+    dispatch({ type: "Toggle_Success_Box", bool: true });
   }
 
   async function createLesson() {
@@ -168,7 +168,7 @@ export default function Data({ isAPI, setScreen, postURL, ...data }) {
         </Accordion.Accordion>
       </Accordion>
 
-      <Modal open={showConfirmBox} size="tiny">
+      <Modal open={showSuccessBox} size="tiny">
         <Modal.Header>Success! Data set and saved to your browser.</Modal.Header>
         <Modal.Content>Do you want to go to the games page now?</Modal.Content>
         <Modal.Actions>
@@ -181,6 +181,7 @@ export default function Data({ isAPI, setScreen, postURL, ...data }) {
             positive
             as={Link}
             to={{ pathname: "/games", state: { pageTransition: "slideUp" } }}
+            onClick={() => storeDispatch({ type: "closeDataModal" })}
             content="Yup, take me there."
           />
         </Modal.Actions>
