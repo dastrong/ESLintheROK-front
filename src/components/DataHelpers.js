@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Table, Icon, Button, Input } from "semantic-ui-react";
 
-export function D_Button({ isAPI, isOneHundy, handleClick }) {
+export function DButton({ isAPI, isOneHundy, handleClick }) {
   const [content, setContent] = useState("Submit");
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export function D_Button({ isAPI, isOneHundy, handleClick }) {
   );
 }
 
-export const D_Form = ({ handleSubmit, handleChange, text }) => (
+export const DForm = ({ handleSubmit, handleChange, text }) => (
   <Form onSubmit={handleSubmit}>
     <Form.Group>
       <Form.Input
@@ -48,7 +48,7 @@ export const D_Form = ({ handleSubmit, handleChange, text }) => (
   </Form>
 );
 
-export const D_Table = ({ data, header, handleDelete, handleEdit }) => {
+export const DTable = ({ data, header, handleDelete, handleEdit }) => {
   // returns list of data for the table below
   const items = data.map((item, i) => (
     <Table.Row key={i + item}>
@@ -89,7 +89,7 @@ export const D_Table = ({ data, header, handleDelete, handleEdit }) => {
   );
 };
 
-export const D_Api_Inputs = ({ chapter, title, dispatch }) => {
+export const DApiInputs = ({ chapter, title, dispatch }) => {
   const cxChap = `extra-input ${chapter ? "completed" : "incomplete"}`;
   const cxTitl = `extra-input ${title ? "completed" : "incomplete"}`;
 

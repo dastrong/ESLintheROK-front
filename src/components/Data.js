@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from "react";
 import { Link } from "react-router-dom";
 import { Accordion, Icon, Progress, Button, Modal } from "semantic-ui-react";
-import { D_Form, D_Table, D_Button, D_Api_Inputs } from "./DataHelpers";
+import { DForm, DTable, DButton, DApiInputs } from "./DataHelpers";
 import { useStore } from "../store";
 import useProgress from "../hooks/useProgress";
 import "./Data.css";
@@ -116,14 +116,14 @@ export default function Data({ isAPI, setScreen, postURL, ...data }) {
   return (
     <div className="data-container">
       <Progress percent={percent} color={color} attached="top" />
-      <D_Button
+      <DButton
         isAPI={isAPI}
         isOneHundy={percent === 100}
         handleClick={isAPI ? createLesson : setData}
       />
       <Progress percent={percent} color={color} attached="bottom" />
 
-      {isAPI && <D_Api_Inputs chapter={chapter} title={title} dispatch={dispatch} />}
+      {isAPI && <DApiInputs chapter={chapter} title={title} dispatch={dispatch} />}
 
       <Accordion fluid className={isAPI ? "isAPI" : ""}>
         <Accordion.Accordion>
@@ -137,8 +137,8 @@ export default function Data({ isAPI, setScreen, postURL, ...data }) {
             {`${vocabulary.length ? "Edit" : "Enter"} your vocabulary here!`}
           </Accordion.Title>
           <Accordion.Content active={activeContent === "Vocabulary"}>
-            <D_Form handleChange={handleChange} handleSubmit={handleSubmit} text={text} />
-            <D_Table
+            <DForm handleChange={handleChange} handleSubmit={handleSubmit} text={text} />
+            <DTable
               data={vocabulary}
               header="Vocabulary"
               handleDelete={handleDelete}
@@ -157,8 +157,8 @@ export default function Data({ isAPI, setScreen, postURL, ...data }) {
             {`${expressions.length ? "Edit" : "Enter"} your expressions here!`}
           </Accordion.Title>
           <Accordion.Content active={activeContent === "Expression"}>
-            <D_Form handleChange={handleChange} handleSubmit={handleSubmit} text={text} />
-            <D_Table
+            <DForm handleChange={handleChange} handleSubmit={handleSubmit} text={text} />
+            <DTable
               data={expressions}
               header="Expressions"
               handleDelete={handleDelete}
