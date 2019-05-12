@@ -6,7 +6,7 @@ import { useStore } from "../store";
 
 export default function DataModal() {
   const [{ showDataModal, dataModalName }, dispatch] = useStore();
-  console.log(dataModalName);
+
   return (
     <Modal
       basic

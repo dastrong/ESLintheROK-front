@@ -1,56 +1,56 @@
 import React, { createContext, useContext, useReducer } from "react";
 
 const initialState = {
-	vocabulary: [],
-	expressions: [],
-	isGameReady: false,
-	showSideBar: false,
-	showDataBar: false,
-	dataModalType: "",
-	font: "Poppins, sans-serif",
-	colors: [
-		"chocolate",
-		"purple",
-		"darkslateblue",
-		"aqua",
-		"teal",
-		"fuchsia",
-		"plum",
-		"olive",
-		"violet",
-	],
+  vocabulary: [],
+  expressions: [],
+  isGameReady: false,
+  showSideBar: false,
+  showDataBar: false,
+  dataModalName: "",
+  font: "Poppins, sans-serif",
+  colors: [
+    "chocolate",
+    "purple",
+    "darkslateblue",
+    "aqua",
+    "teal",
+    "fuchsia",
+    "plum",
+    "olive",
+    "violet",
+  ],
 };
 
 // we won't set a variable to see if the data was updated
 // instead we'll just check the vocab and expression arrays for changes
 const reducer = (state, action) => {
-	const { type, vocabulary, expressions, name, font } = action;
-	switch (type) {
-		case "setData":
-			return { ...state, vocabulary, expressions, isGameReady: true };
-		case "clearData":
-			return { ...state, vocabulary: [], expressions: [], isGameReady: false };
-		case "openSideBar":
-			return { ...state, showSideBar: true };
-		case "closeSideBar":
-			return { ...state, showSideBar: false };
-		case "openDataModal":
-			return { ...state, showDataModal: true, dataModalName: name };
-		case "closeDataModal":
-			return { ...state, showDataModal: false, dataModalName: "" };
-		case "setFont":
-			return { ...state, font };
-		default:
-			return state;
-	}
+  const { type, vocabulary, expressions, name, font } = action;
+  switch (type) {
+    case "setData":
+      return { ...state, vocabulary, expressions, isGameReady: true };
+    case "clearData":
+      return { ...state, vocabulary: [], expressions: [], isGameReady: false };
+    case "openSideBar":
+      return { ...state, showSideBar: true };
+    case "closeSideBar":
+      return { ...state, showSideBar: false };
+    case "openDataModal":
+      return { ...state, showDataModal: true, dataModalName: name };
+    case "closeDataModal":
+      return { ...state, showDataModal: false, dataModalName: "" };
+    case "setFont":
+      return { ...state, font };
+    default:
+      return state;
+  }
 };
 
 const StoreContext = createContext();
 
 export const StoreProvider = ({ children }) => (
-	<StoreContext.Provider value={useReducer(reducer, initialState)}>
-		{children}
-	</StoreContext.Provider>
+  <StoreContext.Provider value={useReducer(reducer, initialState)}>
+    {children}
+  </StoreContext.Provider>
 );
 
 export const useStore = () => useContext(StoreContext);
