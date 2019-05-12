@@ -33,6 +33,12 @@
   padding: 10px 20px 5px;
   cursor: pointer;
   text-align: center;
+  user-select: none;
+}
+
+.instructions-list-single {
+  font-size: 90px;
+  line-height: 100px;
 }
 
 .instructions-buttons {
@@ -59,7 +65,7 @@
 }
 
 .instructions-buttons > .ui.labeled.icon.button > .icon {
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
   width: 1.18em;
 }
 
@@ -73,7 +79,7 @@
   padding-right: 1.18em !important;
 }
 
-@media only screen and (max-width: 1000px){
+@media only screen and (max-width: 1000px) {
   .instructions-container img:nth-of-type(2) {
     opacity: 0;
     z-index: -1;
@@ -99,33 +105,5 @@
 }
 
 .ui.steps .step:not(.active) {
-  border-bottom: 1px solid rgba(34,36,38,.15);
-}
-
-.instructions-list-item-single {
-  font-size: 100px;
-  line-height:120px;
-  text-align: center;
-  position: absolute;
-  transition: all 1s;
-}
-
-.instructions-list-item-single-enter {
-  transform: translate(100vw, 0);
-  opacity: 0;
-}
-
-.instructions-list-item-single-enter-active {
-  transform: translate(0, 0);
-  opacity: 1;
-}
-
-.instructions-list-item-single-exit {
-  transform: translate(0, 0);
-  opacity: 1;
-}
-
-.instructions-list-item-single-exit-active {
-  transform: translate(-100vw, 0);
-  opacity: 0;
+  border-bottom: 1px solid rgba(34, 36, 38, 0.15);
 }

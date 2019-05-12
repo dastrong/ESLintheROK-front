@@ -8,7 +8,11 @@ i.link.icon.info-modal-icon {
 }
 
 i.link.icon.info-modal-icon:hover {
-  opacity: 1!important;
+  opacity: 1 !important;
+}
+
+.info-modal .ui.header .icon {
+  margin: 0 0.4rem 0;
 }
 
 .info-modal .ui.selection.dropdown {
@@ -19,7 +23,7 @@ i.link.icon.info-modal-icon:hover {
 }
 
 .info-modal .ui.selection.dropdown .menu {
-  max-height: 35rem; 
+  max-height: 35rem;
 }
 
 .info-modal .ui.dropdown .menu .item {
@@ -62,4 +66,10 @@ i.link.icon.info-modal-icon:hover {
 
 .info-modal-item-des {
   width: 53%;
+}
+
+.ui.modal > .close {
+  top: 1.0535rem;
+  right: 1rem;
+  color: rgba(0, 0, 0, 0.87);
 }

@@ -1,25 +1,47 @@
-import React, { useEffect } from "react";
-import { Route, Link, withRouter, Switch } from "react-router-dom";
+import React, { useEffect, useMemo } from "react";
+import { Route, withRouter, Switch } from "react-router-dom";
 import RouteTransition from "./RouteTransitions";
 import Home from "./Home";
 import FAQ from "./FAQ";
 import About from "./About";
 import Contact from "./Contact";
 import Games from "./Games";
-import InstructionsPage from "./pages/InstructionsPage";
+import Instructions from "./Instructions";
 import DataPage from "./DataPage";
 import ChooseLessonPage from "./ChooseLessonPage";
-import GamePage from "./pages/GamePage";
+import GamePage from "./GamePage";
 import HomeAPI from "./HomeAPI";
 import Error from "./Error";
+import WithStoreAndInfo from "./reusable/WithStoreAndInfo";
+import ConfirmBox from "./reusable/ConfirmBox";
+import TextLink from "./reusable/TextLink";
+import CheckGameWrapper from "./reusable/CheckGameWrapper";
+import { games } from "../helpers/data";
+import { useStore } from "../store";
 
-const Routes = ({ history, location }) => {
+// when the user alternates through the different game routes (teacher, student, etc.)
+// we'll save the gameInfo here and save the results to avoid filtering through
+// every game on each page
+// *viewed as a performance optimization as further games will be added
+function shortenGameRoute(pathname) {
+  const lastSlashPosition = pathname.indexOf("/", 6);
+  const lastSlashIndex = lastSlashPosition > 0 ? lastSlashPosition : pathname.length;
+  return pathname.substring(0, lastSlashIndex);
+}
+
+function Routes({ history, location }) {
+  const [{ isGameReady }, dispatch] = useStore();
   const { pathname } = location;
 
   useEffect(() => {
-    // track google events here
-    console.log("effect");
+    console.log("google effects here");
   }, [pathname]);
+
+  const shortenedRoute = shortenGameRoute(pathname);
+  const gameInfo = useMemo(() => {
+    if (!shortenedRoute.startsWith("/game/")) return;
+    return games.find(({ router }) => router.path === shortenedRoute);
+  }, [shortenedRoute]);
 
   return (
     <RouteTransition isBack={history.action === "POP"} location={location}>
@@ -33,142 +55,100 @@ const Routes = ({ history, location }) => {
         <Route exact path="/lessons" component={ChooseLessonPage} />
         <Route exact path="/api" component={HomeAPI} />
         <Route exact path="/api/data" component={ChooseLessonPage} />
-        <Route exact path="/game/:name" component={GamePage} />
-        <Route exact path="/game/:name/teacher" component={InstructionsPage} />
-        <Route exact path="/game/:name/student" component={InstructionsPage} />
-        {/* <Route exact path='/game/:name/play' component={} /> */}
+        <Route
+          exact
+          path="/game/:name/teacher"
+          render={() => (
+            <CheckGameWrapper isGameFound={!!gameInfo}>
+              <Instructions
+                isGameReady={isGameReady}
+                gameInfo={gameInfo}
+                options={["forTeachers", "right", "slideLeft"]}
+              />
+            </CheckGameWrapper>
+          )}
+        />
+        <Route
+          exact
+          path="/game/:name/student"
+          render={() => (
+            <CheckGameWrapper isGameFound={!!gameInfo}>
+              <Instructions
+                isGameReady={isGameReady}
+                gameInfo={gameInfo}
+                options={["forStudents", "left", "slideRight"]}
+              />
+            </CheckGameWrapper>
+          )}
+        />
+        <Route
+          exact
+          path="/game/:name"
+          render={({ location }) => (
+            <CheckGameWrapper isGameFound={!!gameInfo}>
+              <WithStoreAndInfo gameInfo={gameInfo} path={location.pathname}>
+                <GamePage />
+              </WithStoreAndInfo>
+            </CheckGameWrapper>
+          )}
+        />
+        <Route
+          exact
+          path="/game/:name/play"
+          render={({ location }) =>
+            isGameReady ? (
+              <>
+                <CheckGameWrapper isGameFound={!!gameInfo}>
+                  <WithStoreAndInfo gameInfo={gameInfo} path={location.pathname}>
+                    <gameInfo.router.component />
+                  </WithStoreAndInfo>
+                </CheckGameWrapper>
+                <FullScreenConfirmBox />
+              </>
+            ) : (
+              <Error
+                header="Whoa, you need some data to play."
+                content={<NoDataErrMsg />}
+              />
+            )
+          }
+        />
         <Route component={Error} />
       </Switch>
     </RouteTransition>
   );
-};
+}
 
 export default withRouter(Routes);
 
-//             {gameData && (
-//               <Fragment>
-//                 <Route
-//                   exact
-//                   path={gameData.router.path}
-//                   render={() => (
-//                     <GamePage
-//                       title={`Home - ${gameData.info.title}`}
-//                       gameData={gameData}
-//                       changeFont={changeFont}
-//                       font={font}
-//                       isGameReady={isGameReady}
-//                     />
-//                   )}
-//                 />
-//                 <Route
-//                   exact
-//                   path={`${gameData.router.path}/teacher`}
-//                   render={() => (
-//                     <InstructionsPage
-//                       title={`Teacher Instructions - ${gameData.info.title}`}
-//                       forPerson="forTeachers"
-//                       direction="right"
-//                       transitionClass="slideLeft"
-//                       path={gameData.router.path}
-//                       isGameReady={isGameReady}
-//                     />
-//                   )}
-//                 />
-//                 <Route
-//                   exact
-//                   path={`${gameData.router.path}/student`}
-//                   render={() => (
-//                     <InstructionsPage
-//                       title={`Student Instructions - ${gameData.info.title}`}
-//                       forPerson="forStudents"
-//                       direction="left"
-//                       transitionClass="slideRight"
-//                       path={gameData.router.path}
-//                       isGameReady={isGameReady}
-//                     />
-//                   )}
-//                 />
-//                 <Route
-//                   exact
-//                   path={`${gameData.router.path}/start`}
-//                   render={() =>
-//                     !isGameReady ? (
-//                       <Fragment>
-//                         <PageHeader
-//                           icon="exclamation"
-//                           text="Report reoccuring errors"
-//                           color="red"
-//                         />
-//                         <ErrorPage
-//                           header="Whoops, no data to play. Using the refresh button will lose your data."
-//                           content={
-//                             <p>
-//                               Go back to the
-//                               {
-//                                 <Link
-//                                   to={{
-//                                     pathname: "/lessons",
-//                                     state: { pageTransition: "slideUp" },
-//                                   }}
-//                                 >
-//                                   {" "}
-//                                   lessons{" "}
-//                                 </Link>
-//                               }
-//                               page or enter your own data
-//                               {
-//                                 <Link
-//                                   to={{
-//                                     pathname: "/data",
-//                                     state: { pageTransition: "slideUp" },
-//                                   }}
-//                                 >
-//                                   {" "}
-//                                   here
-//                                 </Link>
-//                               }
-//                               .
-//                             </p>
-//                           }
-//                         />
-//                       </Fragment>
-//                     ) : (
-//                       <Fragment>
-//                         <gameData.router.component
-//                           title={gameData.info.title}
-//                           expressions={expressions}
-//                           vocabulary={vocabulary}
-//                           dataUpdated={dataUpdated}
-//                           isMenuOpen={isMenuOpen}
-//                           colors={colors}
-//                           font={font}
-//                           isGameReady={isGameReady}
-//                         />
-//                         <ConfirmBox
-//                           open={window.screen.height !== window.innerHeight}
-//                           onConfirm={
-//                             typeof InstallTrigger !== "undefined"
-//                               ? () => document.documentElement.mozRequestFullScreen()
-//                               : () => document.documentElement.webkitRequestFullScreen()
-//                           }
-//                           cancelText="No, thanks."
-//                           confirmText="Do it."
-//                           header={`${gameData.info.title} should be played in fullscreen`}
-//                           content={
-//                             <div style={{ padding: "10px" }}>
-//                               <p>You can toggle fullscreen with F11 by yourself too.</p>
-//                               <p>
-//                                 <span style={{ fontWeight: "bold" }}>Note:</span> If you
-//                                 get a white screen next, contact me because this should've
-//                                 fixed it.
-//                               </p>
-//                             </div>
-//                           }
-//                         />
-//                       </Fragment>
-//                     )
-//                   }
-//                 />
-//               </Fragment>
-//             )}
-//
+const NoDataErrMsg = () => (
+  <p>
+    Go back to the
+    <TextLink path="lessons" text=" lessons " />
+    page or enter your own data
+    <TextLink path="data" text=" here" />.
+  </p>
+);
+
+const FullScreenConfirmBox = () => (
+  <ConfirmBox
+    open={window.screen.height !== window.innerHeight}
+    onConfirm={
+      typeof InstallTrigger !== "undefined"
+        ? () => document.documentElement.mozRequestFullScreen()
+        : () => document.documentElement.webkitRequestFullScreen()
+    }
+    cancelButton="No, thanks."
+    confirmButton="Do it."
+    header="Games should be played in fullscreen"
+    content={
+      <div>
+        <p>You can toggle fullscreen with F11 by yourself too.</p>
+        <p>
+          <span>Note:</span> If you get a white screen next, contact me because this
+          should've fixed it.
+        </p>
+      </div>
+    }
+  />
+);
