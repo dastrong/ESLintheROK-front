@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Confirm } from "semantic-ui-react";
-
-const styles = {
-  textAlign: "center",
-  letterSpacing: "0.3px",
-};
+import ConfirmBox from "./reusable/ConfirmBox";
 
 export default function ServiceWorker() {
   const [updateAvailable, toggleUpdate] = useState(false);
@@ -20,8 +15,7 @@ export default function ServiceWorker() {
   }, []);
 
   return (
-    <Confirm
-      style={styles}
+    <ConfirmBox
       open={updateAvailable}
       header="ESL in the ROK has recently been updated"
       content="Please refresh your browser to apply these changes"
