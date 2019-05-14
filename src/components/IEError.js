@@ -31,7 +31,11 @@ export default function IEError() {
 
   return (
     <>
-      <PageHeader icon="internet explorer" text="Welco. . . nvm." />
+      <PageHeader
+        icon="internet explorer"
+        text="Welco. . . nvm."
+        outerScopeError={true}
+      />
       <div className="startUpError-container">
         <div className="startUpError-inner">
           <img

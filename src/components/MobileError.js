@@ -4,7 +4,7 @@ import "./_StartUpError.css";
 
 export default () => (
   <>
-    <PageHeader icon="mobile" text="Welco. . . nvm." />
+    <PageHeader icon="mobile" text="Welco. . . nvm." outerScopeError={true} />
     <div className="startUpError-container">
       <div className="startUpError-inner">
         <h2>

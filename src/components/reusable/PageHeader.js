@@ -4,10 +4,10 @@ import { Header, Icon, Image } from "semantic-ui-react";
 import Favicon from "../../assets/images/Favicon.svg";
 import "./PageHeader.css";
 
-const PageHeader = ({ icon, text, color }) => (
+const PageHeader = ({ icon, text, color, outerScopeError }) => (
   <Header as="h2" color={color} textAlign="center">
     <Image
-      as={Link}
+      as={outerScopeError ? "a" : Link}
       to={{
         pathname: "/",
         state: { pageTransition: "slideUp" },
