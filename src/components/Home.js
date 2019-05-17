@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Embed, Modal } from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
 import useDocumentTitle from "../hooks/useDocumentTitle";
 import { useStore } from "../store";
 import "./Home.css";
