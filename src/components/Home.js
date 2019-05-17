@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "semantic-ui-react";
+import { Button, Icon } from "semantic-ui-react";
 import useDocumentTitle from "../hooks/useDocumentTitle";
 import { useStore } from "../store";
 import "./Home.css";
@@ -98,6 +98,11 @@ export default function Home() {
           <span className="split-row" />
         </div>
       </Link>
+
+      <Button color="blue" size="large">
+        <Icon name="folder open" />
+        Past Lessons
+      </Button>
 
       <Button
         as="a"

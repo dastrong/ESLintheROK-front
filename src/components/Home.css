@@ -109,14 +109,24 @@
   }
 }
 
-.mainpage-container .ui.button.yellow {
+.mainpage-container .ui.button {
   position: absolute;
   bottom: 10px;
-  right: 10px;
   margin: 0;
+}
+
+.mainpage-container .ui.button.blue {
+  left: 10px;
+}
+
+.mainpage-container .ui.button.yellow {
+  right: 10px;
   display: flex;
   align-items: center;
+  padding-left: 44px;
 }
-.mainpage-container .ui.button.yellow > img {
-  margin: 0 3px 0 -7px;
+
+.mainpage-container .ui.button > img {
+  position: absolute;
+  left: 16px;
 }
