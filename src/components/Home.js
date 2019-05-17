@@ -99,7 +99,11 @@ export default function Home() {
         </div>
       </Link>
 
-      <Button color="blue" size="large">
+      <Button
+        color="blue"
+        size="large"
+        onClick={() => dispatch({ type: "openPastLessons" })}
+      >
         <Icon name="folder open" />
         Past Lessons
       </Button>

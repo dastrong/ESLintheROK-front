@@ -5,7 +5,8 @@ const initialState = {
   expressions: [],
   isGameReady: false,
   showSideBar: false,
-  showDataBar: false,
+  showDataModal: false,
+  showPastLessons: null,
   dataModalName: "",
   font: "Poppins, sans-serif",
   colors: [
@@ -38,6 +39,10 @@ const reducer = (state, action) => {
       return { ...state, showDataModal: true, dataModalName: name };
     case "closeDataModal":
       return { ...state, showDataModal: false, dataModalName: "" };
+    case "openPastLessons":
+      return { ...state, showPastLessons: true };
+    case "closePastLessons":
+      return { ...state, showPastLessons: false };
     case "setFont":
       return { ...state, font };
     default:

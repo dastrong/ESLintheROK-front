@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { StoreProvider } from "../store";
 import SideBar from "./SideBar";
 import DataModal from "./DataModal";
+import PastLessonModal from "./PastLessonModal";
 import Routes from "./Routes";
 import "./App.css";
 
@@ -17,6 +18,7 @@ export default function App() {
       <StoreProvider>
         <SideBar />
         <DataModal />
+        <PastLessonModal />
         <Routes />
       </StoreProvider>
     </BrowserRouter>
