@@ -99,13 +99,19 @@ export default function Home() {
         </div>
       </Link>
 
-      <Modal
-        trigger={<Button color="green" content="Take the tour" size="big" icon="map" />}
-        basic
-        size="small"
+      <Button
+        as="a"
+        size="large"
+        color="yellow"
+        target="_blank"
+        href="https://www.buymeacoffee.com/ycqPbFl"
       >
-        <Embed id="MSoCFQ2RV94" source="youtube" />
-      </Modal>
+        <img
+          src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg"
+          alt="Buy me a coffee"
+        />
+        Buy me a coffee
+      </Button>
     </div>
   );
 }
