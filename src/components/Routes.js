@@ -108,7 +108,7 @@ function Routes({ history, location }) {
             ) : (
               <Error
                 header="Whoa, you need some data to play."
-                content={<NoDataErrMsg />}
+                content={<NoDataErrMsg dispatch={dispatch} />}
               />
             )
           }
@@ -121,12 +121,16 @@ function Routes({ history, location }) {
 
 export default withRouter(Routes);
 
-const NoDataErrMsg = () => (
+const NoDataErrMsg = ({ dispatch }) => (
   <p>
-    Go back to the
-    <TextLink path="lessons" text=" lessons " />
-    page or enter your own data
-    <TextLink path="data" text=" here" />.
+    Choose a lesson
+    <TextLink path="lessons" text=" here" />
+    , enter your own data
+    <TextLink path="data" text=" here " />
+    or choose one of your past lessons{" "}
+    <button onClick={() => dispatch({ type: "togglePastLessons", bool: true })}>
+      here
+    </button>
   </p>
 );
 
