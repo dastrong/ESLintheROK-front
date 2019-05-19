@@ -29,14 +29,14 @@
   position: relative;
 }
 
-.match.front {
+.match-front {
   background-color: #40c819;
   position: absolute;
   opacity: 1;
   font-size: 75px;
 }
 
-.match.back {
+.match-back {
   position: absolute;
   background-color: #adacac;
   opacity: 0;

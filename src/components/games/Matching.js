@@ -146,11 +146,11 @@ class Matching extends Component {
           style={{ width, height }}
         >
           <CSSTransition in={!show} timeout={0} classNames="matcher">
-            <div className="match front">{i + 1}</div>
+            <div className="match match-front">{i + 1}</div>
           </CSSTransition>
           <ReactFitText compressor={compressor} minFontSize={0} maxFontSize={100}>
             <CSSTransition in={show} timeout={0} classNames="matcher">
-              <div className="match back" id={i}>
+              <div className="match match-back" id={i}>
                 {text !== "poo" ? text : "💩"}
               </div>
             </CSSTransition>
