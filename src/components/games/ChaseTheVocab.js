@@ -10,9 +10,9 @@ import {
   setData,
   addTitle,
   addGoogEvent,
-  resetAndReload
+  resetAndReload,
 } from "../../helpers/phase2helpers";
-import "../../styles/games/ChaseTheVocab.css";
+import "./ChaseTheVocab.css";
 
 class ChaseTheVocab extends Component {
   constructor(props) {
@@ -25,11 +25,11 @@ class ChaseTheVocab extends Component {
       settings: {
         shuffDuration: 2000,
         shuffBuffer: 500,
-        shuffRounds: 5
+        shuffRounds: 5,
       },
       compressor: 0.6,
       colors: this.props.colors,
-      color: 2
+      color: 2,
     };
     this.addListeners = addListeners.bind(this);
     this.rmvListeners = rmvListeners.bind(this);
@@ -64,7 +64,7 @@ class ChaseTheVocab extends Component {
       clickedIDs: [],
       isAnimating: false,
       isShuffleDone: false,
-      round: 0
+      round: 0,
     });
   };
 
@@ -80,10 +80,7 @@ class ChaseTheVocab extends Component {
 
   _startShuffling = () => {
     const { shuffDuration, shuffBuffer } = this.state.settings;
-    this.intervalID = setInterval(
-      this._handleShuffle,
-      shuffDuration + shuffBuffer
-    );
+    this.intervalID = setInterval(this._handleShuffle, shuffDuration + shuffBuffer);
   };
 
   _stopShuffling = () => {
@@ -99,7 +96,7 @@ class ChaseTheVocab extends Component {
       }
       return {
         gameData: shuffle(this.state.gameData.slice()),
-        round: prevState.round + 1
+        round: prevState.round + 1,
       };
     });
   };
@@ -131,11 +128,9 @@ class ChaseTheVocab extends Component {
     // spacebar/enter was clicked; reset the game
     if (e.keyCode === 32 || e.keyCode === 13) return this.handleReset();
     // up arrow was clicked; increase the font size
-    if (e.keyCode === 38)
-      return this.setState({ compressor: compressor - 0.05 });
+    if (e.keyCode === 38) return this.setState({ compressor: compressor - 0.05 });
     // down arrow was clicked; decrease the font size
-    if (e.keyCode === 40)
-      return this.setState({ compressor: compressor + 0.05 });
+    if (e.keyCode === 40) return this.setState({ compressor: compressor + 0.05 });
     // c was clicked; change the cards background color
     if (e.keyCode === 67) {
       this.setState(prevState => {
@@ -183,7 +178,7 @@ class ChaseTheVocab extends Component {
       isShuffleDone,
       clickedIDs,
       color,
-      settings
+      settings,
     } = this.state;
     const boxClass = classNames(
       "box",
@@ -193,7 +188,7 @@ class ChaseTheVocab extends Component {
       { "box-shrink": isAnimating && !isShuffleDone }
     );
     const numClass = classNames(boxClass, "box-number", {
-      "box-number-show": isShuffleDone
+      "box-number-show": isShuffleDone,
     });
     const boxes = gameData.map((x, i) => (
       <div key={x.id}>

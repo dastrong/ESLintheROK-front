@@ -11,9 +11,9 @@ import {
   setAllData,
   addTitle,
   addGoogEvent,
-  resetAndReload
+  resetAndReload,
 } from "../../helpers/phase2helpers";
-// import "../../styles/games/CSSFILEHERE.css";
+// import "./CSSFILEHERE.css";
 import { sampleData } from "../../helpers/data";
 
 class Template extends Component {
@@ -23,7 +23,7 @@ class Template extends Component {
       data: [],
       gameData: [],
       isVocab: true,
-      compressor: 0.6
+      compressor: 0.6,
     };
     this.addListeners = addListeners.bind(this);
     this.rmvListeners = rmvListeners.bind(this);
