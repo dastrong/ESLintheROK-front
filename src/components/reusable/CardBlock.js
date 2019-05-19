@@ -1,6 +1,6 @@
 import React from "react";
 import ReactFitText from "react-fittext";
-import "../../styles/reusable/CardBlock.css";
+import "./CardBlock.css";
 
 const CardBlock = ({
   text,
@@ -9,7 +9,7 @@ const CardBlock = ({
   backColor,
   handleClick,
   id,
-  timeout
+  timeout,
 }) => (
   <ReactFitText compressor={compressor} minFontSize={0} maxFontSize={500}>
     <div
@@ -18,7 +18,7 @@ const CardBlock = ({
       className={boxClass}
       style={{
         backgroundColor: backColor,
-        transitionDelay: `${timeout}ms`
+        transitionDelay: `${timeout}ms`,
       }}
     >
       {text}
