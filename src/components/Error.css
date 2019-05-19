@@ -1,0 +1,25 @@
+.error-container {
+  min-height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error-container-msg {
+  text-align: center;
+  width: 100%;
+  margin: 0 !important;
+}
+
+.error-container-msg button {
+  background: none !important;
+  color: #4183c4;
+  border: none;
+  padding: 0 !important;
+  font: inherit;
+  cursor: pointer;
+}
+
+.error-container-img {
+  margin: auto;
+}
