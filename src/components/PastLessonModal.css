@@ -1,0 +1,53 @@
+.past-lesson-modal > .header span {
+  font-size: 0.8em;
+  line-height: 25px;
+  vertical-align: top;
+  font-style: italic;
+}
+
+.past-lesson-list i {
+  cursor: pointer;
+}
+
+.past-lesson-list .floated.content {
+  height: 56px;
+  display: flex;
+  align-items: center;
+}
+
+.past-lesson-list .floated.content button {
+  margin: 0;
+}
+
+.past-lesson-list .item {
+  padding: 7px 0 !important;
+}
+
+.past-lesson-list .item:first-child {
+  padding-top: 0 !important;
+}
+
+.past-lesson-list .item:last-child {
+  padding-bottom: 0 !important;
+}
+
+.past-lesson-list .no-past-lessons {
+  text-align: center;
+}
+
+.joined-list {
+  text-overflow: ellipsis;
+  width: 650px;
+  white-space: nowrap;
+  overflow: hidden;
+  font-style: italic;
+}
+
+.joined-list span {
+  font-weight: bold;
+  font-style: normal;
+}
+
+.joined-list.description:nth-of-type(2) {
+  margin: 3px 0;
+}

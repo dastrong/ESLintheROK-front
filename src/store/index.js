@@ -6,7 +6,8 @@ const initialState = {
   isGameReady: false,
   showSideBar: false,
   showDataModal: false,
-  showPastLessons: null,
+  showPastLessons: false,
+  pastLessons: [],
   dataModalName: "",
   font: "Poppins, sans-serif",
   colors: [
@@ -25,7 +26,7 @@ const initialState = {
 // we won't set a variable to see if the data was updated
 // instead we'll just check the vocab and expression arrays for changes
 const reducer = (state, action) => {
-  const { type, vocabulary, expressions, name, font } = action;
+  const { type, vocabulary, expressions, name, font, bool, pastLessons } = action;
   switch (type) {
     case "setData":
       return { ...state, vocabulary, expressions, isGameReady: true };
@@ -39,10 +40,10 @@ const reducer = (state, action) => {
       return { ...state, showDataModal: true, dataModalName: name };
     case "closeDataModal":
       return { ...state, showDataModal: false, dataModalName: "" };
-    case "openPastLessons":
-      return { ...state, showPastLessons: true };
-    case "closePastLessons":
-      return { ...state, showPastLessons: false };
+    case "togglePastLessons":
+      return { ...state, showPastLessons: bool };
+    case "setPastLessons":
+      return { ...state, pastLessons };
     case "setFont":
       return { ...state, font };
     default:

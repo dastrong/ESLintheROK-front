@@ -53,7 +53,7 @@ function reducer(state, action) {
 }
 
 export default function Data({ isAPI, setScreen, postURL, ...data }) {
-  const [store, storeDispatch] = useStore();
+  const [{ dataModalName, pastLessons, ...store }, storePatch] = useStore();
   const [
     { text, vocabulary, expressions, chapter, title, activeContent, showSuccessBox },
     dispatch,
@@ -61,12 +61,14 @@ export default function Data({ isAPI, setScreen, postURL, ...data }) {
   const { percent, color } = useProgress(isAPI, vocabulary, expressions, chapter, title);
 
   useEffect(() => {
-    dispatch({
-      type: "Set_Initial_Data",
-      vocabulary: data.vocabulary || [],
-      expressions: data.expressions || [],
-    });
-  }, [data.vocabulary, data.expressions]);
+    const dataProps =
+      dataModalName === "lessons"
+        ? data
+        : dataModalName === "dataEdit"
+        ? { vocabulary: store.vocabulary, expressions: store.expressions }
+        : { vocabulary: [], expressions: [] };
+    dispatch({ type: "Set_Initial_Data", ...dataProps });
+  }, [data, dataModalName, store.vocabulary, store.expressions]);
 
   function toggleAccordion() {
     dispatch({
@@ -93,7 +95,21 @@ export default function Data({ isAPI, setScreen, postURL, ...data }) {
   }
 
   function setData() {
-    storeDispatch({ type: "setData", vocabulary, expressions });
+    const data = { vocabulary, expressions };
+    // add 1 to the largest id or start at 1 - to avoid duplicates
+    const id = !!pastLessons.length
+      ? Math.max(...pastLessons.map(lesson => lesson.id)) + 1
+      : 1;
+    // create the data string
+    const date = new Date();
+    const day = date.toDateString();
+    const time = date.toLocaleTimeString();
+    const createdOn = `${day} at ${time}`;
+    // add the new one at the end of all the other lessons
+    const updatedStorage = [...pastLessons, { ...data, createdOn, id }];
+    localStorage.setItem("lessonData", JSON.stringify(updatedStorage));
+    storePatch({ type: "setData", ...data });
+    storePatch({ type: "setPastLessons", pastLessons: updatedStorage });
     dispatch({ type: "Toggle_Success_Box", bool: true });
   }
 
@@ -173,15 +189,15 @@ export default function Data({ isAPI, setScreen, postURL, ...data }) {
         <Modal.Content>Do you want to go to the games page now?</Modal.Content>
         <Modal.Actions>
           <Button
-            disabled={!store.showDataModal}
-            onClick={() => storeDispatch({ type: "closeDataModal" })}
+            disabled={!dataModalName}
+            onClick={() => storePatch({ type: "closeDataModal" })}
             content="Nope, stay here."
           />
           <Button
             positive
             as={Link}
             to={{ pathname: "/games", state: { pageTransition: "slideUp" } }}
-            onClick={() => storeDispatch({ type: "closeDataModal" })}
+            onClick={() => storePatch({ type: "closeDataModal" })}
             content="Yup, take me there."
           />
         </Modal.Actions>

@@ -7,7 +7,7 @@ import "./Home.css";
 
 export default function Home() {
   useDocumentTitle("Home - ESL in the ROK");
-  const dispatch = useStore()[1];
+  const [{ pastLessons }, dispatch] = useStore();
 
   return (
     <div className="mainpage-container">
@@ -102,10 +102,11 @@ export default function Home() {
       <Button
         color="blue"
         size="large"
-        onClick={() => dispatch({ type: "openPastLessons" })}
+        disabled={!pastLessons.length}
+        onClick={() => dispatch({ type: "togglePastLessons", bool: true })}
       >
         <Icon name="folder open" />
-        Past Lessons
+        {!pastLessons.length && "No "}Past Lessons
       </Button>
 
       <Button
