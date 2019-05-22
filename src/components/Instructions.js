@@ -3,9 +3,12 @@ import classNames from "classnames";
 import { Link } from "react-router-dom";
 import { Button, Icon, Step } from "semantic-ui-react";
 import useDocumentTitle from "../hooks/useDocumentTitle";
+import { useStore } from "../store";
 import "./Instructions.css";
 
 export default function InstructionsPage({ isGameReady, gameInfo, options }) {
+  const { showSideBar } = useStore()[0];
+
   const [forPerson, direction, transitionClass] = options;
   const { router, info } = gameInfo;
   const instructions = gameInfo.instructions[forPerson];
@@ -51,12 +54,13 @@ export default function InstructionsPage({ isGameReady, gameInfo, options }) {
 
   const handleScroll = useCallback(
     ({ type, buttons, deltaY }) => {
+      if (showSideBar) return;
       if (type === "wheel") {
         if (buttons) return;
         return deltaY < 0 ? handleIndex() : handleIndex(-1);
       }
     },
-    [handleIndex]
+    [handleIndex, showSideBar]
   );
 
   useEffect(() => {
