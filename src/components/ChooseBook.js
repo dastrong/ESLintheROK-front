@@ -49,10 +49,13 @@ export default function ChooseBook({
     const halfURL = `${activeGradeId}/${bookId}`;
     const urls = targetLessons.map(url => `${halfURL}/${url}`);
     const data = await Promise.all(urls.map(url => apiRequest(url)));
-    const combinedData = data.reduce((acc, cVal) => ({
-      vocabulary: [...acc.vocabulary, ...cVal.vocabulary],
-      expressions: [...acc.expressions, ...cVal.expressions],
-    }));
+    const combinedData = data.reduce(
+      (acc, cVal) => ({
+        vocabulary: [...acc.vocabulary, ...cVal.vocabulary],
+        expressions: [...acc.expressions, ...cVal.expressions],
+      }),
+      { vocabulary: [], expressions: [] }
+    );
     setData(combinedData);
     setScreen(3);
   }

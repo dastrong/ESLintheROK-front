@@ -69,7 +69,7 @@ const Second = ({
 
 const Third = ({ isIn, isAPI, setScreen, postURL, data }) => (
   <Transition isIn={isIn} cx="third" timeout={0}>
-    <Data isAPI={isAPI} setScreen={setScreen} postURL={postURL} {...data} />
+    <Data isAPI={isAPI} setScreen={setScreen} postURL={postURL} data={data} />
   </Transition>
 );
 

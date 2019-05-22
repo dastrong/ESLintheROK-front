@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useCallback, useReducer } from "react";
 import { Link } from "react-router-dom";
 import { Accordion, Icon, Progress, Button, Modal } from "semantic-ui-react";
 import { DForm, DTable, DButton, DApiInputs } from "./DataHelpers";
@@ -6,21 +6,18 @@ import { useStore } from "../store";
 import useProgress from "../hooks/useProgress";
 import "./Data.css";
 
-const initialState = {
+const getInitialState = data => ({
+  ...data,
   text: "",
-  vocabulary: [],
-  expressions: [],
   chapter: "",
   title: "",
   activeContent: "Vocabulary",
   showSuccessBox: false,
-};
+});
 
 function reducer(state, action) {
-  const { type, text, vocabulary, expressions, value, activeContent, id, bool } = action;
+  const { type, text, value, activeContent, id, bool } = action;
   switch (type) {
-    case "Set_Initial_Data":
-      return { ...state, vocabulary, expressions };
     case "Set_Text":
       return { ...state, text };
     case "Add_Vocabulary":
@@ -52,23 +49,14 @@ function reducer(state, action) {
   }
 }
 
-export default function Data({ isAPI, setScreen, postURL, ...data }) {
-  const [{ dataModalName, pastLessons, ...store }, storePatch] = useStore();
+export default function Data({ isAPI, setScreen, postURL, data }) {
+  const initialState = useCallback(getInitialState(data), [data]);
+  const [{ dataModalName, pastLessons }, storePatch] = useStore();
   const [
     { text, vocabulary, expressions, chapter, title, activeContent, showSuccessBox },
     dispatch,
   ] = useReducer(reducer, initialState);
   const { percent, color } = useProgress(isAPI, vocabulary, expressions, chapter, title);
-
-  useEffect(() => {
-    const dataProps =
-      dataModalName === "lessons"
-        ? data
-        : dataModalName === "dataEdit"
-        ? { vocabulary: store.vocabulary, expressions: store.expressions }
-        : { vocabulary: [], expressions: [] };
-    dispatch({ type: "Set_Initial_Data", ...dataProps });
-  }, [data, dataModalName, store.vocabulary, store.expressions]);
 
   function toggleAccordion() {
     dispatch({

@@ -5,7 +5,10 @@ import Data from "./Data";
 import { useStore } from "../store";
 
 export default function DataModal() {
-  const [{ showDataModal, dataModalName }, dispatch] = useStore();
+  const [store, dispatch] = useStore();
+  const { showDataModal, dataModalName, vocabulary, expressions } = store;
+  const data = { vocabulary, expressions };
+  const daPrp = dataModalName === "dataEdit" ? data : { vocabulary: [], expressions: [] };
 
   return (
     <Modal
@@ -17,7 +20,7 @@ export default function DataModal() {
     >
       <Modal.Content>
         <div className="page-container-inner">
-          {dataModalName === "lessons" ? <Lessons /> : <Data />}
+          {dataModalName === "lessons" ? <Lessons /> : <Data data={daPrp} />}
         </div>
       </Modal.Content>
     </Modal>
