@@ -16,6 +16,10 @@ i.link.icon.info-modal-icon:hover {
   margin: 0 0.4rem 0;
 }
 
+.info-modal .ui.header.center i.icon {
+  display: inline-block;
+}
+
 .info-modal .ui.selection.dropdown {
   padding-left: 2.1em;
   font-size: 1.2em;

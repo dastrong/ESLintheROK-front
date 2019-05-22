@@ -5,7 +5,7 @@ import Favicon from "../../assets/images/Favicon.svg";
 import "./PageHeader.css";
 
 const PageHeader = ({ icon, text, color, outerScopeError }) => (
-  <Header as="h2" color={color} textAlign="center">
+  <Header as="h2" color={color} textAlign="center" className="page-header">
     <Image
       as={outerScopeError ? "a" : Link}
       to={{

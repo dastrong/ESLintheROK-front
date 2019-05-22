@@ -1,4 +1,4 @@
-.ui.header.aligned.center {
+.page-header.ui.header.aligned.center {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,38 +9,38 @@
   background-color: #f6f5f5;
 }
 
-.ui.header.aligned.center hr {
+.page-header.ui.header.aligned.center hr {
   border: 0.8px solid rgba(0, 0, 0, 0.6);
   margin: 7px 5px 3px;
 }
 
-.ui.header.aligned.center .ui.image {
+.page-header.ui.header.aligned.center .ui.image {
   margin-top: 0;
   width: 2.4em;
   max-height: 68.5px;
 }
 
-.ui.header.aligned.center .ui.image img {
+.page-header.ui.header.aligned.center .ui.image img {
   max-height: 68.5px;
 }
 
-.ui.header.aligned.center .content {
+.page-header.ui.header.aligned.center .content {
   padding-left: 0.725rem;
   padding-right: 0.75rem;
   width: 300px;
 }
 
 @media only screen and (max-width: 425px) {
-  .ui.header.aligned.center .content {
+  .page-header.ui.header.aligned.center .content {
     width: 250px;
   }
 }
 
 @media only screen and (max-width: 374px) {
-  .ui.header > .icon {
+  .page-header.ui.header > .icon {
     font-size: 1.7em;
   }
-  .ui.header i.circular.icon {
+  .page-header.ui.header i.circular.icon {
     line-height: 1.1 !important;
     padding: 0.35em 0 !important;
     box-shadow: 0 0 0 0.1em rgba(0, 0, 0, 0) inset;
