@@ -246,7 +246,11 @@ const panels = [
       key: "buy-me-a-coffee-content",
       content: (
         <div>
-          <p>The site is free to use and will be kept that way.</p>
+          <p>If you want to, sure.</p>
+          <p>
+            The site is free to use and will be kept that way, so don't feel like you need
+            to.
+          </p>
           <p>With that said... I like coffee. Coffee is cheap. People can be generous.</p>
           <p>Any amount is appreciated.</p>
           <p>
