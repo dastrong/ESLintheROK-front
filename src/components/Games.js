@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Grid, Image, Label, Card } from "semantic-ui-react";
+import { Button, Grid, Label, Card } from "semantic-ui-react";
 import PageHeader from "./reusable/PageHeader";
 import { games } from "../helpers/data";
 import useDocumentTitle from "../hooks/useDocumentTitle";
+import ImgWithPlaceHolder from "./reusable/ImgWithPlaceholder";
 import "./Games.css";
 
 export default function GamesPage() {
@@ -33,8 +34,9 @@ const GridItems = ({ games }) =>
           <PlayGameButton url={router.path} />
           <Label attached="bottom" color="grey" content={info.skills.join(", ")} />
         </Card.Content>
-        <Image
+        <ImgWithPlaceHolder
           src={info.images.bottomText}
+          alt={info.title}
           label={
             info.attachments && {
               as: "a",

@@ -1,21 +1,21 @@
 .gamesPage-container {
   height: calc(100vh - 86px);
-  padding: 30px 0;
+  padding: 20px 0 30px;
   overflow-y: auto;
 }
 
-.ui.grid {
+.gamesPage-container .ui.grid {
   margin: 0 10px;
   justify-content: center;
 }
 
-.ui.card:first-child,
-.ui.card:last-child,
-.ui.card {
+.gamesPage-container .ui.card:first-child,
+.gamesPage-container .ui.card:last-child,
+.gamesPage-container .ui.card {
   margin: 10px;
 }
 
-.ui.card > .content {
+.gamesPage-container .ui.card > .content {
   padding: 30px 10px;
   opacity: 0;
   z-index: 1;
@@ -27,31 +27,31 @@
   transition: opacity 0.25s ease-in-out;
 }
 
-.ui.card > .content > .description {
+.gamesPage-container .ui.card > .content > .description {
   margin-bottom: 1em;
 }
 
-.ui.card > .content > .ui.button {
+.gamesPage-container .ui.card > .content > .ui.button {
   margin-right: 0;
 }
 
-.ui.card > .image {
+.gamesPage-container .ui.card > .image {
   position: absolute;
 }
 
-.ui.card > .image > img {
+.gamesPage-container .ui.card > .image > img {
   opacity: 1;
   transition: opacity 0.25s ease-in-out;
 }
 
-.ui.card:hover .content {
+.gamesPage-container .ui.card:hover .content {
   opacity: 1;
 }
 
-.ui.card:hover img {
+.gamesPage-container .ui.card:hover img {
   opacity: 0;
 }
 
-.ui.top.attached.label:first-child + :not(.attached) {
+.gamesPage-container .ui.top.attached.label:first-child + :not(.attached) {
   margin-top: 0 !important;
 }
