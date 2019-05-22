@@ -6,7 +6,7 @@
 .instructions-container img {
   position: absolute;
   bottom: 10px;
-  height: 150px;
+  height: 90px;
   opacity: 0.85;
   transition: opacity 0.25s;
 }
@@ -21,7 +21,7 @@
 
 .instructions-list {
   margin: 0;
-  height: calc(100vh - 150px - 50px);
+  height: calc(100vh - 100px - 66px);
   list-style: none;
   padding: 0;
   display: flex;
@@ -45,7 +45,7 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 150px;
+  height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -79,24 +79,25 @@
   padding-right: 1.18em !important;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 900px) {
   .instructions-container img:nth-of-type(2) {
     opacity: 0;
     z-index: -1;
   }
 
   .instructions-buttons {
-    left: 230px;
-    width: calc(100vw - 230px);
+    left: 145px;
+    width: calc(100vw - 145px);
   }
 }
 
-.ui.steps {
-  margin: 0;
+.ui.steps.fluid {
+  margin: 0 0 0 66px;
   border: 0;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  height: 50px;
+  height: 66px;
+  width: calc(100% - 66px);
 }
 
 .ui.steps .step.active,

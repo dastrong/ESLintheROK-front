@@ -3,11 +3,18 @@
   z-index: 100;
   background-color: rgb(255, 255, 255, 0);
   transition: 0.5s all;
+  top: 15px;
+  left: 15px;
+  margin: 0;
+  padding: 0;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
 }
 
 .ui.button.sideBarBtn:hover {
-  background-color: rgb(255, 255, 255, 0);
-  opacity: 1!important;
+  background-color: rgba(180, 175, 175, 0.4);
+  opacity: 1 !important;
 }
 
 .ui.menu {

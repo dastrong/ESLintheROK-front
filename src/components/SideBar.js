@@ -1,12 +1,25 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Button, Icon, Menu, Sidebar } from "semantic-ui-react";
 import { games } from "../helpers/data";
 import { useStore } from "../store";
 import "./SideBar.css";
 
-export default function SideBar(props) {
+const withoutPageHeaderStyles = {
+  top: "5px",
+  left: "5px",
+  height: "56px",
+  width: "56px",
+};
+
+export default withRouter(function SideBar({ location }) {
   const [{ showSideBar, isGameReady }, dispatch] = useStore();
+
+  const { pathname } = location;
+  // moves the menu icon depending on if a page header is show
+  // and makes the icon invisible during game play
+  const withoutPageHeader = pathname.includes("/game/") ? withoutPageHeaderStyles : null;
+  const opacity = pathname.includes("/play") ? 0 : 1;
 
   function openAndClose(e, { name }) {
     dispatch({ type: "openDataModal", name });
@@ -15,7 +28,6 @@ export default function SideBar(props) {
 
   const closeSideBar = () => dispatch({ type: "closeSideBar" });
 
-  const { opacity } = props;
   return (
     <div className="sidebar sidebar-main">
       <Button
@@ -23,7 +35,7 @@ export default function SideBar(props) {
         icon="list"
         size="massive"
         onClick={() => dispatch({ type: "openSideBar" })}
-        style={{ opacity }}
+        style={{ opacity, ...withoutPageHeader }}
       />
       <Sidebar
         as={Menu}
@@ -91,7 +103,7 @@ export default function SideBar(props) {
       </Sidebar>
     </div>
   );
-}
+});
 
 const MenuItem = ({ path, icon, title, closeSideBar }) => (
   <Menu.Item
