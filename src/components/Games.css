@@ -1,5 +1,5 @@
 .gamesPage-container {
-  height: calc(100vh - 100px);
+  height: calc(100vh - 86px);
   padding: 30px 0;
   overflow-y: auto;
 }
@@ -15,7 +15,7 @@
   margin: 10px;
 }
 
-.ui.card>.content {
+.ui.card > .content {
   padding: 30px 10px;
   opacity: 0;
   z-index: 1;
@@ -27,19 +27,19 @@
   transition: opacity 0.25s ease-in-out;
 }
 
-.ui.card>.content>.description {
+.ui.card > .content > .description {
   margin-bottom: 1em;
 }
 
-.ui.card>.content>.ui.button {
+.ui.card > .content > .ui.button {
   margin-right: 0;
 }
 
-.ui.card>.image {
+.ui.card > .image {
   position: absolute;
 }
 
-.ui.card>.image>img {
+.ui.card > .image > img {
   opacity: 1;
   transition: opacity 0.25s ease-in-out;
 }
@@ -52,6 +52,6 @@
   opacity: 0;
 }
 
-.ui.top.attached.label:first-child+:not(.attached) {
-  margin-top: 0!important;
+.ui.top.attached.label:first-child + :not(.attached) {
+  margin-top: 0 !important;
 }

@@ -21,7 +21,7 @@
 
 .instructions-list {
   margin: 0;
-  height: calc(100vh - 100px - 66px);
+  height: calc(100vh - 86px - 66px);
   list-style: none;
   padding: 0;
   display: flex;

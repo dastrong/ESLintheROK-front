@@ -2,12 +2,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 100px - 60px);
+  min-height: calc(100vh - 86px - 60px);
   height: 100%;
 }
 
 .first-screen {
-  height: calc(100vh - 100px - 120px);
+  height: calc(100vh - 86px - 120px);
   display: flex;
   flex-direction: column;
   justify-content: center;
