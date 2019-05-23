@@ -14,7 +14,7 @@ export default function WithStoreAndInfo({ children, gameInfo, path }) {
     font,
     colors,
     showSideBar,
-    showDataBar,
+    showDataModal,
   } = store;
 
   const childProps = path.includes("/play")
@@ -24,7 +24,7 @@ export default function WithStoreAndInfo({ children, gameInfo, path }) {
         vocabulary,
         expressions,
         colors,
-        isMenuOpen: showSideBar || showDataBar,
+        isMenuOpen: showSideBar || showDataModal,
       }
     : { title, font, isGameReady, path, image: images.topText };
 
