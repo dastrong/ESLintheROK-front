@@ -56,3 +56,7 @@
 .ui.overlay.sidebar {
   z-index: 1001;
 }
+
+.sidebar-main .ui.sidebar .item:last-child {
+  margin-bottom: 20px;
+}
