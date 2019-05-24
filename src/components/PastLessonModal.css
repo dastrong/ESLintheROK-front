@@ -21,6 +21,8 @@
 
 .past-lesson-list .item {
   padding: 7px 0 !important;
+  display: flex !important;
+  align-items: center;
 }
 
 .past-lesson-list .item:first-child {
@@ -29,6 +31,10 @@
 
 .past-lesson-list .item:last-child {
   padding-bottom: 0 !important;
+}
+
+.past-lesson-list .item .content {
+  width: 90% !important;
 }
 
 .past-lesson-list .no-past-lessons {

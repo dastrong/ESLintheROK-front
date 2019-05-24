@@ -112,15 +112,6 @@ const LessonList = ({ lessons, handleSelection, selected, deleteLesson }) => (
           const isSelected = selected.includes(id);
           return (
             <List.Item key={id}>
-              <List.Content floated="right">
-                <Button
-                  negative
-                  circular
-                  size="big"
-                  icon="trash alternate outline"
-                  onClick={() => deleteLesson(id)}
-                />
-              </List.Content>
               <List.Icon
                 id={id}
                 circular
@@ -136,6 +127,13 @@ const LessonList = ({ lessons, handleSelection, selected, deleteLesson }) => (
                 <JoinedList data={vocabulary} title="Vocabulary" />
                 <JoinedList data={expressions} title="Expressions" />
               </List.Content>
+              <Button
+                negative
+                circular
+                size="big"
+                icon="trash alternate outline"
+                onClick={() => deleteLesson(id)}
+              />
             </List.Item>
           );
         })
