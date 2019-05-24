@@ -159,7 +159,7 @@ class WhatsBehind extends PureComponent {
       <GifModal handleReset={this.handleReset} url={gifURLs[counter]} />
     ) : null;
     return (
-      <div className={containerClasses}>
+      <div className={containerClasses} style={{ fontFamily: this.props.font }}>
         {cards}
         {confetti}
         {gif}
