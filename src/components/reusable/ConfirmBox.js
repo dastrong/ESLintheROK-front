@@ -5,6 +5,10 @@ import "./ConfirmBox.css";
 export default function({ open, onCancel = () => {}, onConfirm = () => {}, ...props }) {
   const [isOpen, setIsOpen] = useState(open);
 
+  React.useEffect(() => {
+    setIsOpen(open);
+  }, [open]);
+
   function handleActions(callback) {
     setIsOpen(false);
     callback();
