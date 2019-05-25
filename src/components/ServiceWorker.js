@@ -102,6 +102,7 @@ function registerValidSW(swUrl, toggleUpdate) {
               // tell our ServiceWorker that we need to update
               /* eslint-disable-next-line no-restricted-globals */
               console.log(self);
+              self.skipWaiting();
               toggleUpdate(true);
             } else {
               // At this point, everything has been precached.
