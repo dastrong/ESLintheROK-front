@@ -100,7 +100,7 @@ export default function Home() {
       </Link>
 
       <Button
-        color="orange"
+        color="blue"
         size="large"
         disabled={!pastLessons.length}
         onClick={() => dispatch({ type: "togglePastLessons", bool: true })}
