@@ -56,6 +56,7 @@ function register() {
       // Our service worker won't work if PUBLIC_URL is on a different origin
       // from what our page is served on. This might happen if a CDN is used to
       // serve assets; see https://github.com/facebookincubator/create-react-app/issues/2374
+      console.log("1");
       return;
     }
 
@@ -75,6 +76,7 @@ function register() {
           );
         });
       } else {
+        console.log("2");
         // Is not local host. Just register service worker
         registerValidSW(swUrl);
       }
@@ -90,6 +92,7 @@ function registerValidSW(swUrl) {
         const installingWorker = registration.installing;
         installingWorker.onstatechange = () => {
           if (installingWorker.state === "installed") {
+            console.log(navigator.serviceWorker.controller);
             if (navigator.serviceWorker.controller) {
               // At this point, the old content will have been purged and
               // the fresh content will have been added to the cache.
