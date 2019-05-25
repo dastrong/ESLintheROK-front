@@ -100,10 +100,6 @@ function registerValidSW(swUrl, toggleUpdate) {
               // available; please refresh." message in your web app.
               console.log("New content is available; please refresh.");
               // tell our ServiceWorker that we need to update
-              /* eslint-disable-next-line no-restricted-globals */
-              console.log(self);
-              /* eslint-disable-next-line no-restricted-globals */
-              self.skipWaiting();
               toggleUpdate(true);
             } else {
               // At this point, everything has been precached.
