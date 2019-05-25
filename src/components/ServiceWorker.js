@@ -5,15 +5,16 @@ export default function ServiceWorker() {
   const [updateAvailable, toggleUpdate] = useState(false);
 
   useEffect(() => {
-    const checkSW = async () => {
-      const shouldUpdate = await register();
-      console.log(shouldUpdate);
-      console.log(register);
-      console.log("Should Service Worker Update: " + shouldUpdate);
-      if (!shouldUpdate) return;
-      toggleUpdate(true);
-    };
-    checkSW();
+    register(toggleUpdate);
+    // const checkSW = () => {
+    //   const shouldUpdate = await register();
+    //   console.log(shouldUpdate);
+    //   console.log(register);
+    //   console.log("Should Service Worker Update: " + shouldUpdate);
+    //   if (!shouldUpdate) return;
+    //   toggleUpdate(true);
+    // };
+    // checkSW();
   }, []);
 
   return (
@@ -49,7 +50,7 @@ const isLocalhost = Boolean(
     )
 );
 
-function register() {
+function register(toggleUpdate) {
   if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
     // if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
     // The URL constructor is available in all browsers that support SW.
@@ -78,13 +79,13 @@ function register() {
         });
       } else {
         // Is not local host. Just register service worker
-        registerValidSW(swUrl);
+        registerValidSW(swUrl, toggleUpdate);
       }
     });
   }
 }
 
-function registerValidSW(swUrl) {
+function registerValidSW(swUrl, toggleUpdate) {
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {
@@ -99,13 +100,13 @@ function registerValidSW(swUrl) {
               // available; please refresh." message in your web app.
               console.log("New content is available; please refresh.");
               // tell our ServiceWorker that we need to update
-              return true;
+              console.log(self);
+              toggleUpdate(true);
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a
               // "Content is cached for offline use." message.
               console.log("Content is cached for offline use.");
-              return false;
             }
           }
         };
