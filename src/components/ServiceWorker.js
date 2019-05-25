@@ -8,8 +8,7 @@ export default function ServiceWorker() {
     const checkSW = async () => {
       const shouldUpdate = await register();
       console.log(shouldUpdate);
-      const testing = await shouldUpdate();
-      console.log(testing);
+      console.log(register);
       console.log("Should Service Worker Update: " + shouldUpdate);
       if (!shouldUpdate) return;
       toggleUpdate(true);
