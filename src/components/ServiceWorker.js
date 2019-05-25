@@ -5,12 +5,15 @@ export default function ServiceWorker() {
   const [updateAvailable, toggleUpdate] = useState(false);
 
   useEffect(() => {
-    function checkSW() {
-      const shouldUpdate = register();
+    const checkSW = async () => {
+      const shouldUpdate = await register();
+      console.log(shouldUpdate);
+      const testing = await shouldUpdate();
+      console.log(testing);
       console.log("Should Service Worker Update: " + shouldUpdate);
       if (!shouldUpdate) return;
       toggleUpdate(true);
-    }
+    };
     checkSW();
   }, []);
 
