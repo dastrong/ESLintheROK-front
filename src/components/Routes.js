@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo } from "react";
+import ReactGA from "react-ga";
 import { Route, withRouter, Switch } from "react-router-dom";
 import RouteTransition from "./RouteTransitions";
 import Home from "./Home";
@@ -34,7 +35,8 @@ function Routes({ history, location }) {
   const { pathname } = location;
 
   useEffect(() => {
-    console.log("google effects here");
+    ReactGA.set({ page: pathname });
+    ReactGA.pageview(pathname);
   }, [pathname]);
 
   const shortenedRoute = shortenGameRoute(pathname);
