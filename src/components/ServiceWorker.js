@@ -102,6 +102,7 @@ function registerValidSW(swUrl, toggleUpdate) {
               // tell our ServiceWorker that we need to update
               /* eslint-disable-next-line no-restricted-globals */
               console.log(self);
+              /* eslint-disable-next-line no-restricted-globals */
               self.skipWaiting();
               toggleUpdate(true);
             } else {
