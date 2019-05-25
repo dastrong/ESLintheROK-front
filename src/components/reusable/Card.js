@@ -1,24 +1,29 @@
-import React from 'react';
-import ReactFitText from 'react-fittext';
-import '../../styles/reusable/Card.css';
+import React from "react";
+import ReactFitText from "react-fittext";
+import "./Card.css";
 
-const Card = ({handleClick, index, classNames, frontColor, frontText, backColor, backText, compressor}) => (
+const Card = ({
+  handleClick,
+  index,
+  classNames,
+  frontColor,
+  frontText,
+  backColor,
+  backText,
+  compressor,
+}) => (
   <div className={classNames}>
-    <ReactFitText 
-      compressor={compressor}
-      minFontSize={0}
-      maxFontSize={500}
-    >
-      <div className='front'
-           id={index}
-           style={{backgroundColor: frontColor}}
-           onClick={handleClick}>
+    <ReactFitText compressor={compressor} minFontSize={0} maxFontSize={500}>
+      <div
+        className="front"
+        id={index}
+        style={{ backgroundColor: frontColor }}
+        onClick={handleClick}
+      >
         {frontText}
       </div>
     </ReactFitText>
-    <div className='back'
-         style={{backgroundColor: backColor}}
-         onClick={handleClick} >
+    <div className="back" style={{ backgroundColor: backColor }} onClick={handleClick}>
       {backText}
     </div>
   </div>

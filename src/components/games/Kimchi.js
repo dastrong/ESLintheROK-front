@@ -11,9 +11,9 @@ import {
   rmvListeners,
   addTitle,
   addGoogEvent,
-  resetAndReload
+  resetAndReload,
 } from "../../helpers/phase2helpers";
-import "../../styles/games/Kimchi.css";
+import "./Kimchi.css";
 
 class Kimchi extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class Kimchi extends Component {
       text: "",
       textIndex: undefined,
       showAnswer: false,
-      gameReady: false
+      gameReady: false,
     };
     this.setData = setData.bind(this);
     this.getRandomNum = getRandomNum.bind(this);
@@ -64,7 +64,7 @@ class Kimchi extends Component {
       textIndex: random,
       showAnswer: false,
       isKimchi,
-      gameReady: true
+      gameReady: true,
     });
   };
 
@@ -95,11 +95,9 @@ class Kimchi extends Component {
     // spacebar/enter was clicked; reset the game
     if (e.keyCode === 32 || e.keyCode === 13) return this.handleClick();
     // up arrow was clicked; increase the font size
-    if (e.keyCode === 38)
-      return this.setState({ compressor: compressor - 0.05 });
+    if (e.keyCode === 38) return this.setState({ compressor: compressor - 0.05 });
     // down arrow was clicked; decrease the font size
-    if (e.keyCode === 40)
-      return this.setState({ compressor: compressor + 0.05 });
+    if (e.keyCode === 40) return this.setState({ compressor: compressor + 0.05 });
     // right arrow was clicked; increase the frequent
     if (e.keyCode === 39) return this._increaseFreq();
     // left arrow was clicked; decrease the frequent
@@ -114,7 +112,7 @@ class Kimchi extends Component {
         prevSt => ({
           freqUpdated: true,
           showAnswer: false,
-          frequencyPercent: prevSt.frequencyPercent + 1
+          frequencyPercent: prevSt.frequencyPercent + 1,
         }),
         this._freqChange
       );
@@ -129,7 +127,7 @@ class Kimchi extends Component {
         prevSt => ({
           freqUpdated: true,
           showAnswer: false,
-          frequencyPercent: prevSt.frequencyPercent - 1
+          frequencyPercent: prevSt.frequencyPercent - 1,
         }),
         this._freqChange
       );
@@ -153,7 +151,7 @@ class Kimchi extends Component {
     this.setState({
       text: data[random],
       textIndex: random,
-      noClick: false
+      noClick: false,
     });
   };
 
@@ -165,7 +163,7 @@ class Kimchi extends Component {
       showAnswer,
       isKimchi,
       frequencyPercent,
-      freqUpdated
+      freqUpdated,
     } = this.state;
     const pic = isKimchi ? (
       <img
@@ -194,11 +192,7 @@ class Kimchi extends Component {
         <CSSTransition in={showAnswer} timeout={0} classNames="kimchiImg">
           {pic}
         </CSSTransition>
-        <ShowUpdatedSetting
-          isIn={freqUpdated}
-          text={frequencyPercent}
-          symbol="%"
-        />
+        <ShowUpdatedSetting isIn={freqUpdated} text={frequencyPercent} symbol="%" />
       </div>
     );
   }

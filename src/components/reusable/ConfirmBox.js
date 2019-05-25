@@ -1,29 +1,26 @@
-import React, { Component } from 'react'
-import { Confirm } from 'semantic-ui-react'
+import React, { useState } from "react";
+import { Confirm } from "semantic-ui-react";
+import "./ConfirmBox.css";
 
-const styles = {
-  textAlign: 'center',
-  letterSpacing: '0.3px',
-}
+export default function({ open, onCancel = () => {}, onConfirm = () => {}, ...props }) {
+  const [isOpen, setIsOpen] = useState(open);
 
-class ConfirmBox extends Component {
-  state = { open: this.props.open }
+  React.useEffect(() => {
+    setIsOpen(open);
+  }, [open]);
 
-  render() {
-    const { onConfirm, cancelText, confirmText, header, content } = this.props;
-    return (
-      <Confirm
-        style={styles}
-        open={this.state.open}
-        header={header}
-        content={content}
-        cancelButton={cancelText}
-        confirmButton={confirmText}
-        onCancel={()=>this.setState({open:false})}
-        onConfirm={()=>this.setState({open:false}, onConfirm)}
-      />
-    )
+  function handleActions(callback) {
+    setIsOpen(false);
+    callback();
   }
-}
 
-export default ConfirmBox
+  return (
+    <Confirm
+      className="confirm-box"
+      open={isOpen}
+      onCancel={() => handleActions(onCancel)}
+      onConfirm={() => handleActions(onConfirm)}
+      {...props}
+    />
+  );
+}

@@ -9,9 +9,9 @@ import {
   rmvListeners,
   addTitle,
   addGoogEvent,
-  resetAndReload
+  resetAndReload,
 } from "../../helpers/phase2helpers";
-import "../../styles/games/Nunchi.css";
+import "./Nunchi.css";
 
 class Nunchi extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class Nunchi extends Component {
       data: [],
       text: "",
       textIndex: undefined,
-      showReady: true
+      showReady: true,
     };
     this.setData = setData.bind(this);
     this.getRandomNum = getRandomNum.bind(this);
@@ -54,7 +54,7 @@ class Nunchi extends Component {
     const random = this.getRandomIndex(data.length);
     this.setState({
       text: data[random],
-      textIndex: random
+      textIndex: random,
     });
   };
 
@@ -68,15 +68,12 @@ class Nunchi extends Component {
     // spacebar/enter was clicked; reset the game
     if (e.keyCode === 32 || e.keyCode === 13) return this.handleClick();
     // up arrow was clicked; increase the font size
-    if (e.keyCode === 38)
-      return this.setState({ compressor: compressor - 0.03 });
+    if (e.keyCode === 38) return this.setState({ compressor: compressor - 0.03 });
     // down arrow was clicked; decrease the font size
-    if (e.keyCode === 40)
-      return this.setState({ compressor: compressor + 0.03 });
+    if (e.keyCode === 40) return this.setState({ compressor: compressor + 0.03 });
   };
 
-  handleClick = () =>
-    this.setState(prevState => ({ showReady: !prevState.showReady }));
+  handleClick = () => this.setState(prevState => ({ showReady: !prevState.showReady }));
 
   render() {
     const { compressor, showReady, text } = this.state;
@@ -90,11 +87,7 @@ class Nunchi extends Component {
           <CSSTransition in={showReady} classNames="nunchi-ready" timeout={0}>
             <p className="nunchi-text nunchi-ready">Ready?</p>
           </CSSTransition>
-          <ReactFitText
-            compressor={compressor}
-            minFontSize={0}
-            maxFontSize={350}
-          >
+          <ReactFitText compressor={compressor} minFontSize={0} maxFontSize={350}>
             <CSSTransition in={!showReady} classNames="nunchi-text" timeout={0}>
               <p className="nunchi-text">{text}</p>
             </CSSTransition>

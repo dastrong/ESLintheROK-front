@@ -1,0 +1,132 @@
+.data-container {
+  min-height: calc(100vh - 86px - 60px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: rgba(250, 250, 250, 1);
+}
+
+.data-container .submit-data-btn {
+  border-radius: 0;
+  margin: 0;
+}
+
+.data-container .ui.progress.attached {
+  border-radius: 0;
+}
+
+.data-container .ui.progress.attached .bar {
+  min-width: 0;
+}
+
+.data-container .extra-input.ui.input {
+  width: 50%;
+  border-radius: 0;
+}
+
+.data-container .ui.input.extra-input input {
+  border-radius: 0;
+  text-align: center;
+}
+
+.data-container .ui.input.extra-input.incomplete > input::placeholder {
+  color: white;
+  font-weight: bold;
+}
+
+.data-container .ui.input.extra-input.incomplete > input {
+  background-color: rgba(255, 4, 4, 0.4);
+  border-color: #d41414;
+  color: #9f3a38;
+  box-shadow: none;
+}
+
+.data-container .ui.input.extra-input.completed > input {
+  background-color: rgba(101, 232, 15, 0.4);
+  border-color: #3bbf51;
+  color: #023e07;
+  box-shadow: none;
+}
+
+.data-container .accordion.fluid .accordion {
+  margin-top: 0;
+}
+
+.data-container .ui.accordion .title:not(.ui) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  height: 50px;
+  font-size: 1.75em;
+  font-variant: small-caps;
+  font-weight: bold;
+}
+
+.data-container .accordion .title:nth-child(1) {
+  border-bottom: 1px solid #d3cce3;
+}
+
+.data-container .accordion .title:not(.ui).complete {
+  background-color: #3bbf51;
+}
+
+.data-container .accordion .title:not(.ui).incomplete {
+  background-color: #d41414;
+}
+
+.lessons-container .data-container .ui.accordion.isAPI .content.active {
+  min-height: calc(100vh - 340px);
+}
+
+.lessons-container .data-container .ui.accordion .content.active {
+  min-height: calc(100vh - 184px);
+}
+
+.data-container .ui.accordion .content.active {
+  background: rgba(250, 250, 250, 1);
+  min-height: calc(100vh - 141.6px - 160px);
+}
+
+.data-container .ui.accordion:not(.styled) .accordion .title ~ .content:not(.ui),
+.ui.accordion:not(.styled) .title ~ .content:not(.ui) {
+  padding: 10px !important;
+}
+
+.data-container .ui.accordion .content {
+  margin: 0 auto;
+  width: 450px;
+}
+
+.data-container .ui.celled.table {
+  margin: 10px 0 0;
+}
+
+.data-container .ui.accordion .content button {
+  border: 1px solid rgba(22, 171, 57, 0.5);
+}
+
+.data-container .ui.form {
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+
+.data-container .ui.form .fields {
+  margin: 0;
+}
+
+.data-container .ui.form .fields .field {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.data-container .ui.form .fields .field input[type="text"] {
+  width: 321px;
+  border-left-width: 0.5px;
+  border-right-width: 0.5px;
+  text-align: center;
+}
+
+.data-container .ui.form .fields .field button {
+  width: 107px;
+  margin: 0;
+}

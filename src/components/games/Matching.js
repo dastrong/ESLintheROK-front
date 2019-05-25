@@ -8,9 +8,9 @@ import {
   setData,
   addTitle,
   addGoogEvent,
-  resetAndReload
+  resetAndReload,
 } from "../../helpers/phase2helpers";
-import "../../styles/games/Matching.css";
+import "./Matching.css";
 
 const emptyArr = { clicked: [], matched: [] };
 const numBox16 = { numBox: 16, height: "24vh", width: "24vw", ...emptyArr };
@@ -28,7 +28,7 @@ class Matching extends Component {
       ...numBox12,
       compressor: 0.6,
       colors: this.props.colors,
-      color: 2
+      color: 2,
     };
     this.addListeners = addListeners.bind(this);
     this.rmvListeners = rmvListeners.bind(this);
@@ -52,13 +52,8 @@ class Matching extends Component {
   componentDidUpdate(x, prevState) {
     this.resetAndReload(1, true);
     const { gameData, clicked, matched } = this.state;
-    const gotPoo =
-      gameData.length % 2 === 1 && clicked.some(x => gameData[x] === "poo");
-    if (
-      clicked.length < 2 &&
-      prevState.matched.length === matched.length &&
-      !gotPoo
-    )
+    const gotPoo = gameData.length % 2 === 1 && clicked.some(x => gameData[x] === "poo");
+    if (clicked.length < 2 && prevState.matched.length === matched.length && !gotPoo)
       return;
     this.timeoutID = setTimeout(() => this.setState({ clicked: [] }), 1000);
   }
@@ -68,14 +63,10 @@ class Matching extends Component {
     this._clearTimeouts();
     const { data, numBox } = this.state;
     const halfData = shuffle(data).slice(0, numBox / 2);
-    let gameData = shuffle([
-      ...halfData,
-      ...halfData,
-      ...(numBox % 2 ? ["poo"] : "")
-    ]);
+    let gameData = shuffle([...halfData, ...halfData, ...(numBox % 2 ? ["poo"] : "")]);
     this.setState({
       gameData,
-      ...emptyArr
+      ...emptyArr,
     });
   };
 
@@ -109,14 +100,11 @@ class Matching extends Component {
         : this._decreaseBoxes();
     }
     // spacebar/enter was clicked; reset the game
-    if (e.keyCode === 32 || e.keyCode === 13)
-      return this.handleReset({ ...emptyArr });
+    if (e.keyCode === 32 || e.keyCode === 13) return this.handleReset({ ...emptyArr });
     // up arrow was clicked; increase the font size
-    if (e.keyCode === 38)
-      return this.setState({ compressor: compressor - 0.03 });
+    if (e.keyCode === 38) return this.setState({ compressor: compressor - 0.03 });
     // down arrow was clicked; decrease the font size
-    if (e.keyCode === 40)
-      return this.setState({ compressor: compressor + 0.03 });
+    if (e.keyCode === 40) return this.setState({ compressor: compressor + 0.03 });
     // left arrow was clicked; decrease the num of boxes
     if (e.keyCode === 37) return this._decreaseBoxes();
     // right arrow was clicked; increase the num of boxes
@@ -147,14 +135,7 @@ class Matching extends Component {
   }
 
   render() {
-    const {
-      compressor,
-      gameData,
-      clicked,
-      matched,
-      width,
-      height
-    } = this.state;
+    const { compressor, gameData, clicked, matched, width, height } = this.state;
     const boxes = gameData.map((text, i) => {
       const show = clicked.includes(i) || matched.includes(i);
       return (
@@ -165,15 +146,11 @@ class Matching extends Component {
           style={{ width, height }}
         >
           <CSSTransition in={!show} timeout={0} classNames="matcher">
-            <div className="match front">{i + 1}</div>
+            <div className="match match-front">{i + 1}</div>
           </CSSTransition>
-          <ReactFitText
-            compressor={compressor}
-            minFontSize={0}
-            maxFontSize={100}
-          >
+          <ReactFitText compressor={compressor} minFontSize={0} maxFontSize={100}>
             <CSSTransition in={show} timeout={0} classNames="matcher">
-              <div className="match back" id={i}>
+              <div className="match match-back" id={i}>
                 {text !== "poo" ? text : "💩"}
               </div>
             </CSSTransition>

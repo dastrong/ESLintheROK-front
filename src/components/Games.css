@@ -1,0 +1,57 @@
+.gamesPage-container {
+  height: calc(100vh - 86px);
+  padding: 20px 0 30px;
+  overflow-y: auto;
+}
+
+.gamesPage-container .ui.grid {
+  margin: 0 10px;
+  justify-content: center;
+}
+
+.gamesPage-container .ui.card:first-child,
+.gamesPage-container .ui.card:last-child,
+.gamesPage-container .ui.card {
+  margin: 10px;
+}
+
+.gamesPage-container .ui.card > .content {
+  padding: 30px 10px;
+  opacity: 0;
+  z-index: 1;
+  height: 186px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.gamesPage-container .ui.card > .content > .description {
+  margin-bottom: 1em;
+}
+
+.gamesPage-container .ui.card > .content > .ui.button {
+  margin-right: 0;
+}
+
+.gamesPage-container .ui.card > .image {
+  position: absolute;
+}
+
+.gamesPage-container .ui.card > .image > img {
+  opacity: 1;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.gamesPage-container .ui.card:hover .content {
+  opacity: 1;
+}
+
+.gamesPage-container .ui.card:hover img {
+  opacity: 0;
+}
+
+.gamesPage-container .ui.top.attached.label:first-child + :not(.attached) {
+  margin-top: 0 !important;
+}

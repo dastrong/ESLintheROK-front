@@ -9,9 +9,9 @@ import {
   chooseDataSet,
   addTitle,
   addGoogEvent,
-  resetAndReload
+  resetAndReload,
 } from "../../helpers/phase2helpers";
-import "../../styles/games/HotPotato.css";
+import "./HotPotato.css";
 
 class HotPotato extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class HotPotato extends Component {
       gameData: [],
       isVocab: true,
       numOfText: 3,
-      compressor: 1
+      compressor: 1,
     };
     this.Bubbling = new Audio(
       "https://res.cloudinary.com/dastrong/video/upload/v1540601372/TeacherSite/Media/HotPotato/Bubbling.mp3"
@@ -83,7 +83,7 @@ class HotPotato extends Component {
     this.setState({
       gameData,
       stage: 1,
-      countdown: 0
+      countdown: 0,
     });
   };
 
@@ -99,10 +99,8 @@ class HotPotato extends Component {
       return this.setState({ compressor: compressor + c });
     }
     if (e.keyCode === 32 || e.keyCode === 13) return this.handleGame();
-    if (e.keyCode === 37)
-      return this._changeSettings({ isVocab: true, numOfText: 3 });
-    if (e.keyCode === 39)
-      return this._changeSettings({ isVocab: false, numOfText: 1 });
+    if (e.keyCode === 37) return this._changeSettings({ isVocab: true, numOfText: 3 });
+    if (e.keyCode === 39) return this._changeSettings({ isVocab: false, numOfText: 1 });
     if (e.keyCode === 38 && stage === 3)
       return this.setState({ compressor: compressor - 0.03 });
     if (e.keyCode === 40 && stage === 3)
@@ -193,11 +191,7 @@ class HotPotato extends Component {
         onClick={this.handleClick}
         style={{ fontFamily: this.props.font }}
       >
-        <CSSTransition
-          in={stage === 1}
-          classNames="hotpotato-img"
-          timeout={550}
-        >
+        <CSSTransition in={stage === 1} classNames="hotpotato-img" timeout={550}>
           <div className="hotpotato-countdown">
             <img
               src="https://res.cloudinary.com/dastrong/image/upload/f_auto,q_50/v1540469924/TeacherSite/Media/HotPotato/potatoesBoiling.gif"
@@ -205,11 +199,7 @@ class HotPotato extends Component {
             />
           </div>
         </CSSTransition>
-        <CSSTransition
-          in={stage === 2}
-          classNames="hotpotato-img"
-          timeout={550}
-        >
+        <CSSTransition in={stage === 2} classNames="hotpotato-img" timeout={550}>
           <div className="hotpotato-active">
             <img
               src="https://res.cloudinary.com/dastrong/image/upload/f_auto,q_50/v1540469924/TeacherSite/Media/HotPotato/potatoDancing.gif"
@@ -217,22 +207,14 @@ class HotPotato extends Component {
             />
           </div>
         </CSSTransition>
-        <CSSTransition
-          in={stage === 3}
-          classNames="hotpotato-img"
-          timeout={550}
-        >
+        <CSSTransition in={stage === 3} classNames="hotpotato-img" timeout={550}>
           <div className="hotpotato-finished">
             <img
               src="https://res.cloudinary.com/dastrong/image/upload/f_auto,q_50/v1540469924/TeacherSite/Media/HotPotato/potatoCooling.gif"
               alt="potato-relaxing"
             />
             <TransitionGroup>
-              <ReactFitText
-                compressor={compressor}
-                minFontSize={0}
-                maxFontSize={500}
-              >
+              <ReactFitText compressor={compressor} minFontSize={0} maxFontSize={500}>
                 <div className="hotpotato-text">{words}</div>
               </ReactFitText>
             </TransitionGroup>

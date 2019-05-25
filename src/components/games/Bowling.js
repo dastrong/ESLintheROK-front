@@ -11,9 +11,9 @@ import {
   rmvListeners,
   addTitle,
   addGoogEvent,
-  resetAndReload
+  resetAndReload,
 } from "../../helpers/phase2helpers";
-import "../../styles/games/Bowling.css";
+import "./Bowling.css";
 
 // increases the time between letter being shot off
 const letterBuffer = 3;
@@ -27,7 +27,7 @@ class Bowling extends Component {
       textIndex: undefined,
       splitText: [],
       totalRound: 3,
-      colors: this.props.colors
+      colors: this.props.colors,
     };
     this.setData = setData.bind(this);
     this.splitText = splitText.bind(this);
@@ -72,7 +72,7 @@ class Bowling extends Component {
       isShowingAnswer: false,
       isGameOver: false,
       isActive: false,
-      round: 1
+      round: 1,
     });
   };
 
@@ -94,9 +94,7 @@ class Bowling extends Component {
     const roundBuffer = 2;
     const animationDuration = 7;
     const interval =
-      (this.state.splitText.length * letterBuffer +
-        roundBuffer +
-        animationDuration) *
+      (this.state.splitText.length * letterBuffer + roundBuffer + animationDuration) *
       1000;
     this.setState({ isActive: true }, this._startInterval(interval));
   };
@@ -113,10 +111,7 @@ class Bowling extends Component {
         },
         () => {
           if (this.state.isGameOver) return;
-          this.timeoutActive = setTimeout(
-            () => this.setState({ isActive: true }),
-            2000
-          );
+          this.timeoutActive = setTimeout(() => this.setState({ isActive: true }), 2000);
         }
       );
     }, interval);
@@ -150,7 +145,7 @@ class Bowling extends Component {
       text,
       colors,
       left,
-      totalRound
+      totalRound,
     } = this.state;
     const letters = splitText.map((x, i) => (
       <TextDrop
@@ -158,7 +153,7 @@ class Bowling extends Component {
         isIn={isActive}
         styles={{
           left: left[i],
-          backgroundColor: colors[i] || colors[i - colors.length]
+          backgroundColor: colors[i] || colors[i - colors.length],
         }}
         text={x}
         timeout={i * letterBuffer + "000"}
@@ -173,12 +168,7 @@ class Bowling extends Component {
       />
     );
     const answer = (
-      <Round
-        num={text}
-        timeout={0}
-        isIn={isShowingAnswer}
-        classname="round-answer"
-      />
+      <Round num={text} timeout={0} isIn={isShowingAnswer} classname="round-answer" />
     );
 
     return (

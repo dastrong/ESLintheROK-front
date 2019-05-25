@@ -10,9 +10,9 @@ import {
   rmvListeners,
   addTitle,
   addGoogEvent,
-  resetAndReload
+  resetAndReload,
 } from "../../helpers/phase2helpers";
-import "../../styles/games/Sparkle.css";
+import "./Sparkle.css";
 
 class Sparkle extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class Sparkle extends Component {
       textIndex: undefined,
       timer: 15,
       timeRemaining: 15,
-      gameReady: false
+      gameReady: false,
     };
     this.startTimer = startTimer.bind(this);
     this.resetTimer = resetTimer.bind(this);
@@ -59,7 +59,7 @@ class Sparkle extends Component {
     this.setState({
       text: data[random],
       textIndex: random,
-      gameReady: true
+      gameReady: true,
     });
   };
 
@@ -86,11 +86,9 @@ class Sparkle extends Component {
     // left arrow was clicked; decrease the timer
     if (e.keyCode === 37) return this._decreaseTimer();
     // up arrow was clicked; increase the font size
-    if (e.keyCode === 38)
-      return this.setState({ compressor: compressor - 0.05 });
+    if (e.keyCode === 38) return this.setState({ compressor: compressor - 0.05 });
     // down arrow was clicked; decrease the font size
-    if (e.keyCode === 40)
-      return this.setState({ compressor: compressor + 0.05 });
+    if (e.keyCode === 40) return this.setState({ compressor: compressor + 0.05 });
   };
 
   _increaseTimer = () => {
@@ -110,14 +108,7 @@ class Sparkle extends Component {
   };
 
   render() {
-    const {
-      compressor,
-      gameReady,
-      text,
-      timer,
-      timeRemaining,
-      isTimeUp
-    } = this.state;
+    const { compressor, gameReady, text, timer, timeRemaining, isTimeUp } = this.state;
     const width = ((timer - timeRemaining) / (timer - 1)) * 100 + "%";
     return (
       <div
@@ -134,11 +125,7 @@ class Sparkle extends Component {
             gameReady={gameReady}
           />
         </CSSTransition>
-        <Timer
-          timeRemaining={timeRemaining}
-          isTimeUp={isTimeUp}
-          width={width}
-        />
+        <Timer timeRemaining={timeRemaining} isTimeUp={isTimeUp} width={width} />
       </div>
     );
   }

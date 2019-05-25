@@ -1,0 +1,80 @@
+i.link.icon.info-modal-icon {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  z-index: 100;
+  color: #14027b;
+  transition: 0.5s all;
+  margin: 0;
+}
+
+i.link.icon.info-modal-icon:hover {
+  opacity: 1 !important;
+}
+
+.info-modal .ui.header .icon {
+  margin: 0 0.4rem 0;
+}
+
+.info-modal .ui.header.center i.icon {
+  display: inline-block;
+}
+
+.info-modal .ui.selection.dropdown {
+  padding-left: 2.1em;
+  font-size: 1.2em;
+  line-height: 1.2em;
+  text-align: center;
+}
+
+.info-modal .ui.selection.dropdown .menu {
+  max-height: 35rem;
+}
+
+.info-modal .ui.dropdown .menu .item {
+  text-align: center;
+  font-size: 1.4em;
+}
+
+.info-modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.1em;
+}
+
+.info-modal-item.header {
+  font-weight: bold;
+  font-size: 1.2em;
+  text-decoration: underline;
+  height: auto;
+  border: none;
+  margin-bottom: 5px;
+}
+
+.info-modal-item {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  border: 1px solid green;
+  width: 100%;
+  max-width: 700px;
+  height: 65px;
+  border-radius: 50px;
+  margin: 2px 0;
+}
+
+.info-modal-item-key {
+  text-align: center;
+  width: 45%;
+}
+
+.info-modal-item-des {
+  width: 53%;
+}
+
+.ui.modal > .close {
+  top: 1.0535rem;
+  right: 1rem;
+  color: rgba(0, 0, 0, 0.87);
+}

@@ -11,9 +11,9 @@ import {
   addGoogEvent,
   resetAndReload,
   getRandomNum,
-  chooseDataSet
+  chooseDataSet,
 } from "../../helpers/phase2helpers";
-import "../../styles/games/BattleGround.css";
+import "./BattleGround.css";
 import { pubgStats } from "../../helpers/data";
 
 class BattleGround extends Component {
@@ -26,7 +26,7 @@ class BattleGround extends Component {
       isVocab: false,
       scaled: 0,
       stage: 0,
-      compressor: 0.6
+      compressor: 0.6,
     };
     this.CountdownTimer = new Audio(
       "https://res.cloudinary.com/dastrong/video/upload/f_auto/v1543135345/TeacherSite/Media/BattleGround/countdownAudio.mp3"
@@ -99,10 +99,8 @@ class BattleGround extends Component {
     if (e.keyCode === 32 || e.keyCode === 13) return this.handleReset();
     if (e.keyCode === 37) return this._changeSettings({ isVocab: true });
     if (e.keyCode === 39) return this._changeSettings({ isVocab: false });
-    if (e.keyCode === 38)
-      return this.setState({ compressor: compressor - 0.03 });
-    if (e.keyCode === 40)
-      return this.setState({ compressor: compressor + 0.03 });
+    if (e.keyCode === 38) return this.setState({ compressor: compressor - 0.03 });
+    if (e.keyCode === 40) return this.setState({ compressor: compressor + 0.03 });
   };
 
   _changeSettings = settingsObj => this.setState(settingsObj, this.handleGame);
@@ -122,7 +120,7 @@ class BattleGround extends Component {
                 return {
                   stage: 2,
                   countdown: prevState.countdown - 1,
-                  scaled: prevState.scaled + 0.03
+                  scaled: prevState.scaled + 0.03,
                 };
               }
               return { countdown: prevState.countdown - 1 };
@@ -138,28 +136,11 @@ class BattleGround extends Component {
   };
 
   render() {
-    const {
-      scaled,
-      stage,
-      gameData,
-      items,
-      compressor,
-      countdown
-    } = this.state;
+    const { scaled, stage, gameData, items, compressor, countdown } = this.state;
 
     const cornersText = gameData.map((text, i) => (
-      <CSSTransition
-        key={text + i}
-        in={stage !== 3}
-        classNames="cornersItem"
-        timeout={0}
-      >
-        <CardBlock
-          text={text}
-          compressor={compressor}
-          id={text}
-          boxClass="corner"
-        />
+      <CSSTransition key={text + i} in={stage !== 3} classNames="cornersItem" timeout={0}>
+        <CardBlock text={text} compressor={compressor} id={text} boxClass="corner" />
       </CSSTransition>
     ));
 
@@ -178,7 +159,7 @@ class BattleGround extends Component {
               backgroundImage: `url(https://res.cloudinary.com/dastrong/image/upload/f_auto/v1543130357/TeacherSite/Media/BattleGround/images/${
                 item.name
               }.png)`,
-              color
+              color,
             }}
           >
             {item.points}
@@ -201,8 +182,7 @@ class BattleGround extends Component {
           src="https://res.cloudinary.com/dastrong/image/upload/f_auto/v1543135348/TeacherSite/Media/BattleGround/pubgMap.jpg"
           alt="map background"
           style={{
-            transform: `scale(${1 + scaled}) translate(-${scaled *
-              12}vw, ${scaled}vh)`
+            transform: `scale(${1 + scaled}) translate(-${scaled * 12}vw, ${scaled}vh)`,
           }}
         />
         <div className="corner-holder">{cornersText}</div>
