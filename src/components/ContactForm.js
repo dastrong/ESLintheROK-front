@@ -18,7 +18,7 @@ class ContactForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.setState({ loading: true });
-    fetch("/", {
+    fetch("/?no-cache=1", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encode({ "form-name": "contact", ...this.state }),
