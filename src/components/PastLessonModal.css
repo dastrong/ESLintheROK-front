@@ -34,16 +34,12 @@
 }
 
 .past-lesson-list .item .content {
-  width: 90% !important;
-}
-
-.past-lesson-list .no-past-lessons {
-  text-align: center;
+  width: calc(100% - 110px) !important;
 }
 
 .joined-list {
   text-overflow: ellipsis;
-  width: 650px;
+  width: 95% !important;
   white-space: nowrap;
   overflow: hidden;
   font-style: italic;

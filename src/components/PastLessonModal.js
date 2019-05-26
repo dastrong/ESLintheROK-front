@@ -77,12 +77,6 @@ export default function PastLessonModal() {
       />
 
       <Modal.Actions>
-        {/* <div>
-          <span>Tips:</span>
-          <p>combine past lessons to review past vocab</p>
-          <p>edit lessons after submission through the left sidebar</p>
-          <p>if you want to savea  submitted lesson from here open the edit menu and click save</p>
-        </div> */}
         <Button
           negative
           disabled={!pastLessons.length}
@@ -106,7 +100,7 @@ const LessonList = ({ lessons, handleSelection, selected, deleteLesson }) => (
   <Modal.Content scrolling>
     <List divided verticalAlign="middle" className="past-lesson-list">
       {!lessons.length ? (
-        <List.Item className="no-past-lessons">No Lessons Found</List.Item>
+        <List.Item>No Lessons Found</List.Item>
       ) : (
         lessons.map(({ id, vocabulary, expressions, createdOn }) => {
           const isSelected = selected.includes(id);
