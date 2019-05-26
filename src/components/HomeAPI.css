@@ -1,24 +1,14 @@
-.home-container {
-  background-color: #eee;
-  padding: 20px;
-  margin: 20px auto;
-  min-height: calc(100vh - 92px - 40px);
-  box-shadow: 0 0 10px rgba(0,0,0,0.6);
-  width: 90vw;
-  max-width: 800px;
-  border-radius: 10px;
-  letter-spacing: 0.1px;
+.home-api {
   text-align: center;
 }
 
-.home-container hr {
+.home-api hr {
   width: 50%;
 }
 
-.home-container h5,
+.home-api h5,
 .home-lists .starred-li {
   font-style: italic;
-  font-size: 1em;
 }
 
 .home-lists h3 {
@@ -27,9 +17,11 @@
 }
 .home-lists h3:nth-of-type(1) {
   text-decoration-color: blue;
+  margin: 10px 0;
 }
 .home-lists h3:nth-of-type(2) {
   text-decoration-color: red;
+  margin: 10px 0;
 }
 
 .home-lists ul {
@@ -39,5 +31,4 @@
 
 .home-lists li {
   line-height: 2em;
-  font-size: 1.1em;
 }
