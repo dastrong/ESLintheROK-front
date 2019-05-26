@@ -33,22 +33,7 @@ const panels = [
       ),
     },
   },
-  {
-    key: "question-that-isn't-listed-below",
-    title: "I have a question that isn't listed below.",
-    content: {
-      key: "question-that-isn't-listed-below-content",
-      content: (
-        <div>
-          <p>
-            Head to our <TextLink path="contact" text=" contact " />
-            page.
-          </p>
-          <p>If you have an urgent question, use the Kakao group chat.</p>
-        </div>
-      ),
-    },
-  },
+
   {
     key: "Who-is-this-site-for",
     title: "Who is this site for?",
@@ -83,6 +68,26 @@ const panels = [
               here.
             </a>
           </p>
+        </div>
+      ),
+    },
+  },
+  {
+    key: "How-do-I-use-the-games",
+    title: "How do I use the games?",
+    content: {
+      key: "How-do-I-use-the-games-content",
+      content: (
+        <div>
+          <p>
+            Each game has a teacher and student instructions page with English and Korean
+            languages.
+          </p>
+          <p>
+            To view helpful shortcuts: hover your mouse over the top-right (while in the
+            game) and an icon will appear. Click it.
+          </p>
+          <p>Each games plays differently, but most tricks work across games.</p>
         </div>
       ),
     },
@@ -144,26 +149,7 @@ const panels = [
       ),
     },
   },
-  {
-    key: "How-do-I-use-the-games",
-    title: "How do I use the games?",
-    content: {
-      key: "How-do-I-use-the-games-content",
-      content: (
-        <div>
-          <p>
-            Each game has a teacher and student instructions page with English and Korean
-            languages.
-          </p>
-          <p>
-            To view helpful shortcuts: hover your mouse over the top-right (while in the
-            game) and an icon will appear. Click it.
-          </p>
-          <p>Each games plays differently, but most tricks work across games.</p>
-        </div>
-      ),
-    },
-  },
+
   {
     key: "lessons-data-slow-to-load",
     title: "Why is the lessons data slow to load?",
@@ -263,6 +249,22 @@ const panels = [
               here.
             </a>
           </p>
+        </div>
+      ),
+    },
+  },
+  {
+    key: "question-that-isn't-listed-above",
+    title: "I have a question that isn't listed above.",
+    content: {
+      key: "question-that-isn't-listed-above-content",
+      content: (
+        <div>
+          <p>
+            Head to our <TextLink path="contact" text=" contact " />
+            page.
+          </p>
+          <p>If you have an urgent question, use the Kakao group chat.</p>
         </div>
       ),
     },
