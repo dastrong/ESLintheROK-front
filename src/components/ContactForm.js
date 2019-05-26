@@ -16,6 +16,7 @@ class ContactForm extends Component {
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
   handleSubmit = e => {
+    e.preventDefault();
     this.setState({ loading: true });
     fetch("/", {
       method: "POST",
@@ -31,7 +32,6 @@ class ContactForm extends Component {
         })
       )
       .catch(error => console.log(error));
-    e.preventDefault();
   };
 
   render() {
