@@ -37,7 +37,7 @@ function setAllData({ vocabulary, expressions }, ...rest) {
     {
       vocabulary,
       expressions,
-      ...extras
+      ...extras,
     },
     this.handleGame
   );
@@ -61,7 +61,15 @@ function addGoogEvent() {
   ReactGA.event({
     category: "Games",
     action: `New Round - ${this.props.title}`,
-    label: this.props.title
+    label: this.props.title,
+  });
+}
+
+function newGoogEvent(title) {
+  ReactGA.event({
+    category: "Games",
+    action: `New Round - ${title}`,
+    label: title,
   });
 }
 
@@ -88,5 +96,6 @@ export {
   rmvListeners,
   addTitle,
   addGoogEvent,
-  resetAndReload
+  resetAndReload,
+  newGoogEvent,
 };
