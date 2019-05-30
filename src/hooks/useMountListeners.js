@@ -1,11 +1,17 @@
 import { useEffect, useCallback } from "react";
-import throttle from "lodash/throttle";
 
 export default function useMountListeners(props) {
-  const { dispatch, isMenuOpen, compressor, keysCB, scrollCB } = props;
+  const {
+    dispatch,
+    isMenuOpen,
+    compressor,
+    data,
+    keysCB = () => {},
+    scrollCB = () => {},
+  } = props;
 
-  const keys = useCallback(throttle(handleKeys, 200), [compressor, isMenuOpen]);
-  const scroll = useCallback(throttle(handleScroll, 200), [compressor, isMenuOpen]);
+  const keys = useCallback(handleKeys, [compressor, isMenuOpen, data]);
+  const scroll = useCallback(handleScroll, [compressor, isMenuOpen, data]);
 
   useEffect(() => {
     document.addEventListener("keydown", keys);
@@ -32,6 +38,7 @@ export default function useMountListeners(props) {
   }
 
   function handleKeys(e) {
+    if (isMenuOpen) return;
     if (e.keyCode === 38)
       return dispatch({ type: "Compressor", compressor: compressor - 0.03 });
     if (e.keyCode === 40)

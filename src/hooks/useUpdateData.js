@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
-export default function useUpdateData(dataUpdated, dispatch) {
+export default function useUpdateData(dataUpdated, handleGameRef) {
   useEffect(() => {
     if (!dataUpdated) return;
-    dispatch({ type: "" });
-  }, [dataUpdated, dispatch]);
+    handleGameRef();
+  }, [handleGameRef, dataUpdated]);
 }

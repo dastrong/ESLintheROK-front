@@ -1,25 +1,28 @@
-import React from "react";
-// import classNames from "classnames";
+import React, { useCallback } from "react";
 // import shuffle from "lodash/shuffle";
 // import ReactFitText from "react-fittext";
+// import classNames from "classnames";
 // import { TransitionGroup, CSSTransition } from "react-transition-group";
-import useMountListeners from "../../hooks/useMountListeners";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
-import useSetGameData from "../../hooks/useSetGameData";
+import useSetData from "../../hooks/useSetData";
 import useUpdateData from "../../hooks/useUpdateData";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
+import useMountListeners from "../../hooks/useMountListeners";
 import { newGoogEvent } from "../../helpers/phase2helpers";
 // import helpers here
+// import CSS here
 
-const initialState = {
+const init = data => ({
   compressor: 0.6,
-  // put state values here
-};
+  data: shuffle(data),
+});
 
 function reducer(state, action) {
   const { type, compressor } = action;
   switch (type) {
     case "Compressor":
       return { ...state, compressor };
+    case "Set_Data":
+      return { ...state, data: shuffle(data) };
     // add other conditions here
     default:
       return state;
@@ -27,13 +30,18 @@ function reducer(state, action) {
 }
 
 export default function Template(props) {
-  const { vocabulary, expressions, font, dataUpdated, title, isMenuOpen, colors } = props;
-  const initialSetUp = { reducer, initialState, vocabulary, expressions };
-  const [state, dispatch] = useSetGameData(initialSetUp);
-  const { compressor } = state;
+  // REMOVE UNUSED VARIABLES BELOW
+  const { title, isMenuOpen, font, dataUpdated, vocabulary, expressions, colors } = props;
+  // SET VOCABULARY OR EXPRESSIONS BELOW
+  const [state, dispatch] = useSetGame(reducer, DATATYPE, init);
+  // IF DATA IS EDITED, CREATE A NEW HANDLE GAME FUNCTION THAT USES THAT NEW DATA
+  const handleGameRef = useCallback(handleGame, [dataUpdated]);
+  // DESTRUCTURE THE STATE
+  const { compressor, data } = state;
   useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
-  useMountListeners({ dispatch, isMenuOpen, compressor, keysCB, scrollCB });
-  useUpdateData(dataUpdated, dispatch);
+  // CAN REMOVE CB, IF IT'S NOT USED
+  useMountListeners({ dispatch, isMenuOpen, compressor, data, keysCB, scrollCB });
+  useUpdateData(dataUpdated, handleGameRef);
 
   // CUSTOM GAME LOGIC
   function handleGame() {
@@ -52,6 +60,7 @@ export default function Template(props) {
   }
 
   return (
+    // REMEMBER TO PASS FONT TO THE CONTAINER STYLING
     <div onClick={handleGame}>
       <p>{title} Template</p>
     </div>
