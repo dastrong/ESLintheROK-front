@@ -2,9 +2,7 @@ import shuffle from "lodash/shuffle";
 import throttle from "lodash/throttle";
 import ReactGA from "react-ga";
 
-function getRandomNum(length) {
-  return Math.floor(Math.random() * length);
-}
+const getRandomNum = length => Math.floor(Math.random() * length);
 
 function getRandomIndex(length) {
   const { textIndex } = this.state;
