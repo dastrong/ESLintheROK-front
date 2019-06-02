@@ -6,7 +6,8 @@ import React, { useCallback } from "react";
 import useSetData from "../../hooks/useSetData";
 import useUpdateData from "../../hooks/useUpdateData";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import useMountListeners from "../../hooks/useMountListeners";
+import useKeyEvents from "../../hooks/useKeyEvents";
+import useScrollEvents from "../../hooks/useScrollEvents";
 import { newGoogEvent } from "../../helpers/phase2helpers";
 // import helpers here
 // import CSS here
@@ -33,14 +34,16 @@ export default function Template(props) {
   // REMOVE UNUSED VARIABLES BELOW
   const { title, isMenuOpen, font, dataUpdated, vocabulary, expressions, colors } = props;
   // SET VOCABULARY OR EXPRESSIONS BELOW
-  const [state, dispatch] = useSetGame(reducer, DATATYPE, init);
+  const [state, dispatch] = useSetData(reducer, DATATYPE, init);
   // IF DATA IS EDITED, CREATE A NEW HANDLE GAME FUNCTION THAT USES THAT NEW DATA
   const handleGameRef = useCallback(handleGame, [dataUpdated]);
   // DESTRUCTURE THE STATE
   const { compressor, data } = state;
   useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
   // CAN REMOVE CB, IF IT'S NOT USED
-  useMountListeners({ dispatch, isMenuOpen, compressor, data, keysCB, scrollCB });
+  // NEED TO ADD OTHER handleGame DEPENDENCIES TOO
+  useKeyEvents({ dispatch, keysCB }, isMenuOpen, compressor, OTHERdepen);
+  useScrollEvents({ dispatch, scrollCB }, isMenuOpen, compressor, OTHERdepen);
   useUpdateData(dataUpdated, handleGameRef);
 
   // CUSTOM GAME LOGIC
@@ -52,6 +55,7 @@ export default function Template(props) {
   // GAME SPECIFIC KEY EVENTS
   function keysCB(e) {
     console.log("game specific key events");
+    // if (keyCode === 32 || keyCode === 13) return handleGame();
   }
 
   // GAME SPECIFIC SCROLL EVENTS
