@@ -4,7 +4,8 @@ import ReactFitText from "react-fittext";
 import useSetData from "../../hooks/useSetData";
 import useUpdateData from "../../hooks/useUpdateData";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import useMountListeners from "../../hooks/useMountListeners";
+import useKeyEvents from "../../hooks/useKeyEvents";
+import useScrollEvents from "../../hooks/useScrollEvents";
 import { newGoogEvent } from "../../helpers/phase2helpers";
 import "./RedAndBlue.css";
 
@@ -19,7 +20,7 @@ function reducer(state, action) {
   const { type, compressor, data, red, blue } = action;
   if (type === "Compressor") return { ...state, compressor };
   if (type === "Set_Data") return { ...state, data: shuffle(data) };
-  if (type === "Next_Round") return { ...state, red, blue, data };
+  if (type === "New_Round") return { ...state, red, blue, data };
   return state;
 }
 
@@ -29,14 +30,15 @@ export default function RedAndBlue(props) {
   const handleGameRef = useCallback(handleGame, [dataUpdated]);
   const { compressor, data, red, blue } = state;
   useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
-  useMountListeners({ dispatch, isMenuOpen, compressor, data, keysCB });
+  useKeyEvents({ dispatch, keysCB }, isMenuOpen, compressor, data);
+  useScrollEvents({ dispatch }, isMenuOpen, compressor);
   useUpdateData(dataUpdated, handleGameRef);
 
   function handleGame() {
     newGoogEvent(title);
     const [red, blue, ...rest] = data;
-    dispatch({ type: "Next_Round", red, blue, data: rest });
-    if (rest.length < 2) dispatch({ type: "Set_Data", data: vocabulary });
+    const nextData = rest.length < 2 ? shuffle(vocabulary) : rest;
+    dispatch({ type: "New_Round", red, blue, data: nextData });
   }
 
   function keysCB({ keyCode }) {
