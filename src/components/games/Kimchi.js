@@ -1,201 +1,129 @@
-import React, { Component } from "react";
+import React, { useCallback, useEffect } from "react";
+import shuffle from "lodash/shuffle";
+import { CSSTransition } from "react-transition-group";
+import useSetData from "../../hooks/useSetData";
+import useUpdateData from "../../hooks/useUpdateData";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
+import useKeyEvents from "../../hooks/useKeyEvents";
+import useScrollEvents from "../../hooks/useScrollEvents";
+import { newGoogEvent, getRandomNum } from "../../helpers/phase2helpers";
 import TextBox from "../reusable/TextBox";
 import Emoji from "../reusable/Emoji";
 import ShowUpdatedSetting from "../reusable/ShowUpdatedSetting";
-import { CSSTransition } from "react-transition-group";
-import {
-  setData,
-  getRandomNum,
-  getRandomIndex,
-  addListeners,
-  rmvListeners,
-  addTitle,
-  addGoogEvent,
-  resetAndReload,
-} from "../../helpers/phase2helpers";
 import "./Kimchi.css";
 
-class Kimchi extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      compressor: 0.8,
-      frequencyPercent: 50,
-      isKimchi: null,
-      data: [],
-      text: "",
-      textIndex: undefined,
-      showAnswer: false,
-      gameReady: false,
-    };
-    this.setData = setData.bind(this);
-    this.getRandomNum = getRandomNum.bind(this);
-    this.getRandomIndex = getRandomIndex.bind(this);
-    this.addListeners = addListeners.bind(this);
-    this.rmvListeners = rmvListeners.bind(this);
-    this.addTitle = addTitle.bind(this);
-    this.addGoogEvent = addGoogEvent.bind(this);
-    this.resetAndReload = resetAndReload.bind(this);
-  }
+const init = data => ({
+  compressor: 0.8,
+  data: shuffle(data),
+  text: "",
+  showPic: true,
+  isKimchi: true,
+  freq: 50,
+  freqUpd: false,
+  noClick: false,
+});
 
-  componentDidMount() {
-    this.addTitle();
-    this.addListeners();
-    this.setData(this.props.expressions);
-  }
-
-  componentWillUnmount() {
-    this.rmvListeners();
-    clearTimeout(this.timeout1);
-    clearTimeout(this.timeout2);
-    clearTimeout(this.timeoutID);
-  }
-
-  componentDidUpdate() {
-    this.resetAndReload(1, false);
-  }
-
-  handleGame = (data = this.state.data) => {
-    this.addGoogEvent();
-    const random = this.getRandomIndex(data.length);
-    const isKimchi = this._isKimchiLogic(this.state.frequencyPercent);
-    this.setState({
-      text: data[random],
-      textIndex: random,
-      showAnswer: false,
-      isKimchi,
-      gameReady: true,
-    });
-  };
-
-  handleClick = () => {
-    if (this.state.noClick) return;
-    !this.state.showAnswer
-      ? this.setState(
-          { showAnswer: true, noClick: true },
-          () => (this.timeout1 = setTimeout(this._getText, 1000))
-        )
-      : this.setState({ showAnswer: false, noClick: true }, () => {
-          this.addGoogEvent();
-          this.timeout2 = setTimeout(this._getIsKimchi, 1000);
-        });
-  };
-
-  handleEvents = e => {
-    if (this.props.isMenuOpen) return;
-    const { compressor } = this.state;
-    if (e.type === "wheel") {
-      const c = e.deltaY < 0 ? -0.05 : 0.05;
-      return e.buttons !== 4
-        ? this.setState({ compressor: compressor + c })
-        : c < 0
-        ? this._increaseFreq()
-        : this._decreaseFreq();
-    }
-    // spacebar/enter was clicked; reset the game
-    if (e.keyCode === 32 || e.keyCode === 13) return this.handleClick();
-    // up arrow was clicked; increase the font size
-    if (e.keyCode === 38) return this.setState({ compressor: compressor - 0.05 });
-    // down arrow was clicked; decrease the font size
-    if (e.keyCode === 40) return this.setState({ compressor: compressor + 0.05 });
-    // right arrow was clicked; increase the frequent
-    if (e.keyCode === 39) return this._increaseFreq();
-    // left arrow was clicked; decrease the frequent
-    if (e.keyCode === 37) return this._decreaseFreq();
-  };
-
-  _increaseFreq = () => {
-    const { frequencyPercent, noClick } = this.state;
-    if (noClick) return;
-    if (frequencyPercent >= 1 && frequencyPercent < 99) {
-      this.setState(
-        prevSt => ({
-          freqUpdated: true,
-          showAnswer: false,
-          frequencyPercent: prevSt.frequencyPercent + 1,
-        }),
-        this._freqChange
-      );
-    }
-  };
-
-  _decreaseFreq = () => {
-    const { frequencyPercent, noClick } = this.state;
-    if (noClick) return;
-    if (frequencyPercent > 1 && frequencyPercent <= 99) {
-      this.setState(
-        prevSt => ({
-          freqUpdated: true,
-          showAnswer: false,
-          frequencyPercent: prevSt.frequencyPercent - 1,
-        }),
-        this._freqChange
-      );
-    }
-  };
-
-  _isKimchiLogic = percent => this.getRandomNum(100) > percent - 1;
-
-  _freqChange = () => {
-    clearTimeout(this.timeoutID);
-    this.timeoutID = setTimeout(this._getIsKimchi, 1000);
-  };
-
-  _getIsKimchi = () => {
-    const isKimchi = this._isKimchiLogic(this.state.frequencyPercent);
-    this.setState({ isKimchi, freqUpdated: false, noClick: false });
-  };
-
-  _getText = (data = this.state.data) => {
-    const random = this.getRandomIndex(data.length);
-    this.setState({
-      text: data[random],
-      textIndex: random,
-      noClick: false,
-    });
-  };
-
-  render() {
-    const {
-      compressor,
-      gameReady,
-      text,
-      showAnswer,
-      isKimchi,
-      frequencyPercent,
-      freqUpdated,
-    } = this.state;
-    const pic = isKimchi ? (
-      <img
-        alt="kimchi"
-        className="kim-img"
-        src="https://www.sarang.sg/wp-content/uploads/2015/07/kimchi_im.png"
-      />
-    ) : (
-      <Emoji className="poo-img" label="poo emoji" symbol="💩" />
-    );
-    return (
-      <div
-        className="kim-container"
-        onClick={this.handleClick}
-        style={{ fontFamily: this.props.font }}
-      >
-        <CSSTransition in={!showAnswer} timeout={0} classNames="kimchiText">
-          <TextBox
-            gameReady={gameReady}
-            text={text}
-            height="100vh"
-            width="100%"
-            compressor={compressor}
-          />
-        </CSSTransition>
-        <CSSTransition in={showAnswer} timeout={0} classNames="kimchiImg">
-          {pic}
-        </CSSTransition>
-        <ShowUpdatedSetting isIn={freqUpdated} text={frequencyPercent} symbol="%" />
-      </div>
-    );
+function reducer(state, action) {
+  const { type, compressor, data, text, isKimchi, freq } = action;
+  switch (type) {
+    case "Compressor":
+      return { ...state, compressor };
+    case "Set_Data":
+      return { ...state, data: shuffle(data) };
+    case "New_Round":
+      return { ...state, showPic: false, noClick: true, data, text, isKimchi };
+    case "Show_Pic":
+      return { ...state, showPic: true, noClick: true };
+    case "Change_Frequency":
+      return { ...state, freqUpd: true, freq };
+    case "Freq_Upd_False":
+      return { ...state, freqUpd: false };
+    case "No_Click":
+      return { ...state, noClick: false };
+    default:
+      return state;
   }
 }
 
-export default Kimchi;
+export default function Kimchi(props) {
+  const { title, isMenuOpen, font, dataUpdated, expressions } = props;
+  const [state, dispatch] = useSetData(reducer, expressions, init);
+  const handleGameRef = useCallback(handleGame, [dataUpdated]);
+  const { compressor, data, text, showPic, isKimchi, freq, freqUpd, noClick } = state;
+  const keyDeps = [isMenuOpen, compressor, data, showPic, freq, noClick];
+  useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
+  useKeyEvents({ dispatch, keysCB }, ...keyDeps);
+  useScrollEvents({ dispatch, scrollCB }, isMenuOpen, compressor, freq);
+  useUpdateData(dataUpdated, handleGameRef);
+
+  useEffect(() => {
+    if (!freqUpd) return;
+    dispatch({ type: "Freq_Upd_False" });
+  }, [dispatch, freqUpd]);
+
+  useEffect(() => {
+    const id = setTimeout(() => dispatch({ type: "No_Click" }), 750);
+    return () => clearTimeout(id);
+  }, [dispatch, showPic]);
+
+  function handleGame() {
+    if (noClick) return;
+    if (showPic) {
+      newGoogEvent(title);
+      const [text, ...rest] = data;
+      const newData = rest.length < 1 ? shuffle(expressions) : rest;
+      const isKimchi = _isKimchi(freq);
+      dispatch({ type: "New_Round", text, data: newData, isKimchi });
+    } else {
+      dispatch({ type: "Show_Pic" });
+    }
+  }
+
+  function keysCB({ keyCode }) {
+    if (keyCode === 32 || keyCode === 13) return handleGame();
+    if (keyCode === 39) return _increaseFreq();
+    if (keyCode === 37) return _decreaseFreq();
+  }
+
+  function scrollCB(compressorChange) {
+    compressorChange < 0 ? _increaseFreq() : _decreaseFreq();
+  }
+
+  function _increaseFreq() {
+    if (freq >= 99) return;
+    dispatch({ type: "Change_Frequency", freq: freq + 1 });
+  }
+
+  function _decreaseFreq() {
+    if (freq <= 1) return;
+    dispatch({ type: "Change_Frequency", freq: freq - 1 });
+  }
+
+  const _isKimchi = percent => getRandomNum(100) < percent;
+
+  return (
+    <div className="kim-container" onClick={handleGame} style={{ fontFamily: font }}>
+      <CSSTransition in={!showPic} timeout={0} classNames="kimchiText">
+        <TextBox
+          gameReady={!!text}
+          text={text}
+          height="100vh"
+          width="100%"
+          compressor={compressor}
+        />
+      </CSSTransition>
+      <CSSTransition in={showPic} timeout={0} classNames="kimchiImg">
+        {isKimchi ? (
+          <img
+            alt="kimchi"
+            className="kim-img"
+            src="https://www.sarang.sg/wp-content/uploads/2015/07/kimchi_im.png"
+          />
+        ) : (
+          <Emoji className="poo-img" label="poo emoji" symbol="💩" />
+        )}
+      </CSSTransition>
+      <ShowUpdatedSetting isIn={freqUpd} text={freq} symbol="%" />
+    </div>
+  );
+}
