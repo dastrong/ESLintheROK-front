@@ -608,11 +608,11 @@ export const games = [
       { key: "Left-Click", description: "Starts the game" },
       { key: ["Space", "Enter"], description: "Refresh the game" },
       {
-        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Up"],
+        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Up"],
         description: "Increase kimchi frequency",
       },
       {
-        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Down"],
+        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Down"],
         description: "Decrease kimchi frequency",
       },
       { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
