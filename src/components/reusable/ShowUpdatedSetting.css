@@ -1,7 +1,6 @@
 .updated-settings-cover {
   width: 100vw;
   height: 100vh;
-  /* z-index: 1000; */
   font-size: 100px;
   line-height: 100%;
   color: #7b7b7b;
@@ -15,7 +14,7 @@
 }
 
 .updated-settings-cover-enter {
-  opacity: 0
+  opacity: 0;
 }
 
 .updated-settings-cover-enter-done {
@@ -29,5 +28,5 @@
 
 .updated-settings-cover-exit-done {
   opacity: 0;
-  transition: 0.5s opacity;
+  transition: 1.2s opacity;
 }
