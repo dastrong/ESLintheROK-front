@@ -17,15 +17,14 @@ export default function useScrollEvents(...props) {
   function handleScroll({ deltaY, buttons }) {
     if (isMenuOpen) return;
     const compressChange = deltaY < 0 ? -0.03 : 0.03;
-    // const compressChange = (deltaY / 100) * 0.03;
     const compressorVal = compressChange + compressor;
     // SETS MIN AND MAX COMPRESSOR VALUES
     const newCom = compressorVal < 0.02 ? 0 : compressorVal > 2.48 ? 2.5 : compressorVal;
     // SCROLL W/ CLICK-HOLDS
     if (!!buttons) {
-      // EXTRA LOGIC FROM GAMES HERE - remember to use return in this function
+      // EXTRA LOGIC FROM GAMES HERE
       if (!scrollCB) return;
-      scrollCB(compressChange);
+      return scrollCB(compressChange);
     }
     // SCROLL W/O CLICK-HOLDS
     dispatch({ type: "Compressor", compressor: newCom });
