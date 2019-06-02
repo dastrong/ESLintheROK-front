@@ -1,101 +1,72 @@
-import React, { Component } from "react";
+import React, { useCallback } from "react";
+import shuffle from "lodash/shuffle";
 import ReactFitText from "react-fittext";
 import { CSSTransition } from "react-transition-group";
-import {
-  setData,
-  getRandomNum,
-  getRandomIndex,
-  addListeners,
-  rmvListeners,
-  addTitle,
-  addGoogEvent,
-  resetAndReload,
-} from "../../helpers/phase2helpers";
+import useSetData from "../../hooks/useSetData";
+import useUpdateData from "../../hooks/useUpdateData";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
+import useKeyEvents from "../../hooks/useKeyEvents";
+import useScrollEvents from "../../hooks/useScrollEvents";
+import { newGoogEvent } from "../../helpers/phase2helpers";
 import "./Nunchi.css";
 
-class Nunchi extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      compressor: 0.8,
-      data: [],
-      text: "",
-      textIndex: undefined,
-      showReady: true,
-    };
-    this.setData = setData.bind(this);
-    this.getRandomNum = getRandomNum.bind(this);
-    this.getRandomIndex = getRandomIndex.bind(this);
-    this.addListeners = addListeners.bind(this);
-    this.rmvListeners = rmvListeners.bind(this);
-    this.addTitle = addTitle.bind(this);
-    this.addGoogEvent = addGoogEvent.bind(this);
-    this.resetAndReload = resetAndReload.bind(this);
-  }
+const init = data => ({
+  compressor: 0.8,
+  data: shuffle(data),
+  text: "",
+  showReady: false,
+});
 
-  componentDidMount() {
-    this.addTitle();
-    this.addListeners();
-    this.setData(this.props.expressions);
-  }
-
-  componentWillUnmount() {
-    this.rmvListeners();
-  }
-
-  componentDidUpdate(x, prevState) {
-    this.resetAndReload(1, false);
-    if (prevState.showReady === this.state.showReady) return;
-    if (!this.state.showReady) return this.handleGame();
-  }
-
-  handleGame = (data = this.state.data) => {
-    this.addGoogEvent();
-    const random = this.getRandomIndex(data.length);
-    this.setState({
-      text: data[random],
-      textIndex: random,
-    });
-  };
-
-  handleEvents = e => {
-    if (this.props.isMenuOpen) return;
-    const { compressor } = this.state;
-    if (e.type === "wheel") {
-      const c = e.deltaY < 0 ? -0.03 : 0.03;
-      return this.setState({ compressor: compressor + c });
-    }
-    // spacebar/enter was clicked; reset the game
-    if (e.keyCode === 32 || e.keyCode === 13) return this.handleClick();
-    // up arrow was clicked; increase the font size
-    if (e.keyCode === 38) return this.setState({ compressor: compressor - 0.03 });
-    // down arrow was clicked; decrease the font size
-    if (e.keyCode === 40) return this.setState({ compressor: compressor + 0.03 });
-  };
-
-  handleClick = () => this.setState(prevState => ({ showReady: !prevState.showReady }));
-
-  render() {
-    const { compressor, showReady, text } = this.state;
-    return (
-      <div
-        className="nunchi-container"
-        onClick={this.handleClick}
-        style={{ fontFamily: this.props.font }}
-      >
-        <div className="nunchi-text-holder">
-          <CSSTransition in={showReady} classNames="nunchi-ready" timeout={0}>
-            <p className="nunchi-text nunchi-ready">Ready?</p>
-          </CSSTransition>
-          <ReactFitText compressor={compressor} minFontSize={0} maxFontSize={350}>
-            <CSSTransition in={!showReady} classNames="nunchi-text" timeout={0}>
-              <p className="nunchi-text">{text}</p>
-            </CSSTransition>
-          </ReactFitText>
-        </div>
-      </div>
-    );
-  }
+function reducer(state, action) {
+  const { type, compressor, data, text } = action;
+  if (type === "Compressor") return { ...state, compressor };
+  if (type === "Set_Data") return { ...state, data: shuffle(data) };
+  if (type === "New_Round") return { ...state, showReady: true, data, text };
+  if (type === "Show_Ready_False") return { ...state, showReady: false };
+  return state;
 }
 
-export default Nunchi;
+export default function Nunchi(props) {
+  const { title, isMenuOpen, font, dataUpdated, expressions } = props;
+  const [state, dispatch] = useSetData(reducer, expressions, init);
+  const { compressor, data, text, showReady } = state;
+  const handleGameRef = useCallback(handleGame, [dataUpdated]);
+  useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
+  useKeyEvents({ dispatch, keysCB }, isMenuOpen, compressor, data, showReady);
+  useScrollEvents({ dispatch }, isMenuOpen, compressor);
+  useUpdateData(dataUpdated, handleGameRef);
+
+  function handleGame() {
+    if (showReady) {
+      newGoogEvent(title);
+      dispatch({ type: "Show_Ready_False" });
+    } else {
+      const [text, ...rest] = data;
+      const newData = rest.length < 1 ? shuffle(expressions) : rest;
+      dispatch({ type: "New_Round", text, data: newData });
+    }
+  }
+
+  function keysCB({ keyCode }) {
+    if (keyCode === 32 || keyCode === 13) return handleGame();
+  }
+
+  return (
+    <div className="nunchi-container" onClick={handleGame} style={{ fontFamily: font }}>
+      <div className="nunchi-text-holder">
+        <CSSTransition in={showReady} classNames="nunchi-ready" timeout={0}>
+          <p className="nunchi-ready">Ready?</p>
+        </CSSTransition>
+        <ReactFitText compressor={compressor} minFontSize={0} maxFontSize={350}>
+          <CSSTransition
+            in={!showReady}
+            classNames="nunchi-text"
+            timeout={{ enter: 500, exit: 0 }}
+          >
+            <p className="nunchi-text">{text}</p>
+          </CSSTransition>
+        </ReactFitText>
+      </div>
+    </div>
+  );
+}
