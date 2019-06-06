@@ -526,7 +526,7 @@ export const games = [
       },
     },
     keyCuts: [
-      { key: "Left-Click", description: "Starts the game" },
+      { key: "Left-Click", description: "Reveal the answer (by clicking the ???)" },
       { key: ["Space", "Enter"], description: "Refresh the game" },
       { key: "Left-Arrow", description: "Decrease the total rounds" },
       { key: "Right-Arrow", description: "Increase the total rounds" },
