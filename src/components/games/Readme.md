@@ -1,1 +1,1 @@
-Test
+Explanation of game structure coming soon.
