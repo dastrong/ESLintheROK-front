@@ -17,11 +17,12 @@ export default function useData(reducer, init, ...data) {
     didUpdate.current = true;
     const newData = isVocab === undefined ? primary : isVocab ? primary : secondary;
     dispatch({ type: "Set_Data", data: newData });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, primary, secondary]);
 
   useEffect(() => {
-    if (isFirstRun) return;
     didUpdate.current = false;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [didUpdate.current]);
 
   return [state, dispatch, didUpdate.current];

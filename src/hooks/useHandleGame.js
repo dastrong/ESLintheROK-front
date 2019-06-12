@@ -5,6 +5,7 @@ export default function useHandleGame(handleGame, didUpdate) {
   // from the game has set the initial data as shuffled
   useEffect(() => {
     handleGame();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // didUpdate comes from useData
@@ -12,5 +13,6 @@ export default function useHandleGame(handleGame, didUpdate) {
   useEffect(() => {
     if (!didUpdate) return;
     handleGame();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [didUpdate]);
 }
