@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect } from "react";
 import shuffle from "lodash/shuffle";
 import { CSSTransition } from "react-transition-group";
-import useSetData from "../../hooks/useSetData";
-import useUpdateData from "../../hooks/useUpdateData";
+import useData from "../../hooks/useData";
+import useKeys from "../../hooks/useKeys";
+import useScroll from "../../hooks/useScroll";
+import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import useKeyEvents from "../../hooks/useKeyEvents";
-import useScrollEvents from "../../hooks/useScrollEvents";
 import { newGoogEvent, getRandomNum } from "../../helpers/phase2helpers";
 import TextBox from "../reusable/TextBox";
 import Emoji from "../reusable/Emoji";
@@ -29,7 +29,7 @@ function reducer(state, action) {
     case "Compressor":
       return { ...state, compressor };
     case "Set_Data":
-      return { ...state, data: shuffle(data) };
+      return { ...state, data: shuffle(data), showPic: true };
     case "New_Round":
       return { ...state, showPic: false, noClick: true, data, text, isKimchi };
     case "Show_Pic":
@@ -46,15 +46,49 @@ function reducer(state, action) {
 }
 
 export default function Kimchi(props) {
-  const { title, isMenuOpen, font, dataUpdated, expressions } = props;
-  const [state, dispatch] = useSetData(reducer, expressions, init);
-  const handleGameRef = useCallback(handleGame, [dataUpdated]);
-  const { compressor, data, text, showPic, isKimchi, freq, freqUpd, noClick } = state;
-  const keyDeps = [isMenuOpen, compressor, data, showPic, freq, noClick];
+  const { title, isMenuOpen, font, expressions } = props;
   useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
-  useKeyEvents({ dispatch, keysCB }, ...keyDeps);
-  useScrollEvents({ dispatch, scrollCB }, isMenuOpen, compressor, freq);
-  useUpdateData(dataUpdated, handleGameRef);
+
+  // STATE
+  const [state, dispatch, didUpdate] = useData(reducer, init, expressions);
+  const { compressor, data, text, showPic, isKimchi, freq, freqUpd, noClick } = state;
+
+  // HANDLE GAME
+  const handleGame = useCallback(() => {
+    if (noClick) return;
+    if (showPic) {
+      newGoogEvent(title);
+      const [text, ...rest] = data;
+      const newData = rest.length < 1 ? shuffle(expressions) : rest;
+      const isKimchi = __isKimchi(freq);
+      dispatch({ type: "New_Round", text, data: newData, isKimchi });
+    } else {
+      dispatch({ type: "Show_Pic" });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, showPic, freq, noClick]);
+  useHandleGame(handleGame, didUpdate);
+
+  // EVENT HANDLERS
+  const reqDep = [dispatch, isMenuOpen, compressor];
+  const keysCB = useCallback(
+    ({ keyCode }) => {
+      if (keyCode === 32 || keyCode === 13) return handleGame();
+      if (keyCode === 39) return __increaseFreq(dispatch, freq);
+      if (keyCode === 37) return __decreaseFreq(dispatch, freq);
+    },
+    [handleGame, dispatch, freq]
+  );
+  const scrollCB = useCallback(
+    compressorChange => {
+      compressorChange < 0
+        ? __increaseFreq(dispatch, freq)
+        : __decreaseFreq(dispatch, freq);
+    },
+    [dispatch, freq]
+  );
+  useKeys(keysCB, ...reqDep);
+  useScroll(scrollCB, ...reqDep);
 
   useEffect(() => {
     if (!freqUpd) return;
@@ -65,41 +99,6 @@ export default function Kimchi(props) {
     const id = setTimeout(() => dispatch({ type: "No_Click" }), 750);
     return () => clearTimeout(id);
   }, [dispatch, showPic]);
-
-  function handleGame() {
-    if (noClick) return;
-    if (showPic) {
-      newGoogEvent(title);
-      const [text, ...rest] = data;
-      const newData = rest.length < 1 ? shuffle(expressions) : rest;
-      const isKimchi = _isKimchi(freq);
-      dispatch({ type: "New_Round", text, data: newData, isKimchi });
-    } else {
-      dispatch({ type: "Show_Pic" });
-    }
-  }
-
-  function keysCB({ keyCode }) {
-    if (keyCode === 32 || keyCode === 13) return handleGame();
-    if (keyCode === 39) return _increaseFreq();
-    if (keyCode === 37) return _decreaseFreq();
-  }
-
-  function scrollCB(compressorChange) {
-    compressorChange < 0 ? _increaseFreq() : _decreaseFreq();
-  }
-
-  function _increaseFreq() {
-    if (freq >= 99) return;
-    dispatch({ type: "Change_Frequency", freq: freq + 1 });
-  }
-
-  function _decreaseFreq() {
-    if (freq <= 1) return;
-    dispatch({ type: "Change_Frequency", freq: freq - 1 });
-  }
-
-  const _isKimchi = percent => getRandomNum(100) < percent;
 
   return (
     <div className="kim-container" onClick={handleGame} style={{ fontFamily: font }}>
@@ -126,4 +125,18 @@ export default function Kimchi(props) {
       <ShowUpdatedSetting isIn={freqUpd} text={freq} symbol="%" />
     </div>
   );
+}
+
+function __increaseFreq(dispatch, freq) {
+  if (freq >= 99) return;
+  dispatch({ type: "Change_Frequency", freq: freq + 1 });
+}
+
+function __decreaseFreq(dispatch, freq) {
+  if (freq <= 1) return;
+  dispatch({ type: "Change_Frequency", freq: freq - 1 });
+}
+
+function __isKimchi(percent) {
+  return getRandomNum(100) < percent;
 }
