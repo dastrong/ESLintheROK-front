@@ -1,13 +1,13 @@
 import React, { useCallback } from "react";
-// import shuffle from "lodash/shuffle";
+import shuffle from "lodash/shuffle";
 // import ReactFitText from "react-fittext";
 // import classNames from "classnames";
 // import { TransitionGroup, CSSTransition } from "react-transition-group";
-import useSetData from "../../hooks/useSetData";
-import useUpdateData from "../../hooks/useUpdateData";
+import useData from "../../hooks/useData";
+import useKeys from "../../hooks/useKeys";
+import useScroll from "../../hooks/useScroll";
+import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import useKeyEvents from "../../hooks/useKeyEvents";
-import useScrollEvents from "../../hooks/useScrollEvents";
 import { newGoogEvent } from "../../helpers/phase2helpers";
 // import helpers here
 // import CSS here
@@ -18,7 +18,7 @@ const init = data => ({
 });
 
 function reducer(state, action) {
-  const { type, compressor } = action;
+  const { type, compressor, data } = action;
   switch (type) {
     case "Compressor":
       return { ...state, compressor };
@@ -31,37 +31,41 @@ function reducer(state, action) {
 }
 
 export default function Template(props) {
-  // REMOVE UNUSED VARIABLES BELOW
-  const { title, isMenuOpen, font, dataUpdated, vocabulary, expressions, colors } = props;
-  // SET VOCABULARY OR EXPRESSIONS BELOW
-  const [state, dispatch] = useSetData(reducer, DATATYPE, init);
-  // IF DATA IS EDITED, CREATE A NEW HANDLE GAME FUNCTION THAT USES THAT NEW DATA
-  const handleGameRef = useCallback(handleGame, [dataUpdated]);
-  // DESTRUCTURE THE STATE
-  const { compressor, data } = state;
+  // PROPS - remove unused variable below
+  const { title, isMenuOpen, font, vocabulary, expressions, colors } = props;
   useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
-  // CAN REMOVE CB, IF IT'S NOT USED
-  // NEED TO ADD OTHER handleGame DEPENDENCIES TOO
-  useKeyEvents({ dispatch, keysCB }, isMenuOpen, compressor, OTHERdepen);
-  useScrollEvents({ dispatch, scrollCB }, isMenuOpen, compressor, OTHERdepen);
-  useUpdateData(dataUpdated, handleGameRef);
 
-  // CUSTOM GAME LOGIC
-  function handleGame() {
+  // STATE - set vocabulary, expressions or both below
+  const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary, expressions);
+  const { compressor, data } = state;
+
+  // HANDLE GAME - add dependencies as needed
+  const handleGame = useCallback(() => {
     console.log("new round");
     newGoogEvent(title);
-  }
+  }, []);
+  useHandleGame(handleGame, didUpdate);
 
+  // EVENT HANDLERS - add dependencies as needed
+  // reqDep are required dependencies of useKeys and useScroll hooks
+  const reqDep = [dispatch, isMenuOpen, compressor];
   // GAME SPECIFIC KEY EVENTS
-  function keysCB(e) {
-    console.log("game specific key events");
-    // if (keyCode === 32 || keyCode === 13) return handleGame();
-  }
-
+  const keysCB = useCallback(
+    ({ keyCode }) => {
+      console.log("game specific key events");
+      if (keyCode === 32 || keyCode === 13) return handleGame();
+    },
+    [handleGame]
+  );
   // GAME SPECIFIC SCROLL EVENTS
-  function scrollCB(compressorChange) {
+  const scrollCB = useCallback(compressorChange => {
     console.log("game specific scroll events");
-  }
+  }, []);
+  // if keysCB or scrollCB are not used, set param to null
+  useKeys(keysCB, ...reqDep);
+  useScroll(scrollCB, ...reqDep);
+
+  // OTHER GAME FUNCTIONS AND LOGIC HERE
 
   return (
     // REMEMBER TO PASS FONT TO THE CONTAINER STYLING
