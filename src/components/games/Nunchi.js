@@ -2,11 +2,11 @@ import React, { useCallback } from "react";
 import shuffle from "lodash/shuffle";
 import ReactFitText from "react-fittext";
 import { CSSTransition } from "react-transition-group";
-import useSetData from "../../hooks/useSetData";
-import useUpdateData from "../../hooks/useUpdateData";
+import useData from "../../hooks/useData";
+import useKeys from "../../hooks/useKeys";
+import useScroll from "../../hooks/useScroll";
+import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import useKeyEvents from "../../hooks/useKeyEvents";
-import useScrollEvents from "../../hooks/useScrollEvents";
 import { newGoogEvent } from "../../helpers/phase2helpers";
 import "./Nunchi.css";
 
@@ -27,16 +27,15 @@ function reducer(state, action) {
 }
 
 export default function Nunchi(props) {
-  const { title, isMenuOpen, font, dataUpdated, expressions } = props;
-  const [state, dispatch] = useSetData(reducer, expressions, init);
-  const { compressor, data, text, showReady } = state;
-  const handleGameRef = useCallback(handleGame, [dataUpdated]);
+  const { title, isMenuOpen, font, expressions } = props;
   useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
-  useKeyEvents({ dispatch, keysCB }, isMenuOpen, compressor, data, showReady);
-  useScrollEvents({ dispatch }, isMenuOpen, compressor);
-  useUpdateData(dataUpdated, handleGameRef);
 
-  function handleGame() {
+  // STATE
+  const [state, dispatch, didUpdate] = useData(reducer, init, expressions);
+  const { compressor, data, text, showReady } = state;
+
+  // HANDLE GAME
+  const handleGame = useCallback(() => {
     if (showReady) {
       newGoogEvent(title);
       dispatch({ type: "Show_Ready_False" });
@@ -45,11 +44,20 @@ export default function Nunchi(props) {
       const newData = rest.length < 1 ? shuffle(expressions) : rest;
       dispatch({ type: "New_Round", text, data: newData });
     }
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, showReady]);
+  useHandleGame(handleGame, didUpdate);
 
-  function keysCB({ keyCode }) {
-    if (keyCode === 32 || keyCode === 13) return handleGame();
-  }
+  // EVENT HANDLERS
+  const reqDep = [dispatch, isMenuOpen, compressor];
+  const keysCB = useCallback(
+    ({ keyCode }) => {
+      if (keyCode === 32 || keyCode === 13) return handleGame();
+    },
+    [handleGame]
+  );
+  useKeys(keysCB, ...reqDep);
+  useScroll(null, ...reqDep);
 
   return (
     <div className="nunchi-container" onClick={handleGame} style={{ fontFamily: font }}>
