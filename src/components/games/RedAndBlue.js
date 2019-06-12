@@ -1,11 +1,11 @@
 import React, { useCallback } from "react";
 import shuffle from "lodash/shuffle";
 import ReactFitText from "react-fittext";
-import useSetData from "../../hooks/useSetData";
-import useUpdateData from "../../hooks/useUpdateData";
+import useData from "../../hooks/useData";
+import useKeys from "../../hooks/useKeys";
+import useScroll from "../../hooks/useScroll";
+import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import useKeyEvents from "../../hooks/useKeyEvents";
-import useScrollEvents from "../../hooks/useScrollEvents";
 import { newGoogEvent } from "../../helpers/phase2helpers";
 import "./RedAndBlue.css";
 
@@ -25,25 +25,33 @@ function reducer(state, action) {
 }
 
 export default function RedAndBlue(props) {
-  const { title, isMenuOpen, font, dataUpdated, vocabulary } = props;
-  const [state, dispatch] = useSetData(reducer, vocabulary, init);
-  const handleGameRef = useCallback(handleGame, [dataUpdated]);
-  const { compressor, data, red, blue } = state;
+  const { title, isMenuOpen, font, vocabulary } = props;
   useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
-  useKeyEvents({ dispatch, keysCB }, isMenuOpen, compressor, data);
-  useScrollEvents({ dispatch }, isMenuOpen, compressor);
-  useUpdateData(dataUpdated, handleGameRef);
 
-  function handleGame() {
+  // STATE
+  const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary);
+  const { compressor, data, red, blue } = state;
+
+  // HANDLE GAME
+  const handleGame = useCallback(() => {
     newGoogEvent(title);
     const [red, blue, ...rest] = data;
     const nextData = rest.length < 2 ? shuffle(vocabulary) : rest;
     dispatch({ type: "New_Round", red, blue, data: nextData });
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+  useHandleGame(handleGame, didUpdate);
 
-  function keysCB({ keyCode }) {
-    if (keyCode === 32 || keyCode === 13) return handleGame();
-  }
+  // EVENT HANDLERS
+  const reqDep = [dispatch, isMenuOpen, compressor];
+  const keysCB = useCallback(
+    ({ keyCode }) => {
+      if (keyCode === 32 || keyCode === 13) return handleGame();
+    },
+    [handleGame]
+  );
+  useKeys(keysCB, ...reqDep);
+  useScroll(null, ...reqDep);
 
   return (
     <div className="redblue-container" onClick={handleGame} style={{ fontFamily: font }}>
