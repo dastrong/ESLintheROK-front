@@ -1,4 +1,4 @@
-import React, { useState, useEffect, cloneElement } from "react";
+import React, { cloneElement } from "react";
 import InfoModal from "../InfoModal";
 import { useStore } from "../../store";
 
@@ -6,7 +6,6 @@ export default function WithStoreAndInfo({ children, gameInfo, path }) {
   const { keyCuts, info } = gameInfo;
   const { attachments, title, images } = info;
 
-  const [wasDataUpdated, setDataUpdateFlag] = useState(false);
   const [store, dispatch] = useStore();
   const {
     vocabulary,
@@ -18,15 +17,6 @@ export default function WithStoreAndInfo({ children, gameInfo, path }) {
     showDataModal,
   } = store;
 
-  useEffect(() => {
-    setDataUpdateFlag(true);
-  }, [vocabulary, expressions]);
-
-  useEffect(() => {
-    if (!wasDataUpdated) return;
-    setDataUpdateFlag(false);
-  }, [wasDataUpdated]);
-
   const childProps = path.includes("/play")
     ? {
         title,
@@ -34,7 +24,6 @@ export default function WithStoreAndInfo({ children, gameInfo, path }) {
         vocabulary,
         expressions,
         colors,
-        dataUpdated: wasDataUpdated,
         isMenuOpen: showSideBar || showDataModal,
       }
     : { title, font, isGameReady, path, image: images.topText };
