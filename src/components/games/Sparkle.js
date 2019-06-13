@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect } from "react";
 import shuffle from "lodash/shuffle";
 import { CSSTransition } from "react-transition-group";
-import useSetData from "../../hooks/useSetData";
-import useUpdateData from "../../hooks/useUpdateData";
+import useData from "../../hooks/useData";
+import useKeys from "../../hooks/useKeys";
+import useScroll from "../../hooks/useScroll";
+import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import useKeyEvents from "../../hooks/useKeyEvents";
-import useScrollEvents from "../../hooks/useScrollEvents";
 import { newGoogEvent } from "../../helpers/phase2helpers";
 import TextBox from "../reusable/TextBox";
 import "./Sparkle.css";
@@ -47,47 +47,49 @@ function reducer(state, action) {
 }
 
 export default function Sparkle(props) {
-  const { title, isMenuOpen, font, dataUpdated, expressions } = props;
-  const [state, dispatch] = useSetData(reducer, expressions, init);
-  const handleGameRef = useCallback(handleGame, [dataUpdated]);
-  const { compressor, data, text, timer, timeRemaining, isTimerRunning } = state;
+  const { title, isMenuOpen, font, expressions } = props;
   useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
-  useKeyEvents({ dispatch, keysCB }, isMenuOpen, compressor, data, timer);
-  useScrollEvents({ dispatch, scrollCB }, isMenuOpen, compressor, timer);
-  useUpdateData(dataUpdated, handleGameRef);
+
+  // STATE
+  const [state, dispatch, didUpdate] = useData(reducer, init, expressions);
+  const { compressor, data, text, timer, timeRemaining, isTimerRunning } = state;
+
+  // HANDLE GAME
+  const handleGame = useCallback(() => {
+    newGoogEvent(title);
+    const [text, ...rest] = data;
+    const newData = rest.length < 1 ? shuffle(expressions) : rest;
+    dispatch({ type: "New_Round", text, data: newData });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+  useHandleGame(handleGame, didUpdate);
+
+  // EVENT HANDLERS
+  const reqDep = [dispatch, isMenuOpen, compressor];
+  const keysCB = useCallback(
+    ({ keyCode }) => {
+      if (keyCode === 32 || keyCode === 13) return handleGame();
+      if (keyCode === 39) return __increaseTimer(dispatch, timer);
+      if (keyCode === 37) return __decreaseTimer(dispatch, timer);
+    },
+    [handleGame, dispatch, timer]
+  );
+  const scrollCB = useCallback(
+    compressorChange => {
+      compressorChange < 0
+        ? __increaseTimer(dispatch, timer)
+        : __decreaseTimer(dispatch, timer);
+    },
+    [dispatch, timer]
+  );
+  useKeys(keysCB, ...reqDep);
+  useScroll(scrollCB, ...reqDep);
 
   useEffect(() => {
     if (!isTimerRunning) return;
     const id = setInterval(() => dispatch({ type: "Timer_Countdown" }), 1000);
     return () => clearInterval(id);
   }, [dispatch, isTimerRunning]);
-
-  function handleGame() {
-    newGoogEvent(title);
-    const [text, ...rest] = data;
-    const newData = rest.length < 1 ? shuffle(expressions) : rest;
-    dispatch({ type: "New_Round", text, data: newData });
-  }
-
-  function keysCB({ keyCode }) {
-    if (keyCode === 32 || keyCode === 13) return handleGame();
-    if (keyCode === 39) return _increaseTimer();
-    if (keyCode === 37) return _decreaseTimer();
-  }
-
-  function scrollCB(compressorChange) {
-    compressorChange < 0 ? _increaseTimer() : _decreaseTimer();
-  }
-
-  function _increaseTimer() {
-    if (timer >= 20) return;
-    dispatch({ type: "Timer_Change", timer: timer + 1 });
-  }
-
-  function _decreaseTimer() {
-    if (timer <= 5) return;
-    dispatch({ type: "Timer_Change", timer: timer - 1 });
-  }
 
   return (
     <div className="spark-container" style={{ fontFamily: font }}>
@@ -116,3 +118,13 @@ const Timer = ({ timeRemaining, timer, dispatch }) => {
     </div>
   );
 };
+
+function __increaseTimer(dispatch, timer) {
+  if (timer >= 20) return;
+  dispatch({ type: "Timer_Change", timer: timer + 1 });
+}
+
+function __decreaseTimer(dispatch, timer) {
+  if (timer <= 5) return;
+  dispatch({ type: "Timer_Change", timer: timer - 1 });
+}
