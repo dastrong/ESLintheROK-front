@@ -3,11 +3,11 @@ import shuffle from "lodash/shuffle";
 import classNames from "classnames";
 import { CSSTransition } from "react-transition-group";
 import FlipMove from "react-flip-move";
-import useSetData from "../../hooks/useSetData";
-import useUpdateData from "../../hooks/useUpdateData";
+import useData from "../../hooks/useData";
+import useKeys from "../../hooks/useKeys";
+import useScroll from "../../hooks/useScroll";
+import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import useKeyEvents from "../../hooks/useKeyEvents";
-import useScrollEvents from "../../hooks/useScrollEvents";
 import { newGoogEvent } from "../../helpers/phase2helpers";
 import CardBlock from "../reusable/CardBlock";
 import "./ChaseTheVocab.css";
@@ -61,9 +61,11 @@ function reducer(state, action) {
 }
 
 export default function ChaseTheVocab(props) {
-  const { title, isMenuOpen, font, dataUpdated, vocabulary, colors } = props;
-  const [state, dispatch] = useSetData(reducer, vocabulary, init);
-  const handleGameRef = useCallback(handleGame, [dataUpdated]);
+  const { title, isMenuOpen, font, vocabulary, colors } = props;
+  useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
+
+  // STATE
+  const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary);
   const {
     compressor,
     data,
@@ -77,12 +79,50 @@ export default function ChaseTheVocab(props) {
     shuffDuration,
     shuffRounds,
   } = state;
+
+  // HANDLE GAME
+  const handleGame = useCallback(() => {
+    if (isShuffleDone && clickedIDs.length !== 9) return;
+    if (isAnimating || clickedIDs.length === 9) {
+      newGoogEvent(title);
+      const gameData = data.slice(0, 9).map((text, i) => ({ text, id: i }));
+      const restData = data.length < 18 ? shuffle(vocabulary) : data.slice(9);
+      dispatch({ type: "New_Round", gameData, data: restData });
+    } else {
+      dispatch({ type: "Start_Animating" });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, isShuffleDone, isAnimating, clickedIDs]);
+  useHandleGame(handleGame, didUpdate);
+
+  // EVENT HANDLERS
+  const reqDep = [dispatch, isMenuOpen, compressor];
+  const keysCB = useCallback(
+    ({ keyCode, code, key }) => {
+      if (keyCode === 32 || keyCode === 13) return handleGame();
+      // c was clicked; change the cards background color
+      if (keyCode === 67) {
+        const colorIdx = color < colors.length - 1 ? color + 1 : 0;
+        return dispatch({ type: "Change_Color", color: colorIdx });
+      }
+      // a number key was clicked; change difficulty
+      if (code.includes("Digit")) {
+        const keyNum = Number(key);
+        if (!keyNum) return;
+        const shuffBuffer = __changeDelay(keyNum);
+        const shuffRounds = __changeRound(keyNum);
+        const shuffDuration = __changeSpeed(keyNum);
+        dispatch({ type: "Change_Settings", shuffBuffer, shuffDuration, shuffRounds });
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [handleGame, dispatch, color]
+  );
+  useKeys(keysCB, ...reqDep);
+  useScroll(null, ...reqDep);
+
   const keyDeps = [data, color, isAnimating, isShuffleDone, clickedIDs];
   const handleReset = useCallback(handleGame, keyDeps);
-  useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
-  useKeyEvents({ dispatch, keysCB }, isMenuOpen, compressor, ...keyDeps);
-  useScrollEvents({ dispatch }, isMenuOpen, compressor);
-  useUpdateData(dataUpdated, handleGameRef);
 
   // handles the shuffling
   useEffect(() => {
@@ -111,53 +151,11 @@ export default function ChaseTheVocab(props) {
     return () => clearTimeout(id);
   }, [dispatch, clickedIDs, handleReset]);
 
-  function handleGame() {
-    if (isShuffleDone && clickedIDs.length !== 9) return;
-    if (isAnimating || clickedIDs.length === 9) {
-      newGoogEvent(title);
-      const gameData = data.slice(0, 9).map((text, i) => ({ text, id: i }));
-      const restData = data.length < 18 ? shuffle(vocabulary) : data.slice(9);
-      dispatch({ type: "New_Round", gameData, data: restData });
-    } else {
-      dispatch({ type: "Start_Animating" });
-    }
-  }
-
-  function keysCB({ keyCode, code, key }) {
-    if (keyCode === 32 || keyCode === 13) return handleGame();
-    // c was clicked; change the cards background color
-    if (keyCode === 67) {
-      const colorIdx = color < colors.length - 1 ? color + 1 : 0;
-      return dispatch({ type: "Change_Color", color: colorIdx });
-    }
-    // a number key was clicked; change difficulty
-    if (code.includes("Digit")) {
-      const keyNum = Number(key);
-      if (!keyNum) return;
-      const shuffBuffer = _changeDelay(keyNum);
-      const shuffRounds = _changeRound(keyNum);
-      const shuffDuration = _changeSpeed(keyNum);
-      dispatch({ type: "Change_Settings", shuffBuffer, shuffDuration, shuffRounds });
-    }
-  }
-
   function _handleBoxClick(e) {
     const id = Number(e.target.id);
     if (clickedIDs.includes(id)) return;
     dispatch({ type: "Add_Click_ID", id });
   }
-
-  function _changeSpeed(num) {
-    const base = 2000;
-    const increaseMultiplier = (2000 - 500) / 4;
-    const decreaseMultiplier = (5000 - 2000) / 4;
-    if (num >= 5) return base - increaseMultiplier * (num - 5);
-    if (num < 5) return base + decreaseMultiplier * (5 - num);
-  }
-
-  const _changeDelay = num => 1000 - num * 100;
-
-  const _changeRound = num => (num < 4 ? 3 : num);
 
   const boxClass = classNames("box box-chase box-grid", { "box-shrink": isAnimating });
   const numClass = classNames(boxClass, "box-number", {
@@ -198,4 +196,20 @@ export default function ChaseTheVocab(props) {
       ))}
     </FlipMove>
   );
+}
+
+function __changeSpeed(num) {
+  const base = 2000;
+  const increaseMultiplier = (2000 - 500) / 4;
+  const decreaseMultiplier = (5000 - 2000) / 4;
+  if (num >= 5) return base - increaseMultiplier * (num - 5);
+  if (num < 5) return base + decreaseMultiplier * (5 - num);
+}
+
+function __changeDelay(num) {
+  return 1000 - num * 100;
+}
+
+function __changeRound(num) {
+  return num < 4 ? 3 : num;
 }
