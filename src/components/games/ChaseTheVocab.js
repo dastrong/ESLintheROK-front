@@ -151,11 +151,15 @@ export default function ChaseTheVocab(props) {
     return () => clearTimeout(id);
   }, [dispatch, clickedIDs, handleReset]);
 
-  function _handleBoxClick(e) {
-    const id = Number(e.target.id);
-    if (clickedIDs.includes(id)) return;
-    dispatch({ type: "Add_Click_ID", id });
-  }
+  const _handleBoxClick = useCallback(
+    e => {
+      if (!isShuffleDone) return;
+      const id = Number(e.target.id);
+      if (clickedIDs.includes(id)) return;
+      dispatch({ type: "Add_Click_ID", id });
+    },
+    [dispatch, isShuffleDone, clickedIDs]
+  );
 
   const boxClass = classNames("box box-chase box-grid", { "box-shrink": isAnimating });
   const numClass = classNames(boxClass, "box-number", {
@@ -182,7 +186,7 @@ export default function ChaseTheVocab(props) {
               boxClass={numClass}
               backColor={colors[color]}
               id={i}
-              handleClick={isShuffleDone ? _handleBoxClick : null}
+              handleClick={_handleBoxClick}
             />
           </CSSTransition>
           <CardBlock
