@@ -2,8 +2,8 @@ import React, { useCallback, useEffect } from "react";
 import shuffle from "lodash/shuffle";
 import { CSSTransition } from "react-transition-group";
 import { Button, Popup } from "semantic-ui-react";
-import useSetData from "../../hooks/useSetData";
-import useUpdateData from "../../hooks/useUpdateData";
+import useData from "../../hooks/useData";
+import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 import { newGoogEvent, getRandomNum } from "../../helpers/phase2helpers";
 import "./Bowling.css";
@@ -47,9 +47,11 @@ function reducer(state, action) {
 }
 
 export default function Bowling(props) {
-  const { title, isMenuOpen, font, dataUpdated, vocabulary, colors } = props;
-  const [state, dispatch] = useSetData(reducer, vocabulary, init);
-  const handleGameRef = useCallback(handleGame, [dataUpdated]);
+  const { title, isMenuOpen, font, vocabulary, colors } = props;
+  useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
+
+  // STATE
+  const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary);
   const {
     data,
     text,
@@ -62,25 +64,25 @@ export default function Bowling(props) {
     isGameOver,
     isBowling,
   } = state;
-  const handleGameKey = useCallback(handleGame, [data]);
-  const roundTime =
-    (splitText.length * letterBuffer + animDuration - letterBuffer / 2) * 1000;
-  useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
-  useUpdateData(dataUpdated, handleGameRef);
 
-  useEffect(() => {
-    if (!isBowling) return;
-    const id =
-      round < rounds
-        ? setTimeout(() => dispatch({ type: "Bowl_Next" }), roundTime)
-        : setTimeout(() => dispatch({ type: "Bowl_Done" }), roundTime);
-    return () => clearTimeout(id);
-  }, [dispatch, isBowling, round, rounds, roundTime]);
+  // HANDLE GAME
+  const handleGame = useCallback(() => {
+    // GOOGLE EVENTS ARE SENT WHEN USER STARTS A ROUND, NOT HERE
+    const [text, ...rest] = data;
+    const newData = rest.length < 1 ? shuffle(vocabulary) : rest;
+    const splitText = shuffle(text.split(""));
+    const bowlColors = shuffle(colors).slice(0, splitText.length - 1);
+    const left = splitText.map(() => getRandomNum(window.innerWidth));
+    dispatch({ type: "New_Round", text, data: newData, splitText, bowlColors, left });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+  useHandleGame(handleGame, didUpdate);
 
+  // EVENT HANDLERS - doesn't use compressor, so custom event listener added
   useEffect(() => {
     function handleKeys({ keyCode }) {
       if (isMenuOpen) return;
-      if (keyCode === 32 || keyCode === 13) return handleGameKey();
+      if (keyCode === 32 || keyCode === 13) return handleGame();
       if (keyCode === 39) {
         if (rounds === 5) return;
         return dispatch({ type: "Change_Rounds", rounds: rounds + 1 });
@@ -94,23 +96,24 @@ export default function Bowling(props) {
     return () => {
       document.removeEventListener("keydown", handleKeys);
     };
-  }, [dispatch, isMenuOpen, handleGameKey, rounds]);
+  }, [dispatch, isMenuOpen, handleGame, rounds]);
 
-  function handleGame() {
-    // GOOGLE EVENTS ARE SENT WHEN USER STARTS A ROUND, NOT HERE
-    const [text, ...rest] = data;
-    const newData = rest.length < 1 ? shuffle(vocabulary) : rest;
-    const splitText = shuffle(text.split(""));
-    const bowlColors = shuffle(colors).slice(0, splitText.length - 1);
-    const left = splitText.map(() => getRandomNum(window.innerWidth));
-    dispatch({ type: "New_Round", text, data: newData, splitText, bowlColors, left });
-  }
+  const roundTime =
+    (splitText.length * letterBuffer + animDuration - letterBuffer / 2) * 1000;
+  useEffect(() => {
+    if (!isBowling) return;
+    const id =
+      round < rounds
+        ? setTimeout(() => dispatch({ type: "Bowl_Next" }), roundTime)
+        : setTimeout(() => dispatch({ type: "Bowl_Done" }), roundTime);
+    return () => clearTimeout(id);
+  }, [dispatch, isBowling, round, rounds, roundTime]);
 
   return (
     <div className="bowling-container" style={{ fontFamily: font }}>
       <Controls
         dispatch={dispatch}
-        handleGame={handleGameKey}
+        handleGame={handleGame}
         isBowling={isBowling}
         isGameOver={isGameOver}
         showAnswer={showAnswer}
