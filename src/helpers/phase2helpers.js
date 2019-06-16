@@ -2,6 +2,13 @@ import shuffle from "lodash/shuffle";
 import throttle from "lodash/throttle";
 import ReactGA from "react-ga";
 
+function nextRoundData(data, count, isVocab, vocabulary, expressions) {
+  const shuffledData = () => (isVocab ? shuffle(vocabulary) : shuffle(expressions));
+  const newData = count <= data.length ? [...data] : shuffledData();
+  const roundD = newData.splice(0, count);
+  return [roundD, newData];
+}
+
 const getRandomNum = length => Math.floor(Math.random() * length);
 
 function getRandomIndex(length) {
@@ -96,4 +103,5 @@ export {
   addGoogEvent,
   resetAndReload,
   newGoogEvent,
+  nextRoundData,
 };
