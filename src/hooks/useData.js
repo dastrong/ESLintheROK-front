@@ -12,6 +12,7 @@ export default function useData(reducer, init, ...data) {
   const isFirstRun = useFirstRun();
   const didUpdate = useRef(false);
 
+  // RUNS WHEN A USER EDITS THEIR DATA IN GAME
   useEffect(() => {
     if (isFirstRun) return;
     didUpdate.current = true;
@@ -20,6 +21,17 @@ export default function useData(reducer, init, ...data) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, primary, secondary]);
 
+  // RUNS WHEN USER SWITCHES FROM VOCABULARY TO EXPRESSIONS
+  useEffect(() => {
+    if (isFirstRun) return;
+    if (isVocab === undefined) return;
+    didUpdate.current = true;
+    const newData = isVocab ? primary : secondary;
+    dispatch({ type: "Set_Data", data: newData });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, isVocab]);
+
+  // SWITCHES THE FLAG VARIABLE BACK TO IF IT'S BEEN CHANGED
   useEffect(() => {
     didUpdate.current = false;
     // eslint-disable-next-line react-hooks/exhaustive-deps
