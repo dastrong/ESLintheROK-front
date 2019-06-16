@@ -5,12 +5,16 @@ import shuffle from "lodash/shuffle";
 // import { TransitionGroup, CSSTransition } from "react-transition-group";
 import useData from "../../hooks/useData";
 import useKeys from "../../hooks/useKeys";
+import useAudio from "../../hooks/useAudio";
 import useScroll from "../../hooks/useScroll";
+import useFirstRun from "../../hooks/useFirstRun";
 import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { newGoogEvent } from "../../helpers/phase2helpers";
+import { newGoogEvent, nextRoundData } from "../../helpers/phase2helpers";
 // import helpers here
 // import CSS here
+
+// constant variables used in the game
 
 const init = data => ({
   compressor: 0.6,
@@ -34,6 +38,10 @@ export default function Template(props) {
   // PROPS - remove unused variable below
   const { title, isMenuOpen, font, vocabulary, expressions, colors } = props;
   useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
+  const isFirstRun = useFirstRun();
+
+  // AUDIO - delete if there's no audio used in the game
+  const [audioRef, resetFunc] = useAudio(url, shouldLoop);
 
   // STATE - set vocabulary, expressions or both below
   const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary, expressions);
@@ -65,7 +73,9 @@ export default function Template(props) {
   useKeys(keysCB, ...reqDep);
   useScroll(scrollCB, ...reqDep);
 
-  // OTHER GAME FUNCTIONS AND LOGIC HERE
+  // USE EFFECTS HERE
+
+  // GAME FUNCTIONS HERE - should start with a single underscore _func()
 
   return (
     // REMEMBER TO PASS FONT TO THE CONTAINER STYLING
@@ -74,3 +84,7 @@ export default function Template(props) {
     </div>
   );
 }
+
+// INNER COMPONENTS HERE
+
+// OTHER FUNCTIONS HERE - should start with a double underscore __func()
