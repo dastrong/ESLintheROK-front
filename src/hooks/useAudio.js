@@ -9,6 +9,8 @@ export default function useAudio(url, loop) {
       audio.current = new Audio(url);
       audio.current.loop = loop;
     }
+    // if the component is unmounted stop the audio from playing
+    return () => audio.current.pause();
   }, [url, loop]);
 
   const reset = useCallback(() => {
