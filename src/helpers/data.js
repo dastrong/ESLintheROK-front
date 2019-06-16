@@ -887,11 +887,11 @@ export const games = [
       { key: "Left-Click", description: "Start/Stop the game" },
       { key: ["Space", "Enter"], description: "Refresh the game" },
       {
-        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Up"],
+        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Down"],
         description: "Refresh the game and use vocabulary",
       },
       {
-        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Down"],
+        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Uo"],
         description: "Refresh the game and use expressions",
       },
       { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
