@@ -11,6 +11,21 @@ function nextRoundData(data, count, isVocab, vocabulary, expressions) {
 
 const getRandomNum = length => Math.floor(Math.random() * length);
 
+function getRandoGrad() {
+  const deg = getRandomNum(360);
+  const st = getHSL();
+  const nd = getHSL();
+  const rd = getHSL();
+  return `linear-gradient(${deg}deg, ${st}, ${nd}, ${rd})`;
+}
+
+function getHSL() {
+  const hue = getRandomNum(360);
+  const sat = getRandomNum(20) + 80;
+  const lig = getRandomNum(10) + 60;
+  return `hsl(${hue}, ${sat}%, ${lig}%)`;
+}
+
 function getRandomIndex(length) {
   const { textIndex } = this.state;
   let i = undefined;
@@ -104,4 +119,5 @@ export {
   resetAndReload,
   newGoogEvent,
   nextRoundData,
+  getRandoGrad,
 };
