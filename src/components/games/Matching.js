@@ -1,169 +1,189 @@
-import React, { Component } from "react";
+import React, { useCallback, useEffect } from "react";
 import shuffle from "lodash/shuffle";
-import { CSSTransition } from "react-transition-group";
 import ReactFitText from "react-fittext";
-import {
-  addListeners,
-  rmvListeners,
-  setData,
-  addTitle,
-  addGoogEvent,
-  resetAndReload,
-} from "../../helpers/phase2helpers";
+import { CSSTransition } from "react-transition-group";
+import useData from "../../hooks/useData";
+import useKeys from "../../hooks/useKeys";
+import useScroll from "../../hooks/useScroll";
+import useFirstRun from "../../hooks/useFirstRun";
+import useHandleGame from "../../hooks/useHandleGame";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
+import { newGoogEvent, nextRoundData, getRandoGrad } from "../../helpers/phase2helpers";
 import "./Matching.css";
 
-const emptyArr = { clicked: [], matched: [] };
-const numBox16 = { numBox: 16, height: "24vh", width: "24vw", ...emptyArr };
-const numBox15 = { numBox: 15, height: "19vh", width: "32vw", ...emptyArr };
-const numBox12 = { numBox: 12, height: "24vh", width: "32vw", ...emptyArr };
-const numBox9 = { numBox: 9, height: "32vh", width: "32vw", ...emptyArr };
-const numBox6 = { numBox: 6, height: "32vh", width: "48vw", ...emptyArr };
+// CONSTANT VARIABLES
+const boxSettings = [
+  { height: "32vh", width: "48vw", poo: 0, words: 6 },
+  { height: "32vh", width: "32vw", poo: 1, words: 8 },
+  { height: "24vh", width: "32vw", poo: 0, words: 12 },
+  // ^ default ^
+  { height: "19vh", width: "32vw", poo: 1, words: 14 },
+  { height: "24vh", width: "24vw", poo: 0, words: 16 },
+];
+const max = boxSettings.length - 1;
 
-class Matching extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-      gameData: [],
-      ...numBox12,
-      compressor: 0.6,
-      colors: this.props.colors,
-      color: 2,
-    };
-    this.addListeners = addListeners.bind(this);
-    this.rmvListeners = rmvListeners.bind(this);
-    this.setData = setData.bind(this);
-    this.addTitle = addTitle.bind(this);
-    this.addGoogEvent = addGoogEvent.bind(this);
-    this.resetAndReload = resetAndReload.bind(this);
-  }
+const init = data => ({
+  compressor: 0.6,
+  data: shuffle(data),
+  gameData: [],
+  clicked: [],
+  matched: [],
+  settingsNum: 2,
+});
 
-  componentDidMount() {
-    this.addTitle();
-    this.addListeners();
-    this.setData(this.props.vocabulary);
-  }
-
-  componentWillUnmount() {
-    this.rmvListeners();
-    this._clearTimeouts();
-  }
-
-  componentDidUpdate(x, prevState) {
-    this.resetAndReload(1, true);
-    const { gameData, clicked, matched } = this.state;
-    const gotPoo = gameData.length % 2 === 1 && clicked.some(x => gameData[x] === "poo");
-    if (clicked.length < 2 && prevState.matched.length === matched.length && !gotPoo)
-      return;
-    this.timeoutID = setTimeout(() => this.setState({ clicked: [] }), 1000);
-  }
-
-  handleGame = () => {
-    this.addGoogEvent();
-    this._clearTimeouts();
-    const { data, numBox } = this.state;
-    const halfData = shuffle(data).slice(0, numBox / 2);
-    let gameData = shuffle([...halfData, ...halfData, ...(numBox % 2 ? ["poo"] : "")]);
-    this.setState({
-      gameData,
-      ...emptyArr,
-    });
-  };
-
-  handleClick = e => {
-    const { clicked, matched, gameData } = this.state;
-    const isFirst = !clicked.length;
-    const isFull = clicked.length === 2;
-    const id = Number(e.target.id);
-    if (isFull) return;
-    if (isFirst) return this.setState({ clicked: [id] });
-    if (clicked.includes(id)) return;
-    return gameData[clicked[0]] !== gameData[id]
-      ? this.setState({ clicked: [...clicked, id] })
-      : this.setState({ matched: [...matched, clicked[0], id] });
-  };
-
-  handleReset = options =>
-    this.setState({ ...options }, () => {
-      this.resetID = setTimeout(() => this.handleGame(), 550);
-    });
-
-  handleEvents = e => {
-    if (this.props.isMenuOpen) return;
-    const { compressor } = this.state;
-    if (e.type === "wheel") {
-      const c = e.deltaY < 0 ? -0.03 : 0.03;
-      return e.buttons !== 4
-        ? this.setState({ compressor: compressor + c })
-        : c < 0
-        ? this._increaseBoxes()
-        : this._decreaseBoxes();
+function reducer(state, action) {
+  const { type, compressor, data, gameData, settingsNum, id, background } = action;
+  const { clicked, matched } = state;
+  switch (type) {
+    case "Compressor":
+      return { ...state, compressor };
+    case "Set_Data":
+      return { ...state, data: shuffle(data) };
+    case "New_Round":
+      return { ...state, data, gameData, background, clicked: [], matched: [] };
+    case "Change_Boxes_Num":
+      return { ...state, settingsNum };
+    case "Handle_Click": {
+      if (clicked.includes(id)) return state;
+      if (clicked.length === 0) return { ...state, clicked: [id] };
+      if (clicked.length === 1) return { ...state, clicked: [id, ...clicked] };
+      return state;
     }
-    // spacebar/enter was clicked; reset the game
-    if (e.keyCode === 32 || e.keyCode === 13) return this.handleReset({ ...emptyArr });
-    // up arrow was clicked; increase the font size
-    if (e.keyCode === 38) return this.setState({ compressor: compressor - 0.03 });
-    // down arrow was clicked; decrease the font size
-    if (e.keyCode === 40) return this.setState({ compressor: compressor + 0.03 });
-    // left arrow was clicked; decrease the num of boxes
-    if (e.keyCode === 37) return this._decreaseBoxes();
-    // right arrow was clicked; increase the num of boxes
-    if (e.keyCode === 39) return this._increaseBoxes();
-  };
-
-  _clearTimeouts() {
-    clearTimeout(this.timeoutID);
-    clearTimeout(this.resetID);
-  }
-
-  _increaseBoxes() {
-    const { numBox } = this.state;
-    if (numBox === 16) return;
-    if (numBox === 15) return this.handleReset({ ...numBox16 });
-    if (numBox === 12) return this.handleReset({ ...numBox15 });
-    if (numBox === 9) return this.handleReset({ ...numBox12 });
-    if (numBox === 6) return this.handleReset({ ...numBox9 });
-  }
-
-  _decreaseBoxes() {
-    const { numBox } = this.state;
-    if (numBox === 6) return;
-    if (numBox === 16) return this.handleReset({ ...numBox15 });
-    if (numBox === 15) return this.handleReset({ ...numBox12 });
-    if (numBox === 12) return this.handleReset({ ...numBox9 });
-    if (numBox === 9) return this.handleReset({ ...numBox6 });
-  }
-
-  render() {
-    const { compressor, gameData, clicked, matched, width, height } = this.state;
-    const boxes = gameData.map((text, i) => {
-      const show = clicked.includes(i) || matched.includes(i);
-      return (
-        <div
-          key={i}
-          onClick={this.handleClick}
-          className="match-holder"
-          style={{ width, height }}
-        >
-          <CSSTransition in={!show} timeout={0} classNames="matcher">
-            <div className="match match-front">{i + 1}</div>
-          </CSSTransition>
-          <ReactFitText compressor={compressor} minFontSize={0} maxFontSize={100}>
-            <CSSTransition in={show} timeout={0} classNames="matcher">
-              <div className="match match-back" id={i}>
-                {text !== "poo" ? text : "💩"}
-              </div>
-            </CSSTransition>
-          </ReactFitText>
-        </div>
-      );
-    });
-    return (
-      <div className="match-container" style={{ fontFamily: this.props.font }}>
-        {boxes}
-      </div>
-    );
+    case "Match_Yes":
+      return { ...state, matched: [...matched, ...clicked], clicked: [] };
+    case "Match_No":
+      return { ...state, clicked: [] };
+    default:
+      return state;
   }
 }
 
-export default Matching;
+export default function Matching(props) {
+  const { title, isMenuOpen, font, vocabulary } = props;
+  useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
+  const isFirstRun = useFirstRun();
+
+  // STATE
+  const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary);
+  const { compressor, data, gameData, clicked, matched, settingsNum, background } = state;
+  const { words, poo, ...styles } = boxSettings[settingsNum];
+
+  // HANDLE GAME
+  const handleGame = useCallback(() => {
+    newGoogEvent(title);
+    const num = words / 2;
+    const [cur, nex] = nextRoundData(data, num, true, vocabulary);
+    const round = shuffle(poo ? [...cur, ...cur, "poo"] : [...cur, ...cur]);
+    const background = getRandoGrad();
+    dispatch({ type: "New_Round", data: nex, gameData: round, background });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, words, poo, dispatch]);
+  useHandleGame(handleGame, didUpdate);
+
+  // EVENT HANDLERS
+  const reqDep = [dispatch, isMenuOpen, compressor];
+  // GAME SPECIFIC KEY EVENTS
+  const keysCB = useCallback(
+    ({ keyCode }) => {
+      if (keyCode === 32 || keyCode === 13) return handleGame();
+      if (keyCode === 37) return __decreaseBoxes(dispatch, settingsNum);
+      if (keyCode === 39) return __increaseBoxes(dispatch, settingsNum);
+    },
+    [handleGame, settingsNum, dispatch]
+  );
+  useKeys(keysCB, ...reqDep);
+  // GAME SPECIFIC SCROLL EVENTS
+  const scrollCB = useCallback(
+    compressorChange => {
+      compressorChange < 0
+        ? __increaseBoxes(dispatch, settingsNum)
+        : __decreaseBoxes(dispatch, settingsNum);
+    },
+    [settingsNum, dispatch]
+  );
+  useScroll(scrollCB, ...reqDep);
+
+  // USE EFFECTS HERE
+  useEffect(() => {
+    if (isFirstRun) return;
+    handleGame();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [settingsNum]);
+
+  useEffect(() => {
+    if (matched.length !== words) return;
+    const id = setTimeout(handleGame, 500);
+    return () => clearTimeout(id);
+  }, [matched, handleGame, words]);
+
+  useEffect(() => {
+    if (isFirstRun) return;
+    if (clicked.length === 0) return;
+    const id =
+      // check if user found poo on first click; reset if true
+      gameData[clicked[0]] === "poo"
+        ? setTimeout(() => dispatch({ type: "Match_No" }), 900)
+        : clicked.length === 2
+        ? setTimeout(() => {
+            // compare the two clicked words
+            gameData[clicked[0]] === gameData[clicked[1]]
+              ? dispatch({ type: "Match_Yes" })
+              : dispatch({ type: "Match_No" });
+          }, 1500)
+        : null;
+    return () => clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clicked, gameData]);
+
+  // GAME FUNCTIONS HERE
+  const _handleClick = useCallback(
+    e => dispatch({ type: "Handle_Click", id: Number(e.target.id) }),
+    [dispatch]
+  );
+
+  return (
+    <div className="match-container" style={{ fontFamily: font, background }}>
+      <Boxes
+        gameData={gameData}
+        clicked={clicked}
+        matched={matched}
+        styles={styles}
+        compressor={compressor}
+        _handleClick={_handleClick}
+      />
+    </div>
+  );
+}
+
+// INNER COMPONENTS HERE
+const Boxes = ({ gameData, clicked, matched, styles, compressor, _handleClick }) => {
+  return gameData.map((text, i) => {
+    const show = clicked.includes(i) || matched.includes(i);
+    return (
+      <div key={i} className="match-holder" style={{ ...styles }}>
+        <CSSTransition in={!show} timeout={0} classNames="match">
+          <div className="match match-front" onClick={_handleClick} id={i}>
+            {i + 1}
+          </div>
+        </CSSTransition>
+        <ReactFitText compressor={compressor} minFontSize={0} maxFontSize={100}>
+          <CSSTransition in={show} timeout={0} classNames="match">
+            <div className="match match-back">{text !== "poo" ? text : "💩"}</div>
+          </CSSTransition>
+        </ReactFitText>
+      </div>
+    );
+  });
+};
+
+// OTHER FUNCTIONS HERE
+function __increaseBoxes(dispatch, current) {
+  // max is declared at the top = boxSettings.length - 1
+  if (current === max) return;
+  dispatch({ type: "Change_Boxes_Num", settingsNum: current + 1 });
+}
+
+function __decreaseBoxes(dispatch, current) {
+  if (current === 0) return;
+  dispatch({ type: "Change_Boxes_Num", settingsNum: current - 1 });
+}
