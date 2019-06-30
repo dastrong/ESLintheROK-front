@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import { Button, Icon, Step } from "semantic-ui-react";
 import useDocumentTitle from "../hooks/useDocumentTitle";
+import useEventListener from "../hooks/useEventListener";
 import { useStore } from "../store";
 import "./Instructions.css";
 
@@ -44,13 +45,14 @@ export default function InstructionsPage({ isGameReady, gameInfo, options }) {
       // K clicked; change language to Korean
       if (keyCode === 75) {
         if (!isEnglish) return;
-        return setLanguage("koreaneekkk");
+        return setLanguage("korean");
       }
       // left arrow was clicked; decrease the index
       if (keyCode === 37) return handleIndex(-1);
     },
     [handleIndex, isEnglish]
   );
+  useEventListener("keydown", handleKeys);
 
   const handleScroll = useCallback(
     ({ type, buttons, deltaY }) => {
@@ -62,15 +64,7 @@ export default function InstructionsPage({ isGameReady, gameInfo, options }) {
     },
     [handleIndex, showSideBar]
   );
-
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeys);
-    window.addEventListener("wheel", handleScroll);
-    return () => {
-      window.removeEventListener("keydown", handleKeys);
-      window.removeEventListener("wheel", handleScroll);
-    };
-  }, [handleKeys, handleScroll]);
+  useEventListener("wheel", handleScroll);
 
   return (
     <div className="instructions-container">
