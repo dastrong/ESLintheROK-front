@@ -6,10 +6,13 @@ import useData from "../../hooks/useData";
 import useKeys from "../../hooks/useKeys";
 import useAudio from "../../hooks/useAudio";
 import useScroll from "../../hooks/useScroll";
+import useFitText from "../../hooks/useFitText";
 import useFirstRun from "../../hooks/useFirstRun";
 import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { newGoogEvent, nextRoundData } from "../../helpers/phase2helpers";
+import { googleEvent } from "../../helpers/ga";
+import { nextRoundData, changeIsVocab } from "../../helpers/gameUtils";
+import FitText from "../reusable/FitText";
 import "./HotPotato.css";
 
 const baseURL = "https://res.cloudinary.com/dastrong/";
@@ -25,7 +28,6 @@ const URLs = {
 const reset = { numOfText: 1, stage: 1, countdown: 0 };
 
 const init = data => ({
-  compressor: 1,
   data: shuffle(data),
   gameData: [],
   isVocab: true,
@@ -33,8 +35,7 @@ const init = data => ({
 });
 
 function reducer(state, action) {
-  const { type, compressor, data, gameData, numOfText, isVocab } = action;
-  if (type === "Compressor") return { ...state, compressor };
+  const { type, data, gameData, numOfText, isVocab } = action;
   if (type === "Set_Data") return { ...state, data: shuffle(data), ...reset };
   if (type === "New_Round") return { ...state, data, gameData, stage: 1, countdown: 0 };
   if (type === "Countdown") return { ...state, countdown: state.countdown - 1 };
@@ -42,7 +43,7 @@ function reducer(state, action) {
   if (type === "Countdown_Stop") return { ...state, countdown: 0, stage: 2 };
   if (type === "Show_Text") return { ...state, stage: 3 };
   if (type === "Change_NumOfText") return { ...state, ...reset, numOfText };
-  if (type === "Change_isVocab") return { ...state, ...reset, isVocab };
+  if (type === "Change_isVocab") return changeIsVocab(isVocab, state, reset);
   return state;
 }
 
@@ -59,7 +60,8 @@ export default function HotPotato(props) {
 
   // STATE
   const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary, expressions);
-  const { compressor, data, gameData, isVocab, numOfText, stage, countdown } = state;
+  const { data, gameData, isVocab, numOfText, stage, countdown } = state;
+  const refs = useFitText(gameData, font, true);
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
@@ -72,19 +74,11 @@ export default function HotPotato(props) {
   }, [data, numOfText, isVocab, dispatch]);
   useHandleGame(handleGame, didUpdate);
 
-  // EVENT HANDLERS
-  const reqDep = [dispatch, isMenuOpen, compressor];
+  // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
     ({ keyCode, code, key }) => {
-      if (keyCode === 32 || keyCode === 13) return handleGame();
-      if (keyCode === 37) {
-        if (isVocab === true) return;
-        return dispatch({ type: "Change_isVocab", isVocab: true });
-      }
-      if (keyCode === 39) {
-        if (isVocab === false) return;
-        return dispatch({ type: "Change_isVocab", isVocab: false });
-      }
+      if (keyCode === 37) return dispatch({ type: "Change_isVocab", isVocab: true });
+      if (keyCode === 39) return dispatch({ type: "Change_isVocab", isVocab: false });
       if (code.includes("Digit")) {
         const num = Number(key);
         if (!num || num > 3 || !isVocab || num === numOfText) return;
@@ -92,23 +86,23 @@ export default function HotPotato(props) {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [handleGame, stage, isVocab, numOfText]
+    [stage, isVocab, numOfText]
   );
-  const scrollCB = useCallback(
-    compressorChange => {
-      const bool = compressorChange > 0;
-      if (isVocab === bool) return;
-      dispatch({ type: "Change_isVocab", isVocab: bool });
-    },
-    [dispatch, isVocab]
-  );
-  useKeys(keysCB, ...reqDep);
-  useScroll(scrollCB, ...reqDep);
+  useKeys(isMenuOpen, handleGame, keysCB);
 
+  // GAME SPECIFIC SCROLL EVENTS
+  const scrollCB = useCallback(
+    scrolledUp => dispatch({ type: "Change_isVocab", isVocab: !scrolledUp }),
+    [dispatch]
+  );
+  useScroll(isMenuOpen, scrollCB);
+
+  // USE EFFECTS HERE
   // updates game if numOfText changes
   useEffect(() => {
     if (isFirstRun) return;
     // avoid unnecessary call if we're switching to expressions
+    // remember - there can only be one expression, but multiple vocabs
     if (!isVocab) return;
     handleGame();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -149,7 +143,7 @@ export default function HotPotato(props) {
     if (stage === 1) {
       Bubbling.current.currentTime = 0.2;
       Bubbling.current.play();
-      newGoogEvent(title);
+      googleEvent(title);
       return dispatch({ type: "Countdown_Start" });
     }
     if (stage === 2) {
@@ -183,7 +177,7 @@ export default function HotPotato(props) {
         src={URLs.cooling}
         alt="potato-finished"
       >
-        <Text compressor={compressor} gameData={gameData} isIn={stage === 3} />
+        <Text gameData={gameData} refs={refs} isIn={stage === 3} />
       </PotatoSection>
       {countdown && <span className="countdown-timer">{countdown}</span>}
     </div>
@@ -199,17 +193,17 @@ const PotatoSection = ({ isIn, children, className, src, alt }) => (
   </CSSTransition>
 );
 
-const Text = ({ compressor, gameData, isIn }) => (
+const Text = ({ refs, gameData, isIn }) => (
   <TransitionGroup>
-    <ReactFitText compressor={compressor} minFontSize={0} maxFontSize={500}>
-      <div className="hotpotato-text">
-        {gameData.map((text, i) => (
-          <CSSTransition key={i} in={isIn} classNames="hotpotato-text" timeout={i * 400}>
-            <p>{text}</p>
-          </CSSTransition>
-        ))}
-      </div>
-    </ReactFitText>
+    <div className="hotpotato-text">
+      {gameData.map((text, i) => (
+        <CSSTransition key={i} in={isIn} classNames="hotpotato-text" timeout={i * 400}>
+          <div>
+            <FitText text={text} ref={refs[i]} />
+          </div>
+        </CSSTransition>
+      ))}
+    </div>
   </TransitionGroup>
 );
 
