@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^5.2.1",
+    "bowser": "^2.4.0",
     "classnames": "^2.2.6",
     "craco-workbox": "^0.1.0",
     "react": "^16.8.6",
