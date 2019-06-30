@@ -1,23 +1,17 @@
-import { useEffect, useCallback } from "react";
+import { useCallback } from "react";
+import useEventListener from "./useEventListener";
 
-export default function useKeys(cb, dispatch, isMenuOpen, compressor) {
+// cb contains game specific key events
+export default function useKeys(isMenuOpen, handleGame, cb) {
   const handleKeys = useCallback(
     e => {
       if (isMenuOpen) return;
-      if (e.keyCode === 38)
-        return dispatch({ type: "Compressor", compressor: compressor - 0.03 });
-      if (e.keyCode === 40)
-        return dispatch({ type: "Compressor", compressor: compressor + 0.03 });
+      if (e.keyCode === 32 || e.keyCode === 13) return handleGame();
       if (!cb) return;
       cb(e);
     },
-    [cb, dispatch, isMenuOpen, compressor]
+    [isMenuOpen, handleGame, cb]
   );
 
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeys);
-    return () => {
-      document.removeEventListener("keydown", handleKeys);
-    };
-  }, [handleKeys]);
+  useEventListener("keydown", handleKeys);
 }
