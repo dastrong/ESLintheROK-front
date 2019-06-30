@@ -5,10 +5,12 @@ import useData from "../../hooks/useData";
 import useKeys from "../../hooks/useKeys";
 import useAudio from "../../hooks/useAudio";
 import useScroll from "../../hooks/useScroll";
+import useFitText from "../../hooks/useFitText";
 import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { newGoogEvent, nextRoundData, getRandomNum } from "../../helpers/phase2helpers";
-import CardBlock from "../reusable/CardBlock";
+import { googleEvent } from "../../helpers/ga";
+import { nextRoundData, getRandomNum, changeIsVocab } from "../../helpers/gameUtils";
+import FitText from "../reusable/FitText";
 import pubgStats from "../../helpers/pubgStats";
 import "./BattleGround.css";
 
@@ -21,7 +23,6 @@ const numOfText = 4;
 const reset = { stage: 0, countdown: 0 };
 
 const init = data => ({
-  compressor: 0.6,
   data: shuffle(data),
   gameData: [],
   items: [],
@@ -31,17 +32,16 @@ const init = data => ({
 });
 
 function reducer(state, action) {
-  const { type, compressor, data, gameData, items, isVocab } = action;
-  if (type === "Compressor") return { ...state, compressor };
+  const { type, data, gameData, items, isVocab } = action;
   if (type === "Set_Data") return { ...state, data: shuffle(data) };
   if (type === "New_Round") return { ...state, data, gameData, items, ...reset };
-  if (type === "Change_isVocab") return { ...state, isVocab, ...reset };
   if (type === "Countdown") return { ...state, countdown: state.countdown - 1 };
   if (type === "Countdown_Start") return { ...state, countdown: 10 };
   if (type === "Countdown_Setup") return { ...state, stage: 1 };
   if (type === "Countdown_Stop")
     return { ...state, stage: 2, countdown: 0, scaled: state.scaled + 0.03 };
   if (type === "Show_Items") return { ...state, stage: 3 };
+  if (type === "Change_isVocab") return changeIsVocab(isVocab, state, reset);
   return state;
 }
 
@@ -54,7 +54,8 @@ export default function BattleGround(props) {
 
   // STATE
   const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary, expressions);
-  const { compressor, data, gameData, items, isVocab, scaled, stage, countdown } = state;
+  const { data, gameData, items, isVocab, scaled, stage, countdown } = state;
+  const refs = useFitText(gameData, font, true);
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
@@ -68,32 +69,22 @@ export default function BattleGround(props) {
   }, [data, isVocab, dispatch]);
   useHandleGame(handleGame, didUpdate);
 
-  // EVENT HANDLERS
-  const reqDep = [dispatch, isMenuOpen, compressor];
+  // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
     ({ keyCode }) => {
-      if (keyCode === 32 || keyCode === 13) return handleGame();
-      if (keyCode === 37) {
-        if (isVocab === true) return;
-        return dispatch({ type: "Change_isVocab", isVocab: true });
-      }
-      if (keyCode === 39) {
-        if (isVocab === false) return;
-        return dispatch({ type: "Change_isVocab", isVocab: false });
-      }
+      if (keyCode === 37) return dispatch({ type: "Change_isVocab", isVocab: true });
+      if (keyCode === 39) return dispatch({ type: "Change_isVocab", isVocab: false });
     },
-    [handleGame, isVocab, dispatch]
+    [dispatch]
   );
+  useKeys(isMenuOpen, handleGame, keysCB);
+
+  // GAME SPECIFIC SCROLL EVENTS
   const scrollCB = useCallback(
-    compressorChange => {
-      const bool = compressorChange > 0;
-      if (isVocab === bool) return;
-      dispatch({ type: "Change_isVocab", isVocab: bool });
-    },
-    [isVocab, dispatch]
+    scrolledUp => dispatch({ type: "Change_isVocab", isVocab: !scrolledUp }),
+    [dispatch]
   );
-  useKeys(keysCB, ...reqDep);
-  useScroll(scrollCB, ...reqDep);
+  useScroll(isMenuOpen, scrollCB);
 
   // USE EFFECTS HERE
   useEffect(() => {
@@ -115,8 +106,7 @@ export default function BattleGround(props) {
   const _handleClick = useCallback(() => {
     if (!CountAudio.current) return;
     if (stage === 0) {
-      console.log("new event");
-      newGoogEvent(title);
+      googleEvent(title);
       CountAudio.current.currentTime = 0;
       CountAudio.current.play();
       return dispatch({ type: "Countdown_Setup" });
@@ -146,7 +136,7 @@ export default function BattleGround(props) {
           transform: `scale(${1 + scaled}) translate(-${scaled * 12}vw, ${scaled}vh)`,
         }}
       />
-      <Text gameData={gameData} compressor={compressor} stage={stage} />
+      <Text gameData={gameData} stage={stage} refs={refs} isVocab={isVocab} />
       <Items items={items} stage={stage} />
       {countdown && <div className="countdown-timer">{countdown}</div>}
     </div>
@@ -154,11 +144,13 @@ export default function BattleGround(props) {
 }
 
 // INNER COMPONENTS HERE
-const Text = ({ gameData, compressor, stage }) => (
+const Text = ({ gameData, stage, refs, isVocab }) => (
   <div className="corner-holder">
     {gameData.map((text, i) => (
       <TransitionComp key={text + i} isIn={stage !== 3}>
-        <CardBlock text={text} compressor={compressor} id={text} boxClass="corner" />
+        <div className="corner">
+          <FitText text={text} ref={refs[i]} style={isVocab ? null : { width: "20vw" }} />
+        </div>
       </TransitionComp>
     ))}
   </div>
@@ -182,7 +174,7 @@ const Items = ({ items, stage }) => (
   </div>
 );
 
-const TransitionComp = ({ isIn, i, children }) => (
+const TransitionComp = ({ isIn, children }) => (
   <CSSTransition timeout={0} in={isIn} classNames="cornersItem">
     {children}
   </CSSTransition>

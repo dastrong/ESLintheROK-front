@@ -5,3 +5,26 @@
   flex-wrap: wrap;
   cursor: pointer;
 }
+
+.box-chase {
+  border: 4px solid #111;
+}
+
+.box-num {
+  position: absolute;
+  z-index: 2;
+  opacity: 0;
+  color: transparent;
+  text-shadow: none;
+  border-width: 8px;
+}
+
+.box-num-show {
+  color: #fff;
+  text-shadow: 3px 3px 1px black;
+  opacity: 1;
+}
+
+.box-shrink {
+  transform: scale(0.9);
+}

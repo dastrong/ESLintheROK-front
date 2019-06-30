@@ -32,58 +32,58 @@
   margin: 0 !important;
   width: 100%;
   padding: 10px;
-  opacity: 0;
+  opacity: 0 !important;
 }
 
 .nunchi-ready {
-  opacity: 1;
+  opacity: 1 !important;
   font-size: 200px;
 }
 
 .nunchi-text-enter {
-  opacity: 0;
+  opacity: 0 !important;
 }
 
 .nunchi-text-enter-active {
-  opacity: 0.01;
+  opacity: 0.01 !important;
   transition: all 0.2s;
 }
 
 .nunchi-text-enter-done {
-  opacity: 1;
+  opacity: 1 !important;
   transition: all 0.2s;
 }
 
 .nunchi-ready-enter {
-  opacity: 0;
+  opacity: 0 !important;
   transform: translateY(-300px);
 }
 
 .nunchi-ready-enter-active {
-  opacity: 0.01;
+  opacity: 0.01 !important;
   transform: translateY(-300px);
   transition: all 0.75s cubic-bezier(0.7, 1.76, 0.74, 0.86);
 }
 
 .nunchi-ready-enter-done {
-  opacity: 1;
+  opacity: 1 !important;
   transform: translateY(0px);
   transition: all 0.75s cubic-bezier(0.7, 1.76, 0.74, 0.86);
 }
 
 .nunchi-ready-exit {
-  opacity: 1;
+  opacity: 1 !important;
   transform: translateY(0px);
 }
 
 .nunchi-ready-exit-active {
-  opacity: 1;
+  opacity: 1 !important;
   transform: translateY(0px);
   transition: all 0.25s;
 }
 
 .nunchi-ready-exit-done {
-  opacity: 0;
+  opacity: 0 !important;
   transform: translateY(200px);
   transition: all 0.25s;
 }

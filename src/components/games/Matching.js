@@ -1,29 +1,29 @@
 import React, { useCallback, useEffect } from "react";
 import shuffle from "lodash/shuffle";
-import ReactFitText from "react-fittext";
 import { CSSTransition } from "react-transition-group";
 import useData from "../../hooks/useData";
 import useKeys from "../../hooks/useKeys";
 import useScroll from "../../hooks/useScroll";
+import useFitText from "../../hooks/useFitText";
 import useFirstRun from "../../hooks/useFirstRun";
 import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { newGoogEvent, nextRoundData, getRandoGrad } from "../../helpers/phase2helpers";
+import { googleEvent } from "../../helpers/ga";
+import { nextRoundData, getRandoGrad } from "../../helpers/gameUtils";
+import FitText from "../reusable/FitText";
 import "./Matching.css";
 
 // CONSTANT VARIABLES
 const boxSettings = [
   { height: "32vh", width: "48vw", poo: 0, words: 6 },
   { height: "32vh", width: "32vw", poo: 1, words: 8 },
-  { height: "24vh", width: "32vw", poo: 0, words: 12 },
-  // ^ default ^
+  { height: "24vh", width: "32vw", poo: 0, words: 12 }, // default
   { height: "19vh", width: "32vw", poo: 1, words: 14 },
   { height: "24vh", width: "24vw", poo: 0, words: 16 },
 ];
 const max = boxSettings.length - 1;
 
 const init = data => ({
-  compressor: 0.6,
   data: shuffle(data),
   gameData: [],
   clicked: [],
@@ -32,11 +32,9 @@ const init = data => ({
 });
 
 function reducer(state, action) {
-  const { type, compressor, data, gameData, settingsNum, id, background } = action;
+  const { type, data, gameData, settingsNum, id, background } = action;
   const { clicked, matched } = state;
   switch (type) {
-    case "Compressor":
-      return { ...state, compressor };
     case "Set_Data":
       return { ...state, data: shuffle(data) };
     case "New_Round":
@@ -65,12 +63,12 @@ export default function Matching(props) {
 
   // STATE
   const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary);
-  const { compressor, data, gameData, clicked, matched, settingsNum, background } = state;
+  const { data, gameData, clicked, matched, settingsNum, background } = state;
   const { words, poo, ...styles } = boxSettings[settingsNum];
+  const refs = useFitText(gameData, font, true);
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
-    newGoogEvent(title);
     const num = words / 2;
     const [cur, nex] = nextRoundData(data, num, true, vocabulary);
     const round = shuffle(poo ? [...cur, ...cur, "poo"] : [...cur, ...cur]);
@@ -80,28 +78,26 @@ export default function Matching(props) {
   }, [data, words, poo, dispatch]);
   useHandleGame(handleGame, didUpdate);
 
-  // EVENT HANDLERS
-  const reqDep = [dispatch, isMenuOpen, compressor];
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
     ({ keyCode }) => {
-      if (keyCode === 32 || keyCode === 13) return handleGame();
       if (keyCode === 37) return __decreaseBoxes(dispatch, settingsNum);
       if (keyCode === 39) return __increaseBoxes(dispatch, settingsNum);
     },
-    [handleGame, settingsNum, dispatch]
+    [settingsNum, dispatch]
   );
-  useKeys(keysCB, ...reqDep);
+  useKeys(isMenuOpen, handleGame, keysCB);
+
   // GAME SPECIFIC SCROLL EVENTS
   const scrollCB = useCallback(
-    compressorChange => {
-      compressorChange < 0
+    scrolledUp => {
+      scrolledUp
         ? __increaseBoxes(dispatch, settingsNum)
         : __decreaseBoxes(dispatch, settingsNum);
     },
     [settingsNum, dispatch]
   );
-  useScroll(scrollCB, ...reqDep);
+  useScroll(isMenuOpen, scrollCB);
 
   // USE EFFECTS HERE
   useEffect(() => {
@@ -112,9 +108,10 @@ export default function Matching(props) {
 
   useEffect(() => {
     if (matched.length !== words) return;
+    googleEvent(title);
     const id = setTimeout(handleGame, 500);
     return () => clearTimeout(id);
-  }, [matched, handleGame, words]);
+  }, [matched, handleGame, words, title]);
 
   useEffect(() => {
     if (isFirstRun) return;
@@ -148,15 +145,15 @@ export default function Matching(props) {
         clicked={clicked}
         matched={matched}
         styles={styles}
-        compressor={compressor}
         _handleClick={_handleClick}
+        refs={refs}
       />
     </div>
   );
 }
 
 // INNER COMPONENTS HERE
-const Boxes = ({ gameData, clicked, matched, styles, compressor, _handleClick }) => {
+const Boxes = ({ gameData, clicked, matched, styles, _handleClick, refs }) => {
   return gameData.map((text, i) => {
     const show = clicked.includes(i) || matched.includes(i);
     return (
@@ -166,11 +163,11 @@ const Boxes = ({ gameData, clicked, matched, styles, compressor, _handleClick })
             {i + 1}
           </div>
         </CSSTransition>
-        <ReactFitText compressor={compressor} minFontSize={0} maxFontSize={100}>
-          <CSSTransition in={show} timeout={0} classNames="match">
-            <div className="match match-back">{text !== "poo" ? text : "💩"}</div>
-          </CSSTransition>
-        </ReactFitText>
+        <CSSTransition in={show} timeout={0} classNames="match">
+          <div className="match match-back">
+            <FitText text={text !== "poo" ? text : "💩"} ref={refs[i]} />
+          </div>
+        </CSSTransition>
       </div>
     );
   });

@@ -4,19 +4,21 @@ import { CSSTransition } from "react-transition-group";
 import useData from "../../hooks/useData";
 import useKeys from "../../hooks/useKeys";
 import useScroll from "../../hooks/useScroll";
+import useFitText from "../../hooks/useFitText";
 import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { newGoogEvent, getRandomNum } from "../../helpers/phase2helpers";
-import TextBox from "../reusable/TextBox";
+import { googleEvent } from "../../helpers/ga";
+import { getRandomNum } from "../../helpers/gameUtils";
+import FitText from "../reusable/FitText";
+// import TextBox from "../reusable/TextBox";
 import Emoji from "../reusable/Emoji";
 import ShowUpdatedSetting from "../reusable/ShowUpdatedSetting";
 import "./Kimchi.css";
 
 const init = data => ({
-  compressor: 0.8,
   data: shuffle(data),
   text: "",
-  showPic: true,
+  showPic: false,
   isKimchi: true,
   freq: 50,
   freqUpd: false,
@@ -24,10 +26,8 @@ const init = data => ({
 });
 
 function reducer(state, action) {
-  const { type, compressor, data, text, isKimchi, freq } = action;
+  const { type, data, text, isKimchi, freq } = action;
   switch (type) {
-    case "Compressor":
-      return { ...state, compressor };
     case "Set_Data":
       return { ...state, data: shuffle(data), showPic: true };
     case "New_Round":
@@ -51,13 +51,15 @@ export default function Kimchi(props) {
 
   // STATE
   const [state, dispatch, didUpdate] = useData(reducer, init, expressions);
-  const { compressor, data, text, showPic, isKimchi, freq, freqUpd, noClick } = state;
+  const { data, text, showPic, isKimchi, freq, freqUpd, noClick } = state;
+  const ref = useFitText(text, font, true);
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
     if (noClick) return;
     if (showPic) {
-      newGoogEvent(title);
+      console.log("google");
+      googleEvent(title);
       const [text, ...rest] = data;
       const newData = rest.length < 1 ? shuffle(expressions) : rest;
       const isKimchi = __isKimchi(freq);
@@ -69,27 +71,25 @@ export default function Kimchi(props) {
   }, [data, showPic, freq, noClick]);
   useHandleGame(handleGame, didUpdate);
 
-  // EVENT HANDLERS
-  const reqDep = [dispatch, isMenuOpen, compressor];
+  // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
     ({ keyCode }) => {
-      if (keyCode === 32 || keyCode === 13) return handleGame();
       if (keyCode === 39) return __increaseFreq(dispatch, freq);
       if (keyCode === 37) return __decreaseFreq(dispatch, freq);
     },
-    [handleGame, dispatch, freq]
-  );
-  const scrollCB = useCallback(
-    compressorChange => {
-      compressorChange < 0
-        ? __increaseFreq(dispatch, freq)
-        : __decreaseFreq(dispatch, freq);
-    },
     [dispatch, freq]
   );
-  useKeys(keysCB, ...reqDep);
-  useScroll(scrollCB, ...reqDep);
+  useKeys(isMenuOpen, handleGame, keysCB);
 
+  // GAME SPECIFIC SCROLL EVENTS
+  const scrollCB = useCallback(
+    scrolledUp =>
+      scrolledUp ? __increaseFreq(dispatch, freq) : __decreaseFreq(dispatch, freq),
+    [dispatch, freq]
+  );
+  useScroll(isMenuOpen, scrollCB);
+
+  // USE EFFECTS HERE
   useEffect(() => {
     if (!freqUpd) return;
     dispatch({ type: "Freq_Upd_False" });
@@ -103,13 +103,9 @@ export default function Kimchi(props) {
   return (
     <div className="kim-container" onClick={handleGame} style={{ fontFamily: font }}>
       <CSSTransition in={!showPic} timeout={0} classNames="kimchiText">
-        <TextBox
-          gameReady={!!text}
-          text={text}
-          height="100vh"
-          width="100%"
-          compressor={compressor}
-        />
+        <div className="kimchi-box">
+          <FitText text={text} ref={ref} style={{ width: "30vw" }} />
+        </div>
       </CSSTransition>
       <CSSTransition in={showPic} timeout={0} classNames="kimchiImg">
         {isKimchi ? (

@@ -5,15 +5,15 @@ import { CSSTransition } from "react-transition-group";
 import FlipMove from "react-flip-move";
 import useData from "../../hooks/useData";
 import useKeys from "../../hooks/useKeys";
-import useScroll from "../../hooks/useScroll";
+import useFitText from "../../hooks/useFitText";
 import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { newGoogEvent } from "../../helpers/phase2helpers";
-import CardBlock from "../reusable/CardBlock";
+import { googleEvent } from "../../helpers/ga";
+import FitText from "../reusable/FitText";
 import "./ChaseTheVocab.css";
+import "../reusable/Box.css";
 
 const init = data => ({
-  compressor: 0.6,
   data: shuffle(data),
   gameData: [],
   round: 0,
@@ -27,10 +27,8 @@ const init = data => ({
 });
 
 function reducer(state, action) {
-  const { type, compressor, data, gameData, color, id, ...settings } = action;
+  const { type, data, gameData, color, id, ...settings } = action;
   switch (type) {
-    case "Compressor":
-      return { ...state, compressor };
     case "Set_Data":
       return { ...state, data: shuffle(data) };
     case "New_Round":
@@ -44,6 +42,8 @@ function reducer(state, action) {
         gameData,
       };
     case "Add_Click_ID":
+      // bail out of dispatch if already clicked
+      if (state.clickedIDs.includes(id)) return state;
       return { ...state, clickedIDs: [...state.clickedIDs, id] };
     case "Change_Settings":
       return { ...state, ...settings };
@@ -67,7 +67,6 @@ export default function ChaseTheVocab(props) {
   // STATE
   const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary);
   const {
-    compressor,
     data,
     gameData,
     clickedIDs,
@@ -79,27 +78,20 @@ export default function ChaseTheVocab(props) {
     shuffDuration,
     shuffRounds,
   } = state;
+  const refs = useFitText(gameData, font, true);
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
-    if (isShuffleDone && clickedIDs.length !== 9) return;
-    if (isAnimating || clickedIDs.length === 9) {
-      newGoogEvent(title);
-      const gameData = data.slice(0, 9).map((text, i) => ({ text, id: i }));
-      const restData = data.length < 18 ? shuffle(vocabulary) : data.slice(9);
-      dispatch({ type: "New_Round", gameData, data: restData });
-    } else {
-      dispatch({ type: "Start_Animating" });
-    }
+    const gameData = data.slice(0, 9).map((text, i) => ({ text, id: i }));
+    const restData = data.length < 18 ? shuffle(vocabulary) : data.slice(9);
+    dispatch({ type: "New_Round", gameData, data: restData });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, isShuffleDone, isAnimating, clickedIDs]);
   useHandleGame(handleGame, didUpdate);
 
-  // EVENT HANDLERS
-  const reqDep = [dispatch, isMenuOpen, compressor];
+  // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
     ({ keyCode, code, key }) => {
-      if (keyCode === 32 || keyCode === 13) return handleGame();
       // c was clicked; change the cards background color
       if (keyCode === 67) {
         const colorIdx = color < colors.length - 1 ? color + 1 : 0;
@@ -116,15 +108,11 @@ export default function ChaseTheVocab(props) {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [handleGame, dispatch, color]
+    [dispatch, color]
   );
-  useKeys(keysCB, ...reqDep);
-  useScroll(null, ...reqDep);
+  useKeys(isMenuOpen, handleGame, keysCB);
 
-  const keyDeps = [data, color, isAnimating, isShuffleDone, clickedIDs];
-  const handleReset = useCallback(handleGame, keyDeps);
-
-  // handles the shuffling
+  // USE EFFECTS HERE
   useEffect(() => {
     if (!isAnimating) return;
     if (round === shuffRounds) return;
@@ -136,7 +124,6 @@ export default function ChaseTheVocab(props) {
     return () => clearTimeout(id);
   }, [dispatch, isAnimating, gameData, round, shuffRounds, shuffDuration, shuffBuffer]);
 
-  // stops the shuffling
   useEffect(() => {
     if (round < shuffRounds) return;
     const time = shuffDuration + shuffBuffer;
@@ -144,64 +131,68 @@ export default function ChaseTheVocab(props) {
     return () => clearTimeout(id);
   }, [dispatch, round, shuffRounds, shuffDuration, shuffBuffer]);
 
-  // resets the game automatically when all cards have been clicked
   useEffect(() => {
     if (clickedIDs.length !== 9) return;
-    const id = setTimeout(handleReset, 1000);
+    const id = setTimeout(handleGame, 2000);
     return () => clearTimeout(id);
-  }, [dispatch, clickedIDs, handleReset]);
+  }, [dispatch, clickedIDs, handleGame]);
+
+  // GAME FUNCTIONS HERE
+  const _handleClick = useCallback(() => {
+    googleEvent(title);
+    dispatch({ type: "Start_Animating" });
+  }, [dispatch, title]);
 
   const _handleBoxClick = useCallback(
-    e => {
-      if (!isShuffleDone) return;
-      const id = Number(e.target.id);
-      if (clickedIDs.includes(id)) return;
-      dispatch({ type: "Add_Click_ID", id });
-    },
-    [dispatch, isShuffleDone, clickedIDs]
+    e => dispatch({ type: "Add_Click_ID", id: Number(e.target.id) }),
+    [dispatch]
   );
 
+  // CLASSES
   const boxClass = classNames("box box-chase box-grid", { "box-shrink": isAnimating });
-  const numClass = classNames(boxClass, "box-number", {
-    "box-number-show": isShuffleDone,
-  });
+  const numClass = classNames(boxClass, "box-num", { "box-num-show": isShuffleDone });
 
   return (
     <FlipMove
-      onClick={handleGame}
+      onClick={!isAnimating && !isShuffleDone ? _handleClick : null}
       className="chase-container"
       style={{ fontFamily: font }}
       duration={!isAnimating && !isShuffleDone ? 500 : shuffDuration}
     >
-      {gameData.map(({ text, id }, i) => (
-        <div key={id}>
-          <CSSTransition
-            in={isAnimating || (isShuffleDone && !clickedIDs.includes(i))}
-            timeout={0}
-            classNames="box-number"
-          >
-            <CardBlock
-              text={i + 1}
-              compressor={compressor}
-              boxClass={numClass}
-              backColor={colors[color]}
-              id={i}
-              handleClick={_handleBoxClick}
-            />
-          </CSSTransition>
-          <CardBlock
-            classNames="box"
-            text={text}
-            compressor={compressor}
-            boxClass={boxClass}
-            backColor={!clickedIDs.includes(i) ? colors[color] : "#676767"}
-          />
-        </div>
-      ))}
+      {gameData.map(({ text, id }, i) => {
+        const isClicked = clickedIDs.includes(i);
+        return (
+          <div key={id}>
+            <CSSTransition
+              in={isAnimating || (isShuffleDone && !isClicked)}
+              timeout={0}
+              classNames="box"
+            >
+              <div
+                id={i}
+                className={numClass}
+                style={{ backgroundColor: colors[color] }}
+                onClick={isShuffleDone ? _handleBoxClick : null}
+              >
+                {i + 1}
+              </div>
+            </CSSTransition>
+            <div
+              className={boxClass}
+              style={{
+                backgroundColor: !isClicked ? colors[color] : "#676767",
+              }}
+            >
+              <FitText text={text} ref={refs[i]} />
+            </div>
+          </div>
+        );
+      })}
     </FlipMove>
   );
 }
 
+// OTHER FUNCTIONS HERE
 function __changeSpeed(num) {
   const base = 2000;
   const increaseMultiplier = (2000 - 500) / 4;

@@ -3,9 +3,11 @@ import shuffle from "lodash/shuffle";
 import { CSSTransition } from "react-transition-group";
 import { Button, Popup } from "semantic-ui-react";
 import useData from "../../hooks/useData";
+import useKeys from "../../hooks/useKeys";
 import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { newGoogEvent, getRandomNum } from "../../helpers/phase2helpers";
+import { googleEvent } from "../../helpers/ga";
+import { getRandomNum } from "../../helpers/gameUtils";
 import "./Bowling.css";
 
 const letterBuffer = 3;
@@ -78,11 +80,9 @@ export default function Bowling(props) {
   }, [data]);
   useHandleGame(handleGame, didUpdate);
 
-  // EVENT HANDLERS - doesn't use compressor, so custom event listener added
-  useEffect(() => {
-    function handleKeys({ keyCode }) {
-      if (isMenuOpen) return;
-      if (keyCode === 32 || keyCode === 13) return handleGame();
+  // GAME SPECIFIC KEY EVENTS
+  const keysCB = useCallback(
+    ({ keyCode }) => {
       if (keyCode === 39) {
         if (rounds === 5) return;
         return dispatch({ type: "Change_Rounds", rounds: rounds + 1 });
@@ -91,12 +91,10 @@ export default function Bowling(props) {
         if (rounds === 1) return;
         return dispatch({ type: "Change_Rounds", rounds: rounds - 1 });
       }
-    }
-    document.addEventListener("keydown", handleKeys);
-    return () => {
-      document.removeEventListener("keydown", handleKeys);
-    };
-  }, [dispatch, isMenuOpen, handleGame, rounds]);
+    },
+    [dispatch, rounds]
+  );
+  useKeys(isMenuOpen, handleGame, keysCB);
 
   const roundTime =
     (splitText.length * letterBuffer + animDuration - letterBuffer / 2) * 1000;
@@ -169,7 +167,7 @@ const Controls = ({
       <BtnTip
         onClick={() => {
           if (round === 1) {
-            newGoogEvent(title);
+            googleEvent(title);
           }
           dispatch({ type: "Bowl_Start" });
         }}

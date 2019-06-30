@@ -3,4 +3,10 @@
   height: 100vh;
   display: flex;
   flex-wrap: wrap;
+  cursor: pointer;
+}
+
+.lotto-container .box-list {
+  height: 24vh;
+  width: 99vw;
 }

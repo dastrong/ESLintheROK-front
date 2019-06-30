@@ -4,14 +4,14 @@ import { CSSTransition } from "react-transition-group";
 import useData from "../../hooks/useData";
 import useKeys from "../../hooks/useKeys";
 import useScroll from "../../hooks/useScroll";
+import useFitText from "../../hooks/useFitText";
 import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { newGoogEvent } from "../../helpers/phase2helpers";
-import TextBox from "../reusable/TextBox";
+import { googleEvent } from "../../helpers/ga";
+import FitText from "../reusable/FitText";
 import "./Sparkle.css";
 
 const init = data => ({
-  compressor: 0.6,
   data: shuffle(data),
   text: "",
   timer: 15,
@@ -20,10 +20,8 @@ const init = data => ({
 });
 
 function reducer(state, action) {
-  const { type, compressor, data, text, timer } = action;
+  const { type, data, text, timer } = action;
   switch (type) {
-    case "Compressor":
-      return { ...state, compressor };
     case "Set_Data":
       return { ...state, data: shuffle(data) };
     case "New_Round":
@@ -52,11 +50,12 @@ export default function Sparkle(props) {
 
   // STATE
   const [state, dispatch, didUpdate] = useData(reducer, init, expressions);
-  const { compressor, data, text, timer, timeRemaining, isTimerRunning } = state;
+  const { data, text, timer, timeRemaining, isTimerRunning } = state;
+  const ref = useFitText(text, font, true);
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
-    newGoogEvent(title);
+    googleEvent(title);
     const [text, ...rest] = data;
     const newData = rest.length < 1 ? shuffle(expressions) : rest;
     dispatch({ type: "New_Round", text, data: newData });
@@ -64,27 +63,26 @@ export default function Sparkle(props) {
   }, [data]);
   useHandleGame(handleGame, didUpdate);
 
-  // EVENT HANDLERS
-  const reqDep = [dispatch, isMenuOpen, compressor];
+  // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
     ({ keyCode }) => {
-      if (keyCode === 32 || keyCode === 13) return handleGame();
       if (keyCode === 39) return __increaseTimer(dispatch, timer);
       if (keyCode === 37) return __decreaseTimer(dispatch, timer);
     },
-    [handleGame, dispatch, timer]
+    [dispatch, timer]
   );
+  useKeys(isMenuOpen, handleGame, keysCB);
+
+  // GAME SPECIFIC SCROLL EVENTS
   const scrollCB = useCallback(
-    compressorChange => {
-      compressorChange < 0
-        ? __increaseTimer(dispatch, timer)
-        : __decreaseTimer(dispatch, timer);
+    scrolledUp => {
+      scrolledUp ? __increaseTimer(dispatch, timer) : __decreaseTimer(dispatch, timer);
     },
     [dispatch, timer]
   );
-  useKeys(keysCB, ...reqDep);
-  useScroll(scrollCB, ...reqDep);
+  useScroll(isMenuOpen, scrollCB);
 
+  // USE EFFECTS HERE
   useEffect(() => {
     if (!isTimerRunning) return;
     const id = setInterval(() => dispatch({ type: "Timer_Countdown" }), 1000);
@@ -94,14 +92,10 @@ export default function Sparkle(props) {
   return (
     <div className="spark-container" style={{ fontFamily: font }}>
       <div onClick={handleGame}>
-        <CSSTransition in={!!timeRemaining} timeout={0} classNames="textBox">
-          <TextBox
-            text={text}
-            width="100%"
-            height="85vh"
-            compressor={compressor}
-            gameReady={!!text}
-          />
+        <CSSTransition in={!!timeRemaining} timeout={0} classNames="spark-box">
+          <div className="spark-box">
+            <FitText text={text} ref={ref} style={{ width: "32vw" }} />
+          </div>
         </CSSTransition>
       </div>
       <Timer timeRemaining={timeRemaining} timer={timer} dispatch={dispatch} />
