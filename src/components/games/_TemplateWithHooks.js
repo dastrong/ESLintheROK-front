@@ -1,33 +1,40 @@
 import React, { useCallback } from "react";
 import shuffle from "lodash/shuffle";
-// import ReactFitText from "react-fittext";
 // import classNames from "classnames";
 // import { TransitionGroup, CSSTransition } from "react-transition-group";
 import useData from "../../hooks/useData";
 import useKeys from "../../hooks/useKeys";
 import useAudio from "../../hooks/useAudio";
 import useScroll from "../../hooks/useScroll";
+import useFitText from "../../hooks/useFitText";
 import useFirstRun from "../../hooks/useFirstRun";
 import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { newGoogEvent, nextRoundData } from "../../helpers/phase2helpers";
+import { googleEvent } from "../../helpers/ga";
+import {
+  nextRoundData,
+  arrOfRandoNum,
+  changeIsVocab,
+  getRandomNum,
+} from "../../helpers/gameUtils";
+import FitText from "../reusable/FitText";
 // import helpers here
 // import CSS here
 
-// constant variables used in the game
+// CONSTANT VARIABLES - specific to the game
 
 const init = data => ({
-  compressor: 0.6,
   data: shuffle(data),
+  isVocab: true,
 });
 
 function reducer(state, action) {
-  const { type, compressor, data } = action;
+  const { type, data, isVocab } = action;
   switch (type) {
-    case "Compressor":
-      return { ...state, compressor };
     case "Set_Data":
       return { ...state, data: shuffle(data) };
+    case "Change_isVocab":
+      return changeIsVocab(isVocab, state);
     // add other conditions here
     default:
       return state;
@@ -45,37 +52,41 @@ export default function Template(props) {
 
   // STATE - set vocabulary, expressions or both below
   const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary, expressions);
-  const { compressor, data } = state;
+  const { data } = state;
+  // Is the width of the box static? - set boolean as parameter
+  const refs = useFitText(gameData, font, true);
 
   // HANDLE GAME - add dependencies as needed
   const handleGame = useCallback(() => {
     console.log("new round");
-    newGoogEvent(title);
+    googleEvent(title);
   }, []);
   useHandleGame(handleGame, didUpdate);
 
   // EVENT HANDLERS - add dependencies as needed
-  // reqDep are required dependencies of useKeys and useScroll hooks
-  const reqDep = [dispatch, isMenuOpen, compressor];
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
     ({ keyCode }) => {
       console.log("game specific key events");
-      if (keyCode === 32 || keyCode === 13) return handleGame();
     },
-    [handleGame]
+    [dispatch]
   );
+  useKeys(isMenuOpen, handleGame, keysCB);
+
   // GAME SPECIFIC SCROLL EVENTS
-  const scrollCB = useCallback(compressorChange => {
-    console.log("game specific scroll events");
-  }, []);
-  // if keysCB or scrollCB are not used, set param to null
-  useKeys(keysCB, ...reqDep);
-  useScroll(scrollCB, ...reqDep);
+  const scrollCB = useCallback(
+    scrolledUp => {
+      console.log("game specific scroll events");
+    },
+    [dispatch]
+  );
+  useScroll(isMenuOpen, scrollCB);
 
   // USE EFFECTS HERE
 
   // GAME FUNCTIONS HERE - should start with a single underscore _func()
+
+  // CLASSES
 
   return (
     // REMEMBER TO PASS FONT TO THE CONTAINER STYLING
