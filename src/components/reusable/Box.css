@@ -1,0 +1,30 @@
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-shadow: 2px 2px 2px black;
+  border-radius: 20px;
+  padding: 10px;
+  transform: scale(1);
+  margin: 0.5vh 0.5vw;
+  user-select: none;
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.box-grid {
+  height: 32.33vh;
+  width: 32.33vw;
+}
+
+.box-exit,
+.box-enter-active,
+.box-enter-done {
+  opacity: 1 !important;
+}
+
+.box-enter,
+.box-exit-active,
+.box-exit-done {
+  opacity: 0 !important;
+}
