@@ -66,17 +66,17 @@
 
 .spark-box-enter {
   opacity: 0.1;
-  transform: scale(0.8);
+  transform: translateY(85vh);
 }
 
 .spark-box-enter-done {
   opacity: 1;
-  transform: scale(1);
+  transform: translateY(0vh);
   transition: all 0.5s cubic-bezier(0.47, 0.31, 0.52, 0.87);
 }
 
 .spark-box-exit-done {
   opacity: 0;
-  transform: scale(0.4);
+  transform: translateY(85vh);
   transition: all 0.5s cubic-bezier(0.07, 0.83, 0.45, 0.98);
 }

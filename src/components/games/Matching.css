@@ -7,8 +7,8 @@
   justify-content: space-evenly;
   align-items: center;
   user-select: none;
- }
- 
+}
+
 .match-holder {
   display: flex;
   justify-content: center;
@@ -16,7 +16,7 @@
   cursor: pointer;
   text-shadow: -1px -1px 2px #fff;
 }
- 
+
 .match {
   box-shadow: 1px 1px 3px #7d7d7d;
   border: 2px solid #141312;
@@ -29,34 +29,42 @@
   position: relative;
   transition-timing-function: cubic-bezier(0.07, 1.01, 1, 1);
 }
- 
+
 .match-front {
-   background-color: rgba(255, 255, 255, 0.4);
-   transform: scale(1, 1);
-   position: absolute;
-   opacity: 1;
-   z-index: 1;
-   font-size: 80px;
-   transition-property: all;
-   transition-duration: 0.3s;
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1, 1);
+  position: absolute;
+  opacity: 1;
+  z-index: 1;
+  font-size: 8vw;
+  transition-property: all;
+  transition-duration: 0.3s;
 }
- 
+
 .match-back {
   background-color: rgba(241, 241, 241, 0.9);
-  transform: scale(0, 0);
   position: absolute;
   opacity: 0;
 }
- 
-.match.match-enter-done {
+
+.match-front-enter-done {
   opacity: 1;
   transform: scale(1, 1);
-  transition: opacity 0.1s, transform .3s;
+  transition: opacity 0.3s, transform 0.7s;
 }
- 
-.match.match-exit-done {
+
+.match-front-exit-done {
   opacity: 0;
   transform: scale(0, 0);
-  transition: opacity 0.1s, transform .3s;
+  transition: opacity 0.3s, transform 0.7s;
 }
- 
+
+.match-back-enter-done {
+  opacity: 1;
+  transition: opacity 0.9s;
+}
+
+.match-back-exit-done {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
