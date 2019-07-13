@@ -1,7 +1,7 @@
 .fittext {
-  font-size: 45px;
-  line-height: 55px;
-  transition: transform 0.3s;
+  font-size: 5vw;
+  line-height: 115%;
   opacity: 0;
   text-align: center;
+  position: absolute;
 }
