@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import shuffle from "lodash/shuffle";
-import ReactFitText from "react-fittext";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { CSSTransition } from "react-transition-group";
 import useData from "../../hooks/useData";
 import useKeys from "../../hooks/useKeys";
 import useAudio from "../../hooks/useAudio";
@@ -61,7 +60,7 @@ export default function HotPotato(props) {
   // STATE
   const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary, expressions);
   const { data, gameData, isVocab, numOfText, stage, countdown } = state;
-  const refs = useFitText(gameData, font, true);
+  const [refs] = useFitText(gameData.length, gameData, font);
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
@@ -177,7 +176,13 @@ export default function HotPotato(props) {
         src={URLs.cooling}
         alt="potato-finished"
       >
-        <Text gameData={gameData} refs={refs} isIn={stage === 3} />
+        <Text
+          gameData={gameData}
+          refs={refs}
+          isIn={stage === 3}
+          isVocab={isVocab}
+          numOfText={numOfText}
+        />
       </PotatoSection>
       {countdown && <span className="countdown-timer">{countdown}</span>}
     </div>
@@ -193,18 +198,19 @@ const PotatoSection = ({ isIn, children, className, src, alt }) => (
   </CSSTransition>
 );
 
-const Text = ({ refs, gameData, isIn }) => (
-  <TransitionGroup>
-    <div className="hotpotato-text">
-      {gameData.map((text, i) => (
-        <CSSTransition key={i} in={isIn} classNames="hotpotato-text" timeout={i * 400}>
-          <div>
-            <FitText text={text} ref={refs[i]} />
-          </div>
-        </CSSTransition>
-      ))}
-    </div>
-  </TransitionGroup>
+const Text = ({ refs, gameData, isIn, isVocab, numOfText }) => (
+  <div className="hotpotato-text">
+    {gameData.map((text, i) => (
+      <CSSTransition key={text} in={isIn} classNames="hotpotato-text" timeout={i * 400}>
+        <div
+          className="hotpotato-text-wrapper"
+          style={{ height: isVocab ? `${96 / numOfText}vh` : "100vh" }}
+        >
+          <FitText text={text} ref={refs[i]} />
+        </div>
+      </CSSTransition>
+    ))}
+  </div>
 );
 
 function __fadeIn(Song) {
