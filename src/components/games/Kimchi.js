@@ -52,13 +52,12 @@ export default function Kimchi(props) {
   // STATE
   const [state, dispatch, didUpdate] = useData(reducer, init, expressions);
   const { data, text, showPic, isKimchi, freq, freqUpd, noClick } = state;
-  const ref = useFitText(text, font, true);
+  const [[ref]] = useFitText(1, text, font);
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
     if (noClick) return;
     if (showPic) {
-      console.log("google");
       googleEvent(title);
       const [text, ...rest] = data;
       const newData = rest.length < 1 ? shuffle(expressions) : rest;
@@ -104,7 +103,7 @@ export default function Kimchi(props) {
     <div className="kim-container" onClick={handleGame} style={{ fontFamily: font }}>
       <CSSTransition in={!showPic} timeout={0} classNames="kimchiText">
         <div className="kimchi-box">
-          <FitText text={text} ref={ref} style={{ width: "30vw" }} />
+          <FitText text={text} ref={ref} />
         </div>
       </CSSTransition>
       <CSSTransition in={showPic} timeout={0} classNames="kimchiImg">

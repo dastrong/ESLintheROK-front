@@ -40,7 +40,7 @@ export default function WordLotto(props) {
   // STATE
   const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary, expressions);
   const { data, isVocab, gameData, isAnimating, isDone } = state;
-  const refs = useFitText(gameData, font, true);
+  const [refs] = useFitText(gameData.length, gameData, font);
 
   // HANDLE GAME
   const handleGame = useCallback(() => {

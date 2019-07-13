@@ -78,7 +78,7 @@ export default function ChaseTheVocab(props) {
     shuffDuration,
     shuffRounds,
   } = state;
-  const refs = useFitText(gameData, font, true);
+  const [refs] = useFitText(9, gameData, font);
 
   // HANDLE GAME
   const handleGame = useCallback(() => {

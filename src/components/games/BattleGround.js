@@ -55,7 +55,7 @@ export default function BattleGround(props) {
   // STATE
   const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary, expressions);
   const { data, gameData, items, isVocab, scaled, stage, countdown } = state;
-  const refs = useFitText(gameData, font, true);
+  const [refs] = useFitText(4, gameData, font);
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
@@ -144,12 +144,12 @@ export default function BattleGround(props) {
 }
 
 // INNER COMPONENTS HERE
-const Text = ({ gameData, stage, refs, isVocab }) => (
+const Text = ({ gameData, stage, refs }) => (
   <div className="corner-holder">
     {gameData.map((text, i) => (
       <TransitionComp key={text + i} isIn={stage !== 3}>
         <div className="corner">
-          <FitText text={text} ref={refs[i]} style={isVocab ? null : { width: "20vw" }} />
+          <FitText text={text} ref={refs[i]} />
         </div>
       </TransitionComp>
     ))}

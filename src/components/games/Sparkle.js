@@ -51,7 +51,7 @@ export default function Sparkle(props) {
   // STATE
   const [state, dispatch, didUpdate] = useData(reducer, init, expressions);
   const { data, text, timer, timeRemaining, isTimerRunning } = state;
-  const ref = useFitText(text, font, true);
+  const [[ref]] = useFitText(1, text, font);
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
@@ -94,7 +94,7 @@ export default function Sparkle(props) {
       <div onClick={handleGame}>
         <CSSTransition in={!!timeRemaining} timeout={0} classNames="spark-box">
           <div className="spark-box">
-            <FitText text={text} ref={ref} style={{ width: "32vw" }} />
+            <FitText text={text} ref={ref} />
           </div>
         </CSSTransition>
       </div>

@@ -29,7 +29,7 @@ export default function RedAndBlue(props) {
   // STATE
   const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary);
   const { data, red, blue } = state;
-  const refs = useFitText([red, blue], font, true);
+  const [refs] = useFitText(2, [red, blue], font);
 
   // HANDLE GAME
   const handleGame = useCallback(() => {

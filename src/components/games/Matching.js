@@ -65,7 +65,7 @@ export default function Matching(props) {
   const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary);
   const { data, gameData, clicked, matched, settingsNum, background } = state;
   const { words, poo, ...styles } = boxSettings[settingsNum];
-  const refs = useFitText(gameData, font, true);
+  const [refs] = useFitText(gameData.length, gameData, font);
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
@@ -158,12 +158,12 @@ const Boxes = ({ gameData, clicked, matched, styles, _handleClick, refs }) => {
     const show = clicked.includes(i) || matched.includes(i);
     return (
       <div key={i} className="match-holder" style={{ ...styles }}>
-        <CSSTransition in={!show} timeout={0} classNames="match">
+        <CSSTransition in={!show} timeout={0} classNames="match-front">
           <div className="match match-front" onClick={_handleClick} id={i}>
             {i + 1}
           </div>
         </CSSTransition>
-        <CSSTransition in={show} timeout={0} classNames="match">
+        <CSSTransition in={show} timeout={0} classNames="match-back">
           <div className="match match-back">
             <FitText text={text !== "poo" ? text : "💩"} ref={refs[i]} />
           </div>

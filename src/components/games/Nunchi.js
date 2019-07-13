@@ -31,7 +31,7 @@ export default function Nunchi(props) {
   // STATE
   const [state, dispatch, didUpdate] = useData(reducer, init, expressions);
   const { data, text, showReady } = state;
-  const ref = useFitText(text, font, true);
+  const [[ref]] = useFitText(1, text, font);
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
@@ -60,7 +60,7 @@ export default function Nunchi(props) {
           classNames="nunchi-text"
           timeout={{ enter: 500, exit: 0 }}
         >
-          <FitText text={text} ref={ref} cx="nunchi-text" style={{ width: "33%" }} />
+          <FitText text={text} ref={ref} cx="nunchi-text" />
         </CSSTransition>
       </div>
     </div>
