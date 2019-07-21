@@ -1,15 +1,14 @@
 import shuffle from "lodash/shuffle";
 
-const uniqueLengthErr = `Cannot make a unique array, if the total length is lower than the max number`;
-const minMaxErr = `Min cannot be higher than the max`;
+export const throwError = msg => {
+  throw new Error(`Error: ${msg}`);
+};
 
-export function getRandomNum(length) {
-  return Math.floor(Math.random() * length);
-}
+export const getRandomNum = length => Math.floor(Math.random() * length);
 
 // used to get the next set of data for our gameData arrays
 export function nextRoundData(data, count, isVocab, vocabulary, expressions) {
-  const shuffledData = () => (isVocab ? shuffle(vocabulary) : shuffle(expressions));
+  const shuffledData = () => shuffle(isVocab ? vocabulary : expressions);
   // if there isn't enough data for the next round, refresh all data and shuffle it
   const newData = count <= data.length ? [...data] : shuffledData();
   // get 'count' amount of data for the next round
@@ -30,11 +29,17 @@ export function getRandoGrad() {
 // creates an array of random numbers within the parameters given
 // can be unique if needed
 export function arrOfRandoNum(min, max, num, unique = false) {
-  if (min > max) throw new Error(`error in arrOfRandoNum. ${minMaxErr}`);
-  if (unique && max < num) throw new Error(`error in arrOfRandoNum. ${uniqueLengthErr}`);
+  if (min > max) {
+    throwError("Min cannot be higher than the max");
+  }
+  if (unique && max < num) {
+    throwError(
+      "Cannot make a unique array, if the total length is lower than the max number"
+    );
+  }
   let arr = [];
   while (arr.length < num) {
-    const randoNum = getRandomNum(max - min) + min;
+    const randoNum = getRandomNum(max + 1 - min) + min;
     if (unique) {
       if (arr.indexOf(randoNum) === -1) {
         arr.push(randoNum);
@@ -52,6 +57,32 @@ export function arrOfRandoNum(min, max, num, unique = false) {
 export function changeIsVocab(isVocab, state, extras) {
   if (isVocab === state.isVocab) return state;
   return { ...state, isVocab, ...extras };
+}
+
+// used to split game data into smaller arrays to map over later
+// splits an array into chunks and attaches a ref
+// returns an array containing equal lengthed arrays of ref/text combos
+export function splitArrAddRef(refs, arr, chunk = 2) {
+  if (arr.length !== refs.length) {
+    throwError("The given refs and array have different lengths. They should be equal.");
+  }
+  if (arr.length % chunk !== 0) {
+    throwError("You created uneven chunks. They should be equal.");
+  }
+  return arr.reduce((acc, cVal, i) => {
+    // create an obj with the ref and text
+    const val = { text: cVal, ref: refs[i] };
+    // first time through; create our outer and first inner array
+    if (!acc) return [[val]];
+    // determine if we need to add to the last chunk or start a new one
+    if (i % chunk === 0) {
+      acc.push([val]);
+    } else {
+      const lastIndex = acc.length - 1;
+      acc[lastIndex].push([val]);
+    }
+    return acc;
+  }, null);
 }
 
 // returns a random HSL string
