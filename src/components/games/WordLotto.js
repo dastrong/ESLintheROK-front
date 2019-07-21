@@ -46,7 +46,7 @@ export default function WordLotto(props) {
   const handleGame = useCallback(() => {
     const [numOfBox, numOfX] = isVocab ? [9, 3] : [4, 1];
     const [cur, nex] = nextRoundData(data, numOfBox, isVocab, vocabulary, expressions);
-    const winners = arrOfRandoNum(0, numOfBox, numOfX, true);
+    const winners = arrOfRandoNum(0, numOfBox - 1, numOfX, true);
     const timeouts = arrOfRandoNum(500, 8500, numOfBox, false);
     const gameData = cur.map((text, i) => ({
       text,
