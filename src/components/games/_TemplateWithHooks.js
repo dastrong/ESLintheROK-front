@@ -53,8 +53,7 @@ export default function Template(props) {
   // STATE - set vocabulary, expressions or both below
   const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary, expressions);
   const { data } = state;
-  // Is the width of the box static? - set boolean as parameter
-  const refs = useFitText(gameData, font, true);
+  const [refs] = useFitText(gameData.length, gameData, font, false);
 
   // HANDLE GAME - add dependencies as needed
   const handleGame = useCallback(() => {
