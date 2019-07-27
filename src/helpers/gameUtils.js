@@ -59,32 +59,6 @@ export function changeIsVocab(isVocab, state, extras) {
   return { ...state, isVocab, ...extras };
 }
 
-// used to split game data into smaller arrays to map over later
-// splits an array into chunks and attaches a ref
-// returns an array containing equal lengthed arrays of ref/text combos
-export function splitArrAddRef(refs, arr, chunk = 2) {
-  if (arr.length !== refs.length) {
-    throwError("The given refs and array have different lengths. They should be equal.");
-  }
-  if (arr.length % chunk !== 0) {
-    throwError("You created uneven chunks. They should be equal.");
-  }
-  return arr.reduce((acc, cVal, i) => {
-    // create an obj with the ref and text
-    const val = { text: cVal, ref: refs[i] };
-    // first time through; create our outer and first inner array
-    if (!acc) return [[val]];
-    // determine if we need to add to the last chunk or start a new one
-    if (i % chunk === 0) {
-      acc.push([val]);
-    } else {
-      const lastIndex = acc.length - 1;
-      acc[lastIndex].push([val]);
-    }
-    return acc;
-  }, null);
-}
-
 // returns a random HSL string
 // not exported since it's only used in getRandoGrad above currently
 function getHSL() {
