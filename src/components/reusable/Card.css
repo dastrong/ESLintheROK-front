@@ -3,23 +3,25 @@
   color: #fff;
   text-shadow: 2px 2px 1px black;
   transform-style: preserve-3d;
+  height: 100%;
+  width: 100%;
+  user-select: none;
+  display: inline-block;
 }
 
 .flipper-card.front,
 .flipper-card.back {
+  overflow: hidden;
+  backface-visibility: hidden;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
-  backface-visibility: hidden;
-  position: absolute;
-  height: inherit;
-  width: inherit;
 }
 
 .flipper-card.front {
   z-index: 2;
   cursor: pointer;
-  user-select: none;
 }
 
 .flipper-card.back {
