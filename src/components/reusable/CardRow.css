@@ -1,0 +1,10 @@
+.card-row {
+  width: 100vw;
+  display: flex;
+  flex: 1;
+}
+
+.card-row.flex0 {
+  flex: 0;
+  transition: 0.5s flex;
+}
