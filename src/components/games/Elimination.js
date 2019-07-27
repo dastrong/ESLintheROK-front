@@ -1,151 +1,174 @@
-import React, { Component } from "react";
+import React, { useCallback, useEffect } from "react";
 import shuffle from "lodash/shuffle";
-import classNames from "classnames";
-import Card from "../reusable/Card";
-import {
-  handleGameData,
-  handleAnimations,
-  handleEvents,
-  handleReset,
-  handleClasses,
-  handleClick,
-} from "../../helpers/phase1helpers";
-import {
-  addListeners,
-  rmvListeners,
-  chooseDataSet,
-  setAllData,
-  addTitle,
-  addGoogEvent,
-  resetAndReload,
-} from "../../helpers/phase2helpers";
-import "./Generic.css";
-import AudioGameOver from "../../assets/sounds/game-over.wav";
-import AudioOhYeah from "../../assets/sounds/oh-yeah.mp3";
+import useData from "../../hooks/useData";
+import useKeys from "../../hooks/useKeys";
+import useAudio from "../../hooks/useAudio";
+import useScroll from "../../hooks/useScroll";
+import useFitText from "../../hooks/useFitText";
+import useFirstRun from "../../hooks/useFirstRun";
+import useSplit2Rows from "../../hooks/useSplit2Rows";
+import useHandleGame from "../../hooks/useHandleGame";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
+import { googleEvent } from "../../helpers/ga";
+import { nextRoundData, arrOfRandoNum, changeIsVocab } from "../../helpers/gameUtils";
+import CardRow from "../reusable/CardRow";
+import "./Elimination.css";
 
-class Elimination extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      colors: this.props.colors,
-      xCount: 3,
-      gameData: [],
-      clickedIDs: [],
-      Xs: [],
-      height: "25vh",
-      handlingClick: false,
-      isResetting: false,
-      isVocab: true,
-      compressor: 1,
-    };
-    this.AudioGameOver = new Audio(AudioGameOver);
-    this.AudioOhYeah = new Audio(AudioOhYeah);
-    this.handleGameData = handleGameData.bind(this);
-    this.handleEvents = handleEvents.bind(this);
-    this.handleClick = handleClick.bind(this);
-    this.handleClasses = handleClasses.bind(this);
-    this.handleReset = handleReset.bind(this);
-    this.handleAnimations = handleAnimations.bind(this);
-    this.addListeners = addListeners.bind(this);
-    this.rmvListeners = rmvListeners.bind(this);
-    this.chooseDataSet = chooseDataSet.bind(this);
-    this.setAllData = setAllData.bind(this);
-    this.addTitle = addTitle.bind(this);
-    this.addGoogEvent = addGoogEvent.bind(this);
-    this.resetAndReload = resetAndReload.bind(this);
-  }
+// CONSTANTS
+const baseURL = "https://res.cloudinary.com/dastrong/video/upload";
+const gameOverAudioURL = `${baseURL}/v1564219595/TeacherSite/Media/Elimination/game-over.wav`;
+const ohYeahAudioURL = `${baseURL}/v1564219597/TeacherSite/Media/Elimination/oh-yeah.mp3`;
+const getBackCard = isX => (isX ? ["X", "red"] : ["O", "lime"]);
+const getBoxCount = isVocab => (isVocab ? 8 : 6);
 
-  componentDidMount() {
-    this.addTitle();
-    this.addListeners();
-    const { vocabulary, expressions } = this.props;
-    const allData = { vocabulary, expressions };
-    this.setAllData(allData);
-  }
+const init = data => ({
+  data: shuffle(data),
+  isVocab: true,
+  gameData: [],
+  Xs: [],
+  xCount: 3,
+  clickedIDs: [],
+  clickedID: null,
+});
 
-  componentWillUnmount() {
-    this.rmvListeners();
-    clearTimeout(this.timeout1);
-    clearTimeout(this.timeout2);
-    clearTimeout(this.timeout3);
-    clearTimeout(this.timeout4);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    this.resetAndReload(2);
-    const { Xs, isResetting, isGameOver, compressor, clickedIDs } = this.state;
-    // if the game is over, reset everything
-    if (isGameOver) return this.handleReset();
-    // if the font size changed do nothing
-    if (prevState.compressor !== compressor) return;
-    // if the font changed do nothing
-    if (prevProps.font !== this.props.font) return;
-    // if the state hasn't changed do nothing
-    if (prevState === this.state) return;
-    // should we play a sound effect?
-    const playSound = !(isGameOver || isResetting || !clickedIDs.length);
-    if (!playSound) return;
-    Xs.includes(clickedIDs[clickedIDs.length - 1])
-      ? this.onPlay("AudioGameOver")
-      : this.onPlay("AudioOhYeah");
-  }
-
-  handleGame = (isVocab = this.state.isVocab) => {
-    this.addGoogEvent();
-    const { gameData, Xs, height } = this.handleGameData(isVocab);
-    this.setState(prevState => ({
-      gameData,
-      Xs,
-      height,
-      clickedIDs: [],
-      targetedIDs: [],
-      targetedID: null,
-      isVocab: isVocab === undefined ? prevState.isVocab : isVocab,
-      isGameOver: false,
-      colors: shuffle([...this.state.colors]),
-    }));
-  };
-
-  handleMoreEvents = e => {
-    // numbers being clicked
-    if (e.code.includes("Digit")) {
-      const { xCount, gameData } = this.state;
-      const num = Number(e.key);
-      if (!num || num === xCount || num >= gameData.length) return;
-      this.setState({ xCount: num }, this.handleReset);
+function reducer(state, action) {
+  const { type, data, isVocab, gameData, Xs, id, xCount } = action;
+  const { clickedIDs, clickedID } = state;
+  switch (type) {
+    case "Set_Data":
+      return { ...state, data: shuffle(data) };
+    case "Change_isVocab":
+      return changeIsVocab(isVocab, state);
+    case "New_Round":
+      return { ...state, data, gameData, clickedIDs: [], clickedID: null, Xs };
+    case "Card_Clicked": {
+      if (clickedID !== null || clickedIDs.includes(id)) return state;
+      return { ...state, clickedID: id };
     }
-  };
-
-  onPlay = name => {
-    this[name].play();
-  };
-
-  render() {
-    const { gameData, Xs, isResetting, compressor, colors } = this.state;
-    const containerClasses = classNames("generic-container", { isResetting });
-    const cards = gameData.map((card, i) => {
-      const allCardClasses = this.handleClasses(card, i);
-      const isX = Xs.includes(i);
-      return (
-        <Card
-          key={i}
-          index={i}
-          handleClick={this.handleClick}
-          classNames={allCardClasses}
-          frontColor={colors[i]}
-          frontText={card.text}
-          backColor={isX ? "red" : "lime"}
-          backText={isX ? "X" : "O"}
-          compressor={compressor}
-        />
-      );
-    });
-    return (
-      <div className={containerClasses} style={{ fontFamily: this.props.font }}>
-        {cards}
-      </div>
-    );
+    case "Animate_Done":
+      return { ...state, clickedID: null, clickedIDs: [...clickedIDs, clickedID] };
+    case "xCount_Changed": {
+      if (!xCount || xCount > 5 || xCount === state.xCount) return state;
+      return { ...state, xCount };
+    }
+    default:
+      return state;
   }
 }
 
-export default Elimination;
+export default function Elimination(props) {
+  const { title, isMenuOpen, font, vocabulary, expressions, colors } = props;
+  useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
+  const isFirstRun = useFirstRun();
+
+  // AUDIO
+  const [GameOverAudio, resetGameOverAudio] = useAudio(gameOverAudioURL);
+  const [OhYeahAudio, resetOhYeahAudio] = useAudio(ohYeahAudioURL);
+
+  // STATE
+  const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary, expressions);
+  const { data, gameData, isVocab, Xs, xCount, clickedIDs, clickedID } = state;
+  const [refs, resizeText] = useFitText(gameData.length, gameData, font);
+  const splitRows = useSplit2Rows(refs, gameData);
+
+  // HANDLE GAME
+  const handleGame = useCallback(() => {
+    googleEvent(title);
+    const boxCount = getBoxCount(isVocab);
+    // get a unique array of indexes for our 'chosen' blocks
+    const Xs = arrOfRandoNum(0, boxCount - 1, xCount, true);
+    const [nex, rest] = nextRoundData(data, boxCount, isVocab, vocabulary, expressions);
+    dispatch({ type: "New_Round", data: rest, gameData: nex, Xs });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, isVocab, xCount]);
+  useHandleGame(handleGame, didUpdate);
+
+  // GAME SPECIFIC KEY EVENTS
+  const keysCB = useCallback(
+    ({ keyCode, code, key }) => {
+      if (keyCode === 37) return dispatch({ type: "Change_isVocab", isVocab: true });
+      if (keyCode === 39) return dispatch({ type: "Change_isVocab", isVocab: false });
+      if (code.includes("Digit")) {
+        dispatch({ type: "xCount_Changed", xCount: Number(key) });
+      }
+    },
+    [dispatch]
+  );
+  useKeys(isMenuOpen, handleGame, keysCB);
+
+  // GAME SPECIFIC SCROLL EVENTS
+  const scrollCB = useCallback(
+    scrolledUp => dispatch({ type: "Change_isVocab", isVocab: scrolledUp }),
+    [dispatch]
+  );
+  useScroll(isMenuOpen, scrollCB);
+
+  // after a card is spun
+  useEffect(() => {
+    if (clickedID === null) return;
+    const id = setTimeout(() => dispatch({ type: "Animate_Done" }), 1550);
+    return () => clearTimeout(id);
+  }, [clickedID, dispatch]);
+
+  // handles sound effects
+  useEffect(() => {
+    if (isFirstRun) return;
+    if (clickedID === null) {
+      resetGameOverAudio();
+      resetOhYeahAudio();
+      return;
+    }
+    if (Xs.includes(clickedID)) {
+      GameOverAudio.current.play();
+    } else {
+      OhYeahAudio.current.play();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clickedID, Xs]);
+
+  // after cards are done animating, resize the text
+  useEffect(() => {
+    if (isFirstRun) return;
+    const id = setTimeout(resizeText, 1550);
+    return () => clearTimeout(id);
+  }, [resizeText, clickedIDs.length, isFirstRun]);
+
+  // all cards are clicked, reset the game
+  useEffect(() => {
+    if (clickedIDs.length !== gameData.length) return;
+    const id = setTimeout(handleGame, 1000);
+    return () => clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clickedIDs.length, gameData.length]);
+
+  // resets game if xCount changes
+  useEffect(() => {
+    if (isFirstRun) return;
+    handleGame();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [xCount]);
+
+  // GAME FUNCTIONS HERE
+  const _handleClick = useCallback(
+    e => dispatch({ type: "Card_Clicked", id: Number(e.currentTarget.id) }),
+    [dispatch]
+  );
+
+  return (
+    <div className="elim-container" style={{ fontFamily: font }}>
+      {splitRows.map((row, i) => (
+        <CardRow
+          key={"row" + i}
+          rowIdx={i * 2}
+          rowArr={row}
+          targets={Xs}
+          colors={colors}
+          clickedID={clickedID}
+          clickedIDs={clickedIDs}
+          handleClick={_handleClick}
+          getBackCard={getBackCard}
+        />
+      ))}
+    </div>
+  );
+}
