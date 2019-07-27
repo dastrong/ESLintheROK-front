@@ -8,6 +8,7 @@ import useAudio from "../../hooks/useAudio";
 import useScroll from "../../hooks/useScroll";
 import useFitText from "../../hooks/useFitText";
 import useFirstRun from "../../hooks/useFirstRun";
+import useSplit2Rows from "../../hooks/useSplit2Rows";
 import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 import { googleEvent } from "../../helpers/ga";
