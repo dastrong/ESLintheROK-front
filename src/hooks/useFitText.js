@@ -139,6 +139,10 @@ function getRefsAndStuff(refs, numLoops) {
   // read - capture the min width
   let refsAndStuff = refs.map(ref => {
     const { pWidth, pHeight, sWidth, sHeight, text } = deRef(ref);
+    // if the width or height is 0, skip calculating anything
+    if (!pHeight || !pWidth) {
+      return { ref, pWidth: 0, isSingle: true, scale: 0 };
+    }
     // check if there's one a single word in the text
     const isSingle = text.split(" ").length === 1;
     const minWidth = sWidth;
