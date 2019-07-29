@@ -1,0 +1,30 @@
+.WB-container {
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.WB-container .card-row > .flipper-card {
+  width: 50vw;
+  flex: 1;
+}
+
+.WB-container .flipper-card .back {
+  transform: rotateY(180deg);
+}
+
+.WB-container .flipper-card.flipMe {
+  transform: rotateY(180deg);
+  transition: 1s transform, 0.5s flex;
+}
+
+.WB-container .flipper-card.slideMe {
+  flex: 0;
+  transition: 1s transform, 0.5s flex;
+}
+
+.WB-container .flipper-card .fittext {
+  transition: 0.35s transform;
+}
