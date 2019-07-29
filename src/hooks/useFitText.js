@@ -36,10 +36,8 @@ export default function useFitText(numOfRefs, gameData, font, delayUpdate) {
   // then we'll flip the isFontLoaded variable, so we can calculate the correct scales
   useEffect(() => {
     let id;
-    document.fonts.ready.then(e => {
-      if (e.status === "loaded") {
-        id = setTimeout(() => setFontLoaded(true), 400);
-      }
+    document.fonts.ready.then(() => {
+      id = setTimeout(() => setFontLoaded(true), 400);
     });
     return () => clearTimeout(id);
   }, []);
