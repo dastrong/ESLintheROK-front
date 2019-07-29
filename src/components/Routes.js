@@ -17,7 +17,7 @@ import WithStoreAndInfo from "./reusable/WithStoreAndInfo";
 import ConfirmBox from "./reusable/ConfirmBox";
 import TextLink from "./reusable/TextLink";
 import CheckGameWrapper from "./reusable/CheckGameWrapper";
-import { games } from "../helpers/data";
+import gamesInfo from "../helpers/gamesInfo";
 import { useStore } from "../store";
 
 // when the user alternates through the different game routes (teacher, student, etc.)
@@ -42,7 +42,7 @@ function Routes({ history, location }) {
   const shortenedRoute = shortenGameRoute(pathname);
   const gameInfo = useMemo(() => {
     if (!shortenedRoute.startsWith("/game/")) return;
-    return games.find(({ router }) => router.path === shortenedRoute);
+    return gamesInfo.find(({ router }) => router.path === shortenedRoute);
   }, [shortenedRoute]);
 
   return (

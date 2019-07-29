@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Button, Icon, Menu, Sidebar } from "semantic-ui-react";
-import { games } from "../helpers/data";
+import gamesInfo from "../helpers/gamesInfo";
 import { useStore } from "../store";
 import "./SideBar.css";
 
@@ -89,7 +89,7 @@ export default withRouter(function SideBar({ location }) {
           </Button.Group>
         </Menu.Item>
         {/* creates our menu links, if the game has been marked completed */}
-        {games
+        {gamesInfo
           .filter(({ info }) => info.completed)
           .map(({ router, info }) => (
             <MenuItem

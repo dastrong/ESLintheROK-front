@@ -12,73 +12,11 @@ import Nunchi from "../components/games/Nunchi";
 import Matching from "../components/games/Matching";
 import BattleGround from "../components/games/BattleGround";
 
-export const fonts = [
-  {
-    text: "Sans-Serif",
-    value: "sans-serif",
-    style: { fontFamily: "sans-serif" },
-  },
-  {
-    text: "Bree Serif",
-    value: "Bree Serif, serif",
-    style: { fontFamily: "Bree Serif, serif" },
-  },
-  {
-    text: "Mali",
-    value: "Mali, cursive",
-    style: { fontFamily: "Mali, cursive" },
-  },
-  {
-    text: "Niramit",
-    value: "Niramit, sans-serif",
-    style: { fontFamily: "Niramit, sans-serif" },
-  },
-  {
-    text: "Poppins",
-    value: "Poppins, sans-serif",
-    style: { fontFamily: "Poppins, sans-serif" },
-  },
-  {
-    text: "Muli",
-    value: "Muli, sans-serif",
-    style: { fontFamily: "Muli, sans-serif" },
-  },
-  {
-    text: "Quicksand",
-    value: "Quicksand, sans-serif",
-    style: { fontFamily: "Quicksand, sans-serif" },
-  },
-];
-
-export const sampleData = {
-  vocabulary: [
-    "apple",
-    "banana",
-    "oranges",
-    "pizza",
-    "vacation",
-    "purple",
-    "green",
-    "basketball",
-    "baseball",
-    "cap",
-  ],
-  expressions: [
-    "Do you like pizza?",
-    "What are you doing?",
-    "I like baseball.",
-    "Yes, I do. I like chicken.",
-    "I want to ...",
-    "Let's play soccer.",
-  ],
-};
-
-export const games = [
+export default [
   {
     router: {
       path: "/game/elimination",
       component: Elimination,
-      requiredProps: [],
       icon: "x",
     },
     info: {
@@ -87,7 +25,6 @@ export const games = [
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Last Student Standing Game",
       attachments: false,
-      players: 1,
       completed: true,
       images: {
         bottomText:
@@ -97,22 +34,17 @@ export const games = [
       },
     },
     keyCuts: [
-      { key: "Left-Click", description: "Starts the game" },
+      { key: "Left-Click", description: "Spin a block" },
       { key: ["Space", "Enter"], description: "Refresh the game" },
       {
-        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Up"],
+        key: ["Left-Arrow", "Scroll Up"],
         description: "Refresh the game and use vocabulary",
       },
       {
-        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Down"],
+        key: ["Right-Arrow", "Scroll Down"],
         description: "Refresh the game and use expressions",
       },
-      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
-      {
-        key: ["Down-Arrow", "Scroll Down"],
-        description: "Decrease the font size",
-      },
-      { key: "1-7", description: "Change the number of X's (default: 3)" },
+      { key: "1-5", description: "Change the number of X's (default: 3)" },
     ],
     instructions: {
       forTeachers: {
@@ -163,7 +95,6 @@ export const games = [
     router: {
       path: "/game/whatsbehind",
       component: WhatsBehind,
-      requiredProps: [],
       icon: "find",
     },
     info: {
@@ -172,7 +103,6 @@ export const games = [
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Find the Hidden Item",
       attachments: false,
-      players: 1,
       completed: true,
       images: {
         bottomText:
@@ -182,20 +112,15 @@ export const games = [
       },
     },
     keyCuts: [
-      { key: "Left-Click", description: "Starts the game" },
+      { key: "Left-Click", description: "Spin a block" },
       { key: ["Space", "Enter"], description: "Refresh the game" },
       {
-        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Up"],
+        key: ["Left-Arrow", "Scroll Up"],
         description: "Refresh the game and use vocabulary",
       },
       {
-        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Down"],
+        key: ["Right-Arrow", "Scroll Down"],
         description: "Refresh the game and use expressions",
-      },
-      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
-      {
-        key: ["Down-Arrow", "Scroll Down"],
-        description: "Decrease the font size",
       },
     ],
     instructions: {
@@ -236,7 +161,6 @@ export const games = [
     router: {
       path: "/game/stars",
       component: Stars,
-      requiredProps: [],
       icon: "star",
     },
     info: {
@@ -245,7 +169,6 @@ export const games = [
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Most Stars Wins",
       attachments: true,
-      players: 1,
       completed: true,
       images: {
         bottomText:
@@ -255,24 +178,19 @@ export const games = [
       },
     },
     keyCuts: [
-      { key: "Left-Click", description: "Starts the game" },
+      { key: "Left-Click", description: "Spin a block" },
       { key: ["Space", "Enter"], description: "Refresh the game" },
       {
-        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Up"],
+        key: ["Left-Arrow", "Scroll Up"],
         description: "Refresh the game and use vocabulary",
       },
       {
-        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Down"],
+        key: ["Right-Arrow", "Scroll Down"],
         description: "Refresh the game and use expressions",
       },
-      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
       {
-        key: ["Down-Arrow", "Scroll Down"],
-        description: "Decrease the font size",
-      },
-      {
-        key: "1-5",
-        description: "Change the minimum number of stars a card can have (default: 0)",
+        key: "0-5",
+        description: "Change the minimum number of stars for a block (default: 0)",
       },
     ],
     instructions: {
@@ -322,7 +240,6 @@ export const games = [
     router: {
       path: "/game/lotto",
       component: WordLotto,
-      requiredProps: [],
       icon: "won",
     },
     info: {
@@ -331,7 +248,6 @@ export const games = [
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Most Points Wins",
       attachments: true,
-      players: 1,
       completed: true,
       images: {
         bottomText:
@@ -344,17 +260,12 @@ export const games = [
       { key: "Left-Click", description: "Starts the game" },
       { key: ["Space", "Enter"], description: "Refresh the game" },
       {
-        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Up"],
+        key: ["Left-Arrow", "Scroll Up"],
         description: "Refresh the game and use vocabulary",
       },
       {
-        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Down"],
+        key: ["Right-Arrow", "Scroll Down"],
         description: "Refresh the game and use expressions",
-      },
-      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
-      {
-        key: ["Down-Arrow", "Scroll Down"],
-        description: "Decrease the font size",
       },
     ],
     instructions: {
@@ -410,7 +321,6 @@ export const games = [
     router: {
       path: "/game/sparkle",
       component: Sparkle,
-      requiredProps: [],
       icon: "diamond",
     },
     info: {
@@ -419,7 +329,6 @@ export const games = [
       dataUsed: ["Expressions"],
       description: "Popular Review Activity",
       attachments: false,
-      players: 1,
       completed: true,
       images: {
         bottomText:
@@ -429,20 +338,15 @@ export const games = [
       },
     },
     keyCuts: [
-      { key: "Left-Click", description: "Starts the game" },
+      { key: "Left-Click", description: "Refresh the game or pause the timer" },
       { key: ["Space", "Enter"], description: "Refresh the game" },
       {
-        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Down"],
+        key: ["Left-Arrow", "Scroll Down"],
         description: "Decrease the timer (min: 5s)",
       },
       {
-        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Up"],
+        key: ["Right-Arrow", "Scroll Up"],
         description: "Increase the timer (max: 20s)",
-      },
-      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
-      {
-        key: ["Down-Arrow", "Scroll Down"],
-        description: "Decrease the font size",
       },
     ],
     instructions: {
@@ -507,7 +411,6 @@ export const games = [
     router: {
       path: "/game/bowling",
       component: Bowling,
-      requiredProps: [],
       icon: "bowling ball",
     },
     info: {
@@ -516,7 +419,6 @@ export const games = [
       dataUsed: ["Vocabulary"],
       description: "Word Puzzle Solving Game",
       attachments: true,
-      players: 1,
       completed: true,
       images: {
         bottomText:
@@ -528,8 +430,8 @@ export const games = [
     keyCuts: [
       { key: "Left-Click", description: "Reveal the answer (by clicking the ???)" },
       { key: ["Space", "Enter"], description: "Refresh the game" },
-      { key: "Left-Arrow", description: "Decrease the total rounds" },
-      { key: "Right-Arrow", description: "Increase the total rounds" },
+      { key: "Left-Arrow", description: "Decrease the total rounds (min: 1)" },
+      { key: "Right-Arrow", description: "Increase the total rounds (max: 5)" },
     ],
     instructions: {
       forTeachers: {
@@ -586,7 +488,6 @@ export const games = [
     router: {
       path: "/game/kimchi",
       component: Kimchi,
-      requiredProps: [],
       icon: "heart",
     },
     info: {
@@ -595,7 +496,6 @@ export const games = [
       dataUsed: ["Expressions"],
       description: "Baskin Robbins 31 Variation",
       attachments: false,
-      players: 1,
       completed: true,
       images: {
         bottomText:
@@ -605,20 +505,15 @@ export const games = [
       },
     },
     keyCuts: [
-      { key: "Left-Click", description: "Starts the game" },
+      { key: "Left-Click", description: "Next slide" },
       { key: ["Space", "Enter"], description: "Refresh the game" },
       {
-        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Up"],
+        key: ["Right-Arrow", "Scroll Up"],
         description: "Increase kimchi frequency",
       },
       {
-        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Down"],
+        key: ["Left-Arrow", "Scroll Down"],
         description: "Decrease kimchi frequency",
-      },
-      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
-      {
-        key: ["Down-Arrow", "Scroll Down"],
-        description: "Decrease the font size",
       },
     ],
     instructions: {
@@ -694,7 +589,6 @@ export const games = [
     router: {
       path: "/game/chase",
       component: ChaseTheVocab,
-      requiredProps: [],
       icon: "exchange",
     },
     info: {
@@ -703,7 +597,6 @@ export const games = [
       dataUsed: ["Vocabulary"],
       description: "9 Card Monte",
       attachments: false,
-      players: 1,
       completed: true,
       images: {
         bottomText:
@@ -713,13 +606,8 @@ export const games = [
       },
     },
     keyCuts: [
-      { key: "Left-Click", description: "Starts the game" },
+      { key: "Left-Click", description: "Start the moving animation" },
       { key: ["Space", "Enter"], description: "Refresh the game" },
-      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
-      {
-        key: ["Down-Arrow", "Scroll Down"],
-        description: "Decrease the font size",
-      },
       { key: "C", description: "Change the block color" },
       {
         key: "1-9",
@@ -777,7 +665,6 @@ export const games = [
     router: {
       path: "/game/redblue",
       component: RedAndBlue,
-      requiredProps: [],
       icon: "road",
     },
     info: {
@@ -786,7 +673,6 @@ export const games = [
       dataUsed: ["Vocabulary"],
       description: "Slap the Correct Color",
       attachments: true,
-      players: 2,
       completed: true,
       images: {
         bottomText:
@@ -798,12 +684,7 @@ export const games = [
     keyCuts: [
       {
         key: ["Left-Click", "Space", "Enter"],
-        description: "Start/Refresh the game",
-      },
-      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
-      {
-        key: ["Down-Arrow", "Scroll Down"],
-        description: "Decrease the font size",
+        description: "Next round",
       },
     ],
     instructions: {
@@ -865,7 +746,6 @@ export const games = [
     router: {
       path: "/game/hotpotato",
       component: HotPotato,
-      requiredProps: [],
       icon: "fire",
     },
     info: {
@@ -874,7 +754,6 @@ export const games = [
       dataUsed: ["Vocabulary, Expressions"],
       description: "Pass the Ball Variation",
       attachments: false,
-      players: 1,
       completed: true,
       images: {
         bottomText:
@@ -884,20 +763,15 @@ export const games = [
       },
     },
     keyCuts: [
-      { key: "Left-Click", description: "Start/Stop the game" },
+      { key: "Left-Click", description: "Start/stop the music" },
       { key: ["Space", "Enter"], description: "Refresh the game" },
       {
-        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Down"],
+        key: ["Left-Arrow", "Scroll Down"],
         description: "Refresh the game and use vocabulary",
       },
       {
-        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Uo"],
+        key: ["Right-Arrow", "Scroll Up"],
         description: "Refresh the game and use expressions",
-      },
-      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
-      {
-        key: ["Down-Arrow", "Scroll Down"],
-        description: "Decrease the font size",
       },
       {
         key: "1-3",
@@ -943,7 +817,6 @@ export const games = [
     router: {
       path: "/game/nunchi",
       component: Nunchi,
-      requiredProps: [],
       icon: "talk",
     },
     info: {
@@ -952,7 +825,6 @@ export const games = [
       dataUsed: ["Expressions"],
       description: "Stand Up and Speak",
       attachments: false,
-      players: 1,
       completed: true,
       images: {
         bottomText:
@@ -964,12 +836,7 @@ export const games = [
     keyCuts: [
       {
         key: ["Left-Click", "Space", "Enter"],
-        description: "Start/Refresh the game",
-      },
-      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
-      {
-        key: ["Down-Arrow", "Scroll Down"],
-        description: "Decrease the font size",
+        description: "Next slide",
       },
     ],
     instructions: {
@@ -1028,7 +895,6 @@ export const games = [
     router: {
       path: "/game/match",
       component: Matching,
-      requiredProps: [],
       icon: "th",
     },
     info: {
@@ -1037,7 +903,6 @@ export const games = [
       dataUsed: ["Vocabulary"],
       description: "Find All The Pairs",
       attachments: false,
-      players: 1,
       completed: true,
       images: {
         bottomText:
@@ -1049,17 +914,12 @@ export const games = [
     keyCuts: [
       { key: "Left-Click", description: "Show the word" },
       { key: ["Space", "Enter"], description: "Refresh the game" },
-      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
       {
-        key: ["Down-Arrow", "Scroll Down"],
-        description: "Decrease the font size",
-      },
-      {
-        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Down"],
+        key: ["Left-Arrow", "Scroll Down"],
         description: "Decrease the number of boxes (min: 6)",
       },
       {
-        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Up"],
+        key: ["Right-Arrow", "Scroll Up"],
         description: "Increase the number of boxes (max: 16)",
       },
     ],
@@ -1106,7 +966,6 @@ export const games = [
     router: {
       path: "/game/battleground",
       component: BattleGround,
-      requiredProps: [],
       icon: "bomb",
     },
     info: {
@@ -1115,7 +974,6 @@ export const games = [
       dataUsed: ["Vocabulary", "Expressions"],
       description: "4 Corners Survival Game",
       attachments: true,
-      players: 1,
       completed: true,
       images: {
         bottomText:
@@ -1131,17 +989,12 @@ export const games = [
         description: "Refresh the game",
       },
       {
-        key: ["Left-Arrow", "Wheel Click/Hold with Scroll Down"],
+        key: ["Left-Arrow", "Scroll Down"],
         description: "Refresh the game and use vocabulary",
       },
       {
-        key: ["Right-Arrow", "Wheel Click/Hold with Scroll Up"],
+        key: ["Right-Arrow", "Scroll Up"],
         description: "Refresh the game and use expressions",
-      },
-      { key: ["Up-Arrow", "Scroll Up"], description: "Increase the font size" },
-      {
-        key: ["Down-Arrow", "Scroll Down"],
-        description: "Decrease the font size",
       },
     ],
     instructions: {
@@ -1187,7 +1040,6 @@ export const games = [
     router: {
       path: "/game/disappear",
       component: "Disappear",
-      requiredProps: [],
     },
     info: {
       title: "Disappear",
@@ -1195,7 +1047,6 @@ export const games = [
       dataUsed: ["Vocabulary"],
       description: "Word Puzzle Solving Game",
       attachments: false,
-      players: 1,
       completed: false,
       images: {
         bottomText:
