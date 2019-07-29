@@ -41,7 +41,7 @@ export default function CardRow(props) {
             colorBack={colorBack}
             handleClick={handleClick}
             flipMe={clickedID === id || isClicked[i]}
-            slideMe={clickedID !== targets && (!isEmpty && isClicked[i])}
+            slideMe={!isEmpty && isClicked[i]}
           />
         );
       })}
