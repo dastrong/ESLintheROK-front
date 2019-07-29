@@ -128,7 +128,7 @@ export default function Stars(props) {
             textBack={starIcons}
             colorFront={colors[i]}
             handleClick={_handleClick}
-            flipped={clickedIDs.includes(i)}
+            flipMe={clickedIDs.includes(i)}
           />
         );
       })}
