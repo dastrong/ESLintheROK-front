@@ -1,151 +1,124 @@
-import React, { Component } from "react";
+import React, { useCallback, useEffect } from "react";
 import shuffle from "lodash/shuffle";
 import classNames from "classnames";
 import { CSSTransition } from "react-transition-group";
-import CardBlock from "../reusable/CardBlock";
-import { handleLottoData, handleEvents, handleReset } from "../../helpers/phase1helpers";
-import {
-  addListeners,
-  rmvListeners,
-  chooseDataSet,
-  setAllData,
-  getRandomNum,
-  addTitle,
-  addGoogEvent,
-  resetAndReload,
-} from "../../helpers/phase2helpers";
+import useData from "../../hooks/useData";
+import useKeys from "../../hooks/useKeys";
+import useScroll from "../../hooks/useScroll";
+import useFitText from "../../hooks/useFitText";
+import useHandleGame from "../../hooks/useHandleGame";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
+import { googleEvent } from "../../helpers/ga";
+import { nextRoundData, arrOfRandoNum, changeIsVocab } from "../../helpers/gameUtils";
+import FitText from "../reusable/FitText";
 import "./WordLotto.css";
+import "../reusable/Box.css";
 
-class WordLotto extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      colors: this.props.colors,
-      xCount: 3,
-      gameData: [],
-      Xs: [],
-      isVocab: true,
-      boxCount: 9,
-      isGameOver: false,
-      isAnimating: false,
-      isResetting: false,
-      compressor: 0.9,
-    };
-    this.handleLottoData = handleLottoData.bind(this);
-    this.handleEvents = handleEvents.bind(this);
-    this.handleReset = handleReset.bind(this);
-    this.addListeners = addListeners.bind(this);
-    this.rmvListeners = rmvListeners.bind(this);
-    this.chooseDataSet = chooseDataSet.bind(this);
-    this.setAllData = setAllData.bind(this);
-    this.getRandomNum = getRandomNum.bind(this);
-    this.addTitle = addTitle.bind(this);
-    this.addGoogEvent = addGoogEvent.bind(this);
-    this.resetAndReload = resetAndReload.bind(this);
-  }
+const flagVars = { isDone: false, isAnimating: false };
 
-  componentDidMount() {
-    this.addTitle();
-    this.addListeners();
-    const { vocabulary, expressions } = this.props;
-    const allData = { vocabulary, expressions };
-    this.setAllData(allData);
-  }
+const init = data => ({
+  data: shuffle(data),
+  gameData: [],
+  isVocab: true,
+  ...flagVars,
+});
 
-  componentWillUnmount() {
-    this.rmvListeners();
-    this._clearTimeOuts();
-  }
-
-  componentDidUpdate() {
-    this.resetAndReload(2);
-  }
-
-  handleGame = (isVocab = this.state.isVocab) => {
-    this.addGoogEvent();
-    this._clearTimeOuts();
-    const { gameData, Xs, timeouts } = this.handleLottoData(isVocab);
-    this.setState(prevState => ({
-      gameData,
-      Xs,
-      timeouts,
-      clickedIDs: [],
-      clickedID: null,
-      targetedIDs: [],
-      targetedID: null,
-      isVocab: isVocab === undefined ? prevState.isVocab : isVocab,
-      isGameOver: false,
-      isAnimating: false,
-      colors: shuffle([...this.state.colors]),
-    }));
-  };
-
-  _showWinners = () => {
-    // if we're already animating return out
-    if (this.state.isAnimating) return;
-    // set the state so card blocks can start to fade out
-    this.setState({ isAnimating: true }, () => {
-      // allow 10 seconds for animations
-      // set flag variable to allow clicks again
-      this.animationID = setTimeout(() => {
-        this.setState({ isGameOver: true }, () => {
-          // automatically resets the board after 10 seconds
-          this.autoResetID = setTimeout(() => {
-            if (!this.state.isGameOver) return;
-            this.handleReset();
-          }, 10000);
-        });
-      }, 10000);
-    });
-  };
-
-  _clearTimeOuts = () => {
-    clearTimeout(this.resetID);
-    clearTimeout(this.animationID);
-    clearTimeout(this.autoResetID);
-    clearTimeout(this.timeout4);
-  };
-
-  render() {
-    const {
-      gameData,
-      timeouts,
-      compressor,
-      isResetting,
-      isAnimating,
-      isGameOver,
-      Xs,
-      isVocab,
-      colors,
-    } = this.state;
-    const boxClass = classNames("box", { "box-grid": isVocab }, { "box-list": !isVocab });
-    const boxes = gameData.map((text, i) => {
-      const isIn = isResetting || !(isAnimating && !Xs.includes(i));
-      return (
-        <CSSTransition key={i} in={isIn} timeout={0} classNames="box">
-          <CardBlock
-            classNames="box"
-            timeout={!isIn ? timeouts[i] : 0}
-            text={text}
-            compressor={compressor}
-            boxClass={boxClass}
-            backColor={colors[i]}
-          />
-        </CSSTransition>
-      );
-    });
-    return (
-      <div
-        className="lotto-container"
-        style={{ fontFamily: this.props.font }}
-        onClick={() => {
-          isGameOver ? this.handleReset() : this._showWinners();
-        }}
-      >
-        {boxes}
-      </div>
-    );
-  }
+function reducer(state, action) {
+  const { type, data, gameData, isVocab } = action;
+  if (type === "Set_Data") return { ...state, data: shuffle(data) };
+  if (type === "New_Round") return { ...state, data, gameData, ...flagVars };
+  if (type === "Animation_Start") return { ...state, isAnimating: true };
+  if (type === "Animation_Done") return { ...state, isDone: true };
+  if (type === "Change_isVocab") return changeIsVocab(isVocab, state);
+  return state;
 }
 
-export default WordLotto;
+export default function WordLotto(props) {
+  const { title, isMenuOpen, font, vocabulary, expressions, colors } = props;
+  useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
+
+  // STATE
+  const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary, expressions);
+  const { data, isVocab, gameData, isAnimating, isDone } = state;
+  const [refs] = useFitText(gameData.length, gameData, font);
+
+  // HANDLE GAME
+  const handleGame = useCallback(() => {
+    const [numOfBox, numOfX] = isVocab ? [9, 3] : [4, 1];
+    const [cur, nex] = nextRoundData(data, numOfBox, isVocab, vocabulary, expressions);
+    const winners = arrOfRandoNum(0, numOfBox - 1, numOfX, true);
+    const timeouts = arrOfRandoNum(500, 8500, numOfBox, false);
+    const gameData = cur.map((text, i) => ({
+      text,
+      timeout: timeouts[i],
+      isWinner: winners.includes(i),
+    }));
+    dispatch({ type: "New_Round", data: nex, gameData });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, isVocab]);
+  useHandleGame(handleGame, didUpdate);
+
+  // GAME SPECIFIC KEY EVENTS
+  const keysCB = useCallback(
+    ({ keyCode }) => {
+      if (keyCode === 37) return dispatch({ type: "Change_isVocab", isVocab: true });
+      if (keyCode === 39) return dispatch({ type: "Change_isVocab", isVocab: false });
+    },
+    [dispatch]
+  );
+  useKeys(isMenuOpen, handleGame, keysCB);
+
+  // GAME SPECIFIC SCROLL EVENTS
+  const scrollCB = useCallback(
+    scrolledUp => dispatch({ type: "Change_isVocab", isVocab: scrolledUp }),
+    [dispatch]
+  );
+  useScroll(isMenuOpen, scrollCB);
+
+  // USE EFFECTS HERE
+  useEffect(() => {
+    if (!isAnimating) return;
+    const id = setTimeout(() => dispatch({ type: "Animation_Done" }), 10000);
+    return () => clearTimeout(id);
+  }, [isAnimating, dispatch]);
+
+  useEffect(() => {
+    if (!isDone) return;
+    const id = setTimeout(handleGame, 10000);
+    return () => clearTimeout(id);
+  }, [isDone, handleGame]);
+
+  // GAME FUNCTIONS HERE
+  const _handleClick = useCallback(() => {
+    if (isDone && isAnimating) return;
+    if (isDone) return handleGame();
+    if (!isAnimating) {
+      googleEvent(title);
+      dispatch({ type: "Animation_Start" });
+    }
+  }, [isDone, isAnimating, dispatch, handleGame, title]);
+
+  // CLASSES
+  const cx = classNames("box", { "box-grid": isVocab }, { "box-list": !isVocab });
+
+  return (
+    <div className="lotto-container" style={{ fontFamily: font }} onClick={_handleClick}>
+      {gameData.map(({ text, timeout, isWinner }, i) => {
+        const isIn = !(isAnimating && !isWinner);
+        return (
+          <CSSTransition key={i} in={isIn} timeout={0} classNames="box">
+            <div
+              className={cx}
+              style={{
+                backgroundColor: colors[i],
+                transitionDelay: `${isAnimating ? timeout : 0}ms`,
+              }}
+            >
+              <FitText text={text} ref={refs[i]} />
+            </div>
+          </CSSTransition>
+        );
+      })}
+    </div>
+  );
+}

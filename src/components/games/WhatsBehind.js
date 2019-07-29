@@ -1,171 +1,139 @@
-import React, { PureComponent } from "react";
-import classNames from "classnames";
+import React, { useCallback, useEffect } from "react";
 import shuffle from "lodash/shuffle";
-import Card from "../reusable/Card";
+import { Icon } from "semantic-ui-react";
+import useData from "../../hooks/useData";
+import useKeys from "../../hooks/useKeys";
+import useScroll from "../../hooks/useScroll";
+import useFitText from "../../hooks/useFitText";
+import useFirstRun from "../../hooks/useFirstRun";
+import useSplit2Rows from "../../hooks/useSplit2Rows";
+import useHandleGame from "../../hooks/useHandleGame";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
+import { googleEvent } from "../../helpers/ga";
+import { nextRoundData, changeIsVocab, getRandomNum } from "../../helpers/gameUtils";
+import CardRow from "../reusable/CardRow";
 import Confetti from "../reusable/Confetti";
 import GifModal from "../reusable/GifModal";
-import { Icon } from "semantic-ui-react";
-import {
-  handleGameData,
-  handleAnimations,
-  handleEvents,
-  handleReset,
-  handleClasses,
-  handleClick,
-} from "../../helpers/phase1helpers";
-import {
-  addListeners,
-  rmvListeners,
-  chooseDataSet,
-  setAllData,
-  addTitle,
-  addGoogEvent,
-  resetAndReload,
-} from "../../helpers/phase2helpers";
-import "./Generic.css";
+import "./WhatsBehind.css";
 
-class WhatsBehind extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      colors: this.props.colors,
-      xCount: 1,
-      gameData: [],
-      clickedIDs: [],
-      Xs: [],
-      height: "25vh",
-      handlingClick: false,
-      isResetting: false,
-      isVocab: true,
-      compressor: 1,
-      counter: 0,
-      gifURLs: [],
-    };
-    this.handleGameData = handleGameData.bind(this);
-    this.handleEvents = handleEvents.bind(this);
-    this.handleClick = handleClick.bind(this);
-    this.handleClasses = handleClasses.bind(this);
-    this.handleReset = handleReset.bind(this);
-    this.handleAnimations = handleAnimations.bind(this);
-    this.addListeners = addListeners.bind(this);
-    this.rmvListeners = rmvListeners.bind(this);
-    this.chooseDataSet = chooseDataSet.bind(this);
-    this.setAllData = setAllData.bind(this);
-    this.addTitle = addTitle.bind(this);
-    this.addGoogEvent = addGoogEvent.bind(this);
-    this.resetAndReload = resetAndReload.bind(this);
-  }
+// CONSTANTS
+const getBackCard = isTarget =>
+  isTarget ? [<Icon name="trophy" size="large" />, "gold"] : ["", "white"];
+const getBoxCount = isVocab => (isVocab ? 8 : 6);
 
-  async componentDidMount() {
-    this.addTitle();
-    this.addListeners();
-    const gifURLs = await this._fetchGIF();
-    const { vocabulary, expressions } = this.props;
-    const allData = { vocabulary, expressions };
-    this.setAllData(allData, { gifURLs });
-  }
+const init = data => ({
+  data: shuffle(data),
+  isVocab: true,
+  gameData: [],
+  clickedIDs: [],
+  clickedID: null,
+  target: [],
+});
 
-  componentWillUnmount() {
-    this.rmvListeners();
-    clearTimeout(this.timeout1);
-    clearTimeout(this.timeout2);
-    clearTimeout(this.timeout3);
-    clearTimeout(this.timeout4);
-  }
-
-  componentDidUpdate() {
-    this.resetAndReload(2);
-  }
-
-  handleGame = (isVocab = this.state.isVocab) => {
-    this.addGoogEvent();
-    const { gameData, Xs, height } = this.handleGameData(isVocab);
-    this.setState(prevState => ({
-      gameData,
-      Xs,
-      height,
-      clickedIDs: [],
-      targetedIDs: [],
-      targetedID: null,
-      isVocab: isVocab === undefined ? prevState.isVocab : isVocab,
-      isGameOver: false,
-      colors: shuffle([...this.state.colors]),
-    }));
-  };
-
-  _fetchGIF = async () => {
-    const searchTerms = ["kpop", "fail"];
-    const urls = searchTerms.map(
-      searchTerm =>
-        `https://api.giphy.com/v1/gifs/search?q=${searchTerm}&limit=20&rating=g&api_key=${
-          process.env.REACT_APP_GIPHY_KEY
-        }`
-    );
-    let gifURLs = [];
-    await Promise.all(
-      urls.map(url =>
-        fetch(url)
-          .then(res => res.json())
-          .then(({ data }) => {
-            data.forEach(({ images }) => gifURLs.push(images.original.url));
-          })
-          .catch(err => console.log(err))
-      )
-    );
-    return shuffle(gifURLs);
-  };
-
-  render() {
-    const {
-      gameData,
-      Xs,
-      clickedIDs,
-      isResetting,
-      compressor,
-      colors,
-      isGameOver,
-      gifURLs,
-      counter,
-    } = this.state;
-    const containerClasses = classNames("generic-container", { isResetting });
-    const cards = gameData.map((card, i) => {
-      const allCardClasses = this.handleClasses(card, i);
-      const isX = Xs.includes(i);
-      return (
-        <Card
-          key={i}
-          index={i}
-          handleClick={this.handleClick}
-          classNames={allCardClasses}
-          frontColor={colors[i]}
-          frontText={card.text}
-          backColor={isX ? "gold" : "white"}
-          backText={isX ? <Icon name="trophy" size="large" /> : ""}
-          compressor={compressor}
-        />
-      );
-    });
-    const confetti =
-      Xs.length > 0 && Xs.every(X => clickedIDs.includes(X)) ? (
-        <Confetti
-          height={window.innerHeight}
-          width={window.innerWidth}
-          recycle={true}
-          numberOfPieces={400}
-          gravity={0.35}
-        />
-      ) : null;
-    const gif = isGameOver ? (
-      <GifModal handleReset={this.handleReset} url={gifURLs[counter]} />
-    ) : null;
-    return (
-      <div className={containerClasses} style={{ fontFamily: this.props.font }}>
-        {cards}
-        {confetti}
-        {gif}
-      </div>
-    );
+function reducer(state, action) {
+  const { type, data, isVocab, gameData, target, id } = action;
+  const { clickedIDs, clickedID } = state;
+  switch (type) {
+    case "Set_Data":
+      return { ...state, data: shuffle(data) };
+    case "Change_isVocab":
+      return changeIsVocab(isVocab, state);
+    case "New_Round":
+      return { ...state, data, gameData, clickedIDs: [], clickedID: null, target };
+    case "Card_Clicked": {
+      if (clickedID !== null || clickedIDs.includes(id)) return state;
+      return { ...state, clickedID: id };
+    }
+    case "Animate_Done":
+      return { ...state, clickedID: null, clickedIDs: [...clickedIDs, clickedID] };
+    default:
+      return state;
   }
 }
 
-export default WhatsBehind;
+export default function WhatsBehind(props) {
+  // PROPS
+  const { title, isMenuOpen, font, vocabulary, expressions, colors } = props;
+  useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
+  const isFirstRun = useFirstRun();
+
+  // STATE
+  const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary, expressions);
+  const { data, gameData, isVocab, clickedIDs, clickedID, target } = state;
+  const [refs, resizeText] = useFitText(gameData.length, gameData, font);
+  const splitRows = useSplit2Rows(refs, gameData);
+
+  // HANDLE GAME
+  const handleGame = useCallback(() => {
+    googleEvent(title);
+    const boxCount = getBoxCount(isVocab);
+    // choose the target box
+    const target = [getRandomNum(boxCount)];
+    const [nex, rest] = nextRoundData(data, boxCount, isVocab, vocabulary, expressions);
+    dispatch({ type: "New_Round", data: rest, gameData: nex, target });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, isVocab]);
+  useHandleGame(handleGame, didUpdate);
+
+  // GAME SPECIFIC KEY EVENTS
+  const keysCB = useCallback(
+    ({ keyCode }) => {
+      if (keyCode === 37) return dispatch({ type: "Change_isVocab", isVocab: true });
+      if (keyCode === 39) return dispatch({ type: "Change_isVocab", isVocab: false });
+    },
+    [dispatch]
+  );
+  useKeys(isMenuOpen, handleGame, keysCB);
+
+  // GAME SPECIFIC SCROLL EVENTS
+  const scrollCB = useCallback(
+    scrolledUp => dispatch({ type: "Change_isVocab", isVocab: scrolledUp }),
+    [dispatch]
+  );
+  useScroll(isMenuOpen, scrollCB);
+
+  // USE EFFECTS HERE
+  // after a card is spun
+  useEffect(() => {
+    if (clickedID === null) return;
+    if (target.includes(clickedID)) return;
+    const id = setTimeout(() => dispatch({ type: "Animate_Done" }), 1050);
+    return () => clearTimeout(id);
+  }, [clickedID, dispatch, target]);
+
+  // after cards are done animating, resize the text
+  useEffect(() => {
+    if (isFirstRun) return;
+    const id = setTimeout(resizeText, 1050);
+    return () => clearTimeout(id);
+  }, [resizeText, clickedIDs.length, isFirstRun]);
+
+  // GAME FUNCTIONS HERE
+  const _handleClick = useCallback(
+    e => dispatch({ type: "Card_Clicked", id: Number(e.currentTarget.id) }),
+    [dispatch]
+  );
+
+  const foundTarget = target.includes(clickedID);
+  return (
+    <div className="WB-container" style={{ fontFamily: font }}>
+      {splitRows.map((row, i) => (
+        <CardRow
+          key={"row" + i}
+          rowIdx={i * 2}
+          rowArr={row}
+          targets={target}
+          colors={colors}
+          clickedID={clickedID}
+          clickedIDs={clickedIDs}
+          handleClick={_handleClick}
+          getBackCard={getBackCard}
+        />
+      ))}
+      <GifModal handleReset={handleGame} open={foundTarget} />
+      {foundTarget && (
+        <Confetti height={window.innerHeight} width={window.innerWidth} recycle={false} />
+      )}
+    </div>
+  );
+}

@@ -1,229 +1,238 @@
-import React, { Component } from "react";
-import ReactFitText from "react-fittext";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
-import { arrOfRandNum } from "../../helpers/phase1helpers";
-import {
-  addListeners,
-  rmvListeners,
-  setAllData,
-  chooseDataSet,
-  addTitle,
-  addGoogEvent,
-  resetAndReload,
-} from "../../helpers/phase2helpers";
+import React, { useCallback, useEffect } from "react";
+import shuffle from "lodash/shuffle";
+import { CSSTransition } from "react-transition-group";
+import useData from "../../hooks/useData";
+import useKeys from "../../hooks/useKeys";
+import useAudio from "../../hooks/useAudio";
+import useScroll from "../../hooks/useScroll";
+import useFitText from "../../hooks/useFitText";
+import useFirstRun from "../../hooks/useFirstRun";
+import useHandleGame from "../../hooks/useHandleGame";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
+import { googleEvent } from "../../helpers/ga";
+import { nextRoundData, changeIsVocab } from "../../helpers/gameUtils";
+import FitText from "../reusable/FitText";
 import "./HotPotato.css";
 
-class HotPotato extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-      gameData: [],
-      isVocab: true,
-      numOfText: 3,
-      compressor: 1,
-    };
-    this.Bubbling = new Audio(
-      "https://res.cloudinary.com/dastrong/video/upload/v1540601372/TeacherSite/Media/HotPotato/Bubbling.mp3"
-    );
-    this.Scream = new Audio(
-      "https://res.cloudinary.com/dastrong/video/upload/v1540601372/TeacherSite/Media/HotPotato/Scream.mp3"
-    );
-    this.HotPotato = new Audio(
-      "https://res.cloudinary.com/dastrong/video/upload/v1540601372/TeacherSite/Media/HotPotato/HotPotato.mp3"
-    );
-    this.Sizzle = new Audio(
-      "https://res.cloudinary.com/dastrong/video/upload/v1540601372/TeacherSite/Media/HotPotato/Sizzle.mp3"
-    );
-    this.addListeners = addListeners.bind(this);
-    this.rmvListeners = rmvListeners.bind(this);
-    this.setAllData = setAllData.bind(this);
-    this.chooseDataSet = chooseDataSet.bind(this);
-    this.addTitle = addTitle.bind(this);
-    this.addGoogEvent = addGoogEvent.bind(this);
-    this.arrOfRandNum = arrOfRandNum.bind(this);
-    this.resetAndReload = resetAndReload.bind(this);
-  }
+const baseURL = "https://res.cloudinary.com/dastrong/";
+const URLs = {
+  bubbling: `${baseURL}video/upload/v1540601372/TeacherSite/Media/HotPotato/Bubbling.mp3`,
+  scream: `${baseURL}video/upload/v1540601372/TeacherSite/Media/HotPotato/Scream.mp3`,
+  song: `${baseURL}video/upload/v1540601372/TeacherSite/Media/HotPotato/HotPotato.mp3`,
+  sizzle: `${baseURL}video/upload/v1540601372/TeacherSite/Media/HotPotato/Sizzle.mp3`,
+  boiling: `${baseURL}image/upload/f_auto,q_50/v1540469924/TeacherSite/Media/HotPotato/potatoesBoiling.gif`,
+  dancing: `${baseURL}image/upload/f_auto,q_50/v1540469924/TeacherSite/Media/HotPotato/potatoDancing.gif`,
+  cooling: `${baseURL}image/upload/f_auto,q_50/v1540469924/TeacherSite/Media/HotPotato/potatoCooling.gif`,
+};
+const reset = { numOfText: 1, stage: 1, countdown: 0 };
 
-  componentDidMount() {
-    const { vocabulary, expressions } = this.props;
-    // loops the in game audio
-    this.HotPotato.addEventListener("ended", this.HotPotato.play);
-    this.addTitle();
-    this.addListeners();
-    this.setAllData({ vocabulary, expressions });
-  }
+const init = data => ({
+  data: shuffle(data),
+  gameData: [],
+  isVocab: true,
+  ...reset,
+});
 
-  componentWillUnmount() {
-    this.HotPotato.removeEventListener("ended", this.HotPotato.play);
-    this._stopSounds();
-    this._clearTimers();
-    this.rmvListeners();
-  }
-
-  componentDidUpdate(x, prevState) {
-    this.resetAndReload(2);
-    const { countdown, stage, compressor } = this.state;
-    if (prevState.compressor !== compressor) return;
-    if (prevState === this.state) return;
-    if (stage === 2) return this.onStart();
-    if (stage === 3) return this.onStop();
-    if (countdown === 3) return this.Bubbling.play();
-    if (countdown === 1) return this.Scream.play();
-  }
-
-  handleGame = () => {
-    const { isVocab, numOfText } = this.state;
-    this.addGoogEvent();
-    this._clearTimers();
-    this._stopSounds();
-    const chosenData = this.chooseDataSet(isVocab);
-    const indexes = arrOfRandNum(chosenData.length, numOfText);
-    const gameData = indexes.map(x => chosenData[x]);
-    this.setState({
-      gameData,
-      stage: 1,
-      countdown: 0,
-    });
-  };
-
-  handleEvents = e => {
-    if (this.props.isMenuOpen) return;
-    const { compressor, isVocab, stage } = this.state;
-    if (e.type === "wheel") {
-      const c = e.deltaY < 0 ? -0.03 : 0.03;
-      const bool = c < 0;
-      if (e.buttons === 4)
-        return this._changeSettings({ isVocab: bool, numOfText: bool ? 1 : 3 });
-      if (stage !== 3) return;
-      return this.setState({ compressor: compressor + c });
-    }
-    if (e.keyCode === 32 || e.keyCode === 13) return this.handleGame();
-    if (e.keyCode === 37) return this._changeSettings({ isVocab: true, numOfText: 3 });
-    if (e.keyCode === 39) return this._changeSettings({ isVocab: false, numOfText: 1 });
-    if (e.keyCode === 38 && stage === 3)
-      return this.setState({ compressor: compressor - 0.03 });
-    if (e.keyCode === 40 && stage === 3)
-      return this.setState({ compressor: compressor + 0.03 });
-    if (e.code.includes("Digit")) {
-      const key = Number(e.key);
-      if (!key || key > 3 || !isVocab) return;
-      this._changeSettings({ numOfText: key });
-    }
-  };
-
-  handleClick = () => {
-    const { stage, countdown } = this.state;
-    if (stage === 1 && !countdown) return this._startCountdown();
-    if (stage === 2) return this._stopGame();
-    if (stage === 3) return this._changeSettings({ stage: 1 });
-  };
-
-  onStart = () => {
-    this.HotPotato.volume = 0.05;
-    this.soundID = setInterval(() => {
-      if (this.HotPotato.volume < 0.85) return (this.HotPotato.volume += 0.15);
-      clearInterval(this.soundID);
-    }, 400);
-    this.HotPotato.play();
-  };
-
-  onStop = () => {
-    this.HotPotato.pause();
-    this.Sizzle.volume = 1;
-    this.sizzleID = setInterval(() => {
-      if (this.Sizzle.volume > 0.1) return (this.Sizzle.volume -= 0.1);
-      clearInterval(this.sizzleID);
-    }, 150);
-    this.Sizzle.play();
-  };
-
-  _clearTimers = () => {
-    clearInterval(this.countdownID);
-    clearInterval(this.soundID);
-    clearInterval(this.sizzleID);
-  };
-
-  _stopSounds = () => {
-    const sounds = ["Bubbling", "Scream", "HotPotato", "Sizzle"];
-    sounds.forEach(sound => {
-      this[sound].pause();
-      this[sound].currentTime = 0;
-    });
-  };
-
-  _changeSettings = options => this.setState({ ...options }, this.handleGame);
-
-  _startCountdown = () => {
-    clearInterval(this.countdownID);
-    this.setState(
-      { countdown: 3 },
-      () =>
-        (this.countdownID = setInterval(() => {
-          this.setState(prevState => {
-            if (prevState.countdown <= 1) {
-              clearInterval(this.countdownID);
-              return { stage: 2, countdown: prevState.countdown - 1 };
-            }
-            return { countdown: prevState.countdown - 1 };
-          });
-        }, 1000))
-    );
-  };
-
-  _stopGame = () => this.setState({ stage: 3 });
-
-  render() {
-    const { compressor, gameData, stage, countdown } = this.state;
-    const words = gameData.map((text, i) => (
-      <CSSTransition
-        key={i}
-        in={stage === 3}
-        classNames="hotpotato-text"
-        timeout={i * 400}
-      >
-        <p>{text}</p>
-      </CSSTransition>
-    ));
-    return (
-      <div
-        className="hotpotato-container"
-        onClick={this.handleClick}
-        style={{ fontFamily: this.props.font }}
-      >
-        <CSSTransition in={stage === 1} classNames="hotpotato-img" timeout={550}>
-          <div className="hotpotato-countdown">
-            <img
-              src="https://res.cloudinary.com/dastrong/image/upload/f_auto,q_50/v1540469924/TeacherSite/Media/HotPotato/potatoesBoiling.gif"
-              alt="potatoes-boiling"
-            />
-          </div>
-        </CSSTransition>
-        <CSSTransition in={stage === 2} classNames="hotpotato-img" timeout={550}>
-          <div className="hotpotato-active">
-            <img
-              src="https://res.cloudinary.com/dastrong/image/upload/f_auto,q_50/v1540469924/TeacherSite/Media/HotPotato/potatoDancing.gif"
-              alt="potato-dancing"
-            />
-          </div>
-        </CSSTransition>
-        <CSSTransition in={stage === 3} classNames="hotpotato-img" timeout={550}>
-          <div className="hotpotato-finished">
-            <img
-              src="https://res.cloudinary.com/dastrong/image/upload/f_auto,q_50/v1540469924/TeacherSite/Media/HotPotato/potatoCooling.gif"
-              alt="potato-relaxing"
-            />
-            <TransitionGroup>
-              <ReactFitText compressor={compressor} minFontSize={0} maxFontSize={500}>
-                <div className="hotpotato-text">{words}</div>
-              </ReactFitText>
-            </TransitionGroup>
-          </div>
-        </CSSTransition>
-        {countdown && <p className="countdown-timer">{countdown}</p>}
-      </div>
-    );
-  }
+function reducer(state, action) {
+  const { type, data, gameData, numOfText, isVocab } = action;
+  if (type === "Set_Data") return { ...state, data: shuffle(data), ...reset };
+  if (type === "New_Round") return { ...state, data, gameData, stage: 1, countdown: 0 };
+  if (type === "Countdown") return { ...state, countdown: state.countdown - 1 };
+  if (type === "Countdown_Start") return { ...state, countdown: 3 };
+  if (type === "Countdown_Stop") return { ...state, countdown: 0, stage: 2 };
+  if (type === "Show_Text") return { ...state, stage: 3 };
+  if (type === "Change_NumOfText") return { ...state, ...reset, numOfText };
+  if (type === "Change_isVocab") return changeIsVocab(isVocab, state, reset);
+  return state;
 }
 
-export default HotPotato;
+export default function HotPotato(props) {
+  const { title, isMenuOpen, font, vocabulary, expressions } = props;
+  useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
+  const isFirstRun = useFirstRun();
+
+  // AUDIO
+  const [Bubbling, resetBubb] = useAudio(URLs.bubbling);
+  const [Scream, resetScream] = useAudio(URLs.scream);
+  const [Sizzle, resetSizzle] = useAudio(URLs.sizzle);
+  const [Song, resetSong] = useAudio(URLs.song, true);
+
+  // STATE
+  const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary, expressions);
+  const { data, gameData, isVocab, numOfText, stage, countdown } = state;
+  const [refs] = useFitText(gameData.length, gameData, font);
+
+  // HANDLE GAME
+  const handleGame = useCallback(() => {
+    // google events are sent when user starts a round, not here
+    // stop all sounds when game resets
+    resetSounds(resetBubb, resetScream, resetSizzle, resetSong);
+    const [cur, nex] = nextRoundData(data, numOfText, isVocab, vocabulary, expressions);
+    dispatch({ type: "New_Round", gameData: cur, data: nex });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, numOfText, isVocab, dispatch]);
+  useHandleGame(handleGame, didUpdate);
+
+  // GAME SPECIFIC KEY EVENTS
+  const keysCB = useCallback(
+    ({ keyCode, code, key }) => {
+      if (keyCode === 37) return dispatch({ type: "Change_isVocab", isVocab: true });
+      if (keyCode === 39) return dispatch({ type: "Change_isVocab", isVocab: false });
+      if (code.includes("Digit")) {
+        const num = Number(key);
+        if (!num || num > 3 || !isVocab || num === numOfText) return;
+        dispatch({ type: "Change_NumOfText", numOfText: num });
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [stage, isVocab, numOfText]
+  );
+  useKeys(isMenuOpen, handleGame, keysCB);
+
+  // GAME SPECIFIC SCROLL EVENTS
+  const scrollCB = useCallback(
+    scrolledUp => dispatch({ type: "Change_isVocab", isVocab: !scrolledUp }),
+    [dispatch]
+  );
+  useScroll(isMenuOpen, scrollCB);
+
+  // USE EFFECTS HERE
+  // updates game if numOfText changes
+  useEffect(() => {
+    if (isFirstRun) return;
+    // avoid unnecessary call if we're switching to expressions
+    // remember - there can only be one expression, but multiple vocabs
+    if (!isVocab) return;
+    handleGame();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [numOfText]);
+
+  useEffect(() => {
+    if (countdown < 1) return;
+    const id =
+      countdown > 1
+        ? setTimeout(() => dispatch({ type: "Countdown" }), 1000)
+        : setTimeout(() => dispatch({ type: "Countdown_Stop" }), 1000);
+    return () => clearTimeout(id);
+  }, [dispatch, countdown]);
+
+  useEffect(() => {
+    if (countdown !== 1) return;
+    Scream.current.currentTime = 0.3;
+    Scream.current.play();
+  }, [countdown, Scream]);
+
+  useEffect(() => {
+    if (stage !== 2) return;
+    const id = __fadeIn(Song);
+    return () => clearInterval(id);
+  }, [stage, Song]);
+
+  useEffect(() => {
+    if (stage !== 3) return;
+    const id = __fadeOut(Song, Sizzle);
+    return () => clearInterval(id);
+  }, [stage, Song, Sizzle]);
+
+  // not wrapping since it's always going to update anyways
+  function _handleClick() {
+    // wait for useAudio to add audio to ref
+    if (!Bubbling.current) return;
+    if (countdown > 0) return;
+    if (stage === 1) {
+      Bubbling.current.currentTime = 0.2;
+      Bubbling.current.play();
+      googleEvent(title);
+      return dispatch({ type: "Countdown_Start" });
+    }
+    if (stage === 2) {
+      Sizzle.current.play();
+      return dispatch({ type: "Show_Text" });
+    }
+    if (stage === 3) return handleGame();
+  }
+
+  return (
+    <div
+      className="hotpotato-container"
+      onClick={_handleClick}
+      style={{ fontFamily: font }}
+    >
+      <PotatoSection
+        isIn={stage === 1}
+        className="hotpotato-countdown"
+        src={URLs.boiling}
+        alt="potatoes-boiling"
+      />
+      <PotatoSection
+        isIn={stage === 2}
+        className="hotpotato-active"
+        src={URLs.dancing}
+        alt="potato-dancing"
+      />
+      <PotatoSection
+        isIn={stage === 3}
+        className="hotpotato-finished"
+        src={URLs.cooling}
+        alt="potato-finished"
+      >
+        <Text
+          gameData={gameData}
+          refs={refs}
+          isIn={stage === 3}
+          isVocab={isVocab}
+          numOfText={numOfText}
+        />
+      </PotatoSection>
+      {countdown && <span className="countdown-timer">{countdown}</span>}
+    </div>
+  );
+}
+
+const PotatoSection = ({ isIn, children, className, src, alt }) => (
+  <CSSTransition in={isIn} classNames="hotpotato-img" timeout={550}>
+    <div className={className}>
+      <img src={src} alt={alt} />
+      {children}
+    </div>
+  </CSSTransition>
+);
+
+const Text = ({ refs, gameData, isIn, isVocab, numOfText }) => (
+  <div className="hotpotato-text">
+    {gameData.map((text, i) => (
+      <CSSTransition key={text} in={isIn} classNames="hotpotato-text" timeout={i * 400}>
+        <div
+          className="hotpotato-text-wrapper"
+          style={{ height: isVocab ? `${96 / numOfText}vh` : "100vh" }}
+        >
+          <FitText text={text} ref={refs[i]} />
+        </div>
+      </CSSTransition>
+    ))}
+  </div>
+);
+
+function __fadeIn(Song) {
+  Song.current.volume = 0.05;
+  Song.current.play();
+  const id = setInterval(() => {
+    if (Song.current.volume < 0.85) return (Song.current.volume += 0.15);
+    clearInterval(id);
+  }, 400);
+  return id;
+}
+
+function __fadeOut(Song, Sizzle) {
+  Song.current.pause();
+  Sizzle.current.play();
+  const id = setInterval(() => {
+    if (Sizzle.current.volume > 0.11) return (Sizzle.current.volume -= 0.1);
+    clearInterval(id);
+  }, 250);
+  return id;
+}
+
+function resetSounds(...cbs) {
+  cbs.forEach(cb => cb());
+}

@@ -3,20 +3,20 @@
   "version": "3.0.0",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^5.2.1",
+    "@craco/craco": "^5.2.4",
+    "bowser": "^2.5.2",
     "classnames": "^2.2.6",
     "craco-workbox": "^0.1.0",
     "react": "^16.8.6",
-    "react-confetti": "^2.8.0",
+    "react-confetti": "^3.1.2",
     "react-dom": "^16.8.6",
-    "react-fittext": "^1.0.0",
     "react-flip-move": "^3.0.3",
-    "react-ga": "^2.5.7",
-    "react-router-dom": "^5.0.0",
-    "react-scripts": "^3.0.0",
-    "react-transition-group": "^4.0.0",
+    "react-ga": "^2.6.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "^3.0.1",
+    "react-transition-group": "^4.2.1",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.86.0",
+    "semantic-ui-react": "^0.87.3",
     "typeface-bree-serif": "0.0.72",
     "typeface-mali": "0.0.63",
     "typeface-muli": "0.0.71",
@@ -29,9 +29,6 @@
     "build": "craco build",
     "test": "craco test --env=jsdom",
     "eject": "react-scripts eject"
-  },
-  "devDependencies": {
-    "why-did-you-update": "^1.0.6"
   },
   "browserslist": [
     ">0.2%",

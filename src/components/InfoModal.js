@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react";
 import ReactGA from "react-ga";
 import { Header, Icon, Modal, Popup, Dropdown } from "semantic-ui-react";
-import { fonts } from "../helpers/data";
+import fonts from "../helpers/fonts";
 import "./InfoModal.css";
 
 const HotKeys = ({ keyCuts }) =>

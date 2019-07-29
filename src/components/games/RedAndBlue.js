@@ -1,96 +1,64 @@
-import React, { Component } from "react";
-import ReactFitText from "react-fittext";
-import { arrOfRandNum } from "../../helpers/phase1helpers";
-import {
-  addListeners,
-  rmvListeners,
-  setData,
-  addTitle,
-  addGoogEvent,
-  resetAndReload,
-} from "../../helpers/phase2helpers";
+import React, { useCallback, forwardRef } from "react";
+import shuffle from "lodash/shuffle";
+import useData from "../../hooks/useData";
+import useKeys from "../../hooks/useKeys";
+import useFitText from "../../hooks/useFitText";
+import useHandleGame from "../../hooks/useHandleGame";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
+import { googleEvent } from "../../helpers/ga";
+import FitText from "../reusable/FitText";
 import "./RedAndBlue.css";
 
-class RedAndBlue extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-      gameData: [],
-      compressor: 0.6,
-    };
-    this.addListeners = addListeners.bind(this);
-    this.rmvListeners = rmvListeners.bind(this);
-    this.setData = setData.bind(this);
-    this.addTitle = addTitle.bind(this);
-    this.addGoogEvent = addGoogEvent.bind(this);
-    this.arrOfRandNum = arrOfRandNum.bind(this);
-    this.resetAndReload = resetAndReload.bind(this);
-  }
+const init = data => ({
+  data: shuffle(data),
+  red: "",
+  blue: "",
+});
 
-  componentDidMount() {
-    this.addTitle();
-    this.addListeners();
-    this.setData(this.props.vocabulary);
-  }
-
-  componentWillUnmount() {
-    this.rmvListeners();
-  }
-
-  componentDidUpdate() {
-    this.resetAndReload(1, true);
-  }
-
-  handleGame = () => {
-    this.addGoogEvent();
-    const indexes = arrOfRandNum(this.state.data.length, 2);
-    const gameData = indexes.map(x => this.state.data[x]);
-    this.setState({ gameData });
-  };
-
-  handleEvents = e => {
-    if (this.props.isMenuOpen) return;
-    const { compressor } = this.state;
-    if (e.type === "wheel") {
-      if (e.buttons) return;
-      const c = e.deltaY < 0 ? -0.03 : 0.03;
-      return this.setState({ compressor: compressor + c });
-    }
-    // spacebar/enter was clicked; reset the game
-    if (e.keyCode === 32 || e.keyCode === 13) return this.handleGame();
-    // up arrow was clicked; increase the font size
-    if (e.keyCode === 38) return this.setState({ compressor: compressor - 0.03 });
-    // down arrow was clicked; decrease the font size
-    if (e.keyCode === 40) return this.setState({ compressor: compressor + 0.03 });
-  };
-
-  render() {
-    const { compressor, gameData } = this.state;
-    const boxes = gameData.map((text, i) => {
-      const color = i ? "blue" : "red";
-      return (
-        <div key={color} className={`outer-color ${color}`}>
-          <hr className="st-line" />
-          <hr className="nd-line" />
-          <hr className="rd-line" />
-          <hr className="th-line" />
-          <ReactFitText compressor={compressor} minFontSize={0} maxFontSize={500}>
-            <div className={`inner-color ${color}`}>{text}</div>
-          </ReactFitText>
-        </div>
-      );
-    });
-    return (
-      <div
-        className="redblue-container"
-        onClick={this.handleGame}
-        style={{ fontFamily: this.props.font }}
-      >
-        {boxes}
-      </div>
-    );
-  }
+function reducer(state, action) {
+  const { type, data, red, blue } = action;
+  if (type === "Set_Data") return { ...state, data: shuffle(data) };
+  if (type === "New_Round") return { ...state, red, blue, data };
+  return state;
 }
 
-export default RedAndBlue;
+export default function RedAndBlue(props) {
+  const { title, isMenuOpen, font, vocabulary } = props;
+  useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
+
+  // STATE
+  const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary);
+  const { data, red, blue } = state;
+  const [refs] = useFitText(2, [red, blue], font);
+
+  // HANDLE GAME
+  const handleGame = useCallback(() => {
+    googleEvent(title);
+    const [red, blue, ...rest] = data;
+    const nextData = rest.length < 2 ? shuffle(vocabulary) : rest;
+    dispatch({ type: "New_Round", red, blue, data: nextData });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+  useHandleGame(handleGame, didUpdate);
+
+  useKeys(isMenuOpen, handleGame, null);
+
+  return (
+    <div className="redblue-container" onClick={handleGame} style={{ fontFamily: font }}>
+      <Box color="red" text={red} ref={refs[0]} />
+      <Box color="blue" text={blue} ref={refs[1]} />
+    </div>
+  );
+}
+
+const Box = forwardRef(({ color, text }, ref) => (
+  <div className={`outer-color ${color}`}>
+    <hr className="st-line" />
+    <hr className="nd-line" />
+    <hr className="rd-line" />
+    <hr className="th-line" />
+    <div className={`inner-color ${color}`}>
+      <FitText text={text} ref={ref} />
+    </div>
+  </div>
+));

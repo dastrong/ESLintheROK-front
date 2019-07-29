@@ -1,134 +1,124 @@
-import React, { Component } from "react";
-import TextBox from "../reusable/TextBox";
-import { Timer, startTimer, resetTimer } from "../reusable/Timer";
+import React, { useCallback, useEffect } from "react";
+import shuffle from "lodash/shuffle";
 import { CSSTransition } from "react-transition-group";
-import {
-  setData,
-  getRandomNum,
-  getRandomIndex,
-  addListeners,
-  rmvListeners,
-  addTitle,
-  addGoogEvent,
-  resetAndReload,
-} from "../../helpers/phase2helpers";
+import useData from "../../hooks/useData";
+import useKeys from "../../hooks/useKeys";
+import useScroll from "../../hooks/useScroll";
+import useFitText from "../../hooks/useFitText";
+import useHandleGame from "../../hooks/useHandleGame";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
+import { googleEvent } from "../../helpers/ga";
+import FitText from "../reusable/FitText";
 import "./Sparkle.css";
 
-class Sparkle extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      compressor: 0.8,
-      data: [],
-      text: "",
-      textIndex: undefined,
-      timer: 15,
-      timeRemaining: 15,
-      gameReady: false,
-    };
-    this.startTimer = startTimer.bind(this);
-    this.resetTimer = resetTimer.bind(this);
-    this.setData = setData.bind(this);
-    this.getRandomNum = getRandomNum.bind(this);
-    this.getRandomIndex = getRandomIndex.bind(this);
-    this.addListeners = addListeners.bind(this);
-    this.rmvListeners = rmvListeners.bind(this);
-    this.addTitle = addTitle.bind(this);
-    this.addGoogEvent = addGoogEvent.bind(this);
-    this.resetAndReload = resetAndReload.bind(this);
-  }
+const init = data => ({
+  data: shuffle(data),
+  text: "",
+  timer: 15,
+  timeRemaining: 15,
+  isTimerRunning: false,
+});
 
-  componentDidMount() {
-    this.addTitle();
-    this.addListeners();
-    this.setData(this.props.expressions);
-  }
-
-  componentWillUnmount() {
-    this.rmvListeners();
-    clearInterval(this.intervalID);
-  }
-
-  componentDidUpdate() {
-    this.resetAndReload(1, false);
-  }
-
-  handleGame = (data = this.state.data) => {
-    this.addGoogEvent();
-    const random = this.getRandomIndex(data.length);
-    this.setState({
-      text: data[random],
-      textIndex: random,
-      gameReady: true,
-    });
-  };
-
-  handleClick = () => {
-    if (this.state.isActive) this.handleGame();
-    this.startTimer();
-  };
-
-  handleEvents = e => {
-    if (this.props.isMenuOpen) return;
-    const { compressor } = this.state;
-    if (e.type === "wheel") {
-      const c = e.deltaY < 0 ? -0.05 : 0.05;
-      return e.buttons !== 4
-        ? this.setState({ compressor: compressor + c })
-        : c < 0
-        ? this._increaseTimer()
-        : this._decreaseTimer();
-    }
-    // spacebar/enter was clicked; reset the game
-    if (e.keyCode === 32 || e.keyCode === 13) return this.handleClick();
-    // right arrow was clicked; increase the timer
-    if (e.keyCode === 39) return this._increaseTimer();
-    // left arrow was clicked; decrease the timer
-    if (e.keyCode === 37) return this._decreaseTimer();
-    // up arrow was clicked; increase the font size
-    if (e.keyCode === 38) return this.setState({ compressor: compressor - 0.05 });
-    // down arrow was clicked; decrease the font size
-    if (e.keyCode === 40) return this.setState({ compressor: compressor + 0.05 });
-  };
-
-  _increaseTimer = () => {
-    const { timer } = this.state;
-    if (timer >= 5 && timer < 20) {
-      const time = timer + 1;
-      this.setState({ timer: time, timeRemaining: time }, this.handleClick);
-    }
-  };
-
-  _decreaseTimer = () => {
-    const { timer } = this.state;
-    if (timer > 5 && timer <= 20) {
-      const time = timer - 1;
-      this.setState({ timer: time, timeRemaining: time }, this.handleClick);
-    }
-  };
-
-  render() {
-    const { compressor, gameReady, text, timer, timeRemaining, isTimeUp } = this.state;
-    const width = ((timer - timeRemaining) / (timer - 1)) * 100 + "%";
-    return (
-      <div
-        className="spark-container"
-        onClick={this.handleClick}
-        style={{ fontFamily: this.props.font }}
-      >
-        <CSSTransition in={!isTimeUp} timeout={0} classNames="textBox">
-          <TextBox
-            text={text}
-            width={"100%"}
-            height={"85vh"}
-            compressor={compressor}
-            gameReady={gameReady}
-          />
-        </CSSTransition>
-        <Timer timeRemaining={timeRemaining} isTimeUp={isTimeUp} width={width} />
-      </div>
-    );
+function reducer(state, action) {
+  const { type, data, text, timer } = action;
+  switch (type) {
+    case "Set_Data":
+      return { ...state, data: shuffle(data) };
+    case "New_Round":
+      return { ...state, isTimerRunning: true, data, text, timeRemaining: state.timer };
+    case "Timer_Change":
+      return { ...state, timer, timeRemaining: timer };
+    case "Timer_Pause":
+      return {
+        ...state,
+        isTimerRunning: state.timeRemaining > 0 ? !state.isTimerRunning : false,
+      };
+    case "Timer_Countdown":
+      return {
+        ...state,
+        isTimerRunning: state.timeRemaining > 1,
+        timeRemaining: state.timeRemaining - 1,
+      };
+    default:
+      return state;
   }
 }
 
-export default Sparkle;
+export default function Sparkle(props) {
+  const { title, isMenuOpen, font, expressions } = props;
+  useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
+
+  // STATE
+  const [state, dispatch, didUpdate] = useData(reducer, init, expressions);
+  const { data, text, timer, timeRemaining, isTimerRunning } = state;
+  const [[ref]] = useFitText(1, text, font);
+
+  // HANDLE GAME
+  const handleGame = useCallback(() => {
+    googleEvent(title);
+    const [text, ...rest] = data;
+    const newData = rest.length < 1 ? shuffle(expressions) : rest;
+    dispatch({ type: "New_Round", text, data: newData });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+  useHandleGame(handleGame, didUpdate);
+
+  // GAME SPECIFIC KEY EVENTS
+  const keysCB = useCallback(
+    ({ keyCode }) => {
+      if (keyCode === 39) return __increaseTimer(dispatch, timer);
+      if (keyCode === 37) return __decreaseTimer(dispatch, timer);
+    },
+    [dispatch, timer]
+  );
+  useKeys(isMenuOpen, handleGame, keysCB);
+
+  // GAME SPECIFIC SCROLL EVENTS
+  const scrollCB = useCallback(
+    scrolledUp => {
+      scrolledUp ? __increaseTimer(dispatch, timer) : __decreaseTimer(dispatch, timer);
+    },
+    [dispatch, timer]
+  );
+  useScroll(isMenuOpen, scrollCB);
+
+  // USE EFFECTS HERE
+  useEffect(() => {
+    if (!isTimerRunning) return;
+    const id = setInterval(() => dispatch({ type: "Timer_Countdown" }), 1000);
+    return () => clearInterval(id);
+  }, [dispatch, isTimerRunning]);
+
+  return (
+    <div className="spark-container" style={{ fontFamily: font }}>
+      <div onClick={handleGame}>
+        <CSSTransition in={!!timeRemaining} timeout={0} classNames="spark-box">
+          <div className="spark-box">
+            <FitText text={text} ref={ref} />
+          </div>
+        </CSSTransition>
+      </div>
+      <Timer timeRemaining={timeRemaining} timer={timer} dispatch={dispatch} />
+    </div>
+  );
+}
+
+const Timer = ({ timeRemaining, timer, dispatch }) => {
+  const width = ((timer - timeRemaining) / (timer - 1)) * 100 + "%";
+  return (
+    <div className="timer" onClick={() => dispatch({ type: "Timer_Pause" })}>
+      <div className="timer-bar" style={{ width }} />
+      <div className="timer-text">{timeRemaining}</div>
+    </div>
+  );
+};
+
+function __increaseTimer(dispatch, timer) {
+  if (timer >= 20) return;
+  dispatch({ type: "Timer_Change", timer: timer + 1 });
+}
+
+function __decreaseTimer(dispatch, timer) {
+  if (timer <= 5) return;
+  dispatch({ type: "Timer_Change", timer: timer - 1 });
+}

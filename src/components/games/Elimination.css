@@ -1,0 +1,30 @@
+.elim-container {
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.elim-container .card-row > .flipper-card {
+  width: 50vw;
+  flex: 1;
+}
+
+.elim-container .flipper-card .back {
+  transform: rotateY(180deg);
+}
+
+.elim-container .flipper-card.flipMe {
+  transform: rotateY(180deg);
+  transition: 1.5s transform, 0.5s flex 0.5s;
+}
+
+.elim-container .flipper-card.slideMe {
+  flex: 0;
+  transition: 1.5s transform, 0.5s flex 0.5s;
+}
+
+.elim-container .flipper-card .fittext {
+  transition: 0.35s transform;
+}

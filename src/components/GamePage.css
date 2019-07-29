@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: #eee;
+  background-color: #fff;
 }
 
 .gamePage-container img {
@@ -41,15 +41,15 @@
   left: calc(50vw - 87.5px);
   font-size: 44px;
   padding: 38.5px 0;
-  border: 2px solid #074605
+  border: 2px solid #074605;
 }
 
 .gamePage-buttons > .start-btn.disabled-backer {
   cursor: default;
-  opacity: 1!important;
-  background-image: none!important;
-  box-shadow: none!important;
-  pointer-events: none!important;
+  opacity: 1 !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  pointer-events: none !important;
 }
 
 .gamePage-buttons > .left-btn {
@@ -63,7 +63,7 @@
 }
 
 .gamePage-buttons > .ui.labeled.icon.button > .icon {
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
   width: 1.18em;
 }
 
@@ -105,8 +105,8 @@
   font-size: 1.2em;
   font-weight: bold;
   padding: 10px;
-  box-shadow: 0 2px 4px 0 rgba(255,226,101,0.35), 
-              0 2px 10px 0 rgba(255,226,101,.15);
+  box-shadow: 0 2px 4px 0 rgba(255, 226, 101, 0.35),
+    0 2px 10px 0 rgba(255, 226, 101, 0.15);
 }
 
 .tooltip span {

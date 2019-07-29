@@ -1,32 +1,30 @@
-import React from "react";
-import ReactFitText from "react-fittext";
+import React, { forwardRef } from "react";
+import classnames from "classnames";
+import FitText from "./FitText";
 import "./Card.css";
 
-const Card = ({
-  handleClick,
-  index,
-  classNames,
-  frontColor,
-  frontText,
-  backColor,
-  backText,
-  compressor,
-}) => (
-  <div className={classNames}>
-    <ReactFitText compressor={compressor} minFontSize={0} maxFontSize={500}>
-      <div
-        className="front"
-        id={index}
-        style={{ backgroundColor: frontColor }}
-        onClick={handleClick}
-      >
-        {frontText}
+// returns a div containing two divs that are back to back
+// need to specify a width/height in your CSS
+export default forwardRef((props, ref) => {
+  const {
+    textFront,
+    textBack,
+    colorFront,
+    colorBack,
+    handleClick,
+    id,
+    flipMe,
+    slideMe,
+  } = props;
+  const cx = classnames("flipper-card", { flipMe, slideMe });
+  return (
+    <div className={cx} id={id} onClick={handleClick}>
+      <div className="flipper-card front" style={{ backgroundColor: colorFront }}>
+        <FitText text={textFront} ref={ref} />
       </div>
-    </ReactFitText>
-    <div className="back" style={{ backgroundColor: backColor }} onClick={handleClick}>
-      {backText}
+      <div className="flipper-card back" style={{ backgroundColor: colorBack }}>
+        {textBack}
+      </div>
     </div>
-  </div>
-);
-
-export default Card;
+  );
+});

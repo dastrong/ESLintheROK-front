@@ -7,12 +7,12 @@ import "./_StartUpError.css";
 
 const text = {
   ca: [
-    "It looks like you're using Internet Explorer (IE).",
-    "ESL in the ROK is not optimized for IE.",
+    "It looks like you're using Edge or Internet Explorer.",
+    "ESL in the ROK is not optimized for either.",
     "Please use a modern browser like Chrome, Firefox or Opera.",
-    "If you are not using IE, please let me know through my Kakao Group Chat: ESL in the ROK",
-    "Why don't I support IE?",
-    "This site was created using newer technologies. IE does not support those technologies.",
+    "If you are not using either, please let me know through my Kakao Group Chat: ESL in the ROK",
+    "Why don't I support Edge or IE?",
+    "This site was created using newer technologies. They don't fully support those technologies.",
     "Sorry for the inconvenience.",
   ],
   kr: [

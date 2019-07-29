@@ -1,20 +1,121 @@
 .bowling-container {
   height: 100vh;
+  width: 100%;
   overflow: hidden;
-  position: relative;
-  font-size: 10em;
-  line-height: 100%;
-  background-image: url(https://res.cloudinary.com/dastrong/image/upload/f_auto,q_80/v1538223041/TeacherSite/Misc/bowling-alley.jpg);
+  position: absolute;
+  background-image: url("https://res.cloudinary.com/dastrong/image/upload/f_auto,q_80/v1538223041/TeacherSite/Misc/bowling-alley.jpg");
   background-size: cover;
   background-position: center;
   user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bowling-btns {
+  position: absolute;
+  top: 0;
+  z-index: 111;
+}
+
+.bowling-btns .ui.button {
+  margin: 5px;
 }
 
 .total-round-counter {
   position: absolute;
-  right: 0;
-  top: 25vh;
-  font-size: 0.8em;
-  color: #333;
-  text-shadow: 1px 1px 25px #fff;
+  right: 5px;
+  bottom: 0px;
+  height: 100px;
+  font-size: 80px;
+  line-height: 100px;
+  margin: 0;
+  text-shadow: 1px 1px 10px #9e9e9e;
+}
+
+.round-text,
+.round-question,
+.round-answer {
+  color: #fff;
+  font-size: 1.25em;
+  text-align: center;
+  text-shadow: black 1px 1px 200px;
+  position: absolute;
+  font-size: 10em;
+  margin: 0;
+}
+
+.round-question {
+  cursor: pointer;
+}
+
+.round-text-enter {
+  opacity: 0;
+}
+
+.round-text-enter-done {
+  opacity: 1;
+  transition: 1s opacity;
+}
+
+.round-text-exit {
+  opacity: 1;
+}
+
+.round-text-exit-done {
+  opacity: 0;
+  transition: 1s opacity;
+}
+.round-question-enter {
+  opacity: 0;
+}
+
+.round-question-enter-done {
+  opacity: 1;
+  transition: 1s opacity;
+}
+
+.round-question-exit {
+  opacity: 1;
+}
+
+.round-question-exit-done {
+  opacity: 0;
+  transition: 1s opacity;
+}
+
+.round-answer-enter {
+  opacity: 0;
+}
+
+.round-answer-enter-done {
+  opacity: 1;
+  transition: 1.5s opacity;
+}
+
+.round-answer-exit,
+.round-answer-exit-done {
+  opacity: 0;
+}
+
+.letterDrop {
+  position: absolute;
+  top: 100vh;
+  padding: 20px;
+  border-radius: 50%;
+  text-shadow: 3px 3px 1px #000;
+  color: #fff;
+  width: 190px;
+  height: 190px;
+  text-align: center;
+  font-size: 10em;
+  line-height: 1;
+}
+
+.letterDrop-enter-done {
+  left: calc(50vw - 60px) !important;
+  top: 10vh;
+  opacity: 0;
+  transition: 7s left cubic-bezier(0.14, 0.4, 0.46, 0.33),
+    7s top cubic-bezier(0.05, 0.23, 0.46, 0.33), 0.5s opacity 6.5s;
 }

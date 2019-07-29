@@ -3,9 +3,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
 }
 
-.kim-img, 
+.kimchi-box {
+  height: 100vh;
+  width: 100%;
+  background-color: violet;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  text-align: center;
+  line-height: 110%;
+  padding: 10px;
+  text-shadow: 0px -1px 3px #fff;
+}
+
+.kim-img,
 .poo-img {
   position: absolute;
   transform: translateX(100vw);
@@ -24,18 +40,19 @@
 
 .kimchiImg-enter-done {
   transform: translateX(0);
-  transition: transform 1s ease-in;
+  transition: transform 0.7s ease-in;
 }
 
 .kimchiImg-exit {
+  opacity: 0;
   transform: translateX(0);
 }
 
 .kimchiImg-exit-done {
+  opacity: 0;
   transform: translateX(-100vw);
-  transition: transform 1s ease-in;
+  transition: transform 0.7s ease-in;
 }
-
 
 .kimchiText-enter {
   transform: translateX(100vw);
@@ -43,7 +60,7 @@
 
 .kimchiText-enter-done {
   transform: translateX(0);
-  transition: transform 1s ease-in;
+  transition: transform 0.7s ease-in;
 }
 
 .kimchiText-exit {
@@ -52,5 +69,5 @@
 
 .kimchiText-exit-done {
   transform: translateX(-100vw);
-  transition: transform 1s ease-in;
+  transition: transform 0.7s ease-in;
 }

@@ -1,88 +1,30 @@
-.flipper {
+.flipper-card {
   font-size: 8vw;
-  font-weight: bold;
   color: #fff;
-  text-shadow: 3px 3px 1px black;
-  transition: 1s all;
+  text-shadow: 2px 2px 1px black;
   transform-style: preserve-3d;
-  width: 50vw;
-  height: 25vh;
+  height: 100%;
+  width: 100%;
+  user-select: none;
   display: inline-block;
 }
 
-.front, .back {
+.flipper-card.front,
+.flipper-card.back {
+  overflow: hidden;
+  backface-visibility: hidden;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
-  backface-visibility: hidden;
-  position: absolute;
-	top: 0;
-  left: 0;
-  height: inherit;
-  width: inherit;
-  line-height: 100%;
-  text-align: center;
-  padding: 10px;
 }
 
-/* shown */
-.front {
+.flipper-card.front {
   z-index: 2;
-  transform: rotateY(0deg);
-  /* removes unwanted default behaviours */
   cursor: pointer;
-  user-select: none;
-  transition: 0.3s font-size;
 }
 
-/* hidden */
-/* well set backgroundColor inline depending on if its an X or O */
-.back {
-  transform: rotateY(180deg);
-  color: #fff;
+.flipper-card.back {
+  z-index: 1;
+  cursor: default;
 }
-
-/* expands our element alongside the clicked one */
-.expanding {
-  transform: rotateY(0deg);
-  width: 100vw;
-}
-
-/* static class */
-.expanded {
-  transform: rotateY(0deg);
-  width: 100vw;
-}
-
-/* rotates the clicked item to show the back side */
-.flipping {
-  transform: rotateY(180deg);
-}
-
-/* keep spun and move to the left out of view */
-.slideLeft {
-  visibility: hidden;
-  transform: rotateY(180deg) translateX(50vw);
-  width: 0;
-  font-size: 0;
-}
-
-/* keep spun and move left or right out of view depending on which side it is */
-.slideRight {
-  visibility: hidden;
-  transform: rotateY(180deg) translateX(-50vw);
-  width: 0;
-  font-size: 0;
-}
-
-/* slides our card upwards */
-.slideUp {
-  visibility: hidden;
-  height: 0;
-  font-size: 0;
-}
-
-.vert25  { height: 25vh; }
-.vert33  { height: 33.4vh; }
-.vert50  { height: 50vh; }
-.vert100 { height: 100vh; }

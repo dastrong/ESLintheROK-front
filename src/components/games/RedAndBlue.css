@@ -2,6 +2,7 @@
   overflow: hidden;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   cursor: pointer;
@@ -9,8 +10,8 @@
 }
 
 .redblue-container .outer-color {
-  height: 98vh;
-  width: 49vw;
+  height: 50vh;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,8 +31,8 @@
 }
 
 .redblue-container .inner-color {
-  height: calc(98vh - 52px * 2 + 3px);
-  width: calc(49vw - 30px * 2 + 1px);
+  width: calc(100vw - 20px * 2 + 1px);
+  height: calc(50vh - 34px * 2 + 3px);
   z-index: 2;
   display: flex;
   justify-content: center;
@@ -55,7 +56,7 @@
 .redblue-container hr {
   position: absolute;
   margin: 0;
-  height: calc(30px * 2);
+  height: calc(20px * 2);
   border-radius: 50%;
 }
 

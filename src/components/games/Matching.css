@@ -1,5 +1,5 @@
 .match-container {
-  background-color: #eee;
+  background: linear-gradient(240deg, #ff0000, #fff200, #1e9600);
   overflow: hidden;
   height: 100vh;
   display: flex;
@@ -14,7 +14,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  text-shadow: 1px 1px 2px #eee;
+  text-shadow: -1px -1px 2px #fff;
 }
 
 .match {
@@ -27,41 +27,44 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  transition-timing-function: cubic-bezier(0.07, 1.01, 1, 1);
 }
 
 .match-front {
-  background-color: #40c819;
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1, 1);
   position: absolute;
   opacity: 1;
-  font-size: 75px;
+  z-index: 1;
+  font-size: 8vw;
+  transition-property: all;
+  transition-duration: 0.3s;
 }
 
 .match-back {
+  background-color: rgba(241, 241, 241, 0.9);
   position: absolute;
-  background-color: #adacac;
   opacity: 0;
 }
 
-.match.matcher-enter {
-  opacity: 0;
-}
-.match.matcher-enter-active {
-  opacity: 0.1;
-  transition: opacity 0.35s ease-in-out;
-}
-.match.matcher-enter-done {
+.match-front-enter-done {
   opacity: 1;
-  transition: opacity 0.35s ease-in-out;
+  transform: scale(1, 1);
+  transition: opacity 0.3s, transform 0.7s;
 }
 
-.match.matcher-exit {
-  opacity: 1;
-}
-.match.matcher-exit-active {
-  opacity: 1;
-  transition: opacity 0.5s cubic-bezier(0.07, 1.01, 1, 1);
-}
-.match.matcher-exit-done {
+.match-front-exit-done {
   opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0.07, 1.01, 1, 1);
+  transform: scale(0, 0);
+  transition: opacity 0.3s, transform 0.7s;
+}
+
+.match-back-enter-done {
+  opacity: 1;
+  transition: opacity 0.9s;
+}
+
+.match-back-exit-done {
+  opacity: 0;
+  transition: opacity 0.2s;
 }

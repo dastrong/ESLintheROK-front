@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Grid, Label, Card } from "semantic-ui-react";
 import PageHeader from "./reusable/PageHeader";
-import { games } from "../helpers/data";
+import gamesInfo from "../helpers/gamesInfo";
 import useDocumentTitle from "../hooks/useDocumentTitle";
 import ImgWithPlaceHolder from "./reusable/ImgWithPlaceholder";
 import "./Games.css";
@@ -15,15 +15,15 @@ export default function GamesPage() {
       <PageHeader icon="game" text="Select a game for more information" color="blue" />
       <div className="gamesPage-container">
         <Grid>
-          <GridItems games={games} />
+          <GridItems gamesInfo={gamesInfo} />
         </Grid>
       </div>
     </>
   );
 }
 
-const GridItems = ({ games }) =>
-  games
+const GridItems = ({ gamesInfo }) =>
+  gamesInfo
     .filter(({ info }) => info.completed)
     .map(({ router, info }) => (
       <Card key={router.path}>

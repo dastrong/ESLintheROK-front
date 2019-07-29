@@ -6,6 +6,7 @@
   justify-content: center;
   align-items: center;
   user-select: none;
+  cursor: pointer;
 }
 
 .battleground-container img {
@@ -30,7 +31,20 @@
   left: -1.5vw;
 }
 
-.corner-holder {
+.battleground-container .countdown-timer {
+  color: #fff;
+  z-index: 5;
+  position: absolute;
+  font-size: 150px;
+  height: 200px;
+  width: 200px;
+  line-height: 200px;
+  text-align: center;
+  background-color: rgb(0, 0, 0);
+  border-radius: 50%;
+}
+
+.battleground-container .corner-holder {
   text-align: center;
   overflow: hidden;
   position: absolute;
@@ -50,7 +64,7 @@
   align-items: center;
   color: #fff;
   text-shadow: 1px 1px 7px #000;
-  box-shadow: inset 0 0 5px 3px #000;
+  box-shadow: inset 0 0 1px 2px #000;
 }
 
 .cornersItem {
@@ -60,19 +74,6 @@
   background-size: contain;
   font-size: 250px;
   text-shadow: 1px 1px 7px #000;
-}
-
-.battleground-container .countdown-timer {
-  color: #fff;
-  z-index: 5;
-  position: absolute;
-  font-size: 150px;
-  height: 200px;
-  width: 200px;
-  line-height: 200px;
-  text-align: center;
-  background-color: rgb(0, 0, 0);
-  border-radius: 50%;
 }
 
 .cornersItem-enter-active {
