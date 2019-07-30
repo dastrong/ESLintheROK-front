@@ -20,12 +20,15 @@ Instead of using PPT games, which teachers needed to download/change/save/share 
         -   Both of which are offered in English and Korean
         -   It's own image (I designed using Google Drawing)
         -   A complete list of keyboard/mouse shortcuts
+
 -   Users can change games at any time without losing data
+
 -   Users can use certain games offline (only with custom data)
 
 ### Why ESL in the ROK is better than PPT
 
 -   Each round is completely random
+
 -   We aim to cycle through all the vocabulary given before shuffling it up
 
 -   Some game's settings/difficulties can be adjusted to suite your student levels
@@ -38,10 +41,12 @@ Instead of using PPT games, which teachers needed to download/change/save/share 
         -   check out the useFitText hook to view this code
 
 -   Users can switch between vocabulary and sentences to fit their lesson needs
+
 -   Randomized GIF's take the work out of remembering which classes have seen which GIF's before
     -   unfortunately some provinces block GIPHY and I haven't found a workaround for that yet
 
 -   Contains direct link to download and/or print external resources
+
 -   Users can directly contact the creator of the games
 
 ### Services Used
