@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import classNames from "classnames";
 import { Icon, Button, Dropdown, Pagination } from "semantic-ui-react";
 import { apiRequest } from "../helpers/api";
+import ImgWithPlaceHolder from "./reusable/ImgWithPlaceholder";
 
 export default function ChooseBook({
   activeGradeId,
@@ -97,8 +98,10 @@ export default function ChooseBook({
       return (
         <div key={i} className={`book-item ${cO + cX}`} style={style}>
           <div className={`book-front ${cO}`} onClick={openBook} id={_id}>
-            <img src={imageURL} alt="book-cover" />
-            <div>
+            <div className="book-image">
+              <ImgWithPlaceHolder src={imageURL} alt="book-cover" />
+            </div>
+            <div className="book-author">
               <p>{`${publisher}, ${author}`}</p>
               <Icon color={lessons.length > 0 ? "green" : "red"} name="folder open" />
             </div>

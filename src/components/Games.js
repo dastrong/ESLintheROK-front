@@ -43,8 +43,7 @@ const GridItems = ({ gamesInfo }) =>
               corner: "right",
               color: "red",
               icon: "download",
-              href:
-                "https://drive.google.com/drive/folders/1gaVcobvZ3zPp-EsGlfQr9_yQh97k7IQn?usp=sharing",
+              href: info.attachURL,
               target: "_blank",
             }
           }

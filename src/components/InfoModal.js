@@ -21,15 +21,8 @@ const HotKeys = ({ keyCuts }) =>
     </div>
   ));
 
-export default function InfoModal({
-  font,
-  dispatch,
-  opacity,
-  path,
-  keyCuts,
-  title,
-  attachments,
-}) {
+export default function InfoModal(props) {
+  const { font, dispatch, opacity, path, keyCuts, title, attachments, attachURL } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   function handleClick() {
@@ -86,16 +79,7 @@ export default function InfoModal({
           <Icon name="info" />
           {`${title} Options`}
           {attachments && (
-            <Icon
-              link
-              name="download"
-              onClick={() =>
-                window.open(
-                  "https://drive.google.com/drive/folders/1gaVcobvZ3zPp-EsGlfQr9_yQh97k7IQn?usp=sharing",
-                  "_blank"
-                )
-              }
-            />
+            <Icon link name="download" onClick={() => window.open(attachURL)} />
           )}
         </Header>
         <Dropdown

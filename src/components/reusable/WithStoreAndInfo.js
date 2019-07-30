@@ -4,7 +4,7 @@ import { useStore } from "../../store";
 
 export default function WithStoreAndInfo({ children, gameInfo, path }) {
   const { keyCuts, info } = gameInfo;
-  const { attachments, title, images } = info;
+  const { attachments, attachURL, title, images } = info;
 
   const [store, dispatch] = useStore();
   const {
@@ -40,6 +40,7 @@ export default function WithStoreAndInfo({ children, gameInfo, path }) {
         path={path}
         title={title}
         attachments={attachments}
+        attachURL={attachURL}
       />
       {child}
     </>
