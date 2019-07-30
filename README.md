@@ -2,11 +2,11 @@
 
 # [ESL in the ROK](https://www.eslintherok.com)
 
-### What is it?
+### About
 
 It's a collection of ESL games recreated with React for teachers in South Korea.
 
-### Why did I make it?
+### Why I made it
 
 Instead of using PPT games, which teachers needed to download/change/save/share continuously with other teachers, I came up with the idea to recreate some popular games and make it into a site. I ended up creating a site with 13 games (so far) that are completely dynamic and plug and play ready.
 
@@ -23,7 +23,7 @@ Instead of using PPT games, which teachers needed to download/change/save/share 
 -   Users can change games at any time without losing data
 -   Users can use certain games offline (only with custom data)
 
-### Why ESL in the ROK is better than PPT?
+### Why ESL in the ROK is better than PPT
 
 -   Each round is completely random
 -   We aim to cycle through all the vocabulary given before shuffling it up
@@ -40,7 +40,7 @@ Instead of using PPT games, which teachers needed to download/change/save/share 
 -   Users can switch between vocabulary and sentences to fit their lesson needs
 -   Randomized GIF's take the work out of remembering which classes have seen which GIF's before
     -   unfortunately some provinces block GIPHY and I haven't found a workaround for that yet
-    
+
 -   Contains direct link to download and/or print external resources
 -   Users can directly contact the creator of the games
 
