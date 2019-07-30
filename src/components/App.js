@@ -5,6 +5,7 @@ import { StoreProvider } from "../store";
 import SideBar from "./SideBar";
 import DataModal from "./DataModal";
 import PastLessonModal from "./PastLessonModal";
+import Go2GamesScreen from "./Go2GamesScreen";
 import Routes from "./Routes";
 import "./App.css";
 
@@ -16,6 +17,7 @@ export default () => (
       <SideBar />
       <DataModal />
       <PastLessonModal />
+      <Go2GamesScreen />
       <Routes />
     </StoreProvider>
   </BrowserRouter>

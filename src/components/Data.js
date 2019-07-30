@@ -1,6 +1,5 @@
 import React, { useCallback, useReducer } from "react";
-import { Link } from "react-router-dom";
-import { Accordion, Icon, Progress, Button, Modal } from "semantic-ui-react";
+import { Accordion, Icon, Progress } from "semantic-ui-react";
 import { DForm, DTable, DButton, DApiInputs } from "./DataHelpers";
 import { useStore } from "../store";
 import useProgress from "../hooks/useProgress";
@@ -12,38 +11,32 @@ const getInitialState = data => ({
   chapter: "",
   title: "",
   activeContent: "Vocabulary",
-  showSuccessBox: false,
 });
 
 function reducer(state, action) {
-  const { type, text, value, activeContent, id, bool } = action;
+  const { type, text, value, activeContent, id } = action;
+  const { vocabulary, expressions } = state;
   switch (type) {
     case "Set_Text":
       return { ...state, text };
     case "Add_Vocabulary":
-      return { ...state, text: "", vocabulary: [state.text, ...state.vocabulary] };
+      return { ...state, text: "", vocabulary: [state.text, ...vocabulary] };
     case "Add_Expression":
-      return { ...state, text: "", expressions: [state.text, ...state.expressions] };
+      return { ...state, text: "", expressions: [state.text, ...expressions] };
     case "Edit_Vocabulary":
-      return { ...state, text, vocabulary: state.vocabulary.filter((x, i) => i !== id) };
+      return { ...state, text, vocabulary: vocabulary.filter((x, i) => i !== id) };
     case "Edit_Expression":
-      return {
-        ...state,
-        text,
-        expressions: state.expressions.filter((x, i) => i !== id),
-      };
+      return { ...state, text, expressions: expressions.filter((x, i) => i !== id) };
     case "Delete_Vocabulary":
-      return { ...state, vocabulary: state.vocabulary.filter((x, i) => i !== id) };
+      return { ...state, vocabulary: vocabulary.filter((x, i) => i !== id) };
     case "Delete_Expression":
-      return { ...state, expressions: state.expressions.filter((x, i) => i !== id) };
+      return { ...state, expressions: expressions.filter((x, i) => i !== id) };
     case "Change_Title":
       return { ...state, title: value };
     case "Change_Chapter":
       return { ...state, chapter: value };
     case "Set_Active_Content":
       return { ...state, activeContent, text: "" };
-    case "Toggle_Success_Box":
-      return { ...state, showSuccessBox: bool };
     default:
       return state;
   }
@@ -51,9 +44,9 @@ function reducer(state, action) {
 
 export default function Data({ isAPI, setScreen, postURL, data }) {
   const initialState = useCallback(getInitialState(data), [data]);
-  const [{ dataModalName, pastLessons }, storePatch] = useStore();
+  const [{ pastLessons }, storePatch] = useStore();
   const [
-    { text, vocabulary, expressions, chapter, title, activeContent, showSuccessBox },
+    { text, vocabulary, expressions, chapter, title, activeContent },
     dispatch,
   ] = useReducer(reducer, initialState);
   const { percent, color } = useProgress(isAPI, vocabulary, expressions, chapter, title);
@@ -98,7 +91,7 @@ export default function Data({ isAPI, setScreen, postURL, data }) {
     localStorage.setItem("lessonData", JSON.stringify(updatedStorage));
     storePatch({ type: "setData", ...data });
     storePatch({ type: "setPastLessons", pastLessons: updatedStorage });
-    dispatch({ type: "Toggle_Success_Box", bool: true });
+    storePatch({ type: "closeDataModal" });
   }
 
   async function createLesson() {
@@ -171,25 +164,6 @@ export default function Data({ isAPI, setScreen, postURL, data }) {
           </Accordion.Content>
         </Accordion.Accordion>
       </Accordion>
-
-      <Modal open={showSuccessBox} size="tiny">
-        <Modal.Header>Success! Data set and saved to your browser.</Modal.Header>
-        <Modal.Content>Do you want to go to the games page now?</Modal.Content>
-        <Modal.Actions>
-          <Button
-            disabled={!dataModalName}
-            onClick={() => storePatch({ type: "closeDataModal" })}
-            content="Nope, stay here."
-          />
-          <Button
-            positive
-            as={Link}
-            to={{ pathname: "/games", state: { pageTransition: "slideUp" } }}
-            onClick={() => storePatch({ type: "closeDataModal" })}
-            content="Yup, take me there."
-          />
-        </Modal.Actions>
-      </Modal>
     </div>
   );
 }
