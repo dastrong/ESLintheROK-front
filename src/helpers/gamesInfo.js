@@ -169,6 +169,7 @@ export default [
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Most Stars Wins",
       attachments: true,
+      attachURL: "https://pdfhost.io/v/Gx02X0gIh_Stars_Gamepdf.pdf",
       completed: true,
       images: {
         bottomText:
@@ -248,6 +249,7 @@ export default [
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Most Points Wins",
       attachments: true,
+      attachURL: "https://pdfhost.io/v/z9IV0yVsd_Lotto_Game_Bothpdf.pdf",
       completed: true,
       images: {
         bottomText:
@@ -419,6 +421,7 @@ export default [
       dataUsed: ["Vocabulary"],
       description: "Word Puzzle Solving Game",
       attachments: true,
+      attachURL: "https://pdfhost.io/v/9E@A@KTzx_Lined_Paper_No_Line_Numberspdf.pdf",
       completed: true,
       images: {
         bottomText:
@@ -673,6 +676,7 @@ export default [
       dataUsed: ["Vocabulary"],
       description: "Slap the Correct Color",
       attachments: true,
+      attachURL: "https://pdfhost.io/v/xklBo05Di_Red_and_Bluepdf.pdf",
       completed: true,
       images: {
         bottomText:
@@ -974,6 +978,7 @@ export default [
       dataUsed: ["Vocabulary", "Expressions"],
       description: "4 Corners Survival Game",
       attachments: true,
+      attachURL: "https://pdfhost.io/v/y1FuhSr2u_Battleground_PUBGpdf.pdf",
       completed: true,
       images: {
         bottomText:
