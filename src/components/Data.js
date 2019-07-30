@@ -1,11 +1,11 @@
-import React, { useCallback, useReducer } from "react";
+import React, { useReducer } from "react";
 import { Accordion, Icon, Progress } from "semantic-ui-react";
 import { DForm, DTable, DButton, DApiInputs } from "./DataHelpers";
 import { useStore } from "../store";
 import useProgress from "../hooks/useProgress";
 import "./Data.css";
 
-const getInitialState = data => ({
+const init = data => ({
   ...data,
   text: "",
   chapter: "",
@@ -43,12 +43,9 @@ function reducer(state, action) {
 }
 
 export default function Data({ isAPI, setScreen, postURL, data }) {
-  const initialState = useCallback(getInitialState(data), [data]);
   const [{ pastLessons }, storePatch] = useStore();
-  const [
-    { text, vocabulary, expressions, chapter, title, activeContent },
-    dispatch,
-  ] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, data, init);
+  const { text, vocabulary, expressions, chapter, title, activeContent } = state;
   const { percent, color } = useProgress(isAPI, vocabulary, expressions, chapter, title);
 
   function toggleAccordion() {
