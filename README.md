@@ -13,6 +13,7 @@ Instead of using PPT games, which teachers needed to download/change/save/share 
 ### Typical User Flow
 
 -   Users grab lesson data from my API, enter their own data or use a past lesson
+
 -   Users choose a game
     -   Each game contains:
         -   Different instructions for students and teachers
@@ -26,15 +27,20 @@ Instead of using PPT games, which teachers needed to download/change/save/share 
 
 -   Each round is completely random
 -   We aim to cycle through all the vocabulary given before shuffling it up
+
 -   Some game's settings/difficulties can be adjusted to suite your student levels
+
 -   Font:
     -   family is changable at any time
+
     -   size is automatically adjusted to fill each box
         -   if there are multiple boxes, we use the smallest max scale to keep the span's consistent
         -   check out the useFitText hook to view this code
+
 -   Users can switch between vocabulary and sentences to fit their lesson needs
 -   Randomized GIF's take the work out of remembering which classes have seen which GIF's before
     -   unfortunately some provinces block GIPHY and I haven't found a workaround for that yet
+    
 -   Contains direct link to download and/or print external resources
 -   Users can directly contact the creator of the games
 
