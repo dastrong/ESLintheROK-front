@@ -7,7 +7,7 @@
 #ying-yang {
   height: 400px;
   width: 400px;
-  animation: pump 1.3s infinite;
+  animation: pump 2.4s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 .set {
   display: flex;
@@ -99,13 +99,13 @@
 }
 @keyframes pump {
   0% {
-    transform: scale(1);
+    transform: scale(0.99);
   }
   50% {
-    transform: scale(1.01);
+    transform: scale(1);
   }
   100% {
-    transform: scale(1);
+    transform: scale(0.99);
   }
 }
 

@@ -10,10 +10,15 @@
     <meta name="theme-color" content="#000000" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="stylesheet" href="%PUBLIC_URL%/index.css" />
     <title>ESL in the ROK</title>
   </head>
   <body>
     <div id="root"></div>
+    <!-- while React loads up show a custom ying-yang spinner -->
+    <div id="custom-app-loader">
+      <img class="yingyang-loader" src="%PUBLIC_URL%/YingYang.png" alt="yingyang" />
+    </div>
     <!-- Nothing to see here. Contact the developer to view the source code -->
   </body>
 </html>
