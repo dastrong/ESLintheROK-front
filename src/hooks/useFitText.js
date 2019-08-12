@@ -172,7 +172,7 @@ function getRefsAndStuff(refs, numLoops) {
       const start = minWidth + incrementVal;
       const end = start + numLoops * incrementVal;
       // add all the middle widths that we'll get scales to later
-      for (let i = start; Math.round(i) < end; i += incrementVal) {
+      for (let i = start; i < end; i += incrementVal) {
         widthsAndScales.push({ width: i, scale: null });
       }
       // add the max width scale
@@ -234,10 +234,9 @@ function thrashLayout(multi, numLoops) {
   // we already have the minWidth/scale combos - calculated in getRefsAndStuff
   for (let i = 1; i <= numLoops; i++) {
     // write - add those widths
-    multi.forEach(
-      ({ ref, widthsAndScales }) =>
-        (ref.current.style.width = `${widthsAndScales[i].width}px`)
-    );
+    multi.forEach(({ ref, widthsAndScales }) => {
+      ref.current.style.width = `${widthsAndScales[i].width}px`;
+    });
     // read - get the scale values for those width changes
     multi.forEach(({ ref, widthsAndScales }) => {
       const { pWidth, pHeight, sWidth, sHeight } = deRef(ref);
