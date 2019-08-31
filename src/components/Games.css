@@ -24,7 +24,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: opacity 0.25s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
 }
 
 .gamesPage-container .ui.card > .content > .description {
@@ -39,9 +39,9 @@
   position: absolute;
 }
 
-.gamesPage-container .ui.card > .image > img {
+.gamesPage-container .ui.card > img {
   opacity: 1;
-  transition: opacity 0.25s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
 }
 
 .gamesPage-container .ui.card:hover .content {
