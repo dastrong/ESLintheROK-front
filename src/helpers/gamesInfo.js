@@ -26,6 +26,7 @@ export default [
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Last Student Standing Game",
       attachments: false,
+      audio: true,
       completed: true,
       images: {
         bottomText:
@@ -104,6 +105,7 @@ export default [
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Find the Hidden Item",
       attachments: false,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -169,8 +171,9 @@ export default [
       skills: ["Reading", "Speaking", "Writing"],
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Most Stars Wins",
-      attachments: true,
       attachURL: "https://pdfhost.io/v/Gx02X0gIh_Stars_Gamepdf.pdf",
+      attachments: true,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -249,8 +252,9 @@ export default [
       skills: ["Reading", "Speaking", "Writing"],
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Most Points Wins",
-      attachments: true,
       attachURL: "https://pdfhost.io/v/z9IV0yVsd_Lotto_Game_Bothpdf.pdf",
+      attachments: true,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -332,6 +336,7 @@ export default [
       dataUsed: ["Expressions"],
       description: "Popular Review Activity",
       attachments: false,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -421,8 +426,9 @@ export default [
       skills: ["Reading", "Writing"],
       dataUsed: ["Vocabulary"],
       description: "Word Puzzle Solving Game",
-      attachments: true,
       attachURL: "https://pdfhost.io/v/9E@A@KTzx_Lined_Paper_No_Line_Numberspdf.pdf",
+      attachments: true,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -500,6 +506,7 @@ export default [
       dataUsed: ["Expressions"],
       description: "Baskin Robbins 31 Variation",
       attachments: false,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -601,6 +608,7 @@ export default [
       dataUsed: ["Vocabulary"],
       description: "9 Card Monte",
       attachments: false,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -676,8 +684,9 @@ export default [
       skills: ["Listening"],
       dataUsed: ["Vocabulary"],
       description: "Slap the Correct Color",
-      attachments: true,
       attachURL: "https://pdfhost.io/v/xklBo05Di_Red_and_Bluepdf.pdf",
+      attachments: true,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -759,6 +768,7 @@ export default [
       dataUsed: ["Vocabulary, Expressions"],
       description: "Pass the Ball Variation",
       attachments: false,
+      audio: true,
       completed: true,
       images: {
         bottomText:
@@ -830,6 +840,7 @@ export default [
       dataUsed: ["Expressions"],
       description: "Stand Up and Speak",
       attachments: false,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -908,6 +919,7 @@ export default [
       dataUsed: ["Vocabulary"],
       description: "Find All The Pairs",
       attachments: false,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -978,8 +990,9 @@ export default [
       skills: ["Reading", "Speaking"],
       dataUsed: ["Vocabulary", "Expressions"],
       description: "4 Corners Survival Game",
-      attachments: true,
       attachURL: "https://pdfhost.io/v/y1FuhSr2u_Battleground_PUBGpdf.pdf",
+      attachments: true,
+      audio: true,
       completed: true,
       images: {
         bottomText:
@@ -1054,6 +1067,7 @@ export default [
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Duel Reading Game",
       attachments: false,
+      audio: true,
       completed: true,
       images: {
         bottomText:
