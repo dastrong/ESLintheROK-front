@@ -11,6 +11,7 @@ import HotPotato from "../components/games/HotPotato";
 import Nunchi from "../components/games/Nunchi";
 import Matching from "../components/games/Matching";
 import BattleGround from "../components/games/BattleGround";
+import Cowboy from "../components/games/Cowboy";
 
 export default [
   {
@@ -1043,42 +1044,63 @@ export default [
   },
   {
     router: {
-      path: "/game/disappear",
-      component: "Disappear",
+      path: "/game/cowboy",
+      component: Cowboy,
+      icon: "hand point up",
     },
     info: {
-      title: "Disappear",
-      skills: ["Reading"],
-      dataUsed: ["Vocabulary"],
-      description: "Word Puzzle Solving Game",
+      title: "Cowboy Game",
+      skills: ["Reading", "Speaking"],
+      dataUsed: ["Vocabulary", "Expressions"],
+      description: "Duel Reading Game",
       attachments: false,
-      completed: false,
+      completed: true,
       images: {
         bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Disappear.png",
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Cowboy_Game.png",
         topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Disappear.png",
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1567148144/TeacherSite/Games/TextOnTop/Cowboy_Game.png",
       },
     },
+    keyCuts: [
+      {
+        key: ["Left-Click", "Space", "Enter"],
+        description: "Next slide",
+      },
+      {
+        key: ["Left-Arrow", "Scroll Down"],
+        description: "Refresh the game and use vocabulary",
+      },
+      {
+        key: ["Right-Arrow", "Scroll Up"],
+        description: "Refresh the game and use expressions",
+      },
+    ],
     instructions: {
       forTeachers: {
         english: [
-          "Individual Game",
-          "Students need to focus on the screen and be quiet",
-          "Try to figure out what the word or sentence is",
-          "Students raise their hand if they think they know",
-          "Teacher picks a student and can reward them, if correct",
+          "Individual or Team Game",
+          "I prefer to make two lines (teams), so all Ss are up and we can go through quickly",
+          "Have 2 Ss at the front, facing away from the TV screen",
+          "When they hear a gunshot, spin around and say what they see on the screen",
+          "Whoever says it correctly first, gets a point.",
+          "They can play RPS to break a tie, if needed.",
+          "Since they need to hear the gunshot, make sure the class is quiet before each round",
+          "You should teach the idiom 'on your marks' before starting the game too",
+          "Try to match up Ss with a similar level, so your lower levels have a chance",
+          "Team with the most points wins",
         ],
-        korean: [""],
+        korean: ["Coming Soon..."],
       },
       forStudents: {
         english: [
-          "Students need to focus on the screen and be quiet",
-          "Try to figure out what the word or sentence is",
-          "Students raise their hand if they think they know",
-          "Teacher picks a student and can reward them, if correct",
+          "Face away from the screen",
+          "Listen for the gunshot",
+          "Spin and read aloud",
+          "If it's a tie, play RPS",
+          "Winner gets a point",
         ],
-        korean: [""],
+        korean: ["Coming Soon..."],
       },
     },
   },
