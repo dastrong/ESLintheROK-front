@@ -11,6 +11,7 @@ import HotPotato from "../components/games/HotPotato";
 import Nunchi from "../components/games/Nunchi";
 import Matching from "../components/games/Matching";
 import BattleGround from "../components/games/BattleGround";
+import Cowboy from "../components/games/Cowboy";
 
 export default [
   {
@@ -25,6 +26,7 @@ export default [
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Last Student Standing Game",
       attachments: false,
+      audio: true,
       completed: true,
       images: {
         bottomText:
@@ -103,6 +105,7 @@ export default [
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Find the Hidden Item",
       attachments: false,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -168,8 +171,9 @@ export default [
       skills: ["Reading", "Speaking", "Writing"],
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Most Stars Wins",
-      attachments: true,
       attachURL: "https://pdfhost.io/v/Gx02X0gIh_Stars_Gamepdf.pdf",
+      attachments: true,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -248,8 +252,9 @@ export default [
       skills: ["Reading", "Speaking", "Writing"],
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Most Points Wins",
-      attachments: true,
       attachURL: "https://pdfhost.io/v/z9IV0yVsd_Lotto_Game_Bothpdf.pdf",
+      attachments: true,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -331,6 +336,7 @@ export default [
       dataUsed: ["Expressions"],
       description: "Popular Review Activity",
       attachments: false,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -420,8 +426,9 @@ export default [
       skills: ["Reading", "Writing"],
       dataUsed: ["Vocabulary"],
       description: "Word Puzzle Solving Game",
-      attachments: true,
       attachURL: "https://pdfhost.io/v/9E@A@KTzx_Lined_Paper_No_Line_Numberspdf.pdf",
+      attachments: true,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -499,6 +506,7 @@ export default [
       dataUsed: ["Expressions"],
       description: "Baskin Robbins 31 Variation",
       attachments: false,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -600,6 +608,7 @@ export default [
       dataUsed: ["Vocabulary"],
       description: "9 Card Monte",
       attachments: false,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -675,8 +684,9 @@ export default [
       skills: ["Listening"],
       dataUsed: ["Vocabulary"],
       description: "Slap the Correct Color",
-      attachments: true,
       attachURL: "https://pdfhost.io/v/xklBo05Di_Red_and_Bluepdf.pdf",
+      attachments: true,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -758,6 +768,7 @@ export default [
       dataUsed: ["Vocabulary, Expressions"],
       description: "Pass the Ball Variation",
       attachments: false,
+      audio: true,
       completed: true,
       images: {
         bottomText:
@@ -829,6 +840,7 @@ export default [
       dataUsed: ["Expressions"],
       description: "Stand Up and Speak",
       attachments: false,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -907,6 +919,7 @@ export default [
       dataUsed: ["Vocabulary"],
       description: "Find All The Pairs",
       attachments: false,
+      audio: false,
       completed: true,
       images: {
         bottomText:
@@ -977,8 +990,9 @@ export default [
       skills: ["Reading", "Speaking"],
       dataUsed: ["Vocabulary", "Expressions"],
       description: "4 Corners Survival Game",
-      attachments: true,
       attachURL: "https://pdfhost.io/v/y1FuhSr2u_Battleground_PUBGpdf.pdf",
+      attachments: true,
+      audio: true,
       completed: true,
       images: {
         bottomText:
@@ -1043,42 +1057,64 @@ export default [
   },
   {
     router: {
-      path: "/game/disappear",
-      component: "Disappear",
+      path: "/game/cowboy",
+      component: Cowboy,
+      icon: "hand point up",
     },
     info: {
-      title: "Disappear",
-      skills: ["Reading"],
-      dataUsed: ["Vocabulary"],
-      description: "Word Puzzle Solving Game",
+      title: "Cowboy Game",
+      skills: ["Reading", "Speaking"],
+      dataUsed: ["Vocabulary", "Expressions"],
+      description: "Duel Reading Game",
       attachments: false,
-      completed: false,
+      audio: true,
+      completed: true,
       images: {
         bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Disappear.png",
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Cowboy_Game.png",
         topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Disappear.png",
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1567148144/TeacherSite/Games/TextOnTop/Cowboy_Game.png",
       },
     },
+    keyCuts: [
+      {
+        key: ["Left-Click", "Space", "Enter"],
+        description: "Next slide",
+      },
+      {
+        key: ["Left-Arrow", "Scroll Down"],
+        description: "Refresh the game and use vocabulary",
+      },
+      {
+        key: ["Right-Arrow", "Scroll Up"],
+        description: "Refresh the game and use expressions",
+      },
+    ],
     instructions: {
       forTeachers: {
         english: [
-          "Individual Game",
-          "Students need to focus on the screen and be quiet",
-          "Try to figure out what the word or sentence is",
-          "Students raise their hand if they think they know",
-          "Teacher picks a student and can reward them, if correct",
+          "Individual or Team Game",
+          "I prefer to make two lines (teams), so all Ss are up and we can go through quickly",
+          "Have 2 Ss at the front, facing away from the TV screen",
+          "When they hear a gunshot, spin around and say what they see on the screen",
+          "Whoever says it correctly first, gets a point.",
+          "They can play RPS to break a tie, if needed.",
+          "Since they need to hear the gunshot, make sure the class is quiet before each round",
+          "You should teach the idiom 'on your marks' before starting the game too",
+          "Try to match up Ss with a similar level, so your lower levels have a chance",
+          "Team with the most points wins",
         ],
-        korean: [""],
+        korean: ["Coming Soon..."],
       },
       forStudents: {
         english: [
-          "Students need to focus on the screen and be quiet",
-          "Try to figure out what the word or sentence is",
-          "Students raise their hand if they think they know",
-          "Teacher picks a student and can reward them, if correct",
+          "Face away from the screen",
+          "Listen for the gunshot",
+          "Spin and read aloud",
+          "If it's a tie, play RPS",
+          "Winner gets a point",
         ],
-        korean: [""],
+        korean: ["Coming Soon..."],
       },
     },
   },

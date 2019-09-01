@@ -34,20 +34,18 @@ const GridItems = ({ gamesInfo }) =>
           <PlayGameButton url={router.path} />
           <Label attached="bottom" color="grey" content={info.skills.join(", ")} />
         </Card.Content>
-        <ImgWithPlaceHolder
-          src={info.images.bottomText}
-          alt={info.title}
-          label={
-            info.attachments && {
-              as: "a",
-              corner: "right",
-              color: "red",
-              icon: "download",
-              href: info.attachURL,
-              target: "_blank",
-            }
-          }
-        />
+        <ImgWithPlaceHolder src={info.images.bottomText} alt={info.title} />
+        {info.audio && <Label corner="left" icon="music" color="blue" />}
+        {info.attachments && (
+          <Label
+            as="a"
+            corner="right"
+            icon="download"
+            color="red"
+            href={info.attachURL}
+            target="_blank"
+          />
+        )}
       </Card>
     ));
 
