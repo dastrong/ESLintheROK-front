@@ -12,6 +12,7 @@ import Nunchi from "../components/games/Nunchi";
 import Matching from "../components/games/Matching";
 import BattleGround from "../components/games/BattleGround";
 import Cowboy from "../components/games/Cowboy";
+import SpeedWriter from "../components/games/SpeedWriter";
 
 export default [
   {
@@ -1114,6 +1115,52 @@ export default [
           "If it's a tie, play RPS",
           "Winner gets a point",
         ],
+        korean: ["Coming Soon..."],
+      },
+    },
+  },
+  {
+    router: {
+      path: "/game/speedwriter",
+      component: SpeedWriter,
+      icon: "pencil",
+    },
+    info: {
+      title: "Speed Writer",
+      skills: ["Writing", "Reading"],
+      dataUsed: ["Vocabulary", "Expressions"],
+      description: "Up Tempo Writing Game",
+      attachments: false,
+      audio: true,
+      completed: true,
+      images: {
+        bottomText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Speed_Writer.png",
+        topText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1567148144/TeacherSite/Games/TextOnTop/Speed_Writer.png",
+      },
+    },
+    keyCuts: [
+      {
+        key: ["Left-Click", "Space", "Enter"],
+        description: "Next slide",
+      },
+      {
+        key: ["Left-Arrow", "Scroll Down"],
+        description: "Refresh the game and use vocabulary",
+      },
+      {
+        key: ["Right-Arrow", "Scroll Up"],
+        description: "Refresh the game and use expressions",
+      },
+    ],
+    instructions: {
+      forTeachers: {
+        english: ["Coming Soon..."],
+        korean: ["Coming Soon..."],
+      },
+      forStudents: {
+        english: ["Coming Soon..."],
         korean: ["Coming Soon..."],
       },
     },
