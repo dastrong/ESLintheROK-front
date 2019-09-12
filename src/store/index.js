@@ -1,30 +1,43 @@
 import React, { createContext, useContext, useReducer } from "react";
 
-const initialState = {
-  vocabulary: [],
-  expressions: [],
-  isGameReady: false,
-  showSideBar: false,
-  showDataModal: false,
-  showPastLessons: false,
-  pastLessons: [],
-  dataModalName: "",
-  font: "Poppins, sans-serif",
-  colors: [
-    "chocolate",
-    "purple",
-    "darkslateblue",
-    "aqua",
-    "teal",
-    "fuchsia",
-    "plum",
-    "olive",
-    "violet",
-  ],
+const init = () => {
+  // grab the last lesson on load
+  var isLastLesson = localStorage.getItem("previousLessonData");
+  var lastLesson = !!isLastLesson && JSON.parse(isLastLesson);
+  // grab the past lessons on load
+  const isPastLessons = localStorage.getItem("lessonData");
+  const pastLessons = !!isPastLessons ? JSON.parse(isPastLessons) : [];
+  // get the last lesson's data
+  const { vocabulary = [], expressions = [] } = lastLesson;
+  // ensure there's enough data available
+  const isGameReady = vocabulary.length >= 9 && expressions.length >= 6;
+
+  return {
+    vocabulary,
+    expressions,
+    pastLessons,
+    isGameReady,
+    showSideBar: false,
+    showDataModal: false,
+    showPastLessons: false,
+    dataModalName: "",
+    font: "Poppins, sans-serif",
+    colors: [
+      "chocolate",
+      "purple",
+      "darkslateblue",
+      "aqua",
+      "teal",
+      "fuchsia",
+      "plum",
+      "olive",
+      "violet",
+    ],
+  };
 };
 
-// we won't set a variable to see if the data was updated
-// instead we'll just check the vocab and expression arrays for changes
+const initialState = init();
+
 const reducer = (state, action) => {
   const { type, vocabulary, expressions, name, font, bool, pastLessons } = action;
   switch (type) {
