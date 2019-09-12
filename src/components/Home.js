@@ -5,18 +5,26 @@ import useDocumentTitle from "../hooks/useDocumentTitle";
 import { useStore } from "../store";
 import "./Home.css";
 
+const flagImgURL =
+  "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,w_400/v1535538943/TeacherSite/Flag_Icon.svg";
+
+const PageLink = ({ pathname, set, text, children }) => (
+  <Link
+    to={{ pathname, state: { pageTransition: "slideUp" } }}
+    className={`set ${set}-set`}
+  >
+    <span className={`text-row ${set}-text-row`}>{text}</span>
+    {children}
+  </Link>
+);
+
 export default function Home() {
   useDocumentTitle("Home - ESL in the ROK");
   const [{ pastLessons }, dispatch] = useStore();
 
   return (
     <div className="mainpage-container">
-      <img
-        id="ying-yang"
-        useMap="#flag-map"
-        src="https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,w_400/v1535538943/TeacherSite/Flag_Icon.svg"
-        alt="korea-flag"
-      />
+      <img id="ying-yang" useMap="#flag-map" src={flagImgURL} alt="korea-flag" />
 
       <map name="flag-map">
         <area
@@ -35,27 +43,13 @@ export default function Home() {
         />
       </map>
 
-      <Link
-        to={{
-          pathname: "/games",
-          state: { pageTransition: "slideUp" },
-        }}
-        className="set st-set"
-      >
-        <span className="text-row st-text-row">GAMES</span>
+      <PageLink pathname="/games" set="st" text="GAMES">
         <div className="row st-row" />
         <div className="row nd-row" />
         <div className="row rd-row" />
-      </Link>
+      </PageLink>
 
-      <Link
-        to={{
-          pathname: "/contact",
-          state: { pageTransition: "slideUp" },
-        }}
-        className="set nd-set"
-      >
-        <span className="text-row nd-text-row">CONTACT</span>
+      <PageLink pathname="/contact" set="nd" text="CONTACT">
         <div className="row st-row">
           <span className="split-row" />
         </div>
@@ -63,31 +57,17 @@ export default function Home() {
         <div className="row rd-row">
           <span className="split-row" />
         </div>
-      </Link>
+      </PageLink>
 
-      <Link
-        to={{
-          pathname: "/faq",
-          state: { pageTransition: "slideUp" },
-        }}
-        className="set rd-set"
-      >
-        <span className="text-row rd-text-row">FAQ</span>
+      <PageLink pathname="/faq" set="rd" text="FAQ">
         <div className="row st-row" />
         <div className="row nd-row">
           <span className="split-row" />
         </div>
         <div className="row rd-row" />
-      </Link>
+      </PageLink>
 
-      <Link
-        to={{
-          pathname: "/about",
-          state: { pageTransition: "slideUp" },
-        }}
-        className="set th-set"
-      >
-        <span className="text-row th-text-row">ABOUT</span>
+      <PageLink pathname="/about" set="th" text="ABOUT">
         <div className="row st-row">
           <span className="split-row" />
         </div>
@@ -97,7 +77,7 @@ export default function Home() {
         <div className="row rd-row">
           <span className="split-row" />
         </div>
-      </Link>
+      </PageLink>
 
       <Button
         color="blue"
