@@ -701,6 +701,14 @@ export default [
         key: ["Left-Click", "Space", "Enter"],
         description: "Next round",
       },
+      {
+        key: ["Left-Arrow", "Scroll Down"],
+        description: "Refresh the game and use vocabulary",
+      },
+      {
+        key: ["Right-Arrow", "Scroll Up"],
+        description: "Refresh the game and use expressions",
+      },
     ],
     instructions: {
       forTeachers: {
