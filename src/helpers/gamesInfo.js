@@ -40,11 +40,11 @@ export default [
       { key: "Left-Click", description: "Spin a block" },
       { key: ["Space", "Enter"], description: "Refresh the game" },
       {
-        key: ["Left-Arrow", "Scroll Up"],
+        key: ["Left-Arrow", "Scroll Down"],
         description: "Refresh the game and use vocabulary",
       },
       {
-        key: ["Right-Arrow", "Scroll Down"],
+        key: ["Right-Arrow", "Scroll Up"],
         description: "Refresh the game and use expressions",
       },
       { key: "1-5", description: "Change the number of X's (default: 3)" },
@@ -119,11 +119,11 @@ export default [
       { key: "Left-Click", description: "Spin a block" },
       { key: ["Space", "Enter"], description: "Refresh the game" },
       {
-        key: ["Left-Arrow", "Scroll Up"],
+        key: ["Left-Arrow", "Scroll Down"],
         description: "Refresh the game and use vocabulary",
       },
       {
-        key: ["Right-Arrow", "Scroll Down"],
+        key: ["Right-Arrow", "Scroll Up"],
         description: "Refresh the game and use expressions",
       },
     ],
@@ -187,11 +187,11 @@ export default [
       { key: "Left-Click", description: "Spin a block" },
       { key: ["Space", "Enter"], description: "Refresh the game" },
       {
-        key: ["Left-Arrow", "Scroll Up"],
+        key: ["Left-Arrow", "Scroll Down"],
         description: "Refresh the game and use vocabulary",
       },
       {
-        key: ["Right-Arrow", "Scroll Down"],
+        key: ["Right-Arrow", "Scroll Up"],
         description: "Refresh the game and use expressions",
       },
       {
@@ -268,11 +268,11 @@ export default [
       { key: "Left-Click", description: "Starts the game" },
       { key: ["Space", "Enter"], description: "Refresh the game" },
       {
-        key: ["Left-Arrow", "Scroll Up"],
+        key: ["Left-Arrow", "Scroll Down"],
         description: "Refresh the game and use vocabulary",
       },
       {
-        key: ["Right-Arrow", "Scroll Down"],
+        key: ["Right-Arrow", "Scroll Up"],
         description: "Refresh the game and use expressions",
       },
     ],

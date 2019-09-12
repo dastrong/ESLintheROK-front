@@ -87,7 +87,7 @@ export default function WhatsBehind(props) {
 
   // GAME SPECIFIC SCROLL EVENTS
   const scrollCB = useCallback(
-    scrolledUp => dispatch({ type: "Change_isVocab", isVocab: scrolledUp }),
+    scrolledUp => dispatch({ type: "Change_isVocab", isVocab: !scrolledUp }),
     [dispatch]
   );
   useScroll(isMenuOpen, scrollCB);
