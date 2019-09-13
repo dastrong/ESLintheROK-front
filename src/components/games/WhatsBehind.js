@@ -10,7 +10,7 @@ import useSplit2Rows from "../../hooks/useSplit2Rows";
 import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 import { googleEvent } from "../../helpers/ga";
-import { nextRoundData, changeIsVocab, getRandomNum } from "../../helpers/gameUtils";
+import { nextRoundData, changeIsVocab, getRandoNum } from "../../helpers/gameUtils";
 import CardRow from "../reusable/CardRow";
 import Confetti from "../reusable/Confetti";
 import GifModal from "../reusable/GifModal";
@@ -68,7 +68,7 @@ export default function WhatsBehind(props) {
     googleEvent(title);
     const boxCount = getBoxCount(isVocab);
     // choose the target box
-    const target = [getRandomNum(boxCount)];
+    const target = [getRandoNum(boxCount - 1)];
     const [nex, rest] = nextRoundData(data, boxCount, isVocab, vocabulary, expressions);
     dispatch({ type: "New_Round", data: rest, gameData: nex, target });
     // eslint-disable-next-line react-hooks/exhaustive-deps

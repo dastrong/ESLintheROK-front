@@ -7,7 +7,7 @@ import useKeys from "../../hooks/useKeys";
 import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 import { googleEvent } from "../../helpers/ga";
-import { getRandomNum } from "../../helpers/gameUtils";
+import { getRandoNum } from "../../helpers/gameUtils";
 import "./Bowling.css";
 
 const letterBuffer = 3;
@@ -74,7 +74,7 @@ export default function Bowling(props) {
     const newData = rest.length < 1 ? shuffle(vocabulary) : rest;
     const splitText = shuffle(text.split(""));
     const bowlColors = shuffle(colors).slice(0, splitText.length - 1);
-    const left = splitText.map(() => getRandomNum(window.innerWidth));
+    const left = splitText.map(() => getRandoNum(window.innerWidth));
     dispatch({ type: "New_Round", text, data: newData, splitText, bowlColors, left });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);

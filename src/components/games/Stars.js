@@ -61,7 +61,7 @@ export default function Stars(props) {
     const boxCount = getBoxCount(isVocab);
     const { min, max } = starOpts;
     // how many 'stars' for each box
-    const stars = arrOfRandoNum(min, max, boxCount);
+    const stars = arrOfRandoNum(max, min, boxCount);
     const [nex, rest] = nextRoundData(data, boxCount, isVocab, vocabulary, expressions);
     dispatch({ type: "New_Round", data: rest, gameData: nex, stars });
     // eslint-disable-next-line react-hooks/exhaustive-deps
