@@ -70,7 +70,7 @@ export default function ChooseBook({
   const whichPages = activePage === 1 ? [0, 5] : [5, books.length];
 
   const options = lessons
-    .sort((a, b) => a.chapter > b.chapter)
+    .sort((a, b) => a.chapter - b.chapter)
     .map(({ _id, chapter, title }) => ({
       key: _id,
       value: _id,

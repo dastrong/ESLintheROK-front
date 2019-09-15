@@ -76,7 +76,7 @@ export default function Elimination(props) {
     googleEvent(title);
     const boxCount = getBoxCount(isVocab);
     // get a unique array of indexes for our 'chosen' blocks
-    const Xs = arrOfRandoNum(0, boxCount - 1, xCount, true);
+    const Xs = arrOfRandoNum(boxCount - 1, 0, xCount, true);
     const [nex, rest] = nextRoundData(data, boxCount, isVocab, vocabulary, expressions);
     dispatch({ type: "New_Round", data: rest, gameData: nex, Xs });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -98,7 +98,7 @@ export default function Elimination(props) {
 
   // GAME SPECIFIC SCROLL EVENTS
   const scrollCB = useCallback(
-    scrolledUp => dispatch({ type: "Change_isVocab", isVocab: scrolledUp }),
+    scrolledUp => dispatch({ type: "Change_isVocab", isVocab: !scrolledUp }),
     [dispatch]
   );
   useScroll(isMenuOpen, scrollCB);

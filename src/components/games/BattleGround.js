@@ -9,7 +9,7 @@ import useFitText from "../../hooks/useFitText";
 import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 import { googleEvent } from "../../helpers/ga";
-import { nextRoundData, getRandomNum, changeIsVocab } from "../../helpers/gameUtils";
+import { nextRoundData, getRandoNum, changeIsVocab } from "../../helpers/gameUtils";
 import FitText from "../reusable/FitText";
 import pubgStats from "../../helpers/pubgStats";
 import "./BattleGround.css";
@@ -62,7 +62,7 @@ export default function BattleGround(props) {
     resetCountAudio();
     const [cur, nex] = nextRoundData(data, numOfText, isVocab, vocabulary, expressions);
     const newItems = shuffle([0, 1, 2, 3]).map(
-      num => pubgStats[num][getRandomNum(pubgStats[num].length)]
+      num => pubgStats[num][getRandoNum(pubgStats[num].length - 1)]
     );
     dispatch({ type: "New_Round", data: nex, gameData: cur, items: newItems });
     // eslint-disable-next-line react-hooks/exhaustive-deps

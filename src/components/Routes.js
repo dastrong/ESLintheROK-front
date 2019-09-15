@@ -138,7 +138,10 @@ const NoDataErrMsg = ({ dispatch }) => (
 
 const FullScreenConfirmBox = () => (
   <ConfirmBox
-    open={window.screen.height !== window.innerHeight}
+    open={
+      process.env.NODE_ENV !== "development" &&
+      window.screen.height !== window.innerHeight
+    }
     onConfirm={
       typeof InstallTrigger !== "undefined"
         ? () => document.documentElement.mozRequestFullScreen()

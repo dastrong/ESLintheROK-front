@@ -16,7 +16,7 @@ import {
   nextRoundData,
   arrOfRandoNum,
   changeIsVocab,
-  getRandomNum,
+  getRandoNum,
 } from "../../helpers/gameUtils";
 import FitText from "../reusable/FitText";
 // import helpers here

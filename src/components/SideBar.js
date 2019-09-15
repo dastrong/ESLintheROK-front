@@ -45,7 +45,9 @@ export default withRouter(function SideBar({ location }) {
         icon="labeled"
         animation="overlay"
         visible={showSideBar}
-        onHide={closeSideBar}
+        // if the user clicks the outside area, close the sidebar
+        // prevents running the dispatch twice when clicking another link
+        onHide={e => (e ? closeSideBar() : null)}
       >
         <Menu.Item className="home-close-btn-group">
           <Button.Group size="massive">
@@ -94,7 +96,7 @@ export default withRouter(function SideBar({ location }) {
           .map(({ router, info }) => (
             <MenuItem
               key={router.path}
-              path={router.path}
+              pathname={router.path}
               icon={router.icon}
               title={info.title}
               closeSideBar={closeSideBar}
@@ -105,14 +107,11 @@ export default withRouter(function SideBar({ location }) {
   );
 });
 
-const MenuItem = ({ path, icon, title, closeSideBar }) => (
+const MenuItem = ({ pathname, icon, title, closeSideBar }) => (
   <Menu.Item
     as={Link}
     onClick={closeSideBar}
-    to={{
-      pathname: `${path}`,
-      state: { pageTransition: "slideLeft" },
-    }}
+    to={{ pathname, state: { pageTransition: "slideLeft" } }}
   >
     <Icon name={icon} />
     {title}
