@@ -4,6 +4,7 @@ import { DForm, DTable, DButton, DApiInputs } from "./DataHelpers";
 import { useStore } from "../store";
 import useProgress from "../hooks/useProgress";
 import "./Data.css";
+import { createNewPastLesson } from "../helpers/lessons";
 
 const init = data => ({
   ...data,
@@ -74,20 +75,7 @@ export default function Data({ isAPI, setScreen, postURL, data }) {
 
   function setData() {
     const data = { vocabulary, expressions };
-    // add 1 to the largest id or start at 1 - to avoid duplicates
-    const id = !!pastLessons.length
-      ? Math.max(...pastLessons.map(lesson => lesson.id)) + 1
-      : 1;
-    // create the data string
-    const date = new Date();
-    const day = date.toDateString();
-    const time = date.toLocaleTimeString();
-    const createdOn = `${day} at ${time}`;
-    // add the new one at the end of all the other lessons
-    const updatedStorage = [...pastLessons, { ...data, createdOn, id }];
-    localStorage.setItem("lessonData", JSON.stringify(updatedStorage));
-    storePatch({ type: "setData", ...data });
-    storePatch({ type: "setPastLessons", pastLessons: updatedStorage });
+    createNewPastLesson(storePatch, data, pastLessons);
     storePatch({ type: "closeDataModal" });
   }
 

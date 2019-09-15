@@ -4,7 +4,9 @@ export const throwError = msg => {
   throw new Error(`Error: ${msg}`);
 };
 
-export const getRandomNum = length => Math.floor(Math.random() * length);
+export function getRandoNum(max, min = 0) {
+  return Math.round(Math.random() * (max - min) + min);
+}
 
 // used to get the next set of data for our gameData arrays
 export function nextRoundData(data, count, isVocab, vocabulary, expressions) {
@@ -19,7 +21,7 @@ export function nextRoundData(data, count, isVocab, vocabulary, expressions) {
 
 // returns a random linear gradient string
 export function getRandoGrad() {
-  const deg = getRandomNum(360);
+  const deg = getRandoNum(360);
   const st = getHSL();
   const nd = getHSL();
   const rd = getHSL();
@@ -28,7 +30,7 @@ export function getRandoGrad() {
 
 // creates an array of random numbers within the parameters given
 // can be unique if needed
-export function arrOfRandoNum(min, max, num, unique = false) {
+export function arrOfRandoNum(max, min, num, unique = false) {
   if (min > max) {
     throwError("Min cannot be higher than the max");
   }
@@ -39,7 +41,7 @@ export function arrOfRandoNum(min, max, num, unique = false) {
   }
   let arr = [];
   while (arr.length < num) {
-    const randoNum = getRandomNum(max + 1 - min) + min;
+    const randoNum = getRandoNum(max, min);
     if (unique) {
       if (arr.indexOf(randoNum) === -1) {
         arr.push(randoNum);
@@ -62,8 +64,8 @@ export function changeIsVocab(isVocab, state, extras) {
 // returns a random HSL string
 // not exported since it's only used in getRandoGrad above currently
 function getHSL() {
-  const hue = getRandomNum(360);
-  const sat = getRandomNum(20) + 80;
-  const lig = getRandomNum(10) + 60;
+  const hue = getRandoNum(360);
+  const sat = getRandoNum(100, 80);
+  const lig = getRandoNum(70, 60);
   return `hsl(${hue}, ${sat}%, ${lig}%)`;
 }

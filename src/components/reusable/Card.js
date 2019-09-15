@@ -23,7 +23,7 @@ export default forwardRef((props, ref) => {
         <FitText text={textFront} ref={ref} />
       </div>
       <div className="flipper-card back" style={{ backgroundColor: colorBack }}>
-        {textBack}
+        <span>{textBack}</span>
       </div>
     </div>
   );

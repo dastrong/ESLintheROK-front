@@ -46,8 +46,8 @@ export default function WordLotto(props) {
   const handleGame = useCallback(() => {
     const [numOfBox, numOfX] = isVocab ? [9, 3] : [4, 1];
     const [cur, nex] = nextRoundData(data, numOfBox, isVocab, vocabulary, expressions);
-    const winners = arrOfRandoNum(0, numOfBox - 1, numOfX, true);
-    const timeouts = arrOfRandoNum(500, 8500, numOfBox, false);
+    const winners = arrOfRandoNum(numOfBox - 1, 0, numOfX, true);
+    const timeouts = arrOfRandoNum(8500, 500, numOfBox, false);
     const gameData = cur.map((text, i) => ({
       text,
       timeout: timeouts[i],
@@ -70,7 +70,7 @@ export default function WordLotto(props) {
 
   // GAME SPECIFIC SCROLL EVENTS
   const scrollCB = useCallback(
-    scrolledUp => dispatch({ type: "Change_isVocab", isVocab: scrolledUp }),
+    scrolledUp => dispatch({ type: "Change_isVocab", isVocab: !scrolledUp }),
     [dispatch]
   );
   useScroll(isMenuOpen, scrollCB);

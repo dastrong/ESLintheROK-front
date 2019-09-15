@@ -8,7 +8,7 @@ import useFitText from "../../hooks/useFitText";
 import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 import { googleEvent } from "../../helpers/ga";
-import { getRandomNum } from "../../helpers/gameUtils";
+import { getRandoNum } from "../../helpers/gameUtils";
 import FitText from "../reusable/FitText";
 // import TextBox from "../reusable/TextBox";
 import Emoji from "../reusable/Emoji";
@@ -133,5 +133,5 @@ function __decreaseFreq(dispatch, freq) {
 }
 
 function __isKimchi(percent) {
-  return getRandomNum(100) < percent;
+  return getRandoNum(100) < percent;
 }
