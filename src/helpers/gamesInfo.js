@@ -1140,7 +1140,7 @@ export default [
       description: "Up Tempo Writing Game",
       attachments: false,
       audio: true,
-      completed: true,
+      completed: false,
       images: {
         bottomText:
           "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Speed_Writer.png",
