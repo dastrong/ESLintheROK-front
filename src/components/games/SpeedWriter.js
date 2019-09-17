@@ -1,12 +1,13 @@
 import React, { useCallback, useState, useEffect, useMemo } from "react";
 import shuffle from "lodash/shuffle";
-import { animated, useSprings, interpolate, useSpring } from "react-spring";
+import { animated, useSprings, interpolate, useSpring, config } from "react-spring";
 // import classNames from "classnames";
 // import { TransitionGroup, CSSTransition } from "react-transition-group";
 import useData from "../../hooks/useData";
 // import useKeys from "../../hooks/useKeys";
 // import useAudio from "../../hooks/useAudio";
 import useScroll from "../../hooks/useScroll";
+import useFitText from "../../hooks/useFitText";
 // import useFirstRun from "../../hooks/useFirstRun";
 import useHandleGame from "../../hooks/useHandleGame";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
@@ -17,6 +18,8 @@ import {
   changeIsVocab,
   getRandoNum,
 } from "../../helpers/gameUtils";
+import FitText from "../reusable/FitText";
+
 import "./SpeedWriter.css";
 
 // CONSTANT VARIABLES
@@ -29,12 +32,10 @@ const BG_images = [BG_blu, BG_pnk, BG_bNr, BG_rbw];
 
 // the different stages
 const stages = [
-  "LEVEL_SHOW",
-  "LEVEL_HIDE",
-  "NEW_ROUND",
-  "ANIMATION_START",
-  "ANIMATION_STOP",
-  "SHOW_ANSWER_BOARD",
+  "SHOW_LEVEL",
+  "SHOW_READY",
+  "ACTION",
+  "SHOW_ANSWER_BOX",
   "SHOW_ANSWER_TEXT",
 ];
 
@@ -80,26 +81,6 @@ export default function SpeedWriter(props) {
   const backgroundImage = getBGimg(level);
   const curStage = stages[stage];
 
-  const [isReverse, setReverse] = useState(false);
-  const toggleReverse = () => setReverse(state => !state);
-
-  // LETTER/WORD SPRING
-  const [durations, maxDur, outputs] = useMemo(() => {
-    const durations = arrOfRandoNum(7000, 4000, gameData.length);
-    const maxDur = Math.max(...durations);
-    const outputs = getSettings(gameData, level);
-    return [durations, maxDur, outputs];
-  }, [gameData]);
-  const springOpts = getSpringOpts(isReverse, toggleReverse, durations, maxDur);
-  const letterSprings = useSprings(gameData.length, springOpts);
-
-  // LEVEL SPRING
-  const levelOpts =
-    curStage !== "LEVEL_SHOW"
-      ? { opacity: 0, transform: "translateX(-100vw)" }
-      : { opacity: 1, transform: "translateX(0vw)" };
-  const levelSpring = useSpring(levelOpts);
-
   // ANSWER SPRING
 
   // HANDLE GAME
@@ -134,36 +115,112 @@ export default function SpeedWriter(props) {
   return (
     <div
       className="speedwriter-container"
-      onClick={handleGame}
+      onClick={() => dispatch({ type: "Stage_Change" })}
       style={{ fontFamily: font, backgroundImage }}
     >
-      <animated.div className="level" style={levelSpring}>
-        Level {level}
-      </animated.div>
-      {letterSprings.map((spring, i) => {
-        const text = gameData[i];
-        const { outputX, outputY } = outputs[i];
-        return (
-          <animated.div
-            key={i + text}
-            children={text}
-            className="letter"
-            style={{
-              fontSize: `${fontSize}vw`,
-              transform: interpolate(
-                [
-                  spring.x.interpolate({ range: [0, 1], output: outputX }),
-                  spring.x.interpolate({ range: [0, 1], output: outputY }),
-                  // spring.x.interpolate({ range, output: rotation }),
-                ],
-                // (x, y, rotation) => `translate(${x}px, ${y}px) rotate(${rotation}deg)`
-                (x, y, rotation) => `translate(${x}px, ${y}px)`
-              ),
-            }}
-          />
-        );
-      })}
+      <Level level={level} show={curStage === "SHOW_LEVEL"} />
+      <Ready show={curStage === "SHOW_READY"} />
+      {curStage === "ACTION" && (
+        <Letters gameData={gameData} level={level} maxDur={7000} minDur={4000} />
+      )}
+      <Answer answer={answer} curStage={curStage} font={font} />
     </div>
+  );
+}
+
+// OTHER COMPONENTS HERE
+function Level({ show, level }) {
+  const levelOpts = show
+    ? { opacity: 1, transform: "translateX(0vw)" }
+    : { opacity: 0, transform: "translateX(-100vw)" };
+  const levelSpring = useSpring({ config: config.wobbly, ...levelOpts });
+
+  return (
+    <animated.div className="level" style={levelSpring}>
+      Level {level}
+    </animated.div>
+  );
+}
+
+function Ready({ show }) {
+  const levelOpts = show
+    ? { opacity: 1, transform: "translate(0, 0)" }
+    : { opacity: 0, transform: "translate(100vh, 100vw)" };
+  const levelSpring = useSpring({ config: config.wobbly, ...levelOpts });
+
+  return (
+    <animated.div className="level" style={levelSpring}>
+      Ready?
+    </animated.div>
+  );
+}
+
+function Letters({ gameData, maxDur, minDur, level }) {
+  const [isReverse, setReverse] = useState(false);
+  const toggleReverse = () => setReverse(state => !state);
+
+  // LETTER/WORD SPRING
+  const [durations, largestDur, outputs] = useMemo(() => {
+    const durations = arrOfRandoNum(maxDur, minDur, gameData.length);
+    const largestDur = Math.max(...durations);
+    const outputs = getSettings(gameData, level);
+    return [durations, largestDur, outputs];
+  }, [gameData]);
+  const springOpts = getSpringOpts(isReverse, toggleReverse, durations, largestDur);
+  const letterSprings = useSprings(gameData.length, springOpts);
+
+  return letterSprings.map((spring, i) => {
+    const text = gameData[i];
+    const { outputX, outputY } = outputs[i];
+    return (
+      <animated.div
+        key={i + text}
+        children={text}
+        className="letter"
+        style={{
+          fontSize: `${fontSize}vw`,
+          transform: interpolate(
+            [
+              spring.x.interpolate({ range: [0, 1], output: outputX }),
+              spring.x.interpolate({ range: [0, 1], output: outputY }),
+              // spring.x.interpolate({ range, output: rotation }),
+            ],
+            // (x, y, rotation) => `translate(${x}px, ${y}px) rotate(${rotation}deg)`
+            (x, y, rotation) => `translate(${x}px, ${y}px)`
+          ),
+        }}
+      />
+    );
+  });
+}
+
+function Answer({ curStage, answer, font }) {
+  const [[textRef, headerRef]] = useFitText(2, answer, font);
+
+  const showBox = curStage === "SHOW_ANSWER_BOX";
+  const showText = curStage === "SHOW_ANSWER_TEXT";
+
+  const boxOpts =
+    showBox || showText
+      ? { opacity: 1, transform: "translateX(0vw)" }
+      : { opacity: 0, transform: "translateX(100vw)" };
+  const boxSpring = useSpring({ config: config.wobbly, ...boxOpts });
+  const textSpring = useSpring({ config: config.wobbly, opacity: showText ? 1 : 0 });
+  const headerSpring = useSpring({
+    transform: showBox ? "translateY(0)" : "translateY(-13vh)",
+  });
+
+  return (
+    <>
+      <animated.div className="answer-header" style={headerSpring}>
+        <FitText text="Show your answers" ref={headerRef} />
+      </animated.div>
+      <animated.div className="answer-box" style={boxSpring}>
+        <animated.div style={textSpring}>
+          <FitText text={answer} ref={textRef} />
+        </animated.div>
+      </animated.div>
+    </>
   );
 }
 
