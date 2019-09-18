@@ -1,8 +1,6 @@
 import React, { useCallback, useState, useEffect, useMemo } from "react";
 import shuffle from "lodash/shuffle";
 import { animated, useSprings, interpolate, useSpring, config } from "react-spring";
-// import classNames from "classnames";
-// import { TransitionGroup, CSSTransition } from "react-transition-group";
 import useData from "../../hooks/useData";
 // import useKeys from "../../hooks/useKeys";
 // import useAudio from "../../hooks/useAudio";
@@ -19,7 +17,6 @@ import {
   getRandoNum,
 } from "../../helpers/gameUtils";
 import FitText from "../reusable/FitText";
-
 import "./SpeedWriter.css";
 
 // CONSTANT VARIABLES
@@ -44,7 +41,7 @@ const init = data => ({
   isVocab: true,
   gameData: [],
   answer: "",
-  level: 1,
+  level: 8,
   stage: 0,
 });
 
@@ -61,7 +58,7 @@ function reducer(state, action) {
       return { ...state, level, stage: 0 };
     case "Stage_Change":
       const oldStage = state.stage;
-      const newStage = oldStage === stages.length - 1 ? 0 : oldStage + 1;
+      const newStage = oldStage === stages.length - 1 ? 1 : oldStage + 1;
       return { ...state, stage: newStage };
     default:
       return state;
@@ -80,8 +77,6 @@ export default function SpeedWriter(props) {
   const { data, isVocab, gameData, answer, level, stage } = state;
   const backgroundImage = getBGimg(level);
   const curStage = stages[stage];
-
-  // ANSWER SPRING
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
@@ -105,73 +100,73 @@ export default function SpeedWriter(props) {
   // USE EFFECTS HERE
   // ================
   useEffect(() => {
-    // preloadImgs(BG_images); // load and cache images for use later
+    preloadImgs(BG_images); // load and cache images for use later
   }, []);
 
   // ================
   // GAME FUNCTIONS HERE
   // ================
+  function _handleClick() {
+    dispatch({ type: "Stage_Change" });
+    if (stage !== 4) return;
+    handleGame();
+  }
 
   return (
     <div
       className="speedwriter-container"
-      onClick={() => dispatch({ type: "Stage_Change" })}
+      onClick={_handleClick}
       style={{ fontFamily: font, backgroundImage }}
     >
-      <Level level={level} show={curStage === "SHOW_LEVEL"} />
-      <Ready show={curStage === "SHOW_READY"} />
-      {curStage === "ACTION" && (
-        <Letters gameData={gameData} level={level} maxDur={7000} minDur={4000} />
-      )}
+      <AnimatedText show={curStage === "SHOW_LEVEL"} text={`Level ${level}`} />
+      <AnimatedText show={curStage === "SHOW_READY"} text="Ready?" />
+      {curStage === "ACTION" && <Letters gameData={gameData} level={level} />}
       <Answer answer={answer} curStage={curStage} font={font} />
     </div>
   );
 }
 
 // OTHER COMPONENTS HERE
-function Level({ show, level }) {
-  const levelOpts = show
+function AnimatedText({ show, text }) {
+  const springProps = show
     ? { opacity: 1, transform: "translateX(0vw)" }
     : { opacity: 0, transform: "translateX(-100vw)" };
-  const levelSpring = useSpring({ config: config.wobbly, ...levelOpts });
+  const spring = useSpring({ config: config.wobbly, ...springProps });
 
   return (
-    <animated.div className="level" style={levelSpring}>
-      Level {level}
+    <animated.div className="animated-text" style={spring}>
+      {text}
     </animated.div>
   );
 }
 
-function Ready({ show }) {
-  const levelOpts = show
-    ? { opacity: 1, transform: "translate(0, 0)" }
-    : { opacity: 0, transform: "translate(100vh, 100vw)" };
-  const levelSpring = useSpring({ config: config.wobbly, ...levelOpts });
-
-  return (
-    <animated.div className="level" style={levelSpring}>
-      Ready?
-    </animated.div>
-  );
-}
-
-function Letters({ gameData, maxDur, minDur, level }) {
+function Letters({ gameData, level }) {
   const [isReverse, setReverse] = useState(false);
   const toggleReverse = () => setReverse(state => !state);
 
-  // LETTER/WORD SPRING
   const [durations, largestDur, outputs] = useMemo(() => {
-    const durations = arrOfRandoNum(maxDur, minDur, gameData.length);
-    const largestDur = Math.max(...durations);
+    const [durations, largestDur] = getDurations(level, gameData.length);
     const outputs = getSettings(gameData, level);
     return [durations, largestDur, outputs];
   }, [gameData]);
-  const springOpts = getSpringOpts(isReverse, toggleReverse, durations, largestDur);
-  const letterSprings = useSprings(gameData.length, springOpts);
 
-  return letterSprings.map((spring, i) => {
+  const springs = useSprings(
+    gameData.length,
+    durations.map(dur => ({
+      from: { x: 0 },
+      x: 1,
+      reverse: isReverse,
+      reset: true,
+      onRest: dur === largestDur ? toggleReverse : null,
+      config: { duration: dur },
+    }))
+  );
+
+  console.log("dfdfdfdf");
+
+  return springs.map((spring, i) => {
     const text = gameData[i];
-    const { outputX, outputY } = outputs[i];
+    const { outputX, outputY, outputRotation } = outputs[i];
     return (
       <animated.div
         key={i + text}
@@ -183,10 +178,9 @@ function Letters({ gameData, maxDur, minDur, level }) {
             [
               spring.x.interpolate({ range: [0, 1], output: outputX }),
               spring.x.interpolate({ range: [0, 1], output: outputY }),
-              // spring.x.interpolate({ range, output: rotation }),
+              spring.x.interpolate({ range: [0, 1], output: outputRotation }),
             ],
-            // (x, y, rotation) => `translate(${x}px, ${y}px) rotate(${rotation}deg)`
-            (x, y, rotation) => `translate(${x}px, ${y}px)`
+            (x, y, r) => `translate(${x}px, ${y}px) rotate(${r}deg)`
           ),
         }}
       />
@@ -195,7 +189,8 @@ function Letters({ gameData, maxDur, minDur, level }) {
 }
 
 function Answer({ curStage, answer, font }) {
-  const [[textRef, headerRef]] = useFitText(2, answer, font);
+  const [[textRef]] = useFitText(1, answer, font);
+  const [[headerRef]] = useFitText(1, null, font);
 
   const showBox = curStage === "SHOW_ANSWER_BOX";
   const showText = curStage === "SHOW_ANSWER_TEXT";
@@ -207,7 +202,7 @@ function Answer({ curStage, answer, font }) {
   const boxSpring = useSpring({ config: config.wobbly, ...boxOpts });
   const textSpring = useSpring({ config: config.wobbly, opacity: showText ? 1 : 0 });
   const headerSpring = useSpring({
-    transform: showBox ? "translateY(0)" : "translateY(-13vh)",
+    transform: showBox ? "translateY(0)" : "translateY(-19vh)",
   });
 
   return (
@@ -256,15 +251,14 @@ function __verifyGameData(data, isVocab, vocabulary, expressions) {
   return [gameData, nextData];
 }
 
-function getSpringOpts(isReverse, toggleReverse, durations, maxDur) {
-  return durations.map(dur => ({
-    from: { x: 0 },
-    x: 1,
-    reverse: isReverse,
-    reset: true,
-    onRest: dur === maxDur ? toggleReverse : null,
-    config: { duration: dur },
-  }));
+function getDurations(level, count) {
+  const maxDur = (10 - level) * 1000;
+  const minDur = maxDur * 0.85;
+
+  const durations = arrOfRandoNum(maxDur, minDur, count);
+  const largestDur = Math.max(...durations);
+
+  return [durations, largestDur];
 }
 
 function getMaxDivWidth() {
@@ -298,35 +292,53 @@ function getDirection(multipleDirections) {
   return getRandoNum(100, 1) > 50;
 }
 
-function getCoords(sideValues, isXAxis, isNormalDirection) {
+function getRotation(level) {
+  if (level <= 6) return [0, 0];
+
+  const maxLevel = 9;
+  const rotationDeg = 360;
+  const maxNumOfRotations = 1;
+
+  const lvlDiff = (maxLevel - level) / 2;
+  const currentLvlNumOfRotation = maxNumOfRotations - lvlDiff;
+  const currentLvlRotationDeg = currentLvlNumOfRotation * rotationDeg;
+  const rotation = getRandoNum(currentLvlRotationDeg);
+
+  return shuffle([0, rotation]);
+}
+
+function getCoords(sideValues, isXAxis, isNormalDirection, rotation) {
   const { top, right, bottom, left } = sideValues;
   let x, y;
 
   if (isXAxis) {
     const z = getRandoNum(top + bottom);
+    const w = getRandoNum(top + bottom);
     if (isNormalDirection) {
       x = [left, right];
-      y = [z, z];
+      y = [w, z];
     } else {
       x = [right, left];
-      y = [z, z];
+      y = [w, z];
     }
   } else {
     const z = getRandoNum(left + right);
+    const w = getRandoNum(left + right);
     if (isNormalDirection) {
-      x = [z, z];
+      x = [w, z];
       y = [top, bottom];
     } else {
-      x = [z, z];
+      x = [w, z];
       y = [bottom, top];
     }
   }
-  return { outputX: x, outputY: y };
+  return { outputX: x, outputY: y, outputRotation: rotation };
 }
 
 function getSettings(gameData, level = 1) {
   const multipleDirections = level > 5;
   const sideValues = getSideValues();
+
   let outputs;
 
   // linear patterns
@@ -334,7 +346,8 @@ function getSettings(gameData, level = 1) {
     outputs = gameData.map((_, i) => {
       const isXAxis = i % 2;
       const isNormalDirection = getDirection(multipleDirections);
-      return getCoords(sideValues, isXAxis, isNormalDirection);
+      const rotation = getRotation(level);
+      return getCoords(sideValues, isXAxis, isNormalDirection, rotation);
     });
   }
 
