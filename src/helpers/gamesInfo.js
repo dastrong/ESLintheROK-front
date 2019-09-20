@@ -1150,8 +1150,12 @@ export default [
     },
     keyCuts: [
       {
-        key: ["Left-Click", "Space", "Enter"],
+        key: "Left-Click",
         description: "Next slide",
+      },
+      {
+        key: ["Space", "Enter"],
+        description: "Refresh theg game and get next vocabulary/expression",
       },
       {
         key: ["Left-Arrow", "Scroll Down"],
@@ -1161,6 +1165,7 @@ export default [
         key: ["Right-Arrow", "Scroll Up"],
         description: "Refresh the game and use expressions",
       },
+      { key: "1-0", description: "Change the level (easiest: 1; hardest: 0(10))" },
     ],
     instructions: {
       forTeachers: {
