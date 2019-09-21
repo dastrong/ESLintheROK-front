@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect } from "react";
 import shuffle from "lodash/shuffle";
 import { CSSTransition } from "react-transition-group";
-import useData from "../../hooks/useData";
-import useKeys from "../../hooks/useKeys";
-import useScroll from "../../hooks/useScroll";
-import useFitText from "../../hooks/useFitText";
-import useFirstRun from "../../hooks/useFirstRun";
-import useHandleGame from "../../hooks/useHandleGame";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { googleEvent } from "../../helpers/ga";
-import { nextRoundData, getRandoGrad } from "../../helpers/gameUtils";
-import FitText from "../reusable/FitText";
+import useData from "hooks/useData";
+import useKeys from "hooks/useKeys";
+import useScroll from "hooks/useScroll";
+import useFitText from "hooks/useFitText";
+import useFirstRun from "hooks/useFirstRun";
+import useHandleGame from "hooks/useHandleGame";
+import useDocumentTitle from "hooks/useDocumentTitle";
+import { googleEvent } from "helpers/ga";
+import { nextRoundData, getRandoGrad } from "helpers/gameUtils";
+import FitText from "@Reusable/FitText";
 import "./Matching.css";
 
 // CONSTANT VARIABLES

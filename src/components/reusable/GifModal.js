@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Button, Modal, Image } from "semantic-ui-react";
-import useFirstRun from "../../hooks/useFirstRun";
+import useFirstRun from "hooks/useFirstRun";
 import "./GifModal.css";
 
 export default function GifModal({ handleReset, open }) {

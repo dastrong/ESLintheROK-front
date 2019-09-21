@@ -1,17 +1,17 @@
 import React, { useCallback, useEffect } from "react";
 import shuffle from "lodash/shuffle";
-import useData from "../../hooks/useData";
-import useKeys from "../../hooks/useKeys";
-import useAudio from "../../hooks/useAudio";
-import useScroll from "../../hooks/useScroll";
-import useFitText from "../../hooks/useFitText";
-import useFirstRun from "../../hooks/useFirstRun";
-import useSplit2Rows from "../../hooks/useSplit2Rows";
-import useHandleGame from "../../hooks/useHandleGame";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { googleEvent } from "../../helpers/ga";
-import { nextRoundData, arrOfRandoNum, changeIsVocab } from "../../helpers/gameUtils";
-import CardRow from "../reusable/CardRow";
+import useData from "hooks/useData";
+import useKeys from "hooks/useKeys";
+import useAudio from "hooks/useAudio";
+import useScroll from "hooks/useScroll";
+import useFitText from "hooks/useFitText";
+import useFirstRun from "hooks/useFirstRun";
+import useSplit2Rows from "hooks/useSplit2Rows";
+import useHandleGame from "hooks/useHandleGame";
+import useDocumentTitle from "hooks/useDocumentTitle";
+import { googleEvent } from "helpers/ga";
+import { nextRoundData, arrOfRandoNum, changeIsVocab } from "helpers/gameUtils";
+import CardRow from "@Reusable/CardRow";
 import "./Elimination.css";
 
 // CONSTANTS

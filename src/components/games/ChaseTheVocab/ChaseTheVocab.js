@@ -3,15 +3,15 @@ import shuffle from "lodash/shuffle";
 import classNames from "classnames";
 import { CSSTransition } from "react-transition-group";
 import FlipMove from "react-flip-move";
-import useData from "../../hooks/useData";
-import useKeys from "../../hooks/useKeys";
-import useFitText from "../../hooks/useFitText";
-import useHandleGame from "../../hooks/useHandleGame";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { googleEvent } from "../../helpers/ga";
-import FitText from "../reusable/FitText";
+import useData from "hooks/useData";
+import useKeys from "hooks/useKeys";
+import useFitText from "hooks/useFitText";
+import useHandleGame from "hooks/useHandleGame";
+import useDocumentTitle from "hooks/useDocumentTitle";
+import { googleEvent } from "helpers/ga";
+import FitText from "@Reusable/FitText";
 import "./ChaseTheVocab.css";
-import "../reusable/Box.css";
+import "@Reusable/Box.css";
 
 const init = data => ({
   data: shuffle(data),

@@ -1,18 +1,18 @@
-import Elimination from "../components/games/Elimination";
-import Stars from "../components/games/Stars";
-import WhatsBehind from "../components/games/WhatsBehind";
-import WordLotto from "../components/games/WordLotto";
-import Sparkle from "../components/games/Sparkle";
-import Kimchi from "../components/games/Kimchi";
-import Bowling from "../components/games/Bowling";
-import ChaseTheVocab from "../components/games/ChaseTheVocab";
-import RedAndBlue from "../components/games/RedAndBlue";
-import HotPotato from "../components/games/HotPotato";
-import Nunchi from "../components/games/Nunchi";
-import Matching from "../components/games/Matching";
-import BattleGround from "../components/games/BattleGround";
-import Cowboy from "../components/games/Cowboy";
-import SpeedWriter from "../components/games/SpeedWriter";
+import Elimination from "@Game/Elimination";
+import Stars from "@Game/Stars";
+import WhatsBehind from "@Game/WhatsBehind";
+import WordLotto from "@Game/WordLotto";
+import Sparkle from "@Game/Sparkle";
+import Kimchi from "@Game/Kimchi";
+import Bowling from "@Game/Bowling";
+import ChaseTheVocab from "@Game/ChaseTheVocab";
+import RedAndBlue from "@Game/RedAndBlue";
+import HotPotato from "@Game/HotPotato";
+import Nunchi from "@Game/Nunchi";
+import Matching from "@Game/Matching";
+import BattleGround from "@Game/BattleGround";
+import Cowboy from "@Game/Cowboy";
+import SpeedWriter from "@Game/SpeedWriter";
 
 export default [
   {

@@ -2,12 +2,12 @@ import React, { useCallback, useEffect } from "react";
 import shuffle from "lodash/shuffle";
 import { CSSTransition } from "react-transition-group";
 import { Button, Popup } from "semantic-ui-react";
-import useData from "../../hooks/useData";
-import useKeys from "../../hooks/useKeys";
-import useHandleGame from "../../hooks/useHandleGame";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { googleEvent } from "../../helpers/ga";
-import { getRandoNum } from "../../helpers/gameUtils";
+import useData from "hooks/useData";
+import useKeys from "hooks/useKeys";
+import useHandleGame from "hooks/useHandleGame";
+import useDocumentTitle from "hooks/useDocumentTitle";
+import { googleEvent } from "helpers/ga";
+import { getRandoNum } from "helpers/gameUtils";
 import "./Bowling.css";
 
 const letterBuffer = 3;

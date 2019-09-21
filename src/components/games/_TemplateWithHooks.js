@@ -2,23 +2,23 @@ import React, { useCallback } from "react";
 import shuffle from "lodash/shuffle";
 // import classNames from "classnames";
 // import { TransitionGroup, CSSTransition } from "react-transition-group";
-import useData from "../../hooks/useData";
-import useKeys from "../../hooks/useKeys";
-import useAudio from "../../hooks/useAudio";
-import useScroll from "../../hooks/useScroll";
-import useFitText from "../../hooks/useFitText";
-import useFirstRun from "../../hooks/useFirstRun";
-import useSplit2Rows from "../../hooks/useSplit2Rows";
-import useHandleGame from "../../hooks/useHandleGame";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { googleEvent } from "../../helpers/ga";
+import useData from "hooks/useData";
+import useKeys from "hooks/useKeys";
+import useAudio from "hooks/useAudio";
+import useScroll from "hooks/useScroll";
+import useFitText from "hooks/useFitText";
+import useFirstRun from "hooks/useFirstRun";
+import useSplit2Rows from "hooks/useSplit2Rows";
+import useHandleGame from "hooks/useHandleGame";
+import useDocumentTitle from "hooks/useDocumentTitle";
+import { googleEvent } from "helpers/ga";
 import {
   nextRoundData,
   arrOfRandoNum,
   changeIsVocab,
   getRandoNum,
-} from "../../helpers/gameUtils";
-import FitText from "../reusable/FitText";
+} from "helpers/gameUtils";
+import FitText from "@Reusable/FitText";
 // import helpers here
 // import CSS here
 

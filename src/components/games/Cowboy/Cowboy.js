@@ -1,16 +1,16 @@
 import React, { useCallback } from "react";
 import shuffle from "lodash/shuffle";
 import { CSSTransition } from "react-transition-group";
-import useData from "../../hooks/useData";
-import useKeys from "../../hooks/useKeys";
-import useAudio from "../../hooks/useAudio";
-import useScroll from "../../hooks/useScroll";
-import useFitText from "../../hooks/useFitText";
-import useHandleGame from "../../hooks/useHandleGame";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { googleEvent } from "../../helpers/ga";
-import { changeIsVocab, nextRoundData } from "../../helpers/gameUtils";
-import FitText from "../reusable/FitText";
+import useData from "hooks/useData";
+import useKeys from "hooks/useKeys";
+import useAudio from "hooks/useAudio";
+import useScroll from "hooks/useScroll";
+import useFitText from "hooks/useFitText";
+import useHandleGame from "hooks/useHandleGame";
+import useDocumentTitle from "hooks/useDocumentTitle";
+import { googleEvent } from "helpers/ga";
+import { changeIsVocab, nextRoundData } from "helpers/gameUtils";
+import FitText from "@Reusable/FitText";
 import "./Cowboy.css";
 
 const baseURL = `https://res.cloudinary.com/dastrong/video/upload/v1567147248/TeacherSite/Media/Cowboy`;

@@ -2,16 +2,16 @@ import React, { useCallback, useEffect } from "react";
 import shuffle from "lodash/shuffle";
 import classnames from "classnames";
 import { Icon } from "semantic-ui-react";
-import useData from "../../hooks/useData";
-import useKeys from "../../hooks/useKeys";
-import useScroll from "../../hooks/useScroll";
-import useFitText from "../../hooks/useFitText";
-import useFirstRun from "../../hooks/useFirstRun";
-import useHandleGame from "../../hooks/useHandleGame";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { googleEvent } from "../../helpers/ga";
-import { nextRoundData, arrOfRandoNum, changeIsVocab } from "../../helpers/gameUtils";
-import Card from "../reusable/Card";
+import useData from "hooks/useData";
+import useKeys from "hooks/useKeys";
+import useScroll from "hooks/useScroll";
+import useFitText from "hooks/useFitText";
+import useFirstRun from "hooks/useFirstRun";
+import useHandleGame from "hooks/useHandleGame";
+import useDocumentTitle from "hooks/useDocumentTitle";
+import { googleEvent } from "helpers/ga";
+import { nextRoundData, arrOfRandoNum, changeIsVocab } from "helpers/gameUtils";
+import Card from "@Reusable/Card";
 import "./Stars.css";
 
 // CONSTANTS

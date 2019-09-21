@@ -1,18 +1,17 @@
 import React, { useCallback, useEffect } from "react";
 import shuffle from "lodash/shuffle";
 import { CSSTransition } from "react-transition-group";
-import useData from "../../hooks/useData";
-import useKeys from "../../hooks/useKeys";
-import useScroll from "../../hooks/useScroll";
-import useFitText from "../../hooks/useFitText";
-import useHandleGame from "../../hooks/useHandleGame";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { googleEvent } from "../../helpers/ga";
-import { getRandoNum } from "../../helpers/gameUtils";
-import FitText from "../reusable/FitText";
-// import TextBox from "../reusable/TextBox";
-import Emoji from "../reusable/Emoji";
-import ShowUpdatedSetting from "../reusable/ShowUpdatedSetting";
+import useData from "hooks/useData";
+import useKeys from "hooks/useKeys";
+import useScroll from "hooks/useScroll";
+import useFitText from "hooks/useFitText";
+import useHandleGame from "hooks/useHandleGame";
+import useDocumentTitle from "hooks/useDocumentTitle";
+import { googleEvent } from "helpers/ga";
+import { getRandoNum } from "helpers/gameUtils";
+import FitText from "@Reusable/FitText";
+import Emoji from "@Reusable/Emoji";
+import ShowUpdatedSetting from "@Reusable/ShowUpdatedSetting";
 import "./Kimchi.css";
 
 const init = data => ({

@@ -1,19 +1,19 @@
 import React, { useCallback, useEffect } from "react";
 import shuffle from "lodash/shuffle";
 import { Icon } from "semantic-ui-react";
-import useData from "../../hooks/useData";
-import useKeys from "../../hooks/useKeys";
-import useScroll from "../../hooks/useScroll";
-import useFitText from "../../hooks/useFitText";
-import useFirstRun from "../../hooks/useFirstRun";
-import useSplit2Rows from "../../hooks/useSplit2Rows";
-import useHandleGame from "../../hooks/useHandleGame";
-import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { googleEvent } from "../../helpers/ga";
-import { nextRoundData, changeIsVocab, getRandoNum } from "../../helpers/gameUtils";
-import CardRow from "../reusable/CardRow";
-import Confetti from "../reusable/Confetti";
-import GifModal from "../reusable/GifModal";
+import useData from "hooks/useData";
+import useKeys from "hooks/useKeys";
+import useScroll from "hooks/useScroll";
+import useFitText from "hooks/useFitText";
+import useFirstRun from "hooks/useFirstRun";
+import useSplit2Rows from "hooks/useSplit2Rows";
+import useHandleGame from "hooks/useHandleGame";
+import useDocumentTitle from "hooks/useDocumentTitle";
+import { googleEvent } from "helpers/ga";
+import { nextRoundData, changeIsVocab, getRandoNum } from "helpers/gameUtils";
+import CardRow from "@Reusable/CardRow";
+import Confetti from "@Reusable/Confetti";
+import GifModal from "@Reusable/GifModal";
 import "./WhatsBehind.css";
 
 // CONSTANTS
