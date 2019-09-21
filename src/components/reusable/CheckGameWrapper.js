@@ -1,6 +1,6 @@
 import React from "react";
 import TextLink from "./TextLink";
-import Error from "../Error";
+import Error from "../routes/Error";
 
 export default ({ isGameFound, children }) => (
   <>
