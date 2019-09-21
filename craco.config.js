@@ -8,6 +8,8 @@ module.exports = {
     alias: {
       "@Game": resolve("src/components/games/"),
       "@Reusable": resolve("src/components/reusable/"),
+      "@Data": resolve("src/components/data/"),
+      "@Lessons": resolve("src/components/lessons/"),
     },
   },
   plugins: [
