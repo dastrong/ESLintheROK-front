@@ -61,8 +61,8 @@ export default function InfoModal(props) {
           </p>
         </Fragment>
       }
-      position="bottom center"
-      horizontalOffset={-12}
+      position="bottom right"
+      offset={-13}
     />
   );
 
