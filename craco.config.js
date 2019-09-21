@@ -7,6 +7,7 @@ module.exports = {
   webpack: {
     alias: {
       "@Game": resolve("src/components/games/"),
+      "@Reusable": resolve("src/components/reusable/"),
     },
   },
   plugins: [

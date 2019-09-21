@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
+    "target": "es6",
     "baseUrl": "src",
     "paths": {
-      "@Game/*": ["./components/games/*"]
+      "@Game/*": ["./components/games/*"],
+      "@Reusable/*": ["./components/reusable/*"]
     }
   }
 }
