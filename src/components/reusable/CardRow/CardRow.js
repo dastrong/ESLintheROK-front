@@ -1,6 +1,6 @@
 import React from "react";
 import classnames from "classnames";
-import Card from "./Card";
+import Card from "@Reusable/Card";
 import "./CardRow.css";
 
 export default function CardRow(props) {

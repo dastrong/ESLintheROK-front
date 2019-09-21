@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import classnames from "classnames";
-import FitText from "./FitText";
+import FitText from "@Reusable/FitText";
 import "./Card.css";
 
 // returns a div containing two divs that are back to back

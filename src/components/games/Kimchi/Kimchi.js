@@ -9,9 +9,9 @@ import useHandleGame from "hooks/useHandleGame";
 import useDocumentTitle from "hooks/useDocumentTitle";
 import { googleEvent } from "helpers/ga";
 import { getRandoNum } from "helpers/gameUtils";
+import Emoji from "./Emoji";
+import ShowUpdatedSetting from "./ShowUpdatedSetting";
 import FitText from "@Reusable/FitText";
-import Emoji from "@Reusable/Emoji";
-import ShowUpdatedSetting from "@Reusable/ShowUpdatedSetting";
 import "./Kimchi.css";
 
 const init = data => ({

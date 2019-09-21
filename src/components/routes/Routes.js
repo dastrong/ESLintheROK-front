@@ -13,10 +13,10 @@ import GameInstructions from "./GameInstructions";
 import Home from "./Home";
 import HomeAPI from "./HomeAPI";
 import LessonsPage from "./LessonsPage";
-import WithStoreAndInfo from "@Reusable/WithStoreAndInfo";
+import GameVerifier from "./GameVerifier";
+import GameWrapper from "@Reusable/GameWrapper";
 import ConfirmBox from "@Reusable/ConfirmBox";
 import TextLink from "@Reusable/TextLink";
-import CheckGameWrapper from "@Reusable/CheckGameWrapper";
 import gamesInfo from "helpers/gamesInfo";
 import { useStore } from "store";
 
@@ -61,37 +61,37 @@ function Routes({ history, location }) {
           exact
           path="/game/:name/teacher"
           render={() => (
-            <CheckGameWrapper isGameFound={!!gameInfo}>
+            <GameVerifier isGameFound={!!gameInfo}>
               <GameInstructions
                 isGameReady={isGameReady}
                 gameInfo={gameInfo}
                 options={["forTeachers", "right", "slideLeft"]}
               />
-            </CheckGameWrapper>
+            </GameVerifier>
           )}
         />
         <Route
           exact
           path="/game/:name/student"
           render={() => (
-            <CheckGameWrapper isGameFound={!!gameInfo}>
+            <GameVerifier isGameFound={!!gameInfo}>
               <GameInstructions
                 isGameReady={isGameReady}
                 gameInfo={gameInfo}
                 options={["forStudents", "left", "slideRight"]}
               />
-            </CheckGameWrapper>
+            </GameVerifier>
           )}
         />
         <Route
           exact
           path="/game/:name"
           render={({ location }) => (
-            <CheckGameWrapper isGameFound={!!gameInfo}>
-              <WithStoreAndInfo gameInfo={gameInfo} path={location.pathname}>
+            <GameVerifier isGameFound={!!gameInfo}>
+              <GameWrapper gameInfo={gameInfo} path={location.pathname}>
                 <GameHome />
-              </WithStoreAndInfo>
-            </CheckGameWrapper>
+              </GameWrapper>
+            </GameVerifier>
           )}
         />
         <Route
@@ -100,11 +100,11 @@ function Routes({ history, location }) {
           render={({ location }) =>
             isGameReady ? (
               <>
-                <CheckGameWrapper isGameFound={!!gameInfo}>
-                  <WithStoreAndInfo gameInfo={gameInfo} path={location.pathname}>
+                <GameVerifier isGameFound={!!gameInfo}>
+                  <GameWrapper gameInfo={gameInfo} path={location.pathname}>
                     <gameInfo.router.component />
-                  </WithStoreAndInfo>
-                </CheckGameWrapper>
+                  </GameWrapper>
+                </GameVerifier>
                 <FullScreenConfirmBox />
               </>
             ) : (

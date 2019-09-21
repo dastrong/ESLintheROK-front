@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Header, Icon, Image } from "semantic-ui-react";
-import Favicon from "../../assets/images/Favicon.svg";
+import Favicon from "assets/images/Favicon.svg";
 import "./PageHeader.css";
 
 const PageHeader = ({ icon, text, color, outerScopeError }) => (

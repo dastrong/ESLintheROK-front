@@ -1,5 +1,5 @@
 import React, { cloneElement } from "react";
-import InfoModal from "@Reusable/InfoModal";
+import InfoModal from "./InfoModal";
 import { useStore } from "store";
 
 export default function WithStoreAndInfo({ children, gameInfo, path }) {

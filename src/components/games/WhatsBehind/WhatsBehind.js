@@ -11,8 +11,8 @@ import useHandleGame from "hooks/useHandleGame";
 import useDocumentTitle from "hooks/useDocumentTitle";
 import { googleEvent } from "helpers/ga";
 import { nextRoundData, changeIsVocab, getRandoNum } from "helpers/gameUtils";
+import Confetti from "./Confetti";
 import CardRow from "@Reusable/CardRow";
-import Confetti from "@Reusable/Confetti";
 import GifModal from "@Reusable/GifModal";
 import "./WhatsBehind.css";
 
