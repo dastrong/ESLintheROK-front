@@ -1,5 +1,5 @@
 import React from "react";
-import Error from "./Error";
+import Error from "../Error";
 import TextLink from "@Reusable/TextLink";
 
 export default function GameVerifier({ isGameFound, children }) {

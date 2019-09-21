@@ -6,7 +6,7 @@ import SideBar from "../SideBar";
 import DataModal from "../DataModal";
 import PastLessonModal from "../PastLessonModal";
 import Go2GamesScreen from "../Go2GamesScreen";
-import Routes from "components/routes";
+import Routes from "components/pages";
 import "./App.css";
 
 ReactGA.initialize(process.env.REACT_APP_ANALYTICS);
