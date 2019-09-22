@@ -102,7 +102,7 @@ function Routes({ history, location }) {
               <>
                 <GameVerifier isGameFound={!!gameInfo}>
                   <GameWrapper gameInfo={gameInfo} path={location.pathname}>
-                    <gameInfo.router.component />
+                    {gameInfo && <gameInfo.router.component />}
                   </GameWrapper>
                 </GameVerifier>
                 <FullScreenConfirmBox />
