@@ -159,7 +159,6 @@ export default function SpeedWriter(props) {
 
   // handles what audio plays during each stage
   useEffect(() => {
-    console.log(stage);
     if (isFirstRun) return;
     // we're gonna reset all audios whenever stage changes
     const resetAudios = audios.map(audio => audio.reset);
@@ -333,8 +332,8 @@ function __getDurations(level, count) {
 
 function __getSideValues(isVocab) {
   const { innerHeight, innerWidth } = window;
-  const height = 20; // 20vw
-  const divHeight = (height / 100) * innerWidth;
+  const height = 20; // 20vh
+  const divHeight = (height / 100) * innerHeight;
   const multiplier = isVocab ? 1 : 3;
   const left = -(divHeight * multiplier);
 

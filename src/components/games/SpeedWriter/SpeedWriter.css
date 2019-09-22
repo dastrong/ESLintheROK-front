@@ -32,8 +32,8 @@
 .speedwriter-container .letter {
   position: absolute;
   /* if sizes are changed, update the value in getSideValues  */
-  height: 20vw;
-  font-size: 18vw;
+  height: 20vh;
+  font-size: 18vh;
   line-height: 100%;
   text-align: center;
   z-index: 2;
