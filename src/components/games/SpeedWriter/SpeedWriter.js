@@ -3,8 +3,9 @@ import shuffle from "lodash/shuffle";
 import { animated, useSprings, interpolate, useSpring, config } from "react-spring";
 import useData from "hooks/useData";
 import useKeys from "hooks/useKeys";
-// import useAudio from "hooks/useAudio";
+import useAudio from "hooks/useAudio";
 import useScroll from "hooks/useScroll";
+import useFirstRun from "hooks/useFirstRun";
 import useFitText from "hooks/useFitText";
 import useHandleGame from "hooks/useHandleGame";
 import useDocumentTitle from "hooks/useDocumentTitle";
@@ -19,11 +20,26 @@ import FitText from "@Reusable/FitText";
 import "./SpeedWriter.css";
 
 // CONSTANT VARIABLES
-const BG_blu = `https://images.unsplash.com/photo-1561211919-1947abbbb35b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=100`;
-const BG_pnk = `https://images.unsplash.com/photo-1559251606-c623743a6d76?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=100`;
-const BG_bNr = `https://images.unsplash.com/photo-1557672211-0741026eacfb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=100`;
-const BG_rbw = `https://images.unsplash.com/photo-1558470598-a5dda9640f68?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=100`;
+const getMediaURL = (type, file, transforms = "") =>
+  `https://res.cloudinary.com/dastrong/${type}/upload${transforms}/TeacherSite/Media/SpeedWriter/${file}`;
+// IMAGES URLs
+const BG_blu = getMediaURL("image", "BG_blu.jpg", "/f_auto");
+const BG_pnk = getMediaURL("image", "BG_pnk.jpg", "/f_auto");
+const BG_bNr = getMediaURL("image", "BG_bNr.jpg", "/f_auto");
+const BG_rbw = getMediaURL("image", "BG_rbw.jpg", "/f_auto");
 const BG_images = [BG_blu, BG_pnk, BG_bNr, BG_rbw];
+// AUDIO URLs
+const flyByUrl = getMediaURL("video", "flyBy.mp3");
+const level1Url = getMediaURL("video", "level1.mp3");
+const level2Url = getMediaURL("video", "level2.mp3");
+const level3Url = getMediaURL("video", "level3.mp3");
+const level4Url = getMediaURL("video", "level4.mp3");
+const level5Url = getMediaURL("video", "level5.mp3");
+const level6Url = getMediaURL("video", "level6.mp3");
+const level7Url = getMediaURL("video", "level7.mp3");
+const level8Url = getMediaURL("video", "level8.mp3");
+const level9Url = getMediaURL("video", "level9.mp3");
+const level10Url = getMediaURL("video", "level10.mp3");
 
 // the different stages
 const stages = [
@@ -66,8 +82,35 @@ function reducer(state, action) {
 export default function SpeedWriter(props) {
   const { title, isMenuOpen, font, vocabulary, expressions } = props;
   useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
+  const isFirstRun = useFirstRun();
 
-  // const [audioRef, resetFunc] = useAudio(url, shouldLoop);
+  // AUDIO REFS
+  const [flyByAud, resetFlyBy] = useAudio(flyByUrl);
+  const [lvl1Aud, resetLvl1] = useAudio(level1Url, true);
+  const [lvl2Aud, resetLvl2] = useAudio(level2Url, true);
+  const [lvl3Aud, resetLvl3] = useAudio(level3Url, true);
+  const [lvl4Aud, resetLvl4] = useAudio(level4Url, true);
+  const [lvl5Aud, resetLvl5] = useAudio(level5Url, true);
+  const [lvl6Aud, resetLvl6] = useAudio(level6Url, true);
+  const [lvl7Aud, resetLvl7] = useAudio(level7Url, true);
+  const [lvl8Aud, resetLvl8] = useAudio(level8Url, true);
+  const [lvl9Aud, resetLvl9] = useAudio(level9Url, true);
+  const [lvl10Aud, resetLvl10] = useAudio(level10Url, true);
+
+  // array of the above audios for easier playing
+  const audios = [
+    { track: flyByAud, reset: resetFlyBy },
+    { track: lvl1Aud, reset: resetLvl1 },
+    { track: lvl2Aud, reset: resetLvl2 },
+    { track: lvl3Aud, reset: resetLvl3 },
+    { track: lvl4Aud, reset: resetLvl4 },
+    { track: lvl5Aud, reset: resetLvl5 },
+    { track: lvl6Aud, reset: resetLvl6 },
+    { track: lvl7Aud, reset: resetLvl7 },
+    { track: lvl8Aud, reset: resetLvl8 },
+    { track: lvl9Aud, reset: resetLvl9 },
+    { track: lvl10Aud, reset: resetLvl10 },
+  ];
 
   // STATE
   const [state, dispatch, didUpdate] = useData(reducer, init, vocabulary, expressions);
@@ -92,7 +135,7 @@ export default function SpeedWriter(props) {
       if (keyCode === 39) return dispatch({ type: "Change_isVocab", isVocab: false });
       if (code.includes("Digit")) {
         const keyNum = Number(key);
-        const level = keyNum ? keyNum : 10; // if keyNUm is 0, turn into 10
+        const level = keyNum ? keyNum : 10; // if keyNum is 0, turn into 10
         dispatch({ type: "Level_Change", level });
       }
     },
@@ -108,16 +151,31 @@ export default function SpeedWriter(props) {
   useScroll(isMenuOpen, scrollCB);
 
   // USE EFFECTS HERE
+  // want to show the level text on mounting (after handleGame runs) and load (cache) the images for later
   useEffect(() => {
     dispatch({ type: "Level_Change", level: 1 }); // show level on load
     __preloadImgs(BG_images); // load and cache images for use later
   }, [dispatch]);
 
+  // handles what audio plays during each stage
+  useEffect(() => {
+    console.log(stage);
+    if (isFirstRun) return;
+    // we're gonna reset all audios whenever stage changes
+    const resetAudios = audios.map(audio => audio.reset);
+    __resetSounds(resetAudios);
+    if (stage === 1) {
+      flyByAud.current.play();
+    } else if (stage === 2) {
+      audios[level].track.current.play();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stage]);
+
   // GAME FUNCTIONS HERE
   function _handleClick() {
     // when user starts a round, log that event
     if (stage === 1) {
-      console.log("new round");
       googleEvent(title);
     }
     // move onto the next stage in the game
@@ -391,4 +449,8 @@ function __getStyles(gameData, level, isVocab) {
       r: { range: r.range, output: r.output },
     };
   });
+}
+
+function __resetSounds(cbs) {
+  cbs.forEach(cb => cb());
 }
