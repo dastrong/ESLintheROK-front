@@ -21,64 +21,62 @@ const ToolTip = ({ isGameReady }) => {
   );
 };
 
-export default function Game({ title, image, isGameReady, path }) {
+export default function GameHome({ title, image, isGameReady, path }) {
   useDocumentTitle(`${title} - ESL in the ROK`);
 
   const startBtn = classNames("start-btn circular", { disabled: !isGameReady });
   return (
-    <>
-      <div className="game-home-container">
-        <img src={image} alt="game logo" />
-        <div>
-          <ToolTip isGameReady={isGameReady} />
-          <div className="game-home-buttons">
-            <Button
-              as={Link}
-              to={{
-                pathname: `${path}/teacher`,
-                state: { pageTransition: "slideRight" },
-              }}
-              className="left-btn outer-btn huge"
-              color="blue"
-              icon
-              labelPosition="left"
-            >
-              <Icon size="large" name="angle left" />
-              TEACHER
-              <br />
-              <span>INSTRUCTIONS</span>
-            </Button>
-            <Button
-              as={Link}
-              to={{
-                pathname: `${path}/student`,
-                state: { pageTransition: "slideLeft" },
-              }}
-              className="right-btn outer-btn huge"
-              color="blue"
-              icon
-              labelPosition="right"
-            >
-              STUDENT
-              <br />
-              <span>INSTRUCTIONS</span>
-              <Icon size="large" name="angle right" />
-            </Button>
-            <Button className="disabled-backer start-btn circular" />
-            <Button
-              as={Link}
-              to={{
-                pathname: `${path}/play`,
-                state: { pageTransition: "slideUp" },
-              }}
-              className={startBtn}
-              color="green"
-            >
-              START
-            </Button>
-          </div>
+    <div className="game-home-container">
+      <img src={image} alt="game logo" />
+      <div>
+        <ToolTip isGameReady={isGameReady} />
+        <div className="game-home-buttons">
+          <Button
+            as={Link}
+            to={{
+              pathname: `${path}/teacher`,
+              state: { pageTransition: "slideRight" },
+            }}
+            className="left-btn outer-btn huge"
+            color="blue"
+            icon
+            labelPosition="left"
+          >
+            <Icon size="large" name="angle left" />
+            TEACHER
+            <br />
+            <span>INSTRUCTIONS</span>
+          </Button>
+          <Button
+            as={Link}
+            to={{
+              pathname: `${path}/student`,
+              state: { pageTransition: "slideLeft" },
+            }}
+            className="right-btn outer-btn huge"
+            color="blue"
+            icon
+            labelPosition="right"
+          >
+            STUDENT
+            <br />
+            <span>INSTRUCTIONS</span>
+            <Icon size="large" name="angle right" />
+          </Button>
+          <Button className="disabled-backer start-btn circular" />
+          <Button
+            as={Link}
+            to={{
+              pathname: `${path}/play`,
+              state: { pageTransition: "slideUp" },
+            }}
+            className={startBtn}
+            color="green"
+          >
+            START
+          </Button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
