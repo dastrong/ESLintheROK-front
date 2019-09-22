@@ -1,18 +1,18 @@
-import Elimination from "../components/games/Elimination";
-import Stars from "../components/games/Stars";
-import WhatsBehind from "../components/games/WhatsBehind";
-import WordLotto from "../components/games/WordLotto";
-import Sparkle from "../components/games/Sparkle";
-import Kimchi from "../components/games/Kimchi";
-import Bowling from "../components/games/Bowling";
-import ChaseTheVocab from "../components/games/ChaseTheVocab";
-import RedAndBlue from "../components/games/RedAndBlue";
-import HotPotato from "../components/games/HotPotato";
-import Nunchi from "../components/games/Nunchi";
-import Matching from "../components/games/Matching";
-import BattleGround from "../components/games/BattleGround";
-import Cowboy from "../components/games/Cowboy";
-import SpeedWriter from "../components/games/SpeedWriter";
+import Elimination from "@Game/Elimination";
+import Stars from "@Game/Stars";
+import WhatsBehind from "@Game/WhatsBehind";
+import WordLotto from "@Game/WordLotto";
+import Sparkle from "@Game/Sparkle";
+import Kimchi from "@Game/Kimchi";
+import Bowling from "@Game/Bowling";
+import ChaseTheVocab from "@Game/ChaseTheVocab";
+import RedAndBlue from "@Game/RedAndBlue";
+import HotPotato from "@Game/HotPotato";
+import Nunchi from "@Game/Nunchi";
+import Matching from "@Game/Matching";
+import BattleGround from "@Game/BattleGround";
+import Cowboy from "@Game/Cowboy";
+import SpeedWriter from "@Game/SpeedWriter";
 
 export default [
   {
@@ -313,7 +313,7 @@ export default [
           "Put your hands on you head when you are ready",
           "When Teacher points at your block, say it aloud",
           "Keep track of your points",
-          "Most points wins",
+          "Most points win",
         ],
         korean: [
           "1-3개의 블록을 선택하여 거기 적혀진 단어/표현을 적습니다",
@@ -751,7 +751,7 @@ export default [
           "Winner gets a point",
           "Tied? RPS.",
           "No cheating. Keep your hands up until the word is said.",
-          "Most points wins",
+          "Most points win",
         ],
         korean: [
           "머리에 손을 올리세요",
@@ -1140,7 +1140,7 @@ export default [
       description: "Up Tempo Writing Game",
       attachments: false,
       audio: true,
-      completed: false,
+      completed: true,
       images: {
         bottomText:
           "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Speed_Writer.png",
@@ -1150,8 +1150,12 @@ export default [
     },
     keyCuts: [
       {
-        key: ["Left-Click", "Space", "Enter"],
+        key: "Left-Click",
         description: "Next slide",
+      },
+      {
+        key: ["Space", "Enter"],
+        description: "Refresh theg game and get next vocabulary/expression",
       },
       {
         key: ["Left-Arrow", "Scroll Down"],
@@ -1161,14 +1165,33 @@ export default [
         key: ["Right-Arrow", "Scroll Up"],
         description: "Refresh the game and use expressions",
       },
+      { key: "1-0(10)", description: "Change the level (easiest: 1; hardest: 0(10))" },
     ],
     instructions: {
       forTeachers: {
-        english: ["Coming Soon..."],
+        english: [
+          "Group game",
+          "Each group needs a whiteboard, marker and eraser",
+          "Ss take turns writing the answer",
+          "Leave the animation running until all groups have an answer written",
+          "Walk around during that and help lower level groups",
+          "Tell them to show you their boards",
+          "Show them the answer",
+          "Give points to the correct teams",
+        ],
         korean: ["Coming Soon..."],
       },
       forStudents: {
-        english: ["Coming Soon..."],
+        english: [
+          "Group game",
+          "Get a whiteboard, marker, and eraser",
+          "Choose a writer",
+          "Switch the writer every round",
+          "Write what you see first and then unscramble it",
+          "Figure out the word or sentence and write it down correctly",
+          "Punctuation matters! ( ! ? . ' , )",
+          "Most points win",
+        ],
         korean: ["Coming Soon..."],
       },
     },
