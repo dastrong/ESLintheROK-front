@@ -9,7 +9,12 @@ import useFirstRun from "hooks/useFirstRun";
 import useHandleGame from "hooks/useHandleGame";
 import useDocumentTitle from "hooks/useDocumentTitle";
 import { googleEvent } from "helpers/ga";
-import { nextRoundData, changeIsVocab, getRandoNum } from "helpers/gameUtils";
+import {
+  nextRoundData,
+  changeIsVocab,
+  getRandoNum,
+  arrOfRandoNum,
+} from "helpers/gameUtils";
 import FitText from "@Reusable/FitText";
 import "./SleepingBears.css";
 
@@ -129,6 +134,7 @@ function __splitVocab(text) {
 }
 
 function __splitExpression(text) {
+  const numOfBoxes = 4;
   const split = text.split(" ");
 
   if (split.length === 1) return __splitVocab(text);
@@ -148,13 +154,53 @@ function __splitExpression(text) {
   if (split.length === 4) return split;
 
   if (split.length > 4) {
-    // much more complicated
+    const textLength = text.length;
+
     const indexOfSpaces = text
       .split("")
-      .reduce((acc, cVal, i) => (cVal === " " ? [...acc, i] : acc), []);
-    const allIndexes = indexOfSpaces.push(text.length);
-    console.log(allIndexes);
+      .reduce((acc, cVal, i) => (cVal === " " ? [...acc, i] : acc), [textLength])
+      .sort((a, b) => a - b);
+    console.log(indexOfSpaces);
+
+    const numOfWords = indexOfSpaces.length;
+    const numOfSlices = numOfBoxes;
+    const comparisonCount = 3;
+
+    const sliceIndexes = Array.from(Array(comparisonCount), (_, i) => {
+      return arrOfRandoNum(numOfWords - 1, 0, numOfSlices, true).sort();
+    });
+    console.log(sliceIndexes);
+
+    const indexes = sliceIndexes.map((arrOfIndexes, i) => {
+      return arrOfIndexes.map(index => indexOfSpaces[index]);
+    });
+    console.log(indexes);
+
+    const lengthOfWords = indexes.map(indexArr => {
+      return indexArr.reduce((acc, cVal, i) => {
+        // first word/s
+        if (i === 0) return [cVal];
+        // last word/s
+        if (i === indexArr.length - 1) return [...acc, textLength - cVal];
+        // middle words
+        return [...acc, cVal - indexArr[i - 1]];
+      }, []);
+    });
+    console.log(lengthOfWords);
+
+    // we want the lowest difference between the longest and shortest strings
+    const bestOption = lengthOfWords.map(lengths => {
+      const { diff } = __getMinMaxAndDiff(lengths);
+      return diff;
+    });
   }
+}
+
+function __getMinMaxAndDiff(arr) {
+  const max = arr.reduce((a, b) => Math.max(a, b));
+  const min = arr.reduce((a, b) => Math.min(a, b));
+  const diff = Math.abs(max - min);
+  return { max, min, diff };
 }
 
 // used to evenly split a string, when the string is longer than 4
