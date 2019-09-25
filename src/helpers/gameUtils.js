@@ -34,7 +34,7 @@ export function arrOfRandoNum(max, min, num, unique = false) {
   if (min > max) {
     throwError("Min cannot be higher than the max");
   }
-  if (unique && max < num) {
+  if (unique && max - min < num - 1) {
     throwError(
       "Cannot make a unique array, if the total length is lower than the max number"
     );
