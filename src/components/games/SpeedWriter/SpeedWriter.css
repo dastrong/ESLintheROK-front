@@ -38,35 +38,3 @@
   text-align: center;
   z-index: 2;
 }
-
-.speedwriter-container .answer-header {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 1vh;
-  height: 18vh;
-  width: 100%;
-  z-index: 4;
-}
-
-.speedwriter-container .answer-box {
-  position: absolute;
-  border: 7px solid rgb(239, 239, 239);
-  border-radius: 30px;
-  background-color: rgba(255, 255, 255, 0.73);
-  box-shadow: inset 0 0 4px 1px rgb(65, 65, 65);
-  height: 77vh;
-  top: 20vh;
-  width: 94%;
-  left: 3%;
-  z-index: 2;
-}
-
-.speedwriter-container .answer-box > div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}

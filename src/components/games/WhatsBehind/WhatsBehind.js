@@ -106,7 +106,8 @@ export default function WhatsBehind(props) {
     if (isFirstRun) return;
     const id = setTimeout(resizeText, 1050);
     return () => clearTimeout(id);
-  }, [resizeText, clickedIDs.length, isFirstRun]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resizeText, clickedIDs.length]);
 
   // GAME FUNCTIONS HERE
   const _handleClick = useCallback(

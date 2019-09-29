@@ -6,17 +6,16 @@ import useKeys from "hooks/useKeys";
 import useAudio from "hooks/useAudio";
 import useScroll from "hooks/useScroll";
 import useFirstRun from "hooks/useFirstRun";
-import useFitText from "hooks/useFitText";
 import useHandleGame from "hooks/useHandleGame";
 import useDocumentTitle from "hooks/useDocumentTitle";
 import { googleEvent } from "helpers/ga";
 import {
-  nextRoundData,
   arrOfRandoNum,
   changeIsVocab,
   getRandoNum,
+  verifyGameData,
 } from "helpers/gameUtils";
-import FitText from "@Reusable/FitText";
+import AnswerBox from "@Reusable/AnswerBox";
 import "./SpeedWriter.css";
 
 // CONSTANT VARIABLES
@@ -120,7 +119,7 @@ export default function SpeedWriter(props) {
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
-    const [cur, nex] = __verifyGameData(data, isVocab, vocabulary, expressions);
+    const [cur, nex] = verifyGameData(data, isVocab, vocabulary, expressions);
     const splitData = __splitText(cur, isVocab);
     const gameData = shuffle(splitData);
     dispatch({ type: "New_Round", gameData, data: nex, answer: cur });
@@ -195,7 +194,12 @@ export default function SpeedWriter(props) {
       {curStage === "ACTION" && (
         <Letters gameData={gameData} level={level} isVocab={isVocab} />
       )}
-      <Answer answer={answer} curStage={curStage} font={font} />
+      <AnswerBox
+        answer={answer}
+        showBox={curStage === "SHOW_ANSWER_BOX"}
+        showText={curStage === "SHOW_ANSWER_TEXT"}
+        font={font}
+      />
     </div>
   );
 }
@@ -255,36 +259,6 @@ function Letters({ gameData, level, isVocab }) {
   });
 }
 
-function Answer({ curStage, answer, font }) {
-  const [[textRef]] = useFitText(1, answer, font);
-  const [[headerRef]] = useFitText(1, null, font);
-
-  const showBox = curStage === "SHOW_ANSWER_BOX";
-  const showText = curStage === "SHOW_ANSWER_TEXT";
-
-  const boxOpts =
-    showBox || showText
-      ? { opacity: 1, transform: "translateX(0vw)" }
-      : { opacity: 0, transform: "translateX(100vw)" };
-  const boxSpring = useSpring({ config: config.wobbly, ...boxOpts });
-  const headerSpring = useSpring({
-    transform: showBox ? "translateY(0)" : "translateY(-19vh)",
-  });
-
-  return (
-    <>
-      <animated.div className="answer-header" style={headerSpring}>
-        <FitText text="Show your answers" ref={headerRef} />
-      </animated.div>
-      <animated.div className="answer-box" style={boxSpring}>
-        <animated.div style={{ opacity: showText ? 1 : 0 }}>
-          <FitText text={answer} ref={textRef} />
-        </animated.div>
-      </animated.div>
-    </>
-  );
-}
-
 // OTHER FUNCTIONS HERE
 function __preloadImgs(images) {
   images.forEach(src => {
@@ -301,23 +275,6 @@ function __getBGimg(level) {
 function __splitText(text, isVocab) {
   const splitter = isVocab ? "" : " ";
   return text.split(splitter);
-}
-
-function __verifyGameData(data, isVocab, vocabulary, expressions) {
-  let stateData = data;
-  let gameData = "";
-  let nextData = [];
-  for (let i = 0; i < data.length; i++) {
-    const [[cur], nex] = nextRoundData(stateData, 1, isVocab, vocabulary, expressions);
-    if (!cur.includes("_")) {
-      gameData = cur;
-      nextData = nex;
-      break;
-    } else {
-      stateData = nex;
-    }
-  }
-  return [gameData, nextData];
 }
 
 function __getDurations(level, count) {

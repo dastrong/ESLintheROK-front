@@ -131,7 +131,8 @@ export default function Elimination(props) {
     if (isFirstRun) return;
     const id = setTimeout(resizeText, 1550);
     return () => clearTimeout(id);
-  }, [resizeText, clickedIDs.length, isFirstRun]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resizeText, clickedIDs.length]);
 
   // all cards are clicked, reset the game
   useEffect(() => {

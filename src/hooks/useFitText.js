@@ -10,8 +10,15 @@ import {
 // numOfRefs = number of refs needed to be passed down
 // gameData = could be an array or a string, it depends on the game played
 // font = string - needed since fonts all have different sizes
-// delayUpdate = boolean - can be used to stop scaling, if needed
-export default function useFitText(numOfRefs, gameData, font, delayUpdate) {
+// shouldCalculateSolo = boolean - true: scale individually; false: everything has the same scale
+// delayUpdate = boolean - can be used to stop scaling after a certain point, if needed
+export default function useFitText(
+  numOfRefs,
+  gameData,
+  font,
+  shouldCalculateSolo = false,
+  delayUpdate = false
+) {
   const [isFontLoaded, setFontLoaded] = useState(false);
   const [updateMe, triggerTextUpd] = useState(0);
 
@@ -46,8 +53,8 @@ export default function useFitText(numOfRefs, gameData, font, delayUpdate) {
   useLayoutEffect(() => {
     if (!isFontLoaded) return;
     if (delayUpdate) return;
-    getMixedLines(refs);
-  }, [refs, gameData, updateMe, font, isFontLoaded, delayUpdate]);
+    calculateFit(refs, shouldCalculateSolo);
+  }, [refs, gameData, updateMe, font, isFontLoaded, delayUpdate, shouldCalculateSolo]);
 
   // return the refs to the parent (game) component
   // and the function to trigger a scale recalculation
@@ -56,7 +63,7 @@ export default function useFitText(numOfRefs, gameData, font, delayUpdate) {
 }
 
 // handles single and multi worded spans and scales accordingly
-function getMixedLines(refs) {
+function calculateFit(refs, shouldCalculateSolo) {
   // the larger the num, the closer the scaling accuracy would be to 100%
   // but that can severely affect performance
   // throttling my performance showed it should be kept under 5 for slower computers
@@ -80,6 +87,10 @@ function getMixedLines(refs) {
   // if there's no multi worded spans, we can do a simple scale
   // and avoid expensive layout thrashing
   if (multi.length === 0) {
+    // apply each boxes' max scale individually
+    if (shouldCalculateSolo) {
+      return single.forEach(({ ref, scale }) => applyScale(ref, scale));
+    }
     // get the minimum scale for each different parent width
     const scalers = singleScaler(single);
     // apply the correct scale to each ref
@@ -87,6 +98,18 @@ function getMixedLines(refs) {
   }
 
   thrashLayout(multi, numLoops);
+
+  // if we're calculating styles individually we'll stop here
+  if (shouldCalculateSolo || refsAndStuff.length === 1) {
+    return refsAndStuff.forEach(({ ref, isSingle, scale, widthsAndScales }) => {
+      if (isSingle) return applyScale(ref, scale);
+      // gets the highest scale and it's width
+      const maxes = getMaxScaleAndWidth(widthsAndScales);
+      // apply that width and scale
+      ref.current.style.width = `${maxes.width}px`;
+      applyScale(ref, maxes.scale);
+    });
+  }
 
   let scalers;
 
@@ -115,6 +138,11 @@ function getMixedLines(refs) {
     }
     applyScale(ref, scalers[pWidth]);
   });
+}
+
+// get the highest scale and width combo
+function getMaxScaleAndWidth(widthsAndScales) {
+  return widthsAndScales.reduce((acc, cVal) => (acc.scale < cVal.scale ? cVal : acc));
 }
 
 // destructures a ref

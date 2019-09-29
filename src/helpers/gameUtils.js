@@ -8,6 +8,26 @@ export function getRandoNum(max, min = 0) {
   return Math.round(Math.random() * (max - min) + min);
 }
 
+// skip values with _ (indicating blank words) or ...
+export function verifyGameData(data, isVocab, vocabulary, expressions) {
+  let stateData = data;
+  let gameData = "";
+  let nextData = [];
+  for (let i = 0; i <= data.length; i++) {
+    const [[cur], nex] = nextRoundData(stateData, 1, isVocab, vocabulary, expressions);
+    const isAcceptable = !(cur.includes("_") || cur.includes("..."));
+    if (isAcceptable) {
+      gameData = cur;
+      nextData = nex;
+      break;
+    } else {
+      stateData = nex;
+      nextData = nex;
+    }
+  }
+  return [gameData, nextData];
+}
+
 // used to get the next set of data for our gameData arrays
 export function nextRoundData(data, count, isVocab, vocabulary, expressions) {
   const shuffledData = () => shuffle(isVocab ? vocabulary : expressions);
@@ -34,7 +54,7 @@ export function arrOfRandoNum(max, min, num, unique = false) {
   if (min > max) {
     throwError("Min cannot be higher than the max");
   }
-  if (unique && max < num) {
+  if (unique && max - min < num - 1) {
     throwError(
       "Cannot make a unique array, if the total length is lower than the max number"
     );

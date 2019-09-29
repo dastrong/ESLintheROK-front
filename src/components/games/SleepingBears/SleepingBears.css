@@ -1,0 +1,49 @@
+.sleeping-bears-container {
+  background-image: url("https://res.cloudinary.com/dastrong/image/upload/v1569147765/TeacherSite/Media/SleepingBears/campBackground.jpg");
+  background-size: cover;
+  background-position: bottom;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  user-select: none;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.sleeping-bear,
+.sleeping-bear-front,
+.sleeping-bear-back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sleeping-bear {
+  height: 47vh;
+  width: 47vw;
+  margin: 1vh 1vw;
+  background-color: rgba(214, 239, 230, 0.69);
+  box-shadow: 0 0 4px 3px rgba(11, 130, 106, 0.85);
+  text-shadow: 1px 1px 2px rgb(255, 255, 255);
+}
+
+.sleeping-bear-2,
+.sleeping-bear-3:nth-of-type(3) {
+  width: 96.5vw;
+}
+
+.sleeping-bear-front,
+.sleeping-bear-back {
+  position: absolute;
+  height: inherit;
+  width: inherit;
+  overflow: hidden;
+}
+
+.sleeping-bear img {
+  height: 100%;
+}
