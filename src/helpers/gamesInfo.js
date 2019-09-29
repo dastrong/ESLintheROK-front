@@ -14,6 +14,7 @@ import BattleGround from "@Game/BattleGround";
 import Cowboy from "@Game/Cowboy";
 import SpeedWriter from "@Game/SpeedWriter";
 import SleepingBears from "@Game/SleepingBears";
+import MissingLetter from "@Game/MissingLetter";
 
 export default [
   {
@@ -1271,6 +1272,57 @@ export default [
           "Punctuation matters! ( ! ? . ' , )",
           "Most points win",
         ],
+        korean: ["Coming Soon..."],
+      },
+    },
+  },
+  {
+    router: {
+      path: "/game/missingletter",
+      component: MissingLetter,
+      icon: "font",
+    },
+    info: {
+      title: "Missing Letter",
+      skills: ["Writing", "Reading", "Speaking", "Listening"],
+      dataUsed: ["Vocabulary", "Expressions"],
+      description: "Spelling Practice",
+      attachments: false,
+      audio: false,
+      completed: false,
+      images: {
+        bottomText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Missing_Letter.png",
+        topText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1567148144/TeacherSite/Games/TextOnTop/Missing_Letter.png",
+      },
+    },
+    keyCuts: [
+      {
+        key: "Left-Click",
+        description: "Next slide",
+      },
+      {
+        key: ["Space", "Enter"],
+        description: "Refresh the game and get next vocabulary/expression",
+      },
+      {
+        key: ["Left-Arrow", "Scroll Down"],
+        description: "Refresh the game and use vocabulary",
+      },
+      {
+        key: ["Right-Arrow", "Scroll Up"],
+        description: "Refresh the game and use expressions",
+      },
+      { key: "2-4", description: "Change the number of boxes" },
+    ],
+    instructions: {
+      forTeachers: {
+        english: ["Coming Soon..."],
+        korean: ["Coming Soon..."],
+      },
+      forStudents: {
+        english: ["Coming Soon..."],
         korean: ["Coming Soon..."],
       },
     },
