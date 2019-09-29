@@ -1156,7 +1156,7 @@ export default [
       },
       {
         key: ["Space", "Enter"],
-        description: "Refresh theg game and get next vocabulary/expression",
+        description: "Refresh the game and get next vocabulary/expression",
       },
       {
         key: ["Left-Arrow", "Scroll Down"],
@@ -1210,7 +1210,7 @@ export default [
       description: "Teamwork Activity",
       attachments: false,
       audio: false,
-      completed: false,
+      completed: true,
       images: {
         bottomText:
           "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Sleeping_Bears.png",
@@ -1225,7 +1225,7 @@ export default [
       },
       {
         key: ["Space", "Enter"],
-        description: "Refresh theg game and get next vocabulary/expression",
+        description: "Refresh the game and get next vocabulary/expression",
       },
       {
         key: ["Left-Arrow", "Scroll Down"],
@@ -1235,14 +1235,42 @@ export default [
         key: ["Right-Arrow", "Scroll Up"],
         description: "Refresh the game and use expressions",
       },
+      { key: "2-4", description: "Change the number of boxes" },
     ],
     instructions: {
       forTeachers: {
-        english: ["Coming Soon..."],
+        english: [
+          "Group game",
+          "You can change the number of boxes to better suit your class/group size",
+          "Each group needs a whiteboard, marker and eraser",
+          "Each group member should know what number they are 1-4 (that'll depend on the number of boxes)",
+          "Everyone goes to sleep (heads down, eyes closed, lights off)",
+          "Yell out 'Bear 1, wake up'",
+          "That student should wake up and memorize what's in their box",
+          "Say 'Bear 1, go to sleep'",
+          "Repeat until all bears have seen their boxes",
+          "Really low level students can write their phrases down instead of memorizing it",
+          "Yell out 'Wake up bears' and turn on the lights",
+          "I get each student to write their portion in the corner of their whiteboard",
+          "Then they need to figure out together what the correct answer is and write it down",
+          "Tell them to show you their boards",
+          "Show them the answer",
+          "Give points to the correct teams",
+        ],
         korean: ["Coming Soon..."],
       },
       forStudents: {
-        english: ["Coming Soon..."],
+        english: [
+          "Teamwork group game",
+          "Get a whiteboard, marker, and eraser",
+          "Go to sleep and wake up when your number is called to memorize your box",
+          "Go back to sleep until everyone has gone",
+          "When I say 'Wake up bears', wake up and write down what you saw",
+          "Take turns writing in the corner of the whiteboard",
+          "Work together to figure out the correct answer and write it down",
+          "Punctuation matters! ( ! ? . ' , )",
+          "Most points win",
+        ],
         korean: ["Coming Soon..."],
       },
     },

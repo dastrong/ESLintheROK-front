@@ -11,13 +11,18 @@
   width: 100%;
   user-select: none;
   cursor: pointer;
-  overflow:hidden;
+  overflow: hidden;
 }
 
-.sleeping-card {
+.sleeping-bear,
+.sleeping-bear-front,
+.sleeping-bear-back {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.sleeping-bear {
   height: 47vh;
   width: 47vw;
   margin: 1vh 1vw;
@@ -26,17 +31,19 @@
   text-shadow: 1px 1px 2px rgb(255, 255, 255);
 }
 
-.sleeping-card-front,
-.sleeping-card-back {
+.sleeping-bear-2,
+.sleeping-bear-3:nth-of-type(3) {
+  width: 96.5vw;
+}
+
+.sleeping-bear-front,
+.sleeping-bear-back {
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: inherit;
   width: inherit;
   overflow: hidden;
 }
 
-.sleeping-card img {
+.sleeping-bear img {
   height: 100%;
 }
