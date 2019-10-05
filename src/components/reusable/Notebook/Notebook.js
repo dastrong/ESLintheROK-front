@@ -379,36 +379,3 @@ function getReplacer(replacers, character) {
   }
   return replacer;
 }
-
-// export default function Notebook(props) {
-//   const {
-//     header,
-//     headerRef,
-//     text,
-//     textRef,
-//     font,
-//     dispatch,
-//     handleGame,
-//     indexesTargeted,
-//     indexesShown,
-//   } = props;
-
-//   const handleHeaderClick =
-//     indexesTargeted.length !== indexesShown.length
-//       ? () => dispatch({ type: "Show_Character" })
-//       : handleGame;
-
-//   return (
-//     <div className="notebook" style={{ fontFamily: font }}>
-//       <NotebookHead text={header} ref={headerRef} handleClick={handleHeaderClick} />
-//       <NotebookBody
-//         text={text}
-//         ref={textRef}
-//         dispatch={dispatch}
-//         indexesTargeted={indexesTargeted}
-//         indexesShown={indexesShown}
-//       />
-//       <NotebookVertLine />
-//     </div>
-//   );
-// }
