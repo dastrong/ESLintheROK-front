@@ -15,6 +15,7 @@ import Cowboy from "@Game/Cowboy";
 import SpeedWriter from "@Game/SpeedWriter";
 import SleepingBears from "@Game/SleepingBears";
 import MissingLetter from "@Game/MissingLetter";
+import FixTheMistake from "@Game/FixTheMistake";
 
 export default [
   {
@@ -49,7 +50,7 @@ export default [
         key: ["Right-Arrow", "Scroll Up"],
         description: "Refresh the game and use expressions",
       },
-      { key: "1-5", description: "Change the number of X's (default: 3)" },
+      { key: "1-5", description: "Change of the nuber   's (: 1): 3)" },
     ],
     instructions: {
       forTeachers: {
@@ -198,7 +199,7 @@ export default [
       },
       {
         key: "0-5",
-        description: "Change the minimum number of stars for a block (default: 0)",
+        description: "Change the minimum stars number of fo  a block (: 1): 0)",
       },
     ],
     instructions: {
@@ -459,7 +460,7 @@ export default [
           "Individual - put their hand up if they know. Teacher picks a student",
           "Individual - reward the student that is correct",
           "Repeat as desired",
-          "Letters will cycle through 3 rounds by default. Push the left/right arrows to decrease/increase the rounds",
+          "Letters through will cyle    rounds by : 1). Push the left/right arrows to decrease/increase the rounds",
         ],
         korean: [
           "개인별, 짝, 모둠 게임",
@@ -626,7 +627,7 @@ export default [
       { key: "C", description: "Change the block color" },
       {
         key: "1-9",
-        description: "Change the difficulty (easiest: 1, hardest: 9, default: 5)",
+        description: "Change the difficulty (easiest: hardest 1,  9, : 1): 5)",
       },
     ],
     instructions: {
@@ -1286,10 +1287,10 @@ export default [
       title: "Missing Letter",
       skills: ["Writing", "Reading", "Speaking", "Listening"],
       dataUsed: ["Vocabulary", "Expressions"],
-      description: "Spelling Practice",
+      description: "Letter Recognition Game",
       attachments: false,
       audio: false,
-      completed: false,
+      completed: true,
       images: {
         bottomText:
           "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Missing_Letter.png",
@@ -1299,11 +1300,15 @@ export default [
     },
     keyCuts: [
       {
-        key: "Left-Click",
-        description: "Next slide",
+        key: "Left-Click (on '... Missing' Header)",
+        description: "Shows the next missing letter",
       },
       {
-        key: ["Space", "Enter"],
+        key: "Left-Click (on a page hole)",
+        description: "Shows the Nth missing letter",
+      },
+      {
+        key: ["Space", "Enter", "Left-Click (on 'New ...' Header)"],
         description: "Refresh the game and get next vocabulary/expression",
       },
       {
@@ -1314,15 +1319,108 @@ export default [
         key: ["Right-Arrow", "Scroll Up"],
         description: "Refresh the game and use expressions",
       },
-      { key: "2-4", description: "Change the number of boxes" },
+      {
+        key: "1-9",
+        description: "Change the maximum number of missing letters (default: 1)",
+      },
+      { key: "a", description: "Change where blanks happen; anywhere (default)" },
+      {
+        key: "s",
+        description: "Change where blanks happen; start of the word",
+      },
+      {
+        key: "m",
+        description: "Change where blanks happen; middle of the word",
+      },
+      { key: "e", description: "Change where blanks happen; end of the word" },
     ],
+
     instructions: {
       forTeachers: {
-        english: ["Coming Soon..."],
+        english: [
+          "Lots of ways to use this game",
+          "Check out the game hotkeys for all the features to help you decide",
+          "Here's a couple ideas",
+          "Play individually or in a group",
+          "Write the answer down or simply raise their hands",
+          "If your students can't figure it out: show a missing letter or say the word",
+        ],
         korean: ["Coming Soon..."],
       },
       forStudents: {
-        english: ["Coming Soon..."],
+        english: ["Fill in the blanks with the correct letters"],
+        korean: ["Coming Soon..."],
+      },
+    },
+  },
+  {
+    router: {
+      path: "/game/fixthemistake",
+      component: FixTheMistake,
+      icon: "warning sign",
+    },
+    info: {
+      title: "Fix the Mistake",
+      skills: ["Writing", "Reading", "Speaking", "Listening"],
+      dataUsed: ["Vocabulary", "Expressions"],
+      description: "Grammar Game",
+      attachments: false,
+      audio: false,
+      completed: true,
+      images: {
+        bottomText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Fix_The_Mistake.png",
+        topText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1567148144/TeacherSite/Games/TextOnTop/Fix_The_Mistake.png",
+      },
+    },
+    keyCuts: [
+      {
+        key: "Left-Click (on '... Mistake' Header)",
+        description: "Shows the next mistake",
+      },
+      {
+        key: "Left-Click (on a page hole)",
+        description: "Shows the Nth mistake",
+      },
+      {
+        key: ["Space", "Enter", "Left-Click (on 'New ...' Header)"],
+        description: "Refresh the game and get next vocabulary/expression",
+      },
+      {
+        key: ["Left-Arrow", "Scroll Down"],
+        description: "Refresh the game and use vocabulary",
+      },
+      {
+        key: ["Right-Arrow", "Scroll Up"],
+        description: "Refresh the game and use expressions",
+      },
+      { key: "1-9", description: "Change the maximum number of mistakes (default: 1)" },
+      { key: "a", description: "Change where mistakes happen; anywhere (default)" },
+      {
+        key: "s",
+        description: "Change where mistakes happen; start of the word",
+      },
+      {
+        key: "m",
+        description: "Change where mistakes happen; middle of the word",
+      },
+      { key: "e", description: "Change where mistakes happen; end of the word" },
+    ],
+    instructions: {
+      forTeachers: {
+        english: [
+          "Lots of ways to use this game",
+          "Check out the game hotkeys for all the features to help you decide",
+          "Here's a couple ideas",
+          "Play individually or in a group",
+          "Write the answer down or simply raise their hands",
+          "If your students can't figure it out: show a missing letter or say the word",
+        ],
+        korean: ["Coming Soon..."],
+      },
+      forStudents: {
+        english: ["Figure out the mistake and correct them"],
         korean: ["Coming Soon..."],
       },
     },
