@@ -16,6 +16,7 @@ import SpeedWriter from "@Game/SpeedWriter";
 import SleepingBears from "@Game/SleepingBears";
 import MissingLetter from "@Game/MissingLetter";
 import FixTheMistake from "@Game/FixTheMistake";
+import WhatsMissing from "@Game/WhatsMissing/WhatsMissing";
 
 export default [
   {
@@ -1421,6 +1422,71 @@ export default [
       },
       forStudents: {
         english: ["Figure out the mistake and correct them"],
+        korean: ["Coming Soon..."],
+      },
+    },
+  },
+  {
+    router: {
+      path: "/game/whatsmissing",
+      component: WhatsMissing,
+      icon: "search",
+    },
+    info: {
+      title: "What's Missing",
+      skills: ["Writing", "Reading", "Speaking"],
+      dataUsed: ["Vocabulary"],
+      description: "Grammar Game",
+      attachments: false,
+      audio: false,
+      completed: true,
+      images: {
+        bottomText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/What_s_Missing.png",
+        topText:
+          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1567148144/TeacherSite/Games/TextOnTop/What_s_Missing.png",
+      },
+    },
+    keyCuts: [
+      {
+        key: "Left-Click (on '... Mistake' Header)",
+        description: "Shows the next mistake",
+      },
+      {
+        key: "Left-Click (on a page hole)",
+        description: "Shows the Nth mistake",
+      },
+      {
+        key: ["Space", "Enter", "Left-Click (on 'New ...' Header)"],
+        description: "Refresh the game and get next vocabulary/expression",
+      },
+      {
+        key: ["Left-Arrow", "Scroll Down"],
+        description: "Refresh the game and use vocabulary",
+      },
+      {
+        key: ["Right-Arrow", "Scroll Up"],
+        description: "Refresh the game and use expressions",
+      },
+      { key: "1-9", description: "Change the maximum number of mistakes (default: 1)" },
+      { key: "a", description: "Change where mistakes happen; anywhere (default)" },
+      {
+        key: "s",
+        description: "Change where mistakes happen; start of the word",
+      },
+      {
+        key: "m",
+        description: "Change where mistakes happen; middle of the word",
+      },
+      { key: "e", description: "Change where mistakes happen; end of the word" },
+    ],
+    instructions: {
+      forTeachers: {
+        english: ["Coming Soon..."],
+        korean: ["Coming Soon..."],
+      },
+      forStudents: {
+        english: ["Coming Soon..."],
         korean: ["Coming Soon..."],
       },
     },

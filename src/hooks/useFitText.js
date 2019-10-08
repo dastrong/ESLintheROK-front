@@ -147,7 +147,8 @@ function getMaxScaleAndWidth(widthsAndScales) {
 
 // destructures a ref
 function deRef(ref) {
-  const pWidth = Math.floor(ref.current.parentNode.getBoundingClientRect().width);
+  // const pWidth = Math.floor(ref.current.parentNode.getBoundingClientRect().width);
+  const pWidth = ref.current.parentNode.offsetWidth;
   const pHeight = ref.current.parentNode.offsetHeight;
   const sWidth = ref.current.offsetWidth;
   const sHeight = ref.current.offsetHeight;
@@ -165,6 +166,7 @@ function getRefsAndStuff(refs, numLoops) {
   // read - capture the min width
   let refsAndStuff = refs.map(ref => {
     const { pWidth, pHeight, sWidth, sHeight, text } = deRef(ref);
+    console.log(pWidth);
     // if the parent or span's width or height is 0, skip calculating anything
     if (!pHeight || !pWidth || !sWidth || !sHeight) {
       return { ref, pWidth: 0, isSingle: true, scale: 0 };
