@@ -237,6 +237,8 @@ function changeText(text, maxCount, position, showBlank) {
 
   // if it's only one letter, return it unchanged
   if (text.length < 2) return [splitText, []];
+  // if the string is all spaces skip it
+  if (splitText.every(char => char === " ")) return [splitText, []];
   // if the there's two letters, we know the paramaters needed for editing
   if (text.length === 2) return getEditedChars(splitText, 1, position, showBlank);
 
@@ -283,12 +285,11 @@ function changeText(text, maxCount, position, showBlank) {
 function getEditNums(words, maxCount) {
   // for every N characters, we can change 1 character
   const charForOneEdit = 4;
-  // array of word lengths
-  const wordLengths = words.map(word => word.length);
   // how many edits could we make on each word
-  const numsOfPotentialEdits = wordLengths.map(
-    wordLength => Math.floor(wordLength / charForOneEdit) || 1
-  );
+  const numsOfPotentialEdits = words.map(word => {
+    if (word.split("").every(char => char === "")) return 0;
+    return Math.floor(word.length / charForOneEdit) || 1;
+  });
   // total number of edits possible
   const totalPotentialEdits = numsOfPotentialEdits.reduce((acc, cVal) => acc + cVal);
   // get the number of edits for current round
