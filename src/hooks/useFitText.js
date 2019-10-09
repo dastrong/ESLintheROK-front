@@ -147,26 +147,26 @@ function getMaxScaleAndWidth(widthsAndScales) {
 
 // destructures a ref
 function deRef(ref) {
-  // const pWidth = Math.floor(ref.current.parentNode.getBoundingClientRect().width);
-  const pWidth = ref.current.parentNode.offsetWidth;
   const pHeight = ref.current.parentNode.offsetHeight;
   const sWidth = ref.current.offsetWidth;
   const sHeight = ref.current.offsetHeight;
-  const style = ref.current.style;
   const text = ref.current.textContent;
-  return { sWidth, sHeight, pWidth, pHeight, style, text };
+  return { sWidth, sHeight, pHeight, text };
 }
 
 // returns an array of objects containing everything needed
 // to manipulate, calculate and determine an optimal width/scale combo
 function getRefsAndStuff(refs, numLoops) {
+  // get adjusted all parent widths
+  const pWidths = getParentWidths(refs);
+
   // write - set min content
   refs.forEach(ref => (ref.current.style.width = "min-content"));
 
   // read - capture the min width
-  let refsAndStuff = refs.map(ref => {
-    const { pWidth, pHeight, sWidth, sHeight, text } = deRef(ref);
-    console.log(pWidth);
+  let refsAndStuff = refs.map((ref, i) => {
+    const pWidth = pWidths[i];
+    const { pHeight, sWidth, sHeight, text } = deRef(ref);
     // if the parent or span's width or height is 0, skip calculating anything
     if (!pHeight || !pWidth || !sWidth || !sHeight) {
       return { ref, pWidth: 0, isSingle: true, scale: 0 };
@@ -191,12 +191,15 @@ function getRefsAndStuff(refs, numLoops) {
 
   // read - capture the max width
   // and determine the optimal widths to thrash
-  refsAndStuff.forEach(({ ref, isSingle, widthsAndScales }) => {
+  refsAndStuff.forEach(({ ref, isSingle, widthsAndScales }, i) => {
     if (!isSingle) {
-      const { pWidth, pHeight, sWidth, sHeight } = deRef(ref);
+      const pWidth = pWidths[i];
+      const { pHeight, sWidth, sHeight } = deRef(ref);
       // grab the min width that we calculate during our last read
       const minWidth = widthsAndScales[0].width;
-      const maxWidth = sWidth + 1;
+      const spanWidth = sWidth + 1;
+      // the span shouldn't be larger than the actual parent === lots of wasted calculations
+      const maxWidth = pWidth < spanWidth ? pWidth : spanWidth;
       const incrementVal = (maxWidth - minWidth) / (numLoops + 1);
       // since we already have the minWidth/scale, we can skip it later
       const start = minWidth + incrementVal;
@@ -212,6 +215,35 @@ function getRefsAndStuff(refs, numLoops) {
   });
 
   return refsAndStuff;
+}
+
+// used to avoid the acc offsetWidth
+function getParentWidths(refs) {
+  // combine all parent widths into one array
+  let parentWidths = refs.map(ref => ref.current.parentNode.offsetWidth);
+  // get all the unique widths
+  const uniqueWidths = Array.from(new Set(parentWidths));
+  // check if there are multiple unique widths
+  if (uniqueWidths.length === 2) {
+    // if two widths are closely related set every parentWidths to the larger one
+    // otherwise we'll just use those original widths
+    if (Math.abs(uniqueWidths[0] - uniqueWidths[1]) < 5) {
+      const max = Math.max(uniqueWidths[0], uniqueWidths[1]);
+      parentWidths = parentWidths.map(() => max);
+    }
+  } else if (uniqueWidths.length > 2) {
+    // filter our unique widths further if they are closely related
+    const uniquelyClumped = uniqueWidths.reduce((acc, cVal) => {
+      if (!acc.length) return [cVal];
+      if (acc.some(width => Math.abs(width - cVal) < 5)) return acc;
+      return [...acc, cVal];
+    }, []);
+    // set every width with it's closest unique width
+    parentWidths = parentWidths.map(pWidth => {
+      return uniquelyClumped.find(uQ => Math.abs(uQ - pWidth) < 5) || 0;
+    });
+  }
+  return parentWidths;
 }
 
 // used to determine optimal width/scale for single worded spans
@@ -268,8 +300,8 @@ function thrashLayout(multi, numLoops) {
       ref.current.style.width = `${widthsAndScales[i].width}px`;
     });
     // read - get the scale values for those width changes
-    multi.forEach(({ ref, widthsAndScales }) => {
-      const { pWidth, pHeight, sWidth, sHeight } = deRef(ref);
+    multi.forEach(({ ref, widthsAndScales, pWidth }) => {
+      const { pHeight, sWidth, sHeight } = deRef(ref);
       const scale = getScale(pWidth, pHeight, sWidth, sHeight);
       widthsAndScales[i].scale = scale;
     });
