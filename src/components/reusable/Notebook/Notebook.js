@@ -184,6 +184,7 @@ export default function Notebook(props) {
 
 // we only ever need to make letters smaller, so students know when to capitalize
 const punctuationMarks = [".", ",", "?", "!", "'", "-", ":", ";", " "];
+const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 const alphabet = [
   "a",
   "b",
@@ -360,23 +361,32 @@ function getEditedChars(textArr, count, position, showBlank) {
     // get the targeted character
     const targetCharacter = textArr[targetIdx];
 
-    // check if the target is punctuation and change the replacers array if true
-    const isPunctuation = punctuationMarks.includes(targetCharacter);
-    let replacers = showBlank ? ["_"] : isPunctuation ? punctuationMarks : alphabet;
+    // get the proper replacer array
+    const replacers = getReplacers(showBlank, targetCharacter);
 
     // get a replacement character and replace the target
-    const replacer = getReplacer(replacers, targetCharacter);
-    textArr[targetIdx] = replacer;
+    const replacement = getReplacement(replacers, targetCharacter);
+    textArr[targetIdx] = replacement;
   }
 
   return [textArr, targetTextIndexes];
 }
 
-function getReplacer(replacers, character) {
-  let replacer = character;
-  while (replacer === character) {
-    const replacerIdx = getRandoNum(replacers.length - 1);
-    replacer = replacers[replacerIdx];
+// check if the target is punctuation or a number and change the replacers array if so
+function getReplacers(showBlank, targetCharacter) {
+  if (showBlank) return ["_"];
+  return punctuationMarks.includes(targetCharacter)
+    ? punctuationMarks
+    : numbers.includes(targetCharacter)
+    ? numbers
+    : alphabet;
+}
+
+function getReplacement(replacers, character) {
+  let replacement = character;
+  while (replacement === character) {
+    const replacementIdx = getRandoNum(replacers.length - 1);
+    replacement = replacers[replacementIdx];
   }
-  return replacer;
+  return replacement;
 }
