@@ -1436,7 +1436,7 @@ export default [
       title: "What's Missing",
       skills: ["Writing", "Reading", "Speaking"],
       dataUsed: ["Vocabulary"],
-      description: "Grammar Memory Game",
+      description: "Vocabulary Memory Game",
       attachments: false,
       audio: false,
       completed: true,
@@ -1451,7 +1451,7 @@ export default [
       { key: "Left-Click", description: "Next slide" },
       { key: ["Space", "Enter"], description: "Refresh the game" },
       { key: "1-3", description: "Change the number of missing words (default: 1)" },
-      { key: "4-9", description: "Change the number of starting words (default: 6)" },
+      { key: "4-9", description: "Change the number of total words (default: 6)" },
     ],
     instructions: {
       forTeachers: {
