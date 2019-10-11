@@ -1,28 +1,38 @@
 .whats-missing-container {
-  height:100vh;
-  width:100%;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
 }
 
 .whats-missing-card {
-  height: 30vh;
-  width: 30.5vw;
-  margin: 1.5vh 1vw;
+  height: 25vh;
+  width: 25vw;
+  margin: 2.5vh 2.5vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-shadow: 1px 1px 2px #403a3a;
-  transform: rotate(-23deg);
-  transition: transform 0.3s;
-
+  text-shadow: 1px 1px 3px #171717;
+  overflow: hidden;
 }
 
-.hi {
-  width:100%;
-  height:100%;
+.whats-missing-text {
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* transform: rotate(23deg); */
+  height: 60vh;
+  top: 20vh;
+  width: 75vw;
+  left: 12.5vw;
+  border-radius: 35%;
+  color: #fff;
+  background-color: rgb(21, 255, 0);
+  box-shadow: 0 0 12px 4px rgb(9, 115, 0);
+}
+
+.whats-missing-text span {
+  text-shadow: 1px 1px 5px rgb(9, 115, 0);
 }

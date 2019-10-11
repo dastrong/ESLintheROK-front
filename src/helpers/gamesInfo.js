@@ -1436,7 +1436,7 @@ export default [
       title: "What's Missing",
       skills: ["Writing", "Reading", "Speaking"],
       dataUsed: ["Vocabulary"],
-      description: "Grammar Game",
+      description: "Grammar Memory Game",
       attachments: false,
       audio: false,
       completed: true,
@@ -1448,45 +1448,31 @@ export default [
       },
     },
     keyCuts: [
-      {
-        key: "Left-Click (on '... Mistake' Header)",
-        description: "Shows the next mistake",
-      },
-      {
-        key: "Left-Click (on a page hole)",
-        description: "Shows the Nth mistake",
-      },
-      {
-        key: ["Space", "Enter", "Left-Click (on 'New ...' Header)"],
-        description: "Refresh the game and get next vocabulary/expression",
-      },
-      {
-        key: ["Left-Arrow", "Scroll Down"],
-        description: "Refresh the game and use vocabulary",
-      },
-      {
-        key: ["Right-Arrow", "Scroll Up"],
-        description: "Refresh the game and use expressions",
-      },
-      { key: "1-9", description: "Change the maximum number of mistakes (default: 1)" },
-      { key: "a", description: "Change where mistakes happen; anywhere (default)" },
-      {
-        key: "s",
-        description: "Change where mistakes happen; start of the word",
-      },
-      {
-        key: "m",
-        description: "Change where mistakes happen; middle of the word",
-      },
-      { key: "e", description: "Change where mistakes happen; end of the word" },
+      { key: "Left-Click", description: "Next slide" },
+      { key: ["Space", "Enter"], description: "Refresh the game" },
+      { key: "1-3", description: "Change the number of missing words (default: 1)" },
+      { key: "4-9", description: "Change the number of starting words (default: 6)" },
     ],
     instructions: {
       forTeachers: {
-        english: ["Coming Soon..."],
+        english: [
+          "Show your students how many words will go missing",
+          "Show them all the words",
+          "Give them a couple seconds to try to memorize all the words",
+          "Click again to take away some words",
+          "Have students put their hands up to guess what's missing",
+          "Reward students when they're correct",
+          "For lower level classes, start with less words",
+          "For higher level classes, try 7-9 words with 3 missing",
+        ],
         korean: ["Coming Soon..."],
       },
       forStudents: {
-        english: ["Coming Soon..."],
+        english: [
+          "Look at the screen",
+          "Try to memorize all the words",
+          "Figure out what words went missing",
+        ],
         korean: ["Coming Soon..."],
       },
     },
