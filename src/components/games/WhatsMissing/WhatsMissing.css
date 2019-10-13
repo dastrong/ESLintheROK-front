@@ -5,6 +5,7 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  user-select: none;
 }
 
 .whats-missing-card {

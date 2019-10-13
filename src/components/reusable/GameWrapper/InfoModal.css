@@ -1,7 +1,9 @@
 i.link.icon.info-modal-icon {
   position: absolute;
-  top: 5px;
-  right: 0;
+  height: 56px;
+  width: 56px;
+  top: 15px;
+  right: 15px;
   z-index: 100;
   color: #14027b;
   transition: 0.5s all;

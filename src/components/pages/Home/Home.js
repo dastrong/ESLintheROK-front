@@ -6,7 +6,7 @@ import { useStore } from "store";
 import "./Home.css";
 
 const flagImgURL =
-  "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,w_400/v1535538943/TeacherSite/Flag_Icon.svg";
+  "https://res.cloudinary.com/dastrong/image/upload/v1535538943/TeacherSite/Flag_Icon.svg";
 
 const PageLink = ({ pathname, set, text, children }) => (
   <Link

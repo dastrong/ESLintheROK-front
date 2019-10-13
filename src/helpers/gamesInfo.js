@@ -16,7 +16,9 @@ import SpeedWriter from "@Game/SpeedWriter";
 import SleepingBears from "@Game/SleepingBears";
 import MissingLetter from "@Game/MissingLetter";
 import FixTheMistake from "@Game/FixTheMistake";
-import WhatsMissing from "@Game/WhatsMissing/WhatsMissing";
+import WhatsMissing from "@Game/WhatsMissing";
+
+const baseURL = "https://res.cloudinary.com/dastrong/image/upload";
 
 export default [
   {
@@ -30,15 +32,10 @@ export default [
       skills: ["Reading", "Speaking"],
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Last Student Standing Game",
+      image: `${baseURL}/v1570941137/TeacherSite/Games/Elimination.svg`,
       attachments: false,
       audio: true,
       completed: true,
-      images: {
-        bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Elimination.png",
-        topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Elimination.png",
-      },
     },
     keyCuts: [
       { key: "Left-Click", description: "Spin a block" },
@@ -109,15 +106,10 @@ export default [
       skills: ["Reading", "Speaking"],
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Find the Hidden Item",
+      image: `${baseURL}/v1570941133/TeacherSite/Games/Whats_Behind.svg`,
       attachments: false,
       audio: false,
       completed: true,
-      images: {
-        bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/What_s_Behind.png",
-        topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/What_s_Behind.png",
-      },
     },
     keyCuts: [
       { key: "Left-Click", description: "Spin a block" },
@@ -177,15 +169,10 @@ export default [
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Most Stars Wins",
       attachURL: "https://pdfhost.io/v/Gx02X0gIh_Stars_Gamepdf.pdf",
+      image: `${baseURL}/v1570941133/TeacherSite/Games/Stars.svg`,
       attachments: true,
       audio: false,
       completed: true,
-      images: {
-        bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Stars.png",
-        topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Stars.png",
-      },
     },
     keyCuts: [
       { key: "Left-Click", description: "Spin a block" },
@@ -258,15 +245,10 @@ export default [
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Most Points Wins",
       attachURL: "https://pdfhost.io/v/z9IV0yVsd_Lotto_Game_Bothpdf.pdf",
+      image: `${baseURL}/v1570941135/TeacherSite/Games/Word_Lotto.svg`,
       attachments: true,
       audio: false,
       completed: true,
-      images: {
-        bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Lotto.png",
-        topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Lotto.png",
-      },
     },
     keyCuts: [
       { key: "Left-Click", description: "Starts the game" },
@@ -340,15 +322,10 @@ export default [
       skills: ["Reading", "Speaking", "Listening"],
       dataUsed: ["Expressions"],
       description: "Popular Review Activity",
+      image: `${baseURL}/v1570941137/TeacherSite/Games/Sparkle_Die.svg`,
       attachments: false,
       audio: false,
       completed: true,
-      images: {
-        bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Sparkle_Die.png",
-        topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Sparkle_Die.png",
-      },
     },
     keyCuts: [
       { key: "Left-Click", description: "Refresh the game or pause the timer" },
@@ -432,15 +409,10 @@ export default [
       dataUsed: ["Vocabulary"],
       description: "Word Puzzle Solving Game",
       attachURL: "https://pdfhost.io/v/9E@A@KTzx_Lined_Paper_No_Line_Numberspdf.pdf",
+      image: `${baseURL}/v1570941135/TeacherSite/Games/Letter_Bowling.svg`,
       attachments: true,
       audio: false,
       completed: true,
-      images: {
-        bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Letter_Bowling.png",
-        topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Letter_Bowling.png",
-      },
     },
     keyCuts: [
       { key: "Left-Click", description: "Reveal the answer (by clicking the ???)" },
@@ -510,15 +482,10 @@ export default [
       skills: ["Reading", "Speaking"],
       dataUsed: ["Expressions"],
       description: "Baskin Robbins 31 Variation",
+      image: `${baseURL}/v1570941137/TeacherSite/Games/Kimchi.svg`,
       attachments: false,
       audio: false,
       completed: true,
-      images: {
-        bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Kimchi.png",
-        topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Kimchi.png",
-      },
     },
     keyCuts: [
       { key: "Left-Click", description: "Next slide" },
@@ -612,15 +579,10 @@ export default [
       skills: ["Speaking"],
       dataUsed: ["Vocabulary"],
       description: "9 Card Monte",
+      image: `${baseURL}/v1570941138/TeacherSite/Games/Chase_The_Vocab.svg`,
       attachments: false,
       audio: false,
       completed: true,
-      images: {
-        bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Chase_the_Vocab.png",
-        topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Chase_the_Vocab.png",
-      },
     },
     keyCuts: [
       { key: "Left-Click", description: "Start the moving animation" },
@@ -690,15 +652,10 @@ export default [
       dataUsed: ["Vocabulary"],
       description: "Slap the Correct Color",
       attachURL: "https://pdfhost.io/v/xklBo05Di_Red_and_Bluepdf.pdf",
+      image: `${baseURL}/v1570941135/TeacherSite/Games/Red_and_Blue.svg`,
       attachments: true,
       audio: false,
       completed: true,
-      images: {
-        bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Red_and_Blue.png",
-        topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Red_and_Blue.png",
-      },
     },
     keyCuts: [
       {
@@ -780,15 +737,10 @@ export default [
       skills: ["Speaking", "Reading"],
       dataUsed: ["Vocabulary, Expressions"],
       description: "Pass the Ball Variation",
+      image: `${baseURL}/v1570941136/TeacherSite/Games/Hot_Potato.svg`,
       attachments: false,
       audio: true,
       completed: true,
-      images: {
-        bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Hot_Potato.png",
-        topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Hot_Potato.png",
-      },
     },
     keyCuts: [
       { key: "Left-Click", description: "Start/stop the music" },
@@ -852,15 +804,10 @@ export default [
       skills: ["Speaking", "Reading"],
       dataUsed: ["Expressions"],
       description: "Stand Up and Speak",
+      image: `${baseURL}/v1570941134/TeacherSite/Games/Nunchi.svg`,
       attachments: false,
       audio: false,
       completed: true,
-      images: {
-        bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Nunchi.png",
-        topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Nunchi.png",
-      },
     },
     keyCuts: [
       {
@@ -931,15 +878,10 @@ export default [
       skills: ["Reading", "Speaking"],
       dataUsed: ["Vocabulary"],
       description: "Find All The Pairs",
+      image: `${baseURL}/v1570941133/TeacherSite/Games/Matching.svg`,
       attachments: false,
       audio: false,
       completed: true,
-      images: {
-        bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Matching.png",
-        topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/Matching.png",
-      },
     },
     keyCuts: [
       { key: "Left-Click", description: "Show the word" },
@@ -1004,15 +946,10 @@ export default [
       dataUsed: ["Vocabulary", "Expressions"],
       description: "4 Corners Survival Game",
       attachURL: "https://pdfhost.io/v/y1FuhSr2u_Battleground_PUBGpdf.pdf",
+      image: `${baseURL}/v1570941140/TeacherSite/Games/PUBG_4_Corners.svg`,
       attachments: true,
       audio: true,
       completed: true,
-      images: {
-        bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/PUBG_4_Corners.png",
-        topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1536487966/TeacherSite/Games/TextOnTop/PUBG_4_Corners.png",
-      },
     },
     keyCuts: [
       { key: "Left-Click", description: "Starts the timer or shows the items" },
@@ -1079,15 +1016,10 @@ export default [
       skills: ["Reading", "Speaking"],
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Duel Reading Game",
+      image: `${baseURL}/v1570941366/TeacherSite/Games/Cowboy.svg`,
       attachments: false,
       audio: true,
       completed: true,
-      images: {
-        bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Cowboy_Game.png",
-        topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1567148144/TeacherSite/Games/TextOnTop/Cowboy_Game.png",
-      },
     },
     keyCuts: [
       {
@@ -1142,15 +1074,10 @@ export default [
       skills: ["Writing", "Reading"],
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Up Tempo Writing Game",
+      image: `${baseURL}/v1570941139/TeacherSite/Games/Speed_Writer.svg`,
       attachments: false,
       audio: true,
       completed: true,
-      images: {
-        bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Speed_Writer.png",
-        topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1567148144/TeacherSite/Games/TextOnTop/Speed_Writer.png",
-      },
     },
     keyCuts: [
       {
@@ -1211,15 +1138,10 @@ export default [
       skills: ["Writing", "Reading", "Speaking", "Listening"],
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Teamwork Activity",
+      image: `${baseURL}/v1570941140/TeacherSite/Games/Sleeping_Bears.svg`,
       attachments: false,
       audio: false,
       completed: true,
-      images: {
-        bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Sleeping_Bears.png",
-        topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1567148144/TeacherSite/Games/TextOnTop/Sleeping_Bears.png",
-      },
     },
     keyCuts: [
       {
@@ -1289,15 +1211,10 @@ export default [
       skills: ["Writing", "Reading", "Speaking", "Listening"],
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Letter Recognition Game",
+      image: `${baseURL}/v1570941133/TeacherSite/Games/Missing_Letter.svg`,
       attachments: false,
       audio: false,
       completed: true,
-      images: {
-        bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Missing_Letter.png",
-        topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1567148144/TeacherSite/Games/TextOnTop/Missing_Letter.png",
-      },
     },
     keyCuts: [
       {
@@ -1365,15 +1282,10 @@ export default [
       skills: ["Writing", "Reading", "Speaking", "Listening"],
       dataUsed: ["Vocabulary", "Expressions"],
       description: "Grammar Game",
+      image: `${baseURL}/v1570941137/TeacherSite/Games/Fix_The_Mistake.svg`,
       attachments: false,
       audio: false,
       completed: true,
-      images: {
-        bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/Fix_The_Mistake.png",
-        topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1567148144/TeacherSite/Games/TextOnTop/Fix_The_Mistake.png",
-      },
     },
     keyCuts: [
       {
@@ -1437,15 +1349,10 @@ export default [
       skills: ["Writing", "Reading", "Speaking"],
       dataUsed: ["Vocabulary"],
       description: "Vocabulary Memory Game",
+      image: `${baseURL}/v1570941133/TeacherSite/Games/Whats_Missing.svg`,
       attachments: false,
       audio: false,
       completed: true,
-      images: {
-        bottomText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_385/v1536487966/TeacherSite/Games/TextOnBottom/What_s_Missing.png",
-        topText:
-          "https://res.cloudinary.com/dastrong/image/upload/c_scale,f_auto,q_auto:low,w_700/v1567148144/TeacherSite/Games/TextOnTop/What_s_Missing.png",
-      },
     },
     keyCuts: [
       { key: "Left-Click", description: "Next slide" },

@@ -109,8 +109,8 @@ export default function InstructionsPage({ isGameReady, gameInfo, options }) {
         />
       </div>
 
-      <img src={info.images.topText} alt={info.title} />
-      <img src={info.images.topText} alt={info.title} />
+      <img src={info.image} alt={info.title} />
+      <img src={info.image} alt={info.title} />
     </div>
   );
 }

@@ -15,6 +15,7 @@ export default ({ isBack, location, children }) => {
 
   return (
     <TransitionGroup
+      component={null}
       // updates exit classes so animations are correct
       childFactory={childFactoryCreator({ ...transitionVals })}
     >

@@ -3,8 +3,9 @@ import InfoModal from "./InfoModal";
 import { useStore } from "store";
 
 export default function WithStoreAndInfo({ children, gameInfo, path }) {
-  const { keyCuts, info } = gameInfo;
-  const { attachments, attachURL, title, images } = info;
+  const { keyCuts, info, router } = gameInfo;
+  const { icon } = router;
+  const { attachments, attachURL, title, image } = info;
 
   const [store, dispatch] = useStore();
   const {
@@ -17,16 +18,11 @@ export default function WithStoreAndInfo({ children, gameInfo, path }) {
     showDataModal,
   } = store;
 
+  const isMenuOpen = showSideBar || showDataModal;
+
   const childProps = path.includes("/play")
-    ? {
-        title,
-        font,
-        vocabulary,
-        expressions,
-        colors,
-        isMenuOpen: showSideBar || showDataModal,
-      }
-    : { title, font, isGameReady, path, image: images.topText };
+    ? { title, font, isMenuOpen, vocabulary, expressions, colors }
+    : { title, font, isGameReady, path, image, icon };
 
   const child = cloneElement(children, childProps);
 

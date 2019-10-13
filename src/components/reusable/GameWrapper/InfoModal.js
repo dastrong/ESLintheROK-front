@@ -4,6 +4,8 @@ import { Header, Icon, Modal, Popup, Dropdown } from "semantic-ui-react";
 import fonts from "helpers/fonts";
 import "./InfoModal.css";
 
+const inGameStyles = { top: "5px", right: "5px" };
+
 const HotKeys = ({ keyCuts }) =>
   keyCuts.map((x, i) => (
     <div className="info-modal-item" key={i}>
@@ -25,6 +27,8 @@ export default function InfoModal(props) {
   const { font, dispatch, opacity, path, keyCuts, title, attachments, attachURL } = props;
   const [isOpen, setIsOpen] = useState(false);
 
+  const extraStyles = path.includes("/play") ? inGameStyles : null;
+
   function handleClick() {
     ReactGA.event({
       category: "Modal",
@@ -41,7 +45,7 @@ export default function InfoModal(props) {
       size="huge"
       name="help circle"
       onClick={handleClick}
-      style={{ opacity: opacity }}
+      style={{ opacity, ...extraStyles }}
     />
   );
   const opener = !opacity ? (
@@ -62,12 +66,12 @@ export default function InfoModal(props) {
         </Fragment>
       }
       position="bottom right"
-      offset={-13}
+      offset={-8}
     />
   );
 
   return (
-    <div>
+    <>
       {opener}
       <Modal
         open={isOpen}
@@ -102,6 +106,6 @@ export default function InfoModal(props) {
           </div>
         </Modal.Content>
       </Modal>
-    </div>
+    </>
   );
 }

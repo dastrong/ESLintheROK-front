@@ -5,6 +5,7 @@ import gamesInfo from "helpers/gamesInfo";
 import { useStore } from "store";
 import "./SideBar.css";
 
+const pagesWithoutStyles = ["/teacher", "/student", "/play"];
 const withoutPageHeaderStyles = {
   top: "5px",
   left: "5px",
@@ -18,7 +19,9 @@ export default withRouter(function SideBar({ location }) {
   const { pathname } = location;
   // moves the menu icon depending on if a page header is show
   // and makes the icon invisible during game play
-  const withoutPageHeader = pathname.includes("/game/") ? withoutPageHeaderStyles : null;
+  const extraBtnStyles = pagesWithoutStyles.some(page => pathname.includes(page))
+    ? withoutPageHeaderStyles
+    : null;
   const opacity = pathname.includes("/play") ? 0 : 1;
 
   function openAndClose(e, { name }) {
@@ -35,7 +38,7 @@ export default withRouter(function SideBar({ location }) {
         icon="list"
         size="massive"
         onClick={() => dispatch({ type: "openSideBar" })}
-        style={{ opacity, ...withoutPageHeader }}
+        style={{ opacity, ...extraBtnStyles }}
       />
       <Sidebar
         as={Menu}
