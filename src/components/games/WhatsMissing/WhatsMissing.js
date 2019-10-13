@@ -101,7 +101,7 @@ export default function WhatsMissing(props) {
         if (!keyNum) return;
         if (keyNum <= 3) {
           // 1-3 changes the number of missing
-          dispatch({ type: "Change_NumOfMissin4g", numOfMissing: keyNum });
+          dispatch({ type: "Change_NumOfMissing", numOfMissing: keyNum });
         } else {
           // 4-9 changes the number of words allowed
           dispatch({ type: "Change_NumOfWords", numOfWords: keyNum });
