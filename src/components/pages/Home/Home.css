@@ -4,6 +4,9 @@
   justify-content: center;
   height: 100vh;
 }
+.mainpage-container map {
+  cursor: pointer;
+}
 #ying-yang {
   height: 400px;
   width: 400px;
