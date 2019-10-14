@@ -48,7 +48,7 @@ export default [
         key: ["Right-Arrow", "Scroll Up"],
         description: "Refresh the game and use expressions",
       },
-      { key: "1-5", description: "Change of the nuber   's (: 1): 3)" },
+      { key: "1-5", description: "Change the number of X's (default: 3)" },
     ],
     instructions: {
       forTeachers: {
