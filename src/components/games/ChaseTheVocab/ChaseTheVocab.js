@@ -91,21 +91,19 @@ export default function ChaseTheVocab(props) {
 
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
-    ({ keyCode, code, key }) => {
+    ({ key }) => {
       // c was clicked; change the cards background color
-      if (keyCode === 67) {
+      if (key === "c" || key === "C") {
         const colorIdx = color < colors.length - 1 ? color + 1 : 0;
         return dispatch({ type: "Change_Color", color: colorIdx });
       }
       // a number key was clicked; change difficulty
-      if (code.includes("Digit")) {
-        const keyNum = Number(key);
-        if (!keyNum) return;
-        const shuffBuffer = __changeDelay(keyNum);
-        const shuffRounds = __changeRound(keyNum);
-        const shuffDuration = __changeSpeed(keyNum);
-        dispatch({ type: "Change_Settings", shuffBuffer, shuffDuration, shuffRounds });
-      }
+      const keyNum = Number(key);
+      if (!keyNum) return;
+      const shuffBuffer = __changeDelay(keyNum);
+      const shuffRounds = __changeRound(keyNum);
+      const shuffDuration = __changeSpeed(keyNum);
+      dispatch({ type: "Change_Settings", shuffBuffer, shuffDuration, shuffRounds });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [dispatch, color]

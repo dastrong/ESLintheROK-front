@@ -65,9 +65,10 @@ export default function Cowboy(props) {
 
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
-    ({ keyCode }) => {
-      if (keyCode === 37) return dispatch({ type: "Change_isVocab", isVocab: true });
-      if (keyCode === 39) return dispatch({ type: "Change_isVocab", isVocab: false });
+    ({ key }) => {
+      if (key === "ArrowLeft") return dispatch({ type: "Change_isVocab", isVocab: true });
+      if (key === "ArrowRight")
+        return dispatch({ type: "Change_isVocab", isVocab: false });
     },
     [dispatch]
   );

@@ -82,14 +82,14 @@ export default function Bowling(props) {
 
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
-    ({ keyCode }) => {
-      if (keyCode === 39) {
-        if (rounds === 5) return;
-        return dispatch({ type: "Change_Rounds", rounds: rounds + 1 });
-      }
-      if (keyCode === 37) {
+    ({ key }) => {
+      if (key === "ArrowLeft") {
         if (rounds === 1) return;
         return dispatch({ type: "Change_Rounds", rounds: rounds - 1 });
+      }
+      if (key === "ArrowRight") {
+        if (rounds === 5) return;
+        return dispatch({ type: "Change_Rounds", rounds: rounds + 1 });
       }
     },
     [dispatch, rounds]

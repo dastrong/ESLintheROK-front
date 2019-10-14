@@ -129,14 +129,14 @@ export default function SpeedWriter(props) {
 
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
-    ({ keyCode, code, key }) => {
-      if (keyCode === 37) return dispatch({ type: "Change_isVocab", isVocab: true });
-      if (keyCode === 39) return dispatch({ type: "Change_isVocab", isVocab: false });
-      if (code.includes("Digit")) {
-        const keyNum = Number(key);
-        const level = keyNum ? keyNum : 10; // if keyNum is 0, turn into 10
-        dispatch({ type: "Level_Change", level });
-      }
+    ({ key }) => {
+      if (key === "ArrowLeft") return dispatch({ type: "Change_isVocab", isVocab: true });
+      if (key === "ArrowRight")
+        return dispatch({ type: "Change_isVocab", isVocab: false });
+      const keyNum = Number(key);
+      const level = keyNum !== 0 ? keyNum : 10; // if keyNum is 0, turn into 10
+      if (!level) return;
+      dispatch({ type: "Level_Change", level });
     },
     [dispatch]
   );

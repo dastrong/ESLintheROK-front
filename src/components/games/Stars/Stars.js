@@ -70,11 +70,12 @@ export default function Stars(props) {
 
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
-    ({ keyCode, code, key }) => {
-      if (keyCode === 37) return dispatch({ type: "Change_isVocab", isVocab: true });
-      if (keyCode === 39) return dispatch({ type: "Change_isVocab", isVocab: false });
-      if (!code.includes("Digit")) return;
+    ({ key }) => {
+      if (key === "ArrowLeft") return dispatch({ type: "Change_isVocab", isVocab: true });
+      if (key === "ArrowRight")
+        return dispatch({ type: "Change_isVocab", isVocab: false });
       const min = Number(key);
+      if (!min && min !== 0) return;
       dispatch({ type: "Change_Min_Stars", min });
     },
     [dispatch]

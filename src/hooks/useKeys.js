@@ -6,7 +6,7 @@ export default function useKeys(isMenuOpen, handleGame, cb) {
   const handleKeys = useCallback(
     e => {
       if (isMenuOpen) return;
-      if (e.keyCode === 32 || e.keyCode === 13) return handleGame();
+      if (e.code === "Space" || e.key === "Enter") return handleGame();
       if (!cb) return;
       cb(e);
     },

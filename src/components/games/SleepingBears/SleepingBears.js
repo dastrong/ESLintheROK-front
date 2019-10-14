@@ -72,14 +72,14 @@ export default function SleepingBears(props) {
 
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
-    ({ keyCode, code, key }) => {
-      if (keyCode === 37) return dispatch({ type: "Change_isVocab", isVocab: true });
-      if (keyCode === 39) return dispatch({ type: "Change_isVocab", isVocab: false });
-      if (code.includes("Digit")) {
-        const keyNum = Number(key);
-        if (keyNum < 2 || keyNum > 4) return;
-        dispatch({ type: "Box_Num_Change", boxes: keyNum });
-      }
+    ({ key }) => {
+      if (key === "ArrowLeft") return dispatch({ type: "Change_isVocab", isVocab: true });
+      if (key === "ArrowRight")
+        return dispatch({ type: "Change_isVocab", isVocab: false });
+      const keyNum = Number(key);
+      if (!keyNum) return;
+      if (keyNum < 2 || keyNum > 4) return;
+      dispatch({ type: "Box_Num_Change", boxes: keyNum });
     },
     [dispatch]
   );

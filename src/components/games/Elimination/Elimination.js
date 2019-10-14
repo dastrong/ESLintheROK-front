@@ -85,12 +85,11 @@ export default function Elimination(props) {
 
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
-    ({ keyCode, code, key }) => {
-      if (keyCode === 37) return dispatch({ type: "Change_isVocab", isVocab: true });
-      if (keyCode === 39) return dispatch({ type: "Change_isVocab", isVocab: false });
-      if (code.includes("Digit")) {
-        dispatch({ type: "xCount_Changed", xCount: Number(key) });
-      }
+    ({ key }) => {
+      if (key === "ArrowLeft") return dispatch({ type: "Change_isVocab", isVocab: true });
+      if (key === "ArrowRight")
+        return dispatch({ type: "Change_isVocab", isVocab: false });
+      dispatch({ type: "xCount_Changed", xCount: Number(key) });
     },
     [dispatch]
   );

@@ -126,19 +126,24 @@ export default function Notebook(props) {
 
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
-    ({ keyCode, code, key }) => {
-      if (keyCode === 37) return dispatch({ type: "Change_isVocab", isVocab: true });
-      if (keyCode === 39) return dispatch({ type: "Change_isVocab", isVocab: false });
-      if (keyCode === 65) return dispatch({ type: "Change_Position", position: "any" });
-      if (keyCode === 83) return dispatch({ type: "Change_Position", position: "start" });
-      if (keyCode === 77)
+    ({ code, key }) => {
+      if (key === "ArrowLeft") return dispatch({ type: "Change_isVocab", isVocab: true });
+      if (key === "ArrowRight")
+        return dispatch({ type: "Change_isVocab", isVocab: false });
+
+      const keyClicked = key.toLowerCase();
+      if (keyClicked === "a")
+        return dispatch({ type: "Change_Position", position: "any" });
+      if (keyClicked === "s")
+        return dispatch({ type: "Change_Position", position: "start" });
+      if (keyClicked === "m")
         return dispatch({ type: "Change_Position", position: "middle" });
-      if (keyCode === 69) return dispatch({ type: "Change_Position", position: "end" });
-      if (code.includes("Digit")) {
-        const keyNum = Number(key);
-        if (!keyNum) return;
-        dispatch({ type: "Change_Max", maxEdits: keyNum });
-      }
+      if (keyClicked === "e")
+        return dispatch({ type: "Change_Position", position: "end" });
+
+      const keyNum = Number(key);
+      if (!keyNum) return;
+      dispatch({ type: "Change_Max", maxEdits: keyNum });
     },
     [dispatch]
   );

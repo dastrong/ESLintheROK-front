@@ -71,9 +71,9 @@ export default function Kimchi(props) {
 
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
-    ({ keyCode }) => {
-      if (keyCode === 39) return __increaseFreq(dispatch, freq);
-      if (keyCode === 37) return __decreaseFreq(dispatch, freq);
+    ({ key }) => {
+      if (key === "ArrowLeft") return __decreaseFreq(dispatch, freq);
+      if (key === "ArrowRight") return __increaseFreq(dispatch, freq);
     },
     [dispatch, freq]
   );

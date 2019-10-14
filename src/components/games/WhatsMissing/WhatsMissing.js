@@ -95,17 +95,15 @@ export default function WhatsMissing(props) {
 
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
-    ({ code, key }) => {
-      if (code.includes("Digit")) {
-        const keyNum = Number(key);
-        if (!keyNum) return;
-        if (keyNum <= 3) {
-          // 1-3 changes the number of missing
-          dispatch({ type: "Change_NumOfMissing", numOfMissing: keyNum });
-        } else {
-          // 4-9 changes the number of words allowed
-          dispatch({ type: "Change_NumOfWords", numOfWords: keyNum });
-        }
+    ({ key }) => {
+      const keyNum = Number(key);
+      if (!keyNum) return;
+      if (keyNum <= 3) {
+        // 1-3 changes the number of missing
+        dispatch({ type: "Change_NumOfMissing", numOfMissing: keyNum });
+      } else {
+        // 4-9 changes the number of words allowed
+        dispatch({ type: "Change_NumOfWords", numOfWords: keyNum });
       }
     },
     [dispatch]

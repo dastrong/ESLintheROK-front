@@ -65,9 +65,9 @@ export default function Sparkle(props) {
 
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
-    ({ keyCode }) => {
-      if (keyCode === 39) return __increaseTimer(dispatch, timer);
-      if (keyCode === 37) return __decreaseTimer(dispatch, timer);
+    ({ key }) => {
+      if (key === "ArrowLeft") return __decreaseTimer(dispatch, timer);
+      if (key === "ArrowRight") return __increaseTimer(dispatch, timer);
     },
     [dispatch, timer]
   );

@@ -75,14 +75,13 @@ export default function HotPotato(props) {
 
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
-    ({ keyCode, code, key }) => {
-      if (keyCode === 37) return dispatch({ type: "Change_isVocab", isVocab: true });
-      if (keyCode === 39) return dispatch({ type: "Change_isVocab", isVocab: false });
-      if (code.includes("Digit")) {
-        const num = Number(key);
-        if (!num || num > 3 || !isVocab || num === numOfText) return;
-        dispatch({ type: "Change_NumOfText", numOfText: num });
-      }
+    ({ key }) => {
+      if (key === "ArrowLeft") return dispatch({ type: "Change_isVocab", isVocab: true });
+      if (key === "ArrowRight")
+        return dispatch({ type: "Change_isVocab", isVocab: false });
+      const num = Number(key);
+      if (!num || num > 3 || !isVocab || num === numOfText) return;
+      dispatch({ type: "Change_NumOfText", numOfText: num });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [stage, isVocab, numOfText]

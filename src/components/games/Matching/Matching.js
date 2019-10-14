@@ -80,9 +80,9 @@ export default function Matching(props) {
 
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
-    ({ keyCode }) => {
-      if (keyCode === 37) return __decreaseBoxes(dispatch, settingsNum);
-      if (keyCode === 39) return __increaseBoxes(dispatch, settingsNum);
+    ({ key }) => {
+      if (key === "ArrowLeft") return __decreaseBoxes(dispatch, settingsNum);
+      if (key === "ArrowRight") return __increaseBoxes(dispatch, settingsNum);
     },
     [settingsNum, dispatch]
   );
