@@ -123,8 +123,14 @@ export default function WhatsMissing(props) {
   }, [stage, title]);
 
   // GAME FUNCTIONS HERE
-  const _handleClick = useCallback(() => dispatch({ type: "Change_Stage" }), [dispatch]);
-
+  function _handleClick(){
+    if(stage === stages.length - 1) {
+      handleGame()
+    } else {
+      dispatch({ type: "Change_Stage" });
+    }
+  } 
+  
   // choose the correct set of words
   const words =
     curStage === "SHOW_INFO"
