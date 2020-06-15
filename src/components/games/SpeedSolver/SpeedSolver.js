@@ -16,11 +16,11 @@ import {
   verifyGameData,
 } from "helpers/gameUtils";
 import AnswerBox from "@Reusable/AnswerBox";
-import "./SpeedWriter.css";
+import "./SpeedSolver.css";
 
 // CONSTANT VARIABLES
 const getMediaURL = (type, file, transforms = "") =>
-  `https://res.cloudinary.com/dastrong/${type}/upload${transforms}/TeacherSite/Media/SpeedWriter/${file}`;
+  `https://res.cloudinary.com/dastrong/${type}/upload${transforms}/TeacherSite/Media/SpeedSolver/${file}`;
 // IMAGES URLs
 const BG_blu = getMediaURL("image", "BG_blu.jpg", "/f_auto");
 const BG_pnk = getMediaURL("image", "BG_pnk.jpg", "/f_auto");
@@ -49,7 +49,7 @@ const stages = [
   "SHOW_ANSWER_TEXT",
 ];
 
-const init = data => ({
+const init = (data) => ({
   data: shuffle(data),
   isVocab: true,
   gameData: [],
@@ -78,7 +78,7 @@ function reducer(state, action) {
   }
 }
 
-export default function SpeedWriter(props) {
+export default function SpeedSolver(props) {
   const { title, isMenuOpen, font, vocabulary, expressions } = props;
   useDocumentTitle(`Playing - ${title} - ESL in the ROK`);
   const isFirstRun = useFirstRun();
@@ -144,7 +144,7 @@ export default function SpeedWriter(props) {
 
   // GAME SPECIFIC SCROLL EVENTS
   const scrollCB = useCallback(
-    scrolledUp => dispatch({ type: "Change_isVocab", isVocab: !scrolledUp }),
+    (scrolledUp) => dispatch({ type: "Change_isVocab", isVocab: !scrolledUp }),
     [dispatch]
   );
   useScroll(isMenuOpen, scrollCB);
@@ -160,7 +160,7 @@ export default function SpeedWriter(props) {
   useEffect(() => {
     if (isFirstRun) return;
     // we're gonna reset all audios whenever stage changes
-    const resetAudios = audios.map(audio => audio.reset);
+    const resetAudios = audios.map((audio) => audio.reset);
     __resetSounds(resetAudios);
     if (stage === 1) {
       flyByAud.current.play();
@@ -185,7 +185,7 @@ export default function SpeedWriter(props) {
 
   return (
     <div
-      className="speedwriter-container"
+      className="speedsolver-container"
       onClick={_handleClick}
       style={{ fontFamily: font, backgroundImage }}
     >
@@ -220,7 +220,7 @@ function AnimatedText({ show, text }) {
 
 function Letters({ gameData, level, isVocab }) {
   const [isReverse, setReverse] = useState(false);
-  const toggleReverse = () => setReverse(state => !state);
+  const toggleReverse = () => setReverse((state) => !state);
 
   const [durations, largestDur, styles] = useMemo(() => {
     const [durations, largestDur] = __getDurations(level, gameData.length);
@@ -230,7 +230,7 @@ function Letters({ gameData, level, isVocab }) {
 
   const springs = useSprings(
     gameData.length,
-    durations.map(dur => ({
+    durations.map((dur) => ({
       from: { x: 0 },
       x: 1,
       reverse: isReverse,
@@ -261,7 +261,7 @@ function Letters({ gameData, level, isVocab }) {
 
 // OTHER FUNCTIONS HERE
 function __preloadImgs(images) {
-  images.forEach(src => {
+  images.forEach((src) => {
     let image = new Image();
     image.src = src;
   });
@@ -378,7 +378,10 @@ function __getXandY(max, start, end, level) {
   const range2 = [0, 1];
   const output2 = isNormalDirection ? [start, end] : [end, start];
 
-  return [{ range: range1, output: output1 }, { range: range2, output: output2 }];
+  return [
+    { range: range1, output: output1 },
+    { range: range2, output: output2 },
+  ];
 }
 
 function __getStyles(gameData, level, isVocab) {
@@ -408,5 +411,5 @@ function __getStyles(gameData, level, isVocab) {
 }
 
 function __resetSounds(cbs) {
-  cbs.forEach(cb => cb());
+  cbs.forEach((cb) => cb());
 }

@@ -12,7 +12,7 @@ import Nunchi from "@Game/Nunchi";
 import Matching from "@Game/Matching";
 import BattleGround from "@Game/BattleGround";
 import Cowboy from "@Game/Cowboy";
-import SpeedWriter from "@Game/SpeedWriter";
+import SpeedSolver from "@Game/SpeedSolver";
 import SleepingBears from "@Game/SleepingBears";
 import MissingLetter from "@Game/MissingLetter";
 import FixTheMistake from "@Game/FixTheMistake";
@@ -1110,16 +1110,16 @@ export default [
   },
   {
     router: {
-      path: "/game/speedwriter",
-      component: SpeedWriter,
+      path: "/game/speedsolver",
+      component: SpeedSolver,
       icon: "pencil",
     },
     info: {
-      title: "Speed Writer",
+      title: "Speed Solver",
       skills: ["Writing", "Reading"],
       dataUsed: ["Vocabulary", "Expressions"],
-      description: "Up Tempo Writing Game",
-      image: `${baseURL}/v1570941139/TeacherSite/Games/Speed_Writer.svg`,
+      description: "Teamwork 'Puzzle' Writing Game",
+      image: `${baseURL}/v1570941139/TeacherSite/Games/Speed_Solver.svg`,
       attachments: false,
       audio: true,
       completed: true,

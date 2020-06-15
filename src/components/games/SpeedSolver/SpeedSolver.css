@@ -1,4 +1,4 @@
-.speedwriter-container {
+.speedsolver-container {
   background-position: bottom;
   background-size: cover;
   position: absolute;
@@ -9,7 +9,7 @@
   cursor: pointer;
 }
 
-.speedwriter-container::after {
+.speedsolver-container::after {
   content: "";
   position: absolute;
   height: 100vh;
@@ -18,7 +18,7 @@
   z-index: 1;
 }
 
-.speedwriter-container .animated-text {
+.speedsolver-container .animated-text {
   position: absolute;
   width: 100%;
   top: 37.5vh;
@@ -29,7 +29,7 @@
   z-index: 2;
 }
 
-.speedwriter-container .letter {
+.speedsolver-container .letter {
   position: absolute;
   /* if sizes are changed, update the value in getSideValues  */
   height: 20vh;
