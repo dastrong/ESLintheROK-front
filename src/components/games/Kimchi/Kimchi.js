@@ -14,7 +14,7 @@ import ShowUpdatedSetting from "./ShowUpdatedSetting";
 import FitText from "@Reusable/FitText";
 import "./Kimchi.css";
 
-const init = data => ({
+const init = (data) => ({
   data: shuffle(data),
   text: "",
   showPic: false,
@@ -81,7 +81,7 @@ export default function Kimchi(props) {
 
   // GAME SPECIFIC SCROLL EVENTS
   const scrollCB = useCallback(
-    scrolledUp =>
+    (scrolledUp) =>
       scrolledUp ? __increaseFreq(dispatch, freq) : __decreaseFreq(dispatch, freq),
     [dispatch, freq]
   );
@@ -108,9 +108,9 @@ export default function Kimchi(props) {
       <CSSTransition in={showPic} timeout={0} classNames="kimchiImg">
         {isKimchi ? (
           <img
-            alt="kimchi"
+            alt="kimchi; disable your adblock?"
             className="kim-img"
-            src="https://www.sarang.sg/wp-content/uploads/2015/07/kimchi_im.png"
+            src="https://res.cloudinary.com/dastrong/image/upload/v1570941137/TeacherSite/Games/Kimchi.svg"
           />
         ) : (
           <Emoji className="poo-img" label="poo emoji" symbol="💩" />
