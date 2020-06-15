@@ -28,7 +28,7 @@ const BG_bNr = getMediaURL("image", "BG_bNr.jpg", "/f_auto");
 const BG_rbw = getMediaURL("image", "BG_rbw.jpg", "/f_auto");
 const BG_images = [BG_blu, BG_pnk, BG_bNr, BG_rbw];
 // AUDIO URLs
-const flyByUrl = getMediaURL("video", "flyBy.mp3");
+const flyByUrl = getMediaURL("video", "zoomBy.mp3");
 const level1Url = getMediaURL("video", "level1.mp3");
 const level2Url = getMediaURL("video", "level2.mp3");
 const level3Url = getMediaURL("video", "level3.mp3");
