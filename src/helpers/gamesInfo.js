@@ -17,6 +17,10 @@ import SleepingBears from "@Game/SleepingBears";
 import MissingLetter from "@Game/MissingLetter";
 import FixTheMistake from "@Game/FixTheMistake";
 import WhatsMissing from "@Game/WhatsMissing";
+import WordShark from "@Game/WordShark/WordShark";
+
+import WordSharkImg from "../components/games/WordShark/images/Word_Shark.svg";
+
 
 const baseURL = "https://res.cloudinary.com/dastrong/image/upload";
 
@@ -1441,6 +1445,49 @@ export default [
           "Look at the screen",
           "Try to memorize all the words",
           "Figure out what words went missing",
+        ],
+        korean: ["Coming Soon..."],
+      },
+    },
+  },
+  {
+    router: {
+      path: "/game/wordshark",
+      component: WordShark,
+      icon: "odnoklassniki",
+    },
+    info: {
+      title: "Word Shark",
+      skills: ["Reading", "Speaking"],
+      dataUsed: ["Vocabulary"],
+      description: "Word Guessing Game",
+      // image: `${baseURL}/v1570941133/TeacherSite/Games/Word_Shark.svg`,
+      image: WordSharkImg,
+      attachments: false,
+      audio: false,
+      completed: true,
+    },
+    keyCuts: [
+      { key: "None", description: "No short cut keys for this game, just use your mouse." }
+    ],
+    instructions: {
+      forTeachers: {
+        english: [
+          "This game is similar to Hangman",
+          "Students must guess what the hidden word is by choosing letters",
+          "Lots of ways to use this game, for example:",
+          "Divide the class into two teams",
+          "Let the first team choose a letter",
+          "Then switch teams",
+          "The first team to guess the hidden word is the winner",
+          "Can also be played by the whole class together as a warm up activity",
+        ],
+        korean: ["Coming Soon..."],
+      },
+      forStudents: {
+        english: [
+          "Guess what the missing word is",
+          "Choose a letter to fill in the blanks",
         ],
         korean: ["Coming Soon..."],
       },
