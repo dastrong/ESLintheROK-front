@@ -17,7 +17,7 @@ import SleepingBears from "@Game/SleepingBears";
 import MissingLetter from "@Game/MissingLetter";
 import FixTheMistake from "@Game/FixTheMistake";
 import WhatsMissing from "@Game/WhatsMissing";
-import WordShark from "@Game/WordShark/WordShark";
+import WordShark from "@Game/WordShark";
 
 import WordSharkImg from "../components/games/WordShark/images/Word_Shark.svg";
 
@@ -1468,7 +1468,8 @@ export default [
       completed: true,
     },
     keyCuts: [
-      { key: "None", description: "No short cut keys for this game, just use your mouse." }
+      { key: ["Space", "Enter"], description: "New Round" },
+      { key: "a-z", description: "Choose a letter" },
     ],
     instructions: {
       forTeachers: {
@@ -1478,9 +1479,10 @@ export default [
           "Lots of ways to use this game, for example:",
           "Divide the class into two teams",
           "Let the first team choose a letter",
+          "Click the chosen letter or press the corresponding key",
           "Then switch teams",
           "The first team to guess the hidden word is the winner",
-          "Can also be played by the whole class together as a warm up activity",
+          "Can also be played by the whole class together as a warm up or review activity",
         ],
         korean: ["Coming Soon..."],
       },
