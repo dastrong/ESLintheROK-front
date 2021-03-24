@@ -1,40 +1,56 @@
 {
   "name": "eslintherok",
   "version": "3.0.0",
-  "private": true,
-  "dependencies": {
-    "@craco/craco": "^5.4.0",
-    "bowser": "^2.5.3",
-    "classnames": "^2.2.6",
-    "craco-workbox": "^0.1.0",
-    "react": "^16.9.0",
-    "react-confetti": "^4.0.1",
-    "react-dom": "^16.9.0",
-    "react-flip-move": "^3.0.3",
-    "react-ga": "^2.6.0",
-    "react-router-dom": "^5.0.1",
-    "react-scripts": "^3.1.1",
-    "react-spring": "^8.0.27",
-    "react-transition-group": "^4.2.2",
-    "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.88.0",
-    "typeface-bree-serif": "0.0.72",
-    "typeface-mali": "0.0.63",
-    "typeface-muli": "0.0.71",
-    "typeface-niramit": "0.0.63",
-    "typeface-poppins": "0.0.72",
-    "typeface-quicksand": "0.0.71"
-  },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test --env=jsdom",
-    "eject": "react-scripts eject"
+    "dev": "next dev",
+    "build": "next build",
+    "export": "next export",
+    "analyze": "cross-env BUNDLE_ANALYZE=true next build",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "npm run lint -- --fix",
+    "checkTypes": "tsc --noEmit"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "dependencies": {
+    "@next/bundle-analyzer": "^10.0.9",
+    "classnames": "^2.2.6",
+    "next": "^10.0.9",
+    "react": "^17.0.1",
+    "react-confetti": "^6.0.1",
+    "react-dom": "^17.0.1",
+    "react-flip-move": "^3.0.4",
+    "react-ga": "^3.3.0",
+    "react-spring": "^8.0.27",
+    "react-transition-group": "^4.4.1",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.0.3",
+    "typeface-bree-serif": "1.1.13",
+    "typeface-mali": "1.1.13",
+    "typeface-muli": "1.1.13",
+    "typeface-niramit": "1.1.13",
+    "typeface-poppins": "1.1.13",
+    "typeface-quicksand": "1.1.13"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.35",
+    "@types/react": "^17.0.3",
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.22.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "husky": "^5.2.0",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1",
+    "typescript": "^4.2.3"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "npm run lint:fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
 }
