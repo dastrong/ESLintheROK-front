@@ -25,6 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
         }
 
         /* BUTTON DEFAULTS */
+        .btn,
         button {
           cursor: pointer;
           display: inline-block;
