@@ -11,14 +11,17 @@
     "checkTypes": "tsc --noEmit"
   },
   "dependencies": {
+    "@fontsource/lato": "^4.2.2",
     "@next/bundle-analyzer": "^10.0.9",
     "classnames": "^2.2.6",
     "next": "^10.0.9",
+    "normalize.css": "^8.0.1",
     "react": "^17.0.1",
     "react-confetti": "^6.0.1",
     "react-dom": "^17.0.1",
     "react-flip-move": "^3.0.4",
     "react-ga": "^3.3.0",
+    "react-icons": "^4.2.0",
     "react-spring": "^8.0.27",
     "react-transition-group": "^4.4.1",
     "semantic-ui-css": "^2.4.1",
