@@ -5,7 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "export": "next export",
-    "analyze": "cross-env BUNDLE_ANALYZE=true next build",
+    "analyze": "cross-env ANALYZE=true next build",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
     "checkTypes": "tsc --noEmit"
