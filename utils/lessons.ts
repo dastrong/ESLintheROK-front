@@ -1,17 +1,21 @@
 export function checkForPastLessons() {
-  // grab the last lesson on load
-  const isLastLesson = localStorage.getItem('previousLessonData');
-  const lastLesson = !!isLastLesson && JSON.parse(isLastLesson);
-  // grab the past lessons on load
-  const isPastLessons = localStorage.getItem('lessonData');
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const pastLessons = isPastLessons ? JSON.parse(isPastLessons) : [];
-  // get the last lesson's data
-  const { vocabulary = [], expressions = [] } = lastLesson;
-  // ensure there's enough data available
-  const isDataReady = vocabulary.length >= 9 && expressions.length >= 6;
+  if (typeof window !== 'undefined') {
+    // grab the last lesson on load
+    const isLastLesson = localStorage.getItem('previousLessonData');
+    const lastLesson = !!isLastLesson && JSON.parse(isLastLesson);
+    // grab the past lessons on load
+    const isPastLessons = localStorage.getItem('lessonData');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const pastLessons = isPastLessons ? JSON.parse(isPastLessons) : [];
+    // get the last lesson's data
+    const { vocabulary = [], expressions = [] } = lastLesson;
+    // ensure there's enough data available
+    const isDataReady = vocabulary.length >= 9 && expressions.length >= 6;
 
-  return { vocabulary, expressions, isDataReady };
+    return { vocabulary, expressions, isDataReady };
+  } else {
+    return { vocabulary: [], expressions: [], isDataReady: false };
+  }
 }
 
 // used when user chooses to reuse multiple past lessons
