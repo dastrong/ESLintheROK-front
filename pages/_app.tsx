@@ -1,12 +1,13 @@
 import React from 'react';
 import type { AppProps } from 'next/app';
 import Sidebar from '../components/Sidebar';
+import { StoreProvider } from '../contexts/store';
 import 'normalize.css';
 import '@fontsource/lato';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <StoreProvider>
       <Sidebar />
       <Component {...pageProps} />
 
@@ -112,6 +113,6 @@ export default function App({ Component, pageProps }: AppProps) {
           background: rgba(255, 255, 255, 0.35);
         }
       `}</style>
-    </>
+    </StoreProvider>
   );
 }
