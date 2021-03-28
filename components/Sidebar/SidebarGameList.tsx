@@ -1,5 +1,5 @@
 import React from 'react';
-import SidebarGameListItem from './SidebarGameListItem.';
+import SidebarGameListItem from './SidebarGameListItem';
 import { games } from '../../utils/games';
 
 export default function SidebarGameList() {
