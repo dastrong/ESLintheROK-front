@@ -1,12 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
 import { FaHome, FaTimes, FaBook, FaCogs, FaEdit } from 'react-icons/fa';
+import { useStore } from '../../contexts/store';
 
 export default function SidebarActions({
   setIsOpen,
 }: {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const { storeDispatch } = useStore();
+
   return (
     <div>
       <div className="btns btns_top">
@@ -28,8 +31,7 @@ export default function SidebarActions({
         <button
           className="btn btn_lessons"
           onClick={() => {
-            // custom modal opener
-            // FUNCTION HERE
+            storeDispatch({ type: 'openDataModal', dataModalName: 'lessons' });
             setIsOpen(false);
           }}
         >
@@ -41,8 +43,7 @@ export default function SidebarActions({
         <button
           className="btn btn_custom"
           onClick={() => {
-            // custom modal opener
-            // FUNCTION HERE
+            storeDispatch({ type: 'openDataModal', dataModalName: 'data' });
             setIsOpen(false);
           }}
         >
@@ -54,8 +55,7 @@ export default function SidebarActions({
         <button
           className="btn btn_edit"
           onClick={() => {
-            // custom modal opener
-            // FUNCTION HERE
+            storeDispatch({ type: 'openDataModal', dataModalName: 'dataEdit' });
             setIsOpen(false);
           }}
         >
