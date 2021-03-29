@@ -12,6 +12,27 @@ export default function IndexPage() {
 
   return (
     <div className="mainpage-container">
+      <Link href="/games">
+        <a className="set st-set">
+          <span className="text">GAMES</span>
+          <div />
+          <div className="line_middle" />
+          <div />
+        </a>
+      </Link>
+      <Link href="/contact">
+        <a className="set nd-set">
+          <span className="text">CONTACT</span>
+          <div>
+            <span className="line_white" />
+          </div>
+          <div className="line_middle" />
+          <div>
+            <span className="line_white" />
+          </div>
+        </a>
+      </Link>
+
       <img
         className="ying-yang"
         useMap="#flag-map"
@@ -38,29 +59,6 @@ export default function IndexPage() {
           coords="218,399,256,390,289,377,310,366,329,351,352,329,367,306,377,288,386,268,388,250,385,220,374,192,355,172,335,158,305,147,275,147,249,155,227,170,209,187,190,221,175,236,158,248,130,256,106,259,74,252,53,241,37,227,23,210,16,193,11,172,9,151,11,140,5,163,1,195,3,228,13,266,23,289,39,315,56,336,74,354,96,370,120,381,145,391,181,398"
         />
       </map>
-
-      <Link href="/games">
-        <a className="set st-set">
-          <span className="text">GAMES</span>
-          <div />
-          <div className="line_middle" />
-          <div />
-        </a>
-      </Link>
-
-      <Link href="/contact">
-        <a className="set nd-set">
-          <span className="text">CONTACT</span>
-          <div>
-            <span className="line_white" />
-          </div>
-          <div className="line_middle" />
-          <div>
-            <span className="line_white" />
-          </div>
-        </a>
-      </Link>
-
       <Link href="/faq">
         <a className="set rd-set">
           <span className="text">FAQ</span>
@@ -71,7 +69,6 @@ export default function IndexPage() {
           <div />
         </a>
       </Link>
-
       <Link href="/about">
         <a className="set th-set">
           <span className="text">ABOUT</span>
@@ -86,7 +83,6 @@ export default function IndexPage() {
           </div>
         </a>
       </Link>
-
       <button
         className="btn btn-past-lessons"
         onClick={() => console.log('click - open past lessons modal')}
@@ -101,7 +97,6 @@ export default function IndexPage() {
         No Past Lessons
         {/* {!pastLessons.length && 'No '}Past Lessons */}
       </button>
-
       <a
         className="btn btn-coffee"
         target="_blank"
@@ -114,7 +109,6 @@ export default function IndexPage() {
         />
         Buy me a coffee
       </a>
-
       <style jsx>{`
         .mainpage-container {
           display: flex;
@@ -125,6 +119,10 @@ export default function IndexPage() {
 
         map {
           cursor: pointer;
+        }
+
+        area {
+          outline: 0;
         }
 
         .ying-yang {
