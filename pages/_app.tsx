@@ -1,6 +1,7 @@
 import React from 'react';
 import type { AppProps } from 'next/app';
 import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 import { StoreProvider } from '../contexts/store';
 import 'normalize.css';
 import '@fontsource/lato';
@@ -9,7 +10,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <StoreProvider>
       <Sidebar />
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
 
       <style jsx global>{`
         body {
