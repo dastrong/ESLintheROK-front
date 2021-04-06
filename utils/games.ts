@@ -56,7 +56,7 @@ type GameTypes = {
 
 export const games: GameTypes[] = [
   {
-    path: '/game/elimination',
+    path: 'elimination',
     Icon: FaTimes,
     title: 'Elimination Game',
     skills: ['Reading', 'Speaking'],
@@ -125,7 +125,7 @@ export const games: GameTypes[] = [
     },
   },
   {
-    path: '/game/whatsbehind',
+    path: 'whats_behind',
     Icon: FaBinoculars,
     title: "What's Behind",
     skills: ['Reading', 'Speaking'],
@@ -187,7 +187,7 @@ export const games: GameTypes[] = [
     },
   },
   {
-    path: '/game/stars',
+    path: 'stars',
     Icon: FaStar,
     title: 'Stars Writing Game',
     skills: ['Reading', 'Speaking', 'Writing'],
@@ -258,7 +258,7 @@ export const games: GameTypes[] = [
     },
   },
   {
-    path: '/game/lotto',
+    path: 'lotto',
     Icon: FaWonSign,
     title: 'Word Lotto',
     skills: ['Reading', 'Speaking', 'Writing'],
@@ -331,7 +331,7 @@ export const games: GameTypes[] = [
     },
   },
   {
-    path: '/game/sparkle',
+    path: 'sparkle_die',
     Icon: FaGem,
     title: 'Sparkle Die',
     skills: ['Reading', 'Speaking', 'Listening'],
@@ -412,7 +412,7 @@ export const games: GameTypes[] = [
     },
   },
   {
-    path: '/game/bowling',
+    path: 'bowling',
     Icon: FaBowlingBall,
     title: 'Letter Bowling',
     skills: ['Reading', 'Writing'],
@@ -485,7 +485,7 @@ export const games: GameTypes[] = [
     },
   },
   {
-    path: '/game/kimchi',
+    path: 'kimchi_elimination',
     Icon: FaHeart,
     title: 'Kimchi Elimination',
     skills: ['Reading', 'Speaking'],
@@ -577,7 +577,7 @@ export const games: GameTypes[] = [
     },
   },
   {
-    path: '/game/chase',
+    path: 'chase_the_vocab',
     Icon: FaExchangeAlt,
     title: 'Chase the Vocab',
     skills: ['Speaking'],
@@ -644,7 +644,7 @@ export const games: GameTypes[] = [
     },
   },
   {
-    path: '/game/redblue',
+    path: 'red_and_blue',
     Icon: FaRoad,
     title: 'Red and Blue',
     skills: ['Listening'],
@@ -725,7 +725,7 @@ export const games: GameTypes[] = [
     },
   },
   {
-    path: '/game/hotpotato',
+    path: 'hot_potato',
     Icon: FaPepperHot,
     title: 'Hot Potato',
     skills: ['Speaking', 'Reading'],
@@ -788,7 +788,7 @@ export const games: GameTypes[] = [
     },
   },
   {
-    path: '/game/nunchi',
+    path: 'nunchi',
     Icon: FaCommentDots,
     title: 'Nunchi Game',
     skills: ['Speaking', 'Reading'],
@@ -857,7 +857,7 @@ export const games: GameTypes[] = [
     },
   },
   {
-    path: '/game/match',
+    path: 'match',
     Icon: FaTh,
     title: 'Matching',
     skills: ['Reading', 'Speaking'],
@@ -919,7 +919,7 @@ export const games: GameTypes[] = [
     },
   },
   {
-    path: '/game/battleground',
+    path: 'battleground',
     Icon: FaBomb,
     title: 'Battleground 4 Corners',
     skills: ['Reading', 'Speaking'],
@@ -1013,7 +1013,7 @@ export const games: GameTypes[] = [
     },
   },
   {
-    path: '/game/cowboy',
+    path: 'cowboy',
     Icon: FaHandPointUp,
     title: 'Cowboy Game',
     skills: ['Reading', 'Speaking'],
@@ -1083,7 +1083,7 @@ export const games: GameTypes[] = [
     },
   },
   {
-    path: '/game/speedsolver',
+    path: 'speed_solver',
     Icon: FaPencilAlt,
     title: 'Speed Solver',
     skills: ['Writing', 'Reading'],
@@ -1162,7 +1162,7 @@ export const games: GameTypes[] = [
     },
   },
   {
-    path: '/game/sleepingbears',
+    path: 'sleeping_bears',
     Icon: FaBed,
     title: 'Sleeping Bears',
     skills: ['Writing', 'Reading', 'Speaking', 'Listening'],
@@ -1230,7 +1230,7 @@ export const games: GameTypes[] = [
     },
   },
   {
-    path: '/game/missingletter',
+    path: 'missing_letter',
     Icon: FaFont,
     title: 'Missing Letter',
     skills: ['Writing', 'Reading', 'Speaking', 'Listening'],
@@ -1300,7 +1300,7 @@ export const games: GameTypes[] = [
     },
   },
   {
-    path: '/game/fixthemistake',
+    path: 'fix_the_mistake',
     Icon: FaExclamationTriangle,
     title: 'Fix the Mistake',
     skills: ['Writing', 'Reading', 'Speaking', 'Listening'],
@@ -1371,7 +1371,7 @@ export const games: GameTypes[] = [
     },
   },
   {
-    path: '/game/whatsmissing',
+    path: 'whats_missing',
     Icon: FaSearch,
     title: "What's Missing",
     skills: ['Writing', 'Reading', 'Speaking'],
@@ -1418,7 +1418,7 @@ export const games: GameTypes[] = [
     },
   },
   {
-    path: '/game/wordshark',
+    path: 'word_shark',
     Icon: FaOdnoklassniki,
     title: 'Word Shark',
     skills: ['Reading', 'Speaking'],

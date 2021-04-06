@@ -13,7 +13,7 @@ export default function SidebarGameListItem({
 }) {
   return (
     <li>
-      <Link href={path}>
+      <Link href={`/game/${path}`}>
         <a>
           <Icon
             className="icon"

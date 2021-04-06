@@ -5,13 +5,13 @@ import SidebarActions from './SidebarActions';
 import SidebarOpener from './SidebarOpener';
 
 export default function Sidebar() {
-  const { pathname } = useRouter();
+  const { asPath } = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   // close the menu on route change
   useEffect(() => {
     setIsOpen(false);
-  }, [pathname]);
+  }, [asPath]);
 
   return (
     <>
