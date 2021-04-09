@@ -23,11 +23,15 @@
     "plugin:prettier/recommended"
   ],
   "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
-    "jsx-a11y/anchor-is-valid": ["error", { 
-      "components": ["Link"],
-      "aspects": ["invalidHref"] 
-    }]
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": ["Link"],
+        "aspects": ["invalidHref"]
+      }
+    ]
   }
 }
