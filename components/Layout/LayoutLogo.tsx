@@ -5,19 +5,19 @@ import { animated, useSpring } from 'react-spring';
 
 const config = {
   from: { rotate: 225 },
-  to: { rotate: -1225 },
-  config: { duration: 2000 },
-  delay: 250,
+  to: { rotate: -495 },
+  config: { duration: 250 },
+  delay: 0,
 };
 
 export default function LayoutLogo() {
-  const { pathname } = useRouter();
+  const { asPath } = useRouter();
 
-  const [circleStyles, circleRef] = useSpring(config, [pathname]);
+  const [circleStyles, circleRef] = useSpring(config, [asPath]);
 
   useEffect(() => {
     circleRef.current[0].start(config);
-  }, [pathname]);
+  }, [asPath]);
 
   return (
     <Link href="/">

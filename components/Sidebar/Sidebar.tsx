@@ -33,7 +33,7 @@ export default function Sidebar() {
             overflow-y: auto;
 
             transform: translate3d(${isOpen ? '0%' : '-100%'}, 0, 0);
-            transition: transform 0.5s ease;
+            transition: transform 250ms ease;
           }
         `}</style>
       </div>

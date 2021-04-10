@@ -1,10 +1,10 @@
 import React from 'react';
-// import { useRouter } from 'next/router';
 import Link from 'next/link';
 import LayoutLogo from './LayoutLogo';
+import useNavPageCheck from './useNavPageCheck';
 
 export default function LayoutNav() {
-  // const router = useRouter();
+  const isNavVisible = useNavPageCheck();
 
   return (
     <nav>
@@ -28,6 +28,9 @@ export default function LayoutNav() {
 
       <style jsx>{`
         nav {
+          position: fixed;
+          top: 0;
+          left: 0;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -40,6 +43,11 @@ export default function LayoutNav() {
           background-color: rgb(246, 245, 245);
           box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 7px 0px;
           box-sizing: border-box;
+          z-index: 99;
+          transition: transform 125ms ${isNavVisible ? '0s' : '250ms'};
+
+          /* 110% because we need to account for the box-shadow effect */
+          transform: translateY(${isNavVisible ? 0 : '-110'}%);
         }
 
         a {
@@ -47,7 +55,7 @@ export default function LayoutNav() {
           margin: 1.5rem;
           font-size: 1.1rem;
           text-transform: uppercase;
-          color: rgb(33, 133, 208);
+          color: #565656;
         }
 
         svg {
