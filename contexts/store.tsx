@@ -4,14 +4,14 @@ import { checkForPastLessons } from '../utils/lessons';
 type IsDataReady = boolean;
 type Vocabulary = string[];
 type Expressions = string[];
-type DataModalName = 'lessons' | 'data' | 'dataEdit' | '';
+export type DataModalNameType = 'lessons' | 'custom' | 'edit' | 'past';
 type Font = string;
 
 type StoreTypes = {
   isDataReady: IsDataReady;
   vocabulary: Vocabulary;
   expressions: Expressions;
-  dataModalName: DataModalName;
+  dataModalName: '' | DataModalNameType;
   font: Font;
 };
 
@@ -30,7 +30,7 @@ const initialState = init();
 type ActionTypes =
   | { type: 'setData'; vocabulary: Vocabulary; expressions: Expressions }
   | { type: 'clearData' }
-  | { type: 'openDataModal'; dataModalName: DataModalName }
+  | { type: 'openDataModal'; dataModalName: DataModalNameType }
   | { type: 'closeDataModal' }
   | { type: 'setFont'; font: Font };
 
@@ -44,7 +44,7 @@ const reducer = (state: StoreTypes, action: ActionTypes) => {
     case 'openDataModal':
       return { ...state, ...newVals };
     case 'closeDataModal':
-      return { ...state, dataModalName: '' as DataModalName };
+      return { ...state, dataModalName: '' as DataModalNameType };
     case 'setFont':
       return { ...state, ...newVals };
     default:

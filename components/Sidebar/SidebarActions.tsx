@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { FaHome, FaTimes, FaBook, FaCogs, FaEdit } from 'react-icons/fa';
-import { useStore } from '../../contexts/store';
+import { useStore } from 'contexts/store';
 
 export default function SidebarActions({
   setIsOpen,
@@ -43,7 +43,7 @@ export default function SidebarActions({
         <button
           className="btn btn_custom"
           onClick={() => {
-            storeDispatch({ type: 'openDataModal', dataModalName: 'data' });
+            storeDispatch({ type: 'openDataModal', dataModalName: 'custom' });
             setIsOpen(false);
           }}
         >
@@ -55,7 +55,7 @@ export default function SidebarActions({
         <button
           className="btn btn_edit"
           onClick={() => {
-            storeDispatch({ type: 'openDataModal', dataModalName: 'dataEdit' });
+            storeDispatch({ type: 'openDataModal', dataModalName: 'edit' });
             setIsOpen(false);
           }}
         >

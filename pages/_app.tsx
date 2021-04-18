@@ -2,6 +2,7 @@ import React from 'react';
 import type { AppProps } from 'next/app';
 import Sidebar from '../components/Sidebar';
 import Layout from '../components/Layout';
+import { DataModals } from 'components/Modal(s)';
 import { StoreProvider } from '../contexts/store';
 import 'normalize.css';
 import '@fontsource/lato';
@@ -10,6 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <StoreProvider>
       <Sidebar />
+      <DataModals />
       <Layout>
         <Component {...pageProps} />
       </Layout>
