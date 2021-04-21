@@ -5,7 +5,7 @@ export default function TextArea(
 ) {
   return (
     <>
-      <textarea {...props}>This is a TextArea</textarea>
+      <textarea {...props} />
       <style jsx>{`
         textarea {
           /*  */
