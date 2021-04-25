@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStore } from '../../contexts/store';
+import { useStore } from 'contexts/store';
 
 type GameDataType = string | string[] | number;
 type RefsType = React.RefObject<HTMLSpanElement>[];
@@ -11,7 +11,7 @@ export default function useFitText(
   gameData: GameDataType,
   shouldCalculateSolo = false,
   delayUpdate = false
-) {
+): [React.RefObject<HTMLSpanElement>[], () => void] {
   const { font } = useStore();
   const [isFontLoaded, setFontLoaded] = React.useState(false);
   const [updateMe, triggerTextUpd] = React.useState(0);
@@ -21,7 +21,7 @@ export default function useFitText(
     return Array(getNumberOfRefs(gameData))
       .fill(undefined)
       .map(() => React.createRef<HTMLSpanElement>());
-  }, []);
+  }, [gameData]);
 
   // can be used to trigger a scale adjustment
   const resizeFitText = React.useCallback(() => triggerTextUpd(x => x + 1), []);

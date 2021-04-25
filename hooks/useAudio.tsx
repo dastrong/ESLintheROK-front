@@ -1,7 +1,10 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useCallback, MutableRefObject } from 'react';
 
 // https://reactjs.org/docs/hooks-faq.html#how-to-create-expensive-objects-lazily
-export default function useAudio(url: string, loop = false) {
+export default function useAudio(
+  url: string,
+  loop = false
+): [MutableRefObject<any>, () => void] {
   const audio = useRef(null);
 
   useEffect(() => {

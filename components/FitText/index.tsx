@@ -1,2 +1,2 @@
 export { default } from './FitText';
-export { default as useFitText } from './useFitText';
+export { default as useFitText } from 'hooks/useFitText';
