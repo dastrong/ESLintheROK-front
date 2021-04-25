@@ -11,16 +11,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <LayoutNav visibleNav={visibleNav} />
+      <LayoutNav />
 
       <section>
-        <LayoutContent visibleNav={visibleNav}>{children}</LayoutContent>
+        <LayoutContent>{children}</LayoutContent>
 
         <style jsx>{`
           section {
             position: relative;
-            margin-top: ${visibleNav ? 86 : 0}px;
-            height: calc(100vh - ${visibleNav ? '86px' : 0});
+            height: 100vh;
             width: 100vw;
             top: 0;
             left: 0;

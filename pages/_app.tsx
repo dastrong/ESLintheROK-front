@@ -2,7 +2,9 @@ import React from 'react';
 import type { AppProps } from 'next/app';
 import Sidebar from '../components/Sidebar';
 import Layout from '../components/Layout';
+import { DataModals } from 'components/Modal(s)';
 import { StoreProvider } from '../contexts/store';
+import { globalCSSVariables } from 'utils/theme';
 import 'normalize.css';
 import '@fontsource/lato';
 
@@ -10,25 +12,18 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <StoreProvider>
       <Sidebar />
+      <DataModals />
       <Layout>
         <Component {...pageProps} />
       </Layout>
 
+      {/* CSS Variables */}
+      <style jsx global>
+        {globalCSSVariables}
+      </style>
+
+      {/* BUTTON DEFAULTS */}
       <style jsx global>{`
-        body {
-          font-family: 'Lato';
-        }
-
-        /* CSS VARIABLES */
-        :root {
-          --color-lightblue: #54c8ff;
-          --color-red: #ff695e;
-          --color-green: #2ecc40;
-          --color-yellow: #ffe21f;
-          --color-orange: #ff851b;
-        }
-
-        /* BUTTON DEFAULTS */
         .btn,
         button {
           cursor: pointer;
@@ -47,29 +42,13 @@ export default function App({ Component, pageProps }: AppProps) {
           user-select: none;
           -webkit-tap-highlight-color: transparent;
         }
-        [type='reset'],
-        [type='submit'],
-        button,
-        html [type='button'] {
-          -webkit-appearance: button;
-        }
-        button,
-        select {
-          text-transform: none;
-        }
-        button,
-        input {
-          overflow: visible;
-        }
-        button,
-        input,
-        optgroup,
-        select,
-        textarea {
-          font-family: sans-serif;
-          font-size: 100%;
-          line-height: 1.15;
-          margin: 0;
+      `}</style>
+
+      {/* THE REST */}
+      <style jsx global>{`
+        body {
+          font-family: 'Lato';
+          overflow: hidden;
         }
 
         /* SCROLLBAR */

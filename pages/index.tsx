@@ -1,12 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 import { FaFolderOpen } from 'react-icons/fa';
-import { useStore } from '../contexts/store';
+import { useStore, DataModalNameType } from 'contexts/store';
 
 export default function IndexPage() {
   const { storeDispatch } = useStore();
 
-  function openModal(dataModalName: 'lessons' | 'data') {
+  function openModal(dataModalName: DataModalNameType) {
     storeDispatch({ type: 'openDataModal', dataModalName });
   }
 
@@ -53,8 +53,8 @@ export default function IndexPage() {
           role="button"
           tabIndex={0}
           alt="blue-yang"
-          onKeyDown={() => openModal('data')}
-          onClick={() => openModal('data')}
+          onKeyDown={() => openModal('custom')}
+          onClick={() => openModal('custom')}
           shape="poly"
           coords="218,399,256,390,289,377,310,366,329,351,352,329,367,306,377,288,386,268,388,250,385,220,374,192,355,172,335,158,305,147,275,147,249,155,227,170,209,187,190,221,175,236,158,248,130,256,106,259,74,252,53,241,37,227,23,210,16,193,11,172,9,151,11,140,5,163,1,195,3,228,13,266,23,289,39,315,56,336,74,354,96,370,120,381,145,391,181,398"
         />
@@ -85,7 +85,7 @@ export default function IndexPage() {
       </Link>
       <button
         className="btn btn-past-lessons"
-        onClick={() => console.log('click - open past lessons modal')}
+        onClick={() => openModal('past')}
       >
         <FaFolderOpen
           style={{

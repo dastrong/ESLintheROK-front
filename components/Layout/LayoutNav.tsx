@@ -1,9 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import LayoutLogo from './LayoutLogo';
-import { VisibleNav } from './types';
+import useNavPageCheck from './useNavPageCheck';
 
-export default function LayoutNav({ visibleNav }: { visibleNav: VisibleNav }) {
+export default function LayoutNav() {
+  const isNavVisible = useNavPageCheck();
+
   return (
     <nav>
       <Link href="/games">
@@ -45,6 +47,11 @@ export default function LayoutNav({ visibleNav }: { visibleNav: VisibleNav }) {
           transition: transform 0.5s 0.5s;
           /* we'll overshoot the translate because of our box-shadow */
           transform: translateY(${visibleNav ? 0 : -120}%);
+          z-index: 99;
+          transition: transform 125ms ${visibleNav ? '0s' : '250ms'};
+
+          /* 110% because we need to account for the box-shadow effect */
+          transform: translateY(${visibleNav ? 0 : '-110'}%);
         }
 
         a {
@@ -52,7 +59,11 @@ export default function LayoutNav({ visibleNav }: { visibleNav: VisibleNav }) {
           margin: 1.3rem;
           font-size: 1.1rem;
           text-transform: uppercase;
-          color: #716f6f;
+          color: #565656;
+        }
+
+        svg {
+          margin: 0 1.5rem;
         }
       `}</style>
     </nav>

@@ -43,7 +43,7 @@ export default function SidebarActions() {
           className="btn btn_custom"
           onClick={() => {
             storeDispatch({ type: 'closeSidebar' });
-            storeDispatch({ type: 'openDataModal', dataModalName: 'data' });
+            storeDispatch({ type: 'openDataModal', dataModalName: 'custom' });
           }}
         >
           <FaCogs style={{ fontSize: '2rem', marginBottom: '0.2rem' }} />
@@ -55,7 +55,7 @@ export default function SidebarActions() {
           className="btn btn_edit"
           onClick={() => {
             storeDispatch({ type: 'closeSidebar' });
-            storeDispatch({ type: 'openDataModal', dataModalName: 'dataEdit' });
+            storeDispatch({ type: 'openDataModal', dataModalName: 'edit' });
           }}
         >
           <FaEdit style={{ fontSize: '2rem', marginBottom: '0.2rem' }} />

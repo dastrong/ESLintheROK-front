@@ -4,7 +4,7 @@ import { checkForPastLessons } from '../utils/lessons';
 type IsDataReady = boolean;
 type Vocabulary = string[];
 type Expressions = string[];
-type DataModalName = 'lessons' | 'data' | 'dataEdit' | '';
+export type DataModalNameType = 'lessons' | 'custom' | 'edit' | 'past';
 type Font = string;
 
 type StoreTypes = {
@@ -12,7 +12,7 @@ type StoreTypes = {
   vocabulary: Vocabulary;
   expressions: Expressions;
   isSidebarOpen: boolean;
-  dataModalName: DataModalName;
+  dataModalName: '' | DataModalNameType;
   font: Font;
 };
 
@@ -58,7 +58,7 @@ type ActionTypes =
   | { type: 'clearData' }
   | { type: 'openSidebar' }
   | { type: 'closeSidebar' }
-  | { type: 'openDataModal'; dataModalName: DataModalName }
+  | { type: 'openDataModal'; dataModalName: DataModalNameType }
   | { type: 'closeDataModal' }
   | { type: 'setFont'; font: Font };
 
@@ -76,7 +76,7 @@ const reducer = (state: StoreTypes, action: ActionTypes) => {
     case 'openDataModal':
       return { ...state, ...newVals };
     case 'closeDataModal':
-      return { ...state, dataModalName: '' as DataModalName };
+      return { ...state, dataModalName: '' as DataModalNameType };
     case 'setFont':
       return { ...state, ...newVals };
     default:
