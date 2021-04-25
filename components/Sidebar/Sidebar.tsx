@@ -1,24 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useStore } from 'contexts/store';
+
 import SidebarGameList from './SidebarGameList';
 import SidebarActions from './SidebarActions';
 import SidebarOpener from './SidebarOpener';
 
 export default function Sidebar() {
   const { asPath } = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
+  const { isSidebarOpen, storeDispatch } = useStore();
 
   // close the menu on route change
   useEffect(() => {
-    setIsOpen(false);
+    storeDispatch({ type: 'closeSidebar' });
   }, [asPath]);
 
   return (
     <>
-      <SidebarOpener setIsOpen={setIsOpen} />
+      <SidebarOpener />
       {/* the actual menu */}
       <div>
-        <SidebarActions setIsOpen={setIsOpen} />
+        <SidebarActions />
         <SidebarGameList />
 
         <style jsx>{`
@@ -32,7 +34,7 @@ export default function Sidebar() {
             background-color: rgb(27, 28, 29);
             overflow-y: auto;
 
-            transform: translate3d(${isOpen ? '0%' : '-100%'}, 0, 0);
+            transform: translate3d(${isSidebarOpen ? '0%' : '-100%'}, 0, 0);
             transition: transform 0.5s ease;
           }
         `}</style>

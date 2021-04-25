@@ -1,13 +1,12 @@
 import React from 'react';
 import { FaList } from 'react-icons/fa';
+import { useStore } from 'contexts/store';
 
-export default function SidebarOpener({
-  setIsOpen,
-}: {
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export default function SidebarOpener() {
+  const { storeDispatch } = useStore();
+
   return (
-    <button onClick={() => setIsOpen(true)}>
+    <button onClick={() => storeDispatch({ type: 'openSidebar' })}>
       <FaList style={{ verticalAlign: 'top' }} />
 
       <style jsx>{`

@@ -1,13 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { FaHome, FaTimes, FaBook, FaCogs, FaEdit } from 'react-icons/fa';
-import { useStore } from '../../contexts/store';
+import { useStore } from 'contexts/store';
 
-export default function SidebarActions({
-  setIsOpen,
-}: {
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export default function SidebarActions() {
   const { storeDispatch } = useStore();
 
   return (
@@ -21,7 +17,10 @@ export default function SidebarActions({
         </Link>
 
         {/* Closes Menu - button */}
-        <button className="btn btn_close" onClick={() => setIsOpen(false)}>
+        <button
+          className="btn btn_close"
+          onClick={() => storeDispatch({ type: 'closeSidebar' })}
+        >
           <FaTimes style={{ fontSize: '1.75rem' }} />
         </button>
       </div>
@@ -31,8 +30,8 @@ export default function SidebarActions({
         <button
           className="btn btn_lessons"
           onClick={() => {
+            storeDispatch({ type: 'closeSidebar' });
             storeDispatch({ type: 'openDataModal', dataModalName: 'lessons' });
-            setIsOpen(false);
           }}
         >
           <FaBook style={{ fontSize: '2rem', marginBottom: '0.2rem' }} />
@@ -43,8 +42,8 @@ export default function SidebarActions({
         <button
           className="btn btn_custom"
           onClick={() => {
+            storeDispatch({ type: 'closeSidebar' });
             storeDispatch({ type: 'openDataModal', dataModalName: 'data' });
-            setIsOpen(false);
           }}
         >
           <FaCogs style={{ fontSize: '2rem', marginBottom: '0.2rem' }} />
@@ -55,8 +54,8 @@ export default function SidebarActions({
         <button
           className="btn btn_edit"
           onClick={() => {
+            storeDispatch({ type: 'closeSidebar' });
             storeDispatch({ type: 'openDataModal', dataModalName: 'dataEdit' });
-            setIsOpen(false);
           }}
         >
           <FaEdit style={{ fontSize: '2rem', marginBottom: '0.2rem' }} />

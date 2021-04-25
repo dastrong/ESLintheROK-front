@@ -11,6 +11,7 @@ type StoreTypes = {
   isDataReady: IsDataReady;
   vocabulary: Vocabulary;
   expressions: Expressions;
+  isSidebarOpen: boolean;
   dataModalName: DataModalName;
   font: Font;
 };
@@ -20,6 +21,31 @@ const init = (): StoreTypes => {
 
   return {
     ...initialStuff,
+    vocabulary: [
+      'Lorem',
+      'ipsum',
+      'dolor',
+      'sit',
+      'amet',
+      'consectetur',
+      'adipisicing',
+      'elit',
+      'Voluptate',
+      'quidem',
+    ],
+    expressions: [
+      'Lorem',
+      'ipsum',
+      'dolor',
+      'sit',
+      'amet',
+      'consectetur',
+      'adipisicing',
+      'elit',
+      'Voluptate',
+      'quidem',
+    ],
+    isSidebarOpen: false,
     dataModalName: '',
     font: 'Poppins, sans-serif',
   };
@@ -30,6 +56,8 @@ const initialState = init();
 type ActionTypes =
   | { type: 'setData'; vocabulary: Vocabulary; expressions: Expressions }
   | { type: 'clearData' }
+  | { type: 'openSidebar' }
+  | { type: 'closeSidebar' }
   | { type: 'openDataModal'; dataModalName: DataModalName }
   | { type: 'closeDataModal' }
   | { type: 'setFont'; font: Font };
@@ -41,6 +69,10 @@ const reducer = (state: StoreTypes, action: ActionTypes) => {
       return { ...state, isDataReady: true, ...newVals };
     case 'clearData':
       return { ...state, isDataReady: false, vocabulary: [], expressions: [] };
+    case 'openSidebar':
+      return { ...state, isSidebarOpen: true };
+    case 'closeSidebar':
+      return { ...state, isSidebarOpen: false };
     case 'openDataModal':
       return { ...state, ...newVals };
     case 'closeDataModal':
