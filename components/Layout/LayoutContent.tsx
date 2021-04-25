@@ -3,12 +3,14 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { a, useTransition } from 'react-spring';
 import { css } from 'styled-jsx/css';
+import { VisibleNav } from './types';
 
 const { className, styles } = css.resolve`
-  section {
+  div {
     position: relative;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
     top: 0;
     left: 0;
   }
@@ -17,8 +19,10 @@ const { className, styles } = css.resolve`
 // children will be whatever page you're rendering
 export default function LayoutContent({
   children,
+  visibleNav,
 }: {
   children: React.ReactNode;
+  visibleNav: VisibleNav;
 }) {
   // need the path name to know when to do page transitions
   const { pathname } = useRouter();

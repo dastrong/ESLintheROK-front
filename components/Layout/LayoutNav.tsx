@@ -1,11 +1,9 @@
 import React from 'react';
-// import { useRouter } from 'next/router';
 import Link from 'next/link';
 import LayoutLogo from './LayoutLogo';
+import { VisibleNav } from './types';
 
-export default function LayoutNav() {
-  // const router = useRouter();
-
+export default function LayoutNav({ visibleNav }: { visibleNav: VisibleNav }) {
   return (
     <nav>
       <Link href="/games">
@@ -28,6 +26,9 @@ export default function LayoutNav() {
 
       <style jsx>{`
         nav {
+          position: fixed;
+          top: 0;
+          left: 0;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -40,18 +41,18 @@ export default function LayoutNav() {
           background-color: rgb(246, 245, 245);
           box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 7px 0px;
           box-sizing: border-box;
+          z-index: 11;
+          transition: transform 0.5s 0.5s;
+          /* we'll overshoot the translate because of our box-shadow */
+          transform: translateY(${visibleNav ? 0 : -120}%);
         }
 
         a {
           text-decoration: none;
-          margin: 1.5rem;
+          margin: 1.3rem;
           font-size: 1.1rem;
           text-transform: uppercase;
-          color: rgb(33, 133, 208);
-        }
-
-        svg {
-          margin: 0 1.5rem;
+          color: #716f6f;
         }
       `}</style>
     </nav>

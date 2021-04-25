@@ -6,8 +6,8 @@ import { animated, useSpring } from 'react-spring';
 const config = {
   from: { rotate: 225 },
   to: { rotate: -1225 },
-  config: { duration: 2000 },
-  delay: 250,
+  config: { duration: 750 },
+  delay: 125,
 };
 
 export default function LayoutLogo() {
@@ -22,8 +22,8 @@ export default function LayoutLogo() {
   return (
     <Link href="/">
       <a>
-        ESL
-        <div>
+        <span className="text_ESL">ESL</span>
+        <div className="icon">
           <span className="text_in">in</span>
           <animated.svg
             style={circleStyles}
@@ -48,30 +48,74 @@ export default function LayoutLogo() {
           </animated.svg>
           <span className="text_the">the</span>
         </div>
-        ROK
+        <span className="text_ROK">ROK</span>
+
         <style jsx>{`
           a {
             display: flex;
             align-items: center;
-            font-size: 2rem;
+            font-size: 1.9rem;
             text-decoration: none;
-            color: #000;
-            margin: 0 1rem;
+            color: #585858;
+            margin: 0 1.3rem;
             font-weight: bold;
           }
 
-          div {
+          a > span {
+            position: relative;
+
+            margin: 0;
+          }
+
+          a > span:after,
+          a > span:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+
+            opacity: 0;
+          }
+
+          a > span:first-child:before {
+            bottom: -2px;
+            left: -5px;
+            height: 89%;
+            width: 3px;
+            background-color: #0047a0;
+          }
+          a > span:first-child:after {
+            bottom: -2px;
+            left: -5px;
+            width: 110%;
+            background-color: #0047a0;
+          }
+          a > span:last-child:before {
+            top: 0px;
+            right: -5px;
+            width: 105%;
+            background-color: #b5323c;
+          }
+          a > span:last-child:after {
+            top: 0px;
+            right: -5px;
+            height: 89%;
+            width: 3px;
+            background-color: #b5323c;
+          }
+
+          .text_ESL {
+            margin-bottom: 5px;
+          }
+
+          .text_ROK {
+            margin-top: 5px;
+          }
+
+          .icon {
             height: 65px;
             position: relative;
             margin: 0 0.5rem;
-          }
-
-          span {
-            font-size: 1.15rem;
-            font-weight: normal;
-            position: absolute;
-            color: #fff;
-            z-index: 1;
           }
 
           svg {
@@ -80,52 +124,22 @@ export default function LayoutLogo() {
             transform: rotate(215deg);
           }
 
-          .text_in {
-            top: 14px;
+          .icon span {
+            font-size: 1.1rem;
+            font-weight: normal;
+            position: absolute;
+            color: #eee;
+            z-index: 1;
+          }
+
+          .icon span.text_in {
+            top: 16px;
             left: 12px;
           }
 
-          .text_the {
-            bottom: 12px;
+          .icon span.text_the {
+            bottom: 14px;
             right: 8px;
-          }
-
-          /* ANIMATIONS */
-          svg {
-            transition: transform 3s 0.25s;
-             {
-              /* transform: rotate(215deg); */
-            }
-          }
-
-          a:hover svg {
-            animation: spin 1s 0.25s linear infinite;
-             {
-              /* transform: rotate(-1000deg); */
-            }
-          }
-
-          span {
-            opacity: 1;
-            transform: scale(1);
-            transition: all 0.25s;
-          }
-
-          a:hover span {
-            transform: scale(0);
-            opacity: 0;
-          }
-
-          @keyframes spin {
-            0% {
-              transform: rotate(215deg);
-            }
-            /* 50% {
-              transform: rotate(215deg);
-            } */
-            100% {
-              transform: rotate(-1255deg);
-            }
           }
         `}</style>
       </a>
