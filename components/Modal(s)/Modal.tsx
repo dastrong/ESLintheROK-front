@@ -56,8 +56,6 @@ export default function Modal({
   className?: string;
   styles?: JSX.Element;
 }) {
-  console.log(className);
-
   const cx = classNames(className, contentCSS.className);
   return (
     <ReactModal
