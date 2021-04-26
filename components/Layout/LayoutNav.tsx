@@ -46,12 +46,12 @@ export default function LayoutNav() {
           z-index: 11;
           transition: transform 0.5s 0.5s;
           /* we'll overshoot the translate because of our box-shadow */
-          transform: translateY(${visibleNav ? 0 : -120}%);
+          transform: translateY(${isNavVisible ? 0 : -120}%);
           z-index: 99;
-          transition: transform 125ms ${visibleNav ? '0s' : '250ms'};
+          transition: transform 125ms ${isNavVisible ? '0s' : '250ms'};
 
           /* 110% because we need to account for the box-shadow effect */
-          transform: translateY(${visibleNav ? 0 : '-110'}%);
+          transform: translateY(${isNavVisible ? 0 : '-110'}%);
         }
 
         a {

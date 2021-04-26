@@ -1,14 +1,9 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 import LayoutNav from './LayoutNav';
 import LayoutContent from './LayoutContent';
 
 // children will be whatever page you're rendering
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const { pathname } = useRouter();
-
-  const visibleNav = ['/games', '/contact', '/about'].includes(pathname);
-
   return (
     <>
       <LayoutNav />

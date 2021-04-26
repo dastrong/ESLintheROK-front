@@ -1,7 +1,6 @@
 import React from 'react';
 import { a } from 'react-spring';
 import { css } from 'styled-jsx/css';
-import { VisibleNav } from './types';
 import useNavPageCheck from './useNavPageCheck';
 import usePageAnimation from './usePageAnimation.';
 
@@ -21,10 +20,8 @@ const { className, styles } = css.resolve`
 
 export default function LayoutContent({
   children,
-  visibleNav,
 }: {
   children: React.ReactNode;
-  visibleNav: VisibleNav;
 }) {
   const isNavVisible = useNavPageCheck();
 
