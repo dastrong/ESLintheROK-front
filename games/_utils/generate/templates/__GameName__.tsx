@@ -14,7 +14,7 @@ import {
 
 import { init, reducer } from './state_manager';
 import type { GameStore } from './state_types';
-import * as Styles from './GameStarterKit.styles';
+import * as Styles from './__GameName__.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
 //
@@ -22,8 +22,7 @@ import * as Styles from './GameStarterKit.styles';
 // CONSTANTS - img, audio, function, etc.
 //
 
-// replace GameStarterKit with your game title
-export default function GameStarterKit() {
+export default function __GameName__() {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
