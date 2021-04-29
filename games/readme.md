@@ -6,13 +6,29 @@ Want to add a game or customize one I've already created? Wonderful. Simply open
 
 ### Getting Started
 
-- Open your terminal and run this:
+- Follow the Getting Started instructions on the main readme.
+
+- Make your own working branch
+
+```bash
+$ git checkout -b 'New Game: {GameName}'
+```
+
+- In your branch, run the following:
 
 ```bash
 $ npm run createGame
 ```
 
-- Follow the prompts and you're done!
+- Follow all the prompts
+
+- Make an initial game commit in your branch
+
+```bash
+$ git add . && git commit -m 'initial {GameName} commit'
+```
+
+- That's all. You're ready to start creating your game.
 
 ### Suggested First Steps
 

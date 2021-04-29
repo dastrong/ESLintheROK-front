@@ -48,6 +48,7 @@ function createPageFolder(gameName, gameFolder) {
         const gameRoute = results.output.path.replace('./pages', '') + '/play';
         console.log(`
           Your files are all set up to start working. 
+          
           Go to ${gameFolder} to view your initial game files.
           To view your game, visit this route: ${gameRoute} (server must be on).
 
