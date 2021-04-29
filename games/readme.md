@@ -4,15 +4,15 @@ Want to add a game or customize one I've already created? Wonderful. Simply open
 
 ## Guide
 
-### Set Up
+### Getting Started
 
-- copy and paste the whole `GameStarterKit` folder in the `/games` folder
-- change the folder name to your game name
-- change the game file name (and the defaultly exported function within) and the styles file name too
-- update the `index.tsx` file imports to reflect your game file's new name
-- head to `/pages/game` folder and create a folder - this will be the route your game is played at
-- in this folder create a file: `play.tsx` and export your new folder in `/games`
-- now you've got the basic files set up
+- Open your terminal and run this:
+
+```bash
+$ npm run createGame
+```
+
+- Follow the prompts and you're done!
 
 ### Suggested First Steps
 
