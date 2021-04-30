@@ -29,7 +29,7 @@ export default function CardRow({
   fitTextClass?: string;
   cardClass?: string;
   handleClick: (e: any) => void;
-  getBackCard: (isX: boolean) => string[];
+  getBackCard: (isX: boolean) => any[];
 }) {
   // get the two cards ids
   const rowIDs = [rowIdx, rowIdx + 1];
