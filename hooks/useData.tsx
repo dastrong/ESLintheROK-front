@@ -35,7 +35,7 @@ export default function useData(
   // SWITCHES THE FLAG VARIABLE BACK TO IF IT'S BEEN CHANGED
   useEffect(() => {
     didUpdate.current = false;
-  }, []);
+  }, [didUpdate.current]);
 
   return [state, dispatch, didUpdate.current];
 }
