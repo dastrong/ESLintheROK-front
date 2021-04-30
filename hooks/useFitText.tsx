@@ -44,7 +44,7 @@ export default function useFitText(
   }, []);
 
   // calculates and determines the correct scale based on width and height
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     if (!isFontLoaded) return;
     if (delayUpdate) return;
     calculateFit(refs, shouldCalculateSolo);
