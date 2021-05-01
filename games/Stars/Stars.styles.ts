@@ -3,8 +3,21 @@ import { css } from 'styled-jsx/css';
 export const getContainerCSS = (fontFamily: string) => css.resolve`
    {
     font: ${fontFamily};
-    /* rest of your container styles here */
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
   }
 `;
 
-// put any other game top-level CSS here
+export const CardCSS = css.resolve`
+   {
+    transition: 1s transform;
+  }
+`;
+
+export const FitTextCSS = css.resolve`
+   {
+    transition: 0.125s transform;
+  }
+`;
