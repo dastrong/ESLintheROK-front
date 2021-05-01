@@ -6,15 +6,16 @@ import classNames from 'classnames';
 
 type TwoSidedCardProps = {
   textFront: string;
-  textBack: string;
+  textBack: any;
   colorFront: string;
   colorBack: string;
   handleClick: (e: any) => void;
   width: string;
+  height?: string;
   id: any;
   flipY?: boolean;
   flipX?: boolean;
-  slideOut: boolean;
+  slideOut?: boolean;
   cardClass?: string;
   fitTextClass?: string;
 };
@@ -28,6 +29,7 @@ const TwoSidedCard = forwardRef<HTMLSpanElement, TwoSidedCardProps>(
       colorBack,
       handleClick,
       width,
+      height,
       id,
       flipX,
       flipY,
@@ -66,7 +68,8 @@ const TwoSidedCard = forwardRef<HTMLSpanElement, TwoSidedCardProps>(
 
           .two-sided-card {
             width: ${width};
-            flex: ${slideOut ? 0 : 1};
+            height: ${height};
+            flex: ${slideOut === undefined ? '' : slideOut ? 0 : 1};
             transform: rotateX(${flipX && '180deg'});
             transform: rotateY(${flipY && '180deg'});
           }
