@@ -5,9 +5,6 @@ import { animated, useSpring } from 'react-spring';
 
 const config = {
   from: { rotate: 225 },
-  to: { rotate: -1225 },
-  config: { duration: 750 },
-  delay: 125,
   to: { rotate: -495 },
   config: { duration: 250 },
   delay: 0,
