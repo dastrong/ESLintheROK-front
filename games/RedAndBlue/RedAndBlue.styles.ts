@@ -3,8 +3,13 @@ import { css } from 'styled-jsx/css';
 export const getContainerCSS = (fontFamily: string) => css.resolve`
    {
     font: ${fontFamily};
-    /* rest of your container styles here */
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: #eee;
   }
 `;
-
-// put any other game top-level CSS here

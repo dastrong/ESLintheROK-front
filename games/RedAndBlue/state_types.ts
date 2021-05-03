@@ -2,12 +2,14 @@ import { Dispatch } from 'react';
 
 export type State = {
   data: string[];
-  isVocab: boolean; // delete if there is only one data source
+  isVocab: boolean;
+  red: string;
+  blue: string;
 };
 
 export type Action =
   | { type: 'Set_Data'; data: string[] }
-  | { type: 'Change_isVocab'; isVocab: boolean } // delete if there is only one data source
-  | { type: 'New_Round' }; // add other variables here
+  | { type: 'Change_isVocab'; isVocab: boolean }
+  | { type: 'New_Round'; data: string[]; red: string; blue: string };
 
 export type GameStore = [State, Dispatch<Action>, boolean];

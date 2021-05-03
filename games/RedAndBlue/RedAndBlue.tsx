@@ -1,55 +1,49 @@
-import React, { useCallback, useEffect } from 'react';
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+import React, { useCallback } from 'react';
 
 import { useStore } from 'contexts/store';
-import {
-  // useAudio,
-  useData,
-  useHandleGame,
-  useFirstRun,
-  // useFitText,
-  useKeys,
-  useScroll,
-  // useSplit2Rows,
-} from 'hooks';
+import { useData, useHandleGame, useFitText, useKeys, useScroll } from 'hooks';
 
 import { init, reducer } from './state_manager';
 import type { GameStore } from './state_types';
 import * as Styles from './RedAndBlue.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
-//
-
-// CONSTANTS - img, audio, function, etc.
-//
+import FitText from 'components/FitText';
+import { nextRoundData } from 'games/_utils';
 
 export default function RedAndBlue() {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
-  // AUDIO - useAudio
-  // can remove if your game doesn't use any audio
-
   // STATE - useData
-  const primary = store.vocabulary; // vocabulary or expressions
-  const secondary = store.expressions; // only expressions - can remove you only use one data source
-  const gameStore: GameStore = useData(reducer, init, primary, secondary); // remove secondary from here too if above is true
+  const primary = store.vocabulary;
+  const secondary = store.expressions;
+  const gameStore: GameStore = useData(reducer, init, primary, secondary);
   const [state, dispatch, didUpdate] = gameStore;
-  const { data, isVocab } = state; // destructure your state array here - should be fully typed
+  const { data, isVocab, red, blue } = state;
 
   // REFS - useFitText, useSplit2Rows, etc..
-  const isFirstRun = useFirstRun();
+  const [refs] = useFitText([red, blue]);
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
     // googleEvent(title);
-    dispatch({ type: 'New_Round' }); // put whatever else you need to start a new round
+    const [[red, blue], nex] = nextRoundData(
+      data,
+      2,
+      isVocab,
+      store.vocabulary,
+      store.expressions
+    );
+    dispatch({ type: 'New_Round', red, blue, data: nex });
   }, [data, isVocab]);
   useHandleGame(handleGame, didUpdate);
 
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
     ({ key }: KeyboardEvent) => {
-      // can remove the following if there's only one data source
       if (key === 'ArrowLeft')
         return dispatch({ type: 'Change_isVocab', isVocab: true });
       if (key === 'ArrowRight')
@@ -62,26 +56,117 @@ export default function RedAndBlue() {
   // GAME SPECIFIC SCROLL EVENTS
   const scrollCB = useCallback(
     (scrolledUp: boolean) =>
-      // can remove the following if there's only one data source
       dispatch({ type: 'Change_isVocab', isVocab: !scrolledUp }),
     [dispatch]
   );
   useScroll(scrollCB);
 
-  // GAME EFFECTS - you can use multiple effects just comment what each means
-  useEffect(() => {
-    //
-  }, []);
-
-  // GAME FUNCTIONS - start with an underscore ex) _handleClick
-
   return (
-    <div className={ContainerCSS.className}>
-      {/* ADD YOUR ELEMENTS/COMPONENTS HERE */}
+    <div className={ContainerCSS.className} onClick={handleGame}>
+      {refs.map((ref, i) => (
+        <div className={`outer-color ${!i ? 'red' : 'blue'}`}>
+          <hr className="st-line" />
+          <hr className="nd-line" />
+          <hr className="rd-line" />
+          <hr className="th-line" />
+          <div className={`inner-color ${!i ? 'red' : 'blue'}`}>
+            <FitText text={!i ? red : blue} ref={ref} />
+          </div>
+        </div>
+      ))}
 
       {/* STYLES */}
       {ContainerCSS.styles}
-      {/* Add any other style elements here */}
+      <style jsx>
+        {`
+          .outer-color {
+            height: 50vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            position: relative;
+            user-select: none;
+          }
+
+          .outer-color.red {
+            background-color: #e82828;
+            border: 2px solid #670303;
+          }
+
+          .outer-color.blue {
+            background-color: #2352d0;
+            border: 2px solid #04179c;
+          }
+
+          .inner-color {
+            width: calc(100vw - 20px * 2 + 1px);
+            height: calc(50vh - 34px * 2 + 3px);
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+            text-shadow: 1px 1px 20px white;
+          }
+
+          .inner-color.red {
+            background-color: #ff9090;
+            border: 2px solid #670303;
+            box-shadow: 0 0 25px #731111;
+          }
+
+          .inner-color.blue {
+            background-color: #95adfd;
+            border: 2px solid #04179c;
+            box-shadow: 0 0 25px #0f204e;
+          }
+
+          hr {
+            position: absolute;
+            margin: 0;
+            height: calc(20px * 2);
+            border-radius: 50%;
+          }
+
+          .red hr {
+            border: 1px solid #670303;
+          }
+
+          .blue hr {
+            border: 1px solid #04179c;
+          }
+
+          .st-line {
+            top: -2px;
+            left: -2px;
+            transform-origin: top;
+            transform: rotate(330deg);
+          }
+
+          .nd-line {
+            top: -2px;
+            right: -2px;
+            transform-origin: top;
+            transform: rotate(30deg);
+          }
+
+          .rd-line {
+            bottom: -2px;
+            left: -2px;
+            transform-origin: bottom;
+            transform: rotate(30deg);
+          }
+
+          .th-line {
+            bottom: -2px;
+            right: -2px;
+            transform-origin: bottom;
+            transform: rotate(330deg);
+          }
+        `}
+      </style>
     </div>
   );
 }
