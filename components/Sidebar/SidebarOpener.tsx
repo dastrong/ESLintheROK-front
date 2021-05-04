@@ -23,6 +23,7 @@ export default function SidebarOpener() {
           width: 70px;
           border-radius: 50%;
           font-size: 1.5rem;
+          line-height: 1.5rem;
         }
 
         button:hover {
