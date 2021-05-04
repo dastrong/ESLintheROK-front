@@ -1,14 +1,21 @@
 import { useRouter } from 'next/router';
 
-// ADD THE OTHER TWO LATER
 // check if we should show the nav or not
 export default function useNavPageCheck(): boolean {
   const { asPath } = useRouter();
 
-  // home, instructions, gameplay
-  const noNavPages = ['/'];
+  const noNavStaticPages = ['/'];
 
-  const isNavVisible = !noNavPages.includes(asPath);
+  const isNavVisible = !noNavStaticPages.includes(asPath);
 
-  return isNavVisible;
+  // are we playing a game?
+  const isGamePlayPage =
+    asPath.startsWith('/game/') && asPath.endsWith('/play');
+
+  // are we looking at a games instructions
+  const isGameInstructionsPage =
+    (asPath.startsWith('/game/') && asPath.endsWith('/teacher')) ||
+    asPath.endsWith('/student');
+
+  return isNavVisible && !isGamePlayPage && !isGameInstructionsPage;
 }
