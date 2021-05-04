@@ -1,59 +1,52 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useCallback, useEffect } from 'react';
+import { animated, useSpring } from 'react-spring';
+import shuffle from 'lodash.shuffle';
 
 import { useStore } from 'contexts/store';
-import {
-  // useAudio,
-  useData,
-  useHandleGame,
-  useFirstRun,
-  // useFitText,
-  useKeys,
-  useScroll,
-  // useSplit2Rows,
-} from 'hooks';
+import { useData, useHandleGame, useFitText, useKeys, useScroll } from 'hooks';
 
 import { init, reducer } from './state_manager';
 import type { GameStore } from './state_types';
 import * as Styles from './Sparkle.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
-//
-
-// CONSTANTS - img, audio, function, etc.
-//
+import FitText from 'components/FitText';
 
 export default function Sparkle() {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
-  // AUDIO - useAudio
-  // can remove if your game doesn't use any audio
-
   // STATE - useData
-  const primary = store.vocabulary; // vocabulary or expressions
-  const secondary = store.expressions; // only expressions - can remove you only use one data source
-  const gameStore: GameStore = useData(reducer, init, primary, secondary); // remove secondary from here too if above is true
+  const primary = store.expressions;
+  const secondary = null;
+  const gameStore: GameStore = useData(reducer, init, primary, secondary);
   const [state, dispatch, didUpdate] = gameStore;
-  const { data, isVocab } = state; // destructure your state array here - should be fully typed
+  const { data, text, timer, timeRemaining, isTimerRunning } = state;
 
   // REFS - useFitText, useSplit2Rows, etc..
-  const isFirstRun = useFirstRun();
+  const [[ref]] = useFitText(text);
+  const springStyles = useSpring({ opacity: timeRemaining ? 1 : 0 });
+  const timerStyles = useSpring({
+    translateX: `${((timer - timeRemaining) / (timer - 1)) * 100}%`,
+    config: { duration: 1000 },
+  });
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
     // googleEvent(title);
-    dispatch({ type: 'New_Round' }); // put whatever else you need to start a new round
-  }, [data, isVocab]);
+    const [text, ...rest] = data;
+    const newData = rest.length < 1 ? shuffle(store.expressions) : rest;
+    dispatch({ type: 'New_Round', text, data: newData });
+  }, [data]);
   useHandleGame(handleGame, didUpdate);
 
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
     ({ key }: KeyboardEvent) => {
-      // can remove the following if there's only one data source
-      if (key === 'ArrowLeft')
-        return dispatch({ type: 'Change_isVocab', isVocab: true });
-      if (key === 'ArrowRight')
-        return dispatch({ type: 'Change_isVocab', isVocab: false });
+      if (key === 'ArrowLeft') return dispatch({ type: 'Timer_Decrease' });
+      if (key === 'ArrowRight') return dispatch({ type: 'Timer_Increase' });
     },
     [dispatch]
   );
@@ -62,26 +55,46 @@ export default function Sparkle() {
   // GAME SPECIFIC SCROLL EVENTS
   const scrollCB = useCallback(
     (scrolledUp: boolean) =>
-      // can remove the following if there's only one data source
-      dispatch({ type: 'Change_isVocab', isVocab: !scrolledUp }),
+      dispatch({ type: scrolledUp ? 'Timer_Increase' : 'Timer_Decrease' }),
     [dispatch]
   );
   useScroll(scrollCB);
 
-  // GAME EFFECTS - you can use multiple effects just comment what each means
+  // GAME EFFECTS
+  // counts the time down
   useEffect(() => {
-    //
-  }, []);
-
-  // GAME FUNCTIONS - start with an underscore ex) _handleClick
+    if (!isTimerRunning) return;
+    const id = setInterval(() => dispatch({ type: 'Timer_Countdown' }), 1000);
+    return () => clearInterval(id);
+  }, [dispatch, isTimerRunning]);
 
   return (
     <div className={ContainerCSS.className}>
-      {/* ADD YOUR ELEMENTS/COMPONENTS HERE */}
+      <animated.div
+        style={springStyles}
+        className={Styles.TextContainerCSS.className}
+        onClick={handleGame}
+      >
+        <FitText text={text} ref={ref} />
+      </animated.div>
+
+      <div
+        className={Styles.TimerContainerCSS.className}
+        onClick={() => dispatch({ type: 'Timer_Pause' })}
+      >
+        <animated.div
+          className={Styles.TimerBarCSS.className}
+          style={timerStyles}
+        />
+        <div className={Styles.TimerTextCSS.className}>{timeRemaining}</div>
+      </div>
 
       {/* STYLES */}
       {ContainerCSS.styles}
-      {/* Add any other style elements here */}
+      {Styles.TextContainerCSS.styles}
+      {Styles.TimerContainerCSS.styles}
+      {Styles.TimerBarCSS.styles}
+      {Styles.TimerTextCSS.styles}
     </div>
   );
 }
