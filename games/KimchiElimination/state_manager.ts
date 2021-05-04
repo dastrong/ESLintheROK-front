@@ -3,18 +3,49 @@ import type { State, Action } from './state_types';
 
 export const init = (data: string[]): State => ({
   data: shuffle(data),
-  isVocab: true, // delete if there is only one data source
+  text: '',
+  showPic: false,
+  isKimchi: true,
+  kimchiFrequency: 50,
+  showKimchiFrequency: false,
+  noClick: false,
 });
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'Set_Data':
-      return { ...state, data: shuffle(action.data) };
-    // delete if there is only one data source
-    case 'Change_isVocab':
-      return { ...state, isVocab: action.isVocab };
+      return { ...state, data: shuffle(action.data), showPic: false };
     case 'New_Round':
-      return { ...state };
+      return {
+        ...state,
+        showPic: false,
+        noClick: true,
+        data: action.data,
+        text: action.text,
+        isKimchi: action.isKimchi,
+      };
+    case 'Show_Pic':
+      return { ...state, showPic: true, noClick: true };
+    case 'Kimchi_Frequency_Increase': {
+      if (state.kimchiFrequency > 98) return state;
+      return {
+        ...state,
+        showKimchiFrequency: true,
+        kimchiFrequency: state.kimchiFrequency + 1,
+      };
+    }
+    case 'Kimchi_Frequency_Decrease': {
+      if (state.kimchiFrequency < 2) return state;
+      return {
+        ...state,
+        showKimchiFrequency: true,
+        kimchiFrequency: state.kimchiFrequency - 1,
+      };
+    }
+    case 'Hide_Kimchi_Frequency':
+      return { ...state, showKimchiFrequency: false };
+    case 'No_Click':
+      return { ...state, noClick: false };
     default:
       return state;
   }

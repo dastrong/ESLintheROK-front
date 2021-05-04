@@ -2,9 +2,26 @@ import { css } from 'styled-jsx/css';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
    {
-    font: ${fontFamily};
-    /* rest of your container styles here */
+    font-family: ${fontFamily};
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
   }
 `;
 
-// put any other game top-level CSS here
+export const SlideCSS = css.resolve`
+   {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`;
