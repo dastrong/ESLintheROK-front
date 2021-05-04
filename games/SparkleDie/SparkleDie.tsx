@@ -9,12 +9,12 @@ import { useData, useHandleGame, useFitText, useKeys, useScroll } from 'hooks';
 
 import { init, reducer } from './state_manager';
 import type { GameStore } from './state_types';
-import * as Styles from './Sparkle.styles';
+import * as Styles from './SparkleDie.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
 import FitText from 'components/FitText';
 
-export default function Sparkle() {
+export default function SparkleDie() {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
