@@ -8,7 +8,7 @@ export const init = (data: string[]): State => ({
   isKimchi: true,
   kimchiFrequency: 50,
   showKimchiFrequency: false,
-  noClick: false,
+  isAnimating: false,
 });
 
 export const reducer = (state: State, action: Action): State => {
@@ -19,13 +19,19 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         showPic: false,
-        noClick: true,
+        isAnimating: true,
+        showKimchiFrequency: false,
         data: action.data,
         text: action.text,
         isKimchi: action.isKimchi,
       };
     case 'Show_Pic':
-      return { ...state, showPic: true, noClick: true };
+      return {
+        ...state,
+        showPic: true,
+        isAnimating: true,
+        showKimchiFrequency: false,
+      };
     case 'Kimchi_Frequency_Increase': {
       if (state.kimchiFrequency > 98) return state;
       return {
@@ -44,8 +50,8 @@ export const reducer = (state: State, action: Action): State => {
     }
     case 'Hide_Kimchi_Frequency':
       return { ...state, showKimchiFrequency: false };
-    case 'No_Click':
-      return { ...state, noClick: false };
+    case 'Animation_Done':
+      return { ...state, isAnimating: false };
     default:
       return state;
   }

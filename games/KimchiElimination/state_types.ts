@@ -7,7 +7,7 @@ export type State = {
   isKimchi: boolean;
   kimchiFrequency: number;
   showKimchiFrequency: boolean;
-  noClick: boolean;
+  isAnimating: boolean;
 };
 
 export type Action =
@@ -17,6 +17,6 @@ export type Action =
   | { type: 'Kimchi_Frequency_Increase' }
   | { type: 'Kimchi_Frequency_Decrease' }
   | { type: 'Hide_Kimchi_Frequency' }
-  | { type: 'No_Click' };
+  | { type: 'Animation_Done' };
 
 export type GameStore = [State, Dispatch<Action>, boolean];

@@ -23,5 +23,35 @@ export const SlideCSS = css.resolve`
     display: flex;
     justify-content: center;
     align-items: center;
+    user-select: none;
+  }
+`;
+
+export const KimchiCSS = css.resolve`
+   {
+    width: 50%;
+    min-width: 500px;
+    max-width: 800px;
+    margin: auto;
+  }
+`;
+
+export const PooCSS = css.resolve`
+   {
+    line-height: 100%;
+    height: 350px;
+    font-size: 300px;
+    text-align: center;
+  }
+`;
+
+export const FrequencyCSS = css.resolve`
+   {
+    position: absolute;
+    bottom: 3vh;
+    left: 3vw;
+    font-size: 10vw;
+    line-height: 10vw;
+    color: #7b7b7b;
   }
 `;

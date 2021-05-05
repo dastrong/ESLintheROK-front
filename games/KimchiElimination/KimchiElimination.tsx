@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useCallback, useEffect } from 'react';
-import { animated, useSpring } from 'react-spring';
+import { animated, useSpring, useTransition } from 'react-spring';
 import shuffle from 'lodash.shuffle';
+import classNames from 'classnames';
 
 import { useStore } from 'contexts/store';
 import { useData, useHandleGame, useFitText, useKeys, useScroll } from 'hooks';
@@ -31,25 +32,30 @@ export default function KimchiElimination() {
     isKimchi,
     kimchiFrequency,
     showKimchiFrequency,
-    noClick,
+    isAnimating,
   } = state;
 
   // REFS - useFitText, useSplit2Rows, etc..
   const [[ref]] = useFitText(text);
-  const textSlideStyles = useSpring({
-    from: { x: !showPic ? '0' : '-100%', opacity: !showPic ? 1 : 0 },
-    to: { x: !showPic ? '100%' : '0', opacity: !showPic ? 0 : 1 },
-    config: { duration: 1000 },
+  const transitions = useTransition(showPic, {
+    from: { translateX: '100%', opacity: 0 },
+    enter: { translateX: '0%', opacity: 1 },
+    leave: { translateX: '-100%', opacity: 0 },
   });
-  const picSlideStyles = useSpring({
-    from: { x: showPic ? '0' : '-100%', opacity: showPic ? 1 : 0 },
-    to: { x: showPic ? '100%' : '0', opacity: showPic ? 0 : 1 },
-    config: { duration: 1000 },
-  });
+  const [imgStyles] = useSpring({ opacity: showPic ? 1 : 0, immediate: true }, [
+    showPic,
+  ]);
+  const [kimchiFrequencyStyles] = useSpring(
+    {
+      opacity: showKimchiFrequency ? 1 : 0,
+      onRest: () => dispatch({ type: 'Hide_Kimchi_Frequency' }),
+    },
+    [showKimchiFrequency]
+  );
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
-    if (noClick) return;
+    if (isAnimating) return;
     if (showPic) {
       // googleEvent(title);
       const [text, ...rest] = data;
@@ -59,7 +65,7 @@ export default function KimchiElimination() {
     } else {
       dispatch({ type: 'Show_Pic' });
     }
-  }, [data, showPic, kimchiFrequency, noClick]);
+  }, [data, showPic, kimchiFrequency, isAnimating]);
   useHandleGame(handleGame, didUpdate);
 
   // GAME SPECIFIC KEY EVENTS
@@ -87,76 +93,61 @@ export default function KimchiElimination() {
   useScroll(scrollCB);
 
   // GAME EFFECTS - you can use multiple effects just comment what each means
-  // hide the kimchi frequency after adjusting it
+  // don't allow clicks until the animation is complete
   useEffect(() => {
-    if (!showKimchiFrequency) return;
-    dispatch({ type: 'Hide_Kimchi_Frequency' });
-  }, [dispatch, showKimchiFrequency]);
-
-  useEffect(() => {
-    const id = setTimeout(() => dispatch({ type: 'No_Click' }), 750);
+    const id = setTimeout(() => dispatch({ type: 'Animation_Done' }), 750);
     return () => clearTimeout(id);
   }, [dispatch, showPic]);
 
   return (
     <div className={ContainerCSS.className} onClick={handleGame}>
-      <animated.div
-        className={Styles.SlideCSS.className}
-        style={{ ...textSlideStyles, backgroundColor: 'pink' }}
-      >
-        <FitText text={text} ref={ref} />
-      </animated.div>
-
-      <animated.div
-        className={Styles.SlideCSS.className}
-        style={picSlideStyles}
-      >
-        {isKimchi ? (
-          <img
-            alt="kimchi; disable your adblock?"
-            className="kim-img"
-            src="https://res.cloudinary.com/dastrong/image/upload/v1570941137/TeacherSite/Games/Kimchi.svg"
-          />
+      {transitions((style, item) =>
+        item ? (
+          <animated.div className={Styles.SlideCSS.className} style={style}>
+            {isKimchi ? (
+              <animated.img
+                style={imgStyles}
+                className={Styles.KimchiCSS.className}
+                alt="kimchi; disable your adblock?"
+                src="https://res.cloudinary.com/dastrong/image/upload/v1570941137/TeacherSite/Games/Kimchi.svg"
+              />
+            ) : (
+              // eslint-disable-next-line jsx-a11y/accessible-emoji
+              <animated.span
+                style={imgStyles}
+                className={classNames(
+                  Styles.KimchiCSS.className,
+                  Styles.PooCSS.className
+                )}
+                aria-label="poo emoji"
+              >
+                💩
+              </animated.span>
+            )}
+          </animated.div>
         ) : (
-          <span className="poo-img" role="img" aria-label="poo emoji">
-            💩
-          </span>
-        )}
-      </animated.div>
+          <animated.div
+            className={Styles.SlideCSS.className}
+            style={{ ...style, backgroundColor: 'violet' }}
+          >
+            <FitText text={text} ref={ref} />
+          </animated.div>
+        )
+      )}
 
-      {/* <ShowUpdatedSetting
-        isIn={showKimchiFrequency}
-        text={kimchiFrequency}
-        symbol="%"
-      /> */}
+      <animated.div
+        style={kimchiFrequencyStyles}
+        className={Styles.FrequencyCSS.className}
+      >
+        {kimchiFrequency}%
+      </animated.div>
 
       {/* STYLES */}
       {ContainerCSS.styles}
       {Styles.SlideCSS.styles}
-      <style jsx>{`
-        .slide_text {
-          background-color: violet;
-        }
-
-        .slide_pic {
-        }
-
-        .kim-img,
-        .poo-img {
-          user-select: none;
-          width: 50%;
-          min-width: 500px;
-          max-width: 800px;
-          margin: auto;
-        }
-
-        .poo-img {
-          line-height: 100%;
-          height: 350px;
-          font-size: 300px;
-          text-align: center;
-        }
-      `}</style>
+      {Styles.KimchiCSS.styles}
+      {Styles.PooCSS.styles}
+      {Styles.FrequencyCSS.styles}
     </div>
   );
 }
