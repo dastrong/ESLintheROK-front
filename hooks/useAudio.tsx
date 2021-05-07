@@ -4,7 +4,7 @@ import { useRef, useEffect, useCallback, MutableRefObject } from 'react';
 export default function useAudio(
   url: string,
   loop = false
-): [MutableRefObject<any>, () => void] {
+): [MutableRefObject<HTMLAudioElement>, () => void] {
   const audio = useRef(null);
 
   useEffect(() => {
