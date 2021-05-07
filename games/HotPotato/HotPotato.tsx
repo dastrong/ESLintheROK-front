@@ -1,59 +1,80 @@
-import React, { useCallback, useEffect } from 'react';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { MutableRefObject, useCallback, useEffect } from 'react';
 
 import { useStore } from 'contexts/store';
 import {
-  // useAudio,
+  useAudio,
   useData,
   useHandleGame,
   useFirstRun,
-  // useFitText,
+  useFitText,
   useKeys,
   useScroll,
-  // useSplit2Rows,
 } from 'hooks';
 
 import { init, reducer } from './state_manager';
-import type { GameStore } from './state_types';
+import type { GameStore, NumOfText } from './state_types';
 import * as Styles from './HotPotato.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
-//
+import { nextRoundData, resetAllAudio } from 'games/_utils';
+import HotPotatoStage from './HotPotatoStage';
 
 // CONSTANTS - img, audio, function, etc.
-//
+const baseURL = 'https://res.cloudinary.com/dastrong/';
+const URLs = {
+  bubbling: `${baseURL}video/upload/v1540601372/TeacherSite/Media/HotPotato/Bubbling.mp3`,
+  scream: `${baseURL}video/upload/v1540601372/TeacherSite/Media/HotPotato/Scream.mp3`,
+  song: `${baseURL}video/upload/v1540601372/TeacherSite/Media/HotPotato/HotPotato.mp3`,
+  sizzle: `${baseURL}video/upload/v1540601372/TeacherSite/Media/HotPotato/Sizzle.mp3`,
+  boiling: `${baseURL}image/upload/f_auto,q_50/v1540469924/TeacherSite/Media/HotPotato/potatoesBoiling.gif`,
+  dancing: `${baseURL}image/upload/f_auto,q_50/v1540469924/TeacherSite/Media/HotPotato/potatoDancing.gif`,
+  cooling: `${baseURL}image/upload/f_auto,q_50/v1540469924/TeacherSite/Media/HotPotato/potatoCooling.gif`,
+};
 
 export default function HotPotato() {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
   // AUDIO - useAudio
-  // can remove if your game doesn't use any audio
+  const [Bubbling, resetBubb] = useAudio(URLs.bubbling);
+  const [Scream, resetScream] = useAudio(URLs.scream);
+  const [Sizzle, resetSizzle] = useAudio(URLs.sizzle);
+  const [Song, resetSong] = useAudio(URLs.song, true);
 
   // STATE - useData
-  const primary = store.vocabulary; // vocabulary or expressions
-  const secondary = store.expressions; // only expressions - can remove you only use one data source
-  const gameStore: GameStore = useData(reducer, init, primary, secondary); // remove secondary from here too if above is true
+  const primary = store.vocabulary;
+  const secondary = store.expressions;
+  const gameStore: GameStore = useData(reducer, init, primary, secondary);
   const [state, dispatch, didUpdate] = gameStore;
-  const { data, isVocab } = state; // destructure your state array here - should be fully typed
+  const { data, isVocab, gameData, numOfText, stage, countdown } = state;
 
   // REFS - useFitText, useSplit2Rows, etc..
   const isFirstRun = useFirstRun();
+  // const [refs] = useFitText(gameData);
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
-    // googleEvent(title);
-    dispatch({ type: 'New_Round' }); // put whatever else you need to start a new round
-  }, [data, isVocab]);
+    // google events are sent when user starts a round, not here
+    // stop all sounds when game resets
+    resetAllAudio(resetBubb, resetScream, resetSizzle, resetSong);
+    const fullText = isVocab ? store.vocabulary : store.expressions;
+    const [cur, nex] = nextRoundData(numOfText, data, fullText);
+    dispatch({ type: 'New_Round', gameData: cur, data: nex });
+  }, [data, isVocab, numOfText]);
   useHandleGame(handleGame, didUpdate);
 
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
     ({ key }: KeyboardEvent) => {
-      // can remove the following if there's only one data source
       if (key === 'ArrowLeft')
         return dispatch({ type: 'Change_isVocab', isVocab: true });
       if (key === 'ArrowRight')
         return dispatch({ type: 'Change_isVocab', isVocab: false });
+      const num = Number(key);
+      if (!num || num > 3 || !isVocab || num === numOfText) return;
+      dispatch({ type: 'Change_NumOfText', numOfText: num as NumOfText });
     },
     [dispatch]
   );
@@ -62,26 +83,133 @@ export default function HotPotato() {
   // GAME SPECIFIC SCROLL EVENTS
   const scrollCB = useCallback(
     (scrolledUp: boolean) =>
-      // can remove the following if there's only one data source
       dispatch({ type: 'Change_isVocab', isVocab: !scrolledUp }),
     [dispatch]
   );
   useScroll(scrollCB);
 
   // GAME EFFECTS - you can use multiple effects just comment what each means
+  // updates game if numOfText changes
   useEffect(() => {
-    //
-  }, []);
+    if (isFirstRun) return;
+    // avoid unnecessary call if we're switching to expressions
+    // remember - there can only be one expression, but multiple vocabs
+    if (!isVocab) return;
+    handleGame();
+  }, [numOfText]);
+
+  useEffect(() => {
+    if (countdown < 1) return;
+    const id =
+      countdown > 1
+        ? setTimeout(() => dispatch({ type: 'Countdown' }), 1000)
+        : setTimeout(() => dispatch({ type: 'Countdown_Stop' }), 1000);
+    return () => clearTimeout(id);
+  }, [dispatch, countdown]);
+
+  useEffect(() => {
+    if (countdown !== 1) return;
+    Scream.current.currentTime = 0.3;
+    Scream.current.play();
+  }, [countdown, Scream]);
+
+  useEffect(() => {
+    if (stage !== 2) return;
+    const id = __fadeIn(Song);
+    return () => clearInterval(id);
+  }, [stage, Song]);
+
+  useEffect(() => {
+    if (stage !== 3) return;
+    const id = __fadeOut(Song, Sizzle);
+    return () => clearInterval(id);
+  }, [stage, Song, Sizzle]);
 
   // GAME FUNCTIONS - start with an underscore ex) _handleClick
+  function _handleClick() {
+    // wait for useAudio to add audio to ref
+    if (!Bubbling.current) return;
+    if (countdown > 0) return;
+    if (stage === 1) {
+      Bubbling.current.currentTime = 0.2;
+      Bubbling.current.play();
+      // googleEvent(title);
+      return dispatch({ type: 'Countdown_Start' });
+    }
+    if (stage === 2) {
+      Sizzle.current.play();
+      return dispatch({ type: 'Show_Text' });
+    }
+    if (stage === 3) return handleGame();
+  }
 
   return (
-    <div className={ContainerCSS.className}>
-      {/* ADD YOUR ELEMENTS/COMPONENTS HERE */}
+    <div className={ContainerCSS.className} onClick={_handleClick}>
+      <HotPotatoStage
+        isIn={stage === 1}
+        bgColor="#ffcb04"
+        cxDiv={Styles.StageContainerCSS.className}
+        cxImg={Styles.ImgCSS.className}
+        src={URLs.boiling}
+        alt="potatoes-boiling"
+      />
+      <HotPotatoStage
+        isIn={stage === 2}
+        bgColor="#fffbde"
+        cxDiv={Styles.StageContainerCSS.className}
+        cxImg={Styles.ImgCSS.className}
+        src={URLs.dancing}
+        alt="potato-dancing"
+      />
+      <HotPotatoStage
+        isIn={stage === 3}
+        bgColor="#a77c52"
+        cxDiv={Styles.StageContainerCSS.className}
+        cxImg={Styles.ImgCSS.className}
+        src={URLs.cooling}
+        alt="potato-finished"
+      >
+        {/* <Text
+          gameData={gameData}
+          refs={refs}
+          isIn={stage === 3}
+          isVocab={isVocab}
+          numOfText={numOfText}
+        /> */}
+      </HotPotatoStage>
+
+      {!countdown ? null : (
+        <span className={Styles.CountdownTimerCSS.className}>{countdown}</span>
+      )}
 
       {/* STYLES */}
       {ContainerCSS.styles}
-      {/* Add any other style elements here */}
+      {Styles.StageContainerCSS.styles}
+      {Styles.ImgCSS.styles}
+      {Styles.CountdownTimerCSS.styles}
     </div>
   );
+}
+
+function __fadeIn(Song: MutableRefObject<HTMLAudioElement>) {
+  Song.current.volume = 0.05;
+  Song.current.play();
+  const id = setInterval(() => {
+    if (Song.current.volume < 0.85) return (Song.current.volume += 0.15);
+    clearInterval(id);
+  }, 400);
+  return id;
+}
+
+function __fadeOut(
+  Song: MutableRefObject<HTMLAudioElement>,
+  Sizzle: MutableRefObject<HTMLAudioElement>
+) {
+  Song.current.pause();
+  Sizzle.current.play();
+  const id = setInterval(() => {
+    if (Sizzle.current.volume > 0.11) return (Sizzle.current.volume -= 0.1);
+    clearInterval(id);
+  }, 250);
+  return id;
 }
