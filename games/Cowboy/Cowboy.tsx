@@ -1,15 +1,16 @@
-import React, { useCallback, useEffect } from 'react';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { useCallback } from 'react';
+import { animated, useSpring, useTransition, config } from 'react-spring';
 
 import { useStore } from 'contexts/store';
 import {
-  // useAudio,
+  useAudio,
   useData,
   useHandleGame,
-  useFirstRun,
-  // useFitText,
+  useFitText,
   useKeys,
   useScroll,
-  // useSplit2Rows,
 } from 'hooks';
 
 import { init, reducer } from './state_manager';
@@ -17,39 +18,62 @@ import type { GameStore } from './state_types';
 import * as Styles from './Cowboy.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
-//
+import { nextRoundData } from 'games/_utils';
+import FitText from 'components/FitText';
 
 // CONSTANTS - img, audio, function, etc.
-//
+const baseURL = `https://res.cloudinary.com/dastrong/video/upload/v1567147248/TeacherSite/Media/Cowboy`;
+const ReloadAudioURL = `${baseURL}/GunReload.mp3`;
+const ShotAudioURL = `${baseURL}/GunShot.mp3`;
 
 export default function Cowboy() {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
   // AUDIO - useAudio
-  // can remove if your game doesn't use any audio
+  const [ReloadAudio] = useAudio(ReloadAudioURL);
+  const [ShotAudio] = useAudio(ShotAudioURL);
 
   // STATE - useData
-  const primary = store.vocabulary; // vocabulary or expressions
-  const secondary = store.expressions; // only expressions - can remove you only use one data source
-  const gameStore: GameStore = useData(reducer, init, primary, secondary); // remove secondary from here too if above is true
+  const primary = store.vocabulary;
+  const secondary = store.expressions;
+  const gameStore: GameStore = useData(reducer, init, primary, secondary);
   const [state, dispatch, didUpdate] = gameStore;
-  const { data, isVocab } = state; // destructure your state array here - should be fully typed
+  const { data, isVocab, text, showReady } = state;
 
   // REFS - useFitText, useSplit2Rows, etc..
-  const isFirstRun = useFirstRun();
+  const [[ref]] = useFitText(text);
+  const textStyles = useSpring({
+    opacity: showReady ? 0 : 1,
+    immediate: true,
+  });
+  const transition = useTransition(showReady, {
+    from: { opacity: 0, translateY: '-400px' },
+    enter: { opacity: 1, translateY: '0px' },
+    leave: { opacity: 0, translateY: '200px' },
+    config: config.wobbly,
+  });
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
-    // googleEvent(title);
-    dispatch({ type: 'New_Round' }); // put whatever else you need to start a new round
-  }, [data, isVocab]);
+    if (!ShotAudio.current || !ReloadAudio.current) return;
+    if (showReady) {
+      // googleEvent(title);
+      ShotAudio.current.play();
+      dispatch({ type: 'Show_Ready_False' });
+    } else {
+      // don't play the audio on mounting
+      if (showReady !== null) ReloadAudio.current.play();
+      const fullData = isVocab ? store.vocabulary : store.expressions;
+      const [[cur], nex] = nextRoundData(1, data, fullData);
+      dispatch({ type: 'New_Round', text: cur, data: nex });
+    }
+  }, [data, isVocab, showReady]);
   useHandleGame(handleGame, didUpdate);
 
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
     ({ key }: KeyboardEvent) => {
-      // can remove the following if there's only one data source
       if (key === 'ArrowLeft')
         return dispatch({ type: 'Change_isVocab', isVocab: true });
       if (key === 'ArrowRight')
@@ -62,26 +86,35 @@ export default function Cowboy() {
   // GAME SPECIFIC SCROLL EVENTS
   const scrollCB = useCallback(
     (scrolledUp: boolean) =>
-      // can remove the following if there's only one data source
       dispatch({ type: 'Change_isVocab', isVocab: !scrolledUp }),
     [dispatch]
   );
   useScroll(scrollCB);
 
-  // GAME EFFECTS - you can use multiple effects just comment what each means
-  useEffect(() => {
-    //
-  }, []);
-
-  // GAME FUNCTIONS - start with an underscore ex) _handleClick
-
   return (
-    <div className={ContainerCSS.className}>
-      {/* ADD YOUR ELEMENTS/COMPONENTS HERE */}
+    <div className={ContainerCSS.className} onClick={handleGame}>
+      <div className={Styles.TextHolderCSS.className}>
+        {transition(
+          (style, item) =>
+            item && (
+              <animated.div
+                style={{ ...style, fontSize: '12vw' }}
+                className={Styles.TextCSS.className}
+              >
+                <span>On your marks...</span>
+              </animated.div>
+            )
+        )}
+
+        <animated.div style={textStyles} className={Styles.TextCSS.className}>
+          <FitText text={text} ref={ref} />
+        </animated.div>
+      </div>
 
       {/* STYLES */}
       {ContainerCSS.styles}
-      {/* Add any other style elements here */}
+      {Styles.TextHolderCSS.styles}
+      {Styles.TextCSS.styles}
     </div>
   );
 }
