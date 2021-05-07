@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useCallback, useEffect } from 'react';
 import { animated, useSpring } from 'react-spring';
-import shuffle from 'lodash.shuffle';
 
 import { useStore } from 'contexts/store';
 import { useData, useHandleGame, useFitText, useKeys, useScroll } from 'hooks';
@@ -13,6 +12,7 @@ import * as Styles from './SparkleDie.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
 import FitText from 'components/FitText';
+import { nextRoundData } from 'games/_utils';
 
 export default function SparkleDie() {
   const store = useStore();
@@ -36,8 +36,7 @@ export default function SparkleDie() {
   // HANDLE GAME
   const handleGame = useCallback(() => {
     // googleEvent(title);
-    const [text, ...rest] = data;
-    const newData = rest.length < 1 ? shuffle(store.expressions) : rest;
+    const [[text], newData] = nextRoundData(1, data, store.expressions);
     dispatch({ type: 'New_Round', text, data: newData });
   }, [data]);
   useHandleGame(handleGame, didUpdate);

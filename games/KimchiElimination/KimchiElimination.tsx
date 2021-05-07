@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useCallback, useEffect } from 'react';
 import { animated, useSpring, useTransition } from 'react-spring';
-import shuffle from 'lodash.shuffle';
 import classNames from 'classnames';
 
 import { useStore } from 'contexts/store';
@@ -14,7 +13,7 @@ import * as Styles from './KimchiElimination.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
 import FitText from 'components/FitText';
-import { getRandoNum } from 'games/_utils';
+import { getRandoNum, nextRoundData } from 'games/_utils';
 
 export default function KimchiElimination() {
   const store = useStore();
@@ -58,8 +57,7 @@ export default function KimchiElimination() {
     if (isAnimating) return;
     if (showPic) {
       // googleEvent(title);
-      const [text, ...rest] = data;
-      const newData = rest.length < 1 ? shuffle(store.expressions) : rest;
+      const [[text], newData] = nextRoundData(1, data, store.expressions);
       const isKimchi = getRandoNum(100) < kimchiFrequency;
       dispatch({ type: 'New_Round', text, data: newData, isKimchi });
     } else {

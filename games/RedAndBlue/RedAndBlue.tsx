@@ -30,13 +30,8 @@ export default function RedAndBlue() {
   // HANDLE GAME
   const handleGame = useCallback(() => {
     // googleEvent(title);
-    const [[red, blue], nex] = nextRoundData(
-      data,
-      2,
-      isVocab,
-      store.vocabulary,
-      store.expressions
-    );
+    const fullData = isVocab ? store.vocabulary : store.expressions;
+    const [[red, blue], nex] = nextRoundData(2, data, fullData);
     dispatch({ type: 'New_Round', red, blue, data: nex });
   }, [data, isVocab]);
   useHandleGame(handleGame, didUpdate);

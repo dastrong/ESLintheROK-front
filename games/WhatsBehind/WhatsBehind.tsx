@@ -62,13 +62,8 @@ export default function WhatsBehind() {
     const boxCount = getBoxCount(isVocab);
     // choose the target box
     const target = [getRandoNum(boxCount - 1)];
-    const [nex, rest] = nextRoundData(
-      data,
-      boxCount,
-      isVocab,
-      store.vocabulary,
-      store.expressions
-    );
+    const fullData = isVocab ? store.vocabulary : store.expressions;
+    const [nex, rest] = nextRoundData(boxCount, data, fullData);
     dispatch({ type: 'New_Round', data: rest, gameData: nex, target });
   }, [data, isVocab]);
   useHandleGame(handleGame, didUpdate);

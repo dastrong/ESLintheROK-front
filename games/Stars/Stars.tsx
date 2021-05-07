@@ -64,13 +64,8 @@ export default function Stars() {
     const boxCount = getBoxCount(isVocab);
     // how many 'stars' for each box
     const stars = arrOfRandoNum(maximumStars, minimumStars, boxCount);
-    const [nex, rest] = nextRoundData(
-      data,
-      boxCount,
-      isVocab,
-      store.vocabulary,
-      store.expressions
-    );
+    const fullData = isVocab ? store.vocabulary : store.expressions;
+    const [nex, rest] = nextRoundData(boxCount, data, fullData);
     dispatch({ type: 'New_Round', data: rest, gameData: nex, stars });
   }, [data, isVocab, minimumStars]);
   useHandleGame(handleGame, didUpdate);

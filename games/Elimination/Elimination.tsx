@@ -64,13 +64,8 @@ export default function Elimination() {
     const boxCount = getBoxCount(isVocab);
     // get a unique array of indexes for our 'chosen' blocks
     const Xs = arrOfRandoNum(boxCount - 1, 0, xCount, true);
-    const [nex, rest] = nextRoundData(
-      data,
-      boxCount,
-      isVocab,
-      store.vocabulary,
-      store.expressions
-    );
+    const fullData = isVocab ? store.vocabulary : store.expressions;
+    const [nex, rest] = nextRoundData(boxCount, data, fullData);
     dispatch({ type: 'New_Round', data: rest, gameData: nex, Xs });
   }, [data, isVocab, xCount]);
   useHandleGame(handleGame, didUpdate);
