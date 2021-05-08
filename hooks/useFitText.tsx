@@ -78,6 +78,9 @@ function calculateFit(refs: RefsType, shouldCalculateSolo: boolean) {
   // throttling my performance showed it should be kept under 5 for slower computers
   const numLoops = 3;
 
+  // if any of the refs aren't assigned to an element don't calculate fits
+  if (refs.some(ref => !ref.current)) return;
+
   const refsAndStuff = getRefsAndStuff(refs, numLoops);
 
   // separate refs into arrays based on single and multi worded spans
