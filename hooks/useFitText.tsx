@@ -1,7 +1,7 @@
 import React from 'react';
 import { useStore } from 'contexts/store';
 
-type GameDataType = string | string[] | number;
+type GameDataType = string | string[] | number | any[];
 type RefsType = React.RefObject<HTMLSpanElement>[];
 
 // gameData - the fonts will be fitted whenever this value changes
