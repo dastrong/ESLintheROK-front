@@ -44,3 +44,27 @@ export const CountdownTimerCSS = css.resolve`
     text-shadow: 1px 1px 7px #dfdffd;
   }
 `;
+
+export const TextContainer = css.resolve`
+   {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(167, 124, 82, 0.7);
+    overflow: hidden;
+    text-shadow: 0.5px 0.5px 2.5px #dfdffd;
+  }
+`;
+
+export const TextWrapper = css.resolve`
+   {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+`;

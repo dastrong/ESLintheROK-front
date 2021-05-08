@@ -11,11 +11,18 @@ export const init = (data: string[]): State => ({
 });
 
 export const reducer = (state: State, action: Action): State => {
+  console.log(action, state);
   switch (action.type) {
     case 'Set_Data':
       return { ...state, data: shuffle(action.data) };
     case 'Change_isVocab':
-      return { ...state, isVocab: action.isVocab };
+      return {
+        ...state,
+        isVocab: action.isVocab,
+        numOfText: action.isVocab ? state.numOfText : 1,
+        countdown: 0,
+        stage: 1,
+      };
     case 'New_Round':
       return {
         ...state,
@@ -33,7 +40,12 @@ export const reducer = (state: State, action: Action): State => {
     case 'Show_Text':
       return { ...state, stage: 3 };
     case 'Change_NumOfText':
-      return { ...state, stage: 1, countdown: 0, numOfText: action.numOfText };
+      return {
+        ...state,
+        stage: 1,
+        countdown: 0,
+        numOfText: state.isVocab ? action.numOfText : 1,
+      };
     default:
       return state;
   }

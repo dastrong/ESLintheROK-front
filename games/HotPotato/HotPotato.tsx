@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { MutableRefObject, useCallback, useEffect } from 'react';
+import { animated, useSprings } from 'react-spring';
 
 import { useStore } from 'contexts/store';
 import {
@@ -16,10 +17,11 @@ import {
 import { init, reducer } from './state_manager';
 import type { GameStore, NumOfText } from './state_types';
 import * as Styles from './HotPotato.styles';
+import HotPotatoStage from './HotPotatoStage';
 
 // IMPORT COMPONENTS/UTILITIES HERE
 import { nextRoundData, resetAllAudio } from 'games/_utils';
-import HotPotatoStage from './HotPotatoStage';
+import FitText from 'components/FitText';
 
 // CONSTANTS - img, audio, function, etc.
 const baseURL = 'https://res.cloudinary.com/dastrong/';
@@ -52,7 +54,17 @@ export default function HotPotato() {
 
   // REFS - useFitText, useSplit2Rows, etc..
   const isFirstRun = useFirstRun();
-  // const [refs] = useFitText(gameData);
+  const [refs, updateFitText] = useFitText(gameData);
+  const [textSprings] = useSprings(
+    gameData.length,
+    i => ({
+      opacity: stage === 3 ? 1 : 0,
+      translateY: stage === 3 ? '0px' : '-40px',
+      delay: stage !== 3 ? 0 : i * 400,
+      immediate: stage !== 3,
+    }),
+    [stage]
+  );
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
@@ -121,6 +133,7 @@ export default function HotPotato() {
 
   useEffect(() => {
     if (stage !== 3) return;
+    updateFitText();
     const id = __fadeOut(Song, Sizzle);
     return () => clearInterval(id);
   }, [stage, Song, Sizzle]);
@@ -169,13 +182,20 @@ export default function HotPotato() {
         src={URLs.cooling}
         alt="potato-finished"
       >
-        {/* <Text
-          gameData={gameData}
-          refs={refs}
-          isIn={stage === 3}
-          isVocab={isVocab}
-          numOfText={numOfText}
-        /> */}
+        <div className={Styles.TextContainer.className}>
+          {textSprings.map((styles, i) => (
+            <animated.div
+              key={`${gameData[i]}-text`}
+              className={Styles.TextWrapper.className}
+              style={{
+                ...styles,
+                height: isVocab ? `${96 / numOfText}vh` : '100vh',
+              }}
+            >
+              <FitText text={gameData[i]} ref={refs[i]} />
+            </animated.div>
+          ))}
+        </div>
       </HotPotatoStage>
 
       {!countdown ? null : (
@@ -187,6 +207,8 @@ export default function HotPotato() {
       {Styles.StageContainerCSS.styles}
       {Styles.ImgCSS.styles}
       {Styles.CountdownTimerCSS.styles}
+      {Styles.TextContainer.styles}
+      {Styles.TextWrapper.styles}
     </div>
   );
 }
