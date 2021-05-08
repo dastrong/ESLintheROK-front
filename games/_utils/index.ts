@@ -87,3 +87,7 @@ function getHSL() {
   const lig = getRandoNum(70, 60);
   return `hsl(${hue}, ${sat}%, ${lig}%)`;
 }
+
+export function resetAllAudio(...cbs: (() => void)[]) {
+  cbs.forEach(cb => cb());
+}
