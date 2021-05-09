@@ -1,87 +1,83 @@
-import React, { useCallback, useEffect } from 'react';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { useCallback } from 'react';
+import { animated, config, useSpring, useTransition } from 'react-spring';
 
 import { useStore } from 'contexts/store';
-import {
-  // useAudio,
-  useData,
-  useHandleGame,
-  useFirstRun,
-  // useFitText,
-  useKeys,
-  useScroll,
-  // useSplit2Rows,
-} from 'hooks';
+import { useData, useHandleGame, useFitText, useKeys } from 'hooks';
 
 import { init, reducer } from './state_manager';
 import type { GameStore } from './state_types';
 import * as Styles from './Nunchi.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
-//
-
-// CONSTANTS - img, audio, function, etc.
-//
+import { nextRoundData } from 'games/_utils';
+import FitText from 'components/FitText';
 
 export default function Nunchi() {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
-  // AUDIO - useAudio
-  // can remove if your game doesn't use any audio
-
   // STATE - useData
-  const primary = store.vocabulary; // vocabulary or expressions
-  const secondary = store.expressions; // only expressions - can remove you only use one data source
-  const gameStore: GameStore = useData(reducer, init, primary, secondary); // remove secondary from here too if above is true
+  const primary = store.expressions;
+  const secondary = null;
+  const gameStore: GameStore = useData(reducer, init, primary, secondary);
   const [state, dispatch, didUpdate] = gameStore;
-  const { data, isVocab } = state; // destructure your state array here - should be fully typed
+  const { data, text, showReady } = state;
 
   // REFS - useFitText, useSplit2Rows, etc..
-  const isFirstRun = useFirstRun();
+  const [[ref]] = useFitText(text);
+  const readyTransition = useTransition(showReady, {
+    from: { opacity: 0, translateY: '-300px' },
+    enter: { opacity: 1, translateY: '0px' },
+    leave: { opacity: 0, translateY: '700px' },
+  });
+  const textStyles = useSpring({
+    opacity: !showReady ? 1 : 0,
+    config: config.wobbly,
+    immediate: showReady,
+  });
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
-    // googleEvent(title);
-    dispatch({ type: 'New_Round' }); // put whatever else you need to start a new round
-  }, [data, isVocab]);
+    if (showReady) {
+      // googleEvent(title);
+      dispatch({ type: 'Show_Ready_False' });
+    } else {
+      const [[cur], nex] = nextRoundData(1, data, store.expressions);
+      dispatch({ type: 'New_Round', text: cur, data: nex });
+    }
+  }, [data, showReady]);
   useHandleGame(handleGame, didUpdate);
 
   // GAME SPECIFIC KEY EVENTS
-  const keysCB = useCallback(
-    ({ key }: KeyboardEvent) => {
-      // can remove the following if there's only one data source
-      if (key === 'ArrowLeft')
-        return dispatch({ type: 'Change_isVocab', isVocab: true });
-      if (key === 'ArrowRight')
-        return dispatch({ type: 'Change_isVocab', isVocab: false });
-    },
-    [dispatch]
-  );
-  useKeys(handleGame, keysCB);
-
-  // GAME SPECIFIC SCROLL EVENTS
-  const scrollCB = useCallback(
-    (scrolledUp: boolean) =>
-      // can remove the following if there's only one data source
-      dispatch({ type: 'Change_isVocab', isVocab: !scrolledUp }),
-    [dispatch]
-  );
-  useScroll(scrollCB);
-
-  // GAME EFFECTS - you can use multiple effects just comment what each means
-  useEffect(() => {
-    //
-  }, []);
-
-  // GAME FUNCTIONS - start with an underscore ex) _handleClick
+  useKeys(handleGame); // no specific in game events
 
   return (
-    <div className={ContainerCSS.className}>
-      {/* ADD YOUR ELEMENTS/COMPONENTS HERE */}
+    <div className={ContainerCSS.className} onClick={handleGame}>
+      <div className={Styles.TextContainerCSS.className}>
+        {readyTransition(
+          (style, item) =>
+            item && (
+              <animated.p
+                style={style}
+                className={Styles.ReadyTextCSS.className}
+              >
+                Ready?
+              </animated.p>
+            )
+        )}
+
+        <animated.div style={textStyles} className={Styles.TextCSS.className}>
+          <FitText text={text} ref={ref} />
+        </animated.div>
+      </div>
 
       {/* STYLES */}
       {ContainerCSS.styles}
-      {/* Add any other style elements here */}
+      {Styles.TextContainerCSS.styles}
+      {Styles.ReadyTextCSS.styles}
+      {Styles.TextCSS.styles}
     </div>
   );
 }
