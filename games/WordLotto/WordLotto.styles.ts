@@ -3,8 +3,28 @@ import { css } from 'styled-jsx/css';
 export const getContainerCSS = (fontFamily: string) => css.resolve`
    {
     font-family: ${fontFamily};
-    /* rest of your container styles here */
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    cursor: pointer;
+    margin: auto;
   }
 `;
 
-// put any other game top-level CSS here
+export const CardCSS = css.resolve`
+   {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-shadow: 2px 2px 2px black;
+    border-radius: 15px;
+    box-shadow: 2px 2px 2px #b9b9b9ad, 2px 2px 2px #b9b9b9ad,
+      0px 0px 8px #4a4a4ae3 inset;
+    user-select: none;
+    margin: 0.5vh 0.5vw;
+  }
+`;
