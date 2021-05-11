@@ -1,4 +1,5 @@
 import shuffle from 'lodash.shuffle';
+export { default as splitString } from './split_string';
 
 export function throwError(msg: string) {
   throw new Error(`Error: ${msg}`);
@@ -17,8 +18,8 @@ export function filterData(
   if (!filter) return dataArray;
 
   const filteredList = ['_', '...', ...extraFilters];
-  return dataArray.filter(dataStr =>
-    filteredList.some(filter => dataStr.includes(filter))
+  return dataArray.filter(
+    dataStr => !filteredList.some(filter => dataStr.includes(filter))
   );
 }
 
