@@ -1,55 +1,81 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useCallback, useEffect } from 'react';
+import shuffle from 'lodash.shuffle';
+import { animated, useSprings } from 'react-spring';
 
 import { useStore } from 'contexts/store';
 import {
-  // useAudio,
+  useAudio,
   useData,
   useHandleGame,
-  useFirstRun,
-  // useFitText,
+  useFitText,
   useKeys,
   useScroll,
-  // useSplit2Rows,
 } from 'hooks';
 
 import { init, reducer } from './state_manager';
 import type { GameStore } from './state_types';
 import * as Styles from './PubgBattleground.styles';
+import { PubgBattlegroundItems } from './PubgBattlegroundItems';
 
 // IMPORT COMPONENTS/UTILITIES HERE
-//
+import { getRandoNum, nextRoundData } from 'games/_utils';
+import FitText from 'components/FitText';
 
 // CONSTANTS - img, audio, function, etc.
-//
+const baseURL = 'https://res.cloudinary.com/dastrong';
+const addURL = `/image/upload/f_auto/v1543130357/TeacherSite/Media/BattleGround/images/`;
+const countdownAudioURL = `${baseURL}/video/upload/f_auto/v1543135345/TeacherSite/Media/BattleGround/countdownAudio.mp3`;
+const backgroundURL = `${baseURL}/image/upload/f_auto/v1543135348/TeacherSite/Media/BattleGround/pubgMap.jpg`;
+const numOfText = 4;
 
 export default function PubgBattleground() {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
   // AUDIO - useAudio
-  // can remove if your game doesn't use any audio
+  const [CountAudio, resetCountAudio] = useAudio(countdownAudioURL);
 
   // STATE - useData
-  const primary = store.vocabulary; // vocabulary or expressions
-  const secondary = store.expressions; // only expressions - can remove you only use one data source
-  const gameStore: GameStore = useData(reducer, init, primary, secondary); // remove secondary from here too if above is true
+  const primary = store.vocabulary;
+  const secondary = store.expressions;
+  const gameStore: GameStore = useData(reducer, init, primary, secondary);
   const [state, dispatch, didUpdate] = gameStore;
-  const { data, isVocab } = state; // destructure your state array here - should be fully typed
+  const { data, isVocab, gameData, items, scaled, stage, countdown } = state;
 
   // REFS - useFitText, useSplit2Rows, etc..
-  const isFirstRun = useFirstRun();
+  const [refs] = useFitText(gameData);
+  const textSprings = useSprings(
+    gameData.length,
+    gameData.map(() => ({ opacity: stage !== 3 ? 1 : 0 }))
+  );
+  const itemSprings = useSprings(
+    gameData.length,
+    items.map(() => ({
+      opacity: stage === 3 ? 1 : 0,
+      immediate: stage !== 3,
+    }))
+  );
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
-    // googleEvent(title);
-    dispatch({ type: 'New_Round' }); // put whatever else you need to start a new round
+    resetCountAudio();
+    const fullData = isVocab ? store.vocabulary : store.expressions;
+    const [cur, nex] = nextRoundData(numOfText, data, fullData);
+    const newItems = shuffle([0, 1, 2, 3]).map(
+      num =>
+        PubgBattlegroundItems[num][
+          getRandoNum(PubgBattlegroundItems[num].length - 1)
+        ]
+    );
+    dispatch({ type: 'New_Round', data: nex, gameData: cur, items: newItems });
   }, [data, isVocab]);
   useHandleGame(handleGame, didUpdate);
 
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
     ({ key }: KeyboardEvent) => {
-      // can remove the following if there's only one data source
       if (key === 'ArrowLeft')
         return dispatch({ type: 'Change_isVocab', isVocab: true });
       if (key === 'ArrowRight')
@@ -62,7 +88,6 @@ export default function PubgBattleground() {
   // GAME SPECIFIC SCROLL EVENTS
   const scrollCB = useCallback(
     (scrolledUp: boolean) =>
-      // can remove the following if there's only one data source
       dispatch({ type: 'Change_isVocab', isVocab: !scrolledUp }),
     [dispatch]
   );
@@ -70,18 +95,120 @@ export default function PubgBattleground() {
 
   // GAME EFFECTS - you can use multiple effects just comment what each means
   useEffect(() => {
-    //
-  }, []);
+    if (stage !== 1) return;
+    const id = setTimeout(() => dispatch({ type: 'Countdown_Start' }), 4500);
+    return () => clearTimeout(id);
+  }, [stage, dispatch]);
+
+  useEffect(() => {
+    if (countdown < 1) return;
+    const id =
+      countdown > 1
+        ? setTimeout(() => dispatch({ type: 'Countdown' }), 1000)
+        : setTimeout(() => dispatch({ type: 'Countdown_Stop' }), 1000);
+    return () => clearTimeout(id);
+  }, [countdown, dispatch]);
 
   // GAME FUNCTIONS - start with an underscore ex) _handleClick
+  const _handleClick = useCallback(() => {
+    if (!CountAudio.current) return;
+    if (stage === 0) {
+      // googleEvent(title);
+      CountAudio.current.currentTime = 0;
+      CountAudio.current.play();
+      return dispatch({ type: 'Countdown_Setup' });
+    }
+    if (stage === 1) return;
+    if (stage === 2) return dispatch({ type: 'Show_Items' });
+    if (stage === 3) return handleGame();
+    // }, [stage, handleGame, CountAudio, title, dispatch]);
+  }, [stage, handleGame, CountAudio, dispatch]);
 
   return (
-    <div className={ContainerCSS.className}>
-      {/* ADD YOUR ELEMENTS/COMPONENTS HERE */}
+    <div className={ContainerCSS.className} onClick={_handleClick}>
+      <div className="blue-zone" />
+      <img className="map" src={backgroundURL} alt="pubg map background" />
+      <div className="countdown-timer">{countdown}</div>
+
+      {/* TEXT CARDS */}
+      <div className={Styles.CardHolderCSS.className}>
+        {textSprings.map((style, i) => (
+          <animated.div
+            key={`pubg-card-text-${i}`}
+            style={style}
+            className={Styles.CardCSS.className}
+          >
+            <FitText text={gameData[i]} ref={refs[i]} />
+          </animated.div>
+        ))}
+      </div>
+
+      {/* ITEM CARDS */}
+      <div className={Styles.CardHolderCSS.className}>
+        {itemSprings.map((style, i) => {
+          const { points, name } = items[i];
+          return (
+            <animated.div
+              key={`pubg-card-item-${i}`}
+              style={{
+                ...style,
+                backgroundImage: `url(${baseURL + addURL + name}.png)`,
+                color: points.startsWith('-') ? 'red' : 'green',
+              }}
+              className={Styles.CardCSS.className}
+            >
+              {points}
+            </animated.div>
+          );
+        })}
+      </div>
 
       {/* STYLES */}
       {ContainerCSS.styles}
-      {/* Add any other style elements here */}
+      {Styles.CardHolderCSS.styles}
+      {Styles.CardCSS.styles}
+      <style jsx>{`
+        div.blue-zone {
+          position: fixed;
+          height: 103vh;
+          width: 103vw;
+          z-index: 5;
+          transform: scale(1);
+          transition: transform 6s;
+          border-width: 1.5vh 1.5vw;
+          border-color: blue;
+          border-style: solid;
+          box-shadow: inset 0 0 3px 3px blue;
+          top: -2.5vh;
+          left: -2.5vw;
+          transform: scale(${stage === 1 ? 0.97 : 1});
+          transition-delay: ${stage === 1 ? 8 : 0}s;
+        }
+
+        img.map {
+          position: fixed;
+          height: 100%;
+          width: 100%;
+          transition: all 6s;
+          transform: scale(${1 + scaled})
+            translate(-${scaled * 12}vw, ${scaled}vh);
+        }
+
+        div.countdown-timer {
+          color: #fff;
+          z-index: 5;
+          position: absolute;
+          font-size: 150px;
+          height: 200px;
+          width: 200px;
+          line-height: 200px;
+          text-align: center;
+          background-color: rgb(0, 0, 0);
+          border-radius: 50%;
+          opacity: ${countdown ? 1 : 0};
+          transition: opacity 0.5s;
+        }
+      `}</style>
     </div>
   );
 }
