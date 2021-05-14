@@ -15,7 +15,6 @@ export const init = (data: string[]): State => ({
 });
 
 export const reducer = (state: State, action: Action): State => {
-  console.log(state.isAnimating);
   switch (action.type) {
     case 'Set_Data':
       return { ...state, data: shuffle(action.data) };
@@ -31,7 +30,6 @@ export const reducer = (state: State, action: Action): State => {
       };
     case 'Add_Click_ID':
       // bail out of dispatch if already clicked
-      console.log(action.id);
       if (!state.isShuffleDone) return state;
       if (state.clickedIDs.includes(action.id)) return state;
       return { ...state, clickedIDs: [...state.clickedIDs, action.id] };

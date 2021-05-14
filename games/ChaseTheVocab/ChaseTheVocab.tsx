@@ -54,13 +54,17 @@ export default function ChaseTheVocab() {
   // REFS - useFitText, useSplit2Rows, etc..
   const [refs] = useFitText(gameData);
   const cardStyles = useSpring({ scale: isAnimating ? 0.9 : 1 });
+  const numSprings = useSprings(
+    gameData.length,
+    gameData.map((_, i) => ({
+      opacity: isShuffleDone && !clickedIDs.includes(i) ? 1 : 0,
+    }))
+  );
   const textSprings = useSprings(
     gameData.length,
     gameData.map((_, i) => ({
-      backgroundColor: colors[color],
-      color: isAnimating ? 'transparent' : '#fff',
       opacity:
-        isAnimating || (isShuffleDone && !clickedIDs.includes(i)) ? 1 : 0,
+        (!isAnimating && !isShuffleDone) || clickedIDs.includes(i) ? 1 : 0,
     }))
   );
 
@@ -153,20 +157,22 @@ export default function ChaseTheVocab() {
       >
         {gameData.map(({ text, id }, i) => {
           return (
+            // we double wrap our divs here because FlipMove will animate using a CSS ...
+            // ... transform which will interfere with our CSS transform springs
             <div
               key={`chase-card-${id}`}
               id={String(i)}
               onClick={_handleBoxClick}
             >
               <animated.div
-                style={cardStyles}
+                style={{ ...cardStyles, backgroundColor: colors[color] }}
                 className={classNames(
                   Styles.CardHolderCSS.className,
                   Styles.CardCSS.className
                 )}
               >
                 <animated.div
-                  style={textSprings[i]}
+                  style={numSprings[i]}
                   className={classNames(
                     Styles.CardCSS.className,
                     Styles.CardNumCSS.className
@@ -174,14 +180,15 @@ export default function ChaseTheVocab() {
                 >
                   {i + 1}
                 </animated.div>
-                <div
+                <animated.div
+                  style={textSprings[i]}
                   className={classNames(
                     Styles.CardCSS.className,
                     Styles.CardTextCSS.className
                   )}
                 >
                   <FitText text={text} ref={refs[id]} />
-                </div>
+                </animated.div>
               </animated.div>
             </div>
           );

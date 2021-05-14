@@ -15,6 +15,7 @@ export const FlipperContainerCSS = css.resolve`
     cursor: pointer;
   }
 `;
+
 export const CardHolderCSS = css.resolve`
    {
     box-sizing: border-box;
@@ -22,8 +23,9 @@ export const CardHolderCSS = css.resolve`
     width: 32.33vw;
     margin: 0.5vh 0.5vw;
     color: #fff;
-    text-shadow: 3px 3px 1px black;
     user-select: none;
+    text-shadow: 3px 3px 1px black;
+    border: 3px solid #111;
   }
 `;
 
@@ -41,11 +43,9 @@ export const CardCSS = css.resolve`
 export const CardNumCSS = css.resolve`
    {
     position: absolute;
-    text-shadow: none;
     font-size: 9vw;
     width: 100%;
     height: 100%;
-    border: 6px solid #111;
     z-index: 2;
   }
 `;
@@ -54,7 +54,6 @@ export const CardTextCSS = css.resolve`
    {
     width: 100%;
     height: 100%;
-    border: 4px solid #111;
     background-color: #676767;
   }
 `;
