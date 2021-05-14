@@ -1,13 +1,23 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 
-export default forwardRef<HTMLSpanElement, { text: string; cx?: string }>(
-  ({ text, cx }, ref) => {
+interface ChildrenProp {
+  text?: never;
+  children: React.ReactNode;
+}
+interface StringProp {
+  text: string;
+  children?: never;
+}
+type Props = { cx?: string } & (ChildrenProp | StringProp);
+
+export default forwardRef<HTMLSpanElement, Props>(
+  ({ children, text, cx }, ref) => {
     const className = classNames('fittext', { [cx]: cx });
 
     return (
       <span className={className} ref={ref}>
-        {text}
+        {text || children}
 
         <style jsx>{`
           span {
