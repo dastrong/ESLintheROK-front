@@ -59,14 +59,14 @@ export function arrOfRandoNum(
   min: number, // min value
   length: number, // length of the array
   unique = false // can specify if you need unique values (as always possible)
-) {
+): number[] {
   if (min > max) {
     throwError('Min cannot be higher than the max');
   }
   if (unique && max - min < length - 1) {
     throwError('Unique Error. Length cannot be lower than the max number');
   }
-  const arr = [];
+  const arr: number[] = [];
   while (arr.length < length) {
     const randoNum = getRandoNum(max, min);
     if (unique) {
