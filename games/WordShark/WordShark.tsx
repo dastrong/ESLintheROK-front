@@ -2,14 +2,12 @@ import React, { useCallback, useEffect } from 'react';
 
 import { useStore } from 'contexts/store';
 import {
-  // useAudio,
   useData,
   useHandleGame,
   useFirstRun,
-  // useFitText,
+  useFitText,
   useKeys,
   useScroll,
-  // useSplit2Rows,
 } from 'hooks';
 
 import { init, reducer } from './state_manager';
@@ -17,32 +15,46 @@ import type { GameStore } from './state_types';
 import * as Styles from './WordShark.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
-//
+import { nextRoundData } from 'games/_utils';
+import FitText from 'components/FitText';
 
 // CONSTANTS - img, audio, function, etc.
-//
+import background from './images/word-shark_background.jpg';
+import img0 from './images/0.svg';
+import img1 from './images/1.svg';
+import img2 from './images/2.svg';
+import img3 from './images/3.svg';
+import img4 from './images/4.svg';
+import img5 from './images/5.svg';
+import img6 from './images/6.svg';
+import img7 from './images/7.svg';
+import img8 from './images/8.svg';
+const maxWrong = 8;
+const images = [img0, img1, img2, img3, img4, img5, img6, img7, img8];
+const letters = 'abcdefghijklmnopqrstuvwxyz';
+// const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
 export default function WordShark() {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
-  // AUDIO - useAudio
-  // can remove if your game doesn't use any audio
-
   // STATE - useData
-  const primary = store.vocabulary; // vocabulary or expressions
-  const secondary = store.expressions; // only expressions - can remove you only use one data source
-  const gameStore: GameStore = useData(reducer, init, primary, secondary); // remove secondary from here too if above is true
+  const primary = store.vocabulary;
+  const secondary = store.expressions;
+  const gameStore: GameStore = useData(reducer, init, primary, secondary);
   const [state, dispatch, didUpdate] = gameStore;
-  const { data, isVocab } = state; // destructure your state array here - should be fully typed
+  const { data, isVocab, answer, guessed, nWrong } = state;
 
   // REFS - useFitText, useSplit2Rows, etc..
   const isFirstRun = useFirstRun();
+  const [[ref]] = useFitText(answer);
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
     // googleEvent(title);
-    dispatch({ type: 'New_Round' }); // put whatever else you need to start a new round
+    const fullData = isVocab ? store.vocabulary : store.expressions;
+    const [[cur], nex] = nextRoundData(1, data, fullData, true);
+    dispatch({ type: 'New_Round', data: nex, answer: cur });
   }, [data, isVocab]);
   useHandleGame(handleGame, didUpdate);
 
@@ -77,7 +89,34 @@ export default function WordShark() {
 
   return (
     <div className={ContainerCSS.className}>
-      {/* ADD YOUR ELEMENTS/COMPONENTS HERE */}
+      <div className="Hangman-imgContainer">
+        <div className="Hangman-imgs">
+          <img
+            className="Hangman-WordSharkBackgroundImg"
+            src={background}
+            alt="background for Word Shark, showing stickman and shark"
+          />
+          <img
+            className="Hangman-WordSharkOverlayImgs"
+            src={images[nWrong]}
+            alt={altText}
+          />
+        </div>
+      </div>
+      <div className="Hangman-guessContainer">
+        <p className="Hangman-guessesLeft">{`${maxWrong - nWrong} guess${
+          nWrong === maxWrong - 1 ? '' : 'es'
+        } left`}</p>
+        <p className="Hangman-word-holder">
+          <FitText text={_guessedWord()} ref={ref} cx="Hangman-word" />
+        </p>
+      </div>
+      <div className="letter-buttons">
+        {gameState}
+        <button className="Hangman-restartBtn" onClick={_handleNewRound}>
+          New Round
+        </button>
+      </div>
 
       {/* STYLES */}
       {ContainerCSS.styles}
