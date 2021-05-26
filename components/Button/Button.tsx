@@ -8,7 +8,7 @@ type Rounded = boolean;
 type Icon = IconType;
 type Text = string;
 type Color = string;
-type BgColor = VarColorTypes | 'green' | 'yellow';
+type BgColor = VarColorTypes | 'green' | 'yellow' | string;
 type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type Spinner = boolean;
 
