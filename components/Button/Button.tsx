@@ -88,10 +88,6 @@ export default function Button({
           font-size: ${sizeMultiplier}rem;
           line-height: ${sizeMultiplier}rem;
         }
-
-        .icon-with-text {
-          margin-right: 0.25rem;
-        }
       `}</style>
     </button>
   );
