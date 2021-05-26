@@ -1,5 +1,6 @@
 import React from 'react';
 import type { AppProps } from 'next/app';
+import { IconContext } from 'react-icons/lib';
 import Sidebar from '../components/Sidebar';
 import Layout from '../components/Layout';
 import { DataModals } from 'components/Modal(s)';
@@ -11,11 +12,13 @@ import '@fontsource/lato';
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <StoreProvider>
-      <Sidebar />
-      <DataModals />
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <IconContext.Provider value={{ style: { verticalAlign: 'bottom' } }}>
+        <Sidebar />
+        <DataModals />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </IconContext.Provider>
 
       {/* CSS Variables */}
       <style jsx global>
@@ -24,31 +27,29 @@ export default function App({ Component, pageProps }: AppProps) {
 
       {/* BUTTON DEFAULTS */}
       <style jsx global>{`
-        .btn,
         button {
           cursor: pointer;
-          display: inline-block;
           outline: 0;
           border: none;
-          vertical-align: initial;
-          background: #e0e1e2 none;
-          font-family: Lato, Helvetica Neue, Arial, Helvetica, sans-serif;
-          text-transform: none;
-          text-shadow: none;
-          font-weight: 700;
-          font-style: normal;
-          text-align: center;
           text-decoration: none;
           user-select: none;
-          -webkit-tap-highlight-color: transparent;
+          line-height: 1;
         }
       `}</style>
 
       {/* THE REST */}
       <style jsx global>{`
         body {
-          font-family: 'Lato';
+          font-family: Lato, Helvetica Neue, Arial, Helvetica, sans-serif;
           overflow: hidden;
+        }
+
+        :root {
+          --color-lightblue: #54c8ff;
+          --color-red: #ff695e;
+          --color-green: #2ecc40;
+          --color-yellow: #ffe21f;
+          --color-orange: #ff851b;
         }
 
         /* SCROLLBAR */
