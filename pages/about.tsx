@@ -5,6 +5,7 @@ import Input from 'components/Input';
 import Range from 'components/Range';
 import TextArea from 'components/TextArea';
 import { FaAddressBook } from 'react-icons/fa';
+import Link from 'next/link';
 
 export default function AboutPage() {
   return (
@@ -12,25 +13,37 @@ export default function AboutPage() {
       <p>About Page</p>
 
       <div>
+        <Link href="/contact" passHref>
+          <Button
+            color="white"
+            bgColor="var(--color-blue-400)"
+            text="Next Link"
+            size="xl"
+            as="a"
+          />
+        </Link>
+
         <Button
           color="white"
           bgColor="var(--color-blue-400)"
           Icon={FaAddressBook}
-          text="Address Book Button"
+          text="Regular Anchor"
           size="xl"
+          as="a"
+          href="/contact"
         />
         <Button
           color="white"
           bgColor="var(--color-blue-400)"
           Icon={FaAddressBook}
-          text="Address Book Button"
+          text="This is an anchor element"
           size="lg"
         />
         <Button
           color="white"
           bgColor="var(--color-blue-400)"
           Icon={FaAddressBook}
-          text="Address Book Button"
+          text="This is an link element"
           size="md"
           spinner
         />
@@ -90,9 +103,9 @@ export default function AboutPage() {
       </div>
 
       <Button
-        color="black"
-        bgColor="yellow"
-        // icon={<FaAddressBook />}
+        color="gold"
+        bgColor="purple"
+        Icon={FaAddressBook}
         text="Address Book Button"
       />
 

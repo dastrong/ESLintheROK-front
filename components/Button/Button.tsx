@@ -1,41 +1,7 @@
+import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import React, { ButtonHTMLAttributes } from 'react';
-import { IconType } from 'react-icons';
-import { VarColorTypes } from 'utils/theme';
 import ButtonSpinner from './ButtonSpinner';
-
-type Rounded = boolean;
-type Icon = IconType;
-type Text = string;
-type Color = string;
-type BgColor = VarColorTypes | 'green' | 'yellow' | string;
-type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type Spinner = boolean;
-
-type RoundedButton = {
-  text?: never;
-  rounded: Rounded;
-  Icon: Icon;
-};
-
-type TextButton = {
-  text: Text;
-  rounded?: never;
-  Icon?: never;
-};
-
-type TextWithIconButton = {
-  text: Text;
-  rounded?: never;
-  Icon: Icon;
-};
-
-type Button = (RoundedButton | TextButton | TextWithIconButton) & {
-  color: Color;
-  bgColor: BgColor;
-  size?: Size;
-  spinner?: Spinner;
-};
+import type { Props, AnchorEl, ButtonEl } from './ButtonTypes';
 
 const sizes = {
   xs: 0.675,
@@ -45,50 +11,83 @@ const sizes = {
   xl: 1.5,
 };
 
-export default function Button({
-  text,
-  rounded,
-  Icon,
-  color,
-  bgColor,
-  size = 'md',
-  spinner,
-  ...props
-}: Button & ButtonHTMLAttributes<HTMLButtonElement>) {
-  const sizeMultiplier = sizes[size];
+const Button = forwardRef<HTMLAnchorElement, Props & (AnchorEl & ButtonEl)>(
+  (
+    {
+      as = 'button',
+      text,
+      className,
+      rounded,
+      Icon,
+      color,
+      bgColor,
+      size = 'md',
+      spinner,
+      ...rest
+    },
+    ref
+  ) => {
+    // helps scale the margin and font-sizes of the content
+    const sizeMultiplier = sizes[size];
+    const iconStyle = rounded ? {} : { marginRight: '0.25rem' };
 
-  return (
-    <button {...props} className={classNames('styled-button', props.className)}>
-      {rounded ? (
-        spinner ? (
-          <ButtonSpinner />
+    if (ref && rest.onClick && !rest.href) {
+      throw new Error(
+        'When you wrap `Button` with a Next.js `Link`, you must add the passHref prop to the Link`'
+      );
+    }
+
+    const iconContent = spinner ? (
+      <ButtonSpinner style={iconStyle} />
+    ) : Icon ? (
+      <Icon style={iconStyle} />
+    ) : null;
+
+    // the inner part of the element
+    const buttonContent = (
+      <>
+        {iconContent}
+        {!rounded && text}
+      </>
+    );
+
+    // combine the static and dynamic classes
+    const cx = classNames('styled-button', className);
+
+    return (
+      <>
+        {as === 'button' ? (
+          <button {...(rest as ButtonEl)} className={cx}>
+            {buttonContent}
+          </button>
         ) : (
-          <Icon />
-        )
-      ) : (
-        <>
-          {spinner ? (
-            <ButtonSpinner style={{ marginRight: '0.25rem' }} />
-          ) : Icon ? (
-            <Icon style={{ marginRight: '0.25rem' }} />
-          ) : null}
-          {text}
-        </>
-      )}
+          <a {...(rest as AnchorEl)} className={cx} ref={ref}>
+            {buttonContent}
+          </a>
+        )}
 
-      <style jsx>{`
-        .styled-button {
-          margin: 0;
-          padding: ${rounded
-            ? `${sizeMultiplier}rem`
-            : `${sizeMultiplier * 0.75}rem ${sizeMultiplier * 1}rem`};
-          border-radius: ${rounded ? '50%' : '5px'};
-          color: ${color};
-          background-color: ${bgColor};
-          font-size: ${sizeMultiplier}rem;
-          line-height: ${sizeMultiplier}rem;
-        }
-      `}</style>
-    </button>
-  );
-}
+        <style jsx>{`
+          .styled-button {
+            display: inline-block;
+            cursor: pointer;
+            outline: 0;
+            border: none;
+            text-decoration: none;
+            user-select: none;
+            margin: 0;
+            padding: ${rounded
+              ? `${sizeMultiplier}rem`
+              : `${sizeMultiplier * 0.75}rem ${sizeMultiplier * 1}rem`};
+            border-radius: ${rounded ? '50%' : '5px'};
+            color: ${color};
+            background-color: ${bgColor};
+            font-size: ${sizeMultiplier}rem;
+            line-height: ${sizeMultiplier}rem;
+          }
+        `}</style>
+      </>
+    );
+  }
+);
+
+export default Button;
