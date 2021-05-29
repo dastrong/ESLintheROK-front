@@ -71,6 +71,12 @@ export default function SidebarActions() {
           box-shadow: inset 0 0 0 2px hsla(0, 0%, 100%, 0.5);
           color: #eee;
           transition: all 0.15s;
+
+          --color-lightblue: #54c8ff;
+          --color-red: #ff695e;
+          --color-green: #2ecc40;
+          --color-yellow: #ffe21f;
+          --color-orange: #ff851b;
         }
 
         .btns {

@@ -44,14 +44,6 @@ export default function App({ Component, pageProps }: AppProps) {
           overflow: hidden;
         }
 
-        :root {
-          --color-lightblue: #54c8ff;
-          --color-red: #ff695e;
-          --color-green: #2ecc40;
-          --color-yellow: #ffe21f;
-          --color-orange: #ff851b;
-        }
-
         /* SCROLLBAR */
         ::-webkit-scrollbar {
           -webkit-appearance: none;
