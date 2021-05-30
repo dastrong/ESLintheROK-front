@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { useStore } from 'contexts/store';
+import { useOnClickOutside } from 'hooks';
 
 import SidebarGameList from './SidebarGameList';
 import SidebarActions from './SidebarActions';
@@ -9,6 +10,10 @@ import SidebarOpener from './SidebarOpener';
 export default function Sidebar() {
   const { asPath } = useRouter();
   const { isSidebarOpen, storeDispatch } = useStore();
+
+  // ref to handle closing the sidebar when user clicks away from it
+  const ref = useRef();
+  useOnClickOutside(ref, () => storeDispatch({ type: 'closeSidebar' }));
 
   // close the menu on route change
   useEffect(() => {
@@ -19,7 +24,7 @@ export default function Sidebar() {
     <>
       <SidebarOpener />
       {/* the actual menu */}
-      <div>
+      <div ref={ref}>
         <SidebarActions />
         <SidebarGameList />
 
