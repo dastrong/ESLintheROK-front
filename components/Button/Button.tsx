@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
+import chroma from 'chroma-js';
 import ButtonSpinner from './ButtonSpinner';
 import type { Props, AnchorEl, ButtonEl } from './ButtonTypes';
 
@@ -9,6 +10,20 @@ const sizes = {
   md: 1,
   lg: 1.25,
   xl: 1.5,
+};
+
+// gives different shades for the color given
+const getBgColors = (bgColor: string) => {
+  let hoverBgColor: chroma.Color;
+  let disabledBgColor: chroma.Color;
+  try {
+    const color = chroma(bgColor);
+    hoverBgColor = color.darken(0.2);
+    disabledBgColor = color.brighten(2);
+  } catch (err) {
+    throw new Error(err.message);
+  }
+  return { hoverBgColor, disabledBgColor };
 };
 
 const Button = forwardRef<HTMLAnchorElement, Props & (AnchorEl & ButtonEl)>(
@@ -30,6 +45,8 @@ const Button = forwardRef<HTMLAnchorElement, Props & (AnchorEl & ButtonEl)>(
     // helps scale the margin and font-sizes of the content
     const sizeMultiplier = sizes[size];
     const iconStyle = rounded ? {} : { marginRight: '0.25rem' };
+
+    const { hoverBgColor, disabledBgColor } = getBgColors(bgColor);
 
     if (ref && rest.onClick && !rest.href) {
       throw new Error(
@@ -83,6 +100,16 @@ const Button = forwardRef<HTMLAnchorElement, Props & (AnchorEl & ButtonEl)>(
             background-color: ${bgColor};
             font-size: ${sizeMultiplier}rem;
             line-height: ${sizeMultiplier}rem;
+            transition: 100ms background-color;
+          }
+
+          .styled-button:hover {
+            background-color: ${hoverBgColor};
+          }
+
+          .styled-button:disabled {
+            background-color: ${disabledBgColor};
+            cursor: default;
           }
         `}</style>
       </>
