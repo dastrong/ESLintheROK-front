@@ -12,10 +12,6 @@ const SidebarOpenerCSS = css.resolve`
     top: 7px;
     left: 7px;
   }
-
-  button:hover {
-    background-color: rgba(180, 175, 175, 0.4);
-  }
 `;
 
 export default function SidebarOpener() {
