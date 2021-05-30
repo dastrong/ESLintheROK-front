@@ -26,7 +26,10 @@ const getBgColors = (bgColor: string) => {
   return { hoverBgColor, disabledBgColor };
 };
 
-const Button = forwardRef<HTMLAnchorElement, Props & (AnchorEl & ButtonEl)>(
+const Button = forwardRef<
+  HTMLAnchorElement | HTMLButtonElement,
+  Props & (AnchorEl & ButtonEl)
+>(
   (
     {
       as = 'button',
@@ -48,12 +51,6 @@ const Button = forwardRef<HTMLAnchorElement, Props & (AnchorEl & ButtonEl)>(
 
     const { hoverBgColor, disabledBgColor } = getBgColors(bgColor);
 
-    if (ref && rest.onClick && !rest.href) {
-      throw new Error(
-        'When you wrap `Button` with a Next.js `Link`, you must add the passHref prop to the Link`'
-      );
-    }
-
     const iconContent = spinner ? (
       <ButtonSpinner style={iconStyle} />
     ) : Icon ? (
@@ -74,11 +71,19 @@ const Button = forwardRef<HTMLAnchorElement, Props & (AnchorEl & ButtonEl)>(
     return (
       <>
         {as === 'button' ? (
-          <button {...(rest as ButtonEl)} className={cx}>
+          <button
+            {...(rest as ButtonEl)}
+            className={cx}
+            ref={ref as React.ForwardedRef<HTMLButtonElement>}
+          >
             {buttonContent}
           </button>
         ) : (
-          <a {...(rest as AnchorEl)} className={cx} ref={ref}>
+          <a
+            {...(rest as AnchorEl)}
+            className={cx}
+            ref={ref as React.ForwardedRef<HTMLAnchorElement>}
+          >
             {buttonContent}
           </a>
         )}
