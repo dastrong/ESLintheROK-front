@@ -1,10 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
-import { FaFolderOpen } from 'react-icons/fa';
+import { FaCoffee, FaFolderOpen } from 'react-icons/fa';
 import { useStore, DataModalNameType } from 'contexts/store';
+import { useTheme } from 'contexts/theme';
+import Button from 'components/Button';
 
 export default function IndexPage() {
   const { storeDispatch } = useStore();
+  const { theme } = useTheme();
 
   function openModal(dataModalName: DataModalNameType) {
     storeDispatch({ type: 'openDataModal', dataModalName });
@@ -83,32 +86,34 @@ export default function IndexPage() {
           </div>
         </a>
       </Link>
-      <button
-        className="btn btn-past-lessons"
+
+      <Button
+        color="white"
+        bgColor={theme.colors.blue}
+        text="No past lessons"
+        // text={`${!pastLessons.length && 'No'} Past Lessons`}
         onClick={() => openModal('past')}
-      >
-        <FaFolderOpen
-          style={{
-            position: 'absolute',
-            left: '13px',
-            fontSize: '1.3rem',
-          }}
-        />
-        No Past Lessons
-        {/* {!pastLessons.length && 'No '}Past Lessons */}
-      </button>
-      <a
-        className="btn btn-coffee"
+        Icon={FaFolderOpen}
+        size="md"
+        className="btn btn-past-lessons"
+        style={{ position: 'absolute', bottom: '10px', left: '10px' }}
+        disabled={true}
+        // disabled={!pastLessons.length}
+      />
+
+      <Button
+        as="a"
         target="_blank"
         href="https://www.buymeacoffee.com/ycqPbFl"
-      >
-        <img
-          className="coffee-img"
-          src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg"
-          alt="Buy me a coffee"
-        />
-        Buy me a coffee
-      </a>
+        color="#7a4d2e"
+        bgColor="#fbbd08"
+        text="Buy me a coffee"
+        Icon={FaCoffee}
+        size="md"
+        className="btn btn-past-lessons"
+        style={{ position: 'absolute', bottom: '10px', right: '10px' }}
+      />
+
       <style jsx>{`
         .mainpage-container {
           display: flex;
@@ -213,37 +218,6 @@ export default function IndexPage() {
         .set.nd-set:hover .text,
         .set.rd-set:hover .text {
           transform: rotate(-56deg) scale(1.35);
-        }
-
-        .btn {
-          position: absolute;
-          bottom: 10px;
-          margin: 0;
-          padding: 0.75rem 1.2rem 0.75rem 2.8rem;
-          border-radius: 5px;
-          color: #fff;
-        }
-
-        .btn:hover {
-          box-shadow: inset 0 0 0 1px transparent,
-            inset 0 0 0 0 rgb(34 36 38 / 15%);
-        }
-
-        .btn-past-lessons {
-          left: 10px;
-          background-color: #2185d0;
-        }
-
-        .btn-coffee {
-          right: 10px;
-          background-color: #fbbd08;
-        }
-
-        .coffee-img {
-          position: absolute;
-          left: 13px;
-          height: auto;
-          width: 24px;
         }
       `}</style>
     </div>
