@@ -1,65 +1,114 @@
 import React from 'react';
+import { FaAddressBook } from 'react-icons/fa';
+
+import { useTheme } from 'contexts/theme';
 import Button from 'components/Button';
 import Checkbox from 'components/Checkbox';
 import Input from 'components/Input';
 import Range from 'components/Range';
 import TextArea from 'components/TextArea';
-import { FaAddressBook } from 'react-icons/fa';
-import Link from 'next/link';
 
 export default function AboutPage() {
+  const { theme } = useTheme();
   return (
     <div>
       <p>About Page</p>
 
       <div>
-        <Link href="/contact" passHref>
-          <Button
-            color="white"
-            bgColor="var(--color-blue-400)"
-            text="Next Link"
-            size="xl"
-            as="a"
-          />
-        </Link>
-
+        <p>DISABLED BUTTONS</p>
         <Button
           color="white"
-          bgColor="var(--color-blue-400)"
+          bgColor={theme.colors.blue}
+          text="Next Link"
+          size="md"
+          disabled
+        />
+        <Button
+          color="white"
+          bgColor={theme.colors.red}
           Icon={FaAddressBook}
           text="Regular Anchor"
-          size="xl"
-          as="a"
-          href="/contact"
+          size="md"
+          disabled
         />
         <Button
           color="white"
-          bgColor="var(--color-blue-400)"
+          bgColor={theme.colors.blue}
           Icon={FaAddressBook}
           text="This is an anchor element"
-          size="lg"
+          size="md"
+          disabled
         />
         <Button
           color="white"
-          bgColor="var(--color-blue-400)"
+          bgColor="purple"
+          Icon={FaAddressBook}
+          text="This is an link element"
+          size="md"
+          disabled
+          spinner
+        />
+        <Button
+          color="black"
+          bgColor="orange"
+          Icon={FaAddressBook}
+          text="Address Book Button"
+          size="md"
+          disabled
+        />
+        <Button
+          color="white"
+          bgColor="red"
+          Icon={FaAddressBook}
+          text="Address Book Button"
+          size="md"
+          disabled
+        />
+      </div>
+
+      <div>
+        <p>NOT DISABLED BUTTONS</p>
+        <Button
+          color="white"
+          bgColor={theme.colors.blue}
+          text="Next Link"
+          size="md"
+        />
+        <Button
+          color="white"
+          bgColor={theme.colors.red}
+          Icon={FaAddressBook}
+          text="Regular Anchor"
+          size="md"
+        />
+        <Button
+          color="white"
+          bgColor={theme.colors.blue}
+          Icon={FaAddressBook}
+          text="This is an anchor element"
+          size="md"
+        />
+        <Button
+          color="white"
+          bgColor="purple"
           Icon={FaAddressBook}
           text="This is an link element"
           size="md"
           spinner
         />
         <Button
-          color="white"
-          bgColor="var(--color-blue-400)"
+          color="black"
+          bgColor="orange"
           Icon={FaAddressBook}
           text="Address Book Button"
-          size="sm"
+          size="md"
         />
         <Button
           color="white"
-          bgColor="var(--color-blue-400)"
+          bgColor="red"
           Icon={FaAddressBook}
           text="Address Book Button"
-          size="xs"
+          size="md"
         />
       </div>
 
@@ -67,14 +116,14 @@ export default function AboutPage() {
         <Button
           rounded
           color="white"
-          bgColor="var(--color-blue-400)"
+          bgColor="blue"
           Icon={FaAddressBook}
           size="xl"
         />
         <Button
           rounded
           color="white"
-          bgColor="var(--color-blue-400)"
+          bgColor="blue"
           Icon={FaAddressBook}
           size="lg"
           spinner
@@ -82,21 +131,21 @@ export default function AboutPage() {
         <Button
           rounded
           color="white"
-          bgColor="var(--color-blue-400)"
+          bgColor="blue"
           Icon={FaAddressBook}
           size="md"
         />
         <Button
           rounded
           color="white"
-          bgColor="var(--color-blue-400)"
+          bgColor="blue"
           Icon={FaAddressBook}
           size="sm"
         />
         <Button
           rounded
           color="white"
-          bgColor="var(--color-blue-400)"
+          bgColor="blue"
           Icon={FaAddressBook}
           size="xs"
         />
