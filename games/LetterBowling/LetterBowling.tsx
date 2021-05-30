@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
 import shuffle from 'lodash.shuffle';
-import classNames from 'classnames';
 import { FaPlay, FaRandom, FaSyncAlt } from 'react-icons/fa';
 import { animated, useSpring, useSprings } from 'react-spring';
 
@@ -14,6 +13,7 @@ import * as Styles from './LetterBowling.styles';
 // IMPORT COMPONENTS/UTILITIES HERE
 import { getRandoNum, nextRoundData } from 'games/_utils';
 import Popup from 'components/Popup';
+import Button from 'components/Button';
 
 // CONSTANTS - img, audio, function, etc.
 const letterBuffer = 3000; // in ms - time between each letter's animation
@@ -120,16 +120,16 @@ export default function LetterBowling() {
       <div className={Styles.ControlsCSS.className}>
         <Popup
           owner={
-            <button
-              className={classNames(
-                Styles.ButtonCSS.className,
-                Styles.ButtonGrayCSS.className
-              )}
+            <Button
+              rounded
+              size="xl"
+              Icon={FaRandom}
+              color="rgba(0, 0, 0, 0.6)"
+              bgColor="#e0e1e2"
+              style={{ margin: '5px' }}
               onClick={() => dispatch({ type: 'Shuffle_Letters' })}
               disabled={disableShuffle}
-            >
-              <FaRandom className={Styles.ButtonSVGCSS.className} />
-            </button>
+            />
           }
           placement="left"
           content="Shuffle the letters"
@@ -138,21 +138,19 @@ export default function LetterBowling() {
 
         <Popup
           owner={
-            <button
-              className={classNames(
-                Styles.ButtonCSS.className,
-                !disablePlay
-                  ? Styles.ButtonBlueCSS.className
-                  : Styles.ButtonGrayCSS.className
-              )}
+            <Button
+              rounded
+              size="xl"
+              Icon={FaPlay}
+              color={!disablePlay ? 'white' : 'rgba(0, 0, 0, 0.6)'}
+              bgColor={!disablePlay ? '#2185d0' : '#e0e1e2'}
+              style={{ margin: '5px' }}
               onClick={() => {
                 // if (round === 1) googleEvent(title);
                 dispatch({ type: 'Bowl_Start' });
               }}
               disabled={disablePlay}
-            >
-              <FaPlay className={Styles.ButtonSVGCSS.className} />
-            </button>
+            />
           }
           placement="bottom"
           content="Start the round"
@@ -161,17 +159,15 @@ export default function LetterBowling() {
 
         <Popup
           owner={
-            <button
-              className={classNames(
-                Styles.ButtonCSS.className,
-                showAnswer
-                  ? Styles.ButtonBlueCSS.className
-                  : Styles.ButtonGrayCSS.className
-              )}
+            <Button
+              rounded
+              size="xl"
+              Icon={FaSyncAlt}
+              color={showAnswer ? 'white' : 'rgba(0, 0, 0, 0.6)'}
+              bgColor={showAnswer ? '#2185d0' : '#e0e1e2'}
+              style={{ margin: '5px' }}
               onClick={handleGame}
-            >
-              <FaSyncAlt className={Styles.ButtonSVGCSS.className} />
-            </button>
+            />
           }
           placement="right"
           content="Get a new word and reset"
@@ -211,11 +207,7 @@ export default function LetterBowling() {
 
       {/* STYLES */}
       {ContainerCSS.styles}
-      {Styles.ButtonCSS.styles}
-      {Styles.ButtonGrayCSS.styles}
-      {Styles.ButtonBlueCSS.styles}
       {Styles.ControlsCSS.styles}
-      {Styles.ButtonSVGCSS.styles}
       {Styles.RoundCounterCSS.styles}
       {Styles.TextCSS.styles}
       {Styles.LetterCSS.styles}

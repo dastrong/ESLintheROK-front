@@ -25,46 +25,6 @@ export const ControlsCSS = css.resolve`
   }
 `;
 
-export const ButtonCSS = css.resolve`
-   {
-    margin: 5px;
-    border-radius: 50%;
-    box-shadow: inset 0 0 0 1px transparent, inset 0 0 0 0 rgb(34 36 38 / 15%);
-    padding: 1.2rem;
-    font-size: 1.4rem;
-    line-height: 100%;
-  }
-
-  :hover {
-    opacity: 0.8;
-  }
-
-  :disabled {
-    opacity: 0.6;
-    cursor: default;
-  }
-`;
-
-export const ButtonGrayCSS = css.resolve`
-   {
-    background-color: #e0e1e2;
-    color: rgba(0, 0, 0, 0.6);
-  }
-`;
-
-export const ButtonBlueCSS = css.resolve`
-   {
-    background-color: #2185d0;
-    color: #fff;
-  }
-`;
-
-export const ButtonSVGCSS = css.resolve`
-   {
-    vertical-align: top;
-  }
-`;
-
 export const RoundCounterCSS = css.resolve`
    {
     position: absolute;
