@@ -6,7 +6,6 @@ import Layout from '../components/Layout';
 import { DataModals } from 'components/Modal(s)';
 import { StoreProvider } from '../contexts/store';
 import { ThemeProvider } from 'contexts/theme';
-import { globalCSSVariables } from 'utils/theme';
 import 'normalize.css';
 import '@fontsource/lato';
 
@@ -21,11 +20,6 @@ export default function App({ Component, pageProps }: AppProps) {
             <Component {...pageProps} />
           </Layout>
         </IconContext.Provider>
-
-        {/* CSS Variables */}
-        <style jsx global>
-          {globalCSSVariables}
-        </style>
 
         {/* BUTTON DEFAULTS */}
         <style jsx global>{`
