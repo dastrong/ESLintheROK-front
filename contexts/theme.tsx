@@ -43,4 +43,4 @@ export const ThemeProvider = ({ children }) => {
   );
 };
 
-export const useStore = () => useContext(ThemeContext);
+export const useTheme = () => useContext(ThemeContext);
