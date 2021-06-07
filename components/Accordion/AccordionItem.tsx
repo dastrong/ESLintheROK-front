@@ -1,0 +1,89 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { useState } from 'react';
+import { FaPlus } from 'react-icons/fa';
+import chroma from 'chroma-js';
+
+type Props = {
+  isOpen: boolean;
+  header: string;
+  content: JSX.Element;
+  color?: string;
+  handleClick: (id: string) => void;
+  id: number;
+};
+
+export default function AccordionItem({
+  isOpen,
+  header,
+  content,
+  color,
+  handleClick,
+  id,
+}: Props) {
+  const [baseColor] = useState((color && chroma(color)) || chroma.random());
+
+  const accentColor = baseColor.alpha(0.8).hex();
+  const bgColor = baseColor.alpha(0.1).hex();
+
+  return (
+    <div className="accordion">
+      <div
+        className="accordion_header"
+        id={String(id)}
+        onClick={e => handleClick(e.currentTarget.id)}
+      >
+        <FaPlus
+          style={{
+            transition: 'transform 0.15s',
+            transform: `rotate(${isOpen ? 45 : 0}deg)`,
+          }}
+        />
+        <h3 className="accordion_header_title">{header}</h3>
+      </div>
+      {isOpen && <div className="accordion_content">{content}</div>}
+
+      <style jsx>{`
+        .accordion {
+          position: relative;
+          margin: 0.5rem auto;
+          width: 50%;
+          border-radius: var(--radius);
+          background-color: ${bgColor};
+          padding: var(--padding) var(--padding) var(--padding)
+            calc(var(--padding) + var(--radius));
+
+          --radius: 0.5rem;
+          --padding: 0.75rem;
+        }
+
+        .accordion:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          background-color: ${accentColor};
+          height: 100%;
+          width: var(--radius);
+          border-top-left-radius: var(--radius);
+          border-bottom-left-radius: var(--radius);
+        }
+
+        .accordion_header {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+        }
+
+        .accordion_header_title {
+          margin: 1rem 0 1rem var(--padding);
+          font-weight: ${isOpen ? 'bold' : 'normal'};
+        }
+
+        .accordion_content {
+          padding-left: 2rem;
+        }
+      `}</style>
+    </div>
+  );
+}
