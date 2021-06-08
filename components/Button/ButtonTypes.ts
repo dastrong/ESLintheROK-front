@@ -1,12 +1,11 @@
 import { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react';
 import { IconType } from 'react-icons/lib';
-import { VarColorTypes } from 'utils/theme';
 
 export type ButtonEl = ButtonHTMLAttributes<HTMLButtonElement>;
 export type AnchorEl = AnchorHTMLAttributes<HTMLAnchorElement>;
 
 type As = 'button' | 'a';
-type BgColor = VarColorTypes | 'green' | 'yellow' | string;
+type BgColor = string;
 type Color = string;
 type Icon = IconType;
 type Rounded = boolean;
