@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import chroma from 'chroma-js';
 
@@ -27,7 +27,18 @@ export default function AccordionItem({
   const bgColor = baseColor.alpha(0.1).hex();
 
   return (
-    <div className="accordion">
+    <div
+      // because we randomly get a color, the server and client styles will mismatch ...
+      // ... and since the site is statically build we can ignore this warning
+      suppressHydrationWarning
+      className="accordion"
+      style={
+        {
+          '--accentColor': accentColor,
+          '--bgColor': bgColor,
+        } as CSSProperties
+      }
+    >
       <div
         className="accordion_header"
         id={String(id)}
@@ -49,7 +60,7 @@ export default function AccordionItem({
           margin: 0.5rem auto;
           width: 50%;
           border-radius: var(--radius);
-          background-color: ${bgColor};
+          background-color: var(--bgColor);
           padding: var(--padding) var(--padding) var(--padding)
             calc(var(--padding) + var(--radius));
 
@@ -62,26 +73,30 @@ export default function AccordionItem({
           position: absolute;
           top: 0;
           left: 0;
-          background-color: ${accentColor};
+          background-color: var(--accentColor);
           height: 100%;
           width: var(--radius);
           border-top-left-radius: var(--radius);
           border-bottom-left-radius: var(--radius);
         }
-
+      `}</style>
+      <style jsx>{`
         .accordion_header {
           display: flex;
           align-items: center;
           cursor: pointer;
+          user-select: none;
         }
-
+      `}</style>
+      <style jsx>{`
         .accordion_header_title {
           margin: 1rem 0 1rem var(--padding);
           font-weight: ${isOpen ? 'bold' : 'normal'};
         }
-
+      `}</style>
+      <style jsx>{`
         .accordion_content {
-          padding-left: 2rem;
+          padding-left: calc(1rem + var(--padding));
         }
       `}</style>
     </div>
