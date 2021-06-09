@@ -1,6 +1,6 @@
-import Accordion from 'components/Accordion';
-import Link from 'next/link';
 import React from 'react';
+import Link from 'next/link';
+import Accordion from 'components/Accordion';
 
 const panels = [
   {
@@ -231,10 +231,109 @@ const panels = [
 export default function FaqsPage() {
   return (
     <div>
-      <p>FAQs Page</p>
+      <div className="heading">
+        <h1 className="heading-main">
+          <p>Frequently</p>
+          <p>Asked</p>
+          <p>Questions</p>
+        </h1>
 
-      <Accordion panels={panels} />
-      <style jsx>{``}</style>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="130"
+          viewBox="0 0 22 130"
+          fill="none"
+          className="heading-separator"
+        >
+          <path
+            d="M12.7912 2C-16.809 17.2737 26.4143 22.4184 12.7912 39.2558C-0.831925 56.0933 -2.34239 58.9302 12.7912 79.4419C27.9248 99.9535 -18.027 99.7442 21 128"
+            stroke="url(#paint0_linear)"
+            strokeWidth="3"
+          />
+          <defs>
+            <linearGradient
+              id="paint0_linear"
+              x1="10.7297"
+              y1="2"
+              x2="11.3269"
+              y2="122.573"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stopColor="#DC1515" stopOpacity="0.64" />
+              <stop offset="1" stopColor="#079CF0" stopOpacity="0.52" />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <div className="heading-side">
+          <p>First time here?</p>
+          <p>Experienced user?</p>
+        </div>
+      </div>
+
+      <div className="sub-heading">
+        <p>The Q&A below should help you out either way.</p>
+        <p>If not, feel free to contact me for further assistance.</p>
+      </div>
+
+      <Accordion allowMultiOpenPanels panels={panels} />
+
+      <style jsx>
+        {`
+          .heading {
+            margin: 2rem auto;
+            display: flex;
+            justify-content: center;
+            color: #414141;
+          }
+
+          .heading-main {
+            font-weight: normal;
+            font-size: 3.5rem;
+            margin: 0;
+          }
+
+          .heading-main p {
+            text-align: left;
+            margin: 0;
+          }
+
+          .heading-main p:first-letter {
+            font-weight: bold;
+          }
+
+          .heading-separator {
+            align-self: center;
+            margin-top: 1rem;
+            margin-left: 1.75rem;
+            margin-right: 1.75rem;
+            transform: rotateY(180deg);
+          }
+
+          .heading-side {
+            font-size: 2rem;
+            align-self: flex-end;
+            color: #565656;
+          }
+
+          .heading-side p {
+            margin: 0 0 0.5rem;
+          }
+
+          .sub-heading {
+            margin: 2rem auto;
+          }
+
+          .sub-heading * {
+            color: #5a5c62;
+            font-size: 1.25rem;
+            line-height: 150%;
+            margin: 0;
+            text-align: center;
+          }
+        `}
+      </style>
     </div>
   );
 }
