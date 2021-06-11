@@ -24,12 +24,17 @@ export default function Sidebar() {
     <>
       <SidebarOpener />
       {/* the actual menu */}
-      <div ref={ref}>
-        <SidebarActions />
-        <SidebarGameList />
+
+      <aside>
+        <div ref={ref}>
+          <SidebarActions />
+          <SidebarGameList />
+        </div>
 
         <style jsx>{`
-          div {
+          aside {
+            transform: translate3d(${isSidebarOpen ? '0%' : '-100%'}, 0, 0);
+            transition: transform 0.5s ease;
             position: fixed;
             top: 0;
             left: 0;
@@ -37,13 +42,14 @@ export default function Sidebar() {
             height: 100vh;
             width: 350px;
             background-color: rgb(27, 28, 29);
-            overflow-y: auto;
+          }
 
-            transform: translate3d(${isSidebarOpen ? '0%' : '-100%'}, 0, 0);
-            transition: transform 0.5s ease;
+          div {
+            height: 100%;
+            overflow-y: auto;
           }
         `}</style>
-      </div>
+      </aside>
     </>
   );
 }
