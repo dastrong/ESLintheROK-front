@@ -3,6 +3,10 @@ import classNames from 'classnames';
 import ReactModal, { Props } from 'react-modal';
 import { css } from 'styled-jsx/css';
 
+import ModalHeader from './ModalHeader';
+import ModalContent from './ModalContent';
+import ModalActions from './ModalActions';
+
 ReactModal.setAppElement('#__next');
 
 const overlayCSS = css.resolve`
@@ -42,7 +46,7 @@ const contentCSS = css.resolve`
   }
 `;
 
-export default function Modal({
+function Modal({
   children,
   isOpen,
   closeModal,
@@ -74,3 +78,9 @@ export default function Modal({
     </ReactModal>
   );
 }
+
+Modal.Header = ModalHeader;
+Modal.Content = ModalContent;
+Modal.Actions = ModalActions;
+
+export default Modal;

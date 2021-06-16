@@ -1,7 +1,5 @@
 import React from 'react';
 import { css } from 'styled-jsx/css';
-import { FaTimes } from 'react-icons/fa';
-
 import type { DataModalProps } from '../types';
 import Modal from '../../Modal';
 
@@ -22,55 +20,20 @@ export default function ModalDataCustom({
       className={contentCSS.className}
       styles={contentCSS.styles}
     >
-      {/* HEADER */}
-      <div className="modal_header">
-        Lessons Modal
-        <button onClick={closeModal}>
-          <FaTimes style={{ fontSize: '1.25rem' }} />
-        </button>
-      </div>
+      <Modal.Header closeModal={closeModal}>Custom Lesson</Modal.Header>
 
-      {/* CONTENT */}
-      <div className="modal_content">
-        <span>Custom Data Content</span>
-      </div>
+      <Modal.Content>
+        <span>Custom Lesson</span>
+      </Modal.Content>
 
-      {/* ACTIONS */}
-      <div className="modal_actions"></div>
+      <Modal.Actions
+        cancelText="Cancel"
+        cancelClick={closeModal}
+        confirmText="Confirm"
+        confirmClick={console.log}
+      />
 
-      <style jsx>{`
-        div {
-          padding: 1rem;
-        }
-
-        div:not(:last-child) {
-          border-bottom: 1px solid rgba(34, 36, 38, 0.15);
-        }
-
-        .modal_header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          font-size: 1.25rem;
-          font-weight: bold;
-        }
-
-        .modal_header button {
-          background: transparent;
-          height: 1.25rem;
-          padding: 0;
-          outline: 1px solid auto;
-        }
-
-        .modal_header button:hover {
-          opacity: 0.9;
-        }
-
-        .modal_content {
-        }
-        .modal_actions {
-        }
-      `}</style>
+      <style jsx>{``}</style>
     </Modal>
   );
 }
