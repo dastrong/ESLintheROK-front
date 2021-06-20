@@ -46,7 +46,7 @@ const init = (): StoreTypes => {
       'quidem quidem quidem',
     ],
     isSidebarOpen: false,
-    dataModalName: '',
+    dataModalName: 'custom',
     font: 'Poppins, sans-serif',
   };
 };
@@ -54,31 +54,33 @@ const init = (): StoreTypes => {
 const initialState = init();
 
 type ActionTypes =
-  | { type: 'setData'; vocabulary: Vocabulary; expressions: Expressions }
-  | { type: 'clearData' }
-  | { type: 'openSidebar' }
-  | { type: 'closeSidebar' }
-  | { type: 'openDataModal'; dataModalName: DataModalNameType }
-  | { type: 'closeDataModal' }
-  | { type: 'setFont'; font: Font };
+  | { type: 'Set_Data'; vocabulary: Vocabulary; expressions: Expressions }
+  | { type: 'Open_Sidebar' }
+  | { type: 'Close_Sidebar' }
+  | { type: 'Open_Data_Modal'; dataModalName: DataModalNameType }
+  | { type: 'Close_Data_Modal' }
+  | { type: 'Set_Font'; font: Font };
 
 const reducer = (state: StoreTypes, action: ActionTypes) => {
-  const { type, ...newVals } = action;
-  switch (type) {
-    case 'setData':
-      return { ...state, isDataReady: true, ...newVals };
-    case 'clearData':
-      return { ...state, isDataReady: false, vocabulary: [], expressions: [] };
-    case 'openSidebar':
+  switch (action.type) {
+    case 'Set_Data':
+      return {
+        ...state,
+        isDataReady: true,
+        dataModalName: '' as DataModalNameType,
+        vocabulary: action.vocabulary,
+        expressions: action.expressions,
+      };
+    case 'Open_Sidebar':
       return { ...state, isSidebarOpen: true };
-    case 'closeSidebar':
+    case 'Close_Sidebar':
       return { ...state, isSidebarOpen: false };
-    case 'openDataModal':
-      return { ...state, ...newVals };
-    case 'closeDataModal':
+    case 'Open_Data_Modal':
+      return { ...state, dataModalName: action.dataModalName };
+    case 'Close_Data_Modal':
       return { ...state, dataModalName: '' as DataModalNameType };
-    case 'setFont':
-      return { ...state, ...newVals };
+    case 'Set_Font':
+      return { ...state, font: action.font };
     default:
       return state;
   }

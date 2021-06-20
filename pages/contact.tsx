@@ -1,6 +1,4 @@
 import React, { FormEvent, useState } from 'react';
-import Input from 'components/Input';
-import TextArea from 'components/TextArea';
 
 export default function ContactPage() {
   const [name, setName] = useState('');
@@ -26,11 +24,7 @@ export default function ContactPage() {
         <div className="contact_panel email">
           <h3>Email</h3>
           <p>Contact the developer</p>
-          <form>
-            <Input />
-            <Input />
-            <TextArea />
-          </form>
+          <form></form>
         </div>
         <div className="contact_panel interactive">
           <h3>Interactive</h3>

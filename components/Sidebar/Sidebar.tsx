@@ -13,11 +13,11 @@ export default function Sidebar() {
 
   // ref to handle closing the sidebar when user clicks away from it
   const ref = useRef();
-  useOnClickOutside(ref, () => storeDispatch({ type: 'closeSidebar' }));
+  useOnClickOutside(ref, () => storeDispatch({ type: 'Close_Sidebar' }));
 
   // close the menu on route change
   useEffect(() => {
-    storeDispatch({ type: 'closeSidebar' });
+    storeDispatch({ type: 'Close_Sidebar' });
   }, [asPath]);
 
   return (

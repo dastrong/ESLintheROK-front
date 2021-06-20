@@ -13,25 +13,25 @@ type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type Spinner = boolean;
 type Text = string;
 
-type RoundedProps = {
+type RoundedOnlyProps = {
   text?: never;
   rounded: Rounded;
   Icon: Icon;
 };
 
-type TextProps = {
+type TextOnlyProps = {
   text: Text;
   rounded?: never;
   Icon?: never;
 };
 
-type TextWithIconProps = {
-  text: Text;
+type IconTextProps = {
+  text?: Text;
   rounded?: never;
-  Icon: Icon;
+  Icon?: Icon;
 };
 
-export type Props = (RoundedProps | TextProps | TextWithIconProps) & {
+export type Props = (RoundedOnlyProps | TextOnlyProps | IconTextProps) & {
   as?: As;
   color: Color;
   bgColor: BgColor;

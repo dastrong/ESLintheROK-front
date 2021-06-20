@@ -47,7 +47,7 @@ const Button = forwardRef<
   ) => {
     // helps scale the margin and font-sizes of the content
     const sizeMultiplier = sizes[size];
-    const iconStyle = rounded ? {} : { marginRight: '0.25rem' };
+    const iconStyle = rounded || !text ? {} : { marginRight: '0.5rem' };
 
     const { hoverBgColor, disabledBgColor } = getBgColors(bgColor);
 
@@ -100,7 +100,7 @@ const Button = forwardRef<
             padding: ${rounded
               ? `${sizeMultiplier}rem`
               : `${sizeMultiplier * 0.75}rem ${sizeMultiplier * 1}rem`};
-            border-radius: ${rounded ? '50%' : '5px'};
+            border-radius: ${rounded ? '50%' : '0.5rem'};
             color: ${color};
             background-color: ${bgColor};
             font-size: ${sizeMultiplier}rem;

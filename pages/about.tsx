@@ -4,12 +4,13 @@ import { FaAddressBook } from 'react-icons/fa';
 import { useTheme } from 'contexts/theme';
 import Button from 'components/Button';
 import Checkbox from 'components/Checkbox';
-import Input from 'components/Input';
 import Range from 'components/Range';
-import TextArea from 'components/TextArea';
+import { InputCSS } from 'components/Styles';
 
 export default function AboutPage() {
   const { theme } = useTheme();
+
+  console.log(InputCSS);
   return (
     <div>
       <p>About Page</p>
@@ -159,11 +160,12 @@ export default function AboutPage() {
       />
 
       <Checkbox />
-      <Input />
       <Range min={0} max={100} />
-      <TextArea defaultValue="Hey" />
 
-      <style jsx>{``}</style>
+      <input className={InputCSS.className} placeholder="I'm an input" />
+      <textarea className={InputCSS.className} placeholder="I'm a textarea" />
+
+      {InputCSS.styles}
     </div>
   );
 }

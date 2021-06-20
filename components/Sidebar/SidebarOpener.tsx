@@ -26,7 +26,7 @@ export default function SidebarOpener() {
         Icon={FaList}
         color="rgb(0, 0, 0)"
         bgColor="hsla(0, 0%, 100%, 0)"
-        onClick={() => storeDispatch({ type: 'openSidebar' })}
+        onClick={() => storeDispatch({ type: 'Open_Sidebar' })}
       />
 
       {SidebarOpenerCSS.styles}

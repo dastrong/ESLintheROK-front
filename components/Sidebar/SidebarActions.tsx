@@ -19,7 +19,7 @@ export default function SidebarActions() {
         {/* Closes Menu - button */}
         <button
           className="btn btn_close"
-          onClick={() => storeDispatch({ type: 'closeSidebar' })}
+          onClick={() => storeDispatch({ type: 'Close_Sidebar' })}
         >
           <FaTimes style={{ fontSize: '1.75rem' }} />
         </button>
@@ -30,8 +30,11 @@ export default function SidebarActions() {
         <button
           className="btn btn_lessons"
           onClick={() => {
-            storeDispatch({ type: 'closeSidebar' });
-            storeDispatch({ type: 'openDataModal', dataModalName: 'lessons' });
+            storeDispatch({ type: 'Close_Sidebar' });
+            storeDispatch({
+              type: 'Open_Data_Modal',
+              dataModalName: 'lessons',
+            });
           }}
         >
           <FaBook style={{ fontSize: '2rem', marginBottom: '0.2rem' }} />
@@ -42,8 +45,8 @@ export default function SidebarActions() {
         <button
           className="btn btn_custom"
           onClick={() => {
-            storeDispatch({ type: 'closeSidebar' });
-            storeDispatch({ type: 'openDataModal', dataModalName: 'custom' });
+            storeDispatch({ type: 'Close_Sidebar' });
+            storeDispatch({ type: 'Open_Data_Modal', dataModalName: 'custom' });
           }}
         >
           <FaCogs style={{ fontSize: '2rem', marginBottom: '0.2rem' }} />
@@ -54,8 +57,8 @@ export default function SidebarActions() {
         <button
           className="btn btn_edit"
           onClick={() => {
-            storeDispatch({ type: 'closeSidebar' });
-            storeDispatch({ type: 'openDataModal', dataModalName: 'edit' });
+            storeDispatch({ type: 'Close_Sidebar' });
+            storeDispatch({ type: 'Open_Data_Modal', dataModalName: 'edit' });
           }}
         >
           <FaEdit style={{ fontSize: '2rem', marginBottom: '0.2rem' }} />
