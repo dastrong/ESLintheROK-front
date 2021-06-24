@@ -29,7 +29,7 @@ export function createNewPastLesson(storePatch, data, pastLessons) {
   // add the new one at the end of all the other lessons
   const updatedStorage = [...pastLessons, { ...data, createdOn: date, id }];
   localStorage.setItem('lessonData', JSON.stringify(updatedStorage));
-  storePatch({ type: 'setPastLessons', pastLessons: updatedStorage });
+  storePatch({ type: 'Set_Past_Lessons', pastLessons: updatedStorage });
   saveLatestLessonData(storePatch, data, date);
 }
 
@@ -38,7 +38,7 @@ export function saveLatestLessonData(storePatch, data, date) {
   const usedOn = date || createDate();
   const lesson = { ...data, usedOn };
   localStorage.setItem('previousLessonData', JSON.stringify(lesson));
-  storePatch({ type: 'setData', ...data });
+  storePatch({ type: 'Set_Data', ...data });
 }
 
 function createDate() {

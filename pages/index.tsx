@@ -10,7 +10,7 @@ export default function IndexPage() {
   const { theme } = useTheme();
 
   function openModal(dataModalName: DataModalNameType) {
-    storeDispatch({ type: 'openDataModal', dataModalName });
+    storeDispatch({ type: 'Open_Data_Modal', dataModalName });
   }
 
   return (

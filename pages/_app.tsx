@@ -40,6 +40,12 @@ export default function App({ Component, pageProps }: AppProps) {
             overflow: hidden;
           }
 
+          *,
+          *:before,
+          *:after {
+            box-sizing: border-box;
+          }
+
           /* SCROLLBAR */
           ::-webkit-scrollbar {
             -webkit-appearance: none;
@@ -68,7 +74,8 @@ export default function App({ Component, pageProps }: AppProps) {
             background: rgba(128, 135, 139, 0.8);
           }
 
-          ::-webkit-scrollbar-track {
+           {
+            /* ::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.1);
           }
 
@@ -82,6 +89,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
           ::-webkit-scrollbar-thumb:hover {
             background: rgba(255, 255, 255, 0.35);
+          } */
           }
         `}</style>
       </StoreProvider>
