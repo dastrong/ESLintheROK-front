@@ -46,7 +46,7 @@ const init = (): StoreTypes => {
       'quidem quidem quidem',
     ],
     isSidebarOpen: false,
-    dataModalName: 'custom',
+    dataModalName: 'lessons',
     font: 'Poppins, sans-serif',
   };
 };
