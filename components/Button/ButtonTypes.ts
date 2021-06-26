@@ -12,8 +12,9 @@ type Rounded = boolean;
 type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type Spinner = boolean;
 type Text = string;
+type Full = boolean;
 
-type RoundedOnlyProps = {
+type IconOnlyRoundedProps = {
   text?: never;
   rounded: Rounded;
   Icon: Icon;
@@ -21,21 +22,22 @@ type RoundedOnlyProps = {
 
 type TextOnlyProps = {
   text: Text;
-  rounded?: never;
+  rounded?: Rounded;
   Icon?: never;
 };
 
 type IconTextProps = {
   text?: Text;
-  rounded?: never;
+  rounded?: Rounded;
   Icon?: Icon;
 };
 
-export type Props = (RoundedOnlyProps | TextOnlyProps | IconTextProps) & {
+export type Props = (IconOnlyRoundedProps | TextOnlyProps | IconTextProps) & {
   as?: As;
   color: Color;
   bgColor: BgColor;
   size?: Size;
   spinner?: Spinner;
   className?: string;
+  full?: Full;
 };

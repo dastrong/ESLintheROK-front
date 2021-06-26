@@ -41,6 +41,7 @@ const Button = forwardRef<
       bgColor,
       size = 'md',
       spinner,
+      full = false,
       ...rest
     },
     ref
@@ -61,7 +62,7 @@ const Button = forwardRef<
     const buttonContent = (
       <>
         {iconContent}
-        {!rounded && text}
+        {!!text && text}
       </>
     );
 
@@ -100,12 +101,13 @@ const Button = forwardRef<
             padding: ${rounded
               ? `${sizeMultiplier}rem`
               : `${sizeMultiplier * 0.75}rem ${sizeMultiplier * 1}rem`};
-            border-radius: ${rounded ? '50%' : '0.5rem'};
+            border-radius: ${!rounded ? '0.5rem' : text ? '50rem' : '50%'};
             color: ${color};
             background-color: ${bgColor};
             font-size: ${sizeMultiplier}rem;
             line-height: ${sizeMultiplier}rem;
             transition: 100ms background-color;
+            width: ${full ? '100%' : 'initial'};
           }
 
           .styled-button:hover {
