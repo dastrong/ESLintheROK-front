@@ -1,4 +1,6 @@
 import React, { FormEvent, useState } from 'react';
+import Button from 'components/Button';
+import { InputCSS } from 'components/Styles';
 
 export default function ContactPage() {
   const [name, setName] = useState('');
@@ -7,6 +9,15 @@ export default function ContactPage() {
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    try {
+      await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, content }),
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
@@ -24,13 +35,44 @@ export default function ContactPage() {
         <div className="contact_panel email">
           <h3>Email</h3>
           <p>Contact the developer</p>
-          <form></form>
+          <form onSubmit={handleSubmit}>
+            <input
+              required
+              className={InputCSS.className}
+              placeholder="Your name"
+              value={name}
+              onChange={e => setName(e.target.value)}
+            />
+            <input
+              required
+              className={InputCSS.className}
+              placeholder="Your email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+            />
+            <textarea
+              required
+              className={InputCSS.className}
+              placeholder="Your question or message here"
+              value={content}
+              onChange={e => setContent(e.target.value)}
+            />
+            <Button
+              full
+              type="submit"
+              text="Submit"
+              color="white"
+              bgColor="green"
+            />
+          </form>
         </div>
         <div className="contact_panel interactive">
           <h3>Interactive</h3>
           <p>Click or scan a code below to join a conversation</p>
         </div>
       </div>
+
+      {InputCSS.styles}
 
       <style jsx>{`
         .heading {
@@ -65,8 +107,7 @@ export default function ContactPage() {
           background-color: var(--bgColor);
           padding: var(--padding);
           padding-top: calc(var(--padding) + var(--radius));
-          border-top-left-radius: var(--radius);
-          border-top-right-radius: var(--radius);
+          border-radius: var(--radius);
           display: flex;
           flex-direction: column;
 
@@ -97,13 +138,15 @@ export default function ContactPage() {
         }
 
         .contact_panel h3 {
-          font-size: 1.3rem;
+          font-size: 1.5rem;
           margin: 0 auto 0.75rem;
         }
 
         .contact_panel p {
-          font-size: 0.875rem;
+          font-size: 1rem;
           margin: 0 auto 1rem;
+          color: #5a5c62;
+          text-align: center;
         }
       `}</style>
     </div>
