@@ -1,7 +1,6 @@
 import React from 'react';
 import type { AppProps } from 'next/app';
 import { IconContext } from 'react-icons/lib';
-import Sidebar from '../components/Sidebar';
 import Layout from '../components/Layout';
 import { DataModals } from 'components/Modal(s)';
 import { StoreProvider } from '../contexts/store';
@@ -14,7 +13,6 @@ export default function App({ Component, pageProps }: AppProps) {
     <ThemeProvider>
       <StoreProvider>
         <IconContext.Provider value={{ style: { verticalAlign: 'bottom' } }}>
-          <Sidebar />
           <DataModals />
           <Layout>
             <Component {...pageProps} />
@@ -37,7 +35,8 @@ export default function App({ Component, pageProps }: AppProps) {
         <style jsx global>{`
           body {
             font-family: Lato, Helvetica Neue, Arial, Helvetica, sans-serif;
-            overflow: hidden;
+            overflow-x: hidden;
+            --siteBgColor: #cdeeff;
           }
 
           *,

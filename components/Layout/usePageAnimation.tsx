@@ -26,11 +26,11 @@ export default function usePageAnimation(
   return useTransition(child, {
     from: {
       opacity: 0,
-      marginTop: `${isNavVisible ? 86 : 0}px`,
+      // marginTop: `${isNavVisible ? 86 : 0}px`,
     } as any,
     enter: {
       opacity: 1,
-      marginTop: `${isNavVisible ? 86 : 0}px`,
+      // marginTop: `${isNavVisible ? 86 : 0}px`,
     } as any,
     leave: {
       position: 'absolute',

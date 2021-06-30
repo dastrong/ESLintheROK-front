@@ -10,7 +10,7 @@ const SidebarOpenerCSS = css.resolve`
     z-index: 100;
     transition: all 0.5s;
     top: 7px;
-    left: 7px;
+    right: 7px;
   }
 `;
 
@@ -24,8 +24,8 @@ export default function SidebarOpener() {
         className={SidebarOpenerCSS.className}
         size="xl"
         Icon={FaList}
-        color="rgb(0, 0, 0)"
-        bgColor="hsla(0, 0%, 100%, 0)"
+        color="#fff"
+        bgColor="#FDB813"
         onClick={() => storeDispatch({ type: 'Open_Sidebar' })}
       />
 

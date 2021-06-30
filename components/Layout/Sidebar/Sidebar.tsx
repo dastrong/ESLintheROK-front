@@ -33,11 +33,12 @@ export default function Sidebar() {
 
         <style jsx>{`
           aside {
-            transform: translate3d(${isSidebarOpen ? '0%' : '-100%'}, 0, 0);
+            transform: translate3d(${isSidebarOpen ? '0%' : '100vh'}, 0, 0);
+            transform-origin: right;
             transition: transform 0.5s ease;
             position: fixed;
             top: 0;
-            left: 0;
+            right: 0;
             z-index: 111111;
             height: 100vh;
             width: 350px;
