@@ -13,9 +13,10 @@ export default function LessonsGrades({
 
   useEffect(() => {
     const getGrades = () =>
-      fetch('https://eslintherok.herokuapp.com/api')
+      fetch('http://localhost:4000/api/grades')
         .then(resp => resp.json())
         .then(setGrades)
+        .then(() => setTimeout(increaseStep, 3000))
         .catch(console.log);
 
     if (!grades) getGrades();
@@ -26,10 +27,7 @@ export default function LessonsGrades({
       <Modal.Header closeModal={closeModal}>Choose a Grade</Modal.Header>
 
       <Modal.Content>
-        {currentStep}
-        <LessonsGradesSVG />
-        {currentStep === 'CHOOSE_GRADE' && 'Show Grades Now'}
-        {JSON.stringify(grades)}
+        <LessonsGradesSVG isSleeping={currentStep === 'LOADING'} />
       </Modal.Content>
 
       <Modal.Actions
