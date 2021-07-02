@@ -9,55 +9,12 @@ export default function NavLogo() {
 
         <style jsx>{`
           a {
-            display: inline-block;
+            height: 85%;
           }
 
-          @media screen and (max-width: 2560px) {
-            a {
-              top: 16px;
-              left: 16px;
-            }
-
-            img {
-              height: 85%;
-              width: auto;
-            }
-          }
-
-          @media screen and (max-width: 1920px) {
-            a {
-              top: 13px;
-              left: 13px;
-            }
-
-            img {
-              height: 85%;
-              width: auto;
-            }
-          }
-
-          @media screen and (max-width: 1440px) {
-            a {
-              top: 10px;
-              left: 10px;
-            }
-
-            img {
-              height: 85%;
-              width: auto;
-            }
-          }
-
-          @media screen and (max-width: 1024px) {
-            a {
-              top: 15px;
-              left: 15px;
-            }
-
-            img {
-              height: 85%;
-              width: auto;
-            }
+          img {
+            height: 97%;
+            padding-bottom: 3%;
           }
         `}</style>
       </a>
