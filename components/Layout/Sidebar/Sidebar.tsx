@@ -23,8 +23,8 @@ export default function Sidebar() {
   return (
     <>
       <SidebarOpener />
-      {/* the actual menu */}
 
+      {/* the actual menu */}
       <aside>
         <div ref={ref}>
           <SidebarActions />
@@ -33,7 +33,7 @@ export default function Sidebar() {
 
         <style jsx>{`
           aside {
-            transform: translate3d(${isSidebarOpen ? '0%' : '100vh'}, 0, 0);
+            transform: translate3d(${isSidebarOpen ? '0%' : '100%'}, 0, 0);
             transform-origin: right;
             transition: transform 0.5s ease;
             position: fixed;
