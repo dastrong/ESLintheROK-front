@@ -1,8 +1,14 @@
 import { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react';
 import { IconType } from 'react-icons/lib';
 
-export type ButtonEl = ButtonHTMLAttributes<HTMLButtonElement>;
-export type AnchorEl = AnchorHTMLAttributes<HTMLAnchorElement>;
+export type ButtonEl = Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'className'
+>;
+export type AnchorEl = Omit<
+  AnchorHTMLAttributes<HTMLAnchorElement>,
+  'className'
+>;
 
 type As = 'button' | 'a';
 type BgColor = string;
@@ -13,6 +19,7 @@ type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type Spinner = boolean;
 type Text = string;
 type Full = boolean;
+type ClassName = string | string[];
 
 type IconOnlyRoundedProps = {
   text?: never;
@@ -38,6 +45,6 @@ export type Props = (IconOnlyRoundedProps | TextOnlyProps | IconTextProps) & {
   bgColor: BgColor;
   size?: Size;
   spinner?: Spinner;
-  className?: string;
+  className?: ClassName;
   full?: Full;
 };
