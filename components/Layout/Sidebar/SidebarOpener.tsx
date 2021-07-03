@@ -4,8 +4,6 @@ import { css } from 'styled-jsx/css';
 import { useStore } from 'contexts/store';
 import Button from 'components/Button';
 
-const waveHeightToWidthRatio = 192 / 2560;
-
 const SidebarOpenerCSS = css.resolve`
   .sidebar_button {
     position: fixed;
@@ -18,7 +16,6 @@ const SidebarOpenerCSS = css.resolve`
     font-size: 1.85vw;
     line-height: 1.85vw;
 
-    --navHeight: calc(100vw * ${waveHeightToWidthRatio});
     --btnHeight: calc(var(--navHeight) * 0.85 * 0.94);
   }
 `;

@@ -8,6 +8,8 @@ import { ThemeProvider } from 'contexts/theme';
 import 'normalize.css';
 import '@fontsource/lato';
 
+const navWaveHeightToWidthRatio = 192 / 2560;
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider>
@@ -37,6 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
             font-family: Lato, Helvetica Neue, Arial, Helvetica, sans-serif;
             overflow-x: hidden;
             --siteBgColor: #cdeeff;
+            --navHeight: calc(100vw * ${navWaveHeightToWidthRatio});
           }
 
           *,

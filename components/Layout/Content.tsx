@@ -8,8 +8,10 @@ const { className, styles } = css.resolve`
   section {
     position: relative;
     width: 100%;
+    min-height: calc(100vh - var(--navHeight));
     overflow-x: hidden;
     background-color: var(--siteBgColor);
+    padding: 1rem;
   }
 `;
 
