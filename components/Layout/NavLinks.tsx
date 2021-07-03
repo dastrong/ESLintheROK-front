@@ -1,34 +1,34 @@
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import classNames from 'classnames';
 import Popup from 'components/Popup';
 
+const mainLinks = [
+  { href: '/', text: 'Home' },
+  { href: '/games', text: 'Games' },
+  { href: '/faqs', text: 'Help' },
+];
+
 export default function NavLinks() {
+  const { asPath } = useRouter();
+
   return (
     <>
       <ul className="links_primary">
-        <li>
-          <Link href="/">
-            <a>Home</a>
-          </Link>
-        </li>
-
-        <li>
-          <Link href="/games">
-            <a>Games</a>
-          </Link>
-        </li>
-
-        <li>
-          <Link href="/faqs">
-            <a>Help</a>
-          </Link>
-        </li>
+        {mainLinks.map(({ href, text }) => (
+          <li key={text}>
+            <Link href={href}>
+              <a className={classNames({ active: href === asPath })}>{text}</a>
+            </Link>
+          </li>
+        ))}
       </ul>
 
       <ul className="links_secondary">
         <li>
           <Link href="/guide">
-            <a>Guide</a>
+            <a className={classNames({ active: '/guide' === asPath })}>Guide</a>
           </Link>
         </li>
 
@@ -36,30 +36,36 @@ export default function NavLinks() {
           interactive
           delayHide={100}
           trigger={['hover', 'focus']}
-          defaultVisible
-          visible
           // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
           owner={<li tabIndex={0}>Contribute</li>}
         >
           <ul className="contribute_menu">
             <li>
-              <a>As teacher</a>
+              <Link href="/contribute/teacher">
+                <a>As teacher</a>
+              </Link>
             </li>
             <li>
-              <a>As developer</a>
+              <Link href="/contribute/developer">
+                <a>As developer</a>
+              </Link>
             </li>
           </ul>
         </Popup>
 
         <li>
           <Link href="/changelog">
-            <a>Changelog</a>
+            <a className={classNames({ active: '/changelog' === asPath })}>
+              Changelog
+            </a>
           </Link>
         </li>
 
         <li>
           <Link href="/contact">
-            <a>Contact</a>
+            <a className={classNames({ active: '/contact' === asPath })}>
+              Contact
+            </a>
           </Link>
         </li>
       </ul>
@@ -75,27 +81,39 @@ export default function NavLinks() {
           position: absolute;
           display: flex;
           align-items: center;
-          font-variant: all-small-caps;
+          text-transform: uppercase;
           bottom: 13%;
           height: 87%;
         }
 
-        ul.contribute_menu {
+        ul.contribute_menu li {
           text-align: center;
+          font-size: 1rem;
+          margin: 0.5rem;
         }
 
         ul.contribute_menu li:first-child {
-          margin-bottom: 0.5rem;
+          margin-bottom: 1rem;
         }
 
         li {
           color: #565656;
-          font-weight: bold;
         }
 
         a {
           color: inherit;
           text-decoration: none;
+          transition: opacity 125ms;
+        }
+
+        a:hover {
+          opacity: 0.9;
+        }
+
+        a.active {
+          opacity: 0.95;
+          text-decoration-line: underline;
+          text-decoration-color: #04a7fb;
         }
 
         .links_primary {
@@ -111,42 +129,13 @@ export default function NavLinks() {
         }
 
         .links_primary li {
-          font-size: 2.7rem;
+          font-size: 2vw;
+          font-weight: bold;
         }
 
         .links_secondary li {
-          font-size: 2.1rem;
+          font-size: 1.5vw;
           font-weight: 400;
-        }
-
-        @media screen and (max-width: 1920px) {
-          .links_primary li {
-            font-size: 2.1rem;
-          }
-
-          .links_secondary li {
-            font-size: 1.8rem;
-          }
-        }
-
-        @media screen and (max-width: 1440px) {
-          .links_primary li {
-            font-size: 1.75rem;
-          }
-
-          .links_secondary li {
-            font-size: 1.5rem;
-          }
-        }
-
-        @media screen and (max-width: 1024px) {
-          .links_primary li {
-            font-size: 1.25rem;
-          }
-
-          .links_secondary li {
-            font-size: 1.15rem;
-          }
         }
       `}</style>
     </>

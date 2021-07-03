@@ -11,10 +11,12 @@ const SidebarOpenerCSS = css.resolve`
     position: fixed;
     z-index: 100;
     top: calc((var(--navHeight) - var(--btnHeight)) / 2);
-    right: 1px;
+    right: 2vw;
     height: var(--btnHeight);
     width: var(--btnHeight);
     padding: 0;
+    font-size: 1.85vw;
+    line-height: 1.85vw;
 
     --navHeight: calc(100vw * ${waveHeightToWidthRatio});
     --btnHeight: calc(var(--navHeight) * 0.85 * 0.94);
