@@ -38,6 +38,7 @@ export default function App({ Component, pageProps }: AppProps) {
           body {
             font-family: Lato, Helvetica Neue, Arial, Helvetica, sans-serif;
             overflow-x: hidden;
+            background-color: var(--siteBgColor);
             --siteBgColor: #cdeeff;
             --navHeight: calc(100vw * ${navWaveHeightToWidthRatio});
           }
