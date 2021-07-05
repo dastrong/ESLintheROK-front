@@ -71,7 +71,7 @@ export default function FooterCornerTexts() {
         }
 
         a {
-          color: #250225;
+          color: inherit;
           text-decoration: none;
         }
 
