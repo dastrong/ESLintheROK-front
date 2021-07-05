@@ -1,61 +1,41 @@
 import React from 'react';
 import Link from 'next/link';
 import FooterSvgs from './FooterSvgs';
-import FooterInfo from './FooterInfo';
+import FooterCornerTexts from './FooterCornerTexts';
 
 export default function Footer({ maxSVGWidth }: { maxSVGWidth: number }) {
   return (
     <footer>
       <FooterSvgs maxWidth={maxSVGWidth} />
-      <FooterInfo />
+      <FooterCornerTexts />
 
-      <ul>
-        <li>
-          <Link href="/">
-            <a>Home</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/games">
-            <a>Games</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/faqs">
-            <a>Help</a>
-          </Link>
-        </li>
-      </ul>
+      <Link href="/">
+        <a>Home</a>
+      </Link>
+      <Link href="/games">
+        <a>Games</a>
+      </Link>
+      <Link href="/faqs">
+        <a>Help</a>
+      </Link>
 
-      <ul>
-        <li>
-          <Link href="/guide">
-            <a>Guide</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/changelog">
-            <a>Changelog</a>
-          </Link>
-        </li>
-        <li>
-          Contribute
-          <ul>
+      <Link href="/guide">
+        <a>Guide</a>
+      </Link>
+      <Link href="/changelog">
+        <a>Changelog</a>
+      </Link>
+      <span>Contribute</span>
+      {/* <ul>
             <li>As teacher</li>
             <li>As developer</li>
-          </ul>
-        </li>
-        <li>
-          <Link href="/contact">
-            <a>Contact</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/admin">
-            <a>Admin</a>
-          </Link>
-        </li>
-      </ul>
+          </ul> */}
+      <Link href="/contact">
+        <a>Contact</a>
+      </Link>
+      <Link href="/admin">
+        <a>Admin</a>
+      </Link>
 
       <style jsx>{`
         footer {
