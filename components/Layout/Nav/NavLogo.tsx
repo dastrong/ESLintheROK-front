@@ -12,6 +12,7 @@ export default function NavLogo() {
           a {
             height: 85%;
             margin-left: 2vw;
+            width: min-content;
           }
         `}</style>
       </a>
