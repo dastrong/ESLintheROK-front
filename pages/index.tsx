@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { FaFolderOpen } from 'react-icons/fa';
-import { SiBuymeacoffee } from 'react-icons/si';
 import { useStore, DataModalNameType } from 'contexts/store';
 import { useTheme } from 'contexts/theme';
 import Button from 'components/Button';
@@ -100,19 +99,6 @@ export default function IndexPage() {
         style={{ position: 'absolute', bottom: '10px', left: '10px' }}
         disabled={true}
         // disabled={!pastLessons.length}
-      />
-
-      <Button
-        as="a"
-        target="_blank"
-        href="https://www.buymeacoffee.com/ycqPbFl"
-        color="#732f00"
-        bgColor="#fbbd08"
-        text="Buy me a coffee"
-        Icon={SiBuymeacoffee}
-        size="md"
-        className="btn btn-past-lessons"
-        style={{ position: 'absolute', bottom: '10px', right: '10px' }}
       />
 
       <style jsx>{`

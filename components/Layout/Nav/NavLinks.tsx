@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
+import { SiBuymeacoffee } from 'react-icons/si';
+import Button from 'components/Button';
 import Popup from 'components/Popup';
 
 const mainLinks = [
@@ -36,8 +38,13 @@ export default function NavLinks() {
           interactive
           delayHide={100}
           trigger={['hover', 'focus']}
-          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-          owner={<li tabIndex={0}>Contribute</li>}
+          owner={
+            <li>
+              <Link href="/contribute">
+                <a>Contribute</a>
+              </Link>
+            </li>
+          }
         >
           <ul className="contribute_menu">
             <li>
@@ -49,6 +56,23 @@ export default function NavLinks() {
               <Link href="/contribute/developer">
                 <a>As developer</a>
               </Link>
+            </li>
+            <li>
+              <Link href="/contribute/designer">
+                <a>As designer</a>
+              </Link>
+            </li>
+            <li>
+              <Button
+                as="a"
+                target="_blank"
+                href="https://www.buymeacoffee.com/ycqPbFl"
+                color="#732f00"
+                bgColor="#fbbd08"
+                text="Buy me a coffee"
+                Icon={SiBuymeacoffee}
+                size="xs"
+              />
             </li>
           </ul>
         </Popup>
@@ -92,7 +116,7 @@ export default function NavLinks() {
           margin: 0.5rem;
         }
 
-        ul.contribute_menu li:first-child {
+        ul.contribute_menu li:not(:last-child) {
           margin-bottom: 1rem;
         }
 
