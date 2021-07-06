@@ -103,7 +103,7 @@ const Button = forwardRef<
               : `${sizeMultiplier * 0.75}rem ${sizeMultiplier * 1}rem`};
             border-radius: ${!rounded ? '0.5rem' : text ? '50rem' : '50%'};
             color: ${color};
-            background-color: ${bgColor};
+            background: ${bgColor};
             font-size: ${sizeMultiplier}rem;
             line-height: ${sizeMultiplier}rem;
             transition: 100ms background-color;
