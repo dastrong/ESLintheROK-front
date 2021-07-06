@@ -72,7 +72,6 @@ export default function Menu() {
           Icon={RiHome2Fill}
           color="white"
           bgColor="green"
-          onClick={console.log}
           className={['menu_item', Styles.MenuItemCSS.className]}
         />
       </Link>
@@ -86,7 +85,6 @@ export default function Menu() {
           color="white"
           bgColor="green"
           className={['menu_item', Styles.MenuItemCSS.className]}
-          onClick={console.log}
         />
       </Link>
       <AnimatedButton
