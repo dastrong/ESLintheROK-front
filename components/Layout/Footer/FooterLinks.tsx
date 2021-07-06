@@ -29,11 +29,9 @@ export default function FooterLinks() {
       <Link href="/changelog">
         <a>Changelog</a>
       </Link>
-      <span>Contribute</span>
-      {/* <ul>
-        <li>As teacher</li>
-        <li>As developer</li>
-      </ul> */}
+      <Link href="/contribute">
+        <a>Contribute</a>
+      </Link>
       <Link href="/contact">
         <a>Contact</a>
       </Link>
@@ -55,8 +53,7 @@ export default function FooterLinks() {
           margin: 0 0.5rem;
         }
 
-        a:not(.logo_link),
-        span {
+        a:not(.logo_link) {
           color: inherit;
           text-decoration: none;
           text-transform: uppercase;
@@ -76,15 +73,13 @@ export default function FooterLinks() {
             right: ${maxRightBlobWidth}px;
           }
 
-          a:not(.logo_link),
-          span {
+          a:not(.logo_link) {
             padding: 0.5rem 0.6rem;
           }
         }
 
         @media screen and (min-width: 1440px) {
-          a:not(.logo_link),
-          span {
+          a:not(.logo_link) {
             padding: 0.5rem 1.25rem;
           }
         }
@@ -95,8 +90,7 @@ export default function FooterLinks() {
             justify-content: space-evenly;
           }
 
-          a:not(.logo_link),
-          span {
+          a:not(.logo_link) {
             padding: 0.5rem 0.5rem;
           }
 
