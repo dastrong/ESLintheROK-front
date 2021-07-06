@@ -1,30 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
-import { css } from 'styled-jsx/css';
 import Logo from '../Logo';
 
 const maxWidth = 1200;
 const maxLeftBlobWidth = 509;
 const maxRightBlobWidth = 259;
-
-const LogoCSS = css.resolve`
-  svg {
-    position: absolute;
-    top: calc(-75px - 1rem);
-    height: 75px;
-    width: 75px;
-    margin: 0 0.5rem;
-  }
-
-  @media screen and (min-width: 1440px) {
-    svg {
-      position: relative;
-      top: 0;
-      height: calc(62px + 1rem);
-      width: calc(62px + 1rem);
-    }
-  }
-`;
 
 export default function FooterLinks() {
   return (
@@ -41,7 +21,11 @@ export default function FooterLinks() {
       <Link href="/guide">
         <a>Guide</a>
       </Link>
-      <Logo className={LogoCSS.className} />
+      <Link href="/">
+        <a className="logo_link">
+          <Logo style={{ height: '65px', width: '65px' }} />
+        </a>
+      </Link>
       <Link href="/changelog">
         <a>Changelog</a>
       </Link>
@@ -57,7 +41,6 @@ export default function FooterLinks() {
         <a>Admin</a>
       </Link>
 
-      {LogoCSS.styles}
       <style jsx>{`
         .links {
           position: absolute;
@@ -72,12 +55,19 @@ export default function FooterLinks() {
           margin: 0 0.5rem;
         }
 
-        a,
+        a:not(.logo_link),
         span {
           color: inherit;
           text-decoration: none;
           text-transform: uppercase;
-          padding: 0.25rem;
+          padding: 0.5rem 0.25rem;
+        }
+
+        .logo_link {
+          padding: 0;
+          position: absolute;
+          top: calc(-65px - 1rem);
+          margin: 0 0.5rem;
         }
 
         @media screen and (min-width: ${maxWidth}px) {
@@ -85,17 +75,34 @@ export default function FooterLinks() {
             left: ${maxLeftBlobWidth}px;
             right: ${maxRightBlobWidth}px;
           }
+
+          a:not(.logo_link),
+          span {
+            padding: 0.5rem 0.6rem;
+          }
         }
 
         @media screen and (min-width: 1440px) {
+          a:not(.logo_link),
+          span {
+            padding: 0.5rem 1.25rem;
+          }
+        }
+
+        @media screen and (min-width: 1700px) {
           .links {
-            bottom: 1.5rem;
+            bottom: 2rem;
             justify-content: space-evenly;
           }
 
-          a,
+          a:not(.logo_link),
           span {
-            padding: 0.25rem;
+            padding: 0.5rem 0.5rem;
+          }
+
+          .logo_link {
+            position: relative;
+            top: 0;
           }
         }
       `}</style>

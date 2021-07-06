@@ -37,7 +37,7 @@ export default function FooterCornerTexts() {
         .corner {
           position: absolute;
           margin: 0;
-          bottom: 2rem;
+          bottom: 2.5rem;
           font-size: min(1.5vw, 1.25rem);
         }
 
@@ -56,7 +56,7 @@ export default function FooterCornerTexts() {
         }
 
         .corner p:first-child {
-          margin-bottom: 1rem;
+          margin-bottom: 1.25rem;
         }
 
         .support_me a {
@@ -78,6 +78,9 @@ export default function FooterCornerTexts() {
         a:hover {
           color: #5a035a;
           text-decoration: underline;
+        }
+
+        @media screen and (min-width: 1440px) {
         }
       `}</style>
     </>
