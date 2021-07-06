@@ -3,7 +3,7 @@ import { css } from 'styled-jsx/css';
 export const MenuContainerCSS = css.resolve`
   div {
     position: fixed;
-    z-index: 100;
+    z-index: 11111;
     top: calc((var(--navHeight) - var(--btnHeight)) / 2);
     right: 2vw;
 
