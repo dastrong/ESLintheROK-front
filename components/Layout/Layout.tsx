@@ -1,5 +1,5 @@
 import React from 'react';
-import Sidebar from './Sidebar';
+import Menu from './Menu';
 import Nav from './Nav';
 import Content from './Content';
 import Footer from './Footer';
@@ -12,7 +12,7 @@ const maxWidthOfFooterSvg = 1200;
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Sidebar />
+      <Menu />
       <Nav />
       <Content>{children}</Content>
       <ScrollToTop maxWidth={maxWidthOfFooterSvg} />
