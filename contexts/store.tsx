@@ -76,7 +76,11 @@ const reducer = (state: StoreTypes, action: ActionTypes) => {
     case 'Close_Sidebar':
       return { ...state, isSidebarOpen: false };
     case 'Open_Data_Modal':
-      return { ...state, dataModalName: action.dataModalName };
+      return {
+        ...state,
+        isSidebarOpen: false,
+        dataModalName: action.dataModalName,
+      };
     case 'Close_Data_Modal':
       return { ...state, dataModalName: '' as DataModalNameType };
     case 'Set_Font':
