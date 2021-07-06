@@ -7,16 +7,16 @@ export default function useKeys(
   handleGame: () => void,
   cb?: (e: KeyboardEvent) => void
 ): void {
-  const { isSidebarOpen } = useStore();
+  const { isMenuOpen } = useStore();
 
   const handleKeys = useCallback(
     (e: KeyboardEvent) => {
-      if (isSidebarOpen) return;
+      if (isMenuOpen) return;
       if (e.code === 'Space' || e.key === 'Enter') return handleGame();
       if (!cb) return;
       cb(e);
     },
-    [isSidebarOpen, handleGame, cb]
+    [isMenuOpen, handleGame, cb]
   );
 
   useEventListener('keydown', handleKeys);

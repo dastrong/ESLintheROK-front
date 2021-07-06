@@ -6,16 +6,16 @@ import { useStore } from 'contexts/store';
 export default function useScroll(
   cb: (scrolledUp: boolean, wheelClicked: boolean) => void
 ) {
-  const { isSidebarOpen } = useStore();
+  const { isMenuOpen } = useStore();
 
   const handleScroll = useCallback(
     ({ deltaY, buttons }) => {
-      if (isSidebarOpen) return;
+      if (isMenuOpen) return;
       const scrolledUp = deltaY < 0;
       const wheelClicked = buttons === 4;
       cb(scrolledUp, wheelClicked);
     },
-    [isSidebarOpen, cb]
+    [isMenuOpen, cb]
   );
 
   useEventListener('wheel', handleScroll);

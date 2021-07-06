@@ -25,26 +25,26 @@ const buttons = Array(numOfButtons).fill('');
 
 export default function Menu() {
   const { asPath } = useRouter();
-  const { isSidebarOpen, storeDispatch } = useStore();
+  const { isMenuOpen, storeDispatch } = useStore();
 
-  // ref to handle closing the sidebar when user clicks away from it
+  // ref to handle closing the menu when user clicks away from it
   const ref = useRef();
-  useOnClickOutside(ref, () => storeDispatch({ type: 'Close_Sidebar' }));
+  useOnClickOutside(ref, () => storeDispatch({ type: 'Close_Menu' }));
 
   // menu option springs
   const springs = useSprings(
     numOfButtons,
     buttons.map((_, i) => ({
-      opacity: isSidebarOpen ? 1 : 0,
-      y: isSidebarOpen ? (i + 1) * 65 : 0,
-      delay: isSidebarOpen ? i * 50 : (numOfButtons - i + 1) * 15,
+      opacity: isMenuOpen ? 1 : 0,
+      y: isMenuOpen ? (i + 1) * 65 : 0,
+      delay: isMenuOpen ? i * 50 : (numOfButtons - i + 1) * 15,
       config: config.gentle,
     }))
   );
 
   // close the menu on route change
   useEffect(() => {
-    storeDispatch({ type: 'Close_Sidebar' });
+    storeDispatch({ type: 'Close_Menu' });
   }, [asPath]);
 
   return (
@@ -52,13 +52,13 @@ export default function Menu() {
       <Button
         rounded
         size="lg"
-        Icon={isSidebarOpen ? RiCloseFill : RiMenuFill}
+        Icon={isMenuOpen ? RiCloseFill : RiMenuFill}
         color="white"
         bgColor="#fdb813"
         className={['menu_toggler', Styles.MenuTogglerCSS.className]}
         onClick={() =>
           storeDispatch({
-            type: isSidebarOpen ? 'Close_Sidebar' : 'Open_Sidebar',
+            type: isMenuOpen ? 'Close_Menu' : 'Open_Menu',
           })
         }
       />

@@ -11,7 +11,7 @@ type StoreTypes = {
   isDataReady: IsDataReady;
   vocabulary: Vocabulary;
   expressions: Expressions;
-  isSidebarOpen: boolean;
+  isMenuOpen: boolean;
   dataModalName: '' | DataModalNameType;
   font: Font;
 };
@@ -45,7 +45,7 @@ const init = (): StoreTypes => {
       'Voluptate Voluptate Voluptate',
       'quidem quidem quidem',
     ],
-    isSidebarOpen: false,
+    isMenuOpen: false,
     dataModalName: '',
     font: 'Poppins, sans-serif',
   };
@@ -55,8 +55,8 @@ const initialState = init();
 
 type ActionTypes =
   | { type: 'Set_Data'; vocabulary: Vocabulary; expressions: Expressions }
-  | { type: 'Open_Sidebar' }
-  | { type: 'Close_Sidebar' }
+  | { type: 'Open_Menu' }
+  | { type: 'Close_Menu' }
   | { type: 'Open_Data_Modal'; dataModalName: DataModalNameType }
   | { type: 'Close_Data_Modal' }
   | { type: 'Set_Font'; font: Font };
@@ -71,14 +71,14 @@ const reducer = (state: StoreTypes, action: ActionTypes) => {
         vocabulary: action.vocabulary,
         expressions: action.expressions,
       };
-    case 'Open_Sidebar':
-      return { ...state, isSidebarOpen: true };
-    case 'Close_Sidebar':
-      return { ...state, isSidebarOpen: false };
+    case 'Open_Menu':
+      return { ...state, isMenuOpen: true };
+    case 'Close_Menu':
+      return { ...state, isMenuOpen: false };
     case 'Open_Data_Modal':
       return {
         ...state,
-        isSidebarOpen: false,
+        isMenuOpen: false,
         dataModalName: action.dataModalName,
       };
     case 'Close_Data_Modal':
