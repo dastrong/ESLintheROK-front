@@ -32,14 +32,14 @@ export default function ScrollToTop({ maxWidth }: { maxWidth: number }) {
           bottom: calc(1rem + 60px);
           right: 1rem;
           float: right;
-          margin-top: calc(300px - ${rightSvgWidthToHeight} * 100vw - 60px);
+          margin-top: calc(250px - ${rightSvgWidthToHeight} * 100vw - 60px);
           opacity: ${scrollY > 0 ? 1 : 0};
           transition: opacity 200ms;
         }
 
         @media screen and (min-width: ${maxWidth}px) {
           div {
-            margin-top: -129px;
+            margin-top: -169px;
           }
         }
       `}</style>
