@@ -1,13 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
-import { FaFolderOpen } from 'react-icons/fa';
 import { useStore, DataModalNameType } from 'contexts/store';
-import { useTheme } from 'contexts/theme';
-import Button from 'components/Button';
 
 export default function IndexPage() {
   const { storeDispatch } = useStore();
-  const { theme } = useTheme();
 
   function openModal(dataModalName: DataModalNameType) {
     storeDispatch({ type: 'Open_Data_Modal', dataModalName });
@@ -86,20 +82,6 @@ export default function IndexPage() {
           </div>
         </a>
       </Link>
-
-      <Button
-        color="white"
-        bgColor={theme.colors.blue}
-        text="No past lessons"
-        // text={`${!pastLessons.length && 'No'} Past Lessons`}
-        onClick={() => openModal('past')}
-        Icon={FaFolderOpen}
-        size="md"
-        className="btn btn-past-lessons"
-        style={{ position: 'absolute', bottom: '10px', left: '10px' }}
-        disabled={true}
-        // disabled={!pastLessons.length}
-      />
 
       <style jsx>{`
         .mainpage-container {
