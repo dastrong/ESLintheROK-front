@@ -89,3 +89,14 @@ function getHSL() {
   const lig = getRandoNum(70, 60);
   return `hsl(${hue}, ${sat}%, ${lig}%)`;
 }
+
+// debounce function
+export const debounce = (callback, wait) => {
+  let timeoutId = null;
+  return (...args) => {
+    window.clearTimeout(timeoutId);
+    timeoutId = window.setTimeout(() => {
+      callback.apply(null, args);
+    }, wait);
+  };
+}
