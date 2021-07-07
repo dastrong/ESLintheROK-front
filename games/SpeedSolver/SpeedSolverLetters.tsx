@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { shuffle } from 'lodash';
+import shuffle from 'lodash.shuffle';
 import { animated, useSprings, to, useSpring } from 'react-spring';
 import { arrOfRandoNum, getRandoNum } from 'games/_utils';
 
