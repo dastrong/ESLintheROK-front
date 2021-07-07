@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { animated, config, useSprings } from 'react-spring';
+import classNames from 'classnames';
 import {
   RiMenuFill,
   RiCloseFill,
@@ -17,9 +18,9 @@ import {
 import { useStore } from 'contexts/store';
 import { useOnClickOutside } from 'hooks';
 import Button from 'components/Button';
+import Popup from 'components/Popup';
 import * as Styles from './Menu.styles';
 
-const AnimatedButton = animated(Button);
 const numOfButtons = 7;
 const buttons = Array(numOfButtons).fill('');
 
@@ -47,6 +48,9 @@ export default function Menu() {
     storeDispatch({ type: 'Close_Menu' });
   }, [asPath]);
 
+  // className that's reused for event item
+  const menuItemCX = classNames('menu_item', Styles.MenuItemCSS.className);
+
   return (
     <div ref={ref} className={Styles.MenuContainerCSS.className}>
       <Button
@@ -63,92 +67,160 @@ export default function Menu() {
         }
       />
 
-      <Link href="/" passHref>
-        <AnimatedButton
-          as="a"
-          style={springs[0]}
-          rounded
-          size="lg"
-          Icon={RiHome2Fill}
-          color="white"
-          bgColor="green"
-          className={['menu_item', Styles.MenuItemCSS.className]}
-        />
-      </Link>
-      <Link href="/games" passHref>
-        <AnimatedButton
-          as="a"
-          style={springs[1]}
-          rounded
-          size="lg"
-          Icon={RiGamepadFill}
-          color="white"
-          bgColor="green"
-          className={['menu_item', Styles.MenuItemCSS.className]}
-        />
-      </Link>
-      <AnimatedButton
-        style={springs[2]}
-        rounded
-        size="lg"
-        Icon={RiSettings4Fill}
-        color="white"
-        bgColor="green"
-        onClick={console.log}
-        className={['menu_item', Styles.MenuItemCSS.className]}
+      <Popup
+        placement="left"
+        content="Go Home"
+        tooltipContainerCx={Styles.MenuItemPopupCSS.className}
+        owner={
+          <animated.div style={springs[0]} className={menuItemCX}>
+            <Link href="/" passHref>
+              <Button
+                as="a"
+                rounded
+                size="lg"
+                Icon={RiHome2Fill}
+                color="white"
+                bgColor="green"
+              />
+            </Link>
+          </animated.div>
+        }
       />
-      <AnimatedButton
-        style={springs[3]}
-        rounded
-        size="lg"
-        Icon={RiFileSearchFill}
-        color="white"
-        bgColor="green"
-        onClick={() => {
-          storeDispatch({ type: 'Open_Data_Modal', dataModalName: 'lessons' });
-        }}
-        className={['menu_item', Styles.MenuItemCSS.className]}
+
+      <Popup
+        placement="left"
+        content="View Games"
+        tooltipContainerCx={Styles.MenuItemPopupCSS.className}
+        owner={
+          <animated.div style={springs[1]} className={menuItemCX}>
+            <Link href="/games" passHref>
+              <Button
+                as="a"
+                rounded
+                size="lg"
+                Icon={RiGamepadFill}
+                color="white"
+                bgColor="green"
+              />
+            </Link>
+          </animated.div>
+        }
       />
-      <AnimatedButton
-        style={springs[4]}
-        rounded
-        size="lg"
-        Icon={RiFileSettingsFill}
-        color="white"
-        bgColor="green"
-        onClick={() => {
-          storeDispatch({ type: 'Open_Data_Modal', dataModalName: 'edit' });
-        }}
-        className={['menu_item', Styles.MenuItemCSS.className]}
+
+      <Popup
+        placement="left"
+        content="View Settings"
+        tooltipContainerCx={Styles.MenuItemPopupCSS.className}
+        owner={
+          <animated.div style={springs[2]} className={menuItemCX}>
+            <Button
+              rounded
+              size="lg"
+              Icon={RiSettings4Fill}
+              color="white"
+              bgColor="green"
+              onClick={console.log}
+            />
+          </animated.div>
+        }
       />
-      <AnimatedButton
-        style={springs[5]}
-        rounded
-        size="lg"
-        Icon={RiFileTransferFill}
-        color="white"
-        bgColor="green"
-        onClick={() => {
-          storeDispatch({ type: 'Open_Data_Modal', dataModalName: 'custom' });
-        }}
-        className={['menu_item', Styles.MenuItemCSS.className]}
+
+      <Popup
+        placement="left"
+        content="Handpick Lessons"
+        tooltipContainerCx={Styles.MenuItemPopupCSS.className}
+        owner={
+          <animated.div style={springs[3]} className={menuItemCX}>
+            <Button
+              rounded
+              size="lg"
+              Icon={RiFileSearchFill}
+              color="white"
+              bgColor="green"
+              onClick={() => {
+                storeDispatch({
+                  type: 'Open_Data_Modal',
+                  dataModalName: 'lessons',
+                });
+              }}
+            />
+          </animated.div>
+        }
       />
-      <AnimatedButton
-        style={springs[6]}
-        rounded
-        size="lg"
-        Icon={RiFileShield2Fill}
-        color="white"
-        bgColor="green"
-        onClick={() => {
-          storeDispatch({ type: 'Open_Data_Modal', dataModalName: 'past' });
-        }}
-        className={['menu_item', Styles.MenuItemCSS.className]}
+
+      <Popup
+        placement="left"
+        content="Edit Current Data"
+        tooltipContainerCx={Styles.MenuItemPopupCSS.className}
+        owner={
+          <animated.div style={springs[4]} className={menuItemCX}>
+            <Button
+              rounded
+              size="lg"
+              Icon={RiFileSettingsFill}
+              color="white"
+              bgColor="green"
+              onClick={() => {
+                storeDispatch({
+                  type: 'Open_Data_Modal',
+                  dataModalName: 'edit',
+                });
+              }}
+            />
+          </animated.div>
+        }
+      />
+
+      <Popup
+        placement="left"
+        content="Create Custom Lesson"
+        tooltipContainerCx={Styles.MenuItemPopupCSS.className}
+        owner={
+          <animated.div style={springs[5]} className={menuItemCX}>
+            <Button
+              rounded
+              size="lg"
+              Icon={RiFileTransferFill}
+              color="white"
+              bgColor="green"
+              onClick={() => {
+                storeDispatch({
+                  type: 'Open_Data_Modal',
+                  dataModalName: 'custom',
+                });
+              }}
+            />
+          </animated.div>
+        }
+      />
+
+      <Popup
+        placement="left"
+        content="View Past Lessons"
+        tooltipContainerCx={Styles.MenuItemPopupCSS.className}
+        owner={
+          <animated.div style={springs[6]} className={menuItemCX}>
+            <Button
+              rounded
+              size="lg"
+              Icon={RiFileShield2Fill}
+              color="white"
+              bgColor="green"
+              onClick={() => {
+                storeDispatch({
+                  type: 'Open_Data_Modal',
+                  dataModalName: 'past',
+                });
+              }}
+            />
+          </animated.div>
+        }
       />
 
       {Styles.MenuContainerCSS.styles}
       {Styles.MenuTogglerCSS.styles}
       {Styles.MenuItemCSS.styles}
+      {Styles.MenuItemPopupCSS.styles}
     </div>
   );
 }

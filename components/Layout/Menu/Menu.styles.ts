@@ -32,3 +32,9 @@ export const MenuItemCSS = css.resolve`
     width: min-content;
   }
 `;
+
+export const MenuItemPopupCSS = css.resolve`
+   {
+    width: max-content;
+  }
+`;
