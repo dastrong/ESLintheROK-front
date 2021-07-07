@@ -21,8 +21,6 @@ export const ContainerCSS = css.resolve`
     border-radius: 0.3rem;
     box-shadow: 0 2px 4px 0 rgb(34 36 38 / 12%),
       0 2px 10px 0 rgb(34 36 38 / 15%);
-
-    flex-direction: row;
   }
 
   .tooltip-container[data-popper-interactive='false'] {
