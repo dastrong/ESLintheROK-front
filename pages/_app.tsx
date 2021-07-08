@@ -6,7 +6,6 @@ import { DataModals } from 'components/Modal(s)';
 import { StoreProvider } from '../contexts/store';
 import { ThemeProvider } from 'contexts/theme';
 import 'normalize.css';
-import '@fontsource/lato';
 
 const navWaveHeightToWidthRatio = 192 / 2560;
 
@@ -36,7 +35,7 @@ export default function App({ Component, pageProps }: AppProps) {
         {/* THE REST */}
         <style jsx global>{`
           body {
-            font-family: Lato, Helvetica Neue, Arial, Helvetica, sans-serif;
+            font-family: 'Comic Neue', cursive;
             overflow-x: hidden;
             background-color: var(--siteBgColor);
             --siteBgColor: #cdeeff;
