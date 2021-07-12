@@ -20,6 +20,7 @@ type Spinner = boolean;
 type Text = string;
 type Full = boolean;
 type ClassName = string | string[];
+type Inverted = boolean;
 
 type IconOnlyRoundedProps = {
   text?: never;
@@ -47,4 +48,5 @@ export type Props = (IconOnlyRoundedProps | TextOnlyProps | IconTextProps) & {
   spinner?: Spinner;
   className?: ClassName;
   full?: Full;
+  inverted?: Inverted;
 };

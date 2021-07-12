@@ -42,6 +42,7 @@ const Button = forwardRef<
       size = 'md',
       spinner,
       full = false,
+      inverted = false,
       ...rest
     },
     ref
@@ -94,7 +95,7 @@ const Button = forwardRef<
             display: inline-block;
             cursor: pointer;
             outline: 0;
-            border: none;
+            border: 1px solid ${inverted ? bgColor : 'transparent'};
             text-decoration: none;
             user-select: none;
             margin: 0;
@@ -102,8 +103,8 @@ const Button = forwardRef<
               ? `${sizeMultiplier}rem`
               : `${sizeMultiplier * 0.75}rem ${sizeMultiplier * 1}rem`};
             border-radius: ${!rounded ? '0.5rem' : text ? '50rem' : '50%'};
-            color: ${color};
-            background: ${bgColor};
+            color: ${inverted ? bgColor : color};
+            background: ${inverted ? 'transparent' : bgColor};
             font-size: ${sizeMultiplier}rem;
             line-height: ${sizeMultiplier}rem;
             transition: 100ms background-color;
@@ -111,7 +112,8 @@ const Button = forwardRef<
           }
 
           .styled-button:hover {
-            background-color: ${hoverBgColor};
+            color: ${inverted ? hoverBgColor : color};
+            background: ${inverted ? 'transparent' : hoverBgColor};
           }
 
           .styled-button:disabled {
