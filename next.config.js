@@ -1,5 +1,33 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
-module.exports = withBundleAnalyzer({});
+/* eslint-disable @typescript-eslint/no-var-requires */
+const withPlugins = require('next-compose-plugins');
+const withBundleAnalyzer = require('@next/bundle-analyzer');
+
+module.exports = withPlugins(
+  [[withBundleAnalyzer, { enabled: process.env.ANALYZE === 'true' }]],
+  {
+    webpack: config => {
+      config.module.rules.push({
+        test: /\.svg$/,
+        use: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              svgo: true,
+              svgoConfig: {
+                plugins: {
+                  removeViewBox: false,
+                  removeDimensions: true,
+                  cleanupNumericValues: {
+                    floatPrecision: 2,
+                  },
+                },
+              },
+            },
+          },
+        ],
+      });
+
+      return config;
+    },
+  }
+);
