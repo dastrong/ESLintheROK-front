@@ -1,192 +1,100 @@
 import React from 'react';
-import Link from 'next/link';
-import { useStore, DataModalNameType } from 'contexts/store';
+import { css } from 'styled-jsx/css';
+import { useStore } from 'contexts/store';
+import Button from 'components/Button';
+import WellDoneSVG from 'components/Svgs/well_done.svg';
+
+const SvgCSS = css.resolve`
+  svg {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 50%;
+    max-height: 60%;
+    z-index: 1;
+  }
+`;
 
 export default function IndexPage() {
   const { storeDispatch } = useStore();
 
-  function openModal(dataModalName: DataModalNameType) {
-    storeDispatch({ type: 'Open_Data_Modal', dataModalName });
-  }
-
   return (
     <div className="mainpage-container">
-      <Link href="/games">
-        <a className="set st-set">
-          <span className="text">GAMES</span>
-          <div />
-          <div className="line_middle" />
-          <div />
-        </a>
-      </Link>
-      <Link href="/contact">
-        <a className="set nd-set">
-          <span className="text">CONTACT</span>
-          <div>
-            <span className="line_white" />
-          </div>
-          <div className="line_middle" />
-          <div>
-            <span className="line_white" />
-          </div>
-        </a>
-      </Link>
+      <div className="content_container">
+        <h1>ESL in the ROK</h1>
+        <p>
+          Say “<span>Hello</span>” to your new best friend and{' '}
+          <span>boost</span> your teaching toolkit <span>instantl</span>y.
+        </p>
 
-      <img
-        className="ying-yang"
-        useMap="#flag-map"
-        src="https://res.cloudinary.com/dastrong/image/upload/v1535538943/TeacherSite/Flag_Icon.svg"
-        alt="korea-flag"
-      />
-      <map name="flag-map">
-        <area
-          role="button"
-          alt="red-ying"
-          tabIndex={0}
-          onKeyDown={() => openModal('lessons')}
-          onClick={() => openModal('lessons')}
-          shape="poly"
-          coords="105,26,135,12,157,6,184,1,211,2,232,4,250,9,272,16,294,26,315,38,333,53,347,67,363,88,373,104,383,126,391,146,398,174,398,196,397,214,395,230,391,250,390,220,382,196,369,176,355,162,337,152,321,145,294,141,273,140,247,147,225,162,207,181,191,211,177,228,156,240,140,250,112,254,83,250,62,242,47,229,34,215,21,198,16,180,12,158,14,138,21,116,30,97,44,79,58,60,82,41"
+        <Button
+          size="lg"
+          color="white"
+          bgColor="#6C63FF"
+          text="Available Lessons"
+          onClick={() =>
+            storeDispatch({
+              type: 'Open_Data_Modal',
+              dataModalName: 'lessons',
+            })
+          }
         />
-        <area
-          role="button"
-          tabIndex={0}
-          alt="blue-yang"
-          onKeyDown={() => openModal('custom')}
-          onClick={() => openModal('custom')}
-          shape="poly"
-          coords="218,399,256,390,289,377,310,366,329,351,352,329,367,306,377,288,386,268,388,250,385,220,374,192,355,172,335,158,305,147,275,147,249,155,227,170,209,187,190,221,175,236,158,248,130,256,106,259,74,252,53,241,37,227,23,210,16,193,11,172,9,151,11,140,5,163,1,195,3,228,13,266,23,289,39,315,56,336,74,354,96,370,120,381,145,391,181,398"
+        <Button
+          inverted
+          size="lg"
+          color="white"
+          bgColor="#FF6584"
+          text="Create Lesson"
+          style={{ marginLeft: '1rem' }}
+          onClick={() =>
+            storeDispatch({
+              type: 'Open_Data_Modal',
+              dataModalName: 'custom',
+            })
+          }
         />
-      </map>
-      <Link href="/faq">
-        <a className="set rd-set">
-          <span className="text">FAQ</span>
-          <div />
-          <div className="line_middle">
-            <span className="line_white" />
-          </div>
-          <div />
-        </a>
-      </Link>
-      <Link href="/about">
-        <a className="set th-set">
-          <span className="text">ABOUT</span>
-          <div>
-            <span className="line_white" />
-          </div>
-          <div className="line_middle">
-            <span className="line_white" />
-          </div>
-          <div>
-            <span className="line_white" />
-          </div>
-        </a>
-      </Link>
+      </div>
 
+      <WellDoneSVG className={SvgCSS.className} />
+
+      {SvgCSS.styles}
       <style jsx>{`
         .mainpage-container {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 100vh;
-        }
-
-        map {
-          cursor: pointer;
-        }
-
-        area {
-          outline: 0;
-        }
-
-        .ying-yang {
-          height: 400px;
-          width: 400px;
-        }
-
-        .set {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-direction: column;
-          height: 134px;
-          width: 200px;
-          position: absolute;
-          transition: 0.25s transform;
-          text-decoration: none;
-        }
-
-        .set.st-set {
-          transform: translate(-318px, -183px) rotate(-56deg);
-        }
-
-        .set.nd-set {
-          transform: translate(318px, -183px) rotate(56deg);
-        }
-
-        .set.rd-set {
-          transform: translate(-318px, 183px) rotate(56deg);
-        }
-
-        .set.th-set {
-          transform: translate(318px, 183px) rotate(-56deg);
-        }
-
-        .set div {
-          width: 200px;
-          height: 34px;
-          background-color: black;
           position: relative;
+          min-height: calc(100vh - var(--navHeight) - 2rem);
+          margin-bottom: 167px;
         }
 
-        .set div.line_middle {
-          margin: 16px 0;
-        }
-
-        .set div span.line_white {
-          width: 17px;
-          height: 37px;
-          background-color: white;
-          transform: translateX(92px);
+        .content_container {
           position: absolute;
-          top: -1px;
+          top: 5vh;
+          left: 5vh;
+          width: 60%;
         }
 
-        .set .text {
-          height: 34px;
-          line-height: 34px;
-          font-size: 34px;
-          font-weight: bold;
-          color: white;
-          text-shadow: 0 1px 17px black;
-          transition-property: color, text-shadow, transform;
-          transition-timing-function: ease;
-          transition-duration: 0.5s;
-          user-select: none;
-          z-index: 1;
-          position: absolute;
-          top: 50px;
-          width: 100%;
-          text-align: center;
+        h1 {
+          margin: 0 0 1rem;
+          font-size: 8vw;
+          color: #2c2c2c;
         }
 
-        .set:hover div {
-          opacity: 0.3;
+        p {
+          margin: 0 0 2rem;
+          font-size: 4vw;
+          line-height: 130%;
+          color: #565656;
         }
 
-        .set:hover .text {
-          color: black;
-          text-shadow: 1px 1px 10px lightgrey;
+        span:nth-of-type(1) {
+          color: #6c63ff;
         }
 
-        .set.st-set:hover .text,
-        .set.th-set:hover .text {
-          transform: rotate(56deg) scale(1.35);
+        span:nth-of-type(2) {
+          color: #ff6584;
         }
 
-        .set.nd-set:hover .text,
-        .set.rd-set:hover .text {
-          transform: rotate(-56deg) scale(1.35);
+        span:nth-of-type(3) {
+          text-decoration: underline;
         }
       `}</style>
     </div>
