@@ -7,7 +7,7 @@ const { className, styles } = css.resolve`
   section {
     position: relative;
     width: 100%;
-    min-height: calc(100vh - var(--navHeight));
+    min-height: calc(100vh - var(--navHeight) - var(--footerHeight));
     overflow-x: hidden;
     background-color: var(--siteBgColor);
     padding: 1rem;
@@ -29,7 +29,7 @@ export default function Content({ children }: { children: React.ReactNode }) {
       position: 'absolute',
       opacity: 0,
       top: 'calc(var(--navHeight) - 1)',
-      height: 'calc(100vh - var(--navHeight))',
+      height: 'calc(100vh - var(--navHeight) - var(--footerHeight))',
       left: 0,
     },
     config: {

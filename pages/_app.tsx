@@ -40,6 +40,7 @@ export default function App({ Component, pageProps }: AppProps) {
             background-color: var(--siteBgColor);
             --siteBgColor: #cdeeff;
             --navHeight: calc(100vw * ${navWaveHeightToWidthRatio});
+            --footerHeight: 300px;
           }
 
           *,

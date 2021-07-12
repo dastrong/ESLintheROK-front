@@ -13,7 +13,7 @@ export default function Footer({ maxSVGWidth }: { maxSVGWidth: number }) {
       <style jsx>{`
         footer {
           position: relative;
-          height: 250px;
+          height: var(--footerHeight);
           width: 100%;
           background-color: var(--siteBgColor);
           display: flex;
