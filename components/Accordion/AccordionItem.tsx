@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties } from 'react';
 import { FaPlus } from 'react-icons/fa';
-import chroma from 'chroma-js';
+import { mix } from 'color2k';
 
 type Props = {
   isOpen: boolean;
@@ -21,10 +21,8 @@ export default function AccordionItem({
   handleClick,
   id,
 }: Props) {
-  const [baseColor] = useState((color && chroma(color)) || chroma.random());
-
-  const accentColor = baseColor.alpha(0.8).hex();
-  const bgColor = baseColor.alpha(0.1).hex();
+  const accentColor = color || 'red';
+  const bgColor = mix(color || 'red', 'white', 0.85);
 
   return (
     <div
