@@ -94,7 +94,9 @@ const Button = forwardRef<
             background-color: ${inverted ? 'transparent' : bgColor};
             font-size: ${sizeMultiplier}rem;
             line-height: ${sizeMultiplier}rem;
-            transition: 150ms background-color;
+            transition-duration: 150ms;
+            transition-property: background-color, transform;
+
             width: ${full ? '100%' : 'initial'};
           }
 
