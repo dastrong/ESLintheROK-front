@@ -33,3 +33,38 @@ export type Lesson = {
   vocabulary: string[];
   expressions: string[];
 };
+
+export type State = {
+  step: number;
+  grades: Grade[];
+  books: Book[];
+  lessons: Lesson[];
+  chosenGrade: string;
+  chosenBook: string;
+  chosenLesson: string;
+};
+
+export type Action =
+  | { type: 'Step_Increase' }
+  | { type: 'Step_Decrease' }
+  | { type: 'Set_Grades'; grades: Grade[] }
+  | { type: 'Set_Books'; books: Book[] }
+  | { type: 'Set_Lessons'; lessons: Lesson[] }
+  | { type: 'Choose_Grade'; chosenGrade: string }
+  | { type: 'Choose_Book'; chosenBook: string }
+  | { type: 'Choose_Lesson'; chosenLesson: string };
+
+export type Dispatch = React.Dispatch<Action>;
+
+export type LessonsGradesProps = Props & {
+  currentStep: 'LOADING' | 'CHOOSE_GRADE';
+  grades: Grade[];
+  dispatch: Dispatch;
+};
+
+export type LessonsBooksProps = Props & {
+  chosenGrade: string;
+  grades: Grade[];
+  books: Book[];
+  dispatch: Dispatch;
+};

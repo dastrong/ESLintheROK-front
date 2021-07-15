@@ -1,37 +1,47 @@
 import React from 'react';
-import Button from 'components/Button';
 import Modal from 'components/Modal(s)';
-import type { Props } from './types';
-
-const gradeButtonColors = ['#6856d5', '#087942', '#a62463', '#3c768f'];
+import type { LessonsBooksProps } from './types';
+import Carousel from 'components/Carousel';
 
 export default function LessonsBooks({
   closeModal,
   decreaseStep,
   increaseStep,
-  grades = ['Grade 3', 'Grade 4', 'Grade 5', 'Grade 6'],
-}: Props & { grades?: string[] }) {
+  dispatch,
+  chosenGrade,
+  grades,
+  books,
+}: LessonsBooksProps) {
+  // manipulate the fetches grades into a format the Carousel can understand
+  const carouselItems = grades
+    .sort((a, b) => a.grade - b.grade)
+    .map(({ grade, _id }) => ({ text: `Grade ${grade}`, id: _id }));
+
+  // determine the number of books there are for the chosenGrade
+  const numOfBooks = grades.find(({ _id }) => _id === chosenGrade).books.length;
+
   return (
     <>
       <Modal.Header closeModal={closeModal}>Choose a Book</Modal.Header>
 
       <Modal.Content>
         <div className="grade_button_container">
-          {grades.map((grade, i) => (
-            <Button
-              key={grade}
-              rounded
-              text={grade}
-              color="white"
-              bgColor={gradeButtonColors[i]}
-              style={{ margin: '0 0.25rem' }}
-            />
-          ))}
+          <Carousel
+            width="500px"
+            itemColorScale={['#a56eec', '#138039']}
+            items={carouselItems}
+            activeItem={chosenGrade}
+            numOfItemsToShow={Math.min(5, carouselItems.length)}
+            handleClick={(chosenGrade: string) => {
+              dispatch({ type: 'Choose_Grade', chosenGrade });
+            }}
+          />
           <style jsx>{`
             .grade_button_container {
               margin: 1rem auto 2rem;
               display: flex;
               justify-content: center;
+              width: 450px;
             }
           `}</style>
         </div>
@@ -49,7 +59,7 @@ export default function LessonsBooks({
         cancelClick={decreaseStep}
         confirmText="Select Above"
         confirmClick={increaseStep}
-        // confirmDisabled
+        confirmDisabled
       />
     </>
   );

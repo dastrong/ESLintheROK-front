@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import { SetterProvider } from 'contexts/setter';
 import { useStore } from 'contexts/store';
 import Modal from 'components/Modal(s)';
@@ -8,7 +8,7 @@ import LessonsGrades from './LessonsGrades';
 import LessonsBooks from './LessonsBooks';
 import LessonsLessons from './LessonsLessons';
 import LessonsData from './LessonsData';
-import type { Steps } from './types';
+import type { Steps, State, Action } from './types';
 
 const steps: Steps[] = [
   'LOADING',
@@ -18,21 +18,53 @@ const steps: Steps[] = [
   'EDIT_DATA',
 ];
 
+const initialState: State = {
+  step: 0,
+  grades: [],
+  books: [],
+  lessons: [],
+  chosenGrade: '',
+  chosenBook: '',
+  chosenLesson: '',
+};
+
+const reducer = (state: State, action: Action): State => {
+  console.log(state, action);
+  switch (action.type) {
+    case 'Step_Increase':
+      return { ...state, step: state.step + 1 };
+    case 'Step_Decrease':
+      return { ...state, step: state.step - 1 };
+    case 'Set_Grades':
+      return { ...state, grades: action.grades };
+    case 'Set_Books':
+      return { ...state, books: action.books };
+    case 'Set_Lessons':
+      return { ...state, lessons: action.lessons };
+    case 'Choose_Grade':
+      return { ...state, chosenGrade: action.chosenGrade };
+    case 'Choose_Book':
+      return { ...state, chosenBook: action.chosenBook };
+    case 'Choose_Lesson':
+      return { ...state, chosenLesson: action.chosenLesson };
+  }
+};
+
 export default function Lessons() {
   const { dataModalName, storeDispatch } = useStore();
 
-  const [grades, setGrades] = useState([]);
-  const [books, setBooks] = useState([]);
-  const [lessons, setLessons] = useState([]);
+  // REDUCER THAT HOLDS THE LOGIC AND INFO FOR THE WHOLE FLOW
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  // STEP INFO
-  const [step, setStep] = useState(0);
-  if (step < 0 || step >= steps.length) throw 'Step Threshold Exceeded';
-  const currentStep = steps[step];
+  // STEP CHECKER
+  if (state.step < 0 || state.step >= steps.length) {
+    throw 'Step Threshold Exceeded';
+  }
+  const currentStep = steps[state.step];
 
   const closeModal = () => storeDispatch({ type: 'Close_Data_Modal' });
-  const decreaseStep = () => setStep(state => state - 1);
-  const increaseStep = () => setStep(state => state + 1);
+  const decreaseStep = () => dispatch({ type: 'Step_Decrease' });
+  const increaseStep = () => dispatch({ type: 'Step_Increase' });
 
   return (
     <Modal
@@ -55,12 +87,18 @@ export default function Lessons() {
             closeModal={closeModal}
             decreaseStep={decreaseStep}
             increaseStep={increaseStep}
+            dispatch={dispatch}
+            chosenGrade={state.chosenGrade}
+            grades={state.grades}
+            books={state.books}
           />
         ) : (
           <LessonsGrades
             closeModal={closeModal}
             increaseStep={increaseStep}
+            dispatch={dispatch}
             currentStep={currentStep}
+            grades={state.grades}
           />
         )}
       </SetterProvider>
