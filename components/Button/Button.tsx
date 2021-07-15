@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import chroma from 'chroma-js';
+import { darken, lighten } from 'color2k';
 import ButtonSpinner from './ButtonSpinner';
 import type { Props, AnchorEl, ButtonEl } from './ButtonTypes';
 
@@ -10,20 +10,6 @@ const sizes = {
   md: 1,
   lg: 1.25,
   xl: 1.5,
-};
-
-// gives different shades for the color given
-const getBgColors = (bgColor: string) => {
-  let hoverBgColor: chroma.Color;
-  let disabledBgColor: chroma.Color;
-  try {
-    const color = chroma(bgColor);
-    hoverBgColor = color.darken(0.2);
-    disabledBgColor = color.brighten(2);
-  } catch (err) {
-    throw new Error(err.message);
-  }
-  return { hoverBgColor, disabledBgColor };
 };
 
 const Button = forwardRef<
@@ -51,7 +37,8 @@ const Button = forwardRef<
     const sizeMultiplier = sizes[size];
     const iconStyle = rounded || !text ? {} : { marginRight: '0.5rem' };
 
-    const { hoverBgColor, disabledBgColor } = getBgColors(bgColor);
+    const hoverBgColor = darken(bgColor, 0.05);
+    const disabledBgColor = lighten(bgColor, 0.05);
 
     const iconContent = spinner ? (
       <ButtonSpinner style={iconStyle} />
@@ -104,16 +91,16 @@ const Button = forwardRef<
               : `${sizeMultiplier * 0.75}rem ${sizeMultiplier * 1}rem`};
             border-radius: ${!rounded ? '0.5rem' : text ? '50rem' : '50%'};
             color: ${inverted ? bgColor : color};
-            background: ${inverted ? 'transparent' : bgColor};
+            background-color: ${inverted ? 'transparent' : bgColor};
             font-size: ${sizeMultiplier}rem;
             line-height: ${sizeMultiplier}rem;
-            transition: 100ms background-color;
+            transition: 150ms background-color;
             width: ${full ? '100%' : 'initial'};
           }
 
           .styled-button:hover {
             color: ${inverted ? hoverBgColor : color};
-            background: ${inverted ? 'transparent' : hoverBgColor};
+            background-color: ${inverted ? 'transparent' : hoverBgColor};
           }
 
           .styled-button:disabled {
