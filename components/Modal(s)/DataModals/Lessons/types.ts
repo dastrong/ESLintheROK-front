@@ -37,7 +37,6 @@ export type Lesson = {
 export type State = {
   step: number;
   grades: Grade[];
-  books: Book[];
   lessons: Lesson[];
   chosenGrade: string;
   chosenBook: string;
@@ -48,7 +47,6 @@ export type Action =
   | { type: 'Step_Increase' }
   | { type: 'Step_Decrease' }
   | { type: 'Set_Grades'; grades: Grade[] }
-  | { type: 'Set_Books'; books: Book[] }
   | { type: 'Set_Lessons'; lessons: Lesson[] }
   | { type: 'Choose_Grade'; chosenGrade: string }
   | { type: 'Choose_Book'; chosenBook: string }
