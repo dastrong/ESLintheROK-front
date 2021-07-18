@@ -37,8 +37,6 @@ const reducer = (state: State, action: Action): State => {
       return { ...state, step: state.step - 1 };
     case 'Set_Grades':
       return { ...state, grades: action.grades };
-    case 'Set_Books':
-      return { ...state, books: action.books };
     case 'Set_Lessons':
       return { ...state, lessons: action.lessons };
     case 'Choose_Grade':
@@ -90,7 +88,6 @@ export default function Lessons() {
             dispatch={dispatch}
             chosenGrade={state.chosenGrade}
             grades={state.grades}
-            books={state.books}
           />
         ) : (
           <LessonsGrades

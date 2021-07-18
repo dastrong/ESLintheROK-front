@@ -65,6 +65,5 @@ export type LessonsGradesProps = Props & {
 export type LessonsBooksProps = Props & {
   chosenGrade: string;
   grades: Grade[];
-  books: Book[];
   dispatch: Dispatch;
 };
