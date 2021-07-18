@@ -39,11 +39,11 @@ const reducer = (state: State, action: Action): State => {
     case 'Set_Lessons':
       return { ...state, lessons: action.lessons };
     case 'Choose_Grade':
-      return { ...state, chosenGrade: action.chosenGrade };
+      return { ...state, chosenGrade: action.chosenGrade, step: 2 };
     case 'Choose_Book':
-      return { ...state, chosenBook: action.chosenBook };
+      return { ...state, chosenBook: action.chosenBook, step: 3 };
     case 'Choose_Lesson':
-      return { ...state, chosenLesson: action.chosenLesson };
+      return { ...state, chosenLesson: action.chosenLesson, step: 4 };
   }
 };
 

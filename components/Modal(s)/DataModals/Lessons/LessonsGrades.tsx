@@ -67,7 +67,6 @@ export default function LessonsGrades({
               numOfItemsToShow={Math.min(5, carouselItems.length)}
               handleClick={(chosenGrade: string) => {
                 dispatch({ type: 'Choose_Grade', chosenGrade });
-                increaseStep();
               }}
             />
             <hr />
