@@ -21,7 +21,6 @@ const steps: Steps[] = [
 const initialState: State = {
   step: 0,
   grades: [],
-  books: [],
   lessons: [],
   chosenGrade: '',
   chosenBook: '',
