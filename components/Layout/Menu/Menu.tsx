@@ -30,7 +30,9 @@ export default function Menu() {
 
   // ref to handle closing the menu when user clicks away from it
   const ref = useRef();
-  useOnClickOutside(ref, () => storeDispatch({ type: 'Close_Menu' }));
+  useOnClickOutside(ref, () => {
+    if (isMenuOpen) storeDispatch({ type: 'Close_Menu' });
+  });
 
   // menu option springs
   const springs = useSprings(
