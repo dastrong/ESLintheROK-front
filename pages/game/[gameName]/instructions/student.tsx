@@ -1,15 +1,12 @@
 import React from 'react';
-import { GetStaticProps, GetStaticPaths } from 'next';
-import { games } from 'utils/games';
+import { GetStaticPaths, InferGetStaticPropsType } from 'next';
+import { convertCaseSnakeToPascal } from 'utils/convertCaseSnakeToPascal';
+import { getSingleGameConfig } from 'utils/getSingleGameConfig';
+import { getAllGameConfigs } from 'utils/getAllGameConfigs';
 
 export default function StudentInstructionsPage({
   instructions,
-}: {
-  instructions: {
-    korean: string[];
-    english: string[];
-  };
-}) {
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   console.log(instructions);
   return (
     <div>
@@ -24,20 +21,36 @@ export default function StudentInstructionsPage({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = games.map(game => ({ params: { gameName: game.path } }));
+  const gameConfigs = await getAllGameConfigs();
+
+  const paths = gameConfigs
+    .filter(({ publish }) => publish)
+    .map(({ path }) => ({
+      params: {
+        gameName: path.replace('/game/', ''),
+      },
+    }));
+
   return {
     fallback: false,
     paths,
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const game = games.find(game => game.path === params.gameName);
+export const getStaticProps = async ({
+  params,
+}: {
+  params: { gameName: string };
+}) => {
+  const gameFileName = convertCaseSnakeToPascal(params.gameName);
+
+  const gameConfig = await getSingleGameConfig(gameFileName);
+
   return {
     props: {
       instructions: {
-        korean: game.instructions.forStudents.korean,
-        english: game.instructions.forStudents.english,
+        english: gameConfig.instructions.forStudents.english,
+        korean: gameConfig.instructions.forStudents.korean,
       },
     },
   };
