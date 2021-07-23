@@ -7,6 +7,7 @@ type Props = {
   delay?: number;
   height?: number;
   width?: number;
+  isTransparent?: boolean;
 };
 
 export default function Image({
@@ -15,6 +16,7 @@ export default function Image({
   height,
   width,
   delay = 200,
+  isTransparent = false,
   ...rest
 }: Props & React.ImgHTMLAttributes<HTMLImageElement>) {
   const [loading, setLoading] = useState(!delay);
@@ -71,7 +73,7 @@ export default function Image({
           position: relative;
           height: ${height}px;
           width: ${width}px;
-          background-color: #eee;
+          background-color: ${isTransparent ? 'transparent' : '#eee'};
           display: flex;
           flex-direction: column;
           justify-content: center;
