@@ -7,7 +7,7 @@ export const config: GameConfig = {
   path: '/game/pubg_battleground', // you probably don't wanna edit this
   title: 'PUBG Battleground', // you probably don't wanna edit this
   description: '4 Corners Survival Game',
-  image: `https://res.cloudinary.com/dastrong/image/upload`,
+  image: `https://res.cloudinary.com/dastrong/image/upload/v1570941140/TeacherSite/Games/PUBG_4_Corners.svg`,
 
   // SKILLS AND DATA
   skills: ['Reading', 'Speaking'],
