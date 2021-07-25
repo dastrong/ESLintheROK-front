@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSetter } from 'contexts/setter';
 import Modal from 'components/Modal(s)';
 import { DataScreen } from '../_components';
-import type { LessonsDataProps } from './types';
+import type { LessonFull, LessonsDataProps } from './types';
 
 export default function LessonsData({
   closeModal,
@@ -14,7 +14,7 @@ export default function LessonsData({
   useEffect(() => {
     const getLessonData = async () => {
       const urls = chosenLessons.map(lessonId => `/lesson/${lessonId}`);
-      const data = await Promise.all(
+      const data = await Promise.all<LessonFull>(
         urls.map(url =>
           fetch(`http://localhost:4000/api${url}`).then(r => r.json())
         )
