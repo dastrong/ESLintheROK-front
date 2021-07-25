@@ -45,7 +45,6 @@ const DataScreenList = forwardRef(
 
         <style jsx>{`
           .list {
-            height: 300px;
             overflow-y: auto;
             overflow-x: hidden;
             width: 100%;

@@ -94,6 +94,8 @@ export default function DataScreen({
 
       <style jsx>{`
         .container {
+          min-height: 350px;
+          height: 60vh;
           display: flex;
           justify-content: center;
         }
