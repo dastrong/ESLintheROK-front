@@ -141,7 +141,6 @@ export default function LessonsLessons({
               line-height: 100%;
               display: flex;
               align-items: center;
-              cursor: pointer;
             }
 
             .lesson span {
