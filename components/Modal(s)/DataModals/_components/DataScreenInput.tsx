@@ -34,25 +34,26 @@ const DataScreenInput = forwardRef(
           size="sm"
           color="white"
           bgColor="#027E1B"
-          style={{ position: 'absolute', right: 0, height: 'inherit' }}
+          style={{
+            position: 'absolute',
+            right: '4px',
+            top: '4px',
+            height: '38px',
+          }}
           type="submit"
         />
 
         {InputCSS.styles}
         <style jsx>{`
           form {
-            height: 40px;
             position: relative;
             width: 100%;
-            max-width: 300px;
+            max-width: 325px;
             margin-bottom: 1rem;
           }
 
           input {
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            height: inherit;
-            padding-right: calc(1rem + 40px);
+            padding-right: calc(1rem + 44px);
           }
         `}</style>
       </form>
