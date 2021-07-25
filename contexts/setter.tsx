@@ -20,6 +20,7 @@ type SetterAction =
   | { type: 'Edit_Expression'; index: number }
   | { type: 'Remove_Vocabulary'; index: number }
   | { type: 'Remove_Expression'; index: number }
+  | { type: 'Set_Both'; vocabulary: string[]; expressions: string[] }
   | { type: 'Clear_All' };
 
 const setter: SetterState = {
@@ -68,6 +69,12 @@ const reducer = (state: SetterState, action: SetterAction) => {
       return {
         ...state,
         expressions: state.expressions.filter((_, i) => i !== action.index),
+      };
+    case 'Set_Both':
+      return {
+        ...state,
+        vocabulary: action.vocabulary,
+        expressions: action.expressions,
       };
     case 'Clear_All':
       return {
