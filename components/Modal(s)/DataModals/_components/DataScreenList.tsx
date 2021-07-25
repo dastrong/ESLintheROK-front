@@ -57,7 +57,7 @@ const DataScreenList = forwardRef(
           .item_container:not(:nth-of-type(1)):before {
             content: '';
             position: absolute;
-            top: 0;
+            top: -0.25rem;
             height: 1px;
             width: 70%;
             left: 15%;

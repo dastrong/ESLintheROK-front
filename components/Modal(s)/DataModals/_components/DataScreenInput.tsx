@@ -31,10 +31,10 @@ const DataScreenInput = forwardRef(
         />
         <Button
           Icon={FaPlus}
+          size="sm"
           color="white"
           bgColor="#027E1B"
           style={{ position: 'absolute', right: 0, height: 'inherit' }}
-          text=""
           type="submit"
         />
 
@@ -50,12 +50,9 @@ const DataScreenInput = forwardRef(
 
           input {
             margin-bottom: 1rem;
-            width: 100%;
             font-size: 0.9rem;
             height: inherit;
-            border-radius: 0.5rem;
-            box-shadow: 0px 4px 4px 0px #dbd8d8;
-            padding-right: calc(1rem + 48px);
+            padding-right: calc(1rem + 40px);
           }
         `}</style>
       </form>
