@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSetter } from 'contexts/setter';
 import { useStore } from 'contexts/store';
 import Modal from 'components/Modal(s)';
@@ -17,6 +17,7 @@ export default function LessonsData({
     expressions,
     sufficientData,
   } = useSetter();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getLessonData = async () => {
@@ -34,16 +35,19 @@ export default function LessonsData({
         { vocabulary: [], expressions: [] }
       );
       setterDispatch({ type: 'Set_Both', vocabulary, expressions });
+      setLoading(false);
     };
 
     getLessonData();
   }, []);
   return (
     <>
-      <Modal.Header closeModal={closeModal}>Choose a Book</Modal.Header>
+      <Modal.Header closeModal={closeModal}>
+        Review/Edit/Set your data
+      </Modal.Header>
 
       <Modal.Content>
-        <DataScreen />
+        <DataScreen showPlaceholders={loading} />
       </Modal.Content>
 
       <Modal.Actions

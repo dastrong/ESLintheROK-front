@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSetter } from 'contexts/setter';
 import DataScreenInput from './DataScreenInput';
 import DataScreenList from './DataScreenList';
-import { useRef } from 'react';
 
-export default function DataScreen() {
+export default function DataScreen({
+  showPlaceholders = false,
+}: {
+  showPlaceholders?: boolean;
+}) {
   const {
     vocabulary,
     vocabularyVal,
@@ -41,6 +44,7 @@ export default function DataScreen() {
           ref={vocabularyInputRef}
         />
         <DataScreenList
+          showPlaceholders={showPlaceholders}
           list={vocabulary}
           editListItem={(index: number) => {
             setterDispatch({ type: 'Edit_Vocabulary', index });
@@ -75,6 +79,7 @@ export default function DataScreen() {
           ref={expressionInputRef}
         />
         <DataScreenList
+          showPlaceholders={showPlaceholders}
           list={expressions}
           editListItem={(index: number) => {
             setterDispatch({ type: 'Edit_Expression', index });

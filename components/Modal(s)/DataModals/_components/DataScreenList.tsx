@@ -1,7 +1,9 @@
 import React, { ForwardedRef, forwardRef } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
+import Skeleton from 'components/Skeleton';
 
 type Props = {
+  showPlaceholders: boolean;
   list: string[];
   editListItem: (index: number) => void;
   removeListItem: (index: number) => void;
@@ -9,7 +11,7 @@ type Props = {
 
 const DataScreenList = forwardRef(
   (
-    { list, editListItem, removeListItem }: Props,
+    { showPlaceholders, list, editListItem, removeListItem }: Props,
     ref: ForwardedRef<HTMLDivElement>
   ) => {
     return (
@@ -18,7 +20,14 @@ const DataScreenList = forwardRef(
           <div className="item_container" key={text + i}>
             <div className="list_item">
               <span className="list_item_text">
-                {text || <span style={{ color: 'red' }}>_blank_</span>}
+                {showPlaceholders ? (
+                  <Skeleton
+                    count={1}
+                    width={20 + Math.floor(Math.random() * 100)}
+                  />
+                ) : (
+                  text || <span style={{ color: 'red' }}>_blank_</span>
+                )}
               </span>
               <div className="list_item_icons">
                 <FaEdit
