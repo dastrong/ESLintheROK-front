@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSetter } from 'contexts/setter';
+import { useStore } from 'contexts/store';
 import Modal from 'components/Modal(s)';
 import { DataScreen } from '../_components';
 import type { LessonFull, LessonsDataProps } from './types';
@@ -9,7 +10,13 @@ export default function LessonsData({
   dispatch,
   chosenLessons,
 }: LessonsDataProps) {
-  const { setterDispatch } = useSetter();
+  const { storeDispatch } = useStore();
+  const {
+    setterDispatch,
+    vocabulary,
+    expressions,
+    sufficientData,
+  } = useSetter();
 
   useEffect(() => {
     const getLessonData = async () => {
@@ -43,8 +50,10 @@ export default function LessonsData({
         cancelText="Go Back"
         cancelClick={() => dispatch({ type: 'Step_Decrease' })}
         confirmText="Set Data"
-        confirmClick={() => dispatch({ type: 'Step_Increase' })}
-        confirmDisabled={false}
+        confirmClick={() => {
+          storeDispatch({ type: 'Set_Data', vocabulary, expressions });
+        }}
+        confirmDisabled={!sufficientData}
       />
     </>
   );
