@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import classNames from 'classnames';
-import { darken, lighten } from 'color2k';
+import { darken, transparentize } from 'color2k';
 import ButtonSpinner from './ButtonSpinner';
 import type { Props, AnchorEl, ButtonEl } from './ButtonTypes';
 
@@ -38,7 +38,7 @@ const Button = forwardRef<
     const iconStyle = rounded || !text ? {} : { marginRight: '0.5rem' };
 
     const hoverBgColor = darken(bgColor, 0.05);
-    const disabledBgColor = lighten(bgColor, 0.05);
+    const disabledBgColor = transparentize(bgColor, 0.4);
 
     const iconContent = spinner ? (
       <ButtonSpinner style={iconStyle} />
