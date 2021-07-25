@@ -21,29 +21,51 @@ const steps: Steps[] = [
 const initialState: State = {
   step: 0,
   grades: [],
-  lessons: [],
+  books: {},
+  lessons: {},
   chosenGrade: '',
   chosenBook: '',
-  chosenLesson: '',
+  chosenLessons: [],
 };
 
 const reducer = (state: State, action: Action): State => {
-  console.log(state, action);
   switch (action.type) {
     case 'Step_Increase':
       return { ...state, step: state.step + 1 };
     case 'Step_Decrease':
       return { ...state, step: state.step - 1 };
     case 'Set_Grades':
-      return { ...state, grades: action.grades };
+      return {
+        ...state,
+        step: 1,
+        grades: action.grades,
+      };
+    case 'Set_Books':
+      return {
+        ...state,
+        step: 2,
+        books: { ...state.books, [action.gradeId]: action.books },
+      };
     case 'Set_Lessons':
-      return { ...state, lessons: action.lessons };
+      return {
+        ...state,
+        step: 3,
+        lessons: { ...state.lessons, [action.bookId]: action.lessons },
+      };
     case 'Choose_Grade':
-      return { ...state, chosenGrade: action.chosenGrade, step: 2 };
+      return {
+        ...state,
+        step: 2,
+        chosenGrade: action.chosenGrade,
+      };
     case 'Choose_Book':
-      return { ...state, chosenBook: action.chosenBook, step: 3 };
-    case 'Choose_Lesson':
-      return { ...state, chosenLesson: action.chosenLesson, step: 4 };
+      return {
+        ...state,
+        chosenBook: action.chosenBook,
+        step: 3,
+      };
+    case 'Choose_Lessons':
+      return { ...state, chosenLessons: action.chosenLessons, step: 4 };
   }
 };
 
@@ -60,8 +82,6 @@ export default function Lessons() {
   const currentStep = steps[state.step];
 
   const closeModal = () => storeDispatch({ type: 'Close_Data_Modal' });
-  const decreaseStep = () => dispatch({ type: 'Step_Decrease' });
-  const increaseStep = () => dispatch({ type: 'Step_Increase' });
 
   return (
     <Modal
@@ -72,26 +92,31 @@ export default function Lessons() {
     >
       <SetterProvider>
         {currentStep === 'EDIT_DATA' ? (
-          <LessonsData closeModal={closeModal} decreaseStep={decreaseStep} />
+          <LessonsData
+            closeModal={closeModal}
+            dispatch={dispatch}
+            chosenLessons={state.chosenLessons}
+          />
         ) : currentStep === 'CHOOSE_LESSONS' ? (
           <LessonsLessons
             closeModal={closeModal}
-            decreaseStep={decreaseStep}
-            increaseStep={increaseStep}
+            dispatch={dispatch}
+            lessons={state.lessons}
+            books={state.books}
+            chosenGrade={state.chosenGrade}
+            chosenBook={state.chosenBook}
           />
         ) : currentStep === 'CHOOSE_BOOK' ? (
           <LessonsBooks
             closeModal={closeModal}
-            decreaseStep={decreaseStep}
-            increaseStep={increaseStep}
             dispatch={dispatch}
             chosenGrade={state.chosenGrade}
             grades={state.grades}
+            books={state.books}
           />
         ) : (
           <LessonsGrades
             closeModal={closeModal}
-            increaseStep={increaseStep}
             dispatch={dispatch}
             currentStep={currentStep}
             grades={state.grades}

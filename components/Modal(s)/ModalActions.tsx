@@ -6,12 +6,13 @@ type Props = {
   cancelColor?: string;
   cancelBgColor?: string;
   cancelClick?: () => void;
-  confirmText: string;
+  confirmText?: string;
   confirmColor?: string;
   confirmBgColor?: string;
-  confirmClick: () => void;
+  confirmClick?: () => void;
   confirmDisabled?: boolean;
   children?: React.ReactNode;
+  hideActions?: boolean;
 };
 
 export default function Actions({
@@ -25,41 +26,51 @@ export default function Actions({
   confirmClick,
   confirmDisabled = false,
   children,
+  hideActions = false,
 }: Props) {
   return (
     <div className="modal_actions">
       {children}
 
-      <div>
-        {/* Cancel Button */}
-        {cancelClick && (
-          <Button
-            size="md"
-            text={cancelText}
-            color={cancelColor}
-            bgColor={cancelBgColor}
-            onClick={cancelClick}
-            style={{ marginRight: '0.5rem' }}
-          />
-        )}
+      {!hideActions && (
+        <div>
+          {/* Cancel Button */}
+          {cancelClick && (
+            <Button
+              size="md"
+              text={cancelText}
+              color={cancelColor}
+              bgColor={cancelBgColor}
+              onClick={cancelClick}
+              style={{ marginRight: confirmClick ? '0.5rem' : '0' }}
+            />
+          )}
 
-        {/* Confirm Button */}
-        <Button
-          size="md"
-          text={confirmText}
-          color={confirmColor}
-          bgColor={confirmBgColor}
-          onClick={confirmClick}
-          disabled={confirmDisabled}
-        />
-      </div>
+          {/* Confirm Button */}
+          {confirmClick && (
+            <Button
+              size="md"
+              text={confirmText}
+              color={confirmColor}
+              bgColor={confirmBgColor}
+              onClick={confirmClick}
+              disabled={confirmDisabled}
+            />
+          )}
+        </div>
+      )}
 
       <style jsx>{`
         .modal_actions {
           padding: 1rem;
           display: flex;
-          justify-content: ${children ? 'space-between' : 'flex-end'};
+          justify-content: ${hideActions
+            ? 'center'
+            : children
+            ? 'space-between'
+            : 'flex-end'};
           align-items: center;
+          min-height: 74px;
         }
       `}</style>
     </div>

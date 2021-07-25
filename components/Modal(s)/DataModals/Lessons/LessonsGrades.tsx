@@ -4,13 +4,12 @@ import { animated, useSpring, config } from 'react-spring';
 
 import { useStore } from 'contexts/store';
 import Modal from 'components/Modal(s)';
-import Carousel from 'components/Carousel';
 import LessonsGradesSVG from './LessonsGradesSVG';
+import LessonsGradeCarousel from './LessonsGradeCarousel';
 import type { LessonsGradesProps, Grade } from './types';
 
 export default function LessonsGrades({
   closeModal,
-  increaseStep,
   currentStep,
   grades,
   dispatch,
@@ -34,15 +33,10 @@ export default function LessonsGrades({
       fetch('http://localhost:4000/api/grades')
         .then(resp => resp.json())
         .then((grades: Grade[]) => dispatch({ type: 'Set_Grades', grades }))
-        .then(increaseStep)
         .catch(console.log);
 
     if (!grades.length) getGrades();
   }, []);
-
-  const carouselItems = grades
-    .sort((a, b) => a.grade - b.grade)
-    .map(({ grade, _id }) => ({ text: `Grade ${grade}`, id: _id }));
 
   return (
     <>
@@ -60,15 +54,7 @@ export default function LessonsGrades({
             style={{ position: 'absolute', left: '41%', ...contentStyles }}
           >
             <h4>Choose your grade now!</h4>
-            <Carousel
-              width="100%"
-              itemColorScale={['#a56eec', '#138039']}
-              items={carouselItems}
-              numOfItemsToShow={Math.min(5, carouselItems.length)}
-              handleClick={(chosenGrade: string) => {
-                dispatch({ type: 'Choose_Grade', chosenGrade });
-              }}
-            />
+            <LessonsGradeCarousel grades={grades} dispatch={dispatch} />
             <hr />
             <div>
               <h5>Don't see your grade above?</h5>
@@ -99,13 +85,7 @@ export default function LessonsGrades({
         </div>
       </Modal.Content>
 
-      <Modal.Actions
-        cancelText="Exit"
-        cancelClick={closeModal}
-        confirmText="Select One Above"
-        confirmClick={increaseStep}
-        confirmDisabled
-      >
+      <Modal.Actions hideActions>
         {isLoading && 'Please wait while we fetch available grades'}
       </Modal.Actions>
 

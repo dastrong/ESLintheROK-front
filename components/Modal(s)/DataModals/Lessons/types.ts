@@ -5,12 +5,6 @@ export type Steps =
   | 'CHOOSE_LESSONS'
   | 'EDIT_DATA';
 
-export type Props = {
-  closeModal: () => void;
-  decreaseStep?: () => void;
-  increaseStep?: () => void;
-};
-
 export type Grade = {
   _id: string;
   grade: number;
@@ -22,10 +16,11 @@ export type Book = {
   publisher: string;
   author: string;
   imageURL: string;
-  lessons: Omit<Lesson, 'created_at' | 'vocabulary' | 'expressions'>[];
+  lessons: string[];
 };
+export type BookGroup = { [gradeId: string]: Book[] };
 
-export type Lesson = {
+export type LessonFull = {
   _id: string;
   chapter: number;
   title: string;
@@ -33,35 +28,57 @@ export type Lesson = {
   vocabulary: string[];
   expressions: string[];
 };
+export type LessonMini = Omit<
+  LessonFull,
+  'created_at' | 'vocabulary' | 'expressions'
+>;
+export type LessonGroup = { [bookId: string]: LessonMini[] };
 
 export type State = {
   step: number;
   grades: Grade[];
-  lessons: Lesson[];
+  books: BookGroup;
+  lessons: LessonGroup;
   chosenGrade: string;
   chosenBook: string;
-  chosenLesson: string;
+  chosenLessons: string[];
 };
 
 export type Action =
   | { type: 'Step_Increase' }
   | { type: 'Step_Decrease' }
   | { type: 'Set_Grades'; grades: Grade[] }
-  | { type: 'Set_Lessons'; lessons: Lesson[] }
+  | { type: 'Set_Books'; books: Book[]; gradeId: string }
+  | { type: 'Set_Lessons'; lessons: LessonMini[]; bookId: string }
   | { type: 'Choose_Grade'; chosenGrade: string }
-  | { type: 'Choose_Book'; chosenBook: string }
-  | { type: 'Choose_Lesson'; chosenLesson: string };
+  | { type: 'Choose_Book'; chosenBook: string; chosenBookImg: string }
+  | { type: 'Choose_Lessons'; chosenLessons: string[] };
 
 export type Dispatch = React.Dispatch<Action>;
+
+export type Props = {
+  closeModal: () => void;
+  dispatch: Dispatch;
+};
 
 export type LessonsGradesProps = Props & {
   currentStep: 'LOADING' | 'CHOOSE_GRADE';
   grades: Grade[];
-  dispatch: Dispatch;
 };
 
 export type LessonsBooksProps = Props & {
-  chosenGrade: string;
   grades: Grade[];
-  dispatch: Dispatch;
+  chosenGrade: string;
+  books: BookGroup;
+};
+
+export type LessonsLessonsProps = Props & {
+  chosenGrade: string;
+  books: BookGroup;
+  chosenBook: string;
+  lessons: LessonGroup;
+};
+
+export type LessonsDataProps = Props & {
+  chosenLessons: string[];
 };
