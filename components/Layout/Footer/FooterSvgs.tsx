@@ -32,6 +32,7 @@ export default function FooterSvgs({ maxWidth }: { maxWidth: number }) {
           position: absolute;
           bottom: 0;
           max-width: ${maxWidth}px;
+          pointer-events: none;
         }
 
         .blob_left {
