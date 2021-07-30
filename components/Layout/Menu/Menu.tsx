@@ -54,192 +54,209 @@ export default function Menu() {
 
   // className that's reused for event item
   const menuItemCX = classNames('menu_item', Styles.MenuItemCSS.className, {
-    [Styles.MenuItemHideCSS.className]: isGamePlaying || !isMenuOpen,
+    [Styles.MenuItemHideCSS.className]:
+      !isMenuOpen || (!isMenuOpen && isGamePlaying),
   });
 
   return (
-    <div ref={ref} className={Styles.MenuContainerCSS.className}>
-      <Button
-        rounded
-        size="lg"
-        Icon={isMenuOpen ? RiCloseFill : RiMenuFill}
-        color="white"
-        bgColor="#fdb813"
-        className={[
-          'menu_toggler',
-          Styles.MenuTogglerCSS.className,
-          isGamePlaying && !isMenuOpen && Styles.MenuTogglerHideCSS.className,
-        ]}
-        onClick={() =>
-          storeDispatch({
-            type: isMenuOpen ? 'Close_Menu' : 'Open_Menu',
-          })
-        }
-      />
+    <>
+      {isMenuOpen && (
+        <div
+          style={{
+            height: '100vh',
+            width: '100vw',
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            zIndex: 111,
+            backgroundColor: '#cdeeffa6',
+          }}
+        />
+      )}
 
-      <Popup
-        placement="left"
-        delayShow={150}
-        content="Go Home"
-        tooltipContainerCx={Styles.MenuItemPopupCSS.className}
-        owner={
-          <animated.div style={springs[0]} className={menuItemCX}>
-            <Link href="/" passHref>
+      <div ref={ref} className={Styles.MenuContainerCSS.className}>
+        <Button
+          rounded
+          size="lg"
+          Icon={isMenuOpen ? RiCloseFill : RiMenuFill}
+          color="white"
+          bgColor="#fdb813"
+          className={[
+            'menu_toggler',
+            Styles.MenuTogglerCSS.className,
+            isGamePlaying && !isMenuOpen && Styles.MenuTogglerHideCSS.className,
+          ]}
+          onClick={() =>
+            storeDispatch({
+              type: isMenuOpen ? 'Close_Menu' : 'Open_Menu',
+            })
+          }
+        />
+
+        <Popup
+          placement="left"
+          delayShow={150}
+          content="Go Home"
+          tooltipContainerCx={Styles.MenuItemPopupCSS.className}
+          owner={
+            <animated.div style={springs[0]} className={menuItemCX}>
+              <Link href="/" passHref>
+                <Button
+                  as="a"
+                  rounded
+                  size="lg"
+                  Icon={RiHome2Fill}
+                  color="white"
+                  bgColor="green"
+                />
+              </Link>
+            </animated.div>
+          }
+        />
+
+        <Popup
+          placement="left"
+          delayShow={150}
+          content="View Games"
+          tooltipContainerCx={Styles.MenuItemPopupCSS.className}
+          owner={
+            <animated.div style={springs[1]} className={menuItemCX}>
+              <Link href="/games" passHref>
+                <Button
+                  as="a"
+                  rounded
+                  size="lg"
+                  Icon={RiGamepadFill}
+                  color="white"
+                  bgColor="green"
+                />
+              </Link>
+            </animated.div>
+          }
+        />
+
+        <Popup
+          placement="left"
+          delayShow={150}
+          content="View Settings"
+          tooltipContainerCx={Styles.MenuItemPopupCSS.className}
+          owner={
+            <animated.div style={springs[2]} className={menuItemCX}>
               <Button
-                as="a"
                 rounded
                 size="lg"
-                Icon={RiHome2Fill}
+                Icon={RiSettings4Fill}
                 color="white"
                 bgColor="green"
+                onClick={console.log}
               />
-            </Link>
-          </animated.div>
-        }
-      />
+            </animated.div>
+          }
+        />
 
-      <Popup
-        placement="left"
-        delayShow={150}
-        content="View Games"
-        tooltipContainerCx={Styles.MenuItemPopupCSS.className}
-        owner={
-          <animated.div style={springs[1]} className={menuItemCX}>
-            <Link href="/games" passHref>
+        <Popup
+          placement="left"
+          delayShow={150}
+          content="Handpick Lessons"
+          tooltipContainerCx={Styles.MenuItemPopupCSS.className}
+          owner={
+            <animated.div style={springs[3]} className={menuItemCX}>
               <Button
-                as="a"
                 rounded
                 size="lg"
-                Icon={RiGamepadFill}
+                Icon={RiFileSearchFill}
                 color="white"
                 bgColor="green"
+                onClick={() => {
+                  storeDispatch({
+                    type: 'Open_Data_Modal',
+                    dataModalName: 'lessons',
+                  });
+                }}
               />
-            </Link>
-          </animated.div>
-        }
-      />
+            </animated.div>
+          }
+        />
 
-      <Popup
-        placement="left"
-        delayShow={150}
-        content="View Settings"
-        tooltipContainerCx={Styles.MenuItemPopupCSS.className}
-        owner={
-          <animated.div style={springs[2]} className={menuItemCX}>
-            <Button
-              rounded
-              size="lg"
-              Icon={RiSettings4Fill}
-              color="white"
-              bgColor="green"
-              onClick={console.log}
-            />
-          </animated.div>
-        }
-      />
+        <Popup
+          placement="left"
+          delayShow={150}
+          content="Edit Current Data"
+          tooltipContainerCx={Styles.MenuItemPopupCSS.className}
+          owner={
+            <animated.div style={springs[4]} className={menuItemCX}>
+              <Button
+                rounded
+                size="lg"
+                Icon={RiFileSettingsFill}
+                color="white"
+                bgColor="green"
+                onClick={() => {
+                  storeDispatch({
+                    type: 'Open_Data_Modal',
+                    dataModalName: 'edit',
+                  });
+                }}
+              />
+            </animated.div>
+          }
+        />
 
-      <Popup
-        placement="left"
-        delayShow={150}
-        content="Handpick Lessons"
-        tooltipContainerCx={Styles.MenuItemPopupCSS.className}
-        owner={
-          <animated.div style={springs[3]} className={menuItemCX}>
-            <Button
-              rounded
-              size="lg"
-              Icon={RiFileSearchFill}
-              color="white"
-              bgColor="green"
-              onClick={() => {
-                storeDispatch({
-                  type: 'Open_Data_Modal',
-                  dataModalName: 'lessons',
-                });
-              }}
-            />
-          </animated.div>
-        }
-      />
+        <Popup
+          placement="left"
+          delayShow={150}
+          content="Create Custom Lesson"
+          tooltipContainerCx={Styles.MenuItemPopupCSS.className}
+          owner={
+            <animated.div style={springs[5]} className={menuItemCX}>
+              <Button
+                rounded
+                size="lg"
+                Icon={RiFileTransferFill}
+                color="white"
+                bgColor="green"
+                onClick={() => {
+                  storeDispatch({
+                    type: 'Open_Data_Modal',
+                    dataModalName: 'custom',
+                  });
+                }}
+              />
+            </animated.div>
+          }
+        />
 
-      <Popup
-        placement="left"
-        delayShow={150}
-        content="Edit Current Data"
-        tooltipContainerCx={Styles.MenuItemPopupCSS.className}
-        owner={
-          <animated.div style={springs[4]} className={menuItemCX}>
-            <Button
-              rounded
-              size="lg"
-              Icon={RiFileSettingsFill}
-              color="white"
-              bgColor="green"
-              onClick={() => {
-                storeDispatch({
-                  type: 'Open_Data_Modal',
-                  dataModalName: 'edit',
-                });
-              }}
-            />
-          </animated.div>
-        }
-      />
+        <Popup
+          placement="left"
+          delayShow={150}
+          content="View Past Lessons"
+          tooltipContainerCx={Styles.MenuItemPopupCSS.className}
+          owner={
+            <animated.div style={springs[6]} className={menuItemCX}>
+              <Button
+                rounded
+                size="lg"
+                Icon={RiFileShield2Fill}
+                color="white"
+                bgColor="green"
+                onClick={() => {
+                  storeDispatch({
+                    type: 'Open_Data_Modal',
+                    dataModalName: 'past',
+                  });
+                }}
+              />
+            </animated.div>
+          }
+        />
 
-      <Popup
-        placement="left"
-        delayShow={150}
-        content="Create Custom Lesson"
-        tooltipContainerCx={Styles.MenuItemPopupCSS.className}
-        owner={
-          <animated.div style={springs[5]} className={menuItemCX}>
-            <Button
-              rounded
-              size="lg"
-              Icon={RiFileTransferFill}
-              color="white"
-              bgColor="green"
-              onClick={() => {
-                storeDispatch({
-                  type: 'Open_Data_Modal',
-                  dataModalName: 'custom',
-                });
-              }}
-            />
-          </animated.div>
-        }
-      />
-
-      <Popup
-        placement="left"
-        delayShow={150}
-        content="View Past Lessons"
-        tooltipContainerCx={Styles.MenuItemPopupCSS.className}
-        owner={
-          <animated.div style={springs[6]} className={menuItemCX}>
-            <Button
-              rounded
-              size="lg"
-              Icon={RiFileShield2Fill}
-              color="white"
-              bgColor="green"
-              onClick={() => {
-                storeDispatch({
-                  type: 'Open_Data_Modal',
-                  dataModalName: 'past',
-                });
-              }}
-            />
-          </animated.div>
-        }
-      />
-
-      {Styles.MenuContainerCSS.styles}
-      {Styles.MenuTogglerCSS.styles}
-      {Styles.MenuTogglerHideCSS.styles}
-      {Styles.MenuItemCSS.styles}
-      {Styles.MenuItemHideCSS.styles}
-      {Styles.MenuItemPopupCSS.styles}
-    </div>
+        {Styles.MenuContainerCSS.styles}
+        {Styles.MenuTogglerCSS.styles}
+        {Styles.MenuTogglerHideCSS.styles}
+        {Styles.MenuItemCSS.styles}
+        {Styles.MenuItemHideCSS.styles}
+        {Styles.MenuItemPopupCSS.styles}
+      </div>
+    </>
   );
 }
