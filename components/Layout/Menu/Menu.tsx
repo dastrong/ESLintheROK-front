@@ -238,6 +238,7 @@ export default function Menu() {
       {Styles.MenuTogglerCSS.styles}
       {Styles.MenuTogglerHideCSS.styles}
       {Styles.MenuItemCSS.styles}
+      {Styles.MenuItemHideCSS.styles}
       {Styles.MenuItemPopupCSS.styles}
     </div>
   );
