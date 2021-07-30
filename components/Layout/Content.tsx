@@ -1,7 +1,7 @@
 import React from 'react';
 import { a, useTransition } from 'react-spring';
 import { css } from 'styled-jsx/css';
-import useNavPageCheck from './useNavPageCheck';
+import usePlayCheck from './usePlayCheck';
 
 const { className, styles } = css.resolve`
   section {
@@ -15,7 +15,7 @@ const { className, styles } = css.resolve`
 `;
 
 export default function Content({ children }: { children: React.ReactNode }) {
-  const isNavVisible = useNavPageCheck();
+  const isPlayingGame = usePlayCheck();
 
   const transition = useTransition(children, {
     from: {
@@ -38,7 +38,14 @@ export default function Content({ children }: { children: React.ReactNode }) {
   });
 
   const fragment = transition((style, child) => (
-    <a.section className={className} style={style}>
+    <a.section
+      className={className}
+      style={{
+        ...style,
+        height: isPlayingGame ? '100vh' : 'inherit',
+        padding: isPlayingGame ? '0' : 'inherit',
+      }}
+    >
       {child}
     </a.section>
   ));

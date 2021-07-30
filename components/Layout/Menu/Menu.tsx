@@ -20,11 +20,13 @@ import { useOnClickOutside } from 'hooks';
 import Button from 'components/Button';
 import Popup from 'components/Popup';
 import * as Styles from './Menu.styles';
+import usePlayCheck from '../usePlayCheck';
 
 const numOfButtons = 7;
 const buttons = Array(numOfButtons).fill('');
 
 export default function Menu() {
+  const isGamePlaying = usePlayCheck();
   const { asPath } = useRouter();
   const { isMenuOpen, storeDispatch } = useStore();
 
@@ -51,7 +53,9 @@ export default function Menu() {
   }, [asPath]);
 
   // className that's reused for event item
-  const menuItemCX = classNames('menu_item', Styles.MenuItemCSS.className);
+  const menuItemCX = classNames('menu_item', Styles.MenuItemCSS.className, {
+    [Styles.MenuItemHideCSS.className]: isGamePlaying || !isMenuOpen,
+  });
 
   return (
     <div ref={ref} className={Styles.MenuContainerCSS.className}>
@@ -61,7 +65,11 @@ export default function Menu() {
         Icon={isMenuOpen ? RiCloseFill : RiMenuFill}
         color="white"
         bgColor="#fdb813"
-        className={['menu_toggler', Styles.MenuTogglerCSS.className]}
+        className={[
+          'menu_toggler',
+          Styles.MenuTogglerCSS.className,
+          isGamePlaying && !isMenuOpen && Styles.MenuTogglerHideCSS.className,
+        ]}
         onClick={() =>
           storeDispatch({
             type: isMenuOpen ? 'Close_Menu' : 'Open_Menu',
@@ -71,6 +79,7 @@ export default function Menu() {
 
       <Popup
         placement="left"
+        delayShow={150}
         content="Go Home"
         tooltipContainerCx={Styles.MenuItemPopupCSS.className}
         owner={
@@ -91,6 +100,7 @@ export default function Menu() {
 
       <Popup
         placement="left"
+        delayShow={150}
         content="View Games"
         tooltipContainerCx={Styles.MenuItemPopupCSS.className}
         owner={
@@ -111,6 +121,7 @@ export default function Menu() {
 
       <Popup
         placement="left"
+        delayShow={150}
         content="View Settings"
         tooltipContainerCx={Styles.MenuItemPopupCSS.className}
         owner={
@@ -129,6 +140,7 @@ export default function Menu() {
 
       <Popup
         placement="left"
+        delayShow={150}
         content="Handpick Lessons"
         tooltipContainerCx={Styles.MenuItemPopupCSS.className}
         owner={
@@ -152,6 +164,7 @@ export default function Menu() {
 
       <Popup
         placement="left"
+        delayShow={150}
         content="Edit Current Data"
         tooltipContainerCx={Styles.MenuItemPopupCSS.className}
         owner={
@@ -175,6 +188,7 @@ export default function Menu() {
 
       <Popup
         placement="left"
+        delayShow={150}
         content="Create Custom Lesson"
         tooltipContainerCx={Styles.MenuItemPopupCSS.className}
         owner={
@@ -198,6 +212,7 @@ export default function Menu() {
 
       <Popup
         placement="left"
+        delayShow={150}
         content="View Past Lessons"
         tooltipContainerCx={Styles.MenuItemPopupCSS.className}
         owner={
@@ -221,6 +236,7 @@ export default function Menu() {
 
       {Styles.MenuContainerCSS.styles}
       {Styles.MenuTogglerCSS.styles}
+      {Styles.MenuTogglerHideCSS.styles}
       {Styles.MenuItemCSS.styles}
       {Styles.MenuItemPopupCSS.styles}
     </div>

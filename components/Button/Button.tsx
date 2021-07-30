@@ -95,12 +95,13 @@ const Button = forwardRef<
             font-size: ${sizeMultiplier}rem;
             line-height: ${sizeMultiplier}rem;
             transition-duration: 150ms;
-            transition-property: background-color, transform;
+            transition-property: background-color, transform, opacity;
 
             width: ${full ? '100%' : 'initial'};
           }
 
           .styled-button:hover {
+            opacity: 1;
             color: ${inverted ? hoverBgColor : color};
             background-color: ${inverted ? 'transparent' : hoverBgColor};
           }

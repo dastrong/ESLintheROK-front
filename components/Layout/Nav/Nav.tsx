@@ -2,11 +2,10 @@ import React from 'react';
 import NavWave from './NavWave';
 import NavLogo from './NavLogo';
 import NavLinks from './NavLinks';
-// import useNavPageCheck from './useNavPageCheck';
+import usePlayCheck from '../usePlayCheck';
 
 export default function Nav() {
-  // const isNavVisible = useNavPageCheck();
-  const isNavVisible = true;
+  const isGamePlaying = usePlayCheck();
 
   return (
     <nav>
@@ -20,12 +19,10 @@ export default function Nav() {
       <style jsx>{`
         nav {
           position: relative;
-          display: flex;
+          display: ${isGamePlaying ? 'none' : 'flex'};
           width: 100%;
           margin: 0px;
           z-index: 11;
-          transition: transform 125ms ${isNavVisible ? '0s' : '250ms'};
-          transform: translateY(${isNavVisible ? 0 : '-105'}%);
         }
 
         div {

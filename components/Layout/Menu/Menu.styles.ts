@@ -18,6 +18,13 @@ export const MenuTogglerCSS = css.resolve`
     font-size: 1.85vw;
     line-height: 1.85vw;
     z-index: 1;
+    opacity: 1;
+  }
+`;
+
+export const MenuTogglerHideCSS = css.resolve`
+  .menu_toggler {
+    opacity: 0;
   }
 `;
 
@@ -30,6 +37,12 @@ export const MenuItemCSS = css.resolve`
     right: 0;
     margin: 0 auto;
     width: min-content;
+  }
+`;
+
+export const MenuItemHideCSS = css.resolve`
+  .menu_item {
+    pointer-events: none;
   }
 `;
 

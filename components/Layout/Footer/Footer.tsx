@@ -2,8 +2,11 @@ import React from 'react';
 import FooterSvgs from './FooterSvgs';
 import FooterCornerTexts from './FooterCornerTexts';
 import FooterLinks from './FooterLinks';
+import usePlayCheck from '../usePlayCheck';
 
 export default function Footer({ maxSVGWidth }: { maxSVGWidth: number }) {
+  const isGamePlaying = usePlayCheck();
+
   return (
     <footer>
       <FooterSvgs maxWidth={maxSVGWidth} />
@@ -16,7 +19,7 @@ export default function Footer({ maxSVGWidth }: { maxSVGWidth: number }) {
           height: var(--footerHeight);
           width: 100%;
           background-color: var(--siteBgColor);
-          display: flex;
+          display: ${isGamePlaying ? 'none' : 'flex'};
           justify-content: center;
           color: #565656;
         }
