@@ -85,24 +85,6 @@ export default function App({ Component, pageProps }: AppProps) {
             ::-webkit-scrollbar-thumb:hover {
               background: rgba(128, 135, 139, 0.8);
             }
-
-             {
-              /* ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-          }
-
-          ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.25);
-          }
-
-          ::-webkit-scrollbar-thumb:window-inactive {
-            background: rgba(255, 255, 255, 0.15);
-          }
-
-          ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.35);
-          } */
-            }
           `}</style>
         </StoreProvider>
       </ThemeProvider>
