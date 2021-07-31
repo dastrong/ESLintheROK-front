@@ -69,10 +69,10 @@ export const MenuOverlayCSS = css.resolve`
    {
     height: 100vh;
     width: 100vw;
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
-    z-index: 111;
+    z-index: 11111;
     background-color: var(--siteBgColor);
     opacity: 0.85;
   }
