@@ -6,6 +6,8 @@ export const MenuContainerCSS = css.resolve`
     z-index: 11111;
     top: calc((var(--navHeight) - var(--btnHeight)) / 2);
     right: 2vw;
+    filter: url('#goo');
+    -webkit-filter: url('#goo');
 
     --btnHeight: calc(var(--navHeight) * 0.85 * 0.94);
   }
@@ -47,7 +49,31 @@ export const MenuItemHideCSS = css.resolve`
 `;
 
 export const MenuItemPopupCSS = css.resolve`
-   {
+  .tooltip-container {
     width: max-content;
+    box-shadow: none;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1rem;
+    color: white;
+  }
+`;
+
+export const MenuItemPopupArrowCSS = css.resolve`
+  .tooltip-arrow {
+    display: none;
+  }
+`;
+
+export const MenuOverlayCSS = css.resolve`
+   {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 111;
+    background-color: var(--siteBgColor);
+    opacity: 0.85;
   }
 `;

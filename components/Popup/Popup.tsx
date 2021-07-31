@@ -1,4 +1,4 @@
-import React, { cloneElement } from 'react';
+import React, { cloneElement, CSSProperties } from 'react';
 import classNames from 'classnames';
 import { usePopperTooltip, Config } from 'react-popper-tooltip';
 import * as Styles from './Popup.styles';
@@ -21,12 +21,14 @@ export default function Popup({
   owner,
   hideTooltip,
   placement = 'bottom',
+  addStyles = {},
   ...popupConfig
 }: Content & {
   tooltipContainerCx?: string;
   tooltipArrowCx?: string;
   owner: JSX.Element;
   hideTooltip?: boolean;
+  addStyles?: CSSProperties;
 } & Config) {
   const {
     getArrowProps,
@@ -59,7 +61,7 @@ export default function Popup({
       {!hideTooltip && visible && (
         <div
           ref={setTooltipRef}
-          {...getTooltipProps({ className: containerCX })}
+          {...getTooltipProps({ className: containerCX, style: addStyles })}
         >
           <div {...getArrowProps({ className: arrowCX })} />
           {content || children}
