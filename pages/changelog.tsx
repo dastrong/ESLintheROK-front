@@ -1,7 +1,9 @@
 import React from 'react';
 import { GetStaticProps } from 'next';
 import mdjs from '@moox/markdown-to-json';
+
 import Accordion from 'components/Accordion';
+import { PageHeading, PageSubHeading } from 'components/PageHeadings';
 import { readMarkdownFile } from 'utils/readMarkdownFile';
 import { transformJsMdToBlock } from 'utils/transformJsMdToBlock';
 import { turnPanelStringToPanelArray } from 'utils/turnPanelStringToPanelArray';
@@ -21,32 +23,9 @@ export default function ChangelogPage({
 
   return (
     <div>
-      <h1 className="heading">{title}</h1>
-
-      <div className="sub-heading">
-        <p>{description}</p>
-      </div>
-
+      <PageHeading>{title}</PageHeading>
+      <PageSubHeading>{description}</PageSubHeading>
       <Accordion panels={panels} />
-
-      <style jsx>{`
-        .heading {
-          margin: 2rem auto 1.25rem;
-          text-align: center;
-          color: #414141;
-          font-size: 3.5rem;
-          font-weight: normal;
-        }
-
-        .sub-heading {
-          color: #5a5c62;
-          font-size: 1.3rem;
-          line-height: 150%;
-          margin: 0 auto;
-          max-width: 600px;
-          text-align: center;
-        }
-      `}</style>
     </div>
   );
 }

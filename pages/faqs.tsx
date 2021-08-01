@@ -1,6 +1,10 @@
 import React from 'react';
+import { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
+import shuffle from 'lodash.shuffle';
 import Accordion from 'components/Accordion';
+import { PageSubHeading } from 'components/PageHeadings';
+import { colors } from 'utils/colors';
 
 const panels = [
   {
@@ -228,7 +232,9 @@ const panels = [
   },
 ];
 
-export default function FaqsPage() {
+export default function FaqsPage({
+  panelColors,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div>
       <div className="heading">
@@ -272,68 +278,67 @@ export default function FaqsPage() {
         </div>
       </div>
 
-      <div className="sub-heading">
-        <p>The Q&A below should help you out either way.</p>
-        <p>If not, feel free to contact me for further assistance.</p>
-      </div>
+      <PageSubHeading style={{ margin: '2rem auto' }}>
+        The Q&A below should help you out either way.
+        <br />
+        If not, feel free to contact me for further assistance.
+      </PageSubHeading>
 
-      <Accordion allowMultiOpenPanels panels={panels} />
+      <Accordion
+        allowMultiOpenPanels
+        panels={panels.map((panel, i) => ({ ...panel, color: panelColors[i] }))}
+      />
 
-      <style jsx>
-        {`
-          .heading {
-            margin: 2rem auto;
-            display: flex;
-            justify-content: center;
-            color: #414141;
-          }
+      <style jsx>{`
+        .heading {
+          margin: 2rem auto;
+          display: flex;
+          justify-content: center;
+          color: #414141;
+        }
 
-          .heading-main {
-            font-weight: normal;
-            font-size: 3.5rem;
-            margin: 0;
-          }
+        .heading-main {
+          font-weight: normal;
+          font-size: 3.5rem;
+          margin: 0;
+        }
 
-          .heading-main p {
-            text-align: left;
-            margin: 0;
-          }
+        .heading-main p {
+          text-align: left;
+          margin: 0;
+        }
 
-          .heading-main p:first-letter {
-            font-weight: bold;
-          }
+        .heading-main p:first-letter {
+          font-weight: bold;
+        }
 
-          .heading-separator {
-            align-self: center;
-            margin-top: 1rem;
-            margin-left: 1.75rem;
-            margin-right: 1.75rem;
-            transform: rotateY(180deg);
-          }
+        .heading-separator {
+          align-self: center;
+          margin-top: 1rem;
+          margin-left: 1.75rem;
+          margin-right: 1.75rem;
+          transform: rotateY(180deg);
+        }
 
-          .heading-side {
-            font-size: 2rem;
-            align-self: flex-end;
-            color: #565656;
-          }
+        .heading-side {
+          font-size: 2rem;
+          align-self: flex-end;
+          color: #565656;
+        }
 
-          .heading-side p {
-            margin: 0 0 0.5rem;
-          }
-
-          .sub-heading {
-            margin: 2rem auto;
-          }
-
-          .sub-heading * {
-            color: #5a5c62;
-            font-size: 1.25rem;
-            line-height: 150%;
-            margin: 0;
-            text-align: center;
-          }
-        `}
-      </style>
+        .heading-side p {
+          margin: 0 0 0.5rem;
+        }
+      `}</style>
     </div>
   );
 }
+
+export const getStaticProps = async () => {
+  const mixedColors = shuffle(colors);
+  return {
+    props: {
+      panelColors: mixedColors.slice(0, panels.length),
+    },
+  };
+};

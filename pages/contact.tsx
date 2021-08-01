@@ -1,5 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import Button from 'components/Button';
+import { PageHeading, PageSubHeading } from 'components/PageHeadings';
 import { InputCSS } from 'components/Styles';
 import QrKakao from 'components/Svgs/qr_kakao.svg';
 import QrKorshare from 'components/Svgs/qr_korshare.svg';
@@ -25,13 +26,11 @@ export default function ContactPage() {
 
   return (
     <div>
-      <h1 className="heading">Contact</h1>
-      <div className="sub-heading">
-        <p>
-          I’d love to hear from you. Contact me directly or join an existing
-          thread somewhere to chat with other teachers and I.
-        </p>
-      </div>
+      <PageHeading>Contact</PageHeading>
+      <PageSubHeading>
+        I’d love to hear from you. Contact me directly or join an existing
+        thread somewhere to chat with other teachers and I.
+      </PageSubHeading>
 
       <div className="contact">
         <div className="contact_panel email">
@@ -128,23 +127,6 @@ export default function ContactPage() {
       {InputCSS.styles}
 
       <style jsx>{`
-        .heading {
-          margin: 0rem auto 1.25rem;
-          text-align: center;
-          color: #414141;
-          font-size: 3.5rem;
-          font-weight: normal;
-        }
-
-        .sub-heading {
-          color: #5a5c62;
-          font-size: 1.3rem;
-          line-height: 150%;
-          margin: 0 auto;
-          max-width: 600px;
-          text-align: center;
-        }
-
         .contact {
           width: 100%;
           max-width: 767px;
