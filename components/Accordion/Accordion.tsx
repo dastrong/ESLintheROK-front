@@ -1,7 +1,5 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
-import AccordionItem from './AccordionItem';
+import Block from 'components/Block';
 
 type Props = {
   panels: {
@@ -50,7 +48,7 @@ export default function Accordion({
   return (
     <>
       {panels.map(({ header, content, color }, i) => (
-        <AccordionItem
+        <Block
           key={header}
           isOpen={openPanels.includes(Number(i))}
           header={header}
