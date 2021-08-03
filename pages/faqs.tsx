@@ -3,7 +3,7 @@ import { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 import shuffle from 'lodash.shuffle';
 import Accordion from 'components/Accordion';
-import { PageSubHeading } from 'components/PageHeadings';
+import { PageHeading, PageSubHeading } from 'components/PageHeadings';
 import { colors } from 'utils/colors';
 
 const panels = [
@@ -238,11 +238,11 @@ export default function FaqsPage({
   return (
     <div>
       <div className="heading">
-        <h1 className="heading-main">
-          <p>Frequently</p>
-          <p>Asked</p>
-          <p>Questions</p>
-        </h1>
+        <PageHeading style={{ marginInline: 0 }}>
+          <p className="page_heading_p">Frequently</p>
+          <p className="page_heading_p">Asked</p>
+          <p className="page_heading_p">Questions</p>
+        </PageHeading>
 
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -272,13 +272,21 @@ export default function FaqsPage({
           </defs>
         </svg>
 
-        <div className="heading-side">
-          <p>First time here?</p>
-          <p>Experienced user?</p>
-        </div>
+        <PageSubHeading
+          style={{
+            alignSelf: 'flex-end',
+            color: '#565656',
+            minWidth: 'auto',
+            maxWidth: 'none',
+            margin: 0,
+          }}
+        >
+          <p className="page_subheading_p">First time here?</p>
+          <p className="page_subheading_p">Experienced user?</p>
+        </PageSubHeading>
       </div>
 
-      <PageSubHeading style={{ margin: '2rem auto' }}>
+      <PageSubHeading>
         The Q&A below should help you out either way.
         <br />
         If not, feel free to contact me for further assistance.
@@ -291,24 +299,16 @@ export default function FaqsPage({
 
       <style jsx>{`
         .heading {
-          margin: 2rem auto;
           display: flex;
           justify-content: center;
-          color: #414141;
         }
 
-        .heading-main {
-          font-weight: normal;
-          font-size: 3.5rem;
-          margin: 0;
-        }
-
-        .heading-main p {
+        .page_heading_p {
           text-align: left;
           margin: 0;
         }
 
-        .heading-main p:first-letter {
+        .page_heading_p:first-letter {
           font-weight: bold;
         }
 
@@ -320,14 +320,14 @@ export default function FaqsPage({
           transform: rotateY(180deg);
         }
 
-        .heading-side {
-          font-size: 2rem;
-          align-self: flex-end;
-          color: #565656;
+        .page_subheading_p {
+          margin: 0;
+          font-size: 1.5em;
+          line-height: 150%;
         }
 
-        .heading-side p {
-          margin: 0 0 0.5rem;
+        .page_subheading_p:last-child {
+          margin: 0.25rem 0 1rem;
         }
       `}</style>
     </div>
