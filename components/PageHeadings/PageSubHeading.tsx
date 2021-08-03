@@ -13,11 +13,24 @@ export default function PageSubHeading({ children, style }: Props) {
       <style jsx>{`
         div {
           color: #5a5c62;
-          font-size: 1.3rem;
+          font-size: 2vw;
           line-height: 150%;
           margin: 0 auto;
-          max-width: 600px;
+          max-width: 45%;
+          min-width: 600px;
           text-align: center;
+        }
+
+        @media screen and (min-width: 1440px) {
+          div {
+            font-size: 1.8vw;
+          }
+        }
+
+        @media screen and (min-width: 1700px) {
+          div {
+            font-size: 1.6vw;
+          }
         }
       `}</style>
     </div>
