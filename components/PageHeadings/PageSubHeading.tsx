@@ -15,7 +15,7 @@ export default function PageSubHeading({ children, style }: Props) {
           color: #5a5c62;
           font-size: 2vw;
           line-height: 150%;
-          margin: 0 auto;
+          margin: 0 auto 2rem;
           max-width: 45%;
           min-width: 600px;
           text-align: center;
