@@ -26,7 +26,7 @@ export default function ContactPage() {
 
   return (
     <div>
-      <PageHeading>Contact</PageHeading>
+      <PageHeading>Get In Touch</PageHeading>
       <PageSubHeading>
         I’d love to hear from you. Contact me directly or join an existing
         thread somewhere to chat with other teachers and I.
