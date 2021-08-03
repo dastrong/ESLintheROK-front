@@ -1,12 +1,13 @@
-import React, { ReactNode } from 'react';
+import React, { CSSProperties, ReactNode } from 'react';
 
 type Props = {
   children: ReactNode;
+  style?: CSSProperties;
 };
 
-export default function PageHeading({ children }: Props) {
+export default function PageHeading({ children, style }: Props) {
   return (
-    <h1>
+    <h1 style={style}>
       {children}
 
       <style jsx>{`
