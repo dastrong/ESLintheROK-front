@@ -1,6 +1,7 @@
 import React, { CSSProperties } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { mix } from 'color2k';
+import * as Styles from './Block.styles';
 
 type Props = {
   isStatic?: boolean;
@@ -23,6 +24,7 @@ export default function Block({
 }: Props) {
   // the background color is a lighter shade of the color given
   const bgColor = mix(accentColor, 'white', 0.85);
+  const shadeColor = mix(accentColor, 'white', 0.55);
 
   const onClick = (e: any) => {
     if (handleClick) handleClick((e.currentTarget as any).id);
@@ -30,16 +32,18 @@ export default function Block({
 
   return (
     <div
-      className="block"
+      className={Styles.BlockCSS.className}
       style={
         {
           '--accentColor': accentColor,
           '--bgColor': bgColor,
+          '--shadeColor': shadeColor,
         } as CSSProperties
       }
     >
       <div
-        className="block_header"
+        className={Styles.BlockHeaderCSS.className}
+        style={{ opacity: isOpen || isStatic ? 1 : 0.75 }}
         id={String(id)}
         role="button"
         tabIndex={0}
@@ -48,58 +52,22 @@ export default function Block({
       >
         {!isStatic && (
           <FaPlus
-            style={{
-              transition: 'transform 0.15s',
-              transform: `rotate(${isOpen ? 45 : 0}deg)`,
-            }}
+            className={Styles.BlockHeaderIconCSS.className}
+            style={{ transform: `rotate(${isOpen ? 45 : 0}deg)` }}
           />
         )}
-        <h3 className="block_header_title">{header}</h3>
+        <h3 className={Styles.BlockHeaderTitleCSS.className}>{header}</h3>
       </div>
-      {(isOpen || isStatic) && <div className="block_content">{content}</div>}
 
-      <style jsx>{`
-        .block {
-          position: relative;
-          margin: 0.5rem auto;
-          width: 50%;
-          border-radius: var(--radius);
-          background-color: var(--bgColor);
-          padding: var(--padding) var(--padding) var(--padding)
-            calc(var(--padding) + var(--radius));
+      {(isOpen || isStatic) && (
+        <div className={Styles.BlockContentCSS.className}>{content}</div>
+      )}
 
-          --radius: 0.5rem;
-          --padding: 0.75rem;
-        }
-
-        .block:before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          background-color: var(--accentColor);
-          height: 100%;
-          width: var(--radius);
-          border-top-left-radius: var(--radius);
-          border-bottom-left-radius: var(--radius);
-        }
-
-        .block_header {
-          display: flex;
-          align-items: center;
-          cursor: pointer;
-          user-select: none;
-        }
-
-        .block_header_title {
-          margin: 1rem 0 1rem var(--padding);
-          font-weight: bold;
-        }
-
-        .block_content {
-          padding-left: calc(1rem + var(--padding));
-        }
-      `}</style>
+      {Styles.BlockCSS.styles}
+      {Styles.BlockHeaderCSS.styles}
+      {Styles.BlockHeaderIconCSS.styles}
+      {Styles.BlockHeaderTitleCSS.styles}
+      {Styles.BlockContentCSS.styles}
     </div>
   );
 }
