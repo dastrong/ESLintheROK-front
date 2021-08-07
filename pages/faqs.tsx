@@ -301,6 +301,7 @@ export default function FaqsPage({
         .heading {
           display: flex;
           justify-content: center;
+          margin-bottom: 0.5rem;
         }
 
         .page_heading_p {
