@@ -2,23 +2,36 @@ import React from 'react';
 
 export default function NavWave() {
   return (
-    <svg viewBox="0 0 2560 192" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g clipPath="url(#clip0)">
-        <path fill="#F8F8F8" d="M2560 0H0v194h2560z" />
-        <path
-          d="M2560 .243645S2410.83-15.4082 2313.21 35.5865C2215.6 86.5813 2233.62 169.89 1814.13 169.89 1394.63 169.89 1368 135 1147 135s-245 36.909-516.761 34.89c-271.762-2.02-229.77 2.019-362.425 2.019C135.158 171.909 0 194 0 194h2560V.243645z"
-          fill="var(--siteBgColor)"
+    <svg
+      viewBox="0 0 2560 192"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ overflow: 'visible' }}
+    >
+      <path
+        d="M2560-.72s-149.17-15.73-246.79 35.52c-97.61 51.24-79.59 134.97-499.08 134.97-419.5 0-446.13-35.06-667.13-35.06s-245 37.09-516.76 35.06c-271.76-2.03-229.77 2.03-362.43 2.03C135.16 171.8 0 194 0 194V-.72h2560z"
+        fill="#F8F8F8"
+        filter="url(#a)"
+      />
+      <filter
+        id="a"
+        x="-16"
+        y="-10"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feColorMatrix
+          in="SourceAlpha"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha"
         />
-      </g>
-      <defs>
-        <clipPath id="clip0">
-          <path
-            fill="#fff"
-            transform="matrix(-1 0 0 1 2560 0)"
-            d="M0 0h2560v194H0z"
-          />
-        </clipPath>
-      </defs>
+        <feOffset dx="-6" dy="3" />
+        <feGaussianBlur stdDeviation="5" />
+        <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+        <feBlend in2="BackgroundImageFix" result="effect1_dropShadow" />
+        <feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
+      </filter>
     </svg>
   );
 }
