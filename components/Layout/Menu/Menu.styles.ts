@@ -7,7 +7,6 @@ export const MenuContainerCSS = css.resolve`
     top: calc((var(--navHeight) - var(--btnHeight)) / 2);
     right: 2vw;
     filter: url('#goo');
-    -webkit-filter: url('#goo');
 
     --btnHeight: calc(var(--navHeight) * 0.85 * 0.94);
   }
@@ -19,6 +18,7 @@ export const MenuTogglerCSS = css.resolve`
     width: var(--btnHeight);
     font-size: 1.85vw;
     line-height: 1.85vw;
+    padding: 0;
     z-index: 1;
     opacity: 1;
   }
@@ -35,9 +35,7 @@ export const MenuItemCSS = css.resolve`
     position: absolute;
     z-index: -1;
     top: calc(var(--btnHeight) - 60px);
-    left: 0;
-    right: 0;
-    margin: 0 auto;
+    left: calc((var(--btnHeight) - 62px) / 2);
     width: min-content;
   }
 `;

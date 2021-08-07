@@ -116,7 +116,6 @@ export default function Menu() {
         <Popup
           placement="left"
           delayShow={150}
-          // visible
           content="Go Home"
           tooltipContainerCx={Styles.MenuItemPopupCSS.className}
           tooltipArrowCx={Styles.MenuItemPopupArrowCSS.className}
