@@ -29,17 +29,28 @@ const Button = forwardRef<
       spinner,
       full = false,
       inverted = false,
+      iconPosition = 'left',
       ...rest
     },
     ref
   ) => {
     // helps scale the margin and font-sizes of the content
     const sizeMultiplier = sizes[size];
-    const iconStyle = rounded || !text ? {} : { marginRight: '0.5rem' };
 
+    // if we have an Icon and Text we needed spacing between
+    const noMargin = !Icon || !text;
+    // and we'd add the spacing to the Icon here
+    const iconStyle = noMargin
+      ? {}
+      : iconPosition === 'right'
+      ? { marginLeft: '0.5rem' }
+      : { marginRight: '0.5rem' };
+
+    // determine the hover and disable colors automatically based on the given bgColor prop
     const hoverBgColor = darken(bgColor, 0.05);
     const disabledBgColor = transparentize(bgColor, 0.4);
 
+    // determine what the icon will be, if anything
     const iconContent = spinner ? (
       <ButtonSpinner style={iconStyle} />
     ) : Icon ? (
@@ -49,8 +60,9 @@ const Button = forwardRef<
     // the inner part of the element
     const buttonContent = (
       <>
-        {iconContent}
+        {iconPosition === 'left' && iconContent}
         {!!text && text}
+        {iconPosition === 'right' && iconContent}
       </>
     );
 
@@ -96,7 +108,6 @@ const Button = forwardRef<
             line-height: ${sizeMultiplier}rem;
             transition-duration: 150ms;
             transition-property: background-color, transform, opacity;
-
             width: ${full ? '100%' : 'initial'};
           }
 

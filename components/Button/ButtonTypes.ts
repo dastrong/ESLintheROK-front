@@ -21,6 +21,7 @@ type Text = string;
 type Full = boolean;
 type ClassName = string | string[];
 type Inverted = boolean;
+type IconPosition = 'left' | 'right';
 
 type IconOnlyRoundedProps = {
   text?: never;
@@ -49,4 +50,5 @@ export type Props = (IconOnlyRoundedProps | TextOnlyProps | IconTextProps) & {
   className?: ClassName;
   full?: Full;
   inverted?: Inverted;
+  iconPosition?: IconPosition;
 };
