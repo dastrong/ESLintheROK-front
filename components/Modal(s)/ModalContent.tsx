@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 
-export default function Content({ children }: { children: React.ReactNode }) {
+export default function Content({
+  children,
+  style,
+}: {
+  children: React.ReactNode;
+  style?: CSSProperties;
+}) {
   return (
-    <div className="modal_content">
+    <div className="modal_content" style={style}>
       {children}
+
       <style jsx>{`
         .modal_content {
           padding: 1rem;

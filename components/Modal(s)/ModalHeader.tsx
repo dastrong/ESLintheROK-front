@@ -1,24 +1,29 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import Button from 'components/Button';
 
 export default function Header({
   children,
   closeModal,
+  style,
 }: {
   children: React.ReactNode;
   closeModal: () => void;
+  style?: CSSProperties;
 }) {
   return (
     <div className="modal_header">
-      <div className="modal_header_content">{children}</div>
+      <div className="modal_header_content" style={style}>
+        {children}
+      </div>
+
       <Button
         rounded
         size="lg"
         Icon={FaTimes}
-        color="rgba(0,0,0,1)"
-        bgColor="rgba(255,255,255,1)"
-        style={{ padding: '1rem' }}
+        color="black"
+        bgColor="white"
+        style={{ padding: '1rem', marginRight: '1rem' }}
         onClick={closeModal}
       />
 

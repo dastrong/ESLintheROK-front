@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import Button from 'components/Button';
 
 type Props = {
@@ -13,6 +13,7 @@ type Props = {
   confirmDisabled?: boolean;
   children?: React.ReactNode;
   hideActions?: boolean;
+  style?: CSSProperties;
 };
 
 export default function Actions({
@@ -27,9 +28,10 @@ export default function Actions({
   confirmDisabled = false,
   children,
   hideActions = false,
+  style,
 }: Props) {
   return (
-    <div className="modal_actions">
+    <div className="modal_actions" style={style}>
       {children}
 
       {!hideActions && (
