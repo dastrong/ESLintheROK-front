@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { a, useTransition } from 'react-spring';
 import { css } from 'styled-jsx/css';
 import usePlayCheck from './usePlayCheck';
@@ -16,8 +17,9 @@ const { className, styles } = css.resolve`
 
 export default function Content({ children }: { children: React.ReactNode }) {
   const isPlayingGame = usePlayCheck();
+  const router = useRouter();
 
-  const transition = useTransition(children, {
+  const transition = useTransition(router.pathname, {
     from: {
       opacity: 0,
     },
@@ -37,7 +39,7 @@ export default function Content({ children }: { children: React.ReactNode }) {
     },
   });
 
-  const fragment = transition((style, child) => (
+  const fragment = transition(style => (
     <a.section
       className={className}
       style={{
@@ -46,7 +48,7 @@ export default function Content({ children }: { children: React.ReactNode }) {
         padding: isPlayingGame ? '0' : 'inherit',
       }}
     >
-      {child}
+      {children}
     </a.section>
   ));
 
