@@ -10,6 +10,6 @@ export type GameContributor = {
 type LessonContributor = string[];
 
 export const lessonContributors: LessonContributor = [
-  // simply add a name below to show up on the acknowledgments page
+  // simply add a name below to show up on the acknowledgements page
   'Daniel Strong',
 ];
