@@ -133,3 +133,9 @@ export const ArrowLeftCSS = css.resolve`
     top: 0;
   }
 `;
+
+export const ArrowHideCSS = css.resolve`
+  .tooltip-arrow {
+    display: none;
+  }
+`;

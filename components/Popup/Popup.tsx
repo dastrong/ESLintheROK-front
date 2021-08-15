@@ -20,6 +20,7 @@ export default function Popup({
   tooltipArrowCx,
   owner,
   hideTooltip,
+  hideArrow,
   placement = 'bottom',
   addStyles = {},
   ...popupConfig
@@ -28,6 +29,7 @@ export default function Popup({
   tooltipArrowCx?: string;
   owner: JSX.Element;
   hideTooltip?: boolean;
+  hideArrow?: boolean;
   addStyles?: CSSProperties;
 } & Config) {
   const {
@@ -44,14 +46,21 @@ export default function Popup({
     tooltipContainerCx,
     Styles.ContainerCSS.className
   );
+  const containerProps = getTooltipProps({
+    className: containerCX,
+    style: addStyles,
+  });
+  const finalPlacement = containerProps['data-popper-placement'];
+
   const arrowCX = classNames(
     'tooltip-arrow',
     tooltipArrowCx,
     Styles.ArrowCSS.className,
-    { [Styles.ArrowBottomCSS.className]: placement?.includes('bottom') },
-    { [Styles.ArrowTopCSS.className]: placement?.includes('top') },
-    { [Styles.ArrowRightCSS.className]: placement?.includes('right') },
-    { [Styles.ArrowLeftCSS.className]: placement?.includes('left') }
+    { [Styles.ArrowBottomCSS.className]: finalPlacement === 'bottom' },
+    { [Styles.ArrowTopCSS.className]: finalPlacement === 'top' },
+    { [Styles.ArrowRightCSS.className]: finalPlacement === 'right' },
+    { [Styles.ArrowLeftCSS.className]: finalPlacement === 'left' },
+    { [Styles.ArrowHideCSS.className]: hideArrow }
   );
 
   return (
@@ -59,10 +68,7 @@ export default function Popup({
       {cloneElement(owner, { ref: setTriggerRef })}
 
       {!hideTooltip && visible && (
-        <div
-          ref={setTooltipRef}
-          {...getTooltipProps({ className: containerCX, style: addStyles })}
-        >
+        <div ref={setTooltipRef} {...containerProps}>
           <div {...getArrowProps({ className: arrowCX })} />
           {content || children}
         </div>
@@ -74,6 +80,7 @@ export default function Popup({
       {Styles.ArrowBottomCSS.styles}
       {Styles.ArrowRightCSS.styles}
       {Styles.ArrowLeftCSS.styles}
+      {Styles.ArrowHideCSS.styles}
     </>
   );
 }
