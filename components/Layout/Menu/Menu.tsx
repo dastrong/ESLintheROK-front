@@ -114,11 +114,11 @@ export default function Menu() {
         />
 
         <Popup
+          hideArrow
           placement="left"
           delayShow={150}
           content="Go Home"
           tooltipContainerCx={Styles.MenuItemPopupCSS.className}
-          tooltipArrowCx={Styles.MenuItemPopupArrowCSS.className}
           addStyles={{
             background: `linear-gradient(to left, ${darkenGradientColors[0]} 50%, #b65b06)`,
           }}
@@ -139,11 +139,11 @@ export default function Menu() {
         />
 
         <Popup
+          hideArrow
           placement="left"
           delayShow={150}
           content="View Games"
           tooltipContainerCx={Styles.MenuItemPopupCSS.className}
-          tooltipArrowCx={Styles.MenuItemPopupArrowCSS.className}
           addStyles={{
             background: `linear-gradient(to left, ${darkenGradientColors[1]} 50%, #b65b06)`,
           }}
@@ -164,11 +164,11 @@ export default function Menu() {
         />
 
         <Popup
+          hideArrow
           placement="left"
           delayShow={150}
           content="View Settings"
           tooltipContainerCx={Styles.MenuItemPopupCSS.className}
-          tooltipArrowCx={Styles.MenuItemPopupArrowCSS.className}
           addStyles={{
             background: `linear-gradient(to left, ${darkenGradientColors[2]} 50%, #b65b06)`,
           }}
@@ -187,11 +187,11 @@ export default function Menu() {
         />
 
         <Popup
+          hideArrow
           placement="left"
           delayShow={150}
           content="Handpick Lessons"
           tooltipContainerCx={Styles.MenuItemPopupCSS.className}
-          tooltipArrowCx={Styles.MenuItemPopupArrowCSS.className}
           addStyles={{
             background: `linear-gradient(to left, ${darkenGradientColors[3]} 50%, #b65b06)`,
           }}
@@ -215,11 +215,11 @@ export default function Menu() {
         />
 
         <Popup
+          hideArrow
           placement="left"
           delayShow={150}
           content="Edit Current Data"
           tooltipContainerCx={Styles.MenuItemPopupCSS.className}
-          tooltipArrowCx={Styles.MenuItemPopupArrowCSS.className}
           addStyles={{
             background: `linear-gradient(to left, ${darkenGradientColors[4]} 50%, #b65b06)`,
           }}
@@ -243,11 +243,11 @@ export default function Menu() {
         />
 
         <Popup
+          hideArrow
           placement="left"
           delayShow={150}
           content="Create Custom Lesson"
           tooltipContainerCx={Styles.MenuItemPopupCSS.className}
-          tooltipArrowCx={Styles.MenuItemPopupArrowCSS.className}
           addStyles={{
             background: `linear-gradient(to left, ${darkenGradientColors[5]} 50%, #b65b06)`,
           }}
@@ -271,11 +271,11 @@ export default function Menu() {
         />
 
         <Popup
+          hideArrow
           placement="left"
           delayShow={150}
           content="View Past Lessons"
           tooltipContainerCx={Styles.MenuItemPopupCSS.className}
-          tooltipArrowCx={Styles.MenuItemPopupArrowCSS.className}
           addStyles={{
             background: `linear-gradient(to left, ${darkenGradientColors[6]} 50%, #b65b06)`,
           }}
@@ -304,7 +304,6 @@ export default function Menu() {
         {Styles.MenuItemCSS.styles}
         {Styles.MenuItemHideCSS.styles}
         {Styles.MenuItemPopupCSS.styles}
-        {Styles.MenuItemPopupArrowCSS.styles}
         {Styles.MenuOverlayCSS.styles}
       </div>
     </>

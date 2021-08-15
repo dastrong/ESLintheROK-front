@@ -57,12 +57,6 @@ export const MenuItemPopupCSS = css.resolve`
   }
 `;
 
-export const MenuItemPopupArrowCSS = css.resolve`
-  .tooltip-arrow {
-    display: none;
-  }
-`;
-
 export const MenuOverlayCSS = css.resolve`
    {
     height: 100vh;
