@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, ReactNode } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { mix } from 'color2k';
 import * as Styles from './Block.styles';
@@ -6,11 +6,12 @@ import * as Styles from './Block.styles';
 type Props = {
   isStatic?: boolean;
   isOpen?: boolean;
-  id: number;
+  id: number | string;
   header: string;
-  content: JSX.Element;
+  content?: JSX.Element;
   color: string;
   handleClick?: (id: string) => void;
+  children?: ReactNode;
 };
 
 export default function Block({
@@ -21,6 +22,7 @@ export default function Block({
   content,
   color: accentColor,
   handleClick,
+  children,
 }: Props) {
   // the background color is a lighter shade of the color given
   const bgColor = mix(accentColor, 'white', 0.85);
@@ -43,7 +45,10 @@ export default function Block({
     >
       <div
         className={Styles.BlockHeaderCSS.className}
-        style={{ opacity: isOpen || isStatic ? 1 : 0.75 }}
+        style={{
+          opacity: isOpen || isStatic ? 1 : 0.75,
+          cursor: isStatic ? 'default' : 'pointer',
+        }}
         id={String(id)}
         role="button"
         tabIndex={0}
@@ -60,7 +65,12 @@ export default function Block({
       </div>
 
       {(isOpen || isStatic) && (
-        <div className={Styles.BlockContentCSS.className}>{content}</div>
+        <div
+          className={Styles.BlockContentCSS.className}
+          style={{ marginLeft: isStatic ? '-0.7em' : 0, marginBottom: '1rem' }}
+        >
+          {content || children}
+        </div>
       )}
 
       {Styles.BlockCSS.styles}

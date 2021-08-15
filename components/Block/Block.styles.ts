@@ -9,8 +9,7 @@ export const BlockCSS = css.resolve`
     max-width: 750px;
     border-radius: var(--radius);
     background-color: var(--bgColor);
-    padding: var(--padding) var(--padding) var(--padding)
-      calc(var(--padding) + var(--radius));
+    padding: var(--padding) calc(var(--padding) + var(--radius));
     box-shadow: 1px 0px 3px 2px #6f6f6f63, 2px 0px 4px 1px var(--shadeColor);
 
     --radius: 0.5rem;
@@ -41,7 +40,6 @@ export const BlockHeaderCSS = css.resolve`
    {
     display: flex;
     align-items: center;
-    cursor: pointer;
     user-select: none;
     transition: opacity 125ms;
     font-size: 1.2rem;
@@ -78,6 +76,9 @@ export const BlockContentCSS = css.resolve`
    {
     padding-left: calc(1.2rem * 0.7 + var(--padding));
     font-size: 1rem;
+    line-height: 1.5;
+    margin-top: calc(var(--padding) * -1);
+    margin-bottom: 1rem;
   }
 
   @media screen and (min-width: 1000px) {
