@@ -4,7 +4,6 @@ import Link from 'next/link';
 import shuffle from 'lodash.shuffle';
 import Accordion from 'components/Accordion';
 import { PageHeading, PageSubHeading } from 'components/PageHeadings';
-import { colors } from 'utils/colors';
 
 const panels = [
   {
@@ -336,6 +335,7 @@ export default function FaqsPage({
 }
 
 export const getStaticProps = async () => {
+  const { colors } = await import('lib/colors');
   const mixedColors = shuffle(colors);
   return {
     props: {

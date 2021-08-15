@@ -1,5 +1,5 @@
 import shuffle from 'lodash.shuffle';
-import { colors } from 'utils/colors';
+import { colors } from 'lib/colors';
 
 type NewLine = '\n';
 
@@ -64,5 +64,3 @@ export const transformJsMdToBlock = (output: MarkdownToJs) => {
 
   return panels.map((panel, i) => ({ ...panel, color: mixColors[i] }));
 };
-
-transformJsMdToBlock;

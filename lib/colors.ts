@@ -1,5 +1,3 @@
-import {} from 'color2k';
-
 export const colors = [
   'IndianRed',
   'LightCoral',
