@@ -9,9 +9,9 @@ const recursivelyRenderChild = (elObj: FilteredChildren): React.ReactNode => {
     {
       key: JSON.stringify(elObj.children),
       style: ['ul', 'ol'].includes(elObj.tag)
-        ? { paddingLeft: '30px' }
+        ? { paddingLeft: '30px', margin: '0' }
         : elObj.tag === 'p'
-        ? { margin: 'auto' }
+        ? { margin: '1rem auto' }
         : {},
       ...elObj.props,
     },
