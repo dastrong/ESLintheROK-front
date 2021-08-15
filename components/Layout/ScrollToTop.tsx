@@ -41,7 +41,7 @@ export default function ScrollToTop({ maxWidth }: { maxWidth: number }) {
 
         @media screen and (min-width: ${maxWidth}px) {
           div {
-            margin-top: -169px;
+            margin-top: -125px;
           }
         }
       `}</style>
