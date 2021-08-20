@@ -6,14 +6,28 @@ import dynamic from 'next/dynamic';
 import { FaArrowLeft, FaArrowRight, FaPlay } from 'react-icons/fa';
 
 import Button from 'components/Button';
-import Accordion from 'components/Accordion';
+import Block from 'components/Block';
+import Image from 'components/Image';
+import Popup from 'components/Popup';
+import { PageHeading } from 'components/PageHeadings';
+
 import { convertCaseSnakeToPascal } from 'utils/convertCaseSnakeToPascal';
 import { getSingleGameConfig } from 'utils/getSingleGameConfig';
 import { getAllGameConfigs } from 'utils/getAllGameConfigs';
+import { getGameImgUrl } from 'utils/getGameImgUrl';
+import { useStore } from 'contexts/store';
 
 const GameInstructionsModal = dynamic(
   () => import('components/Modal(s)/GameInstructionsModal')
 );
+
+const gameNotes = [
+  'As a teacher, you should take the time to read both sets of  instructions before rushing to play',
+  'If it’s your first time playing a game',
+  'I suggest playing the games according to the instructions during their first time, afterwards adjust to suite your students, class needs and teaching style',
+  'The student instructions are written as simple as possible, so you can read them with your students.',
+  'Once they understand prior to their first time playing.',
+];
 
 export default function GameHomePage({
   title,
@@ -22,6 +36,9 @@ export default function GameHomePage({
   warnings,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { asPath, query } = useRouter();
+  const { isDataReady } = useStore();
+
+  const imgUrl = getGameImgUrl(title);
 
   const openInstructionModal = (version: 'teacher' | 'student') => {
     router.push(`?instructions=${version}&language=english`, undefined, {
@@ -31,9 +48,7 @@ export default function GameHomePage({
 
   return (
     <div className="container">
-      <h1 className="heading">{title}</h1>
-
-      <img src={image} alt={title} />
+      <PageHeading>{title}</PageHeading>
 
       <div className="button_container">
         <Button
@@ -47,19 +62,27 @@ export default function GameHomePage({
           onClick={() => openInstructionModal('teacher')}
         />
 
-        <Link href={`${asPath}/play`} passHref>
-          <Button
-            rounded
-            size="xl"
-            as="a"
-            color="#565656"
-            bgColor="#97D492"
-            text="Play"
-            Icon={FaPlay}
-            iconPosition="right"
-            style={{ margin: '0 1rem' }}
-          />
-        </Link>
+        <Popup
+          hideTooltip={isDataReady}
+          content="Please choose/create some lesson data first"
+          owner={
+            <div style={{ margin: '0 1rem', display: 'inline-block' }}>
+              <Link href={`${asPath}/play`} passHref>
+                <Button
+                  rounded
+                  size="xl"
+                  as="a"
+                  color="#565656"
+                  bgColor="#97D492"
+                  text="Play"
+                  Icon={FaPlay}
+                  iconPosition="right"
+                  disabled={!isDataReady}
+                />
+              </Link>
+            </div>
+          }
+        />
 
         <Button
           rounded
@@ -73,11 +96,38 @@ export default function GameHomePage({
         />
       </div>
 
-      <Accordion panels={warnings} />
+      <div className="image">
+        <Image
+          isTransparent
+          src={imgUrl}
+          alt={title}
+          height={image.height * 3}
+          width={image.width * 3}
+        />
+      </div>
+
+      {!!warnings.length && (
+        <Block isStatic id="game_warnings" color="#ff4500" header="Warnings:">
+          <ul style={{ paddingLeft: 30, margin: '1rem 0' }}>
+            {warnings.map(warning => (
+              <li key={warning.slice(0, 15)}>{warning}</li>
+            ))}
+          </ul>
+        </Block>
+      )}
+
+      <Block isStatic id="game_notes" color="#01918d" header="Please Note:">
+        <ul style={{ paddingLeft: 30, margin: '1rem 0' }}>
+          {gameNotes.map(note => (
+            <li key={note.slice(0, 15)}>{note}</li>
+          ))}
+        </ul>
+      </Block>
 
       {['teacher', 'student'].includes(query.instructions as string) && (
         <GameInstructionsModal
-          isOpen={true}
+          isOpen
+          gameImgUrl={imgUrl}
           instructions={
             query.instructions === 'student'
               ? instructions.forStudents
@@ -101,12 +151,13 @@ export default function GameHomePage({
           font-weight: normal;
         }
 
-        img {
-          width: 50%;
+        .image {
+          width: 70%;
+          padding: 1.25rem 1rem 2rem;
         }
 
         .button_container {
-          margin: 0 auto;
+          margin: 1rem auto 2rem;
         }
       `}</style>
     </div>
@@ -144,7 +195,7 @@ export const getStaticProps = async ({
       title: gameConfig.title,
       image: gameConfig.image,
       instructions: gameConfig.instructions,
-      warnings: [],
+      warnings: gameConfig.warnings,
     },
   };
 };
