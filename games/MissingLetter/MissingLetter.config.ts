@@ -7,7 +7,11 @@ export const config: GameConfig = {
   path: '/game/missing_letter', // you probably don't wanna edit this
   title: 'Missing Letter', // you probably don't wanna edit this
   description: 'Letter Recognition Game',
-  image: `https://res.cloudinary.com/dastrong/image/upload/v1570941133/TeacherSite/Games/Missing_Letter.svg`,
+  image: {
+    width: 346,
+    height: 149,
+  },
+  warnings: [],
 
   // SKILLS AND DATA
   skills: ['Writing', 'Reading', 'Speaking', 'Listening'],

@@ -7,7 +7,11 @@ export const config: GameConfig = {
   path: '/game/kimchi_elimination', // you probably don't wanna edit this
   title: 'Kimchi Elimination', // you probably don't wanna edit this
   description: 'Baskin Robbins 31 Variation',
-  image: `https://res.cloudinary.com/dastrong/image/upload/v1570941137/TeacherSite/Games/Kimchi.svg`,
+  image: {
+    width: 390,
+    height: 220,
+  },
+  warnings: [],
 
   // SKILLS AND DATA
   skills: ['Reading', 'Speaking'],

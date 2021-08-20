@@ -7,7 +7,11 @@ export const config: GameConfig = {
   path: '/game/whats_missing', // you probably don't wanna edit this
   title: 'Whats Missing', // you probably don't wanna edit this
   description: 'Vocabulary Memory Game',
-  image: `https://res.cloudinary.com/dastrong/image/upload/v1570941133/TeacherSite/Games/Whats_Missing.svg`,
+  image: {
+    width: 337,
+    height: 265,
+  },
+  warnings: [],
 
   // SKILLS AND DATA
   skills: ['Writing', 'Reading', 'Speaking'],

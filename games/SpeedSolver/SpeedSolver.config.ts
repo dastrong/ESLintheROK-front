@@ -7,7 +7,11 @@ export const config: GameConfig = {
   path: '/game/speed_solver', // you probably don't wanna edit this
   title: 'Speed Solver', // you probably don't wanna edit this
   description: 'Teamwork Solving Game',
-  image: `https://res.cloudinary.com/dastrong/image/upload/v1570941139/TeacherSite/Games/Speed_Solver.svg`,
+  image: {
+    width: 298,
+    height: 296,
+  },
+  warnings: [],
 
   // SKILLS AND DATA
   skills: ['Listening', 'Reading', 'Speaking', 'Writing'],

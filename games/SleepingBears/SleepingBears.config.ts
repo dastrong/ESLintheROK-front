@@ -7,7 +7,11 @@ export const config: GameConfig = {
   path: '/game/sleeping_bears', // you probably don't wanna edit this
   title: 'Sleeping Bears', // you probably don't wanna edit this
   description: 'Teamwork Solving Game',
-  image: `https://res.cloudinary.com/dastrong/image/upload/v1570941140/TeacherSite/Games/Sleeping_Bears.svg`,
+  image: {
+    width: 391,
+    height: 180,
+  },
+  warnings: [],
 
   // SKILLS AND DATA
   skills: ['Listening', 'Reading', 'Speaking', 'Writing'],

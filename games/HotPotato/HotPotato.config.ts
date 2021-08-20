@@ -7,7 +7,11 @@ export const config: GameConfig = {
   path: '/game/hot_potato', // you probably don't wanna edit this
   title: 'Hot Potato', // you probably don't wanna edit this
   description: 'Pass the Ball Variation',
-  image: `https://res.cloudinary.com/dastrong/image/upload/v1570941136/TeacherSite/Games/Hot_Potato.svg`,
+  image: {
+    width: 296,
+    height: 288,
+  },
+  warnings: [],
 
   // SKILLS AND DATA
   skills: ['Speaking', 'Reading'],

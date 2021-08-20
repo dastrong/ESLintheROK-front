@@ -7,7 +7,11 @@ export const config: GameConfig = {
   path: '/game/red_and_blue', // you probably don't wanna edit this
   title: 'Red And Blue', // you probably don't wanna edit this
   description: 'Slap the correct color',
-  image: `https://res.cloudinary.com/dastrong/image/upload/v1570941135/TeacherSite/Games/Red_and_Blue.svg`,
+  image: {
+    width: 383,
+    height: 280,
+  },
+  warnings: [],
 
   // SKILLS AND DATA
   skills: ['Listening'],

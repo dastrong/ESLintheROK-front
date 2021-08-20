@@ -7,7 +7,11 @@ export const config: GameConfig = {
   path: '/game/chase_the_vocab', // you probably don't wanna edit this
   title: 'Chase The Vocab', // you probably don't wanna edit this
   description: '9 Card Monte',
-  image: `https://res.cloudinary.com/dastrong/image/upload/v1570941138/TeacherSite/Games/Chase_The_Vocab.svg`,
+  image: {
+    width: 396,
+    height: 172,
+  },
+  warnings: [],
 
   // SKILLS AND DATA
   skills: ['Speaking'],

@@ -5,9 +5,13 @@ export const config: GameConfig = {
 
   // MAIN INFO
   path: '/game/elimination', // you probably don't wanna edit this
-  title: 'Elimination Game', // you probably don't wanna edit this
+  title: 'Elimination', // you probably don't wanna edit this
   description: 'Find the Hidden Item',
-  image: `https://res.cloudinary.com/dastrong/image/upload/v1570941137/TeacherSite/Games/Elimination.svg`,
+  image: {
+    width: 387,
+    height: 264,
+  },
+  warnings: [],
 
   // SKILLS AND DATA
   skills: ['Reading', 'Speaking'],

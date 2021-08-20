@@ -7,7 +7,11 @@ export const config: GameConfig = {
   path: '/game/matching', // you probably don't wanna edit this
   title: 'Matching', // you probably don't wanna edit this
   description: 'Find All The Pairs',
-  image: `https://res.cloudinary.com/dastrong/image/upload/v1570941133/TeacherSite/Games/Matching.svg`,
+  image: {
+    width: 382,
+    height: 288,
+  },
+  warnings: [],
 
   // SKILLS AND DATA
   skills: ['Reading', 'Speaking'],

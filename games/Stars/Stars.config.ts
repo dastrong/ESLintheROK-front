@@ -7,7 +7,11 @@ export const config: GameConfig = {
   path: '/game/stars', // you probably don't wanna edit this
   title: 'Stars', // you probably don't wanna edit this
   description: 'Most Stars Wins',
-  image: `https://res.cloudinary.com/dastrong/image/upload/v1570941133/TeacherSite/Games/Stars.svg`,
+  image: {
+    width: 379,
+    height: 245,
+  },
+  warnings: [],
 
   // SKILLS AND DATA
   skills: ['Reading', 'Speaking', 'Writing'],

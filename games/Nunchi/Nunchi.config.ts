@@ -7,7 +7,11 @@ export const config: GameConfig = {
   path: '/game/nunchi', // you probably don't wanna edit this
   title: 'Nunchi', // you probably don't wanna edit this
   description: 'Stand Up and Speak',
-  image: `https://res.cloudinary.com/dastrong/image/upload/v1570941134/TeacherSite/Games/Nunchi.svg`,
+  image: {
+    width: 390,
+    height: 254,
+  },
+  warnings: [],
 
   // SKILLS AND DATA
   skills: ['Reading', 'Speaking'],

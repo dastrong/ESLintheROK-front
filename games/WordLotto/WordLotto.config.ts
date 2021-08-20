@@ -7,7 +7,11 @@ export const config: GameConfig = {
   path: '/game/word_lotto', // you probably don't wanna edit this
   title: 'Word Lotto', // you probably don't wanna edit this
   description: 'Most Points Wins',
-  image: `https://res.cloudinary.com/dastrong/image/upload/v1570941135/TeacherSite/Games/Word_Lotto.svg`,
+  image: {
+    width: 384,
+    height: 211,
+  },
+  warnings: [],
 
   // SKILLS AND DATA
   skills: ['Reading', 'Speaking', 'Writing'],

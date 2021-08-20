@@ -7,7 +7,11 @@ export const config: GameConfig = {
   path: '/game/sparkle_die', // you probably don't wanna edit this
   title: 'Sparkle Die', // you probably don't wanna edit this
   description: 'Popular Review Activity',
-  image: `https://res.cloudinary.com/dastrong/image/upload/v1570941137/TeacherSite/Games/Sparkle_Die.svg`,
+  image: {
+    width: 394,
+    height: 290,
+  },
+  warnings: [],
 
   // SKILLS AND DATA
   skills: ['Reading', 'Speaking', 'Listening'],

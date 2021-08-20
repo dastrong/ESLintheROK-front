@@ -14,15 +14,29 @@ export type GameKeyCut = {
 
 export type GameConfig = {
   publish: boolean;
+
+  // MAIN INFO
   path: string;
   title: string;
   description: string;
-  image: string;
+  image: {
+    width: number;
+    height: number;
+  };
+  warnings: string[];
+
+  // SKILLS AND DATA
   skills: GameSkill[];
   dataUsed: GameData[];
+
+  // BADGES - used on /games page
   attachURL: string;
   hasAudio: boolean;
+
+  // KEYboard shortCUTS
   keyCuts: GameKeyCut[];
+
+  // INSTRUCTIONS
   instructions: {
     forTeachers: GameInstructions;
     forStudents: GameInstructions;

@@ -7,7 +7,17 @@ export const config: GameConfig = {
   path: '/game/whats_behind', // you probably don't wanna edit this
   title: 'Whats Behind', // you probably don't wanna edit this
   description: 'Find the Hidden Item',
-  image: `https://res.cloudinary.com/dastrong/image/upload/v1570941133/TeacherSite/Games/Whats_Behind.svg`,
+  image: {
+    width: 335,
+    height: 276,
+  },
+  warnings: [
+    'This game uses GIFs as a reward',
+    'These GIFs are pulled randomly from GIPHY.com',
+    'Even though filters are in place, inappropriate GIFs may not be correctly rated there',
+    'Although this seems to rarely happen, use at your own risk',
+    'A more effective solution is planned, but not released at this time.',
+  ],
 
   // SKILLS AND DATA
   skills: ['Reading', 'Speaking'],

@@ -7,7 +7,11 @@ export const config: GameConfig = {
   path: '/game/letter_bowling', // you probably don't wanna edit this
   title: 'Letter Bowling', // you probably don't wanna edit this
   description: 'Word Puzzle Solving Game',
-  image: `https://res.cloudinary.com/dastrong/image/upload/v1570941135/TeacherSite/Games/Letter_Bowling.svg`,
+  image: {
+    width: 392,
+    height: 286,
+  },
+  warnings: [],
 
   // SKILLS AND DATA
   skills: ['Reading', 'Writing'],

@@ -7,7 +7,11 @@ export const config: GameConfig = {
   path: '/game/fix_the_mistake', // you probably don't wanna edit this
   title: 'Fix The Mistake', // you probably don't wanna edit this
   description: 'Grammar Game',
-  image: `https://res.cloudinary.com/dastrong/image/upload/v1570941137/TeacherSite/Games/Fix_The_Mistake.svg`,
+  image: {
+    width: 343,
+    height: 200,
+  },
+  warnings: [],
 
   // SKILLS AND DATA
   skills: ['Writing', 'Reading', 'Speaking', 'Listening'],

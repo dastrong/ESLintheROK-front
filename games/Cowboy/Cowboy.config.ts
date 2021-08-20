@@ -7,7 +7,11 @@ export const config: GameConfig = {
   path: '/game/cowboy', // you probably don't wanna edit this
   title: 'Cowboy', // you probably don't wanna edit this
   description: 'Duel Reading Game',
-  image: `https://res.cloudinary.com/dastrong/image/upload/v1570941366/TeacherSite/Games/Cowboy.svg`,
+  image: {
+    width: 343,
+    height: 205,
+  },
+  warnings: [],
 
   // SKILLS AND DATA
   skills: ['Reading', 'Speaking'],

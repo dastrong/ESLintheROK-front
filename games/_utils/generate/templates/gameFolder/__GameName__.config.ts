@@ -7,7 +7,11 @@ export const config: GameConfig = {
   path: '/game/__GameRoute__(snakeCase)', // you probably don't wanna edit this
   title: '__GameTitle__(titleCase)', // you probably don't wanna edit this
   description: '',
-  image: ``,
+  image: {
+    width: 0,
+    height: 0,
+  },
+  warnings: [],
 
   // SKILLS AND DATA
   skills: [],

@@ -7,7 +7,11 @@ export const config: GameConfig = {
   path: '/game/word_shark', // you probably don't wanna edit this
   title: 'Work Shark', // you probably don't wanna edit this
   description: 'Word Guessing Game',
-  image: `https://res.cloudinary.com/dastrong/image/upload/_____`,
+  image: {
+    width: 0,
+    height: 0,
+  },
+  warnings: [],
 
   // SKILLS AND DATA
   skills: ['Reading', 'Speaking'],
