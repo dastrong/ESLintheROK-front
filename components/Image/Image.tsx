@@ -32,6 +32,8 @@ export default function Image({
     return () => clearTimeout(id);
   }, [loaded]);
 
+  const srcProp = inView && src ? { src } : {};
+
   return (
     <div ref={ref}>
       {loading && !loaded && (
@@ -46,20 +48,20 @@ export default function Image({
         />
       )}
 
-      {inView && src && (
-        <img
-          {...rest}
-          src={src}
-          alt={alt}
-          onLoad={() => {
-            setLoaded(true);
-          }}
-          onError={() => {
-            setLoading(false);
-            setError(true);
-          }}
-        />
-      )}
+      <img
+        {...rest}
+        {...srcProp}
+        alt={alt}
+        width={width}
+        height={height}
+        onLoad={() => {
+          setLoaded(true);
+        }}
+        onError={() => {
+          setLoading(false);
+          setError(true);
+        }}
+      />
 
       {error && !loaded && (
         <div>
@@ -71,8 +73,6 @@ export default function Image({
       <style jsx>{`
         div {
           position: relative;
-          height: ${height}px;
-          width: ${width}px;
           background-color: ${isTransparent ? 'transparent' : '#eee'};
           display: flex;
           flex-direction: column;
@@ -82,11 +82,12 @@ export default function Image({
         }
 
         img {
-          object-fit: cover;
-          max-width: 100%;
           opacity: ${loaded ? 1 : 0};
           transition: opacity 250ms ease-in-out;
           color: transparent;
+          height: auto;
+          max-width: 100%;
+          max-height: 100%;
         }
 
         p {
