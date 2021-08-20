@@ -3,12 +3,10 @@ import { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 import { FaMusic, FaPaperclip } from 'react-icons/fa';
 
-import { getAllGameConfigs } from 'utils/getAllGameConfigs';
 import Image from 'components/Image';
 import Button from 'components/Button';
-
-const imageWidth = 260;
-const imageHeight = 195;
+import { getAllGameConfigs } from 'utils/getAllGameConfigs';
+import { getGameImgUrl } from 'utils/getGameImgUrl';
 
 export default function GamesPage({
   games,
@@ -36,10 +34,12 @@ export default function GamesPage({
           {/* Image */}
           <div className="image">
             <Image
-              src={game.image}
+              isTransparent
+              src={getGameImgUrl(game.title)}
               alt={game.title}
-              height={imageHeight}
-              width={imageWidth}
+              height={game.image.height}
+              width={game.image.width}
+              style={{ padding: '1rem' }}
             />
           </div>
 
@@ -72,12 +72,13 @@ export default function GamesPage({
 
         .card {
           --card-radius: 1rem;
-          height: calc(${imageHeight}px + 1rem + 1rem);
-          width: calc(${imageWidth}px + 1rem + 1rem);
+          height: calc(195px + 1rem + 1rem);
+          width: calc(260px + 1rem + 1rem);
           margin: 1rem;
           position: relative;
           border-radius: var(--card-radius);
           overflow: hidden;
+          box-shadow: -8px 8px 16px #a1a1a1, 8px -8px 16px #ffffff;
         }
 
         .badge {
@@ -111,13 +112,17 @@ export default function GamesPage({
         }
 
         .image {
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
           background-color: #eee;
-          padding: 1rem;
-          transition: opacity 600ms;
+          transition: all 250ms;
         }
 
         .card:hover .image {
           opacity: 0;
+          transform: scaleY(0.1);
         }
 
         .info {
@@ -131,7 +136,7 @@ export default function GamesPage({
           flex-direction: column;
           justify-content: space-between;
           opacity: 0;
-          transition: opacity 250ms;
+          transition: opacity 350ms;
         }
 
         .card:hover .info {
@@ -144,7 +149,7 @@ export default function GamesPage({
           text-align: center;
           background-color: #ddd;
           font-size: 0.8rem;
-          transition: transform 350ms;
+          transition: transform 300ms;
         }
 
         .banner_top {
