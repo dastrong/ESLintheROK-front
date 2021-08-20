@@ -9,6 +9,24 @@ export const ModalOverlayCSS = css.resolve`
   }
 `;
 
+export const ContentContainerCSS = css.resolve`
+  .modal_content {
+    position: relative;
+    flex-basis: 100%;
+    overflow: hidden;
+  }
+
+  .modal_content:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.93);
+  }
+`;
+
 export const TextContainerCSS = css.resolve`
   div {
     position: relative;
@@ -21,5 +39,11 @@ export const TextContainerCSS = css.resolve`
     cursor: pointer;
     outline: none;
     opacity: 0;
+  }
+`;
+
+export const FitTextCSS = css.resolve`
+  span {
+    text-shadow: 2px 2px 2px #c7c7c7;
   }
 `;

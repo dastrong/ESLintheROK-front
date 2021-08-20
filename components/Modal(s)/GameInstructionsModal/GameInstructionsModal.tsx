@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { animated, config, useTransition } from 'react-spring';
 
 import type { GameInstructions } from 'games/types';
-import { useEventListener, useScroll } from 'hooks';
+import { useEventListener, useFirstRun, useScroll } from 'hooks';
 import Button from 'components/Button';
 import FitText, { useFitText } from 'components/FitText';
 import Modal from '../Modal';
@@ -14,9 +14,15 @@ type Direction = 'prev' | 'next';
 type Props = {
   isOpen: boolean;
   instructions: GameInstructions;
+  gameImgUrl: string;
 };
 
-export default function GameInstructionsModal({ isOpen, instructions }: Props) {
+export default function GameInstructionsModal({
+  isOpen,
+  instructions,
+  gameImgUrl,
+}: Props) {
+  const isFirstRun = useFirstRun();
   const { push, query } = useRouter();
 
   // capture a couple variables for use later
@@ -48,6 +54,7 @@ export default function GameInstructionsModal({ isOpen, instructions }: Props) {
     enter: { opacity: 1, y: '0%', x: '0%', rotate: 0, scale: 1 },
     leave: { opacity: 0 },
     config: config.gentle,
+    default: { immediate: isFirstRun },
   });
 
   // helper function that cycles the instructions correctly
@@ -80,7 +87,9 @@ export default function GameInstructionsModal({ isOpen, instructions }: Props) {
   });
 
   // to close the modal, we simply remove the query string - the game page will handle removing it
-  const closeModal = () => push('?', undefined, { shallow: true });
+  const closeModal = () => {
+    push(`/game/${query.gameName}`, undefined, { shallow: true });
+  };
 
   // we can switch languages
   const changeLanguage = (language: 'english' | 'korean') => {
@@ -113,7 +122,10 @@ export default function GameInstructionsModal({ isOpen, instructions }: Props) {
         {version} Instructions
       </Modal.Header>
 
-      <Modal.Content style={{ flexBasis: '100%', overflow: 'hidden' }}>
+      <Modal.Content
+        className={Styles.ContentContainerCSS.className}
+        style={{ background: `url(${gameImgUrl}) no-repeat center / contain` }}
+      >
         {transitions(
           (styles, index) =>
             activeIndex === index && (
@@ -133,13 +145,17 @@ export default function GameInstructionsModal({ isOpen, instructions }: Props) {
                 onClick={() => handleSlide('next')}
                 onKeyPress={() => handleSlide('next')}
               >
-                <FitText ref={ref} text={chosenInstructions[index]} />
+                <FitText
+                  ref={ref}
+                  text={chosenInstructions[index]}
+                  cx={Styles.FitTextCSS.className}
+                />
               </animated.div>
             )
         )}
       </Modal.Content>
 
-      <Modal.Actions hideActions>
+      <Modal.Actions hideActions style={{ height: 92 }}>
         {chosenInstructions?.map((_, i) => (
           <Button
             rounded
@@ -148,14 +164,16 @@ export default function GameInstructionsModal({ isOpen, instructions }: Props) {
             color="white"
             bgColor="#3C9AF0"
             text={String(i + 1)}
-            style={{ width: 62, marginInline: '0.5rem' }}
+            style={{ width: 62, marginInline: '0.25rem' }}
             disabled={activeIndex === i}
             onClick={() => setActive({ direction, activeIndex: i })}
           />
         ))}
       </Modal.Actions>
 
+      {Styles.ContentContainerCSS.styles}
       {Styles.TextContainerCSS.styles}
+      {Styles.FitTextCSS.styles}
     </Modal>
   );
 }
