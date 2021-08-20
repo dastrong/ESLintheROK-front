@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
+
 import Block from 'components/Block';
 import Popup from 'components/Popup';
 import { PageHeading, PageSubHeading } from 'components/PageHeadings';
@@ -94,7 +95,7 @@ export default function AcknownledgementsPage({
           const fontSize = isGold ? '1.3em' : isSilver ? '1.15em' : '1em';
 
           return (
-            <div className="donation_container" key={tier} title="">
+            <div className="donation_container" key={tier}>
               <Popup
                 hideArrow
                 placement="bottom"
