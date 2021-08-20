@@ -3,7 +3,7 @@ import { IconType } from 'react-icons/lib';
 
 export type ButtonEl = Omit<
   ButtonHTMLAttributes<HTMLButtonElement>,
-  'className'
+  'className' | 'disabled'
 >;
 export type AnchorEl = Omit<
   AnchorHTMLAttributes<HTMLAnchorElement>,
@@ -22,6 +22,7 @@ type Full = boolean;
 type ClassName = string | string[];
 type Inverted = boolean;
 type IconPosition = 'left' | 'right';
+type Disabled = boolean;
 
 type IconOnlyRoundedProps = {
   text?: never;
@@ -51,4 +52,5 @@ export type Props = (IconOnlyRoundedProps | TextOnlyProps | IconTextProps) & {
   full?: Full;
   inverted?: Inverted;
   iconPosition?: IconPosition;
+  disabled?: Disabled;
 };

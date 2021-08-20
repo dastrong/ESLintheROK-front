@@ -67,7 +67,9 @@ const Button = forwardRef<
     );
 
     // combine the static and dynamic classes
-    const cx = classNames('styled-button', className);
+    const cx = classNames('styled-button', className, {
+      disabled: rest.disabled,
+    });
 
     return (
       <>
@@ -117,7 +119,9 @@ const Button = forwardRef<
             background-color: ${inverted ? 'transparent' : hoverBgColor};
           }
 
-          .styled-button:disabled {
+          .styled-button:disabled,
+          .styled-button.disabled {
+            pointer-events: none;
             background-color: ${disabledBgColor};
             cursor: default;
           }
