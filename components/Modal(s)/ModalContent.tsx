@@ -1,14 +1,18 @@
 import React, { CSSProperties } from 'react';
+import classNames from 'classnames';
 
 export default function Content({
   children,
   style,
+  className,
 }: {
   children: React.ReactNode;
   style?: CSSProperties;
+  className?: string;
 }) {
+  const cx = classNames('modal_content', { [className]: className });
   return (
-    <div className="modal_content" style={style}>
+    <div className={cx} style={style}>
       {children}
 
       <style jsx>{`
