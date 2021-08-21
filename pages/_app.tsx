@@ -2,11 +2,13 @@ import React from 'react';
 import type { AppProps } from 'next/app';
 import { SWRConfig } from 'swr';
 import { IconContext } from 'react-icons/lib';
+import { DefaultSeo } from 'next-seo';
 
-import Layout from '../components/Layout';
+import Layout from 'components/Layout';
 import { DataModals } from 'components/Modal(s)';
-import { StoreProvider } from '../contexts/store';
+import { StoreProvider } from 'contexts/store';
 import { ThemeProvider } from 'contexts/theme';
+import { SEO } from 'next-seo.config';
 import 'normalize.css';
 
 const navWaveHeightToWidthRatio = 192 / 2560;
@@ -25,6 +27,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <IconContext.Provider value={{ style: { verticalAlign: 'bottom' } }}>
             <DataModals />
             <Layout>
+              <DefaultSeo {...SEO} />
               <Component {...pageProps} />
             </Layout>
           </IconContext.Provider>
