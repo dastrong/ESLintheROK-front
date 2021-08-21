@@ -13,7 +13,7 @@ export const SEO: DefaultSeoProps = {
       'The ultimate tool to boost your teaching toolkit and improve your ESL classes instantly.',
     images: [
       {
-        url: '/logo.png',
+        url: 'https://www.eslintherok.com/logo.png',
         alt: 'ESL in the ROK | The Ultimate Teaching Toolkit',
         width: 485,
         height: 491,
