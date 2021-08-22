@@ -1,20 +1,18 @@
 import type { DefaultSeoProps } from 'next-seo';
 
 export const SEO: DefaultSeoProps = {
+  defaultTitle: 'ESL in the ROK',
   titleTemplate: '%s | ESL in the ROK',
   description:
     'The ultimate tool to boost your teaching toolkit and improve your ESL classes instantly.',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://www.eslintherok.com',
     site_name: 'ESL in the ROK',
-    description:
-      'The ultimate tool to boost your teaching toolkit and improve your ESL classes instantly.',
     images: [
       {
         url: 'https://www.eslintherok.com/logo.png',
-        alt: 'ESL in the ROK | The Ultimate Teaching Toolkit',
+        alt: 'ESL in the ROK | The Ultimate Teaching Aide',
         width: 485,
         height: 491,
       },
