@@ -2,6 +2,7 @@ import React from 'react';
 import { GetStaticProps } from 'next';
 import mdjs from '@moox/markdown-to-json';
 
+import SeoWrapper from 'components/SeoWrapper';
 import Accordion from 'components/Accordion';
 import { PageHeading, PageSubHeading } from 'components/PageHeadings';
 import { readMarkdownFile } from 'utils/readMarkdownFile';
@@ -22,11 +23,16 @@ export default function ChangelogPage({
   const panels = turnPanelStringToPanelArray(panelString);
 
   return (
-    <div>
-      <PageHeading>{title}</PageHeading>
-      <PageSubHeading>{description}</PageSubHeading>
-      <Accordion panels={panels} />
-    </div>
+    <SeoWrapper
+      title="Changelog"
+      description="Stay caught up with every update being made to the site here."
+    >
+      <div>
+        <PageHeading>{title}</PageHeading>
+        <PageSubHeading>{description}</PageSubHeading>
+        <Accordion panels={panels} />
+      </div>
+    </SeoWrapper>
   );
 }
 

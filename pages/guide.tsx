@@ -2,6 +2,7 @@ import React from 'react';
 import { GetStaticProps } from 'next';
 import mdjs from '@moox/markdown-to-json';
 
+import SeoWrapper from 'components/SeoWrapper';
 import Accordion from 'components/Accordion';
 import { PageHeading, PageSubHeading } from 'components/PageHeadings';
 import { readMarkdownFile } from 'utils/readMarkdownFile';
@@ -22,11 +23,16 @@ export default function UserGuidePage({
   const panels = turnPanelStringToPanelArray(panelString);
 
   return (
-    <div>
-      <PageHeading>{title}</PageHeading>
-      <PageSubHeading>{description}</PageSubHeading>
-      <Accordion panels={panels} defaultOpenPanels={[0]} />
-    </div>
+    <SeoWrapper
+      title="User Guide"
+      description="Learn everything you need to know to go from a new to power user with our simple user guide."
+    >
+      <div>
+        <PageHeading>{title}</PageHeading>
+        <PageSubHeading>{description}</PageSubHeading>
+        <Accordion panels={panels} defaultOpenPanels={[0]} />
+      </div>
+    </SeoWrapper>
   );
 }
 

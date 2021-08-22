@@ -2,23 +2,12 @@ import React from 'react';
 import { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 import shuffle from 'lodash.shuffle';
+
+import SeoWrapper from 'components/SeoWrapper';
 import Accordion from 'components/Accordion';
 import { PageHeading, PageSubHeading } from 'components/PageHeadings';
 
 const panels = [
-  {
-    header: 'What is this site?',
-    content: (
-      <p>
-        For starters, read about us{' '}
-        <Link href="/about">
-          <a>here</a>
-        </Link>
-        .
-      </p>
-    ),
-  },
-
   {
     header: 'Who is this site for?',
     content: (
@@ -235,102 +224,110 @@ export default function FaqsPage({
   panelColors,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <div>
-      <div className="heading">
-        <PageHeading style={{ marginInline: 0 }}>
-          <p className="page_heading_p">Frequently</p>
-          <p className="page_heading_p">Asked</p>
-          <p className="page_heading_p">Questions</p>
-        </PageHeading>
+    <SeoWrapper
+      title="Frequently Asked Questions"
+      description="Have a question, but not sure if it's been asked before? Read through our extensive FAQs to see if it's already been answered."
+    >
+      <div>
+        <div className="heading">
+          <PageHeading style={{ marginInline: 0 }}>
+            <p className="page_heading_p">Frequently</p>
+            <p className="page_heading_p">Asked</p>
+            <p className="page_heading_p">Questions</p>
+          </PageHeading>
 
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="22"
-          height="130"
-          viewBox="0 0 22 130"
-          fill="none"
-          className="heading-separator"
-        >
-          <path
-            d="M12.7912 2C-16.809 17.2737 26.4143 22.4184 12.7912 39.2558C-0.831925 56.0933 -2.34239 58.9302 12.7912 79.4419C27.9248 99.9535 -18.027 99.7442 21 128"
-            stroke="url(#paint0_linear)"
-            strokeWidth="3"
-          />
-          <defs>
-            <linearGradient
-              id="paint0_linear"
-              x1="10.7297"
-              y1="2"
-              x2="11.3269"
-              y2="122.573"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="#DC1515" stopOpacity="0.64" />
-              <stop offset="1" stopColor="#079CF0" stopOpacity="0.52" />
-            </linearGradient>
-          </defs>
-        </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="130"
+            viewBox="0 0 22 130"
+            fill="none"
+            className="heading-separator"
+          >
+            <path
+              d="M12.7912 2C-16.809 17.2737 26.4143 22.4184 12.7912 39.2558C-0.831925 56.0933 -2.34239 58.9302 12.7912 79.4419C27.9248 99.9535 -18.027 99.7442 21 128"
+              stroke="url(#paint0_linear)"
+              strokeWidth="3"
+            />
+            <defs>
+              <linearGradient
+                id="paint0_linear"
+                x1="10.7297"
+                y1="2"
+                x2="11.3269"
+                y2="122.573"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#DC1515" stopOpacity="0.64" />
+                <stop offset="1" stopColor="#079CF0" stopOpacity="0.52" />
+              </linearGradient>
+            </defs>
+          </svg>
 
-        <PageSubHeading
-          style={{
-            alignSelf: 'flex-end',
-            color: '#565656',
-            minWidth: 'auto',
-            maxWidth: 'none',
-            margin: 0,
-          }}
-        >
-          <p className="page_subheading_p">First time here?</p>
-          <p className="page_subheading_p">Experienced user?</p>
+          <PageSubHeading
+            style={{
+              alignSelf: 'flex-end',
+              color: '#565656',
+              minWidth: 'auto',
+              maxWidth: 'none',
+              margin: 0,
+            }}
+          >
+            <p className="page_subheading_p">First time here?</p>
+            <p className="page_subheading_p">Experienced user?</p>
+          </PageSubHeading>
+        </div>
+
+        <PageSubHeading>
+          The Q&A below should help you out either way.
+          <br />
+          If not, feel free to contact me for further assistance.
         </PageSubHeading>
+
+        <Accordion
+          allowMultiOpenPanels
+          panels={panels.map((panel, i) => ({
+            ...panel,
+            color: panelColors[i],
+          }))}
+        />
+
+        <style jsx>{`
+          .heading {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+          }
+
+          .page_heading_p {
+            text-align: left;
+            margin: 0;
+          }
+
+          .page_heading_p:first-letter {
+            font-weight: bold;
+          }
+
+          .heading-separator {
+            align-self: center;
+            margin-top: 1rem;
+            margin-left: 1.75rem;
+            margin-right: 1.75rem;
+            transform: rotateY(180deg);
+          }
+
+          .page_subheading_p {
+            margin: 0;
+            font-size: 1.5em;
+            line-height: 150%;
+          }
+
+          .page_subheading_p:last-child {
+            margin: 0.25rem 0 1rem;
+          }
+        `}</style>
       </div>
-
-      <PageSubHeading>
-        The Q&A below should help you out either way.
-        <br />
-        If not, feel free to contact me for further assistance.
-      </PageSubHeading>
-
-      <Accordion
-        allowMultiOpenPanels
-        panels={panels.map((panel, i) => ({ ...panel, color: panelColors[i] }))}
-      />
-
-      <style jsx>{`
-        .heading {
-          display: flex;
-          justify-content: center;
-          margin-bottom: 0.5rem;
-        }
-
-        .page_heading_p {
-          text-align: left;
-          margin: 0;
-        }
-
-        .page_heading_p:first-letter {
-          font-weight: bold;
-        }
-
-        .heading-separator {
-          align-self: center;
-          margin-top: 1rem;
-          margin-left: 1.75rem;
-          margin-right: 1.75rem;
-          transform: rotateY(180deg);
-        }
-
-        .page_subheading_p {
-          margin: 0;
-          font-size: 1.5em;
-          line-height: 150%;
-        }
-
-        .page_subheading_p:last-child {
-          margin: 0.25rem 0 1rem;
-        }
-      `}</style>
-    </div>
+    </SeoWrapper>
   );
 }
 
