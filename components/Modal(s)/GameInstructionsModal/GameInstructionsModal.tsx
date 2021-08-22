@@ -4,6 +4,7 @@ import { animated, config, useTransition } from 'react-spring';
 
 import type { GameInstructions } from 'games/types';
 import { useEventListener, useFirstRun, useScroll } from 'hooks';
+import SeoWrapper from 'components/SeoWrapper';
 import Button from 'components/Button';
 import FitText, { useFitText } from 'components/FitText';
 import Modal from '../Modal';
@@ -15,18 +16,21 @@ type Props = {
   isOpen: boolean;
   instructions: GameInstructions;
   gameImgUrl: string;
+  seoTitle: string;
 };
 
 export default function GameInstructionsModal({
   isOpen,
   instructions,
   gameImgUrl,
+  seoTitle,
 }: Props) {
   const isFirstRun = useFirstRun();
   const { push, query } = useRouter();
 
   // capture a couple variables for use later
-  const version = query.instructions;
+  const version = query.instructions as string;
+  const capitalizedVersion = version[0].toUpperCase() + version.substring(1);
   const language = query.language as 'korean' | 'english';
   const defaultIndex = query.item || 0;
   const chosenInstructions = instructions[language];
@@ -94,7 +98,14 @@ export default function GameInstructionsModal({
   // we can switch languages
   const changeLanguage = (language: 'english' | 'korean') => {
     push(
-      `?instructions=${version}&language=${language}&item=${activeIndex}`,
+      {
+        query: {
+          ...query,
+          instructions: version,
+          language,
+          item: activeIndex,
+        },
+      },
       undefined,
       { shallow: true }
     );
@@ -107,73 +118,74 @@ export default function GameInstructionsModal({
       className={Styles.ModalOverlayCSS.className}
       styles={Styles.ModalOverlayCSS.styles}
     >
-      <Modal.Header
-        closeModal={closeModal}
-        style={{ textTransform: 'capitalize' }}
-      >
-        <Button
-          rounded
-          color="white"
-          bgColor="#cc4d8a"
-          text={isEnglish ? '한' : '영'}
-          onClick={() => changeLanguage(isEnglish ? 'korean' : 'english')}
-          style={{ marginRight: '0.5rem' }}
-        />
-        {version} Instructions
-      </Modal.Header>
-
-      <Modal.Content
-        className={Styles.ContentContainerCSS.className}
-        style={{ background: `url(${gameImgUrl}) no-repeat center / contain` }}
-      >
-        {transitions(
-          (styles, index) =>
-            activeIndex === index && (
-              <animated.div
-                key={chosenInstructions[index].slice(20)}
-                style={{
-                  ...styles,
-                  transformOrigin: isTeacher
-                    ? 'center'
-                    : direction === 'next'
-                    ? 'bottom left'
-                    : 'top right',
-                }}
-                className={Styles.TextContainerCSS.className}
-                role="button"
-                tabIndex={0}
-                onClick={() => handleSlide('next')}
-                onKeyPress={() => handleSlide('next')}
-              >
-                <FitText
-                  ref={ref}
-                  text={chosenInstructions[index]}
-                  cx={Styles.FitTextCSS.className}
-                />
-              </animated.div>
-            )
-        )}
-      </Modal.Content>
-
-      <Modal.Actions hideActions style={{ height: 92 }}>
-        {chosenInstructions?.map((_, i) => (
+      <SeoWrapper title={`${capitalizedVersion} Instructions | ${seoTitle}`}>
+        <Modal.Header closeModal={closeModal}>
           <Button
             rounded
-            key={i + 'instruction-button'}
-            size="lg"
             color="white"
-            bgColor="#3C9AF0"
-            text={String(i + 1)}
-            style={{ width: 62, marginInline: '0.25rem' }}
-            disabled={activeIndex === i}
-            onClick={() => setActive({ direction, activeIndex: i })}
+            bgColor="#cc4d8a"
+            text={isEnglish ? '한' : '영'}
+            onClick={() => changeLanguage(isEnglish ? 'korean' : 'english')}
+            style={{ marginRight: '0.5rem' }}
           />
-        ))}
-      </Modal.Actions>
+          {capitalizedVersion} Instructions
+        </Modal.Header>
 
-      {Styles.ContentContainerCSS.styles}
-      {Styles.TextContainerCSS.styles}
-      {Styles.FitTextCSS.styles}
+        <Modal.Content
+          className={Styles.ContentContainerCSS.className}
+          style={{
+            background: `url(${gameImgUrl}) no-repeat center / contain`,
+          }}
+        >
+          {transitions(
+            (styles, index) =>
+              activeIndex === index && (
+                <animated.div
+                  key={chosenInstructions[index].slice(20)}
+                  style={{
+                    ...styles,
+                    transformOrigin: isTeacher
+                      ? 'center'
+                      : direction === 'next'
+                      ? 'bottom left'
+                      : 'top right',
+                  }}
+                  className={Styles.TextContainerCSS.className}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => handleSlide('next')}
+                  onKeyPress={() => handleSlide('next')}
+                >
+                  <FitText
+                    ref={ref}
+                    text={chosenInstructions[index]}
+                    cx={Styles.FitTextCSS.className}
+                  />
+                </animated.div>
+              )
+          )}
+        </Modal.Content>
+
+        <Modal.Actions hideActions style={{ height: 92 }}>
+          {chosenInstructions?.map((_, i) => (
+            <Button
+              rounded
+              key={i + 'instruction-button'}
+              size="lg"
+              color="white"
+              bgColor="#3C9AF0"
+              text={String(i + 1)}
+              style={{ width: 62, marginInline: '0.25rem' }}
+              disabled={activeIndex === i}
+              onClick={() => setActive({ direction, activeIndex: i })}
+            />
+          ))}
+        </Modal.Actions>
+
+        {Styles.ContentContainerCSS.styles}
+        {Styles.TextContainerCSS.styles}
+        {Styles.FitTextCSS.styles}
+      </SeoWrapper>
     </Modal>
   );
 }
