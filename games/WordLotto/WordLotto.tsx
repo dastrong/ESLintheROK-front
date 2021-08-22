@@ -11,7 +11,9 @@ import type { GameStore } from './state_types';
 import * as Styles from './WordLotto.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import type { GameSEOProps } from 'games/types';
 import { arrOfRandoNum, nextRoundData } from 'games/_utils';
+import SeoWrapper from 'components/SeoWrapper';
 import FitText from 'components/FitText';
 
 // CONSTANTS - img, audio, function, etc.
@@ -30,7 +32,7 @@ const colors = [
   'violet',
 ];
 
-export default function WordLotto() {
+export default function WordLotto({ title, description }: GameSEOProps) {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
@@ -123,25 +125,27 @@ export default function WordLotto() {
   }, [isDone, isAnimating, dispatch, handleGame]);
 
   return (
-    <div className={ContainerCSS.className} onClick={_handleClick}>
-      {lottoCardStyles.map((cardStyles, i) => (
-        <animated.div
-          key={`lotto-card-${i}-${gameData[i].text}`}
-          style={{
-            ...cardStyles,
-            width: isVocab ? '32vw' : '99vw',
-            height: isVocab ? '32vh' : '24vh',
-            backgroundColor: colors[i],
-          }}
-          className={Styles.CardCSS.className}
-        >
-          <FitText text={gameData[i].text} ref={refs[i]} />
-        </animated.div>
-      ))}
+    <SeoWrapper title={title} description={description}>
+      <div className={ContainerCSS.className} onClick={_handleClick}>
+        {lottoCardStyles.map((cardStyles, i) => (
+          <animated.div
+            key={`lotto-card-${i}-${gameData[i].text}`}
+            style={{
+              ...cardStyles,
+              width: isVocab ? '32vw' : '99vw',
+              height: isVocab ? '32vh' : '24vh',
+              backgroundColor: colors[i],
+            }}
+            className={Styles.CardCSS.className}
+          >
+            <FitText text={gameData[i].text} ref={refs[i]} />
+          </animated.div>
+        ))}
 
-      {/* STYLES */}
-      {ContainerCSS.styles}
-      {Styles.CardCSS.styles}
-    </div>
+        {/* STYLES */}
+        {ContainerCSS.styles}
+        {Styles.CardCSS.styles}
+      </div>
+    </SeoWrapper>
   );
 }

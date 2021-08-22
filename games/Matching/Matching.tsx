@@ -20,8 +20,10 @@ import type { GameStore } from './state_types';
 import * as Styles from './Matching.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
-import FitText from 'components/FitText';
+import type { GameSEOProps } from 'games/types';
 import { getRandoGrad, nextRoundData } from 'games/_utils';
+import SeoWrapper from 'components/SeoWrapper';
+import FitText from 'components/FitText';
 
 // CONSTANTS - img, audio, function, etc.
 const boxSettings = [
@@ -32,7 +34,7 @@ const boxSettings = [
   { height: '24vh', width: '24vw', poo: 0, words: 16 },
 ];
 
-export default function Matching() {
+export default function Matching({ title, description }: GameSEOProps) {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
@@ -140,43 +142,45 @@ export default function Matching() {
   );
 
   return (
-    <div className={ContainerCSS.className} style={{ background }}>
-      {gameData.map((text, i) => (
-        <div
-          key={i}
-          className={Styles.CardHolderCSS.className}
-          style={{ ...boxDimensions }}
-        >
-          <animated.div
-            id={String(i)}
-            onClick={_handleClick}
-            style={frontBoxStyles[i]}
-            className={classNames(
-              Styles.CardCSS.className,
-              Styles.CardFrontCSS.className
-            )}
+    <SeoWrapper title={title} description={description}>
+      <div className={ContainerCSS.className} style={{ background }}>
+        {gameData.map((text, i) => (
+          <div
+            key={i}
+            className={Styles.CardHolderCSS.className}
+            style={{ ...boxDimensions }}
           >
-            {i + 1}
-          </animated.div>
+            <animated.div
+              id={String(i)}
+              onClick={_handleClick}
+              style={frontBoxStyles[i]}
+              className={classNames(
+                Styles.CardCSS.className,
+                Styles.CardFrontCSS.className
+              )}
+            >
+              {i + 1}
+            </animated.div>
 
-          <animated.div
-            style={backBoxStyles[i]}
-            className={classNames(
-              Styles.CardCSS.className,
-              Styles.CardBackCSS.className
-            )}
-          >
-            <FitText text={text !== 'poo' ? text : '💩'} ref={refs[i]} />
-          </animated.div>
-        </div>
-      ))}
+            <animated.div
+              style={backBoxStyles[i]}
+              className={classNames(
+                Styles.CardCSS.className,
+                Styles.CardBackCSS.className
+              )}
+            >
+              <FitText text={text !== 'poo' ? text : '💩'} ref={refs[i]} />
+            </animated.div>
+          </div>
+        ))}
 
-      {/* STYLES */}
-      {ContainerCSS.styles}
-      {Styles.CardHolderCSS.styles}
-      {Styles.CardCSS.styles}
-      {Styles.CardFrontCSS.styles}
-      {Styles.CardBackCSS.styles}
-    </div>
+        {/* STYLES */}
+        {ContainerCSS.styles}
+        {Styles.CardHolderCSS.styles}
+        {Styles.CardCSS.styles}
+        {Styles.CardFrontCSS.styles}
+        {Styles.CardBackCSS.styles}
+      </div>
+    </SeoWrapper>
   );
 }

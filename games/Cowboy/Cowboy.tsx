@@ -18,7 +18,9 @@ import type { GameStore } from './state_types';
 import * as Styles from './Cowboy.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
+import SeoWrapper from 'components/SeoWrapper';
 import FitText from 'components/FitText';
 
 // CONSTANTS - img, audio, function, etc.
@@ -26,7 +28,7 @@ const baseURL = `https://res.cloudinary.com/dastrong/video/upload/v1567147248/Te
 const ReloadAudioURL = `${baseURL}/GunReload.mp3`;
 const ShotAudioURL = `${baseURL}/GunShot.mp3`;
 
-export default function Cowboy() {
+export default function Cowboy({ title, description }: GameSEOProps) {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
@@ -92,29 +94,31 @@ export default function Cowboy() {
   useScroll(scrollCB);
 
   return (
-    <div className={ContainerCSS.className} onClick={handleGame}>
-      <div className={Styles.TextHolderCSS.className}>
-        {transition(
-          (style, item) =>
-            item && (
-              <animated.div
-                style={{ ...style, fontSize: '12vw' }}
-                className={Styles.TextCSS.className}
-              >
-                <span>On your marks...</span>
-              </animated.div>
-            )
-        )}
+    <SeoWrapper title={title} description={description}>
+      <div className={ContainerCSS.className} onClick={handleGame}>
+        <div className={Styles.TextHolderCSS.className}>
+          {transition(
+            (style, item) =>
+              item && (
+                <animated.div
+                  style={{ ...style, fontSize: '12vw' }}
+                  className={Styles.TextCSS.className}
+                >
+                  <span>On your marks...</span>
+                </animated.div>
+              )
+          )}
 
-        <animated.div style={textStyles} className={Styles.TextCSS.className}>
-          <FitText text={text} ref={ref} />
-        </animated.div>
+          <animated.div style={textStyles} className={Styles.TextCSS.className}>
+            <FitText text={text} ref={ref} />
+          </animated.div>
+        </div>
+
+        {/* STYLES */}
+        {ContainerCSS.styles}
+        {Styles.TextHolderCSS.styles}
+        {Styles.TextCSS.styles}
       </div>
-
-      {/* STYLES */}
-      {ContainerCSS.styles}
-      {Styles.TextHolderCSS.styles}
-      {Styles.TextCSS.styles}
-    </div>
+    </SeoWrapper>
   );
 }

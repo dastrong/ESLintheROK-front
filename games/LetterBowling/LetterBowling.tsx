@@ -11,7 +11,9 @@ import type { GameStore } from './state_types';
 import * as Styles from './LetterBowling.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import type { GameSEOProps } from 'games/types';
 import { getRandoNum, nextRoundData } from 'games/_utils';
+import SeoWrapper from 'components/SeoWrapper';
 import Popup from 'components/Popup';
 import Button from 'components/Button';
 
@@ -30,7 +32,7 @@ const colors = [
   'violet',
 ];
 
-export default function LetterBowling() {
+export default function LetterBowling({ title, description }: GameSEOProps) {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
@@ -115,102 +117,105 @@ export default function LetterBowling() {
   const disablePlay = isBowling || isGameOver || showAnswer;
 
   return (
-    <div className={ContainerCSS.className}>
-      {/* CONTROLS */}
-      <div className={Styles.ControlsCSS.className}>
-        <Popup
-          owner={
-            <Button
-              rounded
-              size="xl"
-              Icon={FaRandom}
-              color="rgba(0, 0, 0, 0.6)"
-              bgColor="#e0e1e2"
-              style={{ margin: '5px' }}
-              onClick={() => dispatch({ type: 'Shuffle_Letters' })}
-              disabled={disableShuffle}
-            />
-          }
-          placement="left"
-          content="Shuffle the letters"
-          hideTooltip={disableShuffle}
-        />
+    <SeoWrapper title={title} description={description}>
+      <div className={ContainerCSS.className}>
+        {/* CONTROLS */}
+        <div className={Styles.ControlsCSS.className}>
+          <Popup
+            owner={
+              <Button
+                rounded
+                size="xl"
+                Icon={FaRandom}
+                color="rgba(0, 0, 0, 0.6)"
+                bgColor="#e0e1e2"
+                style={{ margin: '5px' }}
+                onClick={() => dispatch({ type: 'Shuffle_Letters' })}
+                disabled={disableShuffle}
+              />
+            }
+            placement="left"
+            content="Shuffle the letters"
+            hideTooltip={disableShuffle}
+          />
 
-        <Popup
-          owner={
-            <Button
-              rounded
-              size="xl"
-              Icon={FaPlay}
-              color={!disablePlay ? 'white' : 'rgba(0, 0, 0, 0.6)'}
-              bgColor={!disablePlay ? '#2185d0' : '#e0e1e2'}
-              style={{ margin: '5px' }}
-              onClick={() => {
-                // if (round === 1) googleEvent(title);
-                dispatch({ type: 'Bowl_Start' });
-              }}
-              disabled={disablePlay}
-            />
-          }
-          placement="bottom"
-          content="Start the round"
-          hideTooltip={disablePlay}
-        />
+          <Popup
+            owner={
+              <Button
+                rounded
+                size="xl"
+                Icon={FaPlay}
+                color={!disablePlay ? 'white' : 'rgba(0, 0, 0, 0.6)'}
+                bgColor={!disablePlay ? '#2185d0' : '#e0e1e2'}
+                style={{ margin: '5px' }}
+                onClick={() => {
+                  // if (round === 1) googleEvent(title);
+                  dispatch({ type: 'Bowl_Start' });
+                }}
+                disabled={disablePlay}
+              />
+            }
+            placement="bottom"
+            content="Start the round"
+            hideTooltip={disablePlay}
+          />
 
-        <Popup
-          owner={
-            <Button
-              rounded
-              size="xl"
-              Icon={FaSyncAlt}
-              color={showAnswer ? 'white' : 'rgba(0, 0, 0, 0.6)'}
-              bgColor={showAnswer ? '#2185d0' : '#e0e1e2'}
-              style={{ margin: '5px' }}
-              onClick={handleGame}
-            />
-          }
-          placement="right"
-          content="Get a new word and reset"
-        />
-      </div>
+          <Popup
+            owner={
+              <Button
+                rounded
+                size="xl"
+                Icon={FaSyncAlt}
+                color={showAnswer ? 'white' : 'rgba(0, 0, 0, 0.6)'}
+                bgColor={showAnswer ? '#2185d0' : '#e0e1e2'}
+                style={{ margin: '5px' }}
+                onClick={handleGame}
+              />
+            }
+            placement="right"
+            content="Get a new word and reset"
+          />
+        </div>
 
-      {/* ROUND COUNTER */}
-      <p className={Styles.RoundCounterCSS.className}>
-        {round}/{rounds}
-      </p>
+        {/* ROUND COUNTER */}
+        <p className={Styles.RoundCounterCSS.className}>
+          {round}/{rounds}
+        </p>
 
-      {/* INFO TEXT */}
-      <animated.p
-        style={{ ...textStyles, cursor: isGameOver ? 'pointer' : 'default' }}
-        className={Styles.TextCSS.className}
-        onClick={() => {
-          if (!isGameOver) return;
-          dispatch({ type: 'Show_Answer' });
-        }}
-      >
-        {showAnswer ? text : isGameOver ? '?????' : 'Ready?'}
-      </animated.p>
-
-      {/* LETTERS */}
-      {letterSprings.map((style, i) => (
-        <animated.span
-          key={`bowling-letter-${text}-${i}-${splitText[i]}`}
-          className={Styles.LetterCSS.className}
-          style={{
-            ...style,
-            backgroundColor: bowlColors[i] || bowlColors[i - bowlColors.length],
+        {/* INFO TEXT */}
+        <animated.p
+          style={{ ...textStyles, cursor: isGameOver ? 'pointer' : 'default' }}
+          className={Styles.TextCSS.className}
+          onClick={() => {
+            if (!isGameOver) return;
+            dispatch({ type: 'Show_Answer' });
           }}
         >
-          {splitText[i]}
-        </animated.span>
-      ))}
+          {showAnswer ? text : isGameOver ? '?????' : 'Ready?'}
+        </animated.p>
 
-      {/* STYLES */}
-      {ContainerCSS.styles}
-      {Styles.ControlsCSS.styles}
-      {Styles.RoundCounterCSS.styles}
-      {Styles.TextCSS.styles}
-      {Styles.LetterCSS.styles}
-    </div>
+        {/* LETTERS */}
+        {letterSprings.map((style, i) => (
+          <animated.span
+            key={`bowling-letter-${text}-${i}-${splitText[i]}`}
+            className={Styles.LetterCSS.className}
+            style={{
+              ...style,
+              backgroundColor:
+                bowlColors[i] || bowlColors[i - bowlColors.length],
+            }}
+          >
+            {splitText[i]}
+          </animated.span>
+        ))}
+
+        {/* STYLES */}
+        {ContainerCSS.styles}
+        {Styles.ControlsCSS.styles}
+        {Styles.RoundCounterCSS.styles}
+        {Styles.TextCSS.styles}
+        {Styles.LetterCSS.styles}
+      </div>
+    </SeoWrapper>
   );
 }

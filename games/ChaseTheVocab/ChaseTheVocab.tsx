@@ -13,7 +13,9 @@ import type { GameStore } from './state_types';
 import * as Styles from './ChaseTheVocab.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
+import SeoWrapper from 'components/SeoWrapper';
 import FitText from 'components/FitText';
 
 // CONSTANTS - img, audio, function, etc.
@@ -29,7 +31,7 @@ const colors = [
   'violet',
 ];
 
-export default function ChaseTheVocab() {
+export default function ChaseTheVocab({ title, description }: GameSEOProps) {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
@@ -147,62 +149,64 @@ export default function ChaseTheVocab() {
   );
 
   return (
-    <div
-      className={ContainerCSS.className}
-      onClick={!isAnimating && !isShuffleDone ? _handleClick : null}
-    >
-      <FlipMove
-        className={Styles.FlipperContainerCSS.className}
-        duration={!isAnimating && !isShuffleDone ? 500 : shuffDuration}
+    <SeoWrapper title={title} description={description}>
+      <div
+        className={ContainerCSS.className}
+        onClick={!isAnimating && !isShuffleDone ? _handleClick : null}
       >
-        {gameData.map(({ text, id }, i) => {
-          return (
-            // we double wrap our divs here because FlipMove will animate using a CSS ...
-            // ... transform which will interfere with our CSS transform springs
-            <div
-              key={`chase-card-${id}`}
-              id={String(i)}
-              onClick={_handleBoxClick}
-            >
-              <animated.div
-                style={{ ...cardStyles, backgroundColor: colors[color] }}
-                className={classNames(
-                  Styles.CardHolderCSS.className,
-                  Styles.CardCSS.className
-                )}
+        <FlipMove
+          className={Styles.FlipperContainerCSS.className}
+          duration={!isAnimating && !isShuffleDone ? 500 : shuffDuration}
+        >
+          {gameData.map(({ text, id }, i) => {
+            return (
+              // we double wrap our divs here because FlipMove will animate using a CSS ...
+              // ... transform which will interfere with our CSS transform springs
+              <div
+                key={`chase-card-${id}`}
+                id={String(i)}
+                onClick={_handleBoxClick}
               >
                 <animated.div
-                  style={numSprings[i]}
+                  style={{ ...cardStyles, backgroundColor: colors[color] }}
                   className={classNames(
-                    Styles.CardCSS.className,
-                    Styles.CardNumCSS.className
+                    Styles.CardHolderCSS.className,
+                    Styles.CardCSS.className
                   )}
                 >
-                  {i + 1}
+                  <animated.div
+                    style={numSprings[i]}
+                    className={classNames(
+                      Styles.CardCSS.className,
+                      Styles.CardNumCSS.className
+                    )}
+                  >
+                    {i + 1}
+                  </animated.div>
+                  <animated.div
+                    style={textSprings[i]}
+                    className={classNames(
+                      Styles.CardCSS.className,
+                      Styles.CardTextCSS.className
+                    )}
+                  >
+                    <FitText text={text} ref={refs[id]} />
+                  </animated.div>
                 </animated.div>
-                <animated.div
-                  style={textSprings[i]}
-                  className={classNames(
-                    Styles.CardCSS.className,
-                    Styles.CardTextCSS.className
-                  )}
-                >
-                  <FitText text={text} ref={refs[id]} />
-                </animated.div>
-              </animated.div>
-            </div>
-          );
-        })}
-      </FlipMove>
+              </div>
+            );
+          })}
+        </FlipMove>
 
-      {/* STYLES */}
-      {ContainerCSS.styles}
-      {Styles.FlipperContainerCSS.styles}
-      {Styles.CardHolderCSS.styles}
-      {Styles.CardCSS.styles}
-      {Styles.CardNumCSS.styles}
-      {Styles.CardTextCSS.styles}
-    </div>
+        {/* STYLES */}
+        {ContainerCSS.styles}
+        {Styles.FlipperContainerCSS.styles}
+        {Styles.CardHolderCSS.styles}
+        {Styles.CardCSS.styles}
+        {Styles.CardNumCSS.styles}
+        {Styles.CardTextCSS.styles}
+      </div>
+    </SeoWrapper>
   );
 }
 

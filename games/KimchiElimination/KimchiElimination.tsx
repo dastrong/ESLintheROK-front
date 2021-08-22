@@ -12,10 +12,15 @@ import type { GameStore } from './state_types';
 import * as Styles from './KimchiElimination.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
-import FitText from 'components/FitText';
+import type { GameSEOProps } from 'games/types';
 import { getRandoNum, nextRoundData } from 'games/_utils';
+import SeoWrapper from 'components/SeoWrapper';
+import FitText from 'components/FitText';
 
-export default function KimchiElimination() {
+export default function KimchiElimination({
+  title,
+  description,
+}: GameSEOProps) {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
@@ -98,54 +103,56 @@ export default function KimchiElimination() {
   }, [dispatch, showPic]);
 
   return (
-    <div className={ContainerCSS.className} onClick={handleGame}>
-      {transitions((style, item) =>
-        item ? (
-          <animated.div className={Styles.SlideCSS.className} style={style}>
-            {isKimchi ? (
-              <animated.img
-                style={imgStyles}
-                className={Styles.KimchiCSS.className}
-                alt="kimchi; disable your adblock?"
-                src="https://res.cloudinary.com/dastrong/image/upload/v1570941137/TeacherSite/Games/Kimchi.svg"
-              />
-            ) : (
-              // eslint-disable-next-line jsx-a11y/accessible-emoji
-              <animated.span
-                style={imgStyles}
-                className={classNames(
-                  Styles.KimchiCSS.className,
-                  Styles.PooCSS.className
-                )}
-                aria-label="poo emoji"
-              >
-                💩
-              </animated.span>
-            )}
-          </animated.div>
-        ) : (
-          <animated.div
-            className={Styles.SlideCSS.className}
-            style={{ ...style, backgroundColor: 'violet' }}
-          >
-            <FitText text={text} ref={ref} />
-          </animated.div>
-        )
-      )}
+    <SeoWrapper title={title} description={description}>
+      <div className={ContainerCSS.className} onClick={handleGame}>
+        {transitions((style, item) =>
+          item ? (
+            <animated.div className={Styles.SlideCSS.className} style={style}>
+              {isKimchi ? (
+                <animated.img
+                  style={imgStyles}
+                  className={Styles.KimchiCSS.className}
+                  alt="kimchi; disable your adblock?"
+                  src="https://res.cloudinary.com/dastrong/image/upload/v1570941137/TeacherSite/Games/Kimchi.svg"
+                />
+              ) : (
+                // eslint-disable-next-line jsx-a11y/accessible-emoji
+                <animated.span
+                  style={imgStyles}
+                  className={classNames(
+                    Styles.KimchiCSS.className,
+                    Styles.PooCSS.className
+                  )}
+                  aria-label="poo emoji"
+                >
+                  💩
+                </animated.span>
+              )}
+            </animated.div>
+          ) : (
+            <animated.div
+              className={Styles.SlideCSS.className}
+              style={{ ...style, backgroundColor: 'violet' }}
+            >
+              <FitText text={text} ref={ref} />
+            </animated.div>
+          )
+        )}
 
-      <animated.div
-        style={kimchiFrequencyStyles}
-        className={Styles.FrequencyCSS.className}
-      >
-        {kimchiFrequency}%
-      </animated.div>
+        <animated.div
+          style={kimchiFrequencyStyles}
+          className={Styles.FrequencyCSS.className}
+        >
+          {kimchiFrequency}%
+        </animated.div>
 
-      {/* STYLES */}
-      {ContainerCSS.styles}
-      {Styles.SlideCSS.styles}
-      {Styles.KimchiCSS.styles}
-      {Styles.PooCSS.styles}
-      {Styles.FrequencyCSS.styles}
-    </div>
+        {/* STYLES */}
+        {ContainerCSS.styles}
+        {Styles.SlideCSS.styles}
+        {Styles.KimchiCSS.styles}
+        {Styles.PooCSS.styles}
+        {Styles.FrequencyCSS.styles}
+      </div>
+    </SeoWrapper>
   );
 }

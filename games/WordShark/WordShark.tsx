@@ -15,7 +15,9 @@ import type { GameStore } from './state_types';
 import * as Styles from './WordShark.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
+import SeoWrapper from 'components/SeoWrapper';
 import FitText from 'components/FitText';
 
 // CONSTANTS - img, audio, function, etc.
@@ -34,7 +36,7 @@ const images = [img0, img1, img2, img3, img4, img5, img6, img7, img8];
 const letters = 'abcdefghijklmnopqrstuvwxyz';
 // const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
-export default function WordShark() {
+export default function WordShark({ title, description }: GameSEOProps) {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
@@ -88,39 +90,41 @@ export default function WordShark() {
   // GAME FUNCTIONS - start with an underscore ex) _handleClick
 
   return (
-    <div className={ContainerCSS.className}>
-      <div className="Hangman-imgContainer">
-        <div className="Hangman-imgs">
-          <img
-            className="Hangman-WordSharkBackgroundImg"
-            src={background}
-            alt="background for Word Shark, showing stickman and shark"
-          />
-          <img
-            className="Hangman-WordSharkOverlayImgs"
-            src={images[nWrong]}
-            alt={altText}
-          />
+    <SeoWrapper title={title} description={description}>
+      <div className={ContainerCSS.className}>
+        <div className="Hangman-imgContainer">
+          <div className="Hangman-imgs">
+            <img
+              className="Hangman-WordSharkBackgroundImg"
+              src={background}
+              alt="background for Word Shark, showing stickman and shark"
+            />
+            <img
+              className="Hangman-WordSharkOverlayImgs"
+              src={images[nWrong]}
+              alt={altText}
+            />
+          </div>
         </div>
-      </div>
-      <div className="Hangman-guessContainer">
-        <p className="Hangman-guessesLeft">{`${maxWrong - nWrong} guess${
-          nWrong === maxWrong - 1 ? '' : 'es'
-        } left`}</p>
-        <p className="Hangman-word-holder">
-          <FitText text={_guessedWord()} ref={ref} cx="Hangman-word" />
-        </p>
-      </div>
-      <div className="letter-buttons">
-        {gameState}
-        <button className="Hangman-restartBtn" onClick={_handleNewRound}>
-          New Round
-        </button>
-      </div>
+        <div className="Hangman-guessContainer">
+          <p className="Hangman-guessesLeft">{`${maxWrong - nWrong} guess${
+            nWrong === maxWrong - 1 ? '' : 'es'
+          } left`}</p>
+          <p className="Hangman-word-holder">
+            <FitText text={_guessedWord()} ref={ref} cx="Hangman-word" />
+          </p>
+        </div>
+        <div className="letter-buttons">
+          {gameState}
+          <button className="Hangman-restartBtn" onClick={_handleNewRound}>
+            New Round
+          </button>
+        </div>
 
-      {/* STYLES */}
-      {ContainerCSS.styles}
-      {/* Add any other style elements here */}
-    </div>
+        {/* STYLES */}
+        {ContainerCSS.styles}
+        {/* Add any other style elements here */}
+      </div>
+    </SeoWrapper>
   );
 }

@@ -19,8 +19,10 @@ import * as Styles from './WhatsBehind.styles';
 import WhatsBehindConfetti from './WhatsBehindConfetti';
 
 // IMPORT REUSABLE COMPONENTS/UTILITIES HERE
+import type { GameSEOProps } from 'games/types';
 import { RowOfTwoSidedCards } from 'games/_components';
 import { nextRoundData, getRandoNum } from 'games/_utils';
+import SeoWrapper from 'components/SeoWrapper';
 
 // DECLARE CONSTANT VARIABLES HERE - img, audio, function, etc.
 const getBackCard = (isTarget: boolean) =>
@@ -40,7 +42,7 @@ const colors = [
   'violet',
 ];
 
-export default function WhatsBehind() {
+export default function WhatsBehind({ title, description }: GameSEOProps) {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
@@ -113,34 +115,36 @@ export default function WhatsBehind() {
   const foundTarget = target.includes(clickedID);
 
   return (
-    <div className={ContainerCSS.className}>
-      {splitRows.map((row, i) => (
-        <RowOfTwoSidedCards
-          flipY
-          key={'row' + i}
-          rowIdx={i * 2}
-          rowArr={row}
-          targets={target}
-          colors={colors}
-          clickedID={clickedID}
-          clickedIDs={clickedIDs}
-          handleClick={_handleClick}
-          getBackCard={getBackCard}
-          cardClass={Styles.CardCSS.className}
-          fitTextClass={Styles.FitTextCSS.className}
-        />
-      ))}
+    <SeoWrapper title={title} description={description}>
+      <div className={ContainerCSS.className}>
+        {splitRows.map((row, i) => (
+          <RowOfTwoSidedCards
+            flipY
+            key={'row' + i}
+            rowIdx={i * 2}
+            rowArr={row}
+            targets={target}
+            colors={colors}
+            clickedID={clickedID}
+            clickedIDs={clickedIDs}
+            handleClick={_handleClick}
+            getBackCard={getBackCard}
+            cardClass={Styles.CardCSS.className}
+            fitTextClass={Styles.FitTextCSS.className}
+          />
+        ))}
 
-      {/* open a modal and show a GIF */}
-      {/*  */}
+        {/* open a modal and show a GIF */}
+        {/*  */}
 
-      {/* Found the targeted card; rain down the confetti */}
-      {foundTarget && <WhatsBehindConfetti />}
+        {/* Found the targeted card; rain down the confetti */}
+        {foundTarget && <WhatsBehindConfetti />}
 
-      {/* STYLES */}
-      {ContainerCSS.styles}
-      {Styles.FitTextCSS.styles}
-      {Styles.CardCSS.styles}
-    </div>
+        {/* STYLES */}
+        {ContainerCSS.styles}
+        {Styles.FitTextCSS.styles}
+        {Styles.CardCSS.styles}
+      </div>
+    </SeoWrapper>
   );
 }

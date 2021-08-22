@@ -11,10 +11,12 @@ import type { GameStore } from './state_types';
 import * as Styles from './Nunchi.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
+import SeoWrapper from 'components/SeoWrapper';
 import FitText from 'components/FitText';
 
-export default function Nunchi() {
+export default function Nunchi({ title, description }: GameSEOProps) {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
@@ -54,30 +56,32 @@ export default function Nunchi() {
   useKeys(handleGame); // no specific in game events
 
   return (
-    <div className={ContainerCSS.className} onClick={handleGame}>
-      <div className={Styles.TextContainerCSS.className}>
-        {readyTransition(
-          (style, item) =>
-            item && (
-              <animated.p
-                style={style}
-                className={Styles.ReadyTextCSS.className}
-              >
-                Ready?
-              </animated.p>
-            )
-        )}
+    <SeoWrapper title={title} description={description}>
+      <div className={ContainerCSS.className} onClick={handleGame}>
+        <div className={Styles.TextContainerCSS.className}>
+          {readyTransition(
+            (style, item) =>
+              item && (
+                <animated.p
+                  style={style}
+                  className={Styles.ReadyTextCSS.className}
+                >
+                  Ready?
+                </animated.p>
+              )
+          )}
 
-        <animated.div style={textStyles} className={Styles.TextCSS.className}>
-          <FitText text={text} ref={ref} />
-        </animated.div>
+          <animated.div style={textStyles} className={Styles.TextCSS.className}>
+            <FitText text={text} ref={ref} />
+          </animated.div>
+        </div>
+
+        {/* STYLES */}
+        {ContainerCSS.styles}
+        {Styles.TextContainerCSS.styles}
+        {Styles.ReadyTextCSS.styles}
+        {Styles.TextCSS.styles}
       </div>
-
-      {/* STYLES */}
-      {ContainerCSS.styles}
-      {Styles.TextContainerCSS.styles}
-      {Styles.ReadyTextCSS.styles}
-      {Styles.TextCSS.styles}
-    </div>
+    </SeoWrapper>
   );
 }

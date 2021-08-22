@@ -16,7 +16,10 @@ import { init, reducer } from './state_manager';
 import type { GameStore } from './state_types';
 import * as Styles from './Elimination.styles';
 
+// IMPORT COMPONENTS/UTILITIES HERE
+import type { GameSEOProps } from 'games/types';
 import { RowOfTwoSidedCards } from 'games/_components';
+import SeoWrapper from 'components/SeoWrapper';
 import { nextRoundData, arrOfRandoNum } from 'games/_utils';
 // import { googleEvent } from 'helpers/ga';
 
@@ -38,7 +41,7 @@ const colors = [
   'violet',
 ];
 
-export default function Elimination() {
+export default function Elimination({ title, description }: GameSEOProps) {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
@@ -140,28 +143,30 @@ export default function Elimination() {
   );
 
   return (
-    <div className={ContainerCSS.className}>
-      {splitRows.map((row, i) => (
-        <RowOfTwoSidedCards
-          flipY
-          key={'row' + i}
-          rowIdx={i * 2}
-          rowArr={row}
-          targets={Xs}
-          colors={colors}
-          clickedID={clickedID}
-          clickedIDs={clickedIDs}
-          handleClick={_handleClick}
-          getBackCard={getBackCard}
-          cardClass={Styles.CardCSS.className}
-          fitTextClass={Styles.FitTextCSS.className}
-        />
-      ))}
+    <SeoWrapper title={title} description={description}>
+      <div className={ContainerCSS.className}>
+        {splitRows.map((row, i) => (
+          <RowOfTwoSidedCards
+            flipY
+            key={'row' + i}
+            rowIdx={i * 2}
+            rowArr={row}
+            targets={Xs}
+            colors={colors}
+            clickedID={clickedID}
+            clickedIDs={clickedIDs}
+            handleClick={_handleClick}
+            getBackCard={getBackCard}
+            cardClass={Styles.CardCSS.className}
+            fitTextClass={Styles.FitTextCSS.className}
+          />
+        ))}
 
-      {/* STYLES */}
-      {ContainerCSS.styles}
-      {Styles.FitTextCSS.styles}
-      {Styles.CardCSS.styles}
-    </div>
+        {/* STYLES */}
+        {ContainerCSS.styles}
+        {Styles.FitTextCSS.styles}
+        {Styles.CardCSS.styles}
+      </div>
+    </SeoWrapper>
   );
 }

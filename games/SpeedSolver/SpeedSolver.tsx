@@ -17,11 +17,13 @@ import { init, reducer } from './state_manager';
 import type { GameStore, StageNames } from './state_types';
 import * as Styles from './SpeedSolver.styles';
 import SpeedSolverLetters from './SpeedSolverLetters';
+import SpeedSolverInfo from './SpeedSolverInfo';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import type { GameSEOProps } from 'games/types';
 import { nextRoundData, resetAllAudio } from 'games/_utils';
+import SeoWrapper from 'components/SeoWrapper';
 import { AnswerBox } from 'games/_components';
-import SpeedSolverInfo from './SpeedSolverInfo';
 
 // CONSTANTS - img, audio, function, etc.
 const getMediaURL = (type: string, file: string, transforms = '') =>
@@ -54,7 +56,7 @@ const stages: StageNames[] = [
   'SHOW_ANSWER_TEXT',
 ];
 
-export default function SpeedSolver() {
+export default function SpeedSolver({ title, description }: GameSEOProps) {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
@@ -170,41 +172,43 @@ export default function SpeedSolver() {
   }
 
   return (
-    <div
-      className={ContainerCSS.className}
-      style={{ backgroundImage }}
-      onClick={_handleClick}
-    >
-      <SpeedSolverInfo
-        show={curStage === 'SHOW_LEVEL'}
-        text={`Level ${level}`}
-        cx={Styles.InfoCSS.className}
-      />
-      <SpeedSolverInfo
-        show={curStage === 'SHOW_READY'}
-        text="Ready?"
-        cx={Styles.InfoCSS.className}
-      />
+    <SeoWrapper title={title} description={description}>
+      <div
+        className={ContainerCSS.className}
+        style={{ backgroundImage }}
+        onClick={_handleClick}
+      >
+        <SpeedSolverInfo
+          show={curStage === 'SHOW_LEVEL'}
+          text={`Level ${level}`}
+          cx={Styles.InfoCSS.className}
+        />
+        <SpeedSolverInfo
+          show={curStage === 'SHOW_READY'}
+          text="Ready?"
+          cx={Styles.InfoCSS.className}
+        />
 
-      <SpeedSolverLetters
-        showLetters={curStage === 'ACTION'}
-        gameData={gameData}
-        level={level}
-        isVocab={isVocab}
-        cx={Styles.LettersCSS.className}
-      />
+        <SpeedSolverLetters
+          showLetters={curStage === 'ACTION'}
+          gameData={gameData}
+          level={level}
+          isVocab={isVocab}
+          cx={Styles.LettersCSS.className}
+        />
 
-      <AnswerBox
-        answer={answer}
-        showBox={curStage === 'SHOW_ANSWER_BOX'}
-        showText={curStage === 'SHOW_ANSWER_TEXT'}
-      />
+        <AnswerBox
+          answer={answer}
+          showBox={curStage === 'SHOW_ANSWER_BOX'}
+          showText={curStage === 'SHOW_ANSWER_TEXT'}
+        />
 
-      {/* STYLES */}
-      {ContainerCSS.styles}
-      {Styles.InfoCSS.styles}
-      {Styles.LettersCSS.styles}
-    </div>
+        {/* STYLES */}
+        {ContainerCSS.styles}
+        {Styles.InfoCSS.styles}
+        {Styles.LettersCSS.styles}
+      </div>
+    </SeoWrapper>
   );
 }
 
