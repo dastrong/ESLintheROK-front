@@ -1,3 +1,8 @@
+export type GameSEOProps = {
+  title: string;
+  description: string;
+};
+
 export type GameSkill = 'Listening' | 'Speaking' | 'Reading' | 'Writing';
 
 export type GameData = 'Vocabulary' | 'Expressions';
