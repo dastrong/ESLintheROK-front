@@ -4,7 +4,9 @@ import { useRouter } from 'next/router';
 import classNames from 'classnames';
 import { SiBuymeacoffee } from 'react-icons/si';
 import Button from 'components/Button';
-import Popup from 'components/Popup';
+
+import dynamic from 'next/dynamic';
+const Popup = dynamic(() => import('components/Popup'));
 
 const mainLinks = [
   { href: '/', text: 'Home' },

@@ -19,9 +19,11 @@ import {
 import { useStore } from 'contexts/store';
 import { useOnClickOutside } from 'hooks';
 import Button from 'components/Button';
-import Popup from 'components/Popup';
 import * as Styles from './Menu.styles';
 import usePlayCheck from '../usePlayCheck';
+
+import dynamic from 'next/dynamic';
+const Popup = dynamic(() => import('components/Popup'));
 
 const numOfButtons = 7;
 const buttons = Array(numOfButtons).fill('');

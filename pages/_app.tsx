@@ -5,11 +5,13 @@ import { IconContext } from 'react-icons/lib';
 import { DefaultSeo } from 'next-seo';
 
 import Layout from 'components/Layout';
-import { DataModals } from 'components/Modal(s)';
 import { StoreProvider } from 'contexts/store';
 import { ThemeProvider } from 'contexts/theme';
 import { SEO } from 'next-seo.config';
 import 'normalize.css';
+
+import dynamic from 'next/dynamic';
+const DataModals = dynamic(() => import('components/Modal(s)/DataModals'));
 
 const navWaveHeightToWidthRatio = 192 / 2560;
 
