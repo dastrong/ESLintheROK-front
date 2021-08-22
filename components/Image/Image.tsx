@@ -95,6 +95,10 @@ export default function Image({
           text-align: center;
           font-size: 0.9rem;
         }
+
+        div div {
+          position: absolute;
+        }
       `}</style>
     </div>
   );
