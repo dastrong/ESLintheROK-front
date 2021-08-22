@@ -5,6 +5,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer');
 module.exports = withPlugins(
   [[withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' })]],
   {
+    webpack5: false,
     webpack: config => {
       config.module.rules.push({
         test: /\.svg$/,
