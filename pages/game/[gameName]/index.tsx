@@ -15,7 +15,7 @@ import { PageHeading } from 'components/PageHeadings';
 import { convertCaseSnakeToPascal } from 'utils/convertCaseSnakeToPascal';
 import { getSingleGameConfig } from 'utils/getSingleGameConfig';
 import { getAllGameConfigs } from 'utils/getAllGameConfigs';
-import { getGameImgUrl, getGameOgImgUrl } from 'utils/getGameImgUrl';
+import { getGameImgUrl, getGameOgImgUrl } from 'utils/getCloudUrls';
 import { useStore } from 'contexts/store';
 
 const GameInstructionsModal = dynamic(

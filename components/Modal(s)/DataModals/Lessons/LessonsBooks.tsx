@@ -6,7 +6,7 @@ import Skeleton from 'components/Skeleton';
 import Image from 'components/Image';
 import LessonsGradeCarousel from './LessonsGradeCarousel';
 import type { Book, LessonsBooksProps } from './types';
-import { getBookCoverUrl } from 'utils/getGameImgUrl';
+import { getBookCoverUrl } from 'utils/getCloudUrls';
 
 export default function LessonsBooks({
   closeModal,

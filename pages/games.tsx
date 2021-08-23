@@ -7,7 +7,7 @@ import SeoWrapper from 'components/SeoWrapper';
 import Image from 'components/Image';
 import Button from 'components/Button';
 import { getAllGameConfigs } from 'utils/getAllGameConfigs';
-import { getGameImgUrl } from 'utils/getGameImgUrl';
+import { getGameImgUrl } from 'utils/getCloudUrls';
 
 export default function GamesPage({
   games,
