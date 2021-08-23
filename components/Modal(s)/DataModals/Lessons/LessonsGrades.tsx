@@ -53,34 +53,38 @@ export default function LessonsGrades({
           <animated.div
             style={{ position: 'absolute', left: '41%', ...contentStyles }}
           >
-            <h4>Choose your grade now!</h4>
-            <LessonsGradeCarousel grades={grades} dispatch={dispatch} />
-            <hr />
-            <div>
-              <h5>Don't see your grade above?</h5>
-              <p>
-                If you're in a hurry? Simply create a{' '}
-                <button
-                  className="text_button"
-                  onClick={() =>
-                    storeDispatch({
-                      type: 'Open_Data_Modal',
-                      dataModalName: 'custom',
-                    })
-                  }
-                >
-                  custom lesson
-                </button>{' '}
-                now.
-              </p>
-              <p>
-                Otherwise, please read{' '}
-                <Link href="/contribute/teacher">
-                  <a className="text_button">this</a>
-                </Link>
-                .
-              </p>
-            </div>
+            {isLoading ? null : (
+              <>
+                <h4>Choose your grade now!</h4>
+                <LessonsGradeCarousel grades={grades} dispatch={dispatch} />
+                <hr />
+                <div>
+                  <h5>Don't see your grade above?</h5>
+                  <p>
+                    If you're in a hurry? Simply create a{' '}
+                    <button
+                      className="text_button"
+                      onClick={() =>
+                        storeDispatch({
+                          type: 'Open_Data_Modal',
+                          dataModalName: 'custom',
+                        })
+                      }
+                    >
+                      custom lesson
+                    </button>{' '}
+                    now.
+                  </p>
+                  <p>
+                    Otherwise, please read{' '}
+                    <Link href="/contribute/teacher">
+                      <a className="text_button">this</a>
+                    </Link>
+                    .
+                  </p>
+                </div>
+              </>
+            )}
           </animated.div>
         </div>
       </Modal.Content>
