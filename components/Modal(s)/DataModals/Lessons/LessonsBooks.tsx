@@ -1,10 +1,12 @@
 import React from 'react';
 import useSwr from 'swr';
+
 import Modal from 'components/Modal(s)';
 import Skeleton from 'components/Skeleton';
 import Image from 'components/Image';
 import LessonsGradeCarousel from './LessonsGradeCarousel';
 import type { Book, LessonsBooksProps } from './types';
+import { getBookCoverUrl } from 'utils/getGameImgUrl';
 
 export default function LessonsBooks({
   closeModal,
@@ -26,7 +28,9 @@ export default function LessonsBooks({
     { isPaused: () => !!books[chosenGrade] }
   );
 
-  const bookIds = grades.find(({ _id }) => _id === chosenGrade).books;
+  const { books: bookIds, grade } = grades.find(
+    ({ _id }) => _id === chosenGrade
+  );
 
   return (
     <>
@@ -45,6 +49,9 @@ export default function LessonsBooks({
           <div className="books_container">
             {bookIds.map((bookId, i) => {
               const book = fetchedBooks && fetchedBooks[i];
+              const bookImgUrl = book
+                ? getBookCoverUrl(grade, book.publisher, book.author)
+                : '';
               const bookTitle = book
                 ? `${book?.publisher} ~ ${book?.author}`
                 : '';
@@ -52,7 +59,7 @@ export default function LessonsBooks({
                 dispatch({
                   type: 'Choose_Book',
                   chosenBook: bookId,
-                  chosenBookImg: book?.imageURL,
+                  chosenBookImg: bookImgUrl,
                 });
               };
               return (
@@ -66,10 +73,10 @@ export default function LessonsBooks({
                 >
                   <Image
                     key={bookId}
-                    src={book?.imageURL || ''}
+                    src={bookImgUrl}
                     alt={`Book Cover ${bookTitle}`}
-                    height={160}
-                    width={123}
+                    height={161}
+                    width={124}
                     style={{ borderRadius: '0.5rem' }}
                   />
                   <h4>
