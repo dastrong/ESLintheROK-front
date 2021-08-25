@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer } from 'react';
-import { checkForPastLessons } from '../utils/lessons';
+import { seed } from 'lib/seed';
+import { checkForPastLessons } from 'utils/lessons';
 
 type IsDataReady = boolean;
 type Vocabulary = string[];
@@ -21,33 +22,11 @@ const init = (): StoreTypes => {
 
   return {
     ...initialStuff,
-    vocabulary: [
-      'Lorem',
-      'ipsum',
-      'dolor',
-      'sit',
-      'amet',
-      'consectetur',
-      'adipisicing',
-      'elit',
-      'Voluptate',
-      'quidem',
-    ],
-    expressions: [
-      'Lorem Lorem Lorem',
-      'ipsum ipsum ipsum',
-      'dolor dolor dolor',
-      'sit sit sit',
-      'amet amet amet',
-      'consectetur consectetur consectetur',
-      'adipisicing adipisicing adipisicing',
-      'elit elit elit',
-      'Voluptate Voluptate Voluptate',
-      'quidem quidem quidem',
-    ],
     isMenuOpen: false,
     dataModalName: '',
     font: 'Poppins, sans-serif',
+    // if we want to seed the store we will here
+    ...(process.env.NEXT_PUBLIC_SEED && seed),
   };
 };
 

@@ -1,0 +1,27 @@
+export const seed = {
+  isDataReady: true,
+  vocabulary: [
+    'Lorem',
+    'ipsum',
+    'dolor',
+    'sit',
+    'amet',
+    'consectetur',
+    'adipisicing',
+    'elit',
+    'Voluptate',
+    'quidem',
+  ],
+  expressions: [
+    'Lorem Lorem Lorem',
+    'ipsum ipsum ipsum',
+    'dolor dolor dolor',
+    'sit sit sit',
+    'amet amet amet',
+    'consectetur consectetur consectetur',
+    'adipisicing adipisicing adipisicing',
+    'elit elit elit',
+    'Voluptate Voluptate Voluptate',
+    'quidem quidem quidem',
+  ],
+};

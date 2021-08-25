@@ -3,6 +3,7 @@
   "version": "3.0.0",
   "scripts": {
     "dev": "next dev",
+    "dev:seed": "cross-env NEXT_PUBLIC_SEED=true next dev",
     "build": "next build",
     "export": "next export",
     "analyze": "cross-env ANALYZE=true next build",
