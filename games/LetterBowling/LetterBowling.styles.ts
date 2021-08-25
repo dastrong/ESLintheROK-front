@@ -4,16 +4,17 @@ import { getGameFileUrl } from 'utils/getCloudUrls';
 export const getContainerCSS = (fontFamily: string) => css.resolve`
    {
     font-family: ${fontFamily};
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
-    position: absolute;
+    background-color: #fff;
     background-image: url(${getGameFileUrl(
       'LetterBowling/bowling-alley.jpg',
       '/f_auto,q_80'
     )});
     background-size: cover;
     background-position: center;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
     user-select: none;
     display: flex;
     justify-content: center;

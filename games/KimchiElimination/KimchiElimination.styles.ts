@@ -3,6 +3,7 @@ import { css } from 'styled-jsx/css';
 export const getContainerCSS = (fontFamily: string) => css.resolve`
    {
     font-family: ${fontFamily};
+    background-color: #fff;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -24,6 +25,7 @@ export const SlideCSS = css.resolve`
     justify-content: center;
     align-items: center;
     user-select: none;
+    text-shadow: 0 -1px 3px #fff;
   }
 `;
 

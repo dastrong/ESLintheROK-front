@@ -4,13 +4,14 @@ import { getGameFileUrl } from 'utils/getCloudUrls';
 export const getContainerCSS = (fontFamily: string) => css.resolve`
    {
     font-family: ${fontFamily};
-    height: 100vh;
+    background-color: #fff;
     background-image: url(${getGameFileUrl(
       'Nunchi/NunchiBack.jpg',
       'f_auto,q_40'
     )});
     background-size: cover;
     background-position: center;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;

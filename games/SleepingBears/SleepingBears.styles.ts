@@ -4,6 +4,7 @@ import { getGameFileUrl } from 'utils/getCloudUrls';
 export const getContainerCSS = (fontFamily: string) => css.resolve`
    {
     font-family: ${fontFamily};
+    background-color: #fff;
     background-image: url(${getGameFileUrl(
       'SleepingBears/campBackground.jpg'
     )});

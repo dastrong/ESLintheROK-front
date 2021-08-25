@@ -3,6 +3,7 @@ import { css } from 'styled-jsx/css';
 export const getContainerCSS = (fontFamily: string) => css.resolve`
    {
     font-family: ${fontFamily};
+    background-color: #eee;
     overflow: hidden;
     height: 100vh;
     min-height: 100vh;
@@ -11,7 +12,6 @@ export const getContainerCSS = (fontFamily: string) => css.resolve`
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    background-color: #eee;
   }
 `;
 
