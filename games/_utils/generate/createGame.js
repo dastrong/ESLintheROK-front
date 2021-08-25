@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const inquirer = require('inquirer');
 const chalk = require('chalk');
+const fs = require('fs-extra');
+const path = require('path');
 const { generateTemplateFilesBatch } = require('generate-template-files');
 
 // script runs this to capture the games name and start creating the game files
@@ -58,12 +60,29 @@ function createFiles(game_name) {
         },
       ],
       output: { path: './pages/game/__GameRoute__(snakeCase)' },
-      onComplete: results => {
-        const gameRoute = results.output.path.replace('./pages', '') + '/play';
-        console.log(successMsg(gameFolder, gameRoute));
+      onComplete: async ({ output }) => {
+        try {
+          await addToGamesList(gameFolder.replace('./games/', ''));
+          const gameRoute = output.path.replace('./pages', '') + '/play';
+          console.log(successMsg(gameFolder, gameRoute));
+        } catch (err) {
+          console.log(err);
+        }
       },
     },
   ]);
+}
+
+async function addToGamesList(newGame) {
+  try {
+    const gamesPath = path.join(process.cwd(), 'games/games.json');
+    // get the current games list of games
+    const { games } = await fs.readJson(gamesPath);
+    // add the new game to the games list
+    await fs.writeJson(gamesPath, { games: [...games, newGame] });
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 const successMsg = (gameFolder, gameRoute) => `
