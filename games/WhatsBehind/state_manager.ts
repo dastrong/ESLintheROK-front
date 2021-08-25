@@ -11,7 +11,6 @@ export const init = (data: string[]): State => ({
 });
 
 export const reducer = (state: State, action: Action): State => {
-  console.log(action, state);
   switch (action.type) {
     case 'Set_Data':
       return { ...state, data: shuffle(action.data) };
