@@ -7,26 +7,52 @@ module.exports = withPlugins(
   {
     webpack5: false,
     webpack: config => {
-      config.module.rules.push({
-        test: /\.svg$/,
-        use: [
-          {
-            loader: '@svgr/webpack',
-            options: {
-              svgo: true,
-              svgoConfig: {
-                plugins: {
-                  removeViewBox: false,
-                  removeDimensions: true,
-                  cleanupNumericValues: {
-                    floatPrecision: 2,
+      config.module.rules.push(
+        {
+          test: /\.svg$/,
+          use: [
+            {
+              loader: '@svgr/webpack',
+              options: {
+                svgo: true,
+                svgoConfig: {
+                  plugins: {
+                    removeViewBox: false,
+                    removeDimensions: true,
+                    cleanupNumericValues: {
+                      floatPrecision: 2,
+                    },
                   },
                 },
               },
             },
+          ],
+        },
+        {
+          test: /\.(mp3|wav)$/,
+          use: {
+            loader: 'file-loader',
+            options: {
+              publicPath: '/_next/static/sounds/',
+              outputPath: 'static/sounds/',
+              name: '[path][name].[ext]',
+              esModule: false,
+            },
           },
-        ],
-      });
+        },
+        {
+          test: /\.(jpe?g|png|webp|gif)$/,
+          use: {
+            loader: 'file-loader',
+            options: {
+              publicPath: '/_next/static/sounds/',
+              outputPath: 'static/sounds/',
+              name: '[path][name].[ext]',
+              esModule: false,
+            },
+          },
+        }
+      );
       return config;
     },
   }
