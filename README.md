@@ -80,3 +80,10 @@ Instead of using PPT games, which teachers needed to download/change/save/share 
 ├── utils       # Folder of Utility Functions
 └── ...
 ```
+
+### Required `.env` file
+
+```js
+NEXT_PUBLIC_CLOUDINARY_URL = 'https://res.cloudinary.com/dastrong';
+COFFEE_TOKEN = 'string'; // used to grab supporters from buymeacoffee
+```
