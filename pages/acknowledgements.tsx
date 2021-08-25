@@ -6,6 +6,7 @@ import SeoWrapper from 'components/SeoWrapper';
 import Block from 'components/Block';
 import Popup from 'components/Popup';
 import { PageHeading, PageSubHeading } from 'components/PageHeadings';
+import PageContent from 'components/PageContent';
 import UserCharacter from 'components/Svgs/UserCharacter';
 import { getDonations } from 'utils/getDonations';
 
@@ -50,13 +51,13 @@ export default function AcknowledgementsPage({
           </p>
         </Block>
 
-        <div className="credits_container">
-          <h3 id="site_design">Site Design</h3>
-          <p>
+        <PageContent>
+          <PageContent.Header id="site_design">Site Design</PageContent.Header>
+          <PageContent.Text>
             Even though the majority of the current design (2021) is custom, the
             following deserve credit.
-          </p>
-          <ul>
+          </PageContent.Text>
+          <PageContent.List>
             <li>The main globe logo was downloaded from Vecteezy</li>
             <li>
               The wavey top navigation bar and the blobs in the footer were
@@ -66,30 +67,33 @@ export default function AcknowledgementsPage({
               The image on the homepage and the lesson's modal were downloaded
               from unDraw
             </li>
-          </ul>
+          </PageContent.List>
 
-          <h3 id="lesson_materials">Lesson Materials</h3>
-          <p>
+          <PageContent.Header id="lesson_materials">
+            Lesson Materials
+          </PageContent.Header>
+          <PageContent.Text>
             A big perk of this site is being able to provide users with their
             desired lesson's vocabulary and expressions. Entering this data is
             tedious work that the following individuals have helped contribute
             to.
-          </p>
-          <ul className="horizontal_list">
+          </PageContent.Text>
+          <PageContent.List isHorizontal>
             {lessonContributors.map((name, i) => (
               <Fragment key={name + i}>
                 {!!i && <span style={{ marginInline: '0.5rem' }}>·</span>}
                 <li>{name}</li>
               </Fragment>
             ))}
-          </ul>
+          </PageContent.List>
 
-          <h3 id="donations">Donations</h3>
-          <p>
+          <PageContent.Header id="donations">Donations</PageContent.Header>
+          <PageContent.Text>
             Even though ESL in the ROK is free-to-use, the following individuals
             have been gracious enough to donate and keep me motivated to
             continuing improving the site.
-          </p>
+          </PageContent.Text>
+
           {Object.keys(tieredDonations).map(tier => {
             const { colorCode, donations }: Tier = tieredDonations[tier];
 
@@ -131,7 +135,7 @@ export default function AcknowledgementsPage({
                     </div>
                   }
                 />
-                <ul className="horizontal_list">
+                <PageContent.List isHorizontal>
                   {donations.map(({ name, note }, i) => {
                     const listItem = (
                       <li className="donations_text" style={{ fontSize }}>
@@ -162,39 +166,13 @@ export default function AcknowledgementsPage({
                       </Fragment>
                     );
                   })}
-                </ul>
+                </PageContent.List>
               </div>
             );
           })}
-        </div>
+        </PageContent>
 
         <style jsx>{`
-          .credits_container {
-            margin: 3rem auto 2rem;
-            color: #5a5c62;
-            font-size: 2vw;
-            line-height: 150%;
-            width: 70%;
-            min-width: 600px;
-            max-width: 800px;
-          }
-
-          h3 {
-            font-size: 1.6em;
-            margin: 3rem 0 1.5rem;
-            color: #414141;
-          }
-
-          p {
-            font-size: 0.9em;
-            margin: 1rem 0;
-          }
-
-          ul {
-            font-size: 0.8em;
-            margin: 0.5em 0 1em;
-          }
-
           .donation_container {
             display: flex;
             flex-direction: column;
@@ -214,33 +192,8 @@ export default function AcknowledgementsPage({
             border-radius: 100%;
           }
 
-          .horizontal_list {
-            list-style-type: none;
-            cursor: default;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 0;
-            font-size: 0.9em;
-            line-height: 1.5;
-          }
-
           .donations_text {
             text-transform: capitalize;
-          }
-
-          @media screen and (min-width: 1440px) {
-            .credits_container {
-              font-size: 1.8vw;
-              max-width: 1100px;
-            }
-          }
-
-          @media screen and (min-width: 1700px) {
-            .credits_container {
-              font-size: 1.6vw;
-              max-width: 1500px;
-            }
           }
         `}</style>
       </div>
