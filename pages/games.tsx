@@ -94,7 +94,7 @@ export default function GamesPage({
             position: absolute;
             height: 3rem;
             width: 3rem;
-            z-index: 111;
+            z-index: 1;
             color: white;
           }
 
