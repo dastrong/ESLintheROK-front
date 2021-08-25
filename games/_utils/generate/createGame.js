@@ -75,7 +75,7 @@ function createFiles(game_name) {
 
 async function addToGamesList(newGame) {
   try {
-    const gamesPath = path.join(process.cwd(), 'games/games.json');
+    const gamesPath = path.join(process.cwd(), 'lib/games.json');
     // get the current games list of games
     const { games } = await fs.readJson(gamesPath);
     // add the new game to the games list

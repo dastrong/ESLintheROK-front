@@ -4,7 +4,7 @@ import { GameConfig } from 'games/types';
 import { getSingleGameConfig } from './getSingleGameConfig';
 
 export const getAllGameConfigs = async () => {
-  const gamesPath = path.join(process.cwd(), 'games/games.json');
+  const gamesPath = path.join(process.cwd(), 'lib/games.json');
   const { games } = await fs.readJson(gamesPath);
 
   const gameConfigs = await Promise.all<GameConfig>(
