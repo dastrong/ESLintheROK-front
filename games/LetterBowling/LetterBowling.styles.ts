@@ -1,4 +1,5 @@
 import { css } from 'styled-jsx/css';
+import { getGameFileUrl } from 'utils/getCloudUrls';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
    {
@@ -7,7 +8,10 @@ export const getContainerCSS = (fontFamily: string) => css.resolve`
     width: 100%;
     overflow: hidden;
     position: absolute;
-    background-image: url('https://res.cloudinary.com/dastrong/image/upload/f_auto,q_80/v1538223041/TeacherSite/Misc/bowling-alley.jpg');
+    background-image: url(${getGameFileUrl(
+      'LetterBowling/bowling-alley.jpg',
+      '/f_auto,q_80'
+    )});
     background-size: cover;
     background-position: center;
     user-select: none;

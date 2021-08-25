@@ -22,30 +22,29 @@ import SpeedSolverInfo from './SpeedSolverInfo';
 // IMPORT COMPONENTS/UTILITIES HERE
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData, resetAllAudio } from 'games/_utils';
-import SeoWrapper from 'components/SeoWrapper';
 import { AnswerBox } from 'games/_components';
+import SeoWrapper from 'components/SeoWrapper';
+import { getGameFileUrl } from 'utils/getCloudUrls';
 
 // CONSTANTS - img, audio, function, etc.
-const getMediaURL = (type: string, file: string, transforms = '') =>
-  `https://res.cloudinary.com/dastrong/${type}/upload${transforms}/TeacherSite/Media/SpeedSolver/${file}`;
 // IMAGES URLs
-const BG_blu = getMediaURL('image', 'BG_blu.jpg', '/f_auto');
-const BG_pnk = getMediaURL('image', 'BG_pnk.jpg', '/f_auto');
-const BG_bNr = getMediaURL('image', 'BG_bNr.jpg', '/f_auto');
-const BG_rbw = getMediaURL('image', 'BG_rbw.jpg', '/f_auto');
-const BG_images = [BG_blu, BG_pnk, BG_bNr, BG_rbw];
+const BlueBgURL = getGameFileUrl('SpeedSolver/BG_blu.jpg', '/f_auto');
+const PinkBgURL = getGameFileUrl('SpeedSolver/BG_pnk.jpg', '/f_auto');
+const BrownBgURL = getGameFileUrl('SpeedSolver/BG_bNr.jpg', '/f_auto');
+const RainbowBgURL = getGameFileUrl('SpeedSolver/BG_rbw.jpg', '/f_auto');
+const BG_images = [BlueBgURL, PinkBgURL, BrownBgURL, RainbowBgURL];
 // AUDIO URLs
-const flyByUrl = getMediaURL('video', 'zoomBy.mp3');
-const level1Url = getMediaURL('video', 'level1.mp3');
-const level2Url = getMediaURL('video', 'level2.mp3');
-const level3Url = getMediaURL('video', 'level3.mp3');
-const level4Url = getMediaURL('video', 'level4.mp3');
-const level5Url = getMediaURL('video', 'level5.mp3');
-const level6Url = getMediaURL('video', 'level6.mp3');
-const level7Url = getMediaURL('video', 'level7.mp3');
-const level8Url = getMediaURL('video', 'level8.mp3');
-const level9Url = getMediaURL('video', 'level9.mp3');
-const level10Url = getMediaURL('video', 'level10.mp3');
+const flyByURL = getGameFileUrl('SpeedSolver/zoomBy.mp3');
+const level1URL = getGameFileUrl('SpeedSolver/level1.mp3');
+const level2URL = getGameFileUrl('SpeedSolver/level2.mp3');
+const level3URL = getGameFileUrl('SpeedSolver/level3.mp3');
+const level4URL = getGameFileUrl('SpeedSolver/level4.mp3');
+const level5URL = getGameFileUrl('SpeedSolver/level5.mp3');
+const level6URL = getGameFileUrl('SpeedSolver/level6.mp3');
+const level7URL = getGameFileUrl('SpeedSolver/level7.mp3');
+const level8URL = getGameFileUrl('SpeedSolver/level8.mp3');
+const level9URL = getGameFileUrl('SpeedSolver/level9.mp3');
+const level10URL = getGameFileUrl('SpeedSolver/level10.mp3');
 
 // the different stages
 const stages: StageNames[] = [
@@ -61,17 +60,17 @@ export default function SpeedSolver({ title, description }: GameSEOProps) {
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
   // AUDIO - useAudio
-  const [flyByAud, resetFlyBy] = useAudio(flyByUrl);
-  const [lvl1Aud, resetLvl1] = useAudio(level1Url, true);
-  const [lvl2Aud, resetLvl2] = useAudio(level2Url, true);
-  const [lvl3Aud, resetLvl3] = useAudio(level3Url, true);
-  const [lvl4Aud, resetLvl4] = useAudio(level4Url, true);
-  const [lvl5Aud, resetLvl5] = useAudio(level5Url, true);
-  const [lvl6Aud, resetLvl6] = useAudio(level6Url, true);
-  const [lvl7Aud, resetLvl7] = useAudio(level7Url, true);
-  const [lvl8Aud, resetLvl8] = useAudio(level8Url, true);
-  const [lvl9Aud, resetLvl9] = useAudio(level9Url, true);
-  const [lvl10Aud, resetLvl10] = useAudio(level10Url, true);
+  const [flyByAud, resetFlyBy] = useAudio(flyByURL);
+  const [lvl1Aud, resetLvl1] = useAudio(level1URL, true);
+  const [lvl2Aud, resetLvl2] = useAudio(level2URL, true);
+  const [lvl3Aud, resetLvl3] = useAudio(level3URL, true);
+  const [lvl4Aud, resetLvl4] = useAudio(level4URL, true);
+  const [lvl5Aud, resetLvl5] = useAudio(level5URL, true);
+  const [lvl6Aud, resetLvl6] = useAudio(level6URL, true);
+  const [lvl7Aud, resetLvl7] = useAudio(level7URL, true);
+  const [lvl8Aud, resetLvl8] = useAudio(level8URL, true);
+  const [lvl9Aud, resetLvl9] = useAudio(level9URL, true);
+  const [lvl10Aud, resetLvl10] = useAudio(level10URL, true);
 
   // array of the above audios for easier playing
   const audios = [
@@ -222,7 +221,13 @@ function __preloadImgs(images: string[]) {
 
 function __getBGimg(level: number) {
   const img =
-    level > 8 ? BG_rbw : level > 5 ? BG_bNr : level > 2 ? BG_pnk : BG_blu;
+    level > 8
+      ? RainbowBgURL
+      : level > 5
+      ? BrownBgURL
+      : level > 2
+      ? PinkBgURL
+      : BlueBgURL;
   return `url(${img})`;
 }
 

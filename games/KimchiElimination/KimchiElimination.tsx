@@ -16,6 +16,10 @@ import type { GameSEOProps } from 'games/types';
 import { getRandoNum, nextRoundData } from 'games/_utils';
 import SeoWrapper from 'components/SeoWrapper';
 import FitText from 'components/FitText';
+import { getGameFileUrl } from 'utils/getCloudUrls';
+
+// CONSTANTS - img, audio, function, etc.
+const KimchiURL = getGameFileUrl('KimchiElimination/GameCover.svg');
 
 export default function KimchiElimination({
   title,
@@ -113,7 +117,7 @@ export default function KimchiElimination({
                   style={imgStyles}
                   className={Styles.KimchiCSS.className}
                   alt="kimchi; disable your adblock?"
-                  src="https://res.cloudinary.com/dastrong/image/upload/v1570941137/TeacherSite/Games/Kimchi.svg"
+                  src={KimchiURL}
                 />
               ) : (
                 // eslint-disable-next-line jsx-a11y/accessible-emoji

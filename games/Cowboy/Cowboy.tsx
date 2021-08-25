@@ -22,11 +22,11 @@ import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
 import SeoWrapper from 'components/SeoWrapper';
 import FitText from 'components/FitText';
+import { getGameFileUrl } from 'utils/getCloudUrls';
 
 // CONSTANTS - img, audio, function, etc.
-const baseURL = `https://res.cloudinary.com/dastrong/video/upload/v1567147248/TeacherSite/Media/Cowboy`;
-const ReloadAudioURL = `${baseURL}/GunReload.mp3`;
-const ShotAudioURL = `${baseURL}/GunShot.mp3`;
+const ReloadAudioURL = getGameFileUrl('Cowboy/GunReload.mp3');
+const ShotAudioURL = getGameFileUrl('Cowboy/GunShot.mp3');
 
 export default function Cowboy({ title, description }: GameSEOProps) {
   const store = useStore();

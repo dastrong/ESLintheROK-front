@@ -23,16 +23,16 @@ import SleepingBearsCard from './SleepingBearsCard';
 // IMPORT COMPONENTS/UTILITIES HERE
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData, splitString } from 'games/_utils';
-import SeoWrapper from 'components/SeoWrapper';
 import { AnswerBox } from 'games/_components';
+import SeoWrapper from 'components/SeoWrapper';
+import { getGameFileUrl } from 'utils/getCloudUrls';
 
 // CONSTANTS - img, audio, function, etc.
-const bearImgs = [
-  'https://res.cloudinary.com/dastrong/image/upload/TeacherSite/Media/SleepingBears/Bear-1.png',
-  'https://res.cloudinary.com/dastrong/image/upload/TeacherSite/Media/SleepingBears/Bear-2.png',
-  'https://res.cloudinary.com/dastrong/image/upload/TeacherSite/Media/SleepingBears/Bear-3.png',
-  'https://res.cloudinary.com/dastrong/image/upload/TeacherSite/Media/SleepingBears/Bear-4.png',
-];
+const Bear1URL = getGameFileUrl('SleepingBears/Bear-1.png');
+const Bear2URL = getGameFileUrl('SleepingBears/Bear-2.png');
+const Bear3URL = getGameFileUrl('SleepingBears/Bear-3.png');
+const Bear4URL = getGameFileUrl('SleepingBears/Bear-4.png');
+const bearImgs = [Bear1URL, Bear2URL, Bear3URL, Bear4URL];
 
 export default function SleepingBears({ title, description }: GameSEOProps) {
   const store = useStore();

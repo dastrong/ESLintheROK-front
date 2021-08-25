@@ -24,28 +24,26 @@ import type { GameSEOProps } from 'games/types';
 import { nextRoundData, resetAllAudio } from 'games/_utils';
 import SeoWrapper from 'components/SeoWrapper';
 import FitText from 'components/FitText';
+import { getGameFileUrl } from 'utils/getCloudUrls';
 
 // CONSTANTS - img, audio, function, etc.
-const baseURL = 'https://res.cloudinary.com/dastrong/';
-const URLs = {
-  bubbling: `${baseURL}video/upload/v1540601372/TeacherSite/Media/HotPotato/Bubbling.mp3`,
-  scream: `${baseURL}video/upload/v1540601372/TeacherSite/Media/HotPotato/Scream.mp3`,
-  song: `${baseURL}video/upload/v1540601372/TeacherSite/Media/HotPotato/HotPotato.mp3`,
-  sizzle: `${baseURL}video/upload/v1540601372/TeacherSite/Media/HotPotato/Sizzle.mp3`,
-  boiling: `${baseURL}image/upload/f_auto,q_50/v1540469924/TeacherSite/Media/HotPotato/potatoesBoiling.gif`,
-  dancing: `${baseURL}image/upload/f_auto,q_50/v1540469924/TeacherSite/Media/HotPotato/potatoDancing.gif`,
-  cooling: `${baseURL}image/upload/f_auto,q_50/v1540469924/TeacherSite/Media/HotPotato/potatoCooling.gif`,
-};
+const BubblingAudioURL = getGameFileUrl('HotPotato/Bubbling.mp3');
+const ScreamAudioURL = getGameFileUrl('HotPotato/Scream.mp3');
+const SongAudioURL = getGameFileUrl('HotPotato/Song.mp3');
+const SizzleAudioURL = getGameFileUrl('HotPotato/Sizzle.mp3');
+const BoilingGifURL = getGameFileUrl('HotPotato/Boiling.gif', '/f_auto,q_50');
+const DancingGifURL = getGameFileUrl('HotPotato/Dancing.gif', '/f_auto,q_50');
+const CoolingGifURL = getGameFileUrl('HotPotato/Cooling.gif', '/f_auto,q_50');
 
 export default function HotPotato({ title, description }: GameSEOProps) {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
   // AUDIO - useAudio
-  const [Bubbling, resetBubb] = useAudio(URLs.bubbling);
-  const [Scream, resetScream] = useAudio(URLs.scream);
-  const [Sizzle, resetSizzle] = useAudio(URLs.sizzle);
-  const [Song, resetSong] = useAudio(URLs.song, true);
+  const [Bubbling, resetBubb] = useAudio(BubblingAudioURL);
+  const [Scream, resetScream] = useAudio(ScreamAudioURL);
+  const [Sizzle, resetSizzle] = useAudio(SizzleAudioURL);
+  const [Song, resetSong] = useAudio(SongAudioURL, true);
 
   // STATE - useData
   const primary = store.vocabulary;
@@ -166,7 +164,7 @@ export default function HotPotato({ title, description }: GameSEOProps) {
           bgColor="#ffcb04"
           cxDiv={Styles.StageContainerCSS.className}
           cxImg={Styles.ImgCSS.className}
-          src={URLs.boiling}
+          src={BoilingGifURL}
           alt="potatoes-boiling"
         />
         <HotPotatoStage
@@ -174,7 +172,7 @@ export default function HotPotato({ title, description }: GameSEOProps) {
           bgColor="#fffbde"
           cxDiv={Styles.StageContainerCSS.className}
           cxImg={Styles.ImgCSS.className}
-          src={URLs.dancing}
+          src={DancingGifURL}
           alt="potato-dancing"
         />
         <HotPotatoStage
@@ -182,7 +180,7 @@ export default function HotPotato({ title, description }: GameSEOProps) {
           bgColor="#a77c52"
           cxDiv={Styles.StageContainerCSS.className}
           cxImg={Styles.ImgCSS.className}
-          src={URLs.cooling}
+          src={CoolingGifURL}
           alt="potato-finished"
         >
           <div className={Styles.TextContainer.className}>

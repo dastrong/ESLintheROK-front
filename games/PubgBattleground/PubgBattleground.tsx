@@ -24,12 +24,11 @@ import type { GameSEOProps } from 'games/types';
 import { getRandoNum, nextRoundData } from 'games/_utils';
 import SeoWrapper from 'components/SeoWrapper';
 import FitText from 'components/FitText';
+import { getGameFileUrl } from 'utils/getCloudUrls';
 
 // CONSTANTS - img, audio, function, etc.
-const baseURL = 'https://res.cloudinary.com/dastrong';
-const addURL = `/image/upload/f_auto/v1543130357/TeacherSite/Media/BattleGround/images/`;
-const countdownAudioURL = `${baseURL}/video/upload/f_auto/v1543135345/TeacherSite/Media/BattleGround/countdownAudio.mp3`;
-const backgroundURL = `${baseURL}/image/upload/f_auto/v1543135348/TeacherSite/Media/BattleGround/pubgMap.jpg`;
+const CountdownAudioURL = getGameFileUrl('PubgBattleground/countdown.mp3');
+const BackgroundURL = getGameFileUrl('PubgBattleground/pubgMap.jpg', '/f_auto');
 const numOfText = 4;
 
 export default function PubgBattleground({ title, description }: GameSEOProps) {
@@ -37,7 +36,7 @@ export default function PubgBattleground({ title, description }: GameSEOProps) {
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
   // AUDIO - useAudio
-  const [CountAudio, resetCountAudio] = useAudio(countdownAudioURL);
+  const [CountAudio, resetCountAudio] = useAudio(CountdownAudioURL);
 
   // STATE - useData
   const primary = store.vocabulary;
@@ -123,14 +122,13 @@ export default function PubgBattleground({ title, description }: GameSEOProps) {
     if (stage === 1) return;
     if (stage === 2) return dispatch({ type: 'Show_Items' });
     if (stage === 3) return handleGame();
-    // }, [stage, handleGame, CountAudio, title, dispatch]);
   }, [stage, handleGame, CountAudio, dispatch]);
 
   return (
     <SeoWrapper title={title} description={description}>
       <div className={ContainerCSS.className} onClick={_handleClick}>
         <div className="blue-zone" />
-        <img className="map" src={backgroundURL} alt="pubg map background" />
+        <img className="map" src={BackgroundURL} alt="pubg map background" />
         <div className="countdown-timer">{countdown}</div>
 
         {/* TEXT CARDS */}
@@ -155,7 +153,10 @@ export default function PubgBattleground({ title, description }: GameSEOProps) {
                 key={`pubg-card-item-${i}`}
                 style={{
                   ...style,
-                  backgroundImage: `url(${baseURL + addURL + name}.png)`,
+                  backgroundImage: `url(${getGameFileUrl(
+                    `PubgBattleground/gameItems/${name}.png`,
+                    '/f_auto'
+                  )})`,
                   color: points.startsWith('-') ? 'red' : 'green',
                 }}
                 className={Styles.CardCSS.className}

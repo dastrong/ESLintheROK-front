@@ -1,9 +1,12 @@
 import { css } from 'styled-jsx/css';
+import { getGameFileUrl } from 'utils/getCloudUrls';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
    {
     font-family: ${fontFamily};
-    background-image: url('https://res.cloudinary.com/dastrong/image/upload/v1569147765/TeacherSite/Media/SleepingBears/campBackground.jpg');
+    background-image: url(${getGameFileUrl(
+      'SleepingBears/campBackground.jpg'
+    )});
     background-size: cover;
     background-position: bottom;
     height: 100vh;

@@ -21,12 +21,12 @@ import type { GameSEOProps } from 'games/types';
 import { RowOfTwoSidedCards } from 'games/_components';
 import SeoWrapper from 'components/SeoWrapper';
 import { nextRoundData, arrOfRandoNum } from 'games/_utils';
+import { getGameFileUrl } from 'utils/getCloudUrls';
 // import { googleEvent } from 'helpers/ga';
 
 // CONSTANTS
-const baseURL = 'https://res.cloudinary.com/dastrong/video/upload';
-const gameOverAudioURL = `${baseURL}/v1564219595/TeacherSite/Media/Elimination/game-over.wav`;
-const ohYeahAudioURL = `${baseURL}/v1564219597/TeacherSite/Media/Elimination/oh-yeah.mp3`;
+const gameOverAudioURL = getGameFileUrl('Elimination/game-over.wav');
+const ohYeahAudioURL = getGameFileUrl('Elimination/oh-yeah.mp3');
 const getBackCard = (isX: boolean) => (isX ? ['X', 'red'] : ['O', 'lime']);
 const getBoxCount = (isVocab: boolean) => (isVocab ? 8 : 6);
 const colors = [

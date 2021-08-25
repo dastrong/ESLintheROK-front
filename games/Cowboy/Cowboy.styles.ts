@@ -1,10 +1,11 @@
 import { css } from 'styled-jsx/css';
+import { getGameFileUrl } from 'utils/getCloudUrls';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
    {
     font-family: ${fontFamily};
     height: 100vh;
-    background-image: url('https://res.cloudinary.com/dastrong/image/upload/f_auto/v1567147396/TeacherSite/Media/Cowboy/CowboyStandoff.jpg');
+    background-image: url(${getGameFileUrl('Cowboy/CowboyStandoff.jpg')});
     background-size: cover;
     background-position: bottom;
     display: flex;

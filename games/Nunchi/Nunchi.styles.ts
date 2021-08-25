@@ -1,10 +1,14 @@
 import { css } from 'styled-jsx/css';
+import { getGameFileUrl } from 'utils/getCloudUrls';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
    {
     font-family: ${fontFamily};
     height: 100vh;
-    background-image: url('https://res.cloudinary.com/dastrong/image/upload/f_auto,q_40/v1540623063/TeacherSite/Misc/NunchiBack.jpg');
+    background-image: url(${getGameFileUrl(
+      'Nunchi/NunchiBack.jpg',
+      'f_auto,q_40'
+    )});
     background-size: cover;
     background-position: center;
     display: flex;
