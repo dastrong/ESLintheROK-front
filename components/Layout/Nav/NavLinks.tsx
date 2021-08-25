@@ -50,17 +50,17 @@ export default function NavLinks() {
         >
           <ul className="contribute_menu">
             <li>
-              <Link href="/contribute/teacher">
+              <Link href="/contribute#teacher">
                 <a>As teacher</a>
               </Link>
             </li>
             <li>
-              <Link href="/contribute/developer">
+              <Link href="/contribute#developer">
                 <a>As developer</a>
               </Link>
             </li>
             <li>
-              <Link href="/contribute/designer">
+              <Link href="/contribute#designer">
                 <a>As designer</a>
               </Link>
             </li>
