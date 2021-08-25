@@ -5,7 +5,7 @@ import Modal from 'components/Modal(s)';
 import Skeleton from 'components/Skeleton';
 import Image from 'components/Image';
 import LessonsGradeCarousel from './LessonsGradeCarousel';
-import type { Book, LessonsBooksProps } from './types';
+import type { Book, LessonsBooksProps } from './Lessons.types';
 import { getBookCoverUrl } from 'utils/getCloudUrls';
 
 export default function LessonsBooks({

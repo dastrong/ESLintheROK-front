@@ -6,7 +6,7 @@ import { useStore } from 'contexts/store';
 import Modal from 'components/Modal(s)';
 import LessonsGradesSVG from './LessonsGradesSVG';
 import LessonsGradeCarousel from './LessonsGradeCarousel';
-import type { LessonsGradesProps, Grade } from './types';
+import type { LessonsGradesProps, Grade } from './Lessons.types';
 
 export default function LessonsGrades({
   closeModal,

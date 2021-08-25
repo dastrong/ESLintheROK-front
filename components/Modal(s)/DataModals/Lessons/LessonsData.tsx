@@ -3,7 +3,7 @@ import { useSetter } from 'contexts/setter';
 import { useStore } from 'contexts/store';
 import Modal from 'components/Modal(s)';
 import { DataScreen } from '../_components';
-import type { LessonFull, LessonsDataProps } from './types';
+import type { LessonFull, LessonsDataProps } from './Lessons.types';
 
 export default function LessonsData({
   closeModal,

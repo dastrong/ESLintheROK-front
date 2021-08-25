@@ -8,7 +8,7 @@ import LessonsGrades from './LessonsGrades';
 import LessonsBooks from './LessonsBooks';
 import LessonsLessons from './LessonsLessons';
 import LessonsData from './LessonsData';
-import type { Steps, State, Action } from './types';
+import type { Steps, State, Action } from './Lessons.types';
 
 const steps: Steps[] = [
   'LOADING',

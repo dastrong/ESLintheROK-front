@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import classNames from 'classnames';
 import { darken, transparentize } from 'color2k';
 import ButtonSpinner from './ButtonSpinner';
-import type { Props, AnchorEl, ButtonEl } from './ButtonTypes';
+import type { Props, AnchorEl, ButtonEl } from './Button.types';
 
 const sizes = {
   xs: 0.675,

@@ -1,6 +1,6 @@
 import React from 'react';
 import Carousel from 'components/Carousel';
-import { Dispatch, Grade } from './types';
+import { Dispatch, Grade } from './Lessons.types';
 
 export default function LessonsGradeCarousel({
   grades,

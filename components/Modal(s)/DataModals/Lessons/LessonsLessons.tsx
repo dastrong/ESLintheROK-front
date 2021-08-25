@@ -7,7 +7,7 @@ import Modal from 'components/Modal(s)';
 import Image from 'components/Image';
 import Skeleton from 'components/Skeleton';
 import Button from 'components/Button';
-import type { LessonsLessonsProps, LessonMini } from './types';
+import type { LessonsLessonsProps, LessonMini } from './Lessons.types';
 
 export default function LessonsLessons({
   closeModal,

@@ -3,7 +3,7 @@ import { default as ReactCarousel } from 'react-multi-carousel';
 import { getScale } from 'color2k';
 
 import Button from 'components/Button';
-import type { Size as ButtonSize } from 'components/Button/ButtonTypes';
+import type { Size as ButtonSize } from 'components/Button/Button.types';
 import { CustomLeftArrow, CustomRightArrow } from './CarouselArrows';
 import * as Styles from './Carousel.styles';
 
