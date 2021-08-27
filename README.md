@@ -85,5 +85,6 @@ Instead of using PPT games, which teachers needed to download/change/save/share 
 
 ```js
 NEXT_PUBLIC_CLOUDINARY_URL = 'https://res.cloudinary.com/dastrong';
+NEXT_PUBLIC_GOOGLE_FONTS_KEY = 'string';
 COFFEE_TOKEN = 'string'; // used to grab supporters from buymeacoffee
 ```
