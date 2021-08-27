@@ -2,10 +2,11 @@ import React from 'react';
 import { SetterProvider } from 'contexts/setter';
 import { useStore } from 'contexts/store';
 import Modal from 'components/Modal(s)';
+import DataPastLessonsContent from './PastLessonsContent';
 import { Styles } from '../_components';
 
-export default function DataPastLessons() {
-  const { dataModalName, storeDispatch, vocabulary, expressions } = useStore();
+export default function PastLessons() {
+  const { dataModalName, storeDispatch } = useStore();
 
   return (
     <Modal
@@ -14,8 +15,8 @@ export default function DataPastLessons() {
       className={Styles.contentCSS.className}
       styles={Styles.contentCSS.styles}
     >
-      <SetterProvider vocabulary={vocabulary} expressions={expressions}>
-        {/* CONTENT */}
+      <SetterProvider>
+        <DataPastLessonsContent />
       </SetterProvider>
     </Modal>
   );
