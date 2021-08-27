@@ -182,7 +182,7 @@ export default function Menu() {
                 Icon={RiSettings4Fill}
                 color="white"
                 bgColor={gradientColors[2]}
-                onClick={console.log}
+                onClick={() => storeDispatch({ type: 'Open_Settings' })}
               />
             </animated.div>
           }
