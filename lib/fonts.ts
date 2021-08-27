@@ -1,37 +1,31 @@
-export const fonts = [
+export type FontType = {
+  name: string;
+  fontFamily: string;
+};
+
+export const defaultFonts: FontType[] = [
   {
-    text: 'Sans-Serif',
-    value: 'sans-serif',
-    style: { fontFamily: 'sans-serif' },
+    name: 'Bree Serif',
+    fontFamily: 'Bree Serif, serif',
   },
   {
-    text: 'Bree Serif',
-    value: 'Bree Serif, serif',
-    style: { fontFamily: 'Bree Serif, serif' },
+    name: 'Mali',
+    fontFamily: 'Mali, cursive',
   },
   {
-    text: 'Mali',
-    value: 'Mali, cursive',
-    style: { fontFamily: 'Mali, cursive' },
+    name: 'Niramit',
+    fontFamily: 'Niramit, sans-serif',
   },
   {
-    text: 'Niramit',
-    value: 'Niramit, sans-serif',
-    style: { fontFamily: 'Niramit, sans-serif' },
+    name: 'Poppins',
+    fontFamily: 'Poppins, sans-serif',
   },
   {
-    text: 'Poppins',
-    value: 'Poppins, sans-serif',
-    style: { fontFamily: 'Poppins, sans-serif' },
+    name: 'Muli',
+    fontFamily: 'Muli, sans-serif',
   },
   {
-    text: 'Muli',
-    value: 'Muli, sans-serif',
-    style: { fontFamily: 'Muli, sans-serif' },
-  },
-  {
-    text: 'Quicksand',
-    value: 'Quicksand, sans-serif',
-    style: { fontFamily: 'Quicksand, sans-serif' },
+    name: 'Quicksand',
+    fontFamily: 'Quicksand, sans-serif',
   },
 ];
