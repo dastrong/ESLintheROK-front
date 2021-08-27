@@ -20,7 +20,7 @@ export default function FontLoader({ extraFonts }: Props) {
         />
       ))}
 
-      {extraFonts.map(font => (
+      {extraFonts?.map(font => (
         <link
           key={font.name}
           rel="stylesheet"
