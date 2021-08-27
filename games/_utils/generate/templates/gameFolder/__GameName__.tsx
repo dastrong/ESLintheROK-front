@@ -17,12 +17,13 @@ import type { GameStore } from './state_types';
 import * as Styles from './__GameName__.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
-//
+import type { GameSEOProps } from 'games/types';
+import GameWrapper from 'components/GameWrapper';
 
 // CONSTANTS - img, audio, function, etc.
 //
 
-export default function __GameName__() {
+export default function __GameName__({ title, description }: GameSEOProps) {
   const store = useStore();
   const ContainerCSS = Styles.getContainerCSS(store.font);
 
@@ -76,12 +77,14 @@ export default function __GameName__() {
   // GAME FUNCTIONS - start with an underscore ex) _handleClick
 
   return (
-    <div className={ContainerCSS.className}>
-      {/* ADD YOUR ELEMENTS/COMPONENTS HERE */}
+    <GameWrapper title={title} description={description}>
+      <div className={ContainerCSS.className}>
+        {/* ADD YOUR ELEMENTS/COMPONENTS HERE */}
 
-      {/* STYLES */}
-      {ContainerCSS.styles}
-      {/* Add any other style elements here */}
-    </div>
+        {/* STYLES */}
+        {ContainerCSS.styles}
+        {/* Add any other style elements here */}
+      </div>
+    </GameWrapper>
   );
 }

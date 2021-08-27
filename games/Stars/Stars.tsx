@@ -19,7 +19,7 @@ import * as Styles from './Stars.styles';
 import type { GameSEOProps } from 'games/types';
 import { TwoSidedCard } from 'games/_components';
 import { nextRoundData, arrOfRandoNum } from 'games/_utils';
-import SeoWrapper from 'components/SeoWrapper';
+import GameWrapper from 'components/GameWrapper';
 
 // CONSTANTS - img, audio, function, etc.
 const colors = [
@@ -120,7 +120,7 @@ export default function Stars({ title, description }: GameSEOProps) {
   );
 
   return (
-    <SeoWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description}>
       <div className={ContainerCSS.className}>
         {gameData.map((text, i) => {
           // generate an array of our stars icons
@@ -160,6 +160,6 @@ export default function Stars({ title, description }: GameSEOProps) {
         {Styles.CardCSS.styles}
         {Styles.FitTextCSS.styles}
       </div>
-    </SeoWrapper>
+    </GameWrapper>
   );
 }

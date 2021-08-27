@@ -20,7 +20,7 @@ import * as Styles from './Cowboy.styles';
 // IMPORT COMPONENTS/UTILITIES HERE
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
-import SeoWrapper from 'components/SeoWrapper';
+import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 
@@ -94,7 +94,7 @@ export default function Cowboy({ title, description }: GameSEOProps) {
   useScroll(scrollCB);
 
   return (
-    <SeoWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description}>
       <div className={ContainerCSS.className} onClick={handleGame}>
         <div className={Styles.TextHolderCSS.className}>
           {transition(
@@ -119,6 +119,6 @@ export default function Cowboy({ title, description }: GameSEOProps) {
         {Styles.TextHolderCSS.styles}
         {Styles.TextCSS.styles}
       </div>
-    </SeoWrapper>
+    </GameWrapper>
   );
 }

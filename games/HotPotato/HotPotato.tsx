@@ -22,7 +22,7 @@ import HotPotatoStage from './HotPotatoStage';
 // IMPORT COMPONENTS/UTILITIES HERE
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData, resetAllAudio } from 'games/_utils';
-import SeoWrapper from 'components/SeoWrapper';
+import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 
@@ -157,7 +157,7 @@ export default function HotPotato({ title, description }: GameSEOProps) {
   }
 
   return (
-    <SeoWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description}>
       <div className={ContainerCSS.className} onClick={_handleClick}>
         <HotPotatoStage
           isIn={stage === 1}
@@ -213,7 +213,7 @@ export default function HotPotato({ title, description }: GameSEOProps) {
         {Styles.TextContainer.styles}
         {Styles.TextWrapper.styles}
       </div>
-    </SeoWrapper>
+    </GameWrapper>
   );
 }
 

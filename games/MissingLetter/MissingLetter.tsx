@@ -1,5 +1,5 @@
 import Notebook from 'games/_components/Notebook';
-import SeoWrapper from 'components/SeoWrapper';
+import GameWrapper from 'components/GameWrapper';
 import type { GameSEOProps } from 'games/types';
 
 const getHeaderTemplate = (editsLeft: number) =>
@@ -7,8 +7,8 @@ const getHeaderTemplate = (editsLeft: number) =>
 
 export default function MissingLetter({ title, description }: GameSEOProps) {
   return (
-    <SeoWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description}>
       <Notebook showBlank getHeaderTemplate={getHeaderTemplate} />
-    </SeoWrapper>
+    </GameWrapper>
   );
 }

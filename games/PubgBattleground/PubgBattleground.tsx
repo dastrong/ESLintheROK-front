@@ -22,7 +22,7 @@ import { PubgBattlegroundItems } from './PubgBattlegroundItems';
 // IMPORT COMPONENTS/UTILITIES HERE
 import type { GameSEOProps } from 'games/types';
 import { getRandoNum, nextRoundData } from 'games/_utils';
-import SeoWrapper from 'components/SeoWrapper';
+import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 
@@ -125,7 +125,7 @@ export default function PubgBattleground({ title, description }: GameSEOProps) {
   }, [stage, handleGame, CountAudio, dispatch]);
 
   return (
-    <SeoWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description}>
       <div className={ContainerCSS.className} onClick={_handleClick}>
         <div className="blue-zone" />
         <img className="map" src={BackgroundURL} alt="pubg map background" />
@@ -214,6 +214,6 @@ export default function PubgBattleground({ title, description }: GameSEOProps) {
           }
         `}</style>
       </div>
-    </SeoWrapper>
+    </GameWrapper>
   );
 }

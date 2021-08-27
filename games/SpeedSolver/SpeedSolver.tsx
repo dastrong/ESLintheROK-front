@@ -23,7 +23,7 @@ import SpeedSolverInfo from './SpeedSolverInfo';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData, resetAllAudio } from 'games/_utils';
 import { AnswerBox } from 'games/_components';
-import SeoWrapper from 'components/SeoWrapper';
+import GameWrapper from 'components/GameWrapper';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 
 // CONSTANTS - img, audio, function, etc.
@@ -171,7 +171,7 @@ export default function SpeedSolver({ title, description }: GameSEOProps) {
   }
 
   return (
-    <SeoWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description}>
       <div
         className={ContainerCSS.className}
         style={{ backgroundImage }}
@@ -207,7 +207,7 @@ export default function SpeedSolver({ title, description }: GameSEOProps) {
         {Styles.InfoCSS.styles}
         {Styles.LettersCSS.styles}
       </div>
-    </SeoWrapper>
+    </GameWrapper>
   );
 }
 

@@ -13,7 +13,7 @@ import * as Styles from './WordLotto.styles';
 // IMPORT COMPONENTS/UTILITIES HERE
 import type { GameSEOProps } from 'games/types';
 import { arrOfRandoNum, nextRoundData } from 'games/_utils';
-import SeoWrapper from 'components/SeoWrapper';
+import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 
 // CONSTANTS - img, audio, function, etc.
@@ -125,7 +125,7 @@ export default function WordLotto({ title, description }: GameSEOProps) {
   }, [isDone, isAnimating, dispatch, handleGame]);
 
   return (
-    <SeoWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description}>
       <div className={ContainerCSS.className} onClick={_handleClick}>
         {lottoCardStyles.map((cardStyles, i) => (
           <animated.div
@@ -146,6 +146,6 @@ export default function WordLotto({ title, description }: GameSEOProps) {
         {ContainerCSS.styles}
         {Styles.CardCSS.styles}
       </div>
-    </SeoWrapper>
+    </GameWrapper>
   );
 }

@@ -19,7 +19,7 @@ import * as Styles from './Elimination.styles';
 // IMPORT COMPONENTS/UTILITIES HERE
 import type { GameSEOProps } from 'games/types';
 import { RowOfTwoSidedCards } from 'games/_components';
-import SeoWrapper from 'components/SeoWrapper';
+import GameWrapper from 'components/GameWrapper';
 import { nextRoundData, arrOfRandoNum } from 'games/_utils';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 // import { googleEvent } from 'helpers/ga';
@@ -143,7 +143,7 @@ export default function Elimination({ title, description }: GameSEOProps) {
   );
 
   return (
-    <SeoWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description}>
       <div className={ContainerCSS.className}>
         {splitRows.map((row, i) => (
           <RowOfTwoSidedCards
@@ -167,6 +167,6 @@ export default function Elimination({ title, description }: GameSEOProps) {
         {Styles.FitTextCSS.styles}
         {Styles.CardCSS.styles}
       </div>
-    </SeoWrapper>
+    </GameWrapper>
   );
 }

@@ -14,7 +14,7 @@ import * as Styles from './KimchiElimination.styles';
 // IMPORT COMPONENTS/UTILITIES HERE
 import type { GameSEOProps } from 'games/types';
 import { getRandoNum, nextRoundData } from 'games/_utils';
-import SeoWrapper from 'components/SeoWrapper';
+import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 
@@ -107,7 +107,7 @@ export default function KimchiElimination({
   }, [dispatch, showPic]);
 
   return (
-    <SeoWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description}>
       <div className={ContainerCSS.className} onClick={handleGame}>
         {transitions((style, item) =>
           item ? (
@@ -157,6 +157,6 @@ export default function KimchiElimination({
         {Styles.PooCSS.styles}
         {Styles.FrequencyCSS.styles}
       </div>
-    </SeoWrapper>
+    </GameWrapper>
   );
 }

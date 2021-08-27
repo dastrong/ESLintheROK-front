@@ -13,7 +13,7 @@ import * as Styles from './Nunchi.styles';
 // IMPORT COMPONENTS/UTILITIES HERE
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
-import SeoWrapper from 'components/SeoWrapper';
+import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 
 export default function Nunchi({ title, description }: GameSEOProps) {
@@ -56,7 +56,7 @@ export default function Nunchi({ title, description }: GameSEOProps) {
   useKeys(handleGame); // no specific in game events
 
   return (
-    <SeoWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description}>
       <div className={ContainerCSS.className} onClick={handleGame}>
         <div className={Styles.TextContainerCSS.className}>
           {readyTransition(
@@ -82,6 +82,6 @@ export default function Nunchi({ title, description }: GameSEOProps) {
         {Styles.ReadyTextCSS.styles}
         {Styles.TextCSS.styles}
       </div>
-    </SeoWrapper>
+    </GameWrapper>
   );
 }

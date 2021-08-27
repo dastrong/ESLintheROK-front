@@ -13,7 +13,7 @@ import * as Styles from './SparkleDie.styles';
 // IMPORT COMPONENTS/UTILITIES HERE
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
-import SeoWrapper from 'components/SeoWrapper';
+import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 
 export default function SparkleDie({ title, description }: GameSEOProps) {
@@ -70,7 +70,7 @@ export default function SparkleDie({ title, description }: GameSEOProps) {
   }, [dispatch, isTimerRunning]);
 
   return (
-    <SeoWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description}>
       <div className={ContainerCSS.className}>
         <animated.div
           style={springStyles}
@@ -98,6 +98,6 @@ export default function SparkleDie({ title, description }: GameSEOProps) {
         {Styles.TimerBarCSS.styles}
         {Styles.TimerTextCSS.styles}
       </div>
-    </SeoWrapper>
+    </GameWrapper>
   );
 }

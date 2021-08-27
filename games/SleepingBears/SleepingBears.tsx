@@ -24,7 +24,7 @@ import SleepingBearsCard from './SleepingBearsCard';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData, splitString } from 'games/_utils';
 import { AnswerBox } from 'games/_components';
-import SeoWrapper from 'components/SeoWrapper';
+import GameWrapper from 'components/GameWrapper';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 
 // CONSTANTS - img, audio, function, etc.
@@ -108,7 +108,7 @@ export default function SleepingBears({ title, description }: GameSEOProps) {
   }
 
   return (
-    <SeoWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description}>
       <div className={ContainerCSS.className} onClick={_handleClick}>
         <AnswerBox
           showBox={gameData.length * 2 + 2 === stage}
@@ -149,6 +149,6 @@ export default function SleepingBears({ title, description }: GameSEOProps) {
         {Styles.CardContentCSS.styles}
         {Styles.CardExpanded.styles}
       </div>
-    </SeoWrapper>
+    </GameWrapper>
   );
 }

@@ -22,7 +22,7 @@ import WhatsBehindConfetti from './WhatsBehindConfetti';
 import type { GameSEOProps } from 'games/types';
 import { RowOfTwoSidedCards } from 'games/_components';
 import { nextRoundData, getRandoNum } from 'games/_utils';
-import SeoWrapper from 'components/SeoWrapper';
+import GameWrapper from 'components/GameWrapper';
 
 // DECLARE CONSTANT VARIABLES HERE - img, audio, function, etc.
 const getBackCard = (isTarget: boolean) =>
@@ -115,7 +115,7 @@ export default function WhatsBehind({ title, description }: GameSEOProps) {
   const foundTarget = target.includes(clickedID);
 
   return (
-    <SeoWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description}>
       <div className={ContainerCSS.className}>
         {splitRows.map((row, i) => (
           <RowOfTwoSidedCards
@@ -145,6 +145,6 @@ export default function WhatsBehind({ title, description }: GameSEOProps) {
         {Styles.FitTextCSS.styles}
         {Styles.CardCSS.styles}
       </div>
-    </SeoWrapper>
+    </GameWrapper>
   );
 }

@@ -13,7 +13,7 @@ import * as Styles from './LetterBowling.styles';
 // IMPORT COMPONENTS/UTILITIES HERE
 import type { GameSEOProps } from 'games/types';
 import { getRandoNum, nextRoundData } from 'games/_utils';
-import SeoWrapper from 'components/SeoWrapper';
+import GameWrapper from 'components/GameWrapper';
 import Popup from 'components/Popup';
 import Button from 'components/Button';
 
@@ -117,7 +117,7 @@ export default function LetterBowling({ title, description }: GameSEOProps) {
   const disablePlay = isBowling || isGameOver || showAnswer;
 
   return (
-    <SeoWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description}>
       <div className={ContainerCSS.className}>
         {/* CONTROLS */}
         <div className={Styles.ControlsCSS.className}>
@@ -216,6 +216,6 @@ export default function LetterBowling({ title, description }: GameSEOProps) {
         {Styles.TextCSS.styles}
         {Styles.LetterCSS.styles}
       </div>
-    </SeoWrapper>
+    </GameWrapper>
   );
 }

@@ -22,7 +22,7 @@ import * as Styles from './Matching.styles';
 // IMPORT COMPONENTS/UTILITIES HERE
 import type { GameSEOProps } from 'games/types';
 import { getRandoGrad, nextRoundData } from 'games/_utils';
-import SeoWrapper from 'components/SeoWrapper';
+import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 
 // CONSTANTS - img, audio, function, etc.
@@ -142,7 +142,7 @@ export default function Matching({ title, description }: GameSEOProps) {
   );
 
   return (
-    <SeoWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description}>
       <div className={ContainerCSS.className} style={{ background }}>
         {gameData.map((text, i) => (
           <div
@@ -181,6 +181,6 @@ export default function Matching({ title, description }: GameSEOProps) {
         {Styles.CardFrontCSS.styles}
         {Styles.CardBackCSS.styles}
       </div>
-    </SeoWrapper>
+    </GameWrapper>
   );
 }

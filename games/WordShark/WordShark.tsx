@@ -17,7 +17,7 @@ import * as Styles from './WordShark.styles';
 // IMPORT COMPONENTS/UTILITIES HERE
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
-import SeoWrapper from 'components/SeoWrapper';
+import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 
 // CONSTANTS - img, audio, function, etc.
@@ -90,7 +90,7 @@ export default function WordShark({ title, description }: GameSEOProps) {
   // GAME FUNCTIONS - start with an underscore ex) _handleClick
 
   return (
-    <SeoWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description}>
       <div className={ContainerCSS.className}>
         <div className="Hangman-imgContainer">
           <div className="Hangman-imgs">
@@ -125,6 +125,6 @@ export default function WordShark({ title, description }: GameSEOProps) {
         {ContainerCSS.styles}
         {/* Add any other style elements here */}
       </div>
-    </SeoWrapper>
+    </GameWrapper>
   );
 }

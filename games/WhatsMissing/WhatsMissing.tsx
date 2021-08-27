@@ -25,7 +25,7 @@ import * as Styles from './WhatsMissing.styles';
 // IMPORT COMPONENTS/UTILITIES HERE
 import type { GameSEOProps } from 'games/types';
 import { arrOfRandoNum, nextRoundData } from 'games/_utils';
-import SeoWrapper from 'components/SeoWrapper';
+import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 
 // CONSTANTS - img, audio, function, etc.
@@ -170,7 +170,7 @@ export default function WhatsMissing({ title, description }: GameSEOProps) {
   const transforms = arrOfRandoNum(maxAngle, -maxAngle, words.length, false);
 
   return (
-    <SeoWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description}>
       <div className={ContainerCSS.className} onClick={_handleClick}>
         {/* TELLS THE USER HOW MANY WORDS WILL BE MISSING */}
         <animated.div
@@ -214,7 +214,7 @@ export default function WhatsMissing({ title, description }: GameSEOProps) {
         {Styles.CardContainerCSS.styles}
         {Styles.CardCSS.styles}
       </div>
-    </SeoWrapper>
+    </GameWrapper>
   );
 }
 

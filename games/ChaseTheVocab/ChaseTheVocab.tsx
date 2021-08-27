@@ -15,7 +15,7 @@ import * as Styles from './ChaseTheVocab.styles';
 // IMPORT COMPONENTS/UTILITIES HERE
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
-import SeoWrapper from 'components/SeoWrapper';
+import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 
 // CONSTANTS - img, audio, function, etc.
@@ -149,7 +149,7 @@ export default function ChaseTheVocab({ title, description }: GameSEOProps) {
   );
 
   return (
-    <SeoWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description}>
       <div
         className={ContainerCSS.className}
         onClick={!isAnimating && !isShuffleDone ? _handleClick : null}
@@ -206,7 +206,7 @@ export default function ChaseTheVocab({ title, description }: GameSEOProps) {
         {Styles.CardNumCSS.styles}
         {Styles.CardTextCSS.styles}
       </div>
-    </SeoWrapper>
+    </GameWrapper>
   );
 }
 

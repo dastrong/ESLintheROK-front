@@ -12,7 +12,7 @@ import * as Styles from './RedAndBlue.styles';
 // IMPORT COMPONENTS/UTILITIES HERE
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
-import SeoWrapper from 'components/SeoWrapper';
+import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 
 export default function RedAndBlue({ title, description }: GameSEOProps) {
@@ -59,7 +59,7 @@ export default function RedAndBlue({ title, description }: GameSEOProps) {
   useScroll(scrollCB);
 
   return (
-    <SeoWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description}>
       <div className={ContainerCSS.className} onClick={handleGame}>
         {refs.map((ref, i) => (
           <div className={`outer-color ${!i ? 'red' : 'blue'}`}>
@@ -166,6 +166,6 @@ export default function RedAndBlue({ title, description }: GameSEOProps) {
           `}
         </style>
       </div>
-    </SeoWrapper>
+    </GameWrapper>
   );
 }
