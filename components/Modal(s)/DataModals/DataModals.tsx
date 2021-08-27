@@ -2,7 +2,8 @@ import React from 'react';
 import DataCustom from './DataCustom';
 import DataEdit from './DataEdit';
 import Lessons from './Lessons';
-import DataPastLessons from './DataPastLessons';
+import PastLessons from './PastLessons';
+import Settings from '../SettingsModal';
 
 export default function DataModals() {
   return (
@@ -10,7 +11,8 @@ export default function DataModals() {
       <DataCustom />
       <DataEdit />
       <Lessons />
-      <DataPastLessons />
+      <PastLessons />
+      <Settings />
     </>
   );
 }
