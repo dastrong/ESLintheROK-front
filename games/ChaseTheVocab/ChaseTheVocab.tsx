@@ -6,6 +6,7 @@ import { animated, useSpring, useSprings } from 'react-spring';
 import classNames from 'classnames';
 
 import { useStore } from 'contexts/store';
+import { useUser } from 'contexts/user';
 import { useData, useHandleGame, useFitText, useKeys } from 'hooks';
 
 import { init, reducer } from './state_manager';
@@ -33,7 +34,8 @@ const colors = [
 
 export default function ChaseTheVocab({ title, description }: GameSEOProps) {
   const store = useStore();
-  const ContainerCSS = Styles.getContainerCSS(store.font);
+  const { user } = useUser();
+  const ContainerCSS = Styles.getContainerCSS(user.activeFont);
 
   // STATE - useData
   const primary = store.vocabulary;

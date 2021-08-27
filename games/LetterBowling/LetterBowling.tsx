@@ -4,6 +4,7 @@ import { FaPlay, FaRandom, FaSyncAlt } from 'react-icons/fa';
 import { animated, useSpring, useSprings } from 'react-spring';
 
 import { useStore } from 'contexts/store';
+import { useUser } from 'contexts/user';
 import { useData, useHandleGame, useKeys } from 'hooks';
 
 import { init, reducer } from './state_manager';
@@ -34,7 +35,8 @@ const colors = [
 
 export default function LetterBowling({ title, description }: GameSEOProps) {
   const store = useStore();
-  const ContainerCSS = Styles.getContainerCSS(store.font);
+  const { user } = useUser();
+  const ContainerCSS = Styles.getContainerCSS(user.activeFont);
 
   // STATE - useData
   const primary = store.vocabulary;

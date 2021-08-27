@@ -5,6 +5,7 @@ import shuffle from 'lodash.shuffle';
 import { animated, config, useSpring } from 'react-spring';
 
 import { useStore } from 'contexts/store';
+import { useUser } from 'contexts/user';
 import {
   useData,
   useHandleGame,
@@ -51,7 +52,8 @@ const colors = [
 
 export default function WhatsMissing({ title, description }: GameSEOProps) {
   const store = useStore();
-  const ContainerCSS = Styles.getContainerCSS(store.font);
+  const { user } = useUser();
+  const ContainerCSS = Styles.getContainerCSS(user.activeFont);
 
   // STATE - useData
   const primary = store.vocabulary;

@@ -4,6 +4,7 @@ import React, { MutableRefObject, useCallback, useEffect } from 'react';
 import { animated, useSprings } from 'react-spring';
 
 import { useStore } from 'contexts/store';
+import { useUser } from 'contexts/user';
 import {
   useAudio,
   useData,
@@ -37,7 +38,8 @@ const CoolingGifURL = getGameFileUrl('HotPotato/Cooling.gif', '/f_auto,q_50');
 
 export default function HotPotato({ title, description }: GameSEOProps) {
   const store = useStore();
-  const ContainerCSS = Styles.getContainerCSS(store.font);
+  const { user } = useUser();
+  const ContainerCSS = Styles.getContainerCSS(user.activeFont);
 
   // AUDIO - useAudio
   const [Bubbling, resetBubb] = useAudio(BubblingAudioURL);

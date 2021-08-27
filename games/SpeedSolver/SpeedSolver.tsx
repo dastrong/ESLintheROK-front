@@ -4,6 +4,7 @@ import React, { useCallback, useEffect } from 'react';
 import shuffle from 'lodash.shuffle';
 
 import { useStore } from 'contexts/store';
+import { useUser } from 'contexts/user';
 import {
   useAudio,
   useData,
@@ -57,7 +58,8 @@ const stages: StageNames[] = [
 
 export default function SpeedSolver({ title, description }: GameSEOProps) {
   const store = useStore();
-  const ContainerCSS = Styles.getContainerCSS(store.font);
+  const { user } = useUser();
+  const ContainerCSS = Styles.getContainerCSS(user.activeFont);
 
   // AUDIO - useAudio
   const [flyByAud, resetFlyBy] = useAudio(flyByURL);

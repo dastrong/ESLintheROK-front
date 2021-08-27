@@ -5,6 +5,7 @@ import shuffle from 'lodash.shuffle';
 import { animated, useSprings } from 'react-spring';
 
 import { useStore } from 'contexts/store';
+import { useUser } from 'contexts/user';
 import {
   useAudio,
   useData,
@@ -33,7 +34,8 @@ const numOfText = 4;
 
 export default function PubgBattleground({ title, description }: GameSEOProps) {
   const store = useStore();
-  const ContainerCSS = Styles.getContainerCSS(store.font);
+  const { user } = useUser();
+  const ContainerCSS = Styles.getContainerCSS(user.activeFont);
 
   // AUDIO - useAudio
   const [CountAudio, resetCountAudio] = useAudio(CountdownAudioURL);

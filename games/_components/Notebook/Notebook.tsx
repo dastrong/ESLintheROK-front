@@ -4,6 +4,7 @@ import React, { useCallback, useEffect } from 'react';
 import classNames from 'classnames';
 
 import { useStore } from 'contexts/store';
+import { useUser } from 'contexts/user';
 import {
   useData,
   useHandleGame,
@@ -29,7 +30,8 @@ export default function Notebook({
   showBlank?: boolean;
 }) {
   const store = useStore();
-  const ContainerCSS = Styles.getContainerCSS(store.font);
+  const { user } = useUser();
+  const ContainerCSS = Styles.getContainerCSS(user.activeFont);
 
   // STATE - useData
   const primary = store.vocabulary;

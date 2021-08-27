@@ -6,7 +6,6 @@ type IsDataReady = boolean;
 type Vocabulary = string[];
 type Expressions = string[];
 export type DataModalNameType = 'lessons' | 'custom' | 'edit' | 'past';
-type Font = string;
 type ShowSettings = boolean;
 
 type StoreTypes = {
@@ -15,7 +14,6 @@ type StoreTypes = {
   expressions: Expressions;
   isMenuOpen: boolean;
   dataModalName: '' | DataModalNameType;
-  font: Font;
   showSettings: ShowSettings;
 };
 
@@ -26,7 +24,6 @@ const init = (): StoreTypes => {
     ...initialStuff,
     isMenuOpen: false,
     dataModalName: '',
-    font: 'Poppins',
     showSettings: true,
     // if we want to seed the store we will here
     ...(process.env.NEXT_PUBLIC_SEED && seed),
@@ -41,7 +38,6 @@ type ActionTypes =
   | { type: 'Close_Menu' }
   | { type: 'Open_Data_Modal'; dataModalName: DataModalNameType }
   | { type: 'Close_Data_Modal' }
-  | { type: 'Set_Font'; font: Font }
   | { type: 'Open_Settings' }
   | { type: 'Close_Settings' };
 
@@ -67,8 +63,6 @@ const reducer = (state: StoreTypes, action: ActionTypes) => {
       };
     case 'Close_Data_Modal':
       return { ...state, dataModalName: '' as DataModalNameType };
-    case 'Set_Font':
-      return { ...state, font: action.font };
     case 'Open_Settings':
       return { ...state, showSettings: true };
     case 'Close_Settings':

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import useSWR from 'swr';
 import toast, { Toaster } from 'react-hot-toast';
 
-import { useStore } from 'contexts/store';
+import { useUser } from 'contexts/user';
 import FontLoader from 'components/FontLoader';
 import PageContent from 'components/PageContent';
 import InlineForm from 'components/InlineForm';
@@ -10,7 +10,7 @@ import { InputCSS } from 'components/Styles';
 import { defaultFonts, FontType } from 'lib/fonts';
 
 export default function SettingsFonts() {
-  const { font, storeDispatch } = useStore();
+  const { user, userDispatch } = useUser();
 
   // get every Google Font as { name, fontFamily }
   const { data: allGoogleFonts, error: allGoogleFontsError } = useSWR<
@@ -38,10 +38,9 @@ export default function SettingsFonts() {
   const defaultText = 'This is some editable sample text for the current font.';
   const [exampleTextValue, setExampleTextValue] = useState(defaultText);
 
-  // EXTRA FONTS
-  const [extraFonts, setExtraFonts] = useState<FontType[]>([]);
+  // NEW FONT INPUT STATE
   const [newFontValue, setNewFontValue] = useState('');
-  const allFonts = [...defaultFonts, ...extraFonts];
+  const allFonts = [...defaultFonts, ...user.extraFonts];
 
   const onSubmitNewFont = async (givenFontName: string) => {
     const googleURL = 'https://fonts.googleapis.com/css2?family=';
@@ -78,8 +77,7 @@ export default function SettingsFonts() {
       // then we'll reset the input and add the font to our extra fonts
       // NEED TO SAVE TO USER OBJECT OR LOCALSTORAGE TO PERSIST
       setNewFontValue('');
-      setExtraFonts(state => [...state, newFont]);
-      storeDispatch({ type: 'Set_Font', font: newFontName });
+      userDispatch({ type: 'Add_New_Font', newFont });
     } catch (err) {
       toast.error(err.message);
     }
@@ -87,7 +85,7 @@ export default function SettingsFonts() {
 
   return (
     <>
-      <FontLoader extraFonts={extraFonts} />
+      <FontLoader />
       <Toaster />
 
       <PageContent.Header id="fonts">Fonts</PageContent.Header>
@@ -119,9 +117,11 @@ export default function SettingsFonts() {
               <button
                 style={{
                   fontFamily,
-                  textDecoration: font === name && 'underline',
+                  textDecoration: user.activeFont === fontFamily && 'underline',
                 }}
-                onClick={() => storeDispatch({ type: 'Set_Font', font: name })}
+                onClick={() =>
+                  userDispatch({ type: 'Set_Active_Font', font: fontFamily })
+                }
               >
                 {name}
               </button>
@@ -133,7 +133,7 @@ export default function SettingsFonts() {
       <input
         type="text"
         className="sample_text"
-        style={{ fontFamily: font }}
+        style={{ fontFamily: user.activeFont }}
         value={exampleTextValue}
         onChange={e => setExampleTextValue(e.target.value)}
         onBlur={() => setExampleTextValue(state => state || defaultText)}

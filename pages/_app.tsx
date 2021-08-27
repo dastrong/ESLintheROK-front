@@ -7,6 +7,7 @@ import { DefaultSeo } from 'next-seo';
 import Layout from 'components/Layout';
 import { StoreProvider } from 'contexts/store';
 import { ThemeProvider } from 'contexts/theme';
+import { UserProvider } from 'contexts/user';
 import { SEO } from 'next-seo.config';
 import 'normalize.css';
 
@@ -24,75 +25,77 @@ export default function App({ Component, pageProps }: AppProps) {
           fetch('http://localhost:4000/api' + url).then(r => r.json()),
       }}
     >
-      <ThemeProvider>
-        <StoreProvider>
-          <IconContext.Provider value={{ style: { verticalAlign: 'bottom' } }}>
-            <DataModals />
-            <Layout>
-              <DefaultSeo {...SEO} />
-              <Component {...pageProps} />
-            </Layout>
-          </IconContext.Provider>
+      <IconContext.Provider value={{ style: { verticalAlign: 'bottom' } }}>
+        <UserProvider>
+          <ThemeProvider>
+            <StoreProvider>
+              <DataModals />
+              <Layout>
+                <DefaultSeo {...SEO} />
+                <Component {...pageProps} />
+              </Layout>
 
-          {/* BUTTON DEFAULTS */}
-          <style jsx global>{`
-            button {
-              cursor: pointer;
-              outline: 0;
-              border: none;
-              text-decoration: none;
-              user-select: none;
-              line-height: 1;
-            }
-          `}</style>
+              {/* BUTTON DEFAULTS */}
+              <style jsx global>{`
+                button {
+                  cursor: pointer;
+                  outline: 0;
+                  border: none;
+                  text-decoration: none;
+                  user-select: none;
+                  line-height: 1;
+                }
+              `}</style>
 
-          {/* THE REST */}
-          <style jsx global>{`
-            body {
-              font-family: 'Comic Neue', cursive;
-              overflow-x: hidden;
-              background-color: var(--siteBgColor);
-              --siteBgColor: #cdeeff;
-              --navHeight: calc(100vw * ${navWaveHeightToWidthRatio});
-              --footerHeight: 300px;
-            }
+              {/* THE REST */}
+              <style jsx global>{`
+                body {
+                  font-family: 'Comic Neue', cursive;
+                  overflow-x: hidden;
+                  background-color: var(--siteBgColor);
+                  --siteBgColor: #cdeeff;
+                  --navHeight: calc(100vw * ${navWaveHeightToWidthRatio});
+                  --footerHeight: 300px;
+                }
 
-            *,
-            *:before,
-            *:after {
-              box-sizing: border-box;
-            }
+                *,
+                *:before,
+                *:after {
+                  box-sizing: border-box;
+                }
 
-            /* SCROLLBAR */
-            ::-webkit-scrollbar {
-              -webkit-appearance: none;
-              width: 10px;
-              height: 10px;
-            }
+                /* SCROLLBAR */
+                ::-webkit-scrollbar {
+                  -webkit-appearance: none;
+                  width: 10px;
+                  height: 10px;
+                }
 
-            ::-webkit-scrollbar-track {
-              background: rgba(0, 0, 0, 0.1);
-              border-radius: 0;
-            }
+                ::-webkit-scrollbar-track {
+                  background: rgba(0, 0, 0, 0.1);
+                  border-radius: 0;
+                }
 
-            ::-webkit-scrollbar-thumb {
-              cursor: pointer;
-              border-radius: 5px;
-              background: rgba(0, 0, 0, 0.25);
-              -webkit-transition: color 0.2s ease;
-              transition: color 0.2s ease;
-            }
+                ::-webkit-scrollbar-thumb {
+                  cursor: pointer;
+                  border-radius: 5px;
+                  background: rgba(0, 0, 0, 0.25);
+                  -webkit-transition: color 0.2s ease;
+                  transition: color 0.2s ease;
+                }
 
-            ::-webkit-scrollbar-thumb:window-inactive {
-              background: rgba(0, 0, 0, 0.15);
-            }
+                ::-webkit-scrollbar-thumb:window-inactive {
+                  background: rgba(0, 0, 0, 0.15);
+                }
 
-            ::-webkit-scrollbar-thumb:hover {
-              background: rgba(128, 135, 139, 0.8);
-            }
-          `}</style>
-        </StoreProvider>
-      </ThemeProvider>
+                ::-webkit-scrollbar-thumb:hover {
+                  background: rgba(128, 135, 139, 0.8);
+                }
+              `}</style>
+            </StoreProvider>
+          </ThemeProvider>
+        </UserProvider>
+      </IconContext.Provider>
     </SWRConfig>
   );
 }

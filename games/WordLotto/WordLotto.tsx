@@ -4,6 +4,7 @@ import React, { useCallback, useEffect } from 'react';
 import { animated, useSprings } from 'react-spring';
 
 import { useStore } from 'contexts/store';
+import { useUser } from 'contexts/user';
 import { useData, useHandleGame, useFitText, useKeys, useScroll } from 'hooks';
 
 import { init, reducer } from './state_manager';
@@ -34,7 +35,8 @@ const colors = [
 
 export default function WordLotto({ title, description }: GameSEOProps) {
   const store = useStore();
-  const ContainerCSS = Styles.getContainerCSS(store.font);
+  const { user } = useUser();
+  const ContainerCSS = Styles.getContainerCSS(user.activeFont);
 
   // STATE - useData
   const primary = store.vocabulary;

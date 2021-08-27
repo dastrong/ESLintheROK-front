@@ -4,6 +4,7 @@ import React, { useCallback } from 'react';
 import { animated, useSpring, useTransition, config } from 'react-spring';
 
 import { useStore } from 'contexts/store';
+import { useUser } from 'contexts/user';
 import {
   useAudio,
   useData,
@@ -30,7 +31,8 @@ const ShotAudioURL = getGameFileUrl('Cowboy/GunShot.mp3');
 
 export default function Cowboy({ title, description }: GameSEOProps) {
   const store = useStore();
-  const ContainerCSS = Styles.getContainerCSS(store.font);
+  const { user } = useUser();
+  const ContainerCSS = Styles.getContainerCSS(user.activeFont);
 
   // AUDIO - useAudio
   const [ReloadAudio] = useAudio(ReloadAudioURL);
