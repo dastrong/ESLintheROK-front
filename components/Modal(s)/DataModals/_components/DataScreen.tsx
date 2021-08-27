@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useSetter } from 'contexts/setter';
-import DataScreenInput from './DataScreenInput';
+import InlineForm from 'components/InlineForm';
 import DataScreenList from './DataScreenList';
 
 export default function DataScreen({
@@ -25,7 +25,7 @@ export default function DataScreen({
   return (
     <div className="container">
       <div className="column">
-        <DataScreenInput
+        <InlineForm
           placeholder="Vocabulary here..."
           value={vocabularyVal}
           onChange={(newValue: string) =>
@@ -60,7 +60,7 @@ export default function DataScreen({
       <div className="divider" />
 
       <div className="column">
-        <DataScreenInput
+        <InlineForm
           placeholder="Expressions here..."
           value={expressionVal}
           onChange={(newValue: string) =>

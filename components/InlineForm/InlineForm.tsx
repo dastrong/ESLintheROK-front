@@ -1,4 +1,9 @@
-import React, { forwardRef, FormEvent, ForwardedRef } from 'react';
+import React, {
+  forwardRef,
+  FormEvent,
+  ForwardedRef,
+  CSSProperties,
+} from 'react';
 import { FaPlus } from 'react-icons/fa';
 import Button from 'components/Button';
 import { InputCSS } from 'components/Styles';
@@ -8,11 +13,12 @@ type Props = {
   value: string;
   onChange: (value: string) => void;
   onSubmit: (value: string) => void;
+  style?: CSSProperties;
 };
 
-const DataScreenInput = forwardRef(
+const InlineForm = forwardRef(
   (
-    { placeholder, value, onChange, onSubmit }: Props,
+    { placeholder, value, onChange, onSubmit, style }: Props,
     ref: ForwardedRef<HTMLInputElement>
   ) => {
     return (
@@ -21,6 +27,7 @@ const DataScreenInput = forwardRef(
           e.preventDefault();
           onSubmit(value);
         }}
+        style={style}
       >
         <input
           placeholder={placeholder}
@@ -61,4 +68,4 @@ const DataScreenInput = forwardRef(
   }
 );
 
-export default DataScreenInput;
+export default InlineForm;
