@@ -7,8 +7,8 @@ import { useStore } from 'contexts/store';
 import { useUser } from 'contexts/user';
 import { useData, useHandleGame, useFitText, useKeys } from 'hooks';
 
-import { init, reducer } from './state_manager';
-import type { GameStore } from './state_types';
+import { init, reducer } from './Nunchi.state';
+import type { GameStore } from './Nunchi.types';
 import * as Styles from './Nunchi.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE

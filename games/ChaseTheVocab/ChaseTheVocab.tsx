@@ -9,8 +9,8 @@ import { useStore } from 'contexts/store';
 import { useUser } from 'contexts/user';
 import { useData, useHandleGame, useFitText, useKeys } from 'hooks';
 
-import { init, reducer } from './state_manager';
-import type { GameStore } from './state_types';
+import { init, reducer } from './ChaseTheVocab.state';
+import type { GameStore } from './ChaseTheVocab.types';
 import * as Styles from './ChaseTheVocab.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE

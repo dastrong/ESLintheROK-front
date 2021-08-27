@@ -14,13 +14,13 @@ import {
   useKeys,
 } from 'hooks';
 
-import { init, reducer } from './state_manager';
+import { init, reducer } from './WhatsMissing.state';
 import type {
   GameStore,
   NumOfMissing,
   NumOfWords,
   StageNames,
-} from './state_types';
+} from './WhatsMissing.types';
 import * as Styles from './WhatsMissing.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE

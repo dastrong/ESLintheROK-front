@@ -15,8 +15,8 @@ import {
   useScroll,
 } from 'hooks';
 
-import { init, reducer } from './state_manager';
-import type { GameStore, NumOfText } from './state_types';
+import { init, reducer } from './HotPotato.state';
+import type { GameStore, NumOfText } from './HotPotato.types';
 import * as Styles from './HotPotato.styles';
 import HotPotatoStage from './HotPotatoStage';
 

@@ -1,4 +1,4 @@
-import type { Item } from './state_types';
+import type { Item } from './PubgBattleground.types';
 
 export const PubgBattlegroundItems: Item[][] = [
   // over 50 damage weapons

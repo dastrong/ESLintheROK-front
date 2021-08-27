@@ -14,8 +14,8 @@ import {
   useScroll,
 } from 'hooks';
 
-import { init, reducer } from './state_manager';
-import type { GameStore, StageNames } from './state_types';
+import { init, reducer } from './SpeedSolver.state';
+import type { GameStore, StageNames } from './SpeedSolver.types';
 import * as Styles from './SpeedSolver.styles';
 import SpeedSolverLetters from './SpeedSolverLetters';
 import SpeedSolverInfo from './SpeedSolverInfo';

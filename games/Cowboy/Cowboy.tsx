@@ -14,8 +14,8 @@ import {
   useScroll,
 } from 'hooks';
 
-import { init, reducer } from './state_manager';
-import type { GameStore } from './state_types';
+import { init, reducer } from './Cowboy.state';
+import type { GameStore } from './Cowboy.types';
 import * as Styles from './Cowboy.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE

@@ -1,11 +1,13 @@
 import shuffle from 'lodash.shuffle';
-import type { State, Action } from './state_types';
+import type { State, Action, Stages } from './SleepingBears.types';
 
 export const init = (data: string[]): State => ({
   data: shuffle(data),
   isVocab: true,
-  text: '',
-  showReady: false,
+  gameData: [],
+  answer: '',
+  numOfBoxes: 4,
+  stage: 1,
 });
 
 export const reducer = (state: State, action: Action): State => {
@@ -17,12 +19,15 @@ export const reducer = (state: State, action: Action): State => {
     case 'New_Round':
       return {
         ...state,
-        showReady: true,
         data: action.data,
-        text: action.text,
+        gameData: action.gameData,
+        answer: action.answer,
+        stage: 1,
       };
-    case 'Show_Ready_False':
-      return { ...state, showReady: false };
+    case 'Stage_Change':
+      return { ...state, stage: (state.stage + 1) as Stages };
+    case 'Box_Num_Change':
+      return { ...state, numOfBoxes: action.numOfBoxes };
     default:
       return state;
   }

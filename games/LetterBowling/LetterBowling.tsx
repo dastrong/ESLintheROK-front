@@ -7,8 +7,8 @@ import { useStore } from 'contexts/store';
 import { useUser } from 'contexts/user';
 import { useData, useHandleGame, useKeys } from 'hooks';
 
-import { init, reducer } from './state_manager';
-import type { GameStore } from './state_types';
+import { init, reducer } from './LetterBowling.state';
+import type { GameStore } from './LetterBowling.types';
 import * as Styles from './LetterBowling.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE

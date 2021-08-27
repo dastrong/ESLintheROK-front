@@ -11,8 +11,8 @@ import {
   useScroll,
 } from 'hooks';
 
-import { init, reducer } from './state_manager';
-import type { GameStore } from './state_types';
+import { init, reducer } from './WordShark.state';
+import type { GameStore } from './WordShark.types';
 import * as Styles from './WordShark.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE

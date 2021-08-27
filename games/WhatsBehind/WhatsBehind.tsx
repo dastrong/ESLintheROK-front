@@ -14,8 +14,8 @@ import {
 } from 'hooks';
 
 // IMPORT GAME SPECIFIC THINGS HERE
-import { init, reducer } from './state_manager';
-import type { GameStore } from './state_types';
+import { init, reducer } from './WhatsBehind.state';
+import type { GameStore } from './WhatsBehind.types';
 import * as Styles from './WhatsBehind.styles';
 import WhatsBehindConfetti from './WhatsBehindConfetti';
 

@@ -16,8 +16,8 @@ import {
   useScroll,
 } from 'hooks';
 
-import { init, reducer } from './state_manager';
-import type { GameStore } from './state_types';
+import { init, reducer } from './Matching.state';
+import type { GameStore } from './Matching.types';
 import * as Styles from './Matching.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE

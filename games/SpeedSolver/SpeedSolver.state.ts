@@ -1,13 +1,15 @@
 import shuffle from 'lodash.shuffle';
-import type { State, Action } from './state_types';
+import type { State, Action, StageNames } from './SpeedSolver.types';
+
+const numOfStages: StageNames['length'] = 5;
 
 export const init = (data: string[]): State => ({
   data: shuffle(data),
   isVocab: true,
   gameData: [],
-  clickedIDs: [],
-  clickedID: null,
-  target: [],
+  answer: '',
+  level: 1,
+  stage: 0,
 });
 
 export const reducer = (state: State, action: Action): State => {
@@ -21,21 +23,16 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         data: action.data,
         gameData: action.gameData,
-        clickedIDs: [],
-        clickedID: null,
-        target: action.target,
+        answer: action.answer,
+        stage: 1,
       };
-    case 'Card_Clicked': {
-      if (state.clickedID !== null || state.clickedIDs.includes(action.id))
-        return state;
-      return { ...state, clickedID: action.id };
+    case 'Level_Change':
+      return { ...state, level: action.level, stage: 0 };
+    case 'Stage_Change': {
+      const oldStage = state.stage;
+      const newStage = oldStage === numOfStages - 1 ? 1 : oldStage + 1;
+      return { ...state, stage: newStage };
     }
-    case 'Animate_Done':
-      return {
-        ...state,
-        clickedID: null,
-        clickedIDs: [...state.clickedIDs, state.clickedID],
-      };
     default:
       return state;
   }

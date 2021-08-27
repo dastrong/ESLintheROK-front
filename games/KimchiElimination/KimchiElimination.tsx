@@ -8,8 +8,8 @@ import { useStore } from 'contexts/store';
 import { useUser } from 'contexts/user';
 import { useData, useHandleGame, useFitText, useKeys, useScroll } from 'hooks';
 
-import { init, reducer } from './state_manager';
-import type { GameStore } from './state_types';
+import { init, reducer } from './KimchiElimination.state';
+import type { GameStore } from './KimchiElimination.types';
 import * as Styles from './KimchiElimination.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE

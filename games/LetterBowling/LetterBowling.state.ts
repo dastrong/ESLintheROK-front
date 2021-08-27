@@ -1,5 +1,5 @@
 import shuffle from 'lodash.shuffle';
-import type { State, Action } from './state_types';
+import type { State, Action } from './LetterBowling.types';
 
 const maxRounds = 5;
 const minRounds = 1;

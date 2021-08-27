@@ -13,8 +13,8 @@ import {
   // useSplit2Rows,
 } from 'hooks';
 
-import { init, reducer } from './state_manager';
-import type { GameStore } from './state_types';
+import { init, reducer } from './__GameName__.state';
+import type { GameStore } from './__GameName__.types';
 import * as Styles from './__GameName__.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE

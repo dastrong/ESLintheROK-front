@@ -1,5 +1,5 @@
 import shuffle from 'lodash.shuffle';
-import type { State, Action, Stages, StageNames } from './state_types';
+import type { State, Action, Stages, StageNames } from './WhatsMissing.types';
 
 const numOfStages: StageNames['length'] = 4;
 

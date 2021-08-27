@@ -6,8 +6,8 @@ import { useStore } from 'contexts/store';
 import { useUser } from 'contexts/user';
 import { useData, useHandleGame, useFitText, useKeys, useScroll } from 'hooks';
 
-import { init, reducer } from './state_manager';
-import type { GameStore } from './state_types';
+import { init, reducer } from './RedAndBlue.state';
+import type { GameStore } from './RedAndBlue.types';
 import * as Styles from './RedAndBlue.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE

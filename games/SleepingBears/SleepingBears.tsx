@@ -16,8 +16,8 @@ import {
   useScroll,
 } from 'hooks';
 
-import { init, reducer } from './state_manager';
-import type { GameStore, NumOfBoxes } from './state_types';
+import { init, reducer } from './SleepingBears.state';
+import type { GameStore, NumOfBoxes } from './SleepingBears.types';
 import * as Styles from './SleepingBears.styles';
 import SleepingBearsCard from './SleepingBearsCard';
 

@@ -12,8 +12,8 @@ import {
   useScroll,
 } from 'hooks';
 
-import { init, reducer } from './state_manager';
-import type { GameStore, MinimumStars } from './state_types';
+import { init, reducer } from './Stars.state';
+import type { GameStore, MinimumStars } from './Stars.types';
 import * as Styles from './Stars.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE

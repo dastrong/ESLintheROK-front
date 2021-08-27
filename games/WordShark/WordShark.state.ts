@@ -1,13 +1,12 @@
 import shuffle from 'lodash.shuffle';
-import type { State, Action, Stages } from './state_types';
+import type { State, Action } from './WordShark.types';
 
 export const init = (data: string[]): State => ({
   data: shuffle(data),
   isVocab: true,
-  gameData: [],
   answer: '',
-  numOfBoxes: 4,
-  stage: 1,
+  guessed: new Set(),
+  nWrong: 0,
 });
 
 export const reducer = (state: State, action: Action): State => {
@@ -20,14 +19,16 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         data: action.data,
-        gameData: action.gameData,
         answer: action.answer,
-        stage: 1,
+        guessed: new Set(),
+        nWrong: 0,
       };
-    case 'Stage_Change':
-      return { ...state, stage: (state.stage + 1) as Stages };
-    case 'Box_Num_Change':
-      return { ...state, numOfBoxes: action.numOfBoxes };
+    case 'Handle_Guess':
+      return {
+        ...state,
+        guessed: new Set(action.guessed.add(action.letter)),
+        nWrong: action.nWrong + (action.answer.includes(action.letter) ? 0 : 1),
+      };
     default:
       return state;
   }

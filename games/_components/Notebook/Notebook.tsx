@@ -14,8 +14,8 @@ import {
   useScroll,
 } from 'hooks';
 
-import { init, reducer } from './state_manager';
-import type { GameStore, Position } from './state_types';
+import { init, reducer } from './Notebook.state';
+import type { GameStore, Position } from './Notebook.types';
 import * as Styles from './Notebook.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE

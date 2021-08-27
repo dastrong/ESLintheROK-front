@@ -1,13 +1,11 @@
 import shuffle from 'lodash.shuffle';
-import type { State, Action } from './state_types';
+import type { State, Action } from './RedAndBlue.types';
 
 export const init = (data: string[]): State => ({
   data: shuffle(data),
   isVocab: true,
-  gameData: [],
-  isDone: false,
-  isAnimating: false,
-  maxCardDelay: 0,
+  red: '',
+  blue: '',
 });
 
 export const reducer = (state: State, action: Action): State => {
@@ -20,15 +18,9 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         data: action.data,
-        gameData: action.gameData,
-        maxCardDelay: action.maxCardDelay,
-        isDone: false,
-        isAnimating: false,
+        red: action.red,
+        blue: action.blue,
       };
-    case 'Animation_Start':
-      return { ...state, isAnimating: true };
-    case 'Animation_Done':
-      return { ...state, isDone: true };
     default:
       return state;
   }

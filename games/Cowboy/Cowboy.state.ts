@@ -1,12 +1,11 @@
 import shuffle from 'lodash.shuffle';
-import type { State, Action } from './state_types';
+import type { State, Action } from './Cowboy.types';
 
 export const init = (data: string[]): State => ({
   data: shuffle(data),
   isVocab: true,
-  answer: '',
-  guessed: new Set(),
-  nWrong: 0,
+  text: '',
+  showReady: false,
 });
 
 export const reducer = (state: State, action: Action): State => {
@@ -18,17 +17,12 @@ export const reducer = (state: State, action: Action): State => {
     case 'New_Round':
       return {
         ...state,
+        showReady: true,
         data: action.data,
-        answer: action.answer,
-        guessed: new Set(),
-        nWrong: 0,
+        text: action.text,
       };
-    case 'Handle_Guess':
-      return {
-        ...state,
-        guessed: new Set(action.guessed.add(action.letter)),
-        nWrong: action.nWrong + (action.answer.includes(action.letter) ? 0 : 1),
-      };
+    case 'Show_Ready_False':
+      return { ...state, showReady: false };
     default:
       return state;
   }

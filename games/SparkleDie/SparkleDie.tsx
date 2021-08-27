@@ -7,8 +7,8 @@ import { useStore } from 'contexts/store';
 import { useUser } from 'contexts/user';
 import { useData, useHandleGame, useFitText, useKeys, useScroll } from 'hooks';
 
-import { init, reducer } from './state_manager';
-import type { GameStore } from './state_types';
+import { init, reducer } from './SparkleDie.state';
+import type { GameStore } from './SparkleDie.types';
 import * as Styles from './SparkleDie.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE

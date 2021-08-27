@@ -15,8 +15,8 @@ import {
   useScroll,
 } from 'hooks';
 
-import { init, reducer } from './state_manager';
-import type { GameStore } from './state_types';
+import { init, reducer } from './PubgBattleground.state';
+import type { GameStore } from './PubgBattleground.types';
 import * as Styles from './PubgBattleground.styles';
 import { PubgBattlegroundItems } from './PubgBattlegroundItems';
 

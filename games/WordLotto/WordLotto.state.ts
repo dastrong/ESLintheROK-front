@@ -1,11 +1,13 @@
 import shuffle from 'lodash.shuffle';
-import type { State, Action } from './state_types';
+import type { State, Action } from './WordLotto.types';
 
 export const init = (data: string[]): State => ({
   data: shuffle(data),
   isVocab: true,
-  red: '',
-  blue: '',
+  gameData: [],
+  isDone: false,
+  isAnimating: false,
+  maxCardDelay: 0,
 });
 
 export const reducer = (state: State, action: Action): State => {
@@ -18,9 +20,15 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         data: action.data,
-        red: action.red,
-        blue: action.blue,
+        gameData: action.gameData,
+        maxCardDelay: action.maxCardDelay,
+        isDone: false,
+        isAnimating: false,
       };
+    case 'Animation_Start':
+      return { ...state, isAnimating: true };
+    case 'Animation_Done':
+      return { ...state, isDone: true };
     default:
       return state;
   }
