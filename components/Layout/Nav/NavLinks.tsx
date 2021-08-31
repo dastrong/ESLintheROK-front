@@ -3,19 +3,22 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
 import { SiBuymeacoffee } from 'react-icons/si';
+import { useSession } from 'next-auth/client';
+
 import Button from 'components/Button';
+import Skeleton from 'components/Skeleton';
 
 import dynamic from 'next/dynamic';
 const Popup = dynamic(() => import('components/Popup'));
 
 const mainLinks = [
-  { href: '/', text: 'Home' },
   { href: '/games', text: 'Games' },
   { href: '/faqs', text: 'Help' },
 ];
 
 export default function NavLinks() {
   const { asPath } = useRouter();
+  const [session, loading] = useSession();
 
   return (
     <>
@@ -27,6 +30,28 @@ export default function NavLinks() {
             </Link>
           </li>
         ))}
+        <Popup
+          interactive
+          delayHide={100}
+          trigger={['hover', 'focus']}
+          owner={<li>{loading ? <Skeleton width={80} /> : 'Account'}</li>}
+        >
+          <ul className="nav_dropdown">
+            {!session ? (
+              <li>
+                <Link href="/auth/signin">
+                  <a>Login</a>
+                </Link>
+              </li>
+            ) : (
+              <li>
+                <Link href="/auth/signout">
+                  <a>Logout</a>
+                </Link>
+              </li>
+            )}
+          </ul>
+        </Popup>
       </ul>
 
       <ul className="links_secondary">
@@ -48,7 +73,7 @@ export default function NavLinks() {
             </li>
           }
         >
-          <ul className="contribute_menu">
+          <ul className="nav_dropdown">
             <li>
               <Link href="/contribute#teacher">
                 <a>As teacher</a>
@@ -103,7 +128,7 @@ export default function NavLinks() {
           margin: 0;
         }
 
-        ul:not(.contribute_menu) {
+        ul:not(.nav_dropdown) {
           position: absolute;
           display: flex;
           align-items: center;
@@ -112,13 +137,13 @@ export default function NavLinks() {
           height: 87%;
         }
 
-        ul.contribute_menu li {
+        ul.nav_dropdown li {
           text-align: center;
           font-size: 1rem;
           margin: 0.5rem;
         }
 
-        ul.contribute_menu li:not(:last-child) {
+        ul.nav_dropdown li:not(:last-child) {
           margin-bottom: 1rem;
         }
 
