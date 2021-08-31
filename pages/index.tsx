@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from 'styled-jsx/css';
+import css from 'styled-jsx/css';
 
 import { useStore } from 'contexts/store';
 import SeoWrapper from 'components/SeoWrapper';

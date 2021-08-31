@@ -74,7 +74,7 @@ Let's say you have an image or sound effect that you want to include in your gam
     // you can now use ClappingAudio to handle that audio clip
 
     // -------IMAGE FILES------ //
-    import { css } from 'styled-jsx/css'; // css-in-js styling
+    import css from 'styled-jsx/css'; // css-in-js styling
     import BackgroundURL from './background.jpg';
 
     // you can import and use the url in a *styles* file

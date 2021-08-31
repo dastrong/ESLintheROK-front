@@ -1,7 +1,7 @@
 // this component is lightly edited for this project from here: https://github.com/dvtng/react-loading-skeleton
 // my reasoning was that it's a simple implementation and I didn't want to unnecessarily load emotion into this project
 import React, { CSSProperties, FunctionComponent } from 'react';
-import { css } from 'styled-jsx/css';
+import css from 'styled-jsx/css';
 
 const SkeletonCSS = css.resolve`
    {

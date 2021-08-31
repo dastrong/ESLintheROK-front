@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { a, useTransition } from 'react-spring';
-import { css } from 'styled-jsx/css';
+import css from 'styled-jsx/css';
 import usePlayCheck from './usePlayCheck';
 
 const { className, styles } = css.resolve`

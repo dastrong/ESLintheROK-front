@@ -1,4 +1,4 @@
-import { css } from 'styled-jsx/css';
+import css from 'styled-jsx/css';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`

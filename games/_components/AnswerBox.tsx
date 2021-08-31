@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from 'styled-jsx/css';
+import css from 'styled-jsx/css';
 import { animated, useSpring, config } from 'react-spring';
 import useFitText from 'hooks/useFitText';
 import FitText from 'components/FitText';

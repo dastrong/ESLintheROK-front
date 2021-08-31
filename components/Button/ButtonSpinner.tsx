@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaSpinner } from 'react-icons/fa';
-import { css } from 'styled-jsx/css';
+import css from 'styled-jsx/css';
 
 const ButtonSpinnerCSS = css.resolve`
    {

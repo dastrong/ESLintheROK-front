@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import ReactModal, { Props } from 'react-modal';
-import { css } from 'styled-jsx/css';
+import css from 'styled-jsx/css';
 
 import ModalHeader from './ModalHeader';
 import ModalContent from './ModalContent';
