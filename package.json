@@ -43,7 +43,7 @@
     "react-use": "^17.2.4",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
-    "styled-jsx": "^3.4.4",
+    "styled-jsx": "^4.0.0",
     "swr": "^0.5.6"
   },
   "devDependencies": {
