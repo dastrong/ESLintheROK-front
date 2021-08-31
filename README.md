@@ -85,6 +85,17 @@ Instead of using PPT games, which teachers needed to download/change/save/share 
 
 ```js
 NEXT_PUBLIC_CLOUDINARY_URL = 'https://res.cloudinary.com/dastrong';
-NEXT_PUBLIC_GOOGLE_FONTS_KEY = 'string';
+
+NEXT_PUBLIC_GOOGLE_FONTS_KEY = 'string'; // grab an API key from the Google Fonts API
+
 COFFEE_TOKEN = 'string'; // used to grab supporters from buymeacoffee
+
+NEXTAUTH_URL = 'http://localhost:3000'; // frontend url
+DATABASE_URL = 'string'; // MongoDB connection url
+
+EMAIL_SERVER_USER = 'string';
+EMAIL_SERVER_PASSWORD = 'string';
+EMAIL_SERVER_HOST = 'string';
+EMAIL_SERVER_PORT = 'number';
+EMAIL_FROM = 'noreply@eslintherok.com';
 ```
