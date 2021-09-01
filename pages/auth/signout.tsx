@@ -1,14 +1,20 @@
 import React, { FormEvent } from 'react';
+import { useRouter } from 'next/router';
 import { signOut } from 'next-auth/client';
+
 import SeoWrapper from 'components/SeoWrapper';
 import { PageHeading, PageSubHeading } from 'components/PageHeadings';
 import Button from 'components/Button';
+import Popup from 'components/Popup';
 
 export default function SignOutPage() {
+  const router = useRouter();
+
   async function onSingleSubmit(e: FormEvent) {
     e.preventDefault();
     try {
-      await signOut();
+      await signOut({ redirect: false });
+      router.push('/');
     } catch (err) {
       console.log(err);
     }
@@ -43,13 +49,21 @@ export default function SignOutPage() {
           </form>
 
           <form onSubmit={onAllSubmit}>
-            <Button
-              full
-              inverted
-              type="submit"
-              color="white"
-              bgColor="#e428bc"
-              text="Sign out of all devices"
+            <Popup
+              content="Currently Unavailable"
+              placement="bottom"
+              visible
+              owner={
+                <Button
+                  full
+                  inverted
+                  disabled // not available at the current moment
+                  type="submit"
+                  color="white"
+                  bgColor="#e428bc"
+                  text="Sign out of all devices"
+                />
+              }
             />
           </form>
         </div>
@@ -57,13 +71,15 @@ export default function SignOutPage() {
         <style jsx>{`
           div div {
             display: flex;
-            justify-content: space-between;
-            width: 500px;
-            margin-inline: auto;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 3rem;
           }
 
           form {
-            width: 49%;
+            display: inline-block;
+            width: 200px;
+            margin: 0 0.5rem 0.5rem;
           }
         `}</style>
       </div>
