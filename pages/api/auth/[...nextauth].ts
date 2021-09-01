@@ -1,18 +1,23 @@
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
+import { sendVerificationRequest } from 'utils/sendVerificationRequest';
 
 export default NextAuth({
   providers: [
     Providers.Email({
       server: {
         host: process.env.EMAIL_SERVER_HOST,
-        port: process.env.EMAIL_SERVER_PORT,
+        port: Number(process.env.EMAIL_SERVER_PORT),
         auth: {
           user: process.env.EMAIL_SERVER_USER,
           pass: process.env.EMAIL_SERVER_PASSWORD,
         },
       },
       from: process.env.EMAIL_FROM,
+      sendVerificationRequest,
+      async generateVerificationToken() {
+        return '123456';
+      },
     }),
   ],
 
@@ -22,7 +27,7 @@ export default NextAuth({
   pages: {
     signIn: '/auth/signin',
     signOut: '/auth/signout',
-    //   error: '/auth/error', // Error code passed in query string as ?error=
+    error: '/auth/error',
     verifyRequest: '/auth/verify-request',
     //   newUser: '/auth/new-user', // New users will be directed here on first sign in (leave the property out if not of interest)
   },
