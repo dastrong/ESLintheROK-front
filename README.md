@@ -97,5 +97,5 @@ EMAIL_SERVER_USER = 'string';
 EMAIL_SERVER_PASSWORD = 'string';
 EMAIL_SERVER_HOST = 'string';
 EMAIL_SERVER_PORT = 'number';
-EMAIL_FROM = 'noreply@eslintherok.com';
+EMAIL_FROM = 'ESL in the ROK <noreply@eslintherok.com>';
 ```
