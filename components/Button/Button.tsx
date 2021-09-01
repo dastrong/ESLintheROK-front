@@ -122,7 +122,9 @@ const Button = forwardRef<
           .styled-button:disabled,
           .styled-button.disabled {
             pointer-events: none;
-            background-color: ${disabledBgColor};
+            color: ${inverted ? hoverBgColor : color};
+            border-color: ${inverted ? disabledBgColor : 'transparent'};
+            background-color: ${inverted ? 'transparent' : disabledBgColor};
             cursor: default;
           }
         `}</style>
