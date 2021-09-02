@@ -91,6 +91,7 @@ NEXT_PUBLIC_GOOGLE_FONTS_KEY = 'string'; // grab an API key from the Google Font
 COFFEE_TOKEN = 'string'; // used to grab supporters from buymeacoffee
 
 NEXTAUTH_URL = 'http://localhost:3000'; // frontend url
+NEXTAUTH_SECRET = 'string';
 DATABASE_URL = 'string'; // MongoDB connection url
 
 EMAIL_SERVER_USER = 'string';
