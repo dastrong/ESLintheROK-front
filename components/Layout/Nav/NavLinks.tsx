@@ -17,7 +17,7 @@ const mainLinks = [
 ];
 
 export default function NavLinks() {
-  const { asPath } = useRouter();
+  const { pathname } = useRouter();
   const [session, loading] = useSession();
 
   return (
@@ -26,15 +26,18 @@ export default function NavLinks() {
         {mainLinks.map(({ href, text }) => (
           <li key={text}>
             <Link href={href}>
-              <a className={classNames({ active: href === asPath })}>{text}</a>
+              <a className={classNames({ active: href === pathname })}>
+                {text}
+              </a>
             </Link>
           </li>
         ))}
         <Popup
           interactive
           delayHide={100}
+          hideTooltip={loading}
           trigger={['hover', 'focus']}
-          owner={<li>{loading ? <Skeleton width={80} /> : 'Account'}</li>}
+          owner={<li>{loading ? <Skeleton width="7ch" /> : 'Account'}</li>}
         >
           <ul className="nav_dropdown">
             {!session ? (
@@ -57,7 +60,9 @@ export default function NavLinks() {
       <ul className="links_secondary">
         <li>
           <Link href="/guide">
-            <a className={classNames({ active: '/guide' === asPath })}>Guide</a>
+            <a className={classNames({ active: '/guide' === pathname })}>
+              Guide
+            </a>
           </Link>
         </li>
 
@@ -68,7 +73,11 @@ export default function NavLinks() {
           owner={
             <li>
               <Link href="/contribute">
-                <a>Contribute</a>
+                <a
+                  className={classNames({ active: '/contribute' === pathname })}
+                >
+                  Contribute
+                </a>
               </Link>
             </li>
           }
@@ -106,7 +115,7 @@ export default function NavLinks() {
 
         <li>
           <Link href="/changelog">
-            <a className={classNames({ active: '/changelog' === asPath })}>
+            <a className={classNames({ active: '/changelog' === pathname })}>
               Changelog
             </a>
           </Link>
@@ -114,7 +123,7 @@ export default function NavLinks() {
 
         <li>
           <Link href="/contact">
-            <a className={classNames({ active: '/contact' === asPath })}>
+            <a className={classNames({ active: '/contact' === pathname })}>
               Contact
             </a>
           </Link>
