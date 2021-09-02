@@ -21,12 +21,23 @@ export default NextAuth({
       generateVerificationToken: () => {
         return randomstring.generate({ length: 6, charset: 'numeric' });
       },
+      // How long until the e-mail can be used to log the user in seconds.
+      maxAge: 60 * 60, // 1 hour
     }),
   ],
 
   database: process.env.DATABASE_URL,
   debug: process.env.NODE_ENV === 'development',
   secret: process.env.NEXTAUTH_SECRET,
+
+  session: {
+    jwt: false,
+    // Seconds - How long until an idle session expires and is no longer valid.
+    maxAge: 14 * 24 * 60 * 60, // 14 days
+    // Seconds - Throttle how frequently to write to database to extend a session.
+    // Use it to limit write operations. Set to 0 to always update the database.
+    updateAge: 24 * 60 * 60, // 24 hours
+  },
 
   pages: {
     signIn: '/auth/signin',
