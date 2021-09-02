@@ -1,5 +1,6 @@
 import React from 'react';
 import PageContent from 'components/PageContent';
+import SettingsUser from './SettingsUser';
 import SettingsFonts from './SettingsFonts';
 
 export default function SettingsContent() {
@@ -13,20 +14,10 @@ export default function SettingsContent() {
           padding: '3%',
           overflowY: 'scroll',
           maxHeight: '70vh',
+          position: 'relative',
         }}
       >
-        <PageContent.Header style={{ marginTop: 0 }}>User</PageContent.Header>
-        <PageContent.Text>Is the user authenticated?</PageContent.Text>
-        <PageContent.List>
-          <li>
-            If authenticated, their account details would be here and their
-            settings in the following sections
-          </li>
-          <li>
-            Otherwise, we would show how to sign up and save their settings
-          </li>
-        </PageContent.List>
-
+        <SettingsUser />
         <SettingsFonts />
 
         <PageContent.Header>Gifs</PageContent.Header>
