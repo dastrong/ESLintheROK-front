@@ -58,7 +58,7 @@ export default function SignInPage() {
         return;
       }
       // everything went good, redirect user to verify-token page
-      router.push('/auth/verify-request');
+      router.push(`/auth/verify-request?email=${encodeURIComponent(email)}`);
     } catch (err) {
       console.log(err);
     }

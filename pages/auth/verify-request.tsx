@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/autocomplete-valid */
 import React, { FormEvent, useReducer, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 
 import SeoWrapper from 'components/SeoWrapper';
 import { PageHeading, PageSubHeading } from 'components/PageHeadings';
@@ -16,10 +16,7 @@ type Action =
   | { type: 'Set_Value_2'; value: string }
   | { type: 'Set_Value_3'; value: string }
   | { type: 'Set_Value_4'; value: string }
-  | { type: 'Set_Value_5'; value: string }
-  | { type: 'Clear_All' };
-
-const initialState = ['', '', '', '', '', ''];
+  | { type: 'Set_Value_5'; value: string };
 
 const reducer = (state: State, action: Action): State => {
   const newState = [...state];
@@ -48,17 +45,16 @@ const reducer = (state: State, action: Action): State => {
       newState[5] = action.value;
       return newState;
     }
-    case 'Clear_All':
-      return initialState;
     default:
       return { ...state };
   }
 };
 
 export default function VerifyRequestPage() {
-  const email = 'danielstrong.ds@gmail.com';
-  const [state, dispatch] = useReducer(reducer, ['', '', '', '', '', '']);
+  const router = useRouter();
+  const email = router.query.email;
 
+  const [state, dispatch] = useReducer(reducer, ['', '', '', '', '', '']);
   const isCodeEntered = state.every(x => Number.isInteger(parseInt(x)));
 
   // grab refs for each of the inputs
@@ -110,18 +106,20 @@ export default function VerifyRequestPage() {
     try {
       const resp = await fetch(
         `/api/auth/callback/email?email=${encodeURIComponent(
-          email
+          email as string
         )}&token=${state.join('')}`
       );
-      if (!resp.ok) {
+      // if the response fails or includes an error, redirect user
+      if (!resp.ok || resp.url.includes('auth/error')) {
         router.push(resp.url);
+      } else if (resp.url.includes('auth/new-user')) {
+        router.push('/auth/new-user');
       } else {
         router.push('/');
       }
     } catch (err) {
       console.log(err);
     }
-    dispatch({ type: 'Clear_All' });
   };
 
   return (
@@ -132,7 +130,21 @@ export default function VerifyRequestPage() {
       <div>
         <PageHeading>Check your email</PageHeading>
         <PageSubHeading>
-          A sign in link/code has been sent to the email that you provided.
+          A sign in link/code was sent to the following email address:
+          <br />
+          ---{' '}
+          <>
+            {email || (
+              <>
+                We're missing your email.{' '}
+                <Link href="/auth/signin">
+                  <a>Enter it again</a>
+                </Link>
+                .
+              </>
+            )}
+          </>{' '}
+          ---
         </PageSubHeading>
 
         <form onSubmit={onSubmit}>
@@ -242,21 +254,34 @@ export default function VerifyRequestPage() {
           </div>
 
           <div className="actions_container">
-            <span>
-              Didn't get a code?{' '}
-              <Link href="/contact">
-                <a>Contact me</a>
-              </Link>
-              .
-            </span>
+            <div>
+              {email && (
+                <p>
+                  Incorrect email?{' '}
+                  <Link href="/auth/signin">
+                    <a>Enter it again</a>
+                  </Link>
+                  .
+                </p>
+              )}
+              <p>
+                Didn't get a code?{' '}
+                <Link href="/contact">
+                  <a>Contact me</a>
+                </Link>
+                .
+              </p>
+            </div>
 
             <Button
               type="submit"
+              size={email ? 'lg' : 'md'}
               color="white"
               bgColor="#2b7cd0"
               text="Verify Code"
               ref={buttonRef}
-              disabled={!isCodeEntered}
+              disabled={!isCodeEntered || !email}
+              style={{ width: email ? 'inherit' : 140 }}
             />
           </div>
         </form>
@@ -266,7 +291,7 @@ export default function VerifyRequestPage() {
           form {
             width: 100%;
             min-width: 300px;
-            max-width: 350px;
+            max-width: 375px;
             margin: 0 auto;
             text-align: center;
             padding: 0.25rem 0 1rem;
@@ -297,13 +322,25 @@ export default function VerifyRequestPage() {
           .inputs_container {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
           }
 
           .actions_container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+          }
+
+          .actions_container div {
+            text-align: left;
+          }
+
+          .actions_container p {
+            margin: 0;
+          }
+
+          .actions_container p:nth-of-type(2) {
+            margin-top: 0.5rem;
           }
         `}</style>
       </div>
