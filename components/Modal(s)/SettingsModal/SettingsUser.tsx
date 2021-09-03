@@ -9,7 +9,7 @@ import Button from 'components/Button';
 export default function SettingsUser() {
   const [session] = useSession();
 
-  const [username, domain] = session.email.split('@');
+  const [username, domain] = session?.email.split('@') || ['', ''];
   const starredEmail =
     username
       .split('')

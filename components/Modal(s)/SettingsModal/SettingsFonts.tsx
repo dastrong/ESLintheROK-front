@@ -136,7 +136,7 @@ export default function SettingsFonts() {
         style={{ fontFamily: user.activeFont }}
         value={exampleTextValue}
         onChange={e => setExampleTextValue(e.target.value)}
-        onBlur={() => setExampleTextValue(state => state || defaultText)}
+        onBlur={() => setExampleTextValue(state => state.trim() || defaultText)}
       />
 
       {InputCSS.styles}
