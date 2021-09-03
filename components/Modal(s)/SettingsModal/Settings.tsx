@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+
 import { useStore } from 'contexts/store';
 import Modal from 'components/Modal(s)';
 import SettingsContent from './SettingsContent';
 import { Styles } from '../DataModals/_components';
 
 export default function Settings() {
+  const router = useRouter();
+
   const { showSettings, storeDispatch } = useStore();
+
+  useEffect(() => {
+    if (showSettings) storeDispatch({ type: 'Close_Settings' });
+  }, [router.pathname]);
 
   return (
     <Modal
