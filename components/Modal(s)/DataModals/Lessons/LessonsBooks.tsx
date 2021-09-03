@@ -1,5 +1,5 @@
 import React from 'react';
-import useSwr from 'swr';
+import useSWR from 'swr';
 
 import Modal from 'components/Modal(s)';
 import Skeleton from 'components/Skeleton';
@@ -16,7 +16,7 @@ export default function LessonsBooks({
   books,
 }: LessonsBooksProps) {
   // fetch the books for this grade if we haven't already
-  const { data: fetchedBooks } = useSwr<Book[]>(
+  const { data: fetchedBooks } = useSWR<Book[]>(
     `/grade/${chosenGrade}/books`,
     (url: string) =>
       fetch('http://localhost:4000/api' + url)
