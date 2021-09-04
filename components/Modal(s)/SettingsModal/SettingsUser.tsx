@@ -1,13 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
-import { useSession } from 'next-auth/client';
 import { FaSignOutAlt } from 'react-icons/fa';
 
+import useUserSession from 'hooks/useUserSession';
 import PageContent from 'components/PageContent';
 import Button from 'components/Button';
 
 export default function SettingsUser() {
-  const [session] = useSession();
+  const { session } = useUserSession();
 
   const [username, domain] = session?.email.split('@') || ['', ''];
   const starredEmail =

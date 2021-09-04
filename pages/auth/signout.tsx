@@ -2,6 +2,7 @@ import React, { FormEvent } from 'react';
 import { useRouter } from 'next/router';
 import { signOut } from 'next-auth/client';
 
+import useUserSession from 'hooks/useUserSession';
 import SeoWrapper from 'components/SeoWrapper';
 import { PageHeading, PageSubHeading } from 'components/PageHeadings';
 import Button from 'components/Button';
@@ -9,11 +10,13 @@ import Popup from 'components/Popup';
 
 export default function SignOutPage() {
   const router = useRouter();
+  const { updateSession } = useUserSession();
 
   async function onSingleSubmit(e: FormEvent) {
     e.preventDefault();
     try {
       await signOut({ redirect: false });
+      await updateSession(null);
       router.push('/');
     } catch (err) {
       console.log(err);

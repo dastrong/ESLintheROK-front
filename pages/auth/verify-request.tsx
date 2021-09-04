@@ -2,7 +2,9 @@
 import React, { FormEvent, useReducer, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { getSession } from 'next-auth/client';
 
+import useUserSession from 'hooks/useUserSession';
 import SeoWrapper from 'components/SeoWrapper';
 import { PageHeading, PageSubHeading } from 'components/PageHeadings';
 import Button from 'components/Button';
@@ -53,6 +55,8 @@ const reducer = (state: State, action: Action): State => {
 export default function VerifyRequestPage() {
   const router = useRouter();
   const email = router.query.email;
+
+  const { updateSession } = useUserSession();
 
   const [state, dispatch] = useReducer(reducer, ['', '', '', '', '', '']);
   const isCodeEntered = state.every(x => Number.isInteger(parseInt(x)));
@@ -112,10 +116,14 @@ export default function VerifyRequestPage() {
       // if the response fails or includes an error, redirect user
       if (!resp.ok || resp.url.includes('auth/error')) {
         router.push(resp.url);
-      } else if (resp.url.includes('auth/new-user')) {
-        router.push('/auth/new-user');
       } else {
-        router.push('/');
+        const session = await getSession();
+        await updateSession(session);
+        if (resp.url.includes('/auth/new-user')) {
+          router.push('/auth/new-user');
+        } else {
+          router.push('/');
+        }
       }
     } catch (err) {
       console.log(err);

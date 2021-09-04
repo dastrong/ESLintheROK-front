@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
 import { SiBuymeacoffee } from 'react-icons/si';
-import { useSession } from 'next-auth/client';
 
+import useUserSession from 'hooks/useUserSession';
 import Button from 'components/Button';
 import Skeleton from 'components/Skeleton';
 
@@ -18,7 +18,7 @@ const mainLinks = [
 
 export default function NavLinks() {
   const { pathname } = useRouter();
-  const [session, loading] = useSession();
+  const { session, loading } = useUserSession();
 
   return (
     <>
