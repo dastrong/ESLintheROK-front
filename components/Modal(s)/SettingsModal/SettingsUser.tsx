@@ -5,19 +5,12 @@ import { FaSignOutAlt } from 'react-icons/fa';
 import useUserSession from 'hooks/useUserSession';
 import PageContent from 'components/PageContent';
 import Button from 'components/Button';
+import { getStarredEmail } from 'utils/getStarredEmail';
 
 export default function SettingsUser() {
   const { session } = useUserSession();
 
-  const [username, domain] = session?.email.split('@') || ['', ''];
-  const starredEmail =
-    username
-      .split('')
-      .map((x, i) => {
-        if (!i || i === username.length - 1) return x;
-        return '*';
-      })
-      .join('') + `@${domain}`;
+  const starredEmail = getStarredEmail(session?.email || '');
 
   return (
     <>
@@ -40,7 +33,8 @@ export default function SettingsUser() {
                 style={{
                   fontSize: '1.2rem',
                   paddingBlock: 10,
-                  marginLeft: 8,
+                  paddingInline: 0,
+                  marginLeft: 24,
                   borderColor: 'transparent',
                   textDecoration: 'underline solid #ff6584',
                 }}
