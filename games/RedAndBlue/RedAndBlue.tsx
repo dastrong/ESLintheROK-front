@@ -3,7 +3,7 @@
 import React, { useCallback } from 'react';
 
 import { useStore } from 'contexts/store';
-import { useUser } from 'contexts/user';
+import { useFont } from 'contexts/fonts';
 import { useData, useHandleGame, useFitText, useKeys, useScroll } from 'hooks';
 
 import { init, reducer } from './RedAndBlue.state';
@@ -18,8 +18,8 @@ import FitText from 'components/FitText';
 
 export default function RedAndBlue({ title, description }: GameSEOProps) {
   const store = useStore();
-  const { user } = useUser();
-  const ContainerCSS = Styles.getContainerCSS(user.activeFont);
+  const { selectedFont } = useFont();
+  const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
 
   // STATE - useData
   const primary = store.vocabulary;

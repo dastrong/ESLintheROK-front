@@ -42,6 +42,9 @@ const UserSchema = {
       type: 'timestamp',
       updateDate: true,
     },
+    defaultFont: {
+      type: 'varchar',
+    },
   },
 };
 

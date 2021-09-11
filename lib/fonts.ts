@@ -1,31 +1,37 @@
 export type FontType = {
+  _id?: string;
   name: string;
-  fontFamily: string;
+  fallback: string;
 };
 
 export const defaultFonts: FontType[] = [
   {
     name: 'Bree Serif',
-    fontFamily: 'Bree Serif, serif',
+    fallback: 'serif',
   },
   {
     name: 'Mali',
-    fontFamily: 'Mali, cursive',
+    fallback: 'cursive',
   },
   {
     name: 'Niramit',
-    fontFamily: 'Niramit, sans-serif',
+    fallback: 'sans-serif',
   },
   {
     name: 'Poppins',
-    fontFamily: 'Poppins, sans-serif',
+    fallback: 'sans-serif',
   },
   {
     name: 'Muli',
-    fontFamily: 'Muli, sans-serif',
+    fallback: 'sans-serif',
   },
   {
     name: 'Quicksand',
-    fontFamily: 'Quicksand, sans-serif',
+    fallback: 'sans-serif',
   },
 ];
+
+export const getRandomFont = (fonts: FontType[]) => {
+  const randomIndex = Math.floor(Math.random() * fonts.length);
+  return fonts[randomIndex];
+};

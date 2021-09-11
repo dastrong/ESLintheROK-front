@@ -8,7 +8,7 @@ import { Provider as SessionProvider } from 'next-auth/client';
 import Layout from 'components/Layout';
 import { StoreProvider } from 'contexts/store';
 import { ThemeProvider } from 'contexts/theme';
-import { UserProvider } from 'contexts/user';
+import { FontProvider } from 'contexts/fonts';
 import { SEO } from 'next-seo.config';
 import 'normalize.css';
 
@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
     >
       <IconContext.Provider value={{ style: { verticalAlign: 'bottom' } }}>
         <SessionProvider session={pageProps.session}>
-          <UserProvider>
+          <FontProvider>
             <ThemeProvider>
               <StoreProvider>
                 <DataModals />
@@ -101,7 +101,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 `}</style>
               </StoreProvider>
             </ThemeProvider>
-          </UserProvider>
+          </FontProvider>
         </SessionProvider>
       </IconContext.Provider>
     </SWRConfig>

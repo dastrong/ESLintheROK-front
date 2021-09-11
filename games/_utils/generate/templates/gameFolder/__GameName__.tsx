@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 
 import { useStore } from 'contexts/store';
-import { useUser } from 'contexts/user';
+import { useFont } from 'contexts/fonts';
 import {
   // useAudio,
   useData,
@@ -26,8 +26,8 @@ import GameWrapper from 'components/GameWrapper';
 
 export default function __GameName__({ title, description }: GameSEOProps) {
   const store = useStore();
-  const { user } = useUser();
-  const ContainerCSS = Styles.getContainerCSS(user.activeFont);
+  const { selectedFont } = useFont();
+  const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
 
   // AUDIO - useAudio
   // can remove if your game doesn't use any audio

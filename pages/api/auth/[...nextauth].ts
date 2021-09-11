@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth';
+import NextAuth, { Session, User } from 'next-auth';
 import Adapters from 'next-auth/adapters';
 import Providers from 'next-auth/providers';
 import randomstring from 'randomstring';
@@ -27,7 +27,7 @@ export default NextAuth({
   ],
 
   database: process.env.DATABASE_URL,
-  debug: process.env.NODE_ENV === 'development',
+  // debug: process.env.NODE_ENV === 'development',
   secret: process.env.NEXTAUTH_SECRET,
 
   session: {
@@ -48,7 +48,7 @@ export default NextAuth({
   },
 
   callbacks: {
-    async session(session) {
+    async session(session: Session, user: User) {
       const {
         user: { email },
         expires,
@@ -59,6 +59,7 @@ export default NextAuth({
         email,
         expires,
         accessToken,
+        defaultFont: user.defaultFont || 'random',
       };
     },
   },

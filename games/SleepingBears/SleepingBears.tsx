@@ -6,7 +6,7 @@ import { animated, useSpring } from 'react-spring';
 import classNames from 'classnames';
 
 import { useStore } from 'contexts/store';
-import { useUser } from 'contexts/user';
+import { useFont } from 'contexts/fonts';
 import {
   useData,
   useHandleGame,
@@ -37,8 +37,8 @@ const bearImgs = [Bear1URL, Bear2URL, Bear3URL, Bear4URL];
 
 export default function SleepingBears({ title, description }: GameSEOProps) {
   const store = useStore();
-  const { user } = useUser();
-  const ContainerCSS = Styles.getContainerCSS(user.activeFont);
+  const { selectedFont } = useFont();
+  const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
 
   // STATE - useData
   const primary = store.vocabulary;

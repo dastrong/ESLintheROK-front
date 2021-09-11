@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import { FaTrophy } from 'react-icons/fa';
 
 import { useStore } from 'contexts/store';
-import { useUser } from 'contexts/user';
+import { useFont } from 'contexts/fonts';
 import {
   useData,
   useHandleGame,
@@ -45,8 +45,8 @@ const colors = [
 
 export default function WhatsBehind({ title, description }: GameSEOProps) {
   const store = useStore();
-  const { user } = useUser();
-  const ContainerCSS = Styles.getContainerCSS(user.activeFont);
+  const { selectedFont } = useFont();
+  const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
 
   // STATE - useData
   const primary = store.vocabulary;

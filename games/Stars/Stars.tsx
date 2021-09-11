@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import { FaStar } from 'react-icons/fa';
 
 import { useStore } from 'contexts/store';
-import { useUser } from 'contexts/user';
+import { useFont } from 'contexts/fonts';
 import {
   useData,
   useHandleGame,
@@ -49,8 +49,8 @@ const maximumStars = 6;
 
 export default function Stars({ title, description }: GameSEOProps) {
   const store = useStore();
-  const { user } = useUser();
-  const ContainerCSS = Styles.getContainerCSS(user.activeFont);
+  const { selectedFont } = useFont();
+  const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
 
   // STATE - useData
   const primary = store.vocabulary;

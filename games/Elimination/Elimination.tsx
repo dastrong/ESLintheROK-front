@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 
 import { useStore } from 'contexts/store';
-import { useUser } from 'contexts/user';
+import { useFont } from 'contexts/fonts';
 import {
   useAudio,
   useData,
@@ -44,8 +44,8 @@ const colors = [
 
 export default function Elimination({ title, description }: GameSEOProps) {
   const store = useStore();
-  const { user } = useUser();
-  const ContainerCSS = Styles.getContainerCSS(user.activeFont);
+const { selectedFont } = useFont();
+const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
 
   // AUDIO
   const [GameOverAudio, resetGameOverAudio] = useAudio(gameOverAudioURL);

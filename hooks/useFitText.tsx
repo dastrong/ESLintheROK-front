@@ -1,5 +1,5 @@
 import React from 'react';
-import { useUser } from 'contexts/user';
+import { useFont } from 'contexts/fonts';
 
 type GameDataType = string | string[] | number | any[];
 type RefsType = React.RefObject<HTMLSpanElement>[];
@@ -12,7 +12,7 @@ export default function useFitText(
   shouldCalculateSolo = false,
   delayUpdate = false
 ): [React.RefObject<HTMLSpanElement>[], () => void] {
-  const { user } = useUser();
+  const { selectedFont } = useFont();
 
   const [isFontLoaded, setFontLoaded] = React.useState(false);
   const [updateMe, triggerTextUpd] = React.useState(0);
@@ -53,7 +53,7 @@ export default function useFitText(
     refs,
     gameData,
     updateMe,
-    user.activeFont,
+    selectedFont.name,
     isFontLoaded,
     delayUpdate,
     shouldCalculateSolo,

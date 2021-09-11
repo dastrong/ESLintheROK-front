@@ -4,7 +4,7 @@ import React, { useCallback } from 'react';
 import { animated, config, useSpring, useTransition } from 'react-spring';
 
 import { useStore } from 'contexts/store';
-import { useUser } from 'contexts/user';
+import { useFont } from 'contexts/fonts';
 import { useData, useHandleGame, useFitText, useKeys } from 'hooks';
 
 import { init, reducer } from './Nunchi.state';
@@ -19,8 +19,8 @@ import FitText from 'components/FitText';
 
 export default function Nunchi({ title, description }: GameSEOProps) {
   const store = useStore();
-  const { user } = useUser();
-  const ContainerCSS = Styles.getContainerCSS(user.activeFont);
+  const { selectedFont } = useFont();
+  const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
 
   // STATE - useData
   const primary = store.expressions;
