@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 import useSWR from 'swr';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaTrashAlt, FaCaretDown } from 'react-icons/fa';
@@ -189,15 +190,27 @@ export default function SettingsFonts() {
             ))}
           </ul>
         </Popup>
+        <br />
+        {session ? (
+          <InlineForm
+            placeholder="Enter a font name from Google Fonts here"
+            style={{ margin: '1.5rem auto 1.75rem', maxWidth: 400 }}
+            value={newFontValue}
+            onSubmit={onSubmitNewFont}
+            onChange={setNewFontValue}
+          />
+        ) : (
+          <Link href="/auth/signin" passHref>
+            <Button
+              as="a"
+              color="white"
+              bgColor="#04a7fb"
+              text="Log in to load your fonts"
+              style={{ margin: '1.25rem auto 0' }}
+            />
+          </Link>
+        )}
       </div>
-
-      <InlineForm
-        placeholder="Enter a font name from Google Fonts here"
-        style={{ margin: '1.5rem auto 1.75rem', maxWidth: 400 }}
-        value={newFontValue}
-        onSubmit={onSubmitNewFont}
-        onChange={setNewFontValue}
-      />
 
       <PageContent.List
         isHorizontal
