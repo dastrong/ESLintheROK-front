@@ -24,7 +24,7 @@ const init = (): StoreTypes => {
     ...initialStuff,
     isMenuOpen: false,
     dataModalName: '',
-    showSettings: true,
+    showSettings: false,
     // if we want to seed the store we will here
     ...(process.env.NEXT_PUBLIC_SEED && seed),
   };
