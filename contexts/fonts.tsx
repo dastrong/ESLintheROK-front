@@ -111,17 +111,19 @@ export const FontProvider = ({ children }) => {
   const [state, fontDispatch] = useReducer(reducer, initialState, init);
 
   useEffect(() => {
-    const getUserFonts = () => {
-      // on load or sign in, fetch the user's custom fonts
-      fetch('http://localhost:4000/api/fonts', {
-        headers: { Authorization: `Bearer ${session.accessToken}` },
-      })
-        .then(resp => resp.json())
-        .then((fonts: FontType[]) => {
-          const selection = session.defaultFont || 'random';
-          fontDispatch({ type: 'Set_User_Fonts', fonts, selection });
-        })
-        .catch(err => console.error(err));
+    // on load or sign in, fetch the user's custom fonts
+    const getUserFonts = async () => {
+      try {
+        const resp = await fetch('http://localhost:4000/api/fonts', {
+          headers: { Authorization: `Bearer ${session.accessToken}` },
+        });
+        const fonts = await resp.json();
+        if (!resp.ok) throw new Error(fonts.message);
+        const selection = session.defaultFont || 'random';
+        fontDispatch({ type: 'Set_User_Fonts', fonts, selection });
+      } catch (err) {
+        console.error(err);
+      }
     };
 
     // if a user has logged out we need to remove their fonts
