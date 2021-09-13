@@ -88,6 +88,8 @@ NEXT_PUBLIC_CLOUDINARY_URL = 'https://res.cloudinary.com/dastrong';
 
 NEXT_PUBLIC_GOOGLE_FONTS_KEY = 'string'; // grab an API key from the Google Fonts API
 
+NEXT_PUBLIC_ANALYTICS = 'string'; // grab an API key from Google Analytics
+
 COFFEE_TOKEN = 'string'; // used to grab supporters from buymeacoffee
 
 NEXTAUTH_URL = 'http://localhost:3000'; // frontend url
