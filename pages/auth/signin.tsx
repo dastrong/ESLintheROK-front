@@ -1,5 +1,6 @@
 import React, { FormEvent, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { signIn } from 'next-auth/client';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -96,6 +97,14 @@ export default function SignInPage() {
             text="Submit"
             style={{ margin: '1.5rem auto 0' }}
           />
+          <p>
+            By signing in, you are indicating that you have read, understand and
+            agree to our{' '}
+            <Link href="/privacy">
+              <a>Privacy Policy</a>
+            </Link>
+            .
+          </p>
         </form>
 
         {InputCSS.styles}
@@ -110,6 +119,12 @@ export default function SignInPage() {
 
           .focused:invalid {
             border-color: #ff1800;
+          }
+
+          p {
+            color: #5a5c62;
+            font-size: 1rem;
+            line-height: 1.5;
           }
         `}</style>
       </div>
