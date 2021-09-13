@@ -6,6 +6,7 @@ import { DefaultSeo } from 'next-seo';
 import { Provider as SessionProvider } from 'next-auth/client';
 
 import Layout from 'components/Layout';
+import CookieConsent from 'components/CookieConsent';
 import { StoreProvider } from 'contexts/store';
 import { ThemeProvider } from 'contexts/theme';
 import { FontProvider } from 'contexts/fonts';
@@ -35,6 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 <Layout>
                   <DefaultSeo {...SEO} />
                   <Component {...pageProps} />
+                  <CookieConsent />
                 </Layout>
 
                 {/* BUTTON DEFAULTS */}
