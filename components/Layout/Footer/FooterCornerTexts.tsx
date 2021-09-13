@@ -22,8 +22,14 @@ export default function FooterCornerTexts() {
 
       <div className="corner corner_right">
         <p>
+          <Link href="/privacy">
+            <a>Privacy Policy</a>
+          </Link>
+        </p>
+
+        <p>
           <Link href="/acknowledgements">
-            <a className="acknowledgements">Acknowledgements</a>
+            <a>Acknowledgements</a>
           </Link>
         </p>
 
@@ -53,10 +59,11 @@ export default function FooterCornerTexts() {
 
         .corner p {
           margin: 0;
+          margin-bottom: 1.25rem;
         }
 
-        .corner p:first-child {
-          margin-bottom: 1.25rem;
+        .corner p:last-child {
+          margin-bottom: 0;
         }
 
         .support_me a {
@@ -78,9 +85,6 @@ export default function FooterCornerTexts() {
         a:hover {
           color: #5a035a;
           text-decoration: underline;
-        }
-
-        @media screen and (min-width: 1440px) {
         }
       `}</style>
     </>
