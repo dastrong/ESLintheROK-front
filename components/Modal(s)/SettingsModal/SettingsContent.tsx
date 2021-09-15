@@ -2,6 +2,7 @@ import React from 'react';
 import PageContent from 'components/PageContent';
 import SettingsUser from './SettingsUser';
 import SettingsFonts from './SettingsFonts';
+import SettingsCookies from './SettingsCookies';
 
 export default function SettingsContent() {
   return (
@@ -37,16 +38,7 @@ export default function SettingsContent() {
           </li>
         </PageContent.List>
 
-        <PageContent.Header>Cookies</PageContent.Header>
-        <PageContent.Text>
-          User's can manage their cookies here
-        </PageContent.Text>
-        <PageContent.List>
-          <li>
-            Haven't decided what cookies will be present currently, but will be
-            narrowed down soon
-          </li>
-        </PageContent.List>
+        <SettingsCookies />
       </PageContent>
     </>
   );

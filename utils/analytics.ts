@@ -1,24 +1,75 @@
 import ReactGA from 'react-ga';
+import Cookies from 'js-cookie';
 
-export const initializeAnalytics = () => {
+const addAnalytics = (alreadyConsented = false) => {
+  if (!alreadyConsented) {
+    // user has consented to analytics
+    setCookieContent(true);
+  }
+  // if we're in production start up analytics
   if (process.env.NODE_ENV === 'production') {
     ReactGA.initialize(process.env.NEXT_PUBLIC_ANALYTICS);
+    // if user toggles analyics cookies on and off we need to reset this window variable
+    // https://developers.google.com/analytics/devguides/collection/analyticsjs/user-opt-out
+    window[`ga-disable-${process.env.NEXT_PUBLIC_ANALYTICS}`] = false;
   }
 };
 
-export const trackPageView = (path: string) => {
+const removeAnalytics = () => {
+  // user has removed their consent to analytics
+  setCookieContent(false);
+  // remove analytic cookies if they are there
+  Cookies.remove('_ga');
+  Cookies.remove('_gat');
+  Cookies.remove('_gid');
+  // if user toggles analyics cookies on and off we need to reset this window variable
+  // https://developers.google.com/analytics/devguides/collection/analyticsjs/user-opt-out
+  if (process.env.NODE_ENV === 'production') {
+    window[`ga-disable-${process.env.NEXT_PUBLIC_ANALYTICS}`] = true;
+  }
+};
+
+const getCookieContent = () => {
+  return Cookies.get('cookie_consent');
+};
+
+const setCookieContent = (value: boolean) => {
+  Cookies.set('cookie_consent', String(value), {
+    expires: 365,
+    secure: !!(process.env.NODE_ENV === 'production'),
+    sameSite: 'strict',
+  });
+};
+
+const trackPageView = (path: string) => {
   ReactGA.set({ page: path });
   ReactGA.pageview(path);
 };
 
-export const trackModalView = (modalName: string) => {
+const trackModalView = (modalName: string) => {
   ReactGA.modalview(modalName);
 };
 
-export const trackNewRound = (title: string) => {
+const trackNewRound = (title: string) => {
   ReactGA.event({
     category: 'Games',
     action: `New Round - ${title}`,
     label: title,
   });
+};
+
+export const analytics = {
+  add: addAnalytics,
+  remove: removeAnalytics,
+};
+
+export const consent = {
+  get: getCookieContent,
+  set: setCookieContent,
+};
+
+export const track = {
+  modalView: trackModalView,
+  newRound: trackNewRound,
+  pageView: trackPageView,
 };

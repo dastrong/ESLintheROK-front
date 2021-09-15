@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Cookies, { CookieAttributes } from 'js-cookie';
 import { animated, useSpring, config } from 'react-spring';
 
 import Button from 'components/Button';
 import * as Styles from './CookieConsent.styles';
-import { initializeAnalytics } from 'utils/analytics';
-
-const cookieName = 'cookie_consent';
-const cookieOptions: CookieAttributes = {
-  expires: 365,
-  secure: !!(process.env.NODE_ENV === 'production'),
-  sameSite: 'strict',
-};
+import { analytics, consent } from 'utils/analytics';
 
 export default function CookieConsent() {
   const [animate, setAnimate] = useState(true);
@@ -25,36 +17,22 @@ export default function CookieConsent() {
     onRest: () => setAnimate(visibility),
   });
 
-  // check if user has already accepted/declined
+  // check if user has already consented
   useEffect(() => {
-    const wasAccepted = getCookieValue();
-
-    if (wasAccepted) initializeAnalytics();
-    // if the user has already denied it, do nothing
-    else if (!(typeof wasAccepted === 'boolean')) setVisibility(true);
+    const wasAccepted = consent.get(); // undefined, true, false
+    if (wasAccepted) analytics.add(true);
+    // if the user hasn't consented before, show the notice
+    else if (typeof wasAccepted === 'undefined') setVisibility(true);
   }, []);
 
   const onAccept = () => {
-    initializeAnalytics();
-    setCookieValue(true);
+    analytics.add();
     setVisibility(false);
   };
 
   const onDecline = () => {
-    // remove google analytics cookies
-    Cookies.remove('_ga');
-    Cookies.remove('_gat');
-    Cookies.remove('_gid');
-    setCookieValue(false);
+    analytics.remove();
     setVisibility(false);
-  };
-
-  const getCookieValue = () => {
-    return Cookies.get(cookieName);
-  };
-
-  const setCookieValue = (value: boolean) => {
-    Cookies.set(cookieName, String(value), cookieOptions);
   };
 
   if (!visibility && !animate) return null;
