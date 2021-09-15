@@ -8,6 +8,8 @@ declare namespace NodeJS {
 
     NEXT_PUBLIC_ANALYTICS: string;
 
+    NEXT_PUBLIC_GIPHY_KEY: string;
+
     COFFEE_TOKEN: string;
 
     NEXTAUTH_URL: 'http://localhost:3000' | 'https://www.eslintherok.com';
