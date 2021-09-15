@@ -64,9 +64,9 @@ const reducer = (state: StoreTypes, action: ActionTypes) => {
     case 'Close_Data_Modal':
       return { ...state, dataModalName: '' as DataModalNameType };
     case 'Open_Settings':
-      return { ...state, showSettings: true };
+      return { ...state, isMenuOpen: false, showSettings: true };
     case 'Close_Settings':
-      return { ...state, showSettings: false };
+      return { ...state, isMenuOpen: false, showSettings: false };
     default:
       return state;
   }
