@@ -161,9 +161,10 @@ export default function SettingsFonts() {
         <Popup
           interactive
           delayHide={100}
+          hideTooltip={!session}
           addStyles={{ height: 175, width: 175, overflowY: 'scroll' }}
           owner={
-            <span>
+            <span style={{ cursor: session ? 'pointer' : 'not-allowed' }}>
               Default Font: <strong>{session?.defaultFont || 'Random'}</strong>
               <FaCaretDown
                 style={{ verticalAlign: 'middle', paddingLeft: 4 }}
@@ -194,7 +195,7 @@ export default function SettingsFonts() {
         {session ? (
           <InlineForm
             placeholder="Enter a font name from Google Fonts here"
-            style={{ margin: '1.5rem auto 1.75rem', maxWidth: 400 }}
+            style={{ margin: '1rem auto 1.75rem', maxWidth: 400 }}
             value={newFontValue}
             onSubmit={onSubmitNewFont}
             onChange={setNewFontValue}
@@ -205,8 +206,8 @@ export default function SettingsFonts() {
               as="a"
               color="white"
               bgColor="#04a7fb"
-              text="Log in to load your fonts"
-              style={{ margin: '1.25rem auto 0' }}
+              text="Log in to save your customized fonts"
+              style={{ margin: '1rem auto 0' }}
             />
           </Link>
         )}
