@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import GifModal from 'components/Modal(s)/GifModal';
+import GifModal from 'components/Modals/GifModal';
 
 export default function Gif() {
   const [isOpen, setIsOpen] = useState(false);

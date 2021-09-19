@@ -19,7 +19,7 @@ import { getGameImgUrl, getGameOgImgUrl } from 'utils/getCloudUrls';
 import { useStore } from 'contexts/store';
 
 const GameInstructionsModal = dynamic(
-  () => import('components/Modal(s)/GameInstructionsModal')
+  () => import('components/Modals/GameInstructionsModal')
 );
 
 const gameNotes = [

@@ -14,7 +14,7 @@ import { SEO } from 'next-seo.config';
 import 'normalize.css';
 
 import dynamic from 'next/dynamic';
-const DataModals = dynamic(() => import('components/Modal(s)/DataModals'));
+const GlobalModals = dynamic(() => import('components/Modals/GlobalModals'));
 
 const navWaveHeightToWidthRatio = 192 / 2560;
 
@@ -32,7 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <FontProvider>
             <ThemeProvider>
               <StoreProvider>
-                <DataModals />
+                <GlobalModals />
                 <Layout>
                   <DefaultSeo {...SEO} />
                   <Component {...pageProps} />
