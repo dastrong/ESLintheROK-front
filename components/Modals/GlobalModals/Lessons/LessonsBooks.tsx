@@ -38,7 +38,7 @@ export default function LessonsBooks({
 
       <Modal.Content>
         <div className="container">
-          <div className="grade_button_container">
+          <div className="grade_button_container" style={{ width: 450 }}>
             <LessonsGradeCarousel
               grades={grades}
               dispatch={dispatch}
@@ -101,7 +101,6 @@ export default function LessonsBooks({
               margin: 0rem auto 2rem;
               display: flex;
               justify-content: center;
-              width: 450px;
             }
 
             .books_container {

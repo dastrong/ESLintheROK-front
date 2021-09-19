@@ -18,7 +18,7 @@ export default function LessonsGradeCarousel({
 
   return (
     <Carousel
-      width="450px"
+      width="100%"
       itemColorScale={['#a56eec', '#138039']}
       items={carouselItems}
       activeItem={activeItem}

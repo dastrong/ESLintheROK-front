@@ -51,7 +51,12 @@ export default function LessonsGrades({
           </animated.div>
 
           <animated.div
-            style={{ position: 'absolute', left: '41%', ...contentStyles }}
+            style={{
+              position: 'absolute',
+              left: '41%',
+              width: 400,
+              ...contentStyles,
+            }}
           >
             {isLoading ? null : (
               <>
