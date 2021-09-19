@@ -6,6 +6,7 @@ export const CarouselListCSS = css.resolve`
     align-items: center;
     overflow: hidden;
     position: relative;
+    width: 100%;
   }
 `;
 

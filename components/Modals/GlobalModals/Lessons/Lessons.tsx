@@ -82,7 +82,11 @@ export default function Lessons() {
   const currentStep = steps[state.step];
 
   return (
-    <Modal isOpen={dataModalName === 'lessons'} closeModal={closeModal}>
+    <Modal
+      isOpen={dataModalName === 'lessons'}
+      closeModal={closeModal}
+      style={{ content: { width: 767 } }}
+    >
       <SetterProvider>
         {currentStep === 'EDIT_DATA' ? (
           <LessonsData

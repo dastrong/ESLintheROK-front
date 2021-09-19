@@ -7,6 +7,7 @@ import Modal from 'components/Modals';
 import LessonsGradesSVG from './LessonsGradesSVG';
 import LessonsGradeCarousel from './LessonsGradeCarousel';
 import type { LessonsGradesProps, Grade } from './Lessons.types';
+import { apiFetch } from 'utils/fetchers';
 
 export default function LessonsGrades({
   closeModal,
@@ -29,11 +30,10 @@ export default function LessonsGrades({
   });
 
   useEffect(() => {
-    const getGrades = () =>
-      fetch('http://localhost:4000/api/grades')
-        .then(resp => resp.json())
-        .then((grades: Grade[]) => dispatch({ type: 'Set_Grades', grades }))
-        .catch(console.log);
+    const getGrades = async () => {
+      const grades = (await apiFetch('/grades')) as Grade[];
+      dispatch({ type: 'Set_Grades', grades });
+    };
 
     if (!grades.length) getGrades();
   }, []);

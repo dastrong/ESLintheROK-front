@@ -6,6 +6,8 @@ import { FaTrashAlt, FaCaretDown } from 'react-icons/fa';
 
 import { useFont } from 'contexts/fonts';
 import useUserSession from 'hooks/useUserSession';
+import { FontType } from 'lib/fonts';
+import { apiFetchToken } from 'utils/fetchers';
 
 import FontLoader from 'components/FontLoader';
 import PageContent from 'components/PageContent';
@@ -13,7 +15,6 @@ import InlineForm from 'components/InlineForm';
 import Button from 'components/Button';
 import Popup from 'components/Popup';
 import { InputCSS } from 'components/Styles';
-import { FontType } from 'lib/fonts';
 
 export default function SettingsFonts() {
   const { session, updateSession } = useUserSession();
@@ -85,15 +86,11 @@ export default function SettingsFonts() {
       // then we'll reset the input and add the font to our extra fonts
       setNewFontValue('');
       // creates a new font in the DB or add the userId to the existing collection
-      const newFontResp = await fetch('http://localhost:4000/api/fonts', {
-        method: 'POST',
-        body: JSON.stringify({ ...newFont }),
-        headers: {
-          Authorization: `Bearer ${session.accessToken}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      const { name, fallback, _id } = await newFontResp.json();
+      const { name, fallback, _id } = await apiFetchToken(
+        '/fonts',
+        { method: 'POST', body: JSON.stringify({ ...newFont }) },
+        session.accessToken
+      );
       // if we successfully added the font to the DB, let's update our local state
       fontDispatch({ type: 'Add_Font', name, fallback, _id });
     } catch (err) {
@@ -102,39 +99,33 @@ export default function SettingsFonts() {
   };
 
   const setNewDefaultFont = async (fontName: string) => {
-    fetch('http://localhost:4000/api/fonts/user/default/', {
-      method: 'POST',
-      body: JSON.stringify({ fontName }),
-      headers: {
-        Authorization: `Bearer ${session.accessToken}`,
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(resp => resp.json())
-      .then(defaultFont => updateSession({ ...session, defaultFont }))
-      .then(() => fontDispatch({ type: 'Select_Font', fontName }))
-      .catch(err => {
-        console.error(err);
-        toast.error('Unexpected Error Occured');
-      });
+    try {
+      const defaultFont = await apiFetchToken(
+        '/fonts/user/default',
+        { method: 'POST', body: JSON.stringify({ fontName }) },
+        session.accessToken
+      );
+      updateSession({ ...session, defaultFont });
+      fontDispatch({ type: 'Select_Font', fontName });
+    } catch (err) {
+      console.log(err);
+      toast.error('Unexpected Error Occured');
+    }
   };
 
   const deleteUserFont = async (_id: string) => {
-    fetch('http://localhost:4000/api/fonts', {
-      method: 'DELETE',
-      body: JSON.stringify({ _id }),
-      headers: {
-        Authorization: `Bearer ${session.accessToken}`,
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(resp => resp.json())
-      .then(({ name }) => toast.success(`Successfully Removed: ${name}`))
-      .then(() => fontDispatch({ type: 'Remove_Font', _id }))
-      .catch(err => {
-        console.error(err);
-        toast.error('Unexpected Error Occured');
-      });
+    try {
+      const data = await apiFetchToken(
+        '/fonts',
+        { method: 'DELETE', body: JSON.stringify({ _id }) },
+        session.accessToken
+      );
+      toast.success(`Successfully Removed: ${data.name}`);
+      fontDispatch({ type: 'Remove_Font', _id });
+    } catch (err) {
+      console.log(err);
+      toast.error('Unexpected Error Occured');
+    }
   };
 
   return (

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useReducer } from 'react';
 import { defaultFonts, getRandomFont, FontType } from 'lib/fonts';
 import useUserSession from 'hooks/useUserSession';
+import { apiFetchToken } from 'utils/fetchers';
 
 type FontState = {
   fonts: FontType[];
@@ -114,15 +115,11 @@ export const FontProvider = ({ children }) => {
     // on load or sign in, fetch the user's custom fonts
     const getUserFonts = async () => {
       try {
-        const resp = await fetch('http://localhost:4000/api/fonts', {
-          headers: { Authorization: `Bearer ${session.accessToken}` },
-        });
-        const fonts = await resp.json();
-        if (!resp.ok) throw new Error(fonts.message);
+        const fonts = await apiFetchToken('/fonts', {}, session.accessToken);
         const selection = session.defaultFont || 'random';
         fontDispatch({ type: 'Set_User_Fonts', fonts, selection });
       } catch (err) {
-        console.error(err);
+        console.log(err);
       }
     };
 

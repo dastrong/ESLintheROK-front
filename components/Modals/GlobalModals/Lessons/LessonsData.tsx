@@ -4,6 +4,7 @@ import { useStore } from 'contexts/store';
 import Modal from 'components/Modals';
 import { DataScreen } from '../_components';
 import type { LessonFull, LessonsDataProps } from './Lessons.types';
+import { apiFetch } from 'utils/fetchers';
 
 export default function LessonsData({
   closeModal,
@@ -23,9 +24,7 @@ export default function LessonsData({
     const getLessonData = async () => {
       const urls = chosenLessons.map(lessonId => `/lesson/${lessonId}`);
       const data = await Promise.all<LessonFull>(
-        urls.map(url =>
-          fetch(`http://localhost:4000/api${url}`).then(r => r.json())
-        )
+        urls.map(url => apiFetch(url))
       );
       const { vocabulary, expressions } = data.reduce(
         (acc, cVal) => ({

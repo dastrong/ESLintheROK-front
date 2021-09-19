@@ -8,6 +8,7 @@ import Image from 'components/Image';
 import Skeleton from 'components/Skeleton';
 import Button from 'components/Button';
 import type { LessonsLessonsProps, LessonMini } from './Lessons.types';
+import { swrFetch } from 'utils/fetchers';
 
 export default function LessonsLessons({
   closeModal,
@@ -21,14 +22,13 @@ export default function LessonsLessons({
 
   const { data: fetchedLessons } = useSWR<LessonMini[]>(
     `/book/${chosenBook}/lessons`,
-    (url: string) =>
-      fetch('http://localhost:4000/api' + url)
-        .then(r => r.json())
-        .then((data: LessonMini[]) => {
-          dispatch({ type: 'Set_Lessons', bookId: chosenBook, lessons: data });
-          return data;
-        }),
-    { isPaused: () => !!lessons[chosenBook] }
+    swrFetch,
+    {
+      isPaused: () => !!lessons[chosenBook],
+      onSuccess: data => {
+        dispatch({ type: 'Set_Lessons', bookId: chosenBook, lessons: data });
+      },
+    }
   );
 
   const bookData = books[chosenGrade].find(({ _id }) => _id === chosenBook);

@@ -7,6 +7,7 @@ import Image from 'components/Image';
 import LessonsGradeCarousel from './LessonsGradeCarousel';
 import type { Book, LessonsBooksProps } from './Lessons.types';
 import { getBookCoverUrl } from 'utils/getCloudUrls';
+import { swrFetch } from 'utils/fetchers';
 
 export default function LessonsBooks({
   closeModal,
@@ -18,14 +19,13 @@ export default function LessonsBooks({
   // fetch the books for this grade if we haven't already
   const { data: fetchedBooks } = useSWR<Book[]>(
     `/grade/${chosenGrade}/books`,
-    (url: string) =>
-      fetch('http://localhost:4000/api' + url)
-        .then(r => r.json())
-        .then((data: Book[]) => {
-          dispatch({ type: 'Set_Books', books: data, gradeId: chosenGrade });
-          return data;
-        }),
-    { isPaused: () => !!books[chosenGrade] }
+    swrFetch,
+    {
+      isPaused: () => !!books[chosenGrade],
+      onSuccess: data => {
+        dispatch({ type: 'Set_Books', books: data, gradeId: chosenGrade });
+      },
+    }
   );
 
   const { books: bookIds, grade } = grades.find(
@@ -75,8 +75,8 @@ export default function LessonsBooks({
                     key={bookId}
                     src={bookImgUrl}
                     alt={`Book Cover ${bookTitle}`}
-                    height={161}
-                    width={124}
+                    height={168}
+                    width={126}
                     style={{ borderRadius: '0.5rem' }}
                   />
                   <h4>

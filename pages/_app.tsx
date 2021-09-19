@@ -10,6 +10,7 @@ import CookieConsent from 'components/CookieConsent';
 import { StoreProvider } from 'contexts/store';
 import { ThemeProvider } from 'contexts/theme';
 import { FontProvider } from 'contexts/fonts';
+import { apiFetch } from 'utils/fetchers';
 import { SEO } from 'next-seo.config';
 import 'normalize.css';
 
@@ -20,13 +21,7 @@ const navWaveHeightToWidthRatio = 192 / 2560;
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <SWRConfig
-      value={{
-        revalidateOnFocus: false,
-        fetcher: (url: string) =>
-          fetch('http://localhost:4000/api' + url).then(r => r.json()),
-      }}
-    >
+    <SWRConfig value={{ revalidateOnFocus: false, fetcher: apiFetch }}>
       <IconContext.Provider value={{ style: { verticalAlign: 'bottom' } }}>
         <SessionProvider session={pageProps.session}>
           <FontProvider>

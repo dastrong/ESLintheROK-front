@@ -65,7 +65,7 @@ export default function Carousel({
         ref={carouselRef}
         responsive={{
           desktop: {
-            breakpoint: { max: 3000, min: 1024 },
+            breakpoint: { max: 3000, min: 767 },
             items: numOfItemsToShow,
             slidesToSlide: numOfItemsToSlide,
           },

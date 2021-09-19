@@ -1,5 +1,3 @@
-import { createBookImgName, BookTitleCreator } from 'utils/createBookImgName';
-
 type FileType = 'image' | 'video';
 
 const imageExtensions = ['svg', 'png', 'jpg', 'webp', 'gif'];
@@ -42,8 +40,12 @@ export const getGameFileUrl = (gameFile: string, transformations?: string) => {
   return `${baseUrl}/Games/${gameFile}`;
 };
 
-export const getBookCoverUrl: BookTitleCreator = (...args) => {
-  const baseUrl = getCloudImgBase('/c_scale,f_auto,h_300,q_70,w_231');
-  const bookName = createBookImgName(...args);
-  return `${baseUrl}/Books/${bookName}.jpg`;
+export const getBookCoverUrl = (
+  grade: number,
+  publisher: string,
+  author: string
+) => {
+  const baseUrl = getCloudImgBase('/c_scale,f_auto,h_308,q_70,w_231');
+  const bookFileName = `${grade}_${publisher.toUpperCase()}_${author.toUpperCase()}`;
+  return `${baseUrl}/Books/${bookFileName}.jpg`;
 };

@@ -36,7 +36,7 @@ export default function Image({
 
   return (
     <div ref={ref}>
-      {loading && !loaded && (
+      {(!inView || !src || (loading && !loaded)) && (
         <Skeleton
           addStyle={{
             height: '100%',
@@ -44,6 +44,7 @@ export default function Image({
             position: 'absolute',
             top: 0,
             left: 0,
+            zIndex: 1111,
           }}
         />
       )}

@@ -36,7 +36,6 @@ export default function GifModal({ isOpen, closeModal, showGifPicker }: Props) {
       isOpen={isOpen}
       closeModal={closeModal}
       className={Styles.ContainerCSS.className}
-      styles={Styles.ContainerCSS.styles}
     >
       <Modal.Header closeModal={closeModal}>Random Gif</Modal.Header>
       <Modal.Content
@@ -60,6 +59,8 @@ export default function GifModal({ isOpen, closeModal, showGifPicker }: Props) {
         confirmText="Next Round"
         confirmClick={closeModal}
       />
+
+      {Styles.ContainerCSS.styles}
     </Modal>
   );
 }
