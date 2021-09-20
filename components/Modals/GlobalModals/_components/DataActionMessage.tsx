@@ -1,7 +1,9 @@
 import React from 'react';
 import { useSetter } from 'contexts/setter';
 
-export default function DataActionMessage() {
+export default function DataActionMessage({
+  message = 'Requirements met. Set your data whenever.',
+}) {
   const {
     vocabulary,
     expressions,
@@ -14,9 +16,7 @@ export default function DataActionMessage() {
 
   return (
     <div className="message_container">
-      {sufficientData
-        ? 'Requirements met. Set your data whenever.'
-        : 'Minimum requirements:'}
+      {sufficientData ? message : 'Minimum requirements:'}
 
       {!sufficientData && (
         <div className="message_requirements">

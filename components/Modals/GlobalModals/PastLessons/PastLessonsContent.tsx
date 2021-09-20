@@ -7,6 +7,7 @@ import useUserSession from 'hooks/useUserSession';
 import Modal from 'components/Modals';
 import PastLessonsList from './PastLessonsList';
 import PastLessonsAuthNotice from './PastLessonsAuthNotice';
+import PastLessonsView from './PastLessonsView';
 
 export default function PastLessonsContent() {
   const { session } = useUserSession();
@@ -34,10 +35,14 @@ export default function PastLessonsContent() {
 
       <Modal.Content style={{ height: 350, overflowY: 'scroll' }}>
         {session ? (
-          <PastLessonsList
-            selectedPastLessons={selectedPastLessons}
-            toggleSelection={toggleSelection}
-          />
+          true ? (
+            <PastLessonsView />
+          ) : (
+            <PastLessonsList
+              selectedPastLessons={selectedPastLessons}
+              toggleSelection={toggleSelection}
+            />
+          )
         ) : (
           <PastLessonsAuthNotice />
         )}

@@ -4,16 +4,29 @@ import Skeleton from 'components/Skeleton';
 
 type Props = {
   showPlaceholders: boolean;
+  disableHover: boolean;
   list: string[];
   editListItem: (index: number) => void;
   removeListItem: (index: number) => void;
 };
 
+const randomWidths = Array(9)
+  .fill('')
+  .map(() => 60 + Math.floor(Math.random() * 100));
+
 const DataScreenList = forwardRef(
   (
-    { showPlaceholders, list, editListItem, removeListItem }: Props,
+    {
+      showPlaceholders,
+      disableHover,
+      list,
+      editListItem,
+      removeListItem,
+    }: Props,
     ref: ForwardedRef<HTMLDivElement>
   ) => {
+    const disabled = showPlaceholders || disableHover;
+
     return (
       <div className="list" ref={ref}>
         {list.map((text, i) => (
@@ -23,7 +36,7 @@ const DataScreenList = forwardRef(
                 {showPlaceholders ? (
                   <Skeleton
                     count={1}
-                    width={20 + Math.floor(Math.random() * 100)}
+                    width={randomWidths[i % randomWidths.length]}
                   />
                 ) : (
                   text || <span style={{ color: 'red' }}>_blank_</span>
@@ -91,17 +104,19 @@ const DataScreenList = forwardRef(
             transform: translateX(-1.25rem);
             transition: all 0.25s;
           }
+        `}</style>
 
+        <style jsx>{`
           /* HOVER CSS */
           .list_item:hover {
-            transform: translateX(-1.5rem);
+            transform: translateX(${disabled ? 0 : '-1.5rem'});
           }
           .list_item:hover .list_item_text {
-            opacity: 0.7;
+            opacity: ${disabled ? 1 : 0.7};
           }
           .list_item:hover .list_item_icons {
-            opacity: 1;
-            transform: translateX(1rem);
+            opacity: ${disabled ? 0 : 1};
+            transform: translateX(${disabled ? 0 : '1rem'});
           }
         `}</style>
       </div>

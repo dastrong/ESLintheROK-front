@@ -1,27 +1,76 @@
 import type { State, Action } from './PastLessons.types';
 
-export const init = (data: string[]): State => ({
-  data: shuffle(data),
-  isVocab: true,
-  text: '',
-  showReady: false,
-});
+const initialDelete = {
+  deleteTitle: null as string,
+  deleteId: null as string,
+};
+
+const initialShare = {
+  shareTitle: null as string,
+  shareId: null as string,
+};
+
+export const initialState: State = {
+  showing: 'list',
+  list: [],
+  selected: [],
+  viewingId: null,
+  deleteTitle: null,
+  deleteId: null,
+  shareTitle: null,
+  shareId: null,
+};
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case 'Set_Data':
-      return { ...state, data: shuffle(action.data) };
-    case 'Change_isVocab':
-      return { ...state, isVocab: action.isVocab };
-    case 'New_Round':
+    case 'Set_Lessons':
+      return { ...state };
+    case 'Set_Showing':
       return {
         ...state,
-        showReady: true,
-        data: action.data,
-        text: action.text,
+        showing: action.showing,
+        viewingId: null,
+        ...initialDelete,
+        ...initialShare,
       };
-    case 'Show_Ready_False':
-      return { ...state, showReady: false };
+    case 'View_Lesson':
+      return {
+        ...state,
+        showing: 'view',
+        viewingId: action.id,
+        ...initialDelete,
+        ...initialShare,
+      };
+    case 'Edit_Lesson':
+      return {
+        ...state,
+        showing: 'edit',
+        viewingId: action.id,
+        ...initialDelete,
+        ...initialShare,
+      };
+    case 'Delete_Lesson':
+      return {
+        ...state,
+        deleteId: action.id,
+        deleteTitle: action.title,
+        ...initialShare,
+      };
+    case 'Share_Lesson':
+      return {
+        ...state,
+        shareId: action.id,
+        shareTitle: action.title,
+        ...initialDelete,
+      };
+    case 'Reset_Delete_Share':
+      return {
+        ...state,
+        ...initialDelete,
+        ...initialShare,
+      };
+    case 'Toggle_Selection':
+      return { ...state };
     default:
       return state;
   }

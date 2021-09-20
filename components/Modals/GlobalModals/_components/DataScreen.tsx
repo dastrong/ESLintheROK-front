@@ -5,8 +5,12 @@ import DataScreenList from './DataScreenList';
 
 export default function DataScreen({
   showPlaceholders = false,
+  hideForms = false,
+  disableHover = false,
 }: {
   showPlaceholders?: boolean;
+  hideForms?: boolean;
+  disableHover?: boolean;
 }) {
   const {
     vocabulary,
@@ -25,26 +29,30 @@ export default function DataScreen({
   return (
     <div className="container">
       <div className="column">
-        <InlineForm
-          placeholder="Vocabulary here..."
-          value={vocabularyVal}
-          onChange={(newValue: string) =>
-            setterDispatch({ type: 'Change_Vocabulary_Val', newValue })
-          }
-          onSubmit={(vocabulary: string) => {
-            setterDispatch({ type: 'Add_Vocabulary', vocabulary });
-            setTimeout(
-              () =>
-                vocabularyListRef.current.scrollTo({
-                  top: vocabularyListRef.current.scrollHeight,
-                }),
-              100
-            );
-          }}
-          ref={vocabularyInputRef}
-        />
+        {!hideForms && (
+          <InlineForm
+            placeholder="Vocabulary here..."
+            value={vocabularyVal}
+            onChange={(newValue: string) =>
+              setterDispatch({ type: 'Change_Vocabulary_Val', newValue })
+            }
+            onSubmit={(vocabulary: string) => {
+              setterDispatch({ type: 'Add_Vocabulary', vocabulary });
+              setTimeout(
+                () =>
+                  vocabularyListRef.current.scrollTo({
+                    top: vocabularyListRef.current.scrollHeight,
+                  }),
+                100
+              );
+            }}
+            ref={vocabularyInputRef}
+          />
+        )}
+
         <DataScreenList
           showPlaceholders={showPlaceholders}
+          disableHover={disableHover}
           list={vocabulary}
           editListItem={(index: number) => {
             setterDispatch({ type: 'Edit_Vocabulary', index });
@@ -60,26 +68,30 @@ export default function DataScreen({
       <div className="divider" />
 
       <div className="column">
-        <InlineForm
-          placeholder="Expressions here..."
-          value={expressionVal}
-          onChange={(newValue: string) =>
-            setterDispatch({ type: 'Change_Expression_Val', newValue })
-          }
-          onSubmit={(expression: string) => {
-            setterDispatch({ type: 'Add_Expression', expression });
-            setTimeout(
-              () =>
-                expressionListRef.current.scrollTo({
-                  top: expressionListRef.current.scrollHeight,
-                }),
-              100
-            );
-          }}
-          ref={expressionInputRef}
-        />
+        {!hideForms && (
+          <InlineForm
+            placeholder="Expressions here..."
+            value={expressionVal}
+            onChange={(newValue: string) =>
+              setterDispatch({ type: 'Change_Expression_Val', newValue })
+            }
+            onSubmit={(expression: string) => {
+              setterDispatch({ type: 'Add_Expression', expression });
+              setTimeout(
+                () =>
+                  expressionListRef.current.scrollTo({
+                    top: expressionListRef.current.scrollHeight,
+                  }),
+                100
+              );
+            }}
+            ref={expressionInputRef}
+          />
+        )}
+
         <DataScreenList
           showPlaceholders={showPlaceholders}
+          disableHover={disableHover}
           list={expressions}
           editListItem={(index: number) => {
             setterDispatch({ type: 'Edit_Expression', index });
