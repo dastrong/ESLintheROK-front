@@ -17,7 +17,7 @@ export default function PastLessonsView({
 
   // fetch the details of the past lesson for the given id prop
   const { data, isValidating } = useSWR<PastLesson>(
-    `/past-lesson/${id}`,
+    `/past-lesson/id/${id}`,
     swrFetch,
     {
       onSuccess: result =>
@@ -63,7 +63,7 @@ export default function PastLessonsView({
         confirmBgColor="#489dca"
         confirmClick={() => dispatch({ type: 'Edit_Lesson', id })}
         confirmText="Go To Edit"
-      ></Modal.Actions>
+      />
     </>
   );
 }

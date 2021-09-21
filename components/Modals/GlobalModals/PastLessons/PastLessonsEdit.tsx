@@ -27,7 +27,7 @@ export default function PastLessonsEdit({
 
   // fetch the details of the past lesson for the given id prop
   const { data, isValidating, mutate } = useSWR<PastLesson>(
-    `/past-lesson/${id}`,
+    `/past-lesson/id/${id}`,
     swrFetch,
     {
       onSuccess: result =>
@@ -119,7 +119,10 @@ export default function PastLessonsEdit({
         confirmText="Update"
         confirmDisabled={!sufficientData || !title}
       >
-        <DataActionMessage message="Requirements met. Update your lesson whenever." />
+        <DataActionMessage
+          loading={isValidating}
+          message="Requirements met. Update your lesson whenever."
+        />
       </Modal.Actions>
     </>
   );
