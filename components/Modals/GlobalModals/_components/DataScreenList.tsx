@@ -29,7 +29,7 @@ const DataScreenList = forwardRef(
 
     return (
       <div className="list" ref={ref}>
-        {list.map((text, i) => (
+        {(list.length ? list : randomWidths.map(String)).map((text, i) => (
           <div className="item_container" key={text + i}>
             <div className="list_item">
               <span className="list_item_text">

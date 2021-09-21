@@ -2,6 +2,7 @@ import React from 'react';
 import { useSetter } from 'contexts/setter';
 
 export default function DataActionMessage({
+  loading = false,
   message = 'Requirements met. Set your data whenever.',
 }) {
   const {
@@ -16,22 +17,28 @@ export default function DataActionMessage({
 
   return (
     <div className="message_container">
-      {sufficientData ? message : 'Minimum requirements:'}
+      {loading ? (
+        'Loading... please wait.'
+      ) : (
+        <>
+          {sufficientData ? message : 'Minimum requirements:'}
 
-      {!sufficientData && (
-        <div className="message_requirements">
-          Vocabulary:{' '}
-          <span style={{ color: sufficientVocabulary ? 'green' : 'red' }}>
-            {vocabulary.length}
-          </span>
-          /{minimumVocabulary}
-          <hr />
-          Expressions:{' '}
-          <span style={{ color: sufficientExpressions ? 'green' : 'red' }}>
-            {expressions.length}
-          </span>
-          /{minimumExpressions}
-        </div>
+          {!sufficientData && (
+            <div className="message_requirements">
+              Vocabulary:{' '}
+              <span style={{ color: sufficientVocabulary ? 'green' : 'red' }}>
+                {vocabulary.length}
+              </span>
+              /{minimumVocabulary}
+              <hr />
+              Expressions:{' '}
+              <span style={{ color: sufficientExpressions ? 'green' : 'red' }}>
+                {expressions.length}
+              </span>
+              /{minimumExpressions}
+            </div>
+          )}
+        </>
       )}
 
       <style jsx>{`
