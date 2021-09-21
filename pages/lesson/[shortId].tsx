@@ -13,7 +13,7 @@ export default function SharedLessonPage() {
   const router = useRouter();
   const { storeDispatch } = useStore();
 
-  const { data, isValidating, error } = useSWR(
+  const { data, error } = useSWR(
     `/past-lesson/shortId/${router.query.shortId}`,
     swrFetch,
     {
@@ -26,8 +26,6 @@ export default function SharedLessonPage() {
         }),
     }
   );
-
-  console.log(data, isValidating, error);
 
   return (
     <SeoWrapper
