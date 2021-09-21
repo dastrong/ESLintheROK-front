@@ -10,6 +10,7 @@ import {
   FaTrash,
 } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
+import { useCopyToClipboard } from 'react-use';
 
 import useUserSession from 'hooks/useUserSession';
 import { apiFetchToken, swrFetchToken } from 'utils/fetchers';
@@ -29,6 +30,7 @@ export default function PastLessonsList({
 }: Props & State) {
   // grab session to fetch user lessons
   const { session } = useUserSession();
+  const copyToClipboard = useCopyToClipboard()[1];
 
   // fetch the user's past lessons
   const { data, mutate } = useSWR<PastLesson[]>(
@@ -61,6 +63,24 @@ export default function PastLessonsList({
     );
     mutate(data.filter(({ _id }) => _id !== id));
     dispatch({ type: 'Reset_Delete_Share' });
+  };
+
+  const handleShare = async (id: string) => {
+    let shareUrl = `${window.location.host}/lesson/`;
+    const targetedLesson = data.find(lesson => lesson._id === id);
+    if (targetedLesson?.shortId) {
+      shareUrl += targetedLesson.shortId;
+    } else {
+      const data = await apiFetchToken(
+        `/past-lesson/${id}/shortId`,
+        {},
+        session?.accessToken
+      );
+      shareUrl += data.shortId;
+    }
+    copyToClipboard(shareUrl);
+    dispatch({ type: 'Reset_Delete_Share' });
+    return shareUrl;
   };
 
   return (
@@ -236,7 +256,17 @@ export default function PastLessonsList({
             color="white"
             bgColor="#067706"
             text="Yes, copy to my clipboard."
-            onClick={() => dispatch({ type: 'Reset_Delete_Share' })}
+            onClick={() =>
+              toast.promise(handleShare(shareId), {
+                loading: 'Wait a second...',
+                success: url => <b>Copied: {url}</b>,
+                error: err => (
+                  <span>
+                    <b>Error:</b> {err}
+                  </span>
+                ),
+              })
+            }
             style={{ margin: 4, marginLeft: 16 }}
           />
           <Button

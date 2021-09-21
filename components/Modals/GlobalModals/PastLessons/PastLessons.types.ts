@@ -34,6 +34,7 @@ export type PastLesson = {
   expressionsCount?: number;
   createdAt: string;
   expires: string;
+  shortId?: string;
 };
 
 export type Props = {
