@@ -93,11 +93,12 @@ export default function PastLessonsList({
   };
 
   const handleSettingData = async () => {
+    const body = JSON.stringify({ pastLessonIds: selected });
     const data = await apiFetch('/past-lesson/bulk', {
       method: 'POST',
-      body: JSON.stringify({ pastLessonIds: selected }),
+      body,
     });
-    // redirect to games page, set data, clear the past lesson selections
+    // redirect to games page, set data, clear the past lesson selections, and refresh those lesson expiry dates
     // wait for 2000ms for the redirect message to stay visible until the modal is unmounted
     setTimeout(() => {
       router.push('/games');
@@ -107,6 +108,10 @@ export default function PastLessonsList({
         expressions: data.expressions,
       });
       dispatch({ type: 'Clear_Selections' });
+      apiFetch(`/past-lesson/bulk/expiry`, {
+        method: 'PUT',
+        body,
+      });
     }, 2000);
   };
 

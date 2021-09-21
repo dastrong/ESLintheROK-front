@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import useSWR from 'swr';
 
 import { useStore } from 'contexts/store';
-import { swrFetch } from 'utils/fetchers';
+import { apiFetch, swrFetch } from 'utils/fetchers';
 import SeoWrapper from 'components/SeoWrapper';
 import { PageHeading, PageSubHeading } from 'components/PageHeadings';
 import Button from 'components/Button';
@@ -18,12 +18,14 @@ export default function SharedLessonPage() {
     swrFetch,
     {
       isPaused: () => !router.query.shortId,
-      onSuccess: data =>
+      onSuccess: async data => {
         storeDispatch({
           type: 'Set_Data',
           vocabulary: data.vocabulary,
           expressions: data.expressions,
-        }),
+        });
+        await apiFetch(`/past-lesson/${data._id}/expiry`, { method: 'PUT' });
+      },
     }
   );
 
