@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useReducer } from 'react';
 import { seed } from 'lib/seed';
-import { checkForPastLessons } from 'utils/lessons';
 
 type IsDataReady = boolean;
 type Vocabulary = string[];
@@ -8,29 +7,47 @@ type Expressions = string[];
 export type DataModalNameType = 'lessons' | 'custom' | 'edit' | 'past';
 type ShowSettings = boolean;
 
-type StoreTypes = {
+type LessonData = {
+  vocabulary: string[];
+  expressions: string[];
+};
+
+type StoreTypes = LessonData & {
   isDataReady: IsDataReady;
-  vocabulary: Vocabulary;
-  expressions: Expressions;
   isMenuOpen: boolean;
   dataModalName: '' | DataModalNameType;
   showSettings: ShowSettings;
 };
 
-const init = (): StoreTypes => {
-  const initialStuff = checkForPastLessons();
+const setLastLessonUsed = (data: LessonData) => {
+  if (typeof window === 'undefined') return;
+  localStorage.setItem('lastLessonUsed', JSON.stringify(data));
+};
+
+const getLastLessonUsed = () => {
+  if (typeof window === 'undefined') return null;
+  const lastLessonUsed: LessonData = JSON.parse(
+    localStorage.getItem('lastLessonUsed')
+  );
+  if (!lastLessonUsed) return null;
+  return lastLessonUsed;
+};
+
+const initStore = (): StoreTypes => {
+  const lastLessonUsed = getLastLessonUsed();
 
   return {
-    ...initialStuff,
-    isMenuOpen: false,
     dataModalName: '',
+    isMenuOpen: false,
     showSettings: false,
-    // if we want to seed the store we will here
-    ...(process.env.NEXT_PUBLIC_SEED && seed),
+    isDataReady: !!lastLessonUsed,
+    vocabulary: lastLessonUsed?.vocabulary || [],
+    expressions: lastLessonUsed?.expressions || [],
+    ...(Boolean(process.env.NEXT_PUBLIC_SEED) && seed),
   };
 };
 
-const initialState = init();
+const initialState = initStore();
 
 type ActionTypes =
   | { type: 'Set_Data'; vocabulary: Vocabulary; expressions: Expressions }
@@ -43,14 +60,22 @@ type ActionTypes =
 
 const reducer = (state: StoreTypes, action: ActionTypes) => {
   switch (action.type) {
-    case 'Set_Data':
+    case 'Set_Data': {
+      // gather the vocabulary and expressions together
+      const newData = {
+        vocabulary: action.vocabulary,
+        expressions: action.expressions,
+      };
+      // set the data in localStorage for hard page refresh data initialization
+      setLastLessonUsed(newData);
+      // spread the data, close the dataModal, set the ready boolean
       return {
         ...state,
         isDataReady: true,
         dataModalName: '' as DataModalNameType,
-        vocabulary: action.vocabulary,
-        expressions: action.expressions,
+        ...newData,
       };
+    }
     case 'Open_Menu':
       return { ...state, isMenuOpen: true };
     case 'Close_Menu':

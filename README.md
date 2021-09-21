@@ -92,6 +92,8 @@ NEXT_PUBLIC_ANALYTICS = 'string'; // grab an API key from Google Analytics
 
 NEXT_PUBLIC_GIPHY_KEY = 'string'; // grab an API key from GIPHY
 
+NEXT_PUBLIC_SEED = 'boolean'; // set this if you want seed the database or use the seed script
+
 COFFEE_TOKEN = 'string'; // used to grab supporters from buymeacoffee
 
 NEXTAUTH_URL = 'http://localhost:3000'; // frontend url
