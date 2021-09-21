@@ -5,7 +5,13 @@ export async function regFetch(url: string, options: RequestInit = {}) {
 }
 
 export async function apiFetch(url: string, options: RequestInit = {}) {
-  return fetch(API_URL + url, options).then(res => res.json());
+  const res = await fetch(API_URL + url, {
+    ...options,
+    headers: { 'Content-Type': 'application/json' },
+  });
+  const data = await res.json();
+  if (!res.ok) throw data.message;
+  return data;
 }
 
 export async function apiFetchToken(
