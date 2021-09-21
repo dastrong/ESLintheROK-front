@@ -12,7 +12,6 @@ const initialShare = {
 
 export const initialState: State = {
   showing: 'list',
-  list: [],
   selected: [],
   viewingId: null,
   deleteTitle: null,
@@ -23,8 +22,6 @@ export const initialState: State = {
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case 'Set_Lessons':
-      return { ...state };
     case 'Set_Showing':
       return {
         ...state,
@@ -69,8 +66,17 @@ export const reducer = (state: State, action: Action): State => {
         ...initialDelete,
         ...initialShare,
       };
-    case 'Toggle_Selection':
-      return { ...state };
+    case 'Toggle_Selection': {
+      const newSelected = state.selected.includes(action.id)
+        ? state.selected.filter(selectedId => selectedId !== action.id)
+        : [...state.selected, action.id];
+      return { ...state, selected: newSelected };
+    }
+    case 'Clear_Selections':
+      return {
+        ...state,
+        selected: [],
+      };
     default:
       return state;
   }

@@ -35,11 +35,11 @@ export default function PastLessons() {
       ) : state.showing === 'list' ? (
         <PastLessonsList dispatch={dispatch} {...state} />
       ) : state.showing === 'view' ? (
-        <SetterProvider vocabulary={[]} expressions={[]}>
+        <SetterProvider>
           <PastLessonsView dispatch={dispatch} id={state.viewingId} />
         </SetterProvider>
       ) : state.showing === 'edit' ? (
-        <SetterProvider vocabulary={[]} expressions={[]}>
+        <SetterProvider>
           <PastLessonsEdit dispatch={dispatch} id={state.viewingId} />
         </SetterProvider>
       ) : null}

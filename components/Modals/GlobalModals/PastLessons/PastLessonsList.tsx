@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { animated, useSpring } from 'react-spring';
 import {
@@ -13,24 +14,27 @@ import { toast } from 'react-hot-toast';
 import { useCopyToClipboard } from 'react-use';
 
 import useUserSession from 'hooks/useUserSession';
-import { apiFetchToken, swrFetchToken } from 'utils/fetchers';
+import { useStore } from 'contexts/store';
+import { apiFetch, apiFetchToken, swrFetchToken } from 'utils/fetchers';
 import Button from 'components/Button';
 import Modal from 'components/Modals';
-import { PastLesson, Props, State } from './PastLessons.types';
+import { PastLesson, State, PastLessonDispatch } from './PastLessons.types';
 import * as Styles from './PastLessonsList.styles';
 
 export default function PastLessonsList({
-  selectedPastLessons = [],
-  toggleSelection,
+  selected,
   dispatch,
   deleteId,
   deleteTitle,
   shareId,
   shareTitle,
-}: Props & State) {
-  // grab session to fetch user lessons
-  const { session } = useUserSession();
+}: State & { dispatch: PastLessonDispatch }) {
+  const router = useRouter();
   const copyToClipboard = useCopyToClipboard()[1];
+  // grab session to fetch user lessons
+
+  const { session } = useUserSession();
+  const { storeDispatch } = useStore();
 
   // fetch the user's past lessons
   const { data, mutate } = useSWR<PastLesson[]>(
@@ -50,9 +54,14 @@ export default function PastLessonsList({
     delay: shareId && !deleteId ? 250 : 0,
   });
   const noteDivSpring = useSpring({
-    opacity: !deleteId && !shareId ? 1 : 0,
-    y: !deleteId && !shareId ? 0 : 75,
-    delay: !deleteId && !shareId ? 250 : 0,
+    opacity: !deleteId && !shareId && !selected.length ? 1 : 0,
+    y: !deleteId && !shareId && !selected.length ? 0 : 75,
+    delay: !deleteId && !shareId && !selected.length ? 250 : 0,
+  });
+  const dataSetDivSpring = useSpring({
+    opacity: !deleteId && !shareId && !!selected.length ? 1 : 0,
+    y: !deleteId && !shareId && !!selected.length ? 0 : -75,
+    delay: !deleteId && !shareId && !!selected.length ? 250 : 0,
   });
 
   const handleDelete = async (id: string) => {
@@ -83,13 +92,31 @@ export default function PastLessonsList({
     return shareUrl;
   };
 
+  const handleSettingData = async () => {
+    const data = await apiFetch('/past-lesson/bulk', {
+      method: 'POST',
+      body: JSON.stringify({ pastLessonIds: selected }),
+    });
+    // redirect to games page, set data, clear the past lesson selections
+    // wait for 2000ms for the redirect message to stay visible until the modal is unmounted
+    setTimeout(() => {
+      router.push('/games');
+      storeDispatch({
+        type: 'Set_Data',
+        vocabulary: data.vocabulary,
+        expressions: data.expressions,
+      });
+      dispatch({ type: 'Clear_Selections' });
+    }, 2000);
+  };
+
   return (
     <>
       <Modal.Content style={{ height: 350, overflowY: 'scroll' }}>
         <ul className={Styles.ListContainerCSS.className}>
           {data?.map(
             ({ _id, createdAt, title, vocabularyCount, expressionsCount }) => {
-              const checked = selectedPastLessons.includes(_id);
+              const checked = selected.includes(_id);
               return (
                 <li
                   key={_id}
@@ -107,7 +134,9 @@ export default function PastLessonsList({
                       Icon={checked ? FaCheck : FaPlus}
                       color="white"
                       bgColor={checked ? '#1a961a' : '#616161'}
-                      onClick={() => toggleSelection(_id)}
+                      onClick={() => {
+                        dispatch({ type: 'Toggle_Selection', id: _id });
+                      }}
                     />
                     <div className="text_container">
                       <h3>{title || createdAt}</h3>
@@ -289,6 +318,39 @@ export default function PastLessonsList({
           <br />
           Lessons that haven't been used in half a year will automatically be
           removed.
+        </animated.div>
+
+        <animated.div
+          className={Styles.ActionDivCSS.className}
+          style={{ textAlign: 'center', ...dataSetDivSpring }}
+        >
+          {`You've selected ${selected.length} lesson${
+            selected.length > 1 ? 's' : ''
+          }.`}
+          <br />
+          <Button
+            inverted
+            color="white"
+            bgColor="#1b84bb"
+            text={`Set ${selected.length > 1 ? 'their' : "it's"} data now.`}
+            style={{ border: 'none', padding: 8, textDecoration: 'underline' }}
+            onClick={() =>
+              toast.promise(handleSettingData(), {
+                loading: 'Fetching data...',
+                success: (
+                  <span>
+                    Lesson data set. <br />
+                    Redirecting to games page now
+                  </span>
+                ),
+                error: err => (
+                  <span>
+                    <b>Error:</b> {err}
+                  </span>
+                ),
+              })
+            }
+          />
         </animated.div>
       </Modal.Actions>
 
