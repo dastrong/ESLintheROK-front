@@ -136,6 +136,7 @@ export default function PastLessonsList({
                     <Button
                       size="lg"
                       rounded
+                      disabled={deleteId === _id}
                       Icon={checked ? FaCheck : FaPlus}
                       color="white"
                       bgColor={checked ? '#1a961a' : '#616161'}

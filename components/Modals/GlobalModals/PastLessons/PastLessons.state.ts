@@ -49,6 +49,7 @@ export const reducer = (state: State, action: Action): State => {
     case 'Delete_Lesson':
       return {
         ...state,
+        selected: state.selected.filter(selectedId => selectedId !== action.id),
         deleteId: action.id,
         deleteTitle: action.title,
         ...initialShare,
