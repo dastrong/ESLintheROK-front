@@ -4,6 +4,7 @@ import DataEdit from './DataEdit';
 import Lessons from './Lessons';
 import PastLessons from './PastLessons';
 import Settings from './Settings';
+import Gif from './Gif';
 
 export default function DataModals() {
   return (
@@ -13,6 +14,7 @@ export default function DataModals() {
       <Lessons />
       <PastLessons />
       <Settings />
+      <Gif />
     </>
   );
 }

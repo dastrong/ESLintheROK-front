@@ -6,6 +6,7 @@ type Vocabulary = string[];
 type Expressions = string[];
 export type DataModalNameType = 'lessons' | 'custom' | 'edit' | 'past';
 type ShowSettings = boolean;
+type ShowGif = boolean;
 
 type LessonData = {
   vocabulary: string[];
@@ -17,6 +18,7 @@ type StoreTypes = LessonData & {
   isMenuOpen: boolean;
   dataModalName: '' | DataModalNameType;
   showSettings: ShowSettings;
+  showGif: ShowGif;
 };
 
 const setLastLessonUsed = (data: LessonData) => {
@@ -40,6 +42,7 @@ const initStore = (): StoreTypes => {
     dataModalName: '',
     isMenuOpen: false,
     showSettings: false,
+    showGif: false,
     isDataReady: !!lastLessonUsed,
     vocabulary: lastLessonUsed?.vocabulary || [],
     expressions: lastLessonUsed?.expressions || [],
@@ -56,7 +59,9 @@ type ActionTypes =
   | { type: 'Open_Data_Modal'; dataModalName: DataModalNameType }
   | { type: 'Close_Data_Modal' }
   | { type: 'Open_Settings' }
-  | { type: 'Close_Settings' };
+  | { type: 'Close_Settings' }
+  | { type: 'Open_Gif' }
+  | { type: 'Close_Gif' };
 
 const reducer = (state: StoreTypes, action: ActionTypes) => {
   switch (action.type) {
@@ -89,9 +94,33 @@ const reducer = (state: StoreTypes, action: ActionTypes) => {
     case 'Close_Data_Modal':
       return { ...state, dataModalName: '' as DataModalNameType };
     case 'Open_Settings':
-      return { ...state, isMenuOpen: false, showSettings: true };
+      return {
+        ...state,
+        isMenuOpen: false,
+        showSettings: true,
+        showGif: false,
+      };
     case 'Close_Settings':
-      return { ...state, isMenuOpen: false, showSettings: false };
+      return {
+        ...state,
+        isMenuOpen: false,
+        showSettings: false,
+        showGif: false,
+      };
+    case 'Open_Gif':
+      return {
+        ...state,
+        isMenuOpen: false,
+        showSettings: false,
+        showGif: true,
+      };
+    case 'Close_Gif':
+      return {
+        ...state,
+        isMenuOpen: false,
+        showSettings: false,
+        showGif: false,
+      };
     default:
       return state;
   }
