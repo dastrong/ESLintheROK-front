@@ -6,6 +6,7 @@ import Modal from 'components/Modals';
 import PageContent from 'components/PageContent';
 import SettingsUser from './SettingsUser';
 import SettingsFonts from './SettingsFonts';
+import SettingsGifs from './SettingsGifs';
 import SettingsCookies from './SettingsCookies';
 
 export default function Settings() {
@@ -40,25 +41,7 @@ export default function Settings() {
         >
           <SettingsUser />
           <SettingsFonts />
-
-          <PageContent.Header>Gifs</PageContent.Header>
-          <PageContent.Text>
-            Users can preload gifs to verify they are appropriate for class
-          </PageContent.Text>
-          <PageContent.List>
-            <li>
-              Thinking of making a Tinder slide animation to accept/declide a
-              GIF
-            </li>
-            <li>
-              Should we save in cache a list of GIF id's that have been verified
-              by other users?
-            </li>
-            <li>
-              If student's have seen a GIF, add a Next option to get another
-            </li>
-          </PageContent.List>
-
+          <SettingsGifs />
           <SettingsCookies />
         </PageContent>
       </Modal.Content>
