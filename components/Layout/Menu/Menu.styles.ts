@@ -3,7 +3,7 @@ import css from 'styled-jsx/css';
 export const MenuContainerCSS = css.resolve`
   div {
     position: fixed;
-    z-index: 11111;
+    z-index: 1111111;
     top: calc((var(--navHeight) - var(--btnHeight)) / 2);
     right: 2vw;
     filter: url('#goo');
@@ -64,7 +64,7 @@ export const MenuOverlayCSS = css.resolve`
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 11111;
+    z-index: 1111111;
     background-color: var(--siteBgColor);
     opacity: 0.85;
   }
