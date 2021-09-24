@@ -20,6 +20,7 @@ export const config: GameConfig = {
   // BADGES - used on /games page
   attachURL: `https://pdfhost.io/v/xklBo05Di_Red_and_Bluepdf.pdf`,
   hasAudio: false,
+  usesGifs: false,
 
   // KEYboard shortCUTS
   keyCuts: [

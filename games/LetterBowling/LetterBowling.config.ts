@@ -20,6 +20,7 @@ export const config: GameConfig = {
   // BADGES - used on /games page
   attachURL: `https://pdfhost.io/v/9E@A@KTzx_Lined_Paper_No_Line_Numberspdf.pdf`,
   hasAudio: false,
+  usesGifs: false,
 
   // KEYboard shortCUTS
   keyCuts: [

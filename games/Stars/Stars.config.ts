@@ -20,6 +20,7 @@ export const config: GameConfig = {
   // BADGES - used on /games page
   attachURL: `https://pdfhost.io/v/Gx02X0gIh_Stars_Gamepdf.pdf`,
   hasAudio: false,
+  usesGifs: false,
 
   // KEYboard shortCUTS
   keyCuts: [

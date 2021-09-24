@@ -37,6 +37,7 @@ export type GameConfig = {
   // BADGES - used on /games page
   attachURL: string;
   hasAudio: boolean;
+  usesGifs: boolean;
 
   // KEYboard shortCUTS
   keyCuts: GameKeyCut[];

@@ -134,12 +134,11 @@ export default function GamesPage({
                   <FaPaperclip />
                 </a>
               )}
-              {game.usesGifs ||
-                (true && (
-                  <div className="badge badge_gif">
-                    <RiFileGifLine style={{ fontSize: '1.3rem' }} />
-                  </div>
-                ))}
+              {game.usesGifs && (
+                <div className="badge badge_gif">
+                  <RiFileGifLine style={{ fontSize: '1.3rem' }} />
+                </div>
+              )}
 
               {/* Image */}
               <div className="image">
