@@ -45,15 +45,32 @@ export const CarouselArrow = css.resolve`
   button {
     position: absolute;
     outline: 0;
-    transition: all 0.5s;
+    transition: opacity 250ms;
     border-radius: 35px;
     z-index: 1000;
     border: 0;
-    background: rgba(0, 0, 0, 0.5);
-    min-width: 43px;
-    min-height: 43px;
-    opacity: 1;
+    opacity: 0.25;
     cursor: pointer;
     color: #fff;
+    aspect-ratio: 1 / 1;
+    height: 100%;
+  }
+
+  button:hover {
+    opacity: 1;
+  }
+`;
+
+export const CarouselArrowLeft = css.resolve`
+  button {
+    left: 0;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1));
+  }
+`;
+
+export const CarouselArrowRight = css.resolve`
+  button {
+    right: 0;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1));
   }
 `;
