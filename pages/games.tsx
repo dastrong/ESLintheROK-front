@@ -231,7 +231,7 @@ export default function GamesPage({
             position: absolute;
             height: calc(var(--banner-height) - 3px);
             width: calc(var(--banner-height) - 3px);
-            z-index: 1;
+            z-index: 11111;
             color: white;
             display: flex;
             align-items: center;
