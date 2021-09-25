@@ -5,7 +5,6 @@ import { GifsResult } from '@giphy/js-fetch-api';
 import { BsFillEyeFill } from 'react-icons/bs';
 
 import { useGifs } from 'contexts/gifs';
-import { useStore } from 'contexts/store';
 import Modal from 'components/Modals';
 import Button from 'components/Button';
 import GifOverlay from './GifOverlay';
@@ -14,8 +13,7 @@ export default function GifGrid() {
   const { width } = useWindowSize();
 
   const { gifs, declinedGifIds, gifDispatch, fetchGif } = useGifs();
-  const { storeDispatch } = useStore();
-  const closeModal = () => storeDispatch({ type: 'Close_Gif' });
+  const closeModal = () => gifDispatch({ type: 'Close_Gif' });
 
   const fetchGifs = async (offset: number): Promise<GifsResult> => {
     const gif = await fetchGif();
@@ -59,7 +57,7 @@ export default function GifGrid() {
           color="white"
           bgColor="hotpink"
           Icon={BsFillEyeFill}
-          onClick={() => gifDispatch({ type: 'View_Gif', view: 'single' })}
+          onClick={() => gifDispatch({ type: 'Open_Gif', show: 'single' })}
         />
       </Modal.Actions>
     </>

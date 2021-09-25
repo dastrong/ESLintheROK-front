@@ -1,12 +1,19 @@
 import React from 'react';
 import { RiFileGifLine } from 'react-icons/ri';
+
 import { useStore } from 'contexts/store';
+import { useGifs } from 'contexts/gifs';
 import PageContent from 'components/PageContent';
 import Button from 'components/Button';
 
 export default function SettingsGifs() {
   const { storeDispatch } = useStore();
-  const openGifModal = () => storeDispatch({ type: 'Open_Gif' });
+  const { gifDispatch } = useGifs();
+
+  const openGifModal = () => {
+    storeDispatch({ type: 'Close_Settings' });
+    gifDispatch({ type: 'Open_Gif', show: 'grid' });
+  };
 
   return (
     <div>

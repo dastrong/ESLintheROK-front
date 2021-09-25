@@ -2,17 +2,18 @@ import React, { createContext, useContext, useReducer } from 'react';
 import { IGif } from '@giphy/js-types';
 import { GifResult, GiphyFetch } from '@giphy/js-fetch-api';
 
-type View = 'single' | 'grid';
+type Show = 'single' | 'grid' | '';
 
 type GifState = {
-  view: View;
+  show: Show;
   gifs: IGif[];
   declinedGifIds: string[];
   usedGifIds: string[];
 };
 
 type GifAction =
-  | { type: 'View_Gif'; view: View }
+  | { type: 'Open_Gif'; show: Show }
+  | { type: 'Close_Gif' }
   | { type: 'Set_Gif'; gif: IGif }
   | { type: 'Block_Gif'; id: string }
   | { type: 'Use_Gif'; id: string };
@@ -34,7 +35,7 @@ const init = (): GifState => {
 
   return {
     ...gifState,
-    view: 'grid',
+    show: '',
     gifs: [],
     declinedGifIds: [],
     usedGifIds: [],
@@ -45,8 +46,10 @@ const initialState = init();
 
 const reducer = (state: GifState, action: GifAction): GifState => {
   switch (action.type) {
-    case 'View_Gif':
-      return { ...state, view: action.view };
+    case 'Open_Gif':
+      return { ...state, show: action.show };
+    case 'Close_Gif':
+      return { ...state, show: '' };
     case 'Set_Gif':
       return { ...state, gifs: [...state.gifs, action.gif] };
     case 'Block_Gif':

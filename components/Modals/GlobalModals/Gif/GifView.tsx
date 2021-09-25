@@ -5,7 +5,6 @@ import { BsFillGrid1X2Fill } from 'react-icons/bs';
 import useWindowSize from 'react-use/lib/useWindowSize';
 
 import { useGifs } from 'contexts/gifs';
-import { useStore } from 'contexts/store';
 import Modal from 'components/Modals';
 import Button from 'components/Button';
 
@@ -14,8 +13,7 @@ export default function GifView() {
   const [oneTimeGif, setOneTimeGif] = useState<IGif>();
 
   const { gifs, declinedGifIds, usedGifIds, gifDispatch, fetchGif } = useGifs();
-  const { storeDispatch } = useStore();
-  const closeModal = () => storeDispatch({ type: 'Close_Gif' });
+  const closeModal = () => gifDispatch({ type: 'Close_Gif' });
 
   useEffect(() => {
     const getAndSetGif = async () => {
@@ -88,7 +86,7 @@ export default function GifView() {
           color="white"
           bgColor="hotpink"
           Icon={BsFillGrid1X2Fill}
-          onClick={() => gifDispatch({ type: 'View_Gif', view: 'grid' })}
+          onClick={() => gifDispatch({ type: 'Open_Gif', show: 'grid' })}
         />
       </Modal.Actions>
     </>
