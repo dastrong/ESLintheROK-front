@@ -17,7 +17,7 @@ export default function SettingsGifs() {
 
   return (
     <div>
-      <PageContent.Header>Gifs</PageContent.Header>
+      <PageContent.Header>GIFs</PageContent.Header>
 
       <Button
         color="white"
