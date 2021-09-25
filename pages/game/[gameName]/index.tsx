@@ -6,11 +6,11 @@ import dynamic from 'next/dynamic';
 import { FaArrowLeft, FaArrowRight, FaPlay } from 'react-icons/fa';
 
 import SeoWrapper from 'components/SeoWrapper';
+import { PageHeading } from 'components/PageHeadings';
 import Button from 'components/Button';
 import Block from 'components/Block';
 import Image from 'components/Image';
 import Popup from 'components/Popup';
-import { PageHeading } from 'components/PageHeadings';
 
 import { convertCaseSnakeToPascal } from 'utils/convertCaseSnakeToPascal';
 import { getSingleGameConfig } from 'utils/getSingleGameConfig';
@@ -23,11 +23,9 @@ const GameInstructionsModal = dynamic(
 );
 
 const gameNotes = [
-  'As a teacher, you should take the time to read both sets of  instructions before rushing to play',
-  'If it’s your first time playing a game',
-  'I suggest playing the games according to the instructions during their first time, afterwards adjust to suite your students, class needs and teaching style',
+  'Before playing a game, you should read both sets of instructions to fully understand it from the teacher and student perspectives.',
+  'If it’s your first time playing a game, we suggest following the instructions and then afterwards adjust it, as needed, to better suite your students, class needs and teaching style',
   'The student instructions are written as simple as possible, so you can read them with your students.',
-  'Once they understand prior to their first time playing.',
 ];
 
 export default function GameHomePage({
@@ -36,9 +34,10 @@ export default function GameHomePage({
   image,
   instructions,
   warnings,
+  usesGifs,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { asPath, query, push } = useRouter();
-  const { isDataReady } = useStore();
+  const { isDataReady, storeDispatch } = useStore();
 
   const imgUrl = getGameImgUrl(title);
 
@@ -136,9 +135,21 @@ export default function GameHomePage({
           />
         </div>
 
-        {!!warnings.length && (
-          <Block isStatic id="game_warnings" color="#ff4500" header="Warnings:">
+        {(!!warnings.length || usesGifs) && (
+          <Block isStatic id="game_warnings" color="#ff4500" header="Warning:">
             <ul style={{ paddingLeft: 30, margin: '1rem 0' }}>
+              {usesGifs && (
+                <li>
+                  This game uses GIFs, so we suggest reading the GIFs section
+                  and reviewing the randomly fetched GIFs in{' '}
+                  <button
+                    onClick={() => storeDispatch({ type: 'Open_Settings' })}
+                  >
+                    your settings
+                  </button>{' '}
+                  before continuing to play
+                </li>
+              )}
               {warnings.map(warning => (
                 <li key={warning.slice(0, 15)}>{warning}</li>
               ))}
@@ -183,12 +194,21 @@ export default function GameHomePage({
           }
 
           .image {
-            width: 70%;
+            width: 50%;
+            min-width: 650px;
+            max-width: 850px;
             padding: 1.25rem 1rem 2rem;
           }
 
           .button_container {
             margin: 1rem auto 2rem;
+          }
+
+          button {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            text-decoration: solid underline #04a7fb;
           }
         `}</style>
       </div>
@@ -229,6 +249,7 @@ export const getStaticProps = async ({
       image: gameConfig.image,
       instructions: gameConfig.instructions,
       warnings: gameConfig.warnings,
+      usesGifs: gameConfig.usesGifs,
     },
   };
 };

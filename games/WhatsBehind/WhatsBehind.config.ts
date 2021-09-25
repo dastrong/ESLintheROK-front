@@ -11,13 +11,7 @@ export const config: GameConfig = {
     width: 335,
     height: 276,
   },
-  warnings: [
-    'This game uses GIFs as a reward',
-    'These GIFs are pulled randomly from GIPHY.com',
-    'Even though filters are in place, inappropriate GIFs may not be correctly rated there',
-    'Although this seems to rarely happen, use at your own risk',
-    'A more effective solution is planned, but not released at this time.',
-  ],
+  warnings: [],
 
   // SKILLS AND DATA
   skills: ['Reading', 'Speaking'],
