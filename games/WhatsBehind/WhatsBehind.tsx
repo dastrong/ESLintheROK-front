@@ -3,6 +3,7 @@ import { FaTrophy } from 'react-icons/fa';
 
 import { useStore } from 'contexts/store';
 import { useFont } from 'contexts/fonts';
+import { useGifs } from 'contexts/gifs';
 import {
   useData,
   useHandleGame,
@@ -46,6 +47,7 @@ const colors = [
 export default function WhatsBehind({ title, description }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
+  const { show: showGif, gifDispatch } = useGifs();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
 
   // STATE - useData
@@ -54,6 +56,7 @@ export default function WhatsBehind({ title, description }: GameSEOProps) {
   const gameStore: GameStore = useData(reducer, init, primary, secondary);
   const [state, dispatch, didUpdate] = gameStore;
   const { data, gameData, isVocab, clickedIDs, clickedID, target } = state;
+  const foundTarget = target.includes(clickedID);
 
   // REFS
   const isFirstRun = useFirstRun();
@@ -108,13 +111,30 @@ export default function WhatsBehind({ title, description }: GameSEOProps) {
     return () => clearTimeout(id);
   }, [resizeText, clickedIDs.length]);
 
+  // once we've found the target we want to show a GIF, but on a delay
+  useEffect(() => {
+    let id: NodeJS.Timeout;
+    if (foundTarget) {
+      id = setTimeout(
+        () => gifDispatch({ type: 'Open_Gif', show: 'single' }),
+        3000
+      );
+    }
+    return () => {
+      clearTimeout(id);
+    };
+  }, [foundTarget]);
+
+  // when the GIF modal is closed we'll start a new round
+  useEffect(() => {
+    if (!showGif) handleGame();
+  }, [showGif]);
+
   // GAME FUNCTIONS
   const _handleClick = useCallback(
     e => dispatch({ type: 'Card_Clicked', id: Number(e.currentTarget.id) }),
     [dispatch]
   );
-
-  const foundTarget = target.includes(clickedID);
 
   return (
     <GameWrapper title={title} description={description}>
@@ -135,9 +155,6 @@ export default function WhatsBehind({ title, description }: GameSEOProps) {
             fitTextClass={Styles.FitTextCSS.className}
           />
         ))}
-
-        {/* open a modal and show a GIF */}
-        {/*  */}
 
         {/* Found the targeted card; rain down the confetti */}
         {foundTarget && <WhatsBehindConfetti />}
