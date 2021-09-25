@@ -1,6 +1,7 @@
 export type GameSEOProps = {
   title: string;
   description: string;
+  keyCuts: GameKeyCut[];
 };
 
 export type GameSkill = 'Listening' | 'Speaking' | 'Reading' | 'Writing';
