@@ -13,7 +13,7 @@ export const ModalOverlayCSS = css.resolve`
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.85);
-    z-index: 11111;
+    z-index: 11111111;
   }
 
   .ReactModal__Overlay--after-open {
