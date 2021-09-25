@@ -22,6 +22,7 @@ export const TipsContainer = css.resolve`
 export const TipsHeader = css.resolve`
   h3 {
     text-align: center;
+    margin-top: 0.75rem;
   }
 `;
 
