@@ -35,6 +35,7 @@ export default function GameHomePage({
   instructions,
   warnings,
   usesGifs,
+  keyCuts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { asPath, query, push } = useRouter();
   const { isDataReady, storeDispatch } = useStore();
@@ -136,7 +137,7 @@ export default function GameHomePage({
         </div>
 
         {(!!warnings.length || usesGifs) && (
-          <Block isStatic id="game_warnings" color="#ff4500" header="Warning:">
+          <Block isStatic id="game_warnings" color="#ff4500" header="Warning">
             <ul style={{ paddingLeft: 30, margin: '1rem 0' }}>
               {usesGifs && (
                 <li>
@@ -157,10 +158,27 @@ export default function GameHomePage({
           </Block>
         )}
 
-        <Block isStatic id="game_notes" color="#01918d" header="Please Note:">
+        <Block isStatic id="game_notes" color="#01918d" header="Please Note">
           <ul style={{ paddingLeft: 30, margin: '1rem 0' }}>
             {gameNotes.map(note => (
               <li key={note.slice(0, 15)}>{note}</li>
+            ))}
+          </ul>
+        </Block>
+
+        <Block
+          isStatic
+          id="game_keys"
+          color="#075487"
+          header="Game Hot Keys/Shortcuts"
+        >
+          <ul style={{ paddingLeft: 30, margin: '1rem 0' }}>
+            {keyCuts.map(({ key, description }) => (
+              <li key={description} style={{ marginBottom: 8 }}>
+                <span style={{ fontWeight: 'bold' }}>{key.join('/')}</span>
+                <br />
+                {description}
+              </li>
             ))}
           </ul>
         </Block>
@@ -250,6 +268,7 @@ export const getStaticProps = async ({
       instructions: gameConfig.instructions,
       warnings: gameConfig.warnings,
       usesGifs: gameConfig.usesGifs,
+      keyCuts: gameConfig.keyCuts,
     },
   };
 };
