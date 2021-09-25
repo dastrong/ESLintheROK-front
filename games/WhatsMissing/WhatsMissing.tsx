@@ -50,7 +50,11 @@ const colors = [
   'violet',
 ];
 
-export default function WhatsMissing({ title, description }: GameSEOProps) {
+export default function WhatsMissing({
+  title,
+  description,
+  keyCuts,
+}: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -172,7 +176,7 @@ export default function WhatsMissing({ title, description }: GameSEOProps) {
   const transforms = arrOfRandoNum(maxAngle, -maxAngle, words.length, false);
 
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <div className={ContainerCSS.className} onClick={_handleClick}>
         {/* TELLS THE USER HOW MANY WORDS WILL BE MISSING */}
         <animated.div

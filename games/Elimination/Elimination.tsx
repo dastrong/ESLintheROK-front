@@ -42,10 +42,14 @@ const colors = [
   'violet',
 ];
 
-export default function Elimination({ title, description }: GameSEOProps) {
+export default function Elimination({
+  title,
+  description,
+  keyCuts,
+}: GameSEOProps) {
   const store = useStore();
-const { selectedFont } = useFont();
-const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
+  const { selectedFont } = useFont();
+  const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
 
   // AUDIO
   const [GameOverAudio, resetGameOverAudio] = useAudio(gameOverAudioURL);
@@ -145,7 +149,7 @@ const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
   );
 
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <div className={ContainerCSS.className}>
         {splitRows.map((row, i) => (
           <RowOfTwoSidedCards

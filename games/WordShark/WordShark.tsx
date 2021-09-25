@@ -37,7 +37,11 @@ const images = [img0, img1, img2, img3, img4, img5, img6, img7, img8];
 const letters = 'abcdefghijklmnopqrstuvwxyz';
 // const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
-export default function WordShark({ title, description }: GameSEOProps) {
+export default function WordShark({
+  title,
+  description,
+  keyCuts,
+}: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -92,7 +96,7 @@ export default function WordShark({ title, description }: GameSEOProps) {
   // GAME FUNCTIONS - start with an underscore ex) _handleClick
 
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <div className={ContainerCSS.className}>
         <div className="Hangman-imgContainer">
           <div className="Hangman-imgs">

@@ -44,7 +44,11 @@ const colors = [
   'violet',
 ];
 
-export default function WhatsBehind({ title, description }: GameSEOProps) {
+export default function WhatsBehind({
+  title,
+  description,
+  keyCuts,
+}: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const { show: showGif, gifDispatch } = useGifs();
@@ -137,7 +141,7 @@ export default function WhatsBehind({ title, description }: GameSEOProps) {
   );
 
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <div className={ContainerCSS.className}>
         {splitRows.map((row, i) => (
           <RowOfTwoSidedCards

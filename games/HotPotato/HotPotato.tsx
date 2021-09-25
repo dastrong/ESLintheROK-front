@@ -36,10 +36,14 @@ const BoilingGifURL = getGameFileUrl('HotPotato/Boiling.gif', '/f_auto,q_50');
 const DancingGifURL = getGameFileUrl('HotPotato/Dancing.gif', '/f_auto,q_50');
 const CoolingGifURL = getGameFileUrl('HotPotato/Cooling.gif', '/f_auto,q_50');
 
-export default function HotPotato({ title, description }: GameSEOProps) {
+export default function HotPotato({
+  title,
+  description,
+  keyCuts,
+}: GameSEOProps) {
   const store = useStore();
-const { selectedFont } = useFont();
-const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
+  const { selectedFont } = useFont();
+  const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
 
   // AUDIO - useAudio
   const [Bubbling, resetBubb] = useAudio(BubblingAudioURL);
@@ -159,7 +163,7 @@ const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
   }
 
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <div className={ContainerCSS.className} onClick={_handleClick}>
         <HotPotatoStage
           isIn={stage === 1}

@@ -25,10 +25,11 @@ const KimchiURL = getGameFileUrl('KimchiElimination/GameCover.svg');
 export default function KimchiElimination({
   title,
   description,
+  keyCuts,
 }: GameSEOProps) {
   const store = useStore();
-const { selectedFont } = useFont();
-const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
+  const { selectedFont } = useFont();
+  const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
 
   // STATE - useData
   const primary = store.expressions;
@@ -109,7 +110,7 @@ const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
   }, [dispatch, showPic]);
 
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <div className={ContainerCSS.className} onClick={handleGame}>
         {transitions((style, item) =>
           item ? (

@@ -4,9 +4,13 @@ import type { GameSEOProps } from 'games/types';
 
 const getHeaderTemplate = (editsLeft: number) => `${editsLeft} Missing`;
 
-export default function FixTheMistake({ title, description }: GameSEOProps) {
+export default function FixTheMistake({
+  title,
+  description,
+  keyCuts,
+}: GameSEOProps) {
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <Notebook getHeaderTemplate={getHeaderTemplate} />
     </GameWrapper>
   );

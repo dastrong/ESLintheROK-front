@@ -24,7 +24,11 @@ import GameWrapper from 'components/GameWrapper';
 // CONSTANTS - img, audio, function, etc.
 //
 
-export default function __GameName__({ title, description }: GameSEOProps) {
+export default function __GameName__({
+  title,
+  description,
+  keyCuts,
+}: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -79,7 +83,7 @@ export default function __GameName__({ title, description }: GameSEOProps) {
   // GAME FUNCTIONS - start with an underscore ex) _handleClick
 
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <div className={ContainerCSS.className}>
         {/* ADD YOUR ELEMENTS/COMPONENTS HERE */}
 

@@ -56,7 +56,11 @@ const stages: StageNames[] = [
   'SHOW_ANSWER_TEXT',
 ];
 
-export default function SpeedSolver({ title, description }: GameSEOProps) {
+export default function SpeedSolver({
+  title,
+  description,
+  keyCuts,
+}: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -173,7 +177,7 @@ export default function SpeedSolver({ title, description }: GameSEOProps) {
   }
 
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <div
         className={ContainerCSS.className}
         style={{ backgroundImage }}

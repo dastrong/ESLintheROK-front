@@ -33,7 +33,11 @@ const colors = [
   'violet',
 ];
 
-export default function WordLotto({ title, description }: GameSEOProps) {
+export default function WordLotto({
+  title,
+  description,
+  keyCuts,
+}: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -127,7 +131,7 @@ export default function WordLotto({ title, description }: GameSEOProps) {
   }, [isDone, isAnimating, dispatch, handleGame]);
 
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <div className={ContainerCSS.className} onClick={_handleClick}>
         {lottoCardStyles.map((cardStyles, i) => (
           <animated.div

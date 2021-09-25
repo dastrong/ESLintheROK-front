@@ -35,7 +35,11 @@ const Bear3URL = getGameFileUrl('SleepingBears/Bear-3.png');
 const Bear4URL = getGameFileUrl('SleepingBears/Bear-4.png');
 const bearImgs = [Bear1URL, Bear2URL, Bear3URL, Bear4URL];
 
-export default function SleepingBears({ title, description }: GameSEOProps) {
+export default function SleepingBears({
+  title,
+  description,
+  keyCuts,
+}: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -110,7 +114,7 @@ export default function SleepingBears({ title, description }: GameSEOProps) {
   }
 
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <div className={ContainerCSS.className} onClick={_handleClick}>
         <AnswerBox
           showBox={gameData.length * 2 + 2 === stage}

@@ -47,7 +47,7 @@ const starColors = [
 const getBoxCount = (isVocab: boolean) => (isVocab ? 8 : 6);
 const maximumStars = 6;
 
-export default function Stars({ title, description }: GameSEOProps) {
+export default function Stars({ title, description, keyCuts }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -122,7 +122,7 @@ export default function Stars({ title, description }: GameSEOProps) {
   );
 
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <div className={ContainerCSS.className}>
         {gameData.map((text, i) => {
           // generate an array of our stars icons

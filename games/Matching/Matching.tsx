@@ -35,10 +35,14 @@ const boxSettings = [
   { height: '24vh', width: '24vw', poo: 0, words: 16 },
 ];
 
-export default function Matching({ title, description }: GameSEOProps) {
+export default function Matching({
+  title,
+  description,
+  keyCuts,
+}: GameSEOProps) {
   const store = useStore();
-const { selectedFont } = useFont();
-const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
+  const { selectedFont } = useFont();
+  const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
 
   // STATE - useData
   const primary = store.vocabulary;
@@ -144,7 +148,7 @@ const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
   );
 
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <div className={ContainerCSS.className} style={{ background }}>
         {gameData.map((text, i) => (
           <div

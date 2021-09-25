@@ -32,7 +32,11 @@ const colors = [
   'violet',
 ];
 
-export default function ChaseTheVocab({ title, description }: GameSEOProps) {
+export default function ChaseTheVocab({
+  title,
+  description,
+  keyCuts,
+}: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -151,7 +155,7 @@ export default function ChaseTheVocab({ title, description }: GameSEOProps) {
   );
 
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <div
         className={ContainerCSS.className}
         onClick={!isAnimating && !isShuffleDone ? _handleClick : null}

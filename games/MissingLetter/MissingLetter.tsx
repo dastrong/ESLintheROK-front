@@ -5,9 +5,13 @@ import type { GameSEOProps } from 'games/types';
 const getHeaderTemplate = (editsLeft: number) =>
   `${editsLeft} Mistake${editsLeft > 1 ? 's' : ''}`;
 
-export default function MissingLetter({ title, description }: GameSEOProps) {
+export default function MissingLetter({
+  title,
+  description,
+  keyCuts,
+}: GameSEOProps) {
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <Notebook showBlank getHeaderTemplate={getHeaderTemplate} />
     </GameWrapper>
   );

@@ -32,7 +32,11 @@ const CountdownAudioURL = getGameFileUrl('PubgBattleground/countdown.mp3');
 const BackgroundURL = getGameFileUrl('PubgBattleground/pubgMap.jpg', '/f_auto');
 const numOfText = 4;
 
-export default function PubgBattleground({ title, description }: GameSEOProps) {
+export default function PubgBattleground({
+  title,
+  description,
+  keyCuts,
+}: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -127,7 +131,7 @@ export default function PubgBattleground({ title, description }: GameSEOProps) {
   }, [stage, handleGame, CountAudio, dispatch]);
 
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <div className={ContainerCSS.className} onClick={_handleClick}>
         <div className="blue-zone" />
         <img className="map" src={BackgroundURL} alt="pubg map background" />

@@ -29,7 +29,7 @@ import { getGameFileUrl } from 'utils/getCloudUrls';
 const ReloadAudioURL = getGameFileUrl('Cowboy/GunReload.mp3');
 const ShotAudioURL = getGameFileUrl('Cowboy/GunShot.mp3');
 
-export default function Cowboy({ title, description }: GameSEOProps) {
+export default function Cowboy({ title, description, keyCuts }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -96,7 +96,7 @@ export default function Cowboy({ title, description }: GameSEOProps) {
   useScroll(scrollCB);
 
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <div className={ContainerCSS.className} onClick={handleGame}>
         <div className={Styles.TextHolderCSS.className}>
           {transition(

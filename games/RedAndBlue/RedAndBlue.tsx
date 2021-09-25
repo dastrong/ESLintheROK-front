@@ -16,7 +16,11 @@ import { nextRoundData } from 'games/_utils';
 import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 
-export default function RedAndBlue({ title, description }: GameSEOProps) {
+export default function RedAndBlue({
+  title,
+  description,
+  keyCuts,
+}: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -61,7 +65,7 @@ export default function RedAndBlue({ title, description }: GameSEOProps) {
   useScroll(scrollCB);
 
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <div className={ContainerCSS.className} onClick={handleGame}>
         {refs.map((ref, i) => (
           <div className={`outer-color ${!i ? 'red' : 'blue'}`}>

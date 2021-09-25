@@ -17,7 +17,11 @@ import { nextRoundData } from 'games/_utils';
 import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 
-export default function SparkleDie({ title, description }: GameSEOProps) {
+export default function SparkleDie({
+  title,
+  description,
+  keyCuts,
+}: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -72,7 +76,7 @@ export default function SparkleDie({ title, description }: GameSEOProps) {
   }, [dispatch, isTimerRunning]);
 
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <div className={ContainerCSS.className}>
         <animated.div
           style={springStyles}

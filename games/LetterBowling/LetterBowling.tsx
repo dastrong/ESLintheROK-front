@@ -33,10 +33,14 @@ const colors = [
   'violet',
 ];
 
-export default function LetterBowling({ title, description }: GameSEOProps) {
+export default function LetterBowling({
+  title,
+  description,
+  keyCuts,
+}: GameSEOProps) {
   const store = useStore();
-const { selectedFont } = useFont();
-const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
+  const { selectedFont } = useFont();
+  const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
 
   // STATE - useData
   const primary = store.vocabulary;
@@ -119,7 +123,7 @@ const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
   const disablePlay = isBowling || isGameOver || showAnswer;
 
   return (
-    <GameWrapper title={title} description={description}>
+    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <div className={ContainerCSS.className}>
         {/* CONTROLS */}
         <div className={Styles.ControlsCSS.className}>
