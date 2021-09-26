@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 const addAnalytics = (alreadyConsented = false) => {
   if (!alreadyConsented) {
     // user has consented to analytics
-    setCookieContent(1);
+    setAnalyticsConsent(1);
   }
   // if we're in production start up analytics
   if (process.env.NODE_ENV === 'production') {
@@ -17,7 +17,7 @@ const addAnalytics = (alreadyConsented = false) => {
 
 const removeAnalytics = () => {
   // user has removed their consent to analytics
-  setCookieContent(0);
+  setAnalyticsConsent(0);
   // remove analytic cookies if they are there
   Cookies.remove('_ga');
   Cookies.remove('_gat');
@@ -29,12 +29,12 @@ const removeAnalytics = () => {
   }
 };
 
-const getCookieContent = () => {
-  return Cookies.get('cookie_consent');
+const getAnalyticsConsent = () => {
+  return Cookies.get('analytics_consent');
 };
 
-const setCookieContent = (value: number) => {
-  Cookies.set('cookie_consent', String(value), {
+const setAnalyticsConsent = (value: number) => {
+  Cookies.set('analytics_consent', String(value), {
     expires: 365,
     secure: !!(process.env.NODE_ENV === 'production'),
     sameSite: 'strict',
@@ -67,8 +67,8 @@ export const analytics = {
 };
 
 export const consent = {
-  get: getCookieContent,
-  set: setCookieContent,
+  get: getAnalyticsConsent,
+  set: setAnalyticsConsent,
 };
 
 export const track = {
