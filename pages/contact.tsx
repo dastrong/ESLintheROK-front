@@ -72,6 +72,7 @@ export default function ContactPage() {
                 text="Submit"
                 color="white"
                 bgColor="green"
+                style={{ boxShadow: '0 0.25rem 0.25rem 0 rgb(34 36 38 / 15%)' }}
               />
             </form>
           </div>
@@ -200,6 +201,10 @@ export default function ContactPage() {
           input,
           textarea {
             margin-bottom: 1.5rem;
+          }
+
+          textarea {
+            min-height: 155px;
           }
 
           .interactive_options {
