@@ -21,6 +21,7 @@ import * as Styles from './PubgBattleground.styles';
 import { PubgBattlegroundItems } from './PubgBattlegroundItems';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { getRandoNum, nextRoundData } from 'games/_utils';
 import GameWrapper from 'components/GameWrapper';
@@ -120,7 +121,7 @@ export default function PubgBattleground({
   const _handleClick = useCallback(() => {
     if (!CountAudio.current) return;
     if (stage === 0) {
-      // googleEvent(title);
+      track.newRound(title);
       CountAudio.current.currentTime = 0;
       CountAudio.current.play();
       return dispatch({ type: 'Countdown_Setup' });

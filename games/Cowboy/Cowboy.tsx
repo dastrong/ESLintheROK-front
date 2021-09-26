@@ -19,6 +19,7 @@ import type { GameStore } from './Cowboy.types';
 import * as Styles from './Cowboy.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
 import GameWrapper from 'components/GameWrapper';
@@ -62,7 +63,8 @@ export default function Cowboy({ title, description, keyCuts }: GameSEOProps) {
   const handleGame = useCallback(() => {
     if (!ShotAudio.current || !ReloadAudio.current) return;
     if (showReady) {
-      // googleEvent(title);
+      track.newRound(title);
+      track.newRound(title);
       ShotAudio.current.play();
       dispatch({ type: 'Show_Ready_False' });
     } else {

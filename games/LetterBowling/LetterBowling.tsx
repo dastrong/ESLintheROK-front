@@ -12,6 +12,7 @@ import type { GameStore } from './LetterBowling.types';
 import * as Styles from './LetterBowling.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { getRandoNum, nextRoundData } from 'games/_utils';
 import GameWrapper from 'components/GameWrapper';
@@ -155,7 +156,7 @@ export default function LetterBowling({
                 bgColor={!disablePlay ? '#2185d0' : '#e0e1e2'}
                 style={{ margin: '5px' }}
                 onClick={() => {
-                  // if (round === 1) googleEvent(title);
+                  if (round === 1) track.newRound(title);
                   dispatch({ type: 'Bowl_Start' });
                 }}
                 disabled={disablePlay}

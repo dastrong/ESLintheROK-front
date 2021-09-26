@@ -12,6 +12,7 @@ import type { GameStore } from './SparkleDie.types';
 import * as Styles from './SparkleDie.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
 import GameWrapper from 'components/GameWrapper';
@@ -43,7 +44,7 @@ export default function SparkleDie({
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
-    // googleEvent(title);
+    track.newRound(title);
     const [[text], newData] = nextRoundData(1, data, store.expressions);
     dispatch({ type: 'New_Round', text, data: newData });
   }, [data]);

@@ -13,6 +13,7 @@ import type { GameStore } from './KimchiElimination.types';
 import * as Styles from './KimchiElimination.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { getRandoNum, nextRoundData } from 'games/_utils';
 import GameWrapper from 'components/GameWrapper';
@@ -68,7 +69,7 @@ export default function KimchiElimination({
   const handleGame = useCallback(() => {
     if (isAnimating) return;
     if (showPic) {
-      // googleEvent(title);
+      track.newRound(title);
       const [[text], newData] = nextRoundData(1, data, store.expressions);
       const isKimchi = getRandoNum(100) < kimchiFrequency;
       dispatch({ type: 'New_Round', text, data: newData, isKimchi });

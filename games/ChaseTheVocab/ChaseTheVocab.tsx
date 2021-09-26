@@ -14,6 +14,7 @@ import type { GameStore } from './ChaseTheVocab.types';
 import * as Styles from './ChaseTheVocab.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
 import GameWrapper from 'components/GameWrapper';
@@ -144,7 +145,7 @@ export default function ChaseTheVocab({
 
   // GAME FUNCTIONS - start with an underscore ex) _handleClick
   const _handleClick = useCallback(() => {
-    // googleEvent(title);
+    track.newRound(title);
     dispatch({ type: 'Start_Animating' });
     // }, [dispatch, title]);
   }, [dispatch]);

@@ -21,6 +21,7 @@ import * as Styles from './HotPotato.styles';
 import HotPotatoStage from './HotPotatoStage';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData, resetAllAudio } from 'games/_utils';
 import GameWrapper from 'components/GameWrapper';
@@ -152,7 +153,7 @@ export default function HotPotato({
     if (stage === 1) {
       Bubbling.current.currentTime = 0.2;
       Bubbling.current.play();
-      // googleEvent(title);
+      track.newRound(title);
       return dispatch({ type: 'Countdown_Start' });
     }
     if (stage === 2) {

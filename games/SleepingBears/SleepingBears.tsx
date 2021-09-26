@@ -22,6 +22,7 @@ import * as Styles from './SleepingBears.styles';
 import SleepingBearsCard from './SleepingBearsCard';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData, splitString } from 'games/_utils';
 import { AnswerBox } from 'games/_components';
@@ -109,7 +110,7 @@ export default function SleepingBears({
       handleGame();
     }
     if (stage === 1) {
-      // googleEvent(title);
+      track.newRound(title);
     }
   }
 

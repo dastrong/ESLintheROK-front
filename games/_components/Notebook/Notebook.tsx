@@ -19,15 +19,18 @@ import type { GameStore, Position } from './Notebook.types';
 import * as Styles from './Notebook.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import { arrOfRandoNum, getRandoNum, nextRoundData } from 'games/_utils';
 import FitText from 'components/FitText';
 
 export default function Notebook({
   getHeaderTemplate,
   showBlank = false,
+  title,
 }: {
   getHeaderTemplate: (text: number) => string;
   showBlank?: boolean;
+  title: string;
 }) {
   const store = useStore();
   const { selectedFont } = useFont();
@@ -56,7 +59,7 @@ export default function Notebook({
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
-    // googleEvent(title);
+    track.newRound(title);
     const fullData = isVocab ? store.vocabulary : store.expressions;
     const [[cur], nex] = nextRoundData(1, data, fullData, true);
     const edited = changeText(cur, maxEdits, position, showBlank);

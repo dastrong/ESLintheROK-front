@@ -16,6 +16,7 @@ import type { GameStore } from './WordShark.types';
 import * as Styles from './WordShark.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
 import GameWrapper from 'components/GameWrapper';
@@ -59,7 +60,7 @@ export default function WordShark({
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
-    // googleEvent(title);
+    track.newRound(title);
     const fullData = isVocab ? store.vocabulary : store.expressions;
     const [[cur], nex] = nextRoundData(1, data, fullData, true);
     dispatch({ type: 'New_Round', data: nex, answer: cur });

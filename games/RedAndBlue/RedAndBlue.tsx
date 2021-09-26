@@ -11,6 +11,7 @@ import type { GameStore } from './RedAndBlue.types';
 import * as Styles from './RedAndBlue.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
 import GameWrapper from 'components/GameWrapper';
@@ -37,7 +38,7 @@ export default function RedAndBlue({
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
-    // googleEvent(title);
+    track.newRound(title);
     const fullData = isVocab ? store.vocabulary : store.expressions;
     const [[red, blue], nex] = nextRoundData(2, data, fullData);
     dispatch({ type: 'New_Round', red, blue, data: nex });

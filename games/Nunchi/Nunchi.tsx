@@ -12,6 +12,7 @@ import type { GameStore } from './Nunchi.types';
 import * as Styles from './Nunchi.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
 import GameWrapper from 'components/GameWrapper';
@@ -45,7 +46,7 @@ export default function Nunchi({ title, description, keyCuts }: GameSEOProps) {
   // HANDLE GAME
   const handleGame = useCallback(() => {
     if (showReady) {
-      // googleEvent(title);
+      track.newRound(title);
       dispatch({ type: 'Show_Ready_False' });
     } else {
       const [[cur], nex] = nextRoundData(1, data, store.expressions);

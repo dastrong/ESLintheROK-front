@@ -12,6 +12,7 @@ import type { GameStore } from './WordLotto.types';
 import * as Styles from './WordLotto.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { arrOfRandoNum, nextRoundData } from 'games/_utils';
 import GameWrapper from 'components/GameWrapper';
@@ -124,7 +125,7 @@ export default function WordLotto({
     if (isDone && isAnimating) return;
     if (isDone) return handleGame();
     if (!isAnimating) {
-      // googleEvent(title);
+      track.newRound(title);
       dispatch({ type: 'Animation_Start' });
     }
     // }, [isDone, isAnimating, dispatch, handleGame, title]); // title

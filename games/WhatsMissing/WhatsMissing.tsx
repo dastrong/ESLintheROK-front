@@ -24,6 +24,7 @@ import type {
 import * as Styles from './WhatsMissing.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { arrOfRandoNum, nextRoundData } from 'games/_utils';
 import GameWrapper from 'components/GameWrapper';
@@ -158,7 +159,7 @@ export default function WhatsMissing({
 
   useEffect(() => {
     if (stage !== stages.length) return;
-    // googleEvent(title);
+    track.newRound(title);
     // }, [stage, title]);
   }, [stage]);
 

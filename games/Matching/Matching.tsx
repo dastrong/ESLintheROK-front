@@ -21,6 +21,7 @@ import type { GameStore } from './Matching.types';
 import * as Styles from './Matching.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { getRandoGrad, nextRoundData } from 'games/_utils';
 import GameWrapper from 'components/GameWrapper';
@@ -117,7 +118,7 @@ export default function Matching({
 
   useEffect(() => {
     if (matched.length !== words) return;
-    // googleEvent(title);
+    track.newRound(title);
     const id = setTimeout(handleGame, 500);
     return () => clearTimeout(id);
     // }, [matched, handleGame, words, title]);

@@ -11,7 +11,7 @@ export default function FixTheMistake({
 }: GameSEOProps) {
   return (
     <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <Notebook getHeaderTemplate={getHeaderTemplate} />
+      <Notebook getHeaderTemplate={getHeaderTemplate} title={title} />
     </GameWrapper>
   );
 }

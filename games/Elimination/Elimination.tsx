@@ -18,6 +18,7 @@ import type { GameStore } from './Elimination.types';
 import * as Styles from './Elimination.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { RowOfTwoSidedCards } from 'games/_components';
 import GameWrapper from 'components/GameWrapper';
@@ -69,7 +70,7 @@ export default function Elimination({
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
-    // googleEvent(title);
+    track.newRound(title);
     const boxCount = getBoxCount(isVocab);
     // get a unique array of indexes for our 'chosen' blocks
     const Xs = arrOfRandoNum(boxCount - 1, 0, xCount, true);

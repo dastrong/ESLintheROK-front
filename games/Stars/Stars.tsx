@@ -17,6 +17,7 @@ import type { GameStore, MinimumStars } from './Stars.types';
 import * as Styles from './Stars.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { TwoSidedCard } from 'games/_components';
 import { nextRoundData, arrOfRandoNum } from 'games/_utils';

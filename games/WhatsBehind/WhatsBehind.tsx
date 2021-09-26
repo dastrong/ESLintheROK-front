@@ -20,7 +20,8 @@ import type { GameStore } from './WhatsBehind.types';
 import * as Styles from './WhatsBehind.styles';
 import WhatsBehindConfetti from './WhatsBehindConfetti';
 
-// IMPORT REUSABLE COMPONENTS/UTILITIES HERE
+// IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { RowOfTwoSidedCards } from 'games/_components';
 import { nextRoundData, getRandoNum } from 'games/_utils';
@@ -69,7 +70,7 @@ export default function WhatsBehind({
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
-    // googleEvent(title);
+    track.newRound(title);
     const boxCount = getBoxCount(isVocab);
     // choose the target box
     const target = [getRandoNum(boxCount - 1)];

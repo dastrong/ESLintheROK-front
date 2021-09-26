@@ -12,7 +12,7 @@ export default function MissingLetter({
 }: GameSEOProps) {
   return (
     <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <Notebook showBlank getHeaderTemplate={getHeaderTemplate} />
+      <Notebook showBlank getHeaderTemplate={getHeaderTemplate} title={title} />
     </GameWrapper>
   );
 }

@@ -18,6 +18,7 @@ import type { GameStore } from './__GameName__.types';
 import * as Styles from './__GameName__.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import GameWrapper from 'components/GameWrapper';
 
@@ -48,7 +49,7 @@ export default function __GameName__({
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
-    // googleEvent(title);
+    track.newRound(title);
     dispatch({ type: 'New_Round' }); // put whatever else you need to start a new round
   }, [data, isVocab]);
   useHandleGame(handleGame, didUpdate);

@@ -21,6 +21,7 @@ import SpeedSolverLetters from './SpeedSolverLetters';
 import SpeedSolverInfo from './SpeedSolverInfo';
 
 // IMPORT COMPONENTS/UTILITIES HERE
+import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData, resetAllAudio } from 'games/_utils';
 import { AnswerBox } from 'games/_components';
@@ -167,7 +168,7 @@ export default function SpeedSolver({
   function _handleClick() {
     // when user starts a round, log that event
     if (stage === 1) {
-      // googleEvent(title);
+      track.newRound(title);
     }
     // move onto the next stage in the game
     dispatch({ type: 'Stage_Change' });
