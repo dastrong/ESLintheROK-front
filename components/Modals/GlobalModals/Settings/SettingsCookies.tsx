@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import Cookies from 'js-cookie';
+
 import PageContent from 'components/PageContent';
 import Switch from 'components/Switch';
 import { analytics, consent } from 'utils/analytics';
@@ -21,7 +23,7 @@ export default function SettingsCookies() {
           signins and are required
         </Switch>
       </PageContent.Text>
-      <PageContent.Text style={{ marginBottom: 0 }}>
+      <PageContent.Text>
         <Switch
           defaultChecked={!!Number(consent.get())}
           onChange={e => {
@@ -33,6 +35,24 @@ export default function SettingsCookies() {
           }}
         >
           <strong>Google Analytics</strong>
+        </Switch>
+      </PageContent.Text>
+      <PageContent.Text style={{ marginBottom: 0 }}>
+        <Switch
+          defaultChecked={!!Number(Cookies.get('hide_fullscreen_popup'))}
+          onChange={e => {
+            Cookies.set(
+              'hide_fullscreen_popup',
+              String(e.target.checked ? 1 : 0),
+              {
+                expires: 365,
+                secure: !!(process.env.NODE_ENV === 'production'),
+                sameSite: 'strict',
+              }
+            );
+          }}
+        >
+          <strong>Hide Fullscreen Game Popup</strong>
         </Switch>
       </PageContent.Text>
     </>
