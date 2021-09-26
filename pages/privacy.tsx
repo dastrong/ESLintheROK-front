@@ -10,7 +10,7 @@ export default function PrivacyPage() {
       description="Read our full privacy policy. We are committed to being transparent."
     >
       <PageHeading>Privacy Policy</PageHeading>
-      <PageSubHeading>Last Updated: September 13, 2021</PageSubHeading>
+      <PageSubHeading>Last Updated: September 26, 2021</PageSubHeading>
       <PageSubHeading>
         This Privacy Policy describes Our policies and procedures on the
         collection, use and disclosure of Your information when You use the
@@ -377,6 +377,20 @@ export default function PrivacyPage() {
               <td>session-token</td>
               <td>14 days</td>
               <td>Used to authenticate a user</td>
+              <td>Us</td>
+            </tr>
+            <tr>
+              <td>analytics_consent</td>
+              <td>1 year</td>
+              <td>
+                Used to determine if a user has accepted the analytics cookies
+              </td>
+              <td>Us</td>
+            </tr>
+            <tr>
+              <td>hide_fullscreen_popup</td>
+              <td>1 year</td>
+              <td>Used to hide the play game in fullscreen popup</td>
               <td>Us</td>
             </tr>
           </tbody>
