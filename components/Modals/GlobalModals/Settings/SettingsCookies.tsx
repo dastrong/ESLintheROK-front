@@ -23,7 +23,7 @@ export default function SettingsCookies() {
       </PageContent.Text>
       <PageContent.Text style={{ marginBottom: 0 }}>
         <Switch
-          defaultChecked={consent.get() === 'true'}
+          defaultChecked={!!Number(consent.get())}
           onChange={e => {
             if (e.target.checked) {
               analytics.add();

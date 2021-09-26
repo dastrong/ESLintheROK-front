@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 const addAnalytics = (alreadyConsented = false) => {
   if (!alreadyConsented) {
     // user has consented to analytics
-    setCookieContent(true);
+    setCookieContent(1);
   }
   // if we're in production start up analytics
   if (process.env.NODE_ENV === 'production') {
@@ -17,7 +17,7 @@ const addAnalytics = (alreadyConsented = false) => {
 
 const removeAnalytics = () => {
   // user has removed their consent to analytics
-  setCookieContent(false);
+  setCookieContent(0);
   // remove analytic cookies if they are there
   Cookies.remove('_ga');
   Cookies.remove('_gat');
@@ -33,7 +33,7 @@ const getCookieContent = () => {
   return Cookies.get('cookie_consent');
 };
 
-const setCookieContent = (value: boolean) => {
+const setCookieContent = (value: number) => {
   Cookies.set('cookie_consent', String(value), {
     expires: 365,
     secure: !!(process.env.NODE_ENV === 'production'),
@@ -42,15 +42,18 @@ const setCookieContent = (value: boolean) => {
 };
 
 const trackPageView = (path: string) => {
+  if (!window['ga']) return;
   ReactGA.set({ page: path });
   ReactGA.pageview(path);
 };
 
 const trackModalView = (modalName: string) => {
+  if (!window['ga']) return;
   ReactGA.modalview(modalName);
 };
 
 const trackNewRound = (title: string) => {
+  if (!window['ga']) return;
   ReactGA.event({
     category: 'Games',
     action: `New Round - ${title}`,

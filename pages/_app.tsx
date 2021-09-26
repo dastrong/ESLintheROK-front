@@ -30,10 +30,10 @@ export default function App({ Component, pageProps }: AppProps) {
               <StoreProvider>
                 <GifProvider>
                   <GlobalModals />
+                  <CookieConsent />
                   <Layout>
                     <DefaultSeo {...SEO} />
                     <Component {...pageProps} />
-                    <CookieConsent />
                   </Layout>
 
                   {/* BUTTON DEFAULTS */}

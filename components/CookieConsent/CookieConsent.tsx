@@ -19,10 +19,9 @@ export default function CookieConsent() {
 
   // check if user has already consented
   useEffect(() => {
-    const wasAccepted = consent.get(); // undefined, true, false
-    if (wasAccepted) analytics.add(true);
-    // if the user hasn't consented before, show the notice
-    else if (typeof wasAccepted === 'undefined') setVisibility(true);
+    const consentValue = consent.get(); // undefined, 1, 0
+    if (typeof consentValue === 'undefined') setVisibility(true);
+    else if (Number(consentValue)) analytics.add(true);
   }, []);
 
   const onAccept = () => {
