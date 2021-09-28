@@ -5,6 +5,7 @@ import Lessons from './Lessons';
 import PastLessons from './PastLessons';
 import Settings from './Settings';
 import Gif from './Gif';
+import MobileNotice from './MobileNotice';
 
 export default function DataModals() {
   return (
@@ -15,6 +16,7 @@ export default function DataModals() {
       <PastLessons />
       <Settings />
       <Gif />
+      <MobileNotice />
     </>
   );
 }
