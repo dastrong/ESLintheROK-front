@@ -58,15 +58,30 @@ export default function AcknowledgementsPage({
             following deserve credit.
           </PageContent.Text>
           <PageContent.List>
-            <li>The main globe logo was downloaded from Vecteezy</li>
+            <li>
+              The main globe logo was downloaded from{' '}
+              <a
+                href="https://www.vecteezy.com/free-vector/world-logo"
+                target="_blank"
+              >
+                Vecteezy
+              </a>
+            </li>
             <li>
               The wavey top navigation bar and the blobs in the footer were
-              built and downloaded from Haikei
+              built and downloaded from{' '}
+              <a href="https://haikei.app" target="_blank">
+                Haikei
+              </a>
             </li>
             <li>
-              The image on the homepage and the lesson's modal were downloaded
-              from unDraw
+              The animations on the homepage, in the handmade lesson modal and
+              the icons below were downloaded from{' '}
+              <a href="https://undraw.co" target="_blank">
+                unDraw
+              </a>
             </li>
+
             <li>
               GIF's used on the site are randomly fetched from{' '}
               <a href="https://giphy.com" target="_blank">
