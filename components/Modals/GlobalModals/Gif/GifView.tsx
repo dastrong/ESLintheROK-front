@@ -12,7 +12,7 @@ export default function GifView() {
   const { width, height } = useWindowSize();
   const [oneTimeGif, setOneTimeGif] = useState<IGif>();
 
-  const { gifs, declinedGifIds, usedGifIds, gifDispatch, fetchGif } = useGifs();
+  const { gifs, removedGifIds, usedGifIds, gifDispatch, fetchGif } = useGifs();
   const closeModal = () => gifDispatch({ type: 'Close_Gif' });
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function GifView() {
     if (!gifs.length) getAndSetGif();
   }, []);
 
-  const usedOrDeletedGifIds = [...declinedGifIds, ...usedGifIds];
+  const usedOrDeletedGifIds = [...removedGifIds, ...usedGifIds];
   const currentGifIndex = gifs.findIndex(
     gif => !usedOrDeletedGifIds.includes(String(gif.id))
   );
@@ -72,6 +72,17 @@ export default function GifView() {
         ) : null}
       </Modal.Content>
       <Modal.Actions
+        cancelColor="white"
+        cancelBgColor="orangered"
+        cancelText={!gifs[0] ? 'Close View' : 'Mark GIF as Used and Close'}
+        cancelClick={() => {
+          closeModal();
+          if (!gifs[0]) return;
+          gifDispatch({
+            type: 'Use_Gif',
+            id: String(gifs[currentGifIndex].id),
+          });
+        }}
         confirmText={!gifs[0] ? 'Close Modal' : 'Mark GIF as Used and Close'}
         confirmClick={() => {
           closeModal();
