@@ -7,16 +7,18 @@ type Show = 'single' | 'grid' | '';
 type GifState = {
   show: Show;
   gifs: IGif[];
-  declinedGifIds: string[];
+  removedGifIds: string[];
   usedGifIds: string[];
+  searchTerm: string;
 };
 
 type GifAction =
   | { type: 'Open_Gif'; show: Show }
   | { type: 'Close_Gif' }
   | { type: 'Set_Gif'; gif: IGif }
-  | { type: 'Block_Gif'; id: string }
-  | { type: 'Use_Gif'; id: string };
+  | { type: 'Remove_Gif'; id: string }
+  | { type: 'Use_Gif'; id: string }
+  | { type: 'Update_Search_Term'; newSearchTerm: string };
 
 const setGifStorage = (data: GifState) => {
   if (typeof window === 'undefined') return;
@@ -35,10 +37,12 @@ const init = (): GifState => {
 
   return {
     ...gifState,
-    show: '',
+    show: 'single',
     gifs: [],
-    declinedGifIds: [],
+    removedGifIds: [],
     usedGifIds: [],
+    searchTerm: 'dog',
+    // searchTerm: 'funny, fail',
   };
 };
 
@@ -52,14 +56,16 @@ const reducer = (state: GifState, action: GifAction): GifState => {
       return { ...state, show: '' };
     case 'Set_Gif':
       return { ...state, gifs: [...state.gifs, action.gif] };
-    case 'Block_Gif':
+    case 'Remove_Gif':
       return {
         ...state,
         gifs: state.gifs.filter(gif => String(gif.id) !== action.id),
-        declinedGifIds: [...state.declinedGifIds, action.id],
+        removedGifIds: [...state.removedGifIds, action.id],
       };
     case 'Use_Gif':
       return { ...state, usedGifIds: [...state.usedGifIds, action.id] };
+    case 'Update_Search_Term':
+      return { ...state, searchTerm: action.newSearchTerm };
     default:
       return state;
   }
