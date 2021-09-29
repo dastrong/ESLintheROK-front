@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import { Grid } from '@giphy/react-components';
 import { GifsResult } from '@giphy/js-fetch-api';
@@ -11,6 +11,7 @@ import Modal from 'components/Modals';
 import Button from 'components/Button';
 import InlineForm from 'components/InlineForm';
 import GifOverlay from './GifOverlay';
+import GifGridCarousel from './GifGridCarousel';
 
 export default function GifGrid() {
   const { width } = useWindowSize();
@@ -28,6 +29,10 @@ export default function GifGrid() {
   // users can update the search term  we want ...
   // ... to hold that value until it's been submitted
   const [newSearchTerm, setNewSearchTerm] = useState(searchTerm);
+
+  useEffect(() => {
+    setNewSearchTerm(searchTerm);
+  }, [searchTerm]);
 
   // modified function to pass into the GIPHY Grid component
   const fetchGifs = async (offset: number): Promise<GifsResult> => {
@@ -66,7 +71,7 @@ export default function GifGrid() {
       <Modal.Header closeModal={closeModal}>Random Gif Grid</Modal.Header>
 
       <Modal.Content
-        style={{ height: 'calc(100% - 56px - 74px)', overflowY: 'scroll' }}
+        style={{ height: 'calc(100% - 56px - 82px)', overflowY: 'scroll' }}
       >
         <Toaster position="bottom-left" toastOptions={{ duration: 4000 }} />
 
@@ -118,9 +123,16 @@ export default function GifGrid() {
           }}
           style={{ display: 'inline-block', margin: '0 1rem', maxWidth: 250 }}
         />
-        <span style={{ opacity: 0.8 }}>
-          *Multi term searches must be separated with a comma
-        </span>
+        <span style={{ opacity: 0.8 }}>Popular/Suggested Search Terms:</span>
+        <GifGridCarousel
+          searchTerm={searchTerm}
+          handleClick={(popularSearchTerm: string) => {
+            gifDispatch({
+              type: 'Update_Search_Term',
+              newSearchTerm: popularSearchTerm,
+            });
+          }}
+        />
       </Modal.Actions>
     </>
   );

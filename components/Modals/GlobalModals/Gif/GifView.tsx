@@ -33,7 +33,7 @@ export default function GifView() {
   // need to calculate width/height to fill the container correctly
   const gifWidth = currentGif?.images.original.width || 0;
   const gifHeight = currentGif?.images.original.height || 0;
-  const containerHeight = height * 0.95 - 56 - 74 - 32 - 2;
+  const containerHeight = height * 0.95 - 56 - 82 - 32 - 2;
   const containerWidth = width * 0.95 - 32 - 10;
   const heightDiffPer = containerHeight / gifHeight;
   const widthDiffPer = containerWidth / gifWidth;
@@ -55,7 +55,7 @@ export default function GifView() {
 
       <Modal.Content
         style={{
-          height: 'calc(100% - 56px - 74px)',
+          height: 'calc(100% - 56px - 82px)',
           overflowY: 'scroll',
           display: 'flex',
         }}
@@ -72,6 +72,7 @@ export default function GifView() {
         ) : null}
       </Modal.Content>
       <Modal.Actions
+        style={{ height: 82 }}
         cancelColor="white"
         cancelBgColor="orangered"
         cancelText={!gifs[0] ? 'Close View' : 'Mark GIF as Used and Close'}
