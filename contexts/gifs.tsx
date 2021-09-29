@@ -12,6 +12,9 @@ type GifState = {
   searchTerm: string;
 };
 
+type GifDataState = Omit<GifState, 'show'>;
+type LocalState = { expires: number; data: GifDataState };
+
 type GifAction =
   | { type: 'Open_Gif'; show: Show }
   | { type: 'Close_Gif' }
@@ -20,29 +23,44 @@ type GifAction =
   | { type: 'Use_Gif'; id: string }
   | { type: 'Update_Search_Term'; newSearchTerm: string };
 
-const setGifStorage = (data: GifState) => {
+const setGifStorage = (data: GifDataState) => {
   if (typeof window === 'undefined') return;
-  localStorage.setItem('gifStorage', JSON.stringify(data));
+  localStorage.setItem(
+    'gifStorage',
+    JSON.stringify({ data, expires: Date.now() + 1000 * 60 * 60 * 12 })
+  );
 };
 
 const getGifStorage = () => {
   if (typeof window === 'undefined') return null;
-  const gifStorage: GifState = JSON.parse(localStorage.getItem('gifStorage'));
+  // check localStorage for some past gifs stored there
+  const gifStorage: LocalState = JSON.parse(localStorage.getItem('gifStorage'));
   if (!gifStorage) return null;
-  return gifStorage;
+
+  // check if it's expired >12 hours old
+  const isExpired = Date.now() > gifStorage.expires;
+  if (isExpired) {
+    // remove it from localStorage if it's old
+    localStorage.removeItem('gifStorage');
+    return null;
+  }
+  // otherwise, return the data portion
+  return gifStorage.data;
+};
+
+const initialGifDataState: GifDataState = {
+  gifs: [],
+  removedGifIds: [],
+  usedGifIds: [],
+  searchTerm: 'dog',
 };
 
 const init = (): GifState => {
   const gifState = getGifStorage();
 
   return {
-    ...gifState,
-    show: 'single',
-    gifs: [],
-    removedGifIds: [],
-    usedGifIds: [],
-    searchTerm: 'dog',
-    // searchTerm: 'funny, fail',
+    show: 'grid',
+    ...(gifState || initialGifDataState),
   };
 };
 
@@ -54,14 +72,33 @@ const reducer = (state: GifState, action: GifAction): GifState => {
       return { ...state, show: action.show };
     case 'Close_Gif':
       return { ...state, show: '' };
-    case 'Set_Gif':
+    case 'Set_Gif': {
+      const updatedGifs = [...state.gifs, action.gif];
+      setGifStorage({
+        searchTerm: state.searchTerm,
+        gifs: updatedGifs,
+        removedGifIds: state.removedGifIds,
+        usedGifIds: state.usedGifIds,
+      });
       return { ...state, gifs: [...state.gifs, action.gif] };
-    case 'Remove_Gif':
+    }
+    case 'Remove_Gif': {
+      const updatedGifs = state.gifs.filter(
+        gif => String(gif.id) !== action.id
+      );
+      const updatedRemovedGifIds = [...state.removedGifIds, action.id];
+      setGifStorage({
+        searchTerm: state.searchTerm,
+        gifs: updatedGifs,
+        removedGifIds: updatedRemovedGifIds,
+        usedGifIds: state.usedGifIds,
+      });
       return {
         ...state,
-        gifs: state.gifs.filter(gif => String(gif.id) !== action.id),
-        removedGifIds: [...state.removedGifIds, action.id],
+        gifs: updatedGifs,
+        removedGifIds: updatedRemovedGifIds,
       };
+    }
     case 'Use_Gif':
       return { ...state, usedGifIds: [...state.usedGifIds, action.id] };
     case 'Update_Search_Term':
@@ -80,7 +117,7 @@ const GifContext = createContext(
 
 // reusable function to fetch GIFs
 const gf = new GiphyFetch(process.env.NEXT_PUBLIC_GIPHY_KEY);
-const fetchGif = async (searchTerm = 'funny, fail') => {
+const fetchGif = async (searchTerm = 'dog') => {
   return await gf.random({ tag: searchTerm, rating: 'g' });
 };
 
