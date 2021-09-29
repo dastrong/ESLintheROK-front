@@ -4,21 +4,32 @@ import React, {
   ForwardedRef,
   CSSProperties,
 } from 'react';
+import type { IconType } from 'react-icons';
 import { FaPlus } from 'react-icons/fa';
 import Button from 'components/Button';
 import { InputCSS } from 'components/Styles';
 
 type Props = {
+  disabled?: boolean;
   placeholder: string;
   value: string;
   onChange: (value: string) => void;
   onSubmit: (value: string) => void;
   style?: CSSProperties;
+  Icon?: IconType;
 };
 
 const InlineForm = forwardRef(
   (
-    { placeholder, value, onChange, onSubmit, style }: Props,
+    {
+      disabled = false,
+      placeholder,
+      value,
+      onChange,
+      onSubmit,
+      style,
+      Icon,
+    }: Props,
     ref: ForwardedRef<HTMLInputElement>
   ) => {
     return (
@@ -37,7 +48,8 @@ const InlineForm = forwardRef(
           ref={ref}
         />
         <Button
-          Icon={FaPlus}
+          disabled={disabled}
+          Icon={Icon || FaPlus}
           size="sm"
           color="white"
           bgColor="#027E1B"
