@@ -67,6 +67,12 @@ export default function AcknowledgementsPage({
               The image on the homepage and the lesson's modal were downloaded
               from unDraw
             </li>
+            <li>
+              GIF's used on the site are randomly fetched from{' '}
+              <a href="https://giphy.com" target="_blank">
+                GIPHY.com
+              </a>
+            </li>
           </PageContent.List>
 
           <PageContent.Header id="lesson_materials">

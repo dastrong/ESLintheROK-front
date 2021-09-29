@@ -7,6 +7,7 @@ import useWindowSize from 'react-use/lib/useWindowSize';
 import { useGifs } from 'contexts/gifs';
 import Modal from 'components/Modals';
 import Button from 'components/Button';
+import GifHeader from './GifHeader';
 
 export default function GifView() {
   const { width, height } = useWindowSize();
@@ -51,7 +52,7 @@ export default function GifView() {
 
   return (
     <>
-      <Modal.Header closeModal={closeModal}>Viewing Random Gif</Modal.Header>
+      <GifHeader closeModal={closeModal} />
 
       <Modal.Content
         style={{

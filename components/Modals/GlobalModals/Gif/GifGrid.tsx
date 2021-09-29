@@ -10,6 +10,7 @@ import { useGifs } from 'contexts/gifs';
 import Modal from 'components/Modals';
 import Button from 'components/Button';
 import InlineForm from 'components/InlineForm';
+import GifHeader from './GifHeader';
 import GifOverlay from './GifOverlay';
 import GifGridCarousel from './GifGridCarousel';
 
@@ -68,7 +69,7 @@ export default function GifGrid() {
 
   return (
     <>
-      <Modal.Header closeModal={closeModal}>Random Gif Grid</Modal.Header>
+      <GifHeader closeModal={closeModal} />
 
       <Modal.Content
         style={{ height: 'calc(100% - 56px - 82px)', overflowY: 'scroll' }}
