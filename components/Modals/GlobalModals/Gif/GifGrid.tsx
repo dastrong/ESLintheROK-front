@@ -96,44 +96,74 @@ export default function GifGrid() {
         />
       </Modal.Content>
 
-      <Modal.Actions hideActions style={{ justifyContent: 'flex-start' }}>
+      <Modal.Actions hideActions style={{ justifyContent: 'space-between' }}>
         <Button
           color="white"
           bgColor="hotpink"
           Icon={BsFillEyeFill}
           onClick={() => gifDispatch({ type: 'Open_Gif', show: 'single' })}
         />
-        <InlineForm
-          placeholder="Search terms..."
-          Icon={FaSearch}
-          disabled={searchTerm === newSearchTerm}
-          value={newSearchTerm}
-          onChange={setNewSearchTerm}
-          onSubmit={newSearchTerm => {
-            gifDispatch({
-              type: 'Update_Search_Term',
-              newSearchTerm,
-            });
-            toast.success(
-              <>
-                Updated search term.
-                <br />
-                Scroll down to view those results.
-              </>
-            );
-          }}
-          style={{ display: 'inline-block', margin: '0 1rem', maxWidth: 250 }}
-        />
-        <span style={{ opacity: 0.8 }}>Popular/Suggested Search Terms:</span>
-        <GifGridCarousel
-          searchTerm={searchTerm}
-          handleClick={(popularSearchTerm: string) => {
-            gifDispatch({
-              type: 'Update_Search_Term',
-              newSearchTerm: popularSearchTerm,
-            });
-          }}
-        />
+        <div>
+          <span>Popular/Suggested Search Terms:</span>
+          <GifGridCarousel
+            searchTerm={searchTerm}
+            handleClick={(popularSearchTerm: string) => {
+              gifDispatch({
+                type: 'Update_Search_Term',
+                newSearchTerm: popularSearchTerm,
+              });
+            }}
+          />
+          <InlineForm
+            placeholder="Search terms..."
+            Icon={FaSearch}
+            disabled={searchTerm === newSearchTerm}
+            value={newSearchTerm}
+            onChange={setNewSearchTerm}
+            onSubmit={newSearchTerm => {
+              gifDispatch({
+                type: 'Update_Search_Term',
+                newSearchTerm,
+              });
+              toast.success(
+                <>
+                  Updated search term.
+                  <br />
+                  Scroll down to view those results.
+                </>
+              );
+            }}
+            style={{
+              display: 'inline-block',
+              margin: '0 0 0 1rem',
+              maxWidth: 250,
+            }}
+          />
+
+          <style jsx>{`
+            div {
+              display: flex;
+              align-items: center;
+              justify-content: flex-end;
+              flex: 1;
+              margin-left: 1rem;
+              width: 100%;
+            }
+
+            span {
+              opacity: 0.8;
+              text-align: right;
+              margin: 0 0.5rem;
+              display: none;
+            }
+
+            @media screen and (min-width: 950px) {
+              span {
+                display: initial;
+              }
+            }
+          `}</style>
+        </div>
       </Modal.Actions>
     </>
   );
