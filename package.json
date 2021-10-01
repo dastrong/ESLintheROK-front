@@ -48,10 +48,7 @@
     "react-multi-carousel": "^2.6.3",
     "react-popper-tooltip": "^4.2.0",
     "react-spring": "^9.1.2",
-    "react-transition-group": "^4.4.1",
     "react-use": "^17.2.4",
-    "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^2.0.3",
     "styled-jsx": "^4.0.0",
     "swr": "^1.0.0"
   },
