@@ -13,6 +13,7 @@ const Popup = dynamic(() => import('components/Popup'));
 
 const mainLinks = [
   { href: '/games', text: 'Games' },
+  { href: '/guide', text: 'Guide' },
   { href: '/faqs', text: 'Help' },
 ];
 
@@ -32,36 +33,13 @@ export default function NavLinks() {
             </Link>
           </li>
         ))}
-        <Popup
-          interactive
-          delayHide={100}
-          hideTooltip={loading}
-          trigger={['hover', 'focus']}
-          owner={<li>{loading ? <Skeleton width="7ch" /> : 'Account'}</li>}
-        >
-          <ul className="nav_dropdown">
-            {!session ? (
-              <li>
-                <Link href="/auth/signin">
-                  <a>Login</a>
-                </Link>
-              </li>
-            ) : (
-              <li>
-                <Link href="/auth/signout">
-                  <a>Logout</a>
-                </Link>
-              </li>
-            )}
-          </ul>
-        </Popup>
       </ul>
 
       <ul className="links_secondary">
         <li>
-          <Link href="/guide">
-            <a className={classNames({ active: '/guide' === pathname })}>
-              Guide
+          <Link href="/contact">
+            <a className={classNames({ active: '/contact' === pathname })}>
+              Contact
             </a>
           </Link>
         </li>
@@ -112,7 +90,6 @@ export default function NavLinks() {
             </li>
           </ul>
         </Popup>
-
         <li>
           <Link href="/changelog">
             <a className={classNames({ active: '/changelog' === pathname })}>
@@ -120,14 +97,29 @@ export default function NavLinks() {
             </a>
           </Link>
         </li>
-
-        <li>
-          <Link href="/contact">
-            <a className={classNames({ active: '/contact' === pathname })}>
-              Contact
-            </a>
-          </Link>
-        </li>
+        <Popup
+          interactive
+          delayHide={100}
+          hideTooltip={loading}
+          trigger={['hover', 'focus']}
+          owner={<li>{loading ? <Skeleton width="7ch" /> : 'Account'}</li>}
+        >
+          <ul className="nav_dropdown">
+            {!session ? (
+              <li>
+                <Link href="/auth/signin">
+                  <a>Login</a>
+                </Link>
+              </li>
+            ) : (
+              <li>
+                <Link href="/auth/signout">
+                  <a>Logout</a>
+                </Link>
+              </li>
+            )}
+          </ul>
+        </Popup>
       </ul>
 
       <style jsx>{`
