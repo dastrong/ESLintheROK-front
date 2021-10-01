@@ -27,9 +27,13 @@ const DataScreenList = forwardRef(
   ) => {
     const disabled = showPlaceholders || disableHover;
 
+    console.info(list, showPlaceholders);
     return (
       <div className="list" ref={ref}>
-        {(list.length ? list : randomWidths.map(String)).map((text, i) => (
+        {(list.length || !showPlaceholders
+          ? list
+          : randomWidths.map(String)
+        ).map((text, i) => (
           <div className="item_container" key={text + i}>
             <div className="list_item">
               <span className="list_item_text">
