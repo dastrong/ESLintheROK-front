@@ -3,13 +3,14 @@ import useWindowSize from 'react-use/lib/useWindowSize';
 import { Grid } from '@giphy/react-components';
 import { GifsResult } from '@giphy/js-fetch-api';
 import { BsFillEyeFill } from 'react-icons/bs';
-import { FaSearch } from 'react-icons/fa';
+import { FaSearch, FaTrashAlt } from 'react-icons/fa';
 import { Toaster, toast } from 'react-hot-toast';
 
 import { useGifs } from 'contexts/gifs';
 import Modal from 'components/Modals';
 import Button from 'components/Button';
 import InlineForm from 'components/InlineForm';
+import Popup from 'components/Popup';
 import GifHeader from './GifHeader';
 import GifOverlay from './GifOverlay';
 import GifGridCarousel from './GifGridCarousel';
@@ -103,6 +104,25 @@ export default function GifGrid() {
           Icon={BsFillEyeFill}
           onClick={() => gifDispatch({ type: 'Open_Gif', show: 'single' })}
         />
+        <Popup
+          interactive
+          delayHide={100}
+          owner={
+            <Button
+              color="white"
+              bgColor="red"
+              Icon={FaTrashAlt}
+              style={{ marginLeft: 8 }}
+            />
+          }
+        >
+          <Button
+            color="white"
+            bgColor="red"
+            text="Clear GIF History"
+            onClick={() => gifDispatch({ type: 'Clear_All' })}
+          />
+        </Popup>
         <div>
           <span>Popular/Suggested Search Terms:</span>
           <GifGridCarousel

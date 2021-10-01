@@ -12,7 +12,7 @@ type GifState = {
   searchTerm: string;
 };
 
-type GifDataState = Omit<GifState, 'show'>;
+type GifDataState = Omit<GifState, 'show' | 'usedGifIds'>;
 type LocalState = { expires: number; data: GifDataState };
 
 type GifAction =
@@ -21,7 +21,8 @@ type GifAction =
   | { type: 'Set_Gif'; gif: IGif }
   | { type: 'Remove_Gif'; id: string }
   | { type: 'Use_Gif'; id: string }
-  | { type: 'Update_Search_Term'; newSearchTerm: string };
+  | { type: 'Update_Search_Term'; newSearchTerm: string }
+  | { type: 'Clear_All' };
 
 const setGifStorage = (data: GifDataState) => {
   if (typeof window === 'undefined') return;
@@ -37,7 +38,7 @@ const getGifStorage = () => {
   const gifStorage: LocalState = JSON.parse(localStorage.getItem('gifStorage'));
   if (!gifStorage) return null;
 
-  // check if it's expired >12 hours old
+  // check if it's expired -> over 12 hours old
   const isExpired = Date.now() > gifStorage.expires;
   if (isExpired) {
     // remove it from localStorage if it's old
@@ -51,7 +52,6 @@ const getGifStorage = () => {
 const initialGifDataState: GifDataState = {
   gifs: [],
   removedGifIds: [],
-  usedGifIds: [],
   searchTerm: 'dog',
 };
 
@@ -59,7 +59,8 @@ const init = (): GifState => {
   const gifState = getGifStorage();
 
   return {
-    show: 'grid',
+    show: '',
+    usedGifIds: [],
     ...(gifState || initialGifDataState),
   };
 };
@@ -78,9 +79,8 @@ const reducer = (state: GifState, action: GifAction): GifState => {
         searchTerm: state.searchTerm,
         gifs: updatedGifs,
         removedGifIds: state.removedGifIds,
-        usedGifIds: state.usedGifIds,
       });
-      return { ...state, gifs: [...state.gifs, action.gif] };
+      return { ...state, gifs: updatedGifs };
     }
     case 'Remove_Gif': {
       const updatedGifs = state.gifs.filter(
@@ -91,7 +91,6 @@ const reducer = (state: GifState, action: GifAction): GifState => {
         searchTerm: state.searchTerm,
         gifs: updatedGifs,
         removedGifIds: updatedRemovedGifIds,
-        usedGifIds: state.usedGifIds,
       });
       return {
         ...state,
@@ -101,8 +100,24 @@ const reducer = (state: GifState, action: GifAction): GifState => {
     }
     case 'Use_Gif':
       return { ...state, usedGifIds: [...state.usedGifIds, action.id] };
-    case 'Update_Search_Term':
-      return { ...state, searchTerm: action.newSearchTerm };
+    case 'Update_Search_Term': {
+      const updatedSearchTerm = action.newSearchTerm;
+      setGifStorage({
+        searchTerm: updatedSearchTerm,
+        gifs: state.gifs,
+        removedGifIds: state.removedGifIds,
+      });
+      return { ...state, searchTerm: updatedSearchTerm };
+    }
+    case 'Clear_All': {
+      localStorage.removeItem('gifStorage');
+      return {
+        ...state,
+        show: 'grid',
+        usedGifIds: [],
+        ...initialGifDataState,
+      };
+    }
     default:
       return state;
   }

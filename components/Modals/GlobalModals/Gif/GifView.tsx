@@ -4,6 +4,7 @@ import { IGif } from '@giphy/js-types';
 import { BsFillGrid1X2Fill } from 'react-icons/bs';
 import useWindowSize from 'react-use/lib/useWindowSize';
 
+import { useStore } from 'contexts/store';
 import { useGifs } from 'contexts/gifs';
 import Modal from 'components/Modals';
 import Button from 'components/Button';
@@ -13,8 +14,14 @@ export default function GifView() {
   const { width, height } = useWindowSize();
   const [oneTimeGif, setOneTimeGif] = useState<IGif>();
 
+  const { storeDispatch } = useStore();
   const { gifs, removedGifIds, usedGifIds, gifDispatch, fetchGif } = useGifs();
   const closeModal = () => gifDispatch({ type: 'Close_Gif' });
+
+  const openSettingsModal = () => {
+    closeModal();
+    storeDispatch({ type: 'Open_Settings' });
+  };
 
   useEffect(() => {
     const getAndSetGif = async () => {
@@ -76,16 +83,21 @@ export default function GifView() {
         style={{ height: 82 }}
         cancelColor="white"
         cancelBgColor="orangered"
-        cancelText={!gifs[0] ? 'Close View' : 'Mark GIF as Used and Close'}
-        cancelClick={() => {
-          closeModal();
-          if (!gifs[0]) return;
-          gifDispatch({
-            type: 'Use_Gif',
-            id: String(gifs[currentGifIndex].id),
-          });
-        }}
-        confirmText={!gifs[0] ? 'Close Modal' : 'Mark GIF as Used and Close'}
+        cancelText="Remove and Close"
+        cancelClick={
+          // we don't need to show this button if we're fetching gif individually on the fly
+          !gifs[0]
+            ? null
+            : () => {
+                closeModal();
+                if (!gifs[0]) return;
+                gifDispatch({
+                  type: 'Remove_Gif',
+                  id: String(gifs[currentGifIndex].id),
+                });
+              }
+        }
+        confirmText={!gifs[0] ? 'Close Modal' : 'Save and Close'}
         confirmClick={() => {
           closeModal();
           if (!gifs[0]) return;
@@ -101,6 +113,18 @@ export default function GifView() {
           Icon={BsFillGrid1X2Fill}
           onClick={() => gifDispatch({ type: 'Open_Gif', show: 'grid' })}
         />
+        <p>
+          Read more about how we handle GIFs
+          <Button
+            inverted
+            color="white"
+            bgColor="#489dca"
+            text="here"
+            style={{ border: 'none', padding: 0, paddingLeft: 4 }}
+            onClick={openSettingsModal}
+          />
+          .
+        </p>
       </Modal.Actions>
     </>
   );

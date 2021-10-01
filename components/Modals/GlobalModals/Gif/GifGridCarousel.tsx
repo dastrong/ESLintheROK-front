@@ -23,7 +23,7 @@ export default function GifGridCarousel({ searchTerm, handleClick }: Props) {
 
   return (
     <Carousel
-      width="475px"
+      width="450px"
       itemColorScale={['#ff69b4', '#1f82fd']}
       handleClick={handleClick}
       activeItem={uniqueSearch ? null : searchTerm}
