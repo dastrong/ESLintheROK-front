@@ -47,9 +47,10 @@ export default function SettingsGifs() {
       >
         How It Works:
       </PageContent.Text>
+
       <PageContent.List>
         <li>
-          The GIFs are randomly pulled from{' '}
+          GIFs are randomly pulled from{' '}
           <a href="https://www.giphy.com" target="_blank">
             GIPHY
           </a>
@@ -68,14 +69,42 @@ export default function SettingsGifs() {
             .
           </li>
           <li>
-            Any preloaded GIFs will be saved in your browser until the next time
-            you use them.
+            Any preloaded GIFs will be saved in your browser until one of the
+            following happens:
           </li>
+          <ul>
+            <li>you use them</li>
+            <li>you remove them</li>
+            <li>12 hours passes, then we consider them expired</li>
+          </ul>
+          <li>If you refresh your browser, we'll reload all saved GIFs</li>
+          <strong>Think of it this way:</strong>
+          <ul>
+            <li>
+              You preload some GIFs and have 10 that you like for today's
+              classes.
+            </li>
+            <li>
+              You use up those GIFs on your first class but saved them instead
+              of removing them.
+            </li>
+            <li>
+              You come back to the site during your second class and all of
+              those saved GIFs will automatically reload, so you can use the
+              same 10 again.
+            </li>
+            <li>
+              This way we don't need to fetch possibly hundreds of unused GIFs
+              weekly.
+            </li>
+            <li>
+              Also, it's easier to remember which GIFs you students have already
+              seen. Instead of seeing 40 GIFs and forgetting which GIFs each
+              class saw, you'll know that those classes saw only those 10 GIFs.
+            </li>
+          </ul>
         </PageContent.List>
-        <li>
-          Due to this randomness, we cannot guarantee that you won't see the
-          same GIF twice.
-        </li>
+
         <li>
           Only GIFs with a{' '}
           <a
@@ -91,10 +120,18 @@ export default function SettingsGifs() {
           style={{ fontSize: '1em', marginTop: 0, marginBottom: 8 }}
         >
           <li>
-            Because of this, we suggest taking a moment to check GIFs before
-            using them.
+            Due to this, we highly recommend taking a moment to check GIFs
+            before using them.
           </li>
         </PageContent.List>
+
+        <li>
+          We can ensure you don't see the same GIF multiple times if it's saved,
+          but due to the randomness when fetching, we cannot can guarantee that
+          you won't see the same GIF on different days. Especially if your
+          search terms are specific. After all there's only so many GIFs out
+          there.
+        </li>
       </PageContent.List>
 
       <style jsx>{`
