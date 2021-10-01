@@ -25,7 +25,7 @@ export default function LoadingBar() {
       #nprogress .bar {
         background: #04a7fb;
         position: fixed;
-        z-index: 1031;
+        z-index: 111111111111;
         top: 0;
         left: 0;
         width: 100%;
