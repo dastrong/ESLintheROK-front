@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { animated, config, useSprings } from 'react-spring';
 import classNames from 'classnames';
-import { getScale, darken } from 'color2k';
+import { getScale, darken, lighten } from 'color2k';
 import {
   RiMenuFill,
   RiCloseFill,
@@ -38,7 +38,7 @@ const darkenGradientColors = gradientColors.map(color => darken(color, 0.05));
 export default function Menu() {
   const isGamePlaying = usePlayCheck();
   const { asPath } = useRouter();
-  const { isMenuOpen, storeDispatch } = useStore();
+  const { isMenuOpen, storeDispatch, isDataReady } = useStore();
 
   // ref to handle closing the menu when user clicks away from it
   const ref = useRef();
@@ -230,6 +230,7 @@ export default function Menu() {
               <Button
                 rounded
                 size="lg"
+                disabled={!isDataReady}
                 Icon={RiFileSettingsFill}
                 color="white"
                 bgColor={gradientColors[4]}
@@ -238,6 +239,11 @@ export default function Menu() {
                     type: 'Open_Data_Modal',
                     dataModalName: 'edit',
                   });
+                }}
+                style={{
+                  backgroundColor: !isDataReady
+                    ? lighten(gradientColors[4], 0.1)
+                    : '',
                 }}
               />
             </animated.div>
