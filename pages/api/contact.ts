@@ -16,8 +16,11 @@ const ContactRoute: NextApiHandler<{ message: string }> = async (req, res) => {
   };
 
   try {
+    if (!name) throw new Error('Name is Required');
+    if (!email) throw new Error('Email is Required');
+    if (!content) throw new Error('Content is Required');
     await sgMail.send(msg);
-    res.status(200).json({ message: 'Email sent' });
+    res.status(200).json({ message: 'Email sent.' });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

@@ -1,4 +1,5 @@
 import React, { FormEvent, useState } from 'react';
+import { toast, Toaster } from 'react-hot-toast';
 
 import SeoWrapper from 'components/SeoWrapper';
 import Button from 'components/Button';
@@ -16,15 +17,17 @@ export default function ContactPage() {
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    try {
-      await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, content }),
-      });
-    } catch (err) {
-      console.log(err);
-    }
+    const resp = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, content }),
+    });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data.message);
+    setName('');
+    setEmail('');
+    setContent('');
+    return data;
   }
 
   return (
@@ -32,109 +35,114 @@ export default function ContactPage() {
       title="Contact Us"
       description="Get in touch with any questions or feedback you have. We'd love to here from you."
     >
-      <div>
-        <PageHeading>Get In Touch</PageHeading>
-        <PageSubHeading>
-          I’d love to hear from you. Contact me directly or join an existing
-          thread somewhere to chat with other teachers and I.
-        </PageSubHeading>
+      <Toaster />
+      <PageHeading>Get In Touch</PageHeading>
+      <PageSubHeading>
+        I’d love to hear from you. Contact me directly or join an existing
+        thread somewhere to chat with other teachers and I.
+      </PageSubHeading>
 
-        <div className="contact">
-          <div className="contact_panel email">
-            <h3>Email</h3>
-            <p>Contact the developer</p>
-            <form onSubmit={handleSubmit}>
-              <input
-                required
-                className={InputCSS.className}
-                placeholder="Your name"
-                value={name}
-                onChange={e => setName(e.target.value)}
-              />
-              <input
-                required
-                className={InputCSS.className}
-                placeholder="Your email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-              />
-              <textarea
-                required
-                rows={5}
-                className={InputCSS.className}
-                placeholder="Your question or message here"
-                value={content}
-                onChange={e => setContent(e.target.value)}
-              />
-              <Button
-                full
-                type="submit"
-                text="Submit"
-                color="white"
-                bgColor="green"
-                style={{ boxShadow: '0 0.25rem 0.25rem 0 rgb(34 36 38 / 15%)' }}
-              />
-            </form>
-          </div>
-          <div className="contact_panel interactive">
-            <h3>Interactive</h3>
-            <p>Click/Scan a code below to join a conversation</p>
-            <div className="interactive_options">
-              {/* KAKAO */}
-              <div className="interactive_option">
-                <div>
-                  <h5>KakaoTalk</h5>
-                  <p>
-                    Join our chat room to get a short, quick question answered.
-                  </p>
-                </div>
-                <a href="https://open.kakao.com/o/giDzG30?rt=Q" target="_blank">
-                  <QrKakao
-                    style={{ fill: 'purple', height: 110, display: 'block' }}
-                  />
-                </a>
+      <div className="contact">
+        <div className="contact_panel email">
+          <h3>Email</h3>
+          <p>Contact the developer</p>
+          <form
+            onSubmit={e =>
+              toast.promise(handleSubmit(e), {
+                loading: 'Sending...',
+                success: ({ message }) => message,
+                error: ({ message }) => message,
+              })
+            }
+          >
+            <input
+              required
+              className={InputCSS.className}
+              placeholder="Your name"
+              value={name}
+              onChange={e => setName(e.target.value)}
+            />
+            <input
+              required
+              className={InputCSS.className}
+              placeholder="Your email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+            />
+            <textarea
+              required
+              rows={5}
+              className={InputCSS.className}
+              placeholder="Your question or message here"
+              value={content}
+              onChange={e => setContent(e.target.value)}
+            />
+            <Button
+              full
+              type="submit"
+              text="Submit"
+              color="white"
+              bgColor="green"
+              style={{ boxShadow: '0 0.25rem 0.25rem 0 rgb(34 36 38 / 15%)' }}
+            />
+          </form>
+        </div>
+        <div className="contact_panel interactive">
+          <h3>Interactive</h3>
+          <p>Click/Scan a code below to join a conversation</p>
+          <div className="interactive_options">
+            {/* KAKAO */}
+            <div className="interactive_option">
+              <div>
+                <h5>KakaoTalk</h5>
+                <p>
+                  Join our chat room to get a short, quick question answered.
+                </p>
               </div>
+              <a href="https://open.kakao.com/o/giDzG30?rt=Q" target="_blank">
+                <QrKakao
+                  style={{ fill: 'purple', height: 110, display: 'block' }}
+                />
+              </a>
+            </div>
 
-              {/* KORSHARE */}
-              <div className="interactive_option">
-                <div>
-                  <h5>KorShare.org</h5>
-                  <p>
-                    Newish forum for ESL teachers to share materials and
-                    converse.
-                  </p>
-                </div>
-                <a
-                  href="http://korshare.org/index.php?showtopic=2261"
-                  target="_blank"
-                >
-                  <QrKorshare
-                    style={{ fill: '#1060e2', height: 110, display: 'block' }}
-                  />
-                </a>
+            {/* KORSHARE */}
+            <div className="interactive_option">
+              <div>
+                <h5>KorShare.org</h5>
+                <p>
+                  Newish forum for ESL teachers to share materials and converse.
+                </p>
               </div>
+              <a
+                href="http://korshare.org/index.php?showtopic=2261"
+                target="_blank"
+              >
+                <QrKorshare
+                  style={{ fill: '#1060e2', height: 110, display: 'block' }}
+                />
+              </a>
+            </div>
 
-              {/* WAYGOOK */}
-              <div className="interactive_option">
-                <div>
-                  <h5>Waygook.org</h5>
-                  <p>The original ESL forum for ESL teachers in South Korea.</p>
-                </div>
-                <a
-                  href="https://www.waygook.org/index.php?topic=114421.0"
-                  target="_blank"
-                >
-                  <QrWaygook
-                    style={{ fill: 'green', height: 110, display: 'block' }}
-                  />
-                </a>
+            {/* WAYGOOK */}
+            <div className="interactive_option">
+              <div>
+                <h5>Waygook.org</h5>
+                <p>The original ESL forum for ESL teachers in South Korea.</p>
               </div>
+              <a
+                href="https://www.waygook.org/index.php?topic=114421.0"
+                target="_blank"
+              >
+                <QrWaygook
+                  style={{ fill: 'green', height: 110, display: 'block' }}
+                />
+              </a>
             </div>
           </div>
         </div>
 
         {InputCSS.styles}
-
         <style jsx>{`
           .contact {
             width: 100%;
