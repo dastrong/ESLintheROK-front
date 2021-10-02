@@ -22,7 +22,7 @@ export default function FooterLinks() {
         <a>Guide</a>
       </Link>
       <Link href="/">
-        <a className="logo_link">
+        <a className="logo_link" aria-label="Go Home">
           <Logo style={{ height: '65px', width: '65px' }} />
         </a>
       </Link>

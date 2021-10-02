@@ -17,6 +17,7 @@ export default function ScrollToTop({ maxWidth }: { maxWidth: number }) {
     <div>
       <Button
         rounded
+        aria-label="Scroll To Top"
         size="lg"
         Icon={FaAngleDoubleUp}
         color="white"

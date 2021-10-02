@@ -99,6 +99,7 @@ export default function Menu() {
 
         <Button
           rounded
+          aria-label={isMenuOpen ? 'Close Menu' : 'Open Menu'}
           size="lg"
           Icon={isMenuOpen ? RiCloseFill : RiMenuFill}
           color="white"
@@ -130,6 +131,7 @@ export default function Menu() {
                 <Button
                   as="a"
                   rounded
+                  aria-label="Go Home"
                   size="lg"
                   Icon={RiHome2Fill}
                   color="white"
@@ -155,6 +157,7 @@ export default function Menu() {
                 <Button
                   as="a"
                   rounded
+                  aria-label="View Games"
                   size="lg"
                   Icon={RiGamepadFill}
                   color="white"
@@ -178,6 +181,7 @@ export default function Menu() {
             <animated.div style={springs[2]} className={menuItemCX}>
               <Button
                 rounded
+                aria-label="Open Settings"
                 size="lg"
                 Icon={RiSettings4Fill}
                 color="white"
@@ -202,6 +206,7 @@ export default function Menu() {
               <Button
                 rounded
                 size="lg"
+                aria-label="Choose a Lesson"
                 Icon={RiFileSearchFill}
                 color="white"
                 bgColor={gradientColors[3]}
@@ -229,6 +234,7 @@ export default function Menu() {
             <animated.div style={springs[4]} className={menuItemCX}>
               <Button
                 rounded
+                aria-label="Edit Current Data"
                 size="lg"
                 disabled={!isDataReady}
                 Icon={RiFileSettingsFill}
@@ -263,6 +269,7 @@ export default function Menu() {
             <animated.div style={springs[5]} className={menuItemCX}>
               <Button
                 rounded
+                aria-label="Create Custom Lesson"
                 size="lg"
                 Icon={RiFileTransferFill}
                 color="white"
@@ -282,7 +289,7 @@ export default function Menu() {
           hideArrow
           placement="left"
           delayShow={150}
-          content="View Past Lessons"
+          content="Manage Past Lessons"
           tooltipContainerCx={Styles.MenuItemPopupCSS.className}
           addStyles={{
             background: `linear-gradient(to left, ${darkenGradientColors[6]} 50%, #b65b06)`,
@@ -291,6 +298,7 @@ export default function Menu() {
             <animated.div style={springs[6]} className={menuItemCX}>
               <Button
                 rounded
+                aria-label="Manage Past Lessons"
                 size="lg"
                 Icon={RiFileShield2Fill}
                 color="white"
