@@ -33,7 +33,7 @@ export default function IndexPage() {
           <Button
             size="lg"
             color="white"
-            bgColor="#6C63FF"
+            bgColor="#6359ff"
             text="Available Lessons"
             onClick={() =>
               storeDispatch({
@@ -46,7 +46,7 @@ export default function IndexPage() {
             inverted
             size="lg"
             color="white"
-            bgColor="#FF6584"
+            bgColor="#c5236d"
             text="Create Lesson"
             style={{ marginLeft: '1rem' }}
             onClick={() =>
@@ -89,11 +89,11 @@ export default function IndexPage() {
           }
 
           span:nth-of-type(1) {
-            color: #6c63ff;
+            color: #6359ff;
           }
 
           span:nth-of-type(2) {
-            color: #ff6584;
+            color: #c5236d;
           }
 
           span:nth-of-type(3) {
