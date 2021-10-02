@@ -76,7 +76,6 @@ Instead of using PPT games, which teachers needed to download/change/save/share 
 ├── lib         # Library of Static Exports
 ├── pages       # All Pages/Routes
 ├── public      # Public Files
-├── src         # Old CRA Folder - will be removed soon
 ├── utils       # Folder of Utility Functions
 └── ...
 ```
