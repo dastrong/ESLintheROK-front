@@ -100,9 +100,12 @@ NEXTAUTH_URL = 'http://localhost:3000'; // frontend url
 NEXTAUTH_SECRET = 'string';
 DATABASE_URL = 'string'; // MongoDB connection url
 
+// development: MailTrap  production: SendGrid
 EMAIL_SERVER_USER = 'string';
 EMAIL_SERVER_PASSWORD = 'string';
 EMAIL_SERVER_HOST = 'string';
 EMAIL_SERVER_PORT = 'number';
-EMAIL_FROM = 'ESL in the ROK <noreply@eslintherok.com>';
+EMAIL_FROM = 'string'; // what address automated emails come from
+EMAIL_INBOX = 'string'; // where the email will end up going
+SENDGRID_API_KEY = 'string';
 ```
