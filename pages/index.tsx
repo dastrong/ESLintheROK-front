@@ -10,9 +10,9 @@ const SvgCSS = css.resolve`
   svg {
     position: absolute;
     bottom: 0;
-    right: 0;
-    width: 50%;
-    max-height: 60%;
+    right: 5%;
+    width: 40%;
+    max-height: 75%;
     z-index: 1;
   }
 `;
@@ -72,7 +72,7 @@ export default function IndexPage() {
             position: absolute;
             top: 5vh;
             left: 10%;
-            width: 50%;
+            width: 75%;
           }
 
           h1 {
@@ -86,6 +86,7 @@ export default function IndexPage() {
             font-size: min(4vw, 3.5rem);
             line-height: 130%;
             color: #565656;
+            width: 65%;
           }
 
           span:nth-of-type(1) {
