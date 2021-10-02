@@ -9,7 +9,10 @@ export default function FooterCornerTexts() {
     <>
       <div className="corner corner_left">
         <p className="support_me">
-          Feeling supportive? <a href="/coffee">Buy me a coffee!</a>
+          Feeling supportive?{' '}
+          <a href="https://www.buymeacoffee.com/ycqPbFl" target="_blank">
+            Buy me a coffee!
+          </a>
         </p>
 
         <p className="made_by">
@@ -35,7 +38,9 @@ export default function FooterCornerTexts() {
 
         <p className="copyright">
           <FaRegCopyright /> 2021{' '}
-          <a href="https://www.danielstrong.tech">Daniel Strong</a>
+          <a href="https://www.danielstrong.tech" target="_blank">
+            Daniel Strong
+          </a>
         </p>
       </div>
 
