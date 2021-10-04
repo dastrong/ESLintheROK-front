@@ -13,5 +13,8 @@ new or recreation?
 **Describe your game idea**
 A clear and concise description of your idea for the game.
 
+**Would you game be played in the browser, printed, or both?**
+browser printed both
+
 **Additional context**
 Add any other context or screenshots about your idea here.
