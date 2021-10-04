@@ -1,4 +1,5 @@
-const API_URL = process.env.EXTERNAL_API_URL || 'http://localhost:4000/api';
+const API_URL =
+  process.env.NEXT_PUBLIC_EXTERNAL_API_URL || 'http://localhost:4000/api';
 
 export async function regFetch(url: string, options: RequestInit = {}) {
   return fetch(url, options).then(res => res.json());
