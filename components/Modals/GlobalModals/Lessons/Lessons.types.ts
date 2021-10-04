@@ -81,4 +81,6 @@ export type LessonsLessonsProps = Props & {
 
 export type LessonsDataProps = Props & {
   chosenLessons: string[];
+  grade: number;
+  publisher: string;
 };
