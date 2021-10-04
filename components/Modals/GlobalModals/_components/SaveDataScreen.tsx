@@ -3,11 +3,13 @@ import { animated, useSpring } from 'react-spring';
 import { toast, Toaster } from 'react-hot-toast';
 import { RiSendPlaneFill } from 'react-icons/ri';
 
+import { useStore } from 'contexts/store';
+import { useSetter } from 'contexts/setter';
+import { apiFetchToken } from 'utils/fetchers';
+import useUserSession from 'hooks/useUserSession';
+
 import Button from 'components/Button';
 import InlineForm from 'components/InlineForm';
-import useUserSession from 'hooks/useUserSession';
-import { apiFetchToken } from 'utils/fetchers';
-import { useStore } from 'contexts/store';
 import { PageSubHeading } from 'components/PageHeadings';
 
 type Props = {
@@ -27,6 +29,7 @@ export default function SaveDataScreen({
 }: Props) {
   const { session } = useUserSession();
 
+  const { sufficientData } = useSetter();
   const { storeDispatch } = useStore();
   const setData = () => {
     setShow(false);
@@ -38,7 +41,7 @@ export default function SaveDataScreen({
   const [title, setTitle] = useState(defaultTitle || '');
 
   useEffect(() => {
-    setTitle(defaultTitle);
+    setTitle(defaultTitle || '');
   }, [defaultTitle]);
 
   const titleContainerSpring = useSpring({
@@ -115,7 +118,7 @@ export default function SaveDataScreen({
                     error: err => err,
                   })
                 }
-                disabled={!title}
+                disabled={!title || !sufficientData}
                 Icon={RiSendPlaneFill}
                 style={{ margin: '0 1rem 0 0' }}
               />
