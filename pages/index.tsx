@@ -10,9 +10,9 @@ const SvgCSS = css.resolve`
   svg {
     position: absolute;
     bottom: 0;
-    right: 0;
-    width: 50%;
-    max-height: 60%;
+    right: 5%;
+    width: 40%;
+    max-height: 75%;
     z-index: 1;
   }
 `;
@@ -33,7 +33,7 @@ export default function IndexPage() {
           <Button
             size="lg"
             color="white"
-            bgColor="#6C63FF"
+            bgColor="#6359ff"
             text="Available Lessons"
             onClick={() =>
               storeDispatch({
@@ -46,7 +46,7 @@ export default function IndexPage() {
             inverted
             size="lg"
             color="white"
-            bgColor="#FF6584"
+            bgColor="#c5236d"
             text="Create Lesson"
             style={{ marginLeft: '1rem' }}
             onClick={() =>
@@ -72,7 +72,7 @@ export default function IndexPage() {
             position: absolute;
             top: 5vh;
             left: 10%;
-            width: 50%;
+            width: 75%;
           }
 
           h1 {
@@ -86,14 +86,15 @@ export default function IndexPage() {
             font-size: min(4vw, 3.5rem);
             line-height: 130%;
             color: #565656;
+            width: 65%;
           }
 
           span:nth-of-type(1) {
-            color: #6c63ff;
+            color: #6359ff;
           }
 
           span:nth-of-type(2) {
-            color: #ff6584;
+            color: #c5236d;
           }
 
           span:nth-of-type(3) {

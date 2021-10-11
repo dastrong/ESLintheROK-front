@@ -93,6 +93,14 @@ export default function Lessons() {
             closeModal={closeModal}
             dispatch={dispatch}
             chosenLessons={state.chosenLessons}
+            grade={
+              state.grades.find(grade => grade._id === state.chosenGrade).grade
+            }
+            publisher={
+              state.books[state.chosenGrade].find(
+                book => book._id === state.chosenBook
+              ).publisher
+            }
           />
         ) : currentStep === 'CHOOSE_LESSONS' ? (
           <LessonsLessons

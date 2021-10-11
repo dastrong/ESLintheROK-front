@@ -5,7 +5,7 @@ import Logo from '../Logo';
 export default function NavLogo() {
   return (
     <Link href="/">
-      <a>
+      <a aria-label="Go Home">
         <Logo style={{ height: '97%', paddingBottom: '3%' }} />
 
         <style jsx>{`

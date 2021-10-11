@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSetter } from 'contexts/setter';
 import { useStore } from 'contexts/store';
+import useUserSession from 'hooks/useUserSession';
 import Modal from 'components/Modals';
-import { DataScreen, DataActionMessage } from '../_components';
+import { DataScreen, DataActionMessage, SaveDataScreen } from '../_components';
 
 export default function DataCustomContent() {
+  const { session } = useUserSession();
+
   const { storeDispatch } = useStore();
   const {
     vocabulary,
@@ -12,6 +15,8 @@ export default function DataCustomContent() {
     sufficientData,
     setterDispatch,
   } = useSetter();
+
+  const [showSubmissionScreen, setShowSubmissionScreen] = useState(false);
 
   return (
     <>
@@ -21,8 +26,14 @@ export default function DataCustomContent() {
         Custom Lesson
       </Modal.Header>
 
-      <Modal.Content>
+      <Modal.Content style={{ position: 'relative' }}>
         <DataScreen />
+        <SaveDataScreen
+          show={showSubmissionScreen}
+          setShow={setShowSubmissionScreen}
+          vocabulary={vocabulary}
+          expressions={expressions}
+        />
       </Modal.Content>
 
       <Modal.Actions
@@ -30,9 +41,11 @@ export default function DataCustomContent() {
         cancelClick={() => setterDispatch({ type: 'Clear_All' })}
         confirmText="Set Data"
         confirmClick={() => {
-          storeDispatch({ type: 'Set_Data', vocabulary, expressions });
+          session
+            ? setShowSubmissionScreen(true)
+            : storeDispatch({ type: 'Set_Data', vocabulary, expressions });
         }}
-        confirmDisabled={!sufficientData}
+        confirmDisabled={!sufficientData || showSubmissionScreen}
       >
         <DataActionMessage />
       </Modal.Actions>

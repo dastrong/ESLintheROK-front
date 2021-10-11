@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useContext, useEffect, useReducer } from 'react';
 import { seed } from 'lib/seed';
 
 type IsDataReady = boolean;
@@ -33,21 +33,15 @@ const getLastLessonUsed = () => {
   return lastLessonUsed;
 };
 
-const initStore = (): StoreTypes => {
-  const lastLessonUsed = getLastLessonUsed();
-
-  return {
-    dataModalName: '',
-    isMenuOpen: false,
-    showSettings: false,
-    isDataReady: !!lastLessonUsed,
-    vocabulary: lastLessonUsed?.vocabulary || [],
-    expressions: lastLessonUsed?.expressions || [],
-    ...(Boolean(process.env.NEXT_PUBLIC_SEED) && seed),
-  };
+const initialState: StoreTypes = {
+  dataModalName: '',
+  isMenuOpen: false,
+  showSettings: false,
+  isDataReady: false,
+  vocabulary: [],
+  expressions: [],
+  ...(Boolean(process.env.NEXT_PUBLIC_SEED) && seed),
 };
-
-const initialState = initStore();
 
 type ActionTypes =
   | { type: 'Set_Data'; vocabulary: Vocabulary; expressions: Expressions }
@@ -103,6 +97,18 @@ const StoreContext = createContext(
 
 export const StoreProvider = ({ children }) => {
   const [state, storeDispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    const lastLessonUsed = getLastLessonUsed();
+
+    if (lastLessonUsed) {
+      storeDispatch({
+        type: 'Set_Data',
+        vocabulary: lastLessonUsed?.vocabulary || [],
+        expressions: lastLessonUsed?.expressions || [],
+      });
+    }
+  }, []);
 
   return (
     <StoreContext.Provider value={{ ...state, storeDispatch }}>

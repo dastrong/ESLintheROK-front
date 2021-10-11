@@ -22,6 +22,7 @@ export default function CookieConsent() {
     const consentValue = consent.get(); // undefined, 1, 0
     if (typeof consentValue === 'undefined') setVisibility(true);
     else if (Number(consentValue)) analytics.add(true);
+    setAnimate(false);
   }, []);
 
   const onAccept = () => {

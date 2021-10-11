@@ -22,6 +22,8 @@ declare namespace NodeJS {
     EMAIL_SERVER_PASSWORD: string;
     EMAIL_SERVER_HOST: string;
     EMAIL_SERVER_PORT: string;
-    EMAIL_FROM: 'ESL in the ROK <noreply@eslintherok.com>';
+    EMAIL_FROM: string;
+    EMAIL_INBOX: string;
+    SENDGRID_API_KEY: string;
   }
 }
