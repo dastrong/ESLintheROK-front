@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
 import { SiBuymeacoffee } from 'react-icons/si';
+import { VscCircleFilled } from 'react-icons/vsc';
 
+import { useStore } from 'contexts/store';
 import useUserSession from 'hooks/useUserSession';
 import Button from 'components/Button';
 import Skeleton from 'components/Skeleton';
@@ -20,6 +22,7 @@ const mainLinks = [
 export default function NavLinks() {
   const { pathname } = useRouter();
   const { session, loading } = useUserSession();
+  const { showChangelogNotification } = useStore();
 
   return (
     <>
@@ -92,8 +95,24 @@ export default function NavLinks() {
         </Popup>
         <li>
           <Link href="/changelog">
-            <a className={classNames({ active: '/changelog' === pathname })}>
+            <a
+              className={classNames({
+                active: '/changelog' === pathname,
+              })}
+            >
               Changelog
+              {showChangelogNotification && (
+                <VscCircleFilled
+                  style={{
+                    position: 'absolute',
+                    top: -3,
+                    right: -6,
+                    fontSize: '0.5em',
+                    color: '#44b9f5',
+                    animation: 'update_notification_blinker 2s linear infinite',
+                  }}
+                />
+              )}
             </a>
           </Link>
         </li>
@@ -156,6 +175,7 @@ export default function NavLinks() {
           color: inherit;
           text-decoration: none;
           transition: opacity 125ms;
+          position: relative;
         }
 
         a:hover {
@@ -188,6 +208,20 @@ export default function NavLinks() {
         .links_secondary li {
           font-size: 1.5vw;
           font-weight: 400;
+        }
+      `}</style>
+
+      <style jsx global>{`
+        @keyframes update_notification_blinker {
+          from {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.4;
+          }
+          to {
+            opacity: 1;
+          }
         }
       `}</style>
     </>

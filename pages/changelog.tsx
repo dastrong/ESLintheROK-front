@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GetStaticProps } from 'next';
 import mdjs from '@moox/markdown-to-json';
 
@@ -8,6 +8,8 @@ import { PageHeading, PageSubHeading } from 'components/PageHeadings';
 import { readMarkdownFile } from 'utils/readMarkdownFile';
 import { transformJsMdToBlock } from 'utils/transformJsMdToBlock';
 import { turnPanelStringToPanelArray } from 'utils/turnPanelStringToPanelArray';
+import { useStore } from 'contexts/store';
+import Cookies from 'js-cookie';
 
 type Props = {
   title: string;
@@ -20,7 +22,17 @@ export default function ChangelogPage({
   description,
   panelString,
 }: Props) {
+  const { storeDispatch } = useStore();
   const panels = turnPanelStringToPanelArray(panelString);
+
+  useEffect(() => {
+    Cookies.set('last_viewed_update', new Date().toISOString(), {
+      expires: 365,
+      secure: !!(process.env.NODE_ENV === 'production'),
+      sameSite: 'strict',
+    });
+    storeDispatch({ type: 'Set_Changelog_Notification', show: false });
+  }, []);
 
   return (
     <SeoWrapper

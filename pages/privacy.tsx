@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import SeoWrapper from 'components/SeoWrapper';
 import { PageHeading, PageSubHeading } from 'components/PageHeadings';
 import PageContent from 'components/PageContent';
@@ -10,7 +11,7 @@ export default function PrivacyPage() {
       description="Read our full privacy policy. We are committed to being transparent."
     >
       <PageHeading>Privacy Policy</PageHeading>
-      <PageSubHeading>Last Updated: September 26, 2021</PageSubHeading>
+      <PageSubHeading>Last Updated: October 13, 2021</PageSubHeading>
       <PageSubHeading>
         This Privacy Policy describes Our policies and procedures on the
         collection, use and disclosure of Your information when You use the
@@ -294,13 +295,27 @@ export default function PrivacyPage() {
           </li>
           <li>
             <PageContent.Text>
-              <strong>Notice Acceptance Cookies</strong>
+              <strong>Notice Acceptance Cookie</strong>
             </PageContent.Text>
             <PageContent.Text>Type: Persistent Cookies</PageContent.Text>
             <PageContent.Text>Administered by: Us</PageContent.Text>
             <PageContent.Text>
-              Purpose: These Cookies identify if users have accepted the use of
+              Purpose: This Cookie identifies if users have accepted the use of
               cookies on the Website.
+            </PageContent.Text>
+          </li>
+          <li>
+            <PageContent.Text>
+              <strong>Last Viewed Update Cookie</strong>
+            </PageContent.Text>
+            <PageContent.Text>Type: Persistent Cookies</PageContent.Text>
+            <PageContent.Text>Administered by: Us</PageContent.Text>
+            <PageContent.Text>
+              Purpose: This Cookie identifies when a user last visited the{' '}
+              <Link href="/changelog">
+                <a>changelog</a>
+              </Link>{' '}
+              page
             </PageContent.Text>
           </li>
           <li>
@@ -391,6 +406,18 @@ export default function PrivacyPage() {
               <td>hide_fullscreen_popup</td>
               <td>1 year</td>
               <td>Used to hide the play game in fullscreen popup</td>
+              <td>Us</td>
+            </tr>
+            <tr>
+              <td>last_viewed_update</td>
+              <td>1 year</td>
+              <td>
+                Used to determine if you've visited{' '}
+                <Link href="/changelog">
+                  <a>changelog</a>
+                </Link>{' '}
+                since the most recent update
+              </td>
               <td>Us</td>
             </tr>
           </tbody>

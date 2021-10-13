@@ -2,6 +2,18 @@
 
 All notable changes, updated and additions to this site will be documented below.
 
+## [2.1.0] - 2021-10-13
+
+**Added**
+
+- **New Game** - [First and Last Letter](https://www.eslintherok.com/game/first_and_last_letter)
+- An animated dot on the nav changelog link to indicate an update has occured and hasn't been reviewed
+- The date a game is published, so we can show a _New_ badge on the games page
+
+**Changed**
+
+- Updated [Privacy Policy](https://www.eslintherok.com/privacy)
+
 ## [2.0.0] - 2021-10-04
 
 This is by far the largest release made to ESL in the ROK, with too many changes to list here. However, I'll write three blog posts, each for a different target
