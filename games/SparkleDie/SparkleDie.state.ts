@@ -3,6 +3,7 @@ import type { State, Action } from './SparkleDie.types';
 
 export const init = (data: string[]): State => ({
   data: shuffle(data),
+  isVocab: false,
   text: '',
   timer: 15,
   timeRemaining: 15,
@@ -13,6 +14,8 @@ export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'Set_Data':
       return { ...state, data: shuffle(action.data) };
+    case 'Change_isVocab':
+      return { ...state, isVocab: action.isVocab };
     case 'New_Round':
       return {
         ...state,

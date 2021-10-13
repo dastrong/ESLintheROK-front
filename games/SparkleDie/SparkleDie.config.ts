@@ -15,7 +15,7 @@ export const config: GameConfig = {
 
   // SKILLS AND DATA
   skills: ['Reading', 'Speaking', 'Listening'],
-  dataUsed: ['Expressions'],
+  dataUsed: ['Vocabulary', 'Expressions'],
 
   // BADGES - used on /games page
   attachURL: ``,
@@ -30,14 +30,22 @@ export const config: GameConfig = {
     },
     {
       key: ['Space', 'Enter'],
-      description: 'Refresh the game',
+      description: 'Refresh the game and get next vocabulary/expression',
     },
     {
       key: ['Left-Arrow', 'Scroll Down'],
-      description: 'Decrease the timer (min: 5s)',
+      description: 'Refresh the game and use vocabulary',
     },
     {
       key: ['Right-Arrow', 'Scroll Up'],
+      description: 'Refresh the game and use expressions',
+    },
+    {
+      key: ['Up-Arrow', 'Push Wheel Down + Scroll Down'],
+      description: 'Decrease the timer (min: 5s)',
+    },
+    {
+      key: ['Down-Arrow', 'Push Wheel Down + Scroll Up'],
       description: 'Increase the timer (max: 20s)',
     },
   ],

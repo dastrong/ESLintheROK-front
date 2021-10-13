@@ -2,6 +2,7 @@ import { Dispatch } from 'react';
 
 export type State = {
   data: string[];
+  isVocab: boolean;
   text: string;
   timer: number;
   timeRemaining: number;
@@ -10,6 +11,7 @@ export type State = {
 
 export type Action =
   | { type: 'Set_Data'; data: string[] }
+  | { type: 'Change_isVocab'; isVocab: boolean }
   | { type: 'New_Round'; data: string[]; text: string }
   | { type: 'Timer_Increase' }
   | { type: 'Timer_Decrease' }

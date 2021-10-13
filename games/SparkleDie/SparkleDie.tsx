@@ -29,10 +29,10 @@ export default function SparkleDie({
 
   // STATE - useData
   const primary = store.expressions;
-  const secondary = null;
+  const secondary = store.vocabulary;
   const gameStore: GameStore = useData(reducer, init, primary, secondary);
   const [state, dispatch, didUpdate] = gameStore;
-  const { data, text, timer, timeRemaining, isTimerRunning } = state;
+  const { data, isVocab, text, timer, timeRemaining, isTimerRunning } = state;
 
   // REFS - useFitText, useSplit2Rows, etc..
   const [[ref]] = useFitText(text);
@@ -45,7 +45,8 @@ export default function SparkleDie({
   // HANDLE GAME
   const handleGame = useCallback(() => {
     track.newRound(title);
-    const [[text], newData] = nextRoundData(1, data, store.expressions);
+    const fullData = isVocab ? store.vocabulary : store.expressions;
+    const [[text], newData] = nextRoundData(1, data, fullData);
     dispatch({ type: 'New_Round', text, data: newData });
   }, [data]);
   useHandleGame(handleGame, didUpdate);
@@ -53,8 +54,12 @@ export default function SparkleDie({
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
     ({ key }: KeyboardEvent) => {
-      if (key === 'ArrowLeft') return dispatch({ type: 'Timer_Decrease' });
-      if (key === 'ArrowRight') return dispatch({ type: 'Timer_Increase' });
+      if (key === 'ArrowLeft')
+        return dispatch({ type: 'Change_isVocab', isVocab: true });
+      if (key === 'ArrowRight')
+        return dispatch({ type: 'Change_isVocab', isVocab: false });
+      if (key === 'ArrowUp') return dispatch({ type: 'Timer_Increase' });
+      if (key === 'ArrowDown') return dispatch({ type: 'Timer_Decrease' });
     },
     [dispatch]
   );
@@ -62,8 +67,13 @@ export default function SparkleDie({
 
   // GAME SPECIFIC SCROLL EVENTS
   const scrollCB = useCallback(
-    (scrolledUp: boolean) =>
-      dispatch({ type: scrolledUp ? 'Timer_Increase' : 'Timer_Decrease' }),
+    (scrolledUp: boolean, wheelClicked: boolean) => {
+      if (wheelClicked) {
+        dispatch({ type: scrolledUp ? 'Timer_Increase' : 'Timer_Decrease' });
+      } else {
+        dispatch({ type: 'Change_isVocab', isVocab: !scrolledUp });
+      }
+    },
     [dispatch]
   );
   useScroll(scrollCB);
