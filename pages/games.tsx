@@ -11,6 +11,7 @@ import Button from 'components/Button';
 import Carousel from 'components/Carousel';
 import { getAllGameConfigs } from 'utils/getAllGameConfigs';
 import { getGameImgUrl } from 'utils/getCloudUrls';
+import { checkIfNew } from 'utils/checkIfNew';
 
 type Order = 'Ascending' | 'Descending';
 type Filter =
@@ -110,19 +111,22 @@ export default function GamesPage({
               gameDetails.includes(filter as Exclude<Filter, 'All'>)
             );
           })
+          .map(game => ({ ...game, isNew: checkIfNew(game.publishedDate, 30) }))
           // sort the games according to the title
-          .sort((a, b) =>
-            order === 'Ascending'
+          .sort((a, b) => {
+            // if the game is new we'll show it first
+            if (a.isNew) return -1;
+            return order === 'Ascending'
               ? a.title.localeCompare(b.title)
-              : b.title.localeCompare(a.title)
-          )
+              : b.title.localeCompare(a.title);
+          })
           // now render the game cards
           .map(game => (
             <div className="card" key={game.path}>
               {/* Badges */}
-              {game.hasAudio && (
-                <div className="badge badge_audio">
-                  <FaMusic />
+              {game.isNew && (
+                <div className="badge badge_new">
+                  <span>New</span>
                 </div>
               )}
               {game.attachURL && (
@@ -137,6 +141,11 @@ export default function GamesPage({
               {game.usesGifs && (
                 <div className="badge badge_gif">
                   <RiFileGifLine style={{ fontSize: '1.3rem' }} />
+                </div>
+              )}
+              {game.hasAudio && (
+                <div className="badge badge_audio">
+                  <FaMusic />
                 </div>
               )}
 
@@ -238,14 +247,20 @@ export default function GamesPage({
             justify-content: center;
           }
 
-          .badge_audio {
+          .badge_new {
             top: 0;
             left: 0;
-            background-color: #257fd4f2;
-            box-shadow: -1px 1px 3px 1px #1864ab;
+            background-color: #f0ff00f2;
+            box-shadow: -1px 1px 3px 1px #c7d307;
             border-bottom-right-radius: 100%;
             padding-bottom: 0.4rem;
             padding-right: 0.4rem;
+          }
+
+          .badge_new span {
+            transform: rotate(315deg);
+            font-weight: bold;
+            color: black;
           }
 
           .badge_attach {
@@ -266,6 +281,16 @@ export default function GamesPage({
             border-top-right-radius: 100%;
             padding-top: 0.4rem;
             padding-right: 0.4rem;
+          }
+
+          .badge_audio {
+            bottom: 0;
+            right: 0;
+            background-color: #257fd4f2;
+            box-shadow: -1px -1px 3px 1px #1864ab;
+            border-top-left-radius: 100%;
+            padding-top: 0.4rem;
+            padding-left: 0.4rem;
           }
 
           .image {
