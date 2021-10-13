@@ -42,7 +42,7 @@ export default function ChangelogPage({
       <div>
         <PageHeading>{title}</PageHeading>
         <PageSubHeading>{description}</PageSubHeading>
-        <Accordion panels={panels} />
+        <Accordion panels={panels} defaultOpenPanels={[0]} />
       </div>
     </SeoWrapper>
   );
