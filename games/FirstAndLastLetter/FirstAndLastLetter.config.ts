@@ -2,6 +2,7 @@ import type { GameConfig } from '../types';
 
 export const config: GameConfig = {
   publish: true,
+  publishedDate: '2021-10-13T00:17:30.343Z',
 
   // MAIN INFO
   path: '/game/first_and_last_letter', // you probably don't wanna edit this

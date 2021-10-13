@@ -2,6 +2,7 @@ import type { GameConfig } from '../types';
 
 export const config: GameConfig = {
   publish: false,
+  publishedDate: '', // enter the value returned from - new Date().toIsoString()
 
   // MAIN INFO
   path: '/game/__GameRoute__(snakeCase)', // you probably don't wanna edit this

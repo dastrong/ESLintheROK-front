@@ -20,6 +20,7 @@ export type GameKeyCut = {
 
 export type GameConfig = {
   publish: boolean;
+  publishedDate?: string;
 
   // MAIN INFO
   path: string;
