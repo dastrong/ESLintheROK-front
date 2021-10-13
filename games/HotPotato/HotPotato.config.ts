@@ -19,7 +19,7 @@ export const config: GameConfig = {
 
   // BADGES - used on /games page
   attachURL: ``,
-  hasAudio: false,
+  hasAudio: true,
   usesGifs: false,
 
   // KEYboard shortCUTS

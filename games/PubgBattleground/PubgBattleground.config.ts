@@ -19,7 +19,7 @@ export const config: GameConfig = {
 
   // BADGES - used on /games page
   attachURL: `https://pdfhost.io/v/y1FuhSr2u_Battleground_PUBGpdf.pdf`,
-  hasAudio: false,
+  hasAudio: true,
   usesGifs: false,
 
   // KEYboard shortCUTS
