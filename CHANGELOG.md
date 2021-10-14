@@ -16,6 +16,10 @@ All notable changes, updated and additions to this site will be documented below
 - Updated Game - [Sparkle Die](https://www.eslintherok.com/game/sparkle_die)
   - Sparkle Die now uses both vocabulary and expressions per user request
 
+**Fixed**
+
+- [Nunchi](https://www.eslintherok.com/game/nunchi) background image url
+
 ## [2.0.0] - 2021-10-04
 
 This is by far the largest release made to ESL in the ROK, with too many changes to list here. However, I'll write three blog posts, each for a different target

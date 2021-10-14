@@ -7,7 +7,7 @@ export const getContainerCSS = (fontFamily: string) => css.resolve`
     background-color: #fff;
     background-image: url(${getGameFileUrl(
       'Nunchi/NunchiBack.jpg',
-      'f_auto,q_40'
+      '/f_auto,q_40'
     )});
     background-size: cover;
     background-position: center;
