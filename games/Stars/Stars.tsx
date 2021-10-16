@@ -66,6 +66,7 @@ export default function Stars({ title, description, keyCuts }: GameSEOProps) {
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
+    track.newRound(title);
     const boxCount = getBoxCount(isVocab);
     // how many 'stars' for each box
     const stars = arrOfRandoNum(maximumStars, minimumStars, boxCount);

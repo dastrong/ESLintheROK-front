@@ -64,7 +64,6 @@ export default function Cowboy({ title, description, keyCuts }: GameSEOProps) {
     if (!ShotAudio.current || !ReloadAudio.current) return;
     if (showReady) {
       track.newRound(title);
-      track.newRound(title);
       ShotAudio.current.play();
       dispatch({ type: 'Show_Ready_False' });
     } else {
