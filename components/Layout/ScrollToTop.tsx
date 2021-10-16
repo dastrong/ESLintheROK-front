@@ -13,6 +13,8 @@ export default function ScrollToTop({ maxWidth }: { maxWidth: number }) {
     window.scrollTo({ behavior: 'smooth', top: 0 });
   };
 
+  if (scrollY < 10) return null;
+
   return (
     <div>
       <Button
@@ -36,8 +38,6 @@ export default function ScrollToTop({ maxWidth }: { maxWidth: number }) {
           margin-top: calc(
             var(--footerHeight) - ${rightSvgWidthToHeight} * 100vw - 60px
           );
-          opacity: ${scrollY > 0 ? 1 : 0};
-          transition: opacity 200ms;
         }
 
         @media screen and (min-width: ${maxWidth}px) {
