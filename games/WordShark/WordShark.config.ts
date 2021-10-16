@@ -1,21 +1,25 @@
 import type { GameConfig } from '../types';
 
 export const config: GameConfig = {
-  publish: false,
+  publish: true,
+  publishedDate: '2021-10-16T02:24:22.630Z',
 
   // MAIN INFO
   path: '/game/word_shark', // you probably don't wanna edit this
-  title: 'Work Shark', // you probably don't wanna edit this
+  title: 'Word Shark', // you probably don't wanna edit this
   description: 'Word Guessing Game',
   image: {
-    width: 0,
-    height: 0,
+    width: 389,
+    height: 215,
   },
-  warnings: [],
+  warnings: [
+    'Underscore characters (blank spaces) have different spacings on different fonts.',
+    'If the spacing is too small or large, change the font.',
+  ],
 
   // SKILLS AND DATA
   skills: ['Reading', 'Speaking'],
-  dataUsed: ['Vocabulary'],
+  dataUsed: ['Vocabulary', 'Expressions'],
 
   // BADGES - used on /games page
   attachURL: ``,
@@ -25,8 +29,32 @@ export const config: GameConfig = {
   // KEYboard shortCUTS
   keyCuts: [
     {
-      key: ['None'],
-      description: 'No short cut keys for this game, just use your mouse.',
+      key: ['Left-Click Letter', 'Keyboard Letter'],
+      description: 'Chooses and checks that letter',
+    },
+    {
+      key: ['Space', 'Enter'],
+      description: 'Refresh the game',
+    },
+    {
+      key: ['Left-Arrow', 'Scroll Down'],
+      description: 'Refresh the game and use vocabulary',
+    },
+    {
+      key: ['Right-Arrow', 'Scroll Up'],
+      description: 'Refresh the game and use expressions',
+    },
+    {
+      key: ['Up-Arrow'],
+      description: 'Increases the maximum number of wrong answers',
+    },
+    {
+      key: ['Down-Arrow'],
+      description: 'Decreases the maximum number of wrong answers',
+    },
+    {
+      key: ['1-9 (Default: 6)'],
+      description: 'Change the maximum number of wrong answers',
     },
   ],
 
@@ -49,8 +77,11 @@ export const config: GameConfig = {
     },
     forStudents: {
       english: [
-        'Guess what the missing word is',
-        'Choose a letter to fill in the blanks',
+        'Pick a letter',
+        'Keep picking until you know the word',
+        'Raise your hand',
+        "Don't yell out letters",
+        'Wait to be chosen',
       ],
       korean: [
         'Coming Soon', // use simple, clear phrases to explain the game

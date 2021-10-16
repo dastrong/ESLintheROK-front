@@ -1,42 +1,32 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
+import { animated, useTransition } from 'react-spring';
 
 import { useStore } from 'contexts/store';
 import { useFont } from 'contexts/fonts';
-import {
-  useData,
-  useHandleGame,
-  useFirstRun,
-  useFitText,
-  useKeys,
-  useScroll,
-} from 'hooks';
+import { useData, useHandleGame, useFitText, useKeys, useScroll } from 'hooks';
 
 import { init, reducer } from './WordShark.state';
 import type { GameStore } from './WordShark.types';
 import * as Styles from './WordShark.styles';
+import WordSharkSharks from './WordSharkSharks';
 
 // IMPORT COMPONENTS/UTILITIES HERE
 import { track } from 'utils/analytics';
+import { getGameFileUrl } from 'utils/getCloudUrls';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
 import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
+import Button from 'components/Button';
 
 // CONSTANTS - img, audio, function, etc.
-import background from './images/word-shark_background.jpg';
-import img0 from './images/0.svg';
-import img1 from './images/1.svg';
-import img2 from './images/2.svg';
-import img3 from './images/3.svg';
-import img4 from './images/4.svg';
-import img5 from './images/5.svg';
-import img6 from './images/6.svg';
-import img7 from './images/7.svg';
-import img8 from './images/8.svg';
-const maxWrong = 8;
-const images = [img0, img1, img2, img3, img4, img5, img6, img7, img8];
 const letters = 'abcdefghijklmnopqrstuvwxyz';
-// const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
+const numbers = '123456789';
+const specialChars = ".,?!':; ";
+const StickmanHelpURL = getGameFileUrl('WordShark/Stickman-Help.svg');
+const StickmanThanksURL = getGameFileUrl('WordShark/Stickman-Thanks.svg');
+const StickmanNoURL = getGameFileUrl('WordShark/Stickman-No.svg');
+const HelicopterURL = getGameFileUrl('WordShark/Helicopter.svg');
 
 export default function WordShark({
   title,
@@ -52,11 +42,41 @@ export default function WordShark({
   const secondary = store.expressions;
   const gameStore: GameStore = useData(reducer, init, primary, secondary);
   const [state, dispatch, didUpdate] = gameStore;
-  const { data, isVocab, answer, guessed, nWrong } = state;
+  const {
+    data,
+    isVocab,
+    answer,
+    guessed,
+    numWrong,
+    maxWrong,
+    failed,
+    success,
+    showAnswer,
+  } = state;
+  const textToShow = showAnswer
+    ? answer
+    : answer
+        .split('')
+        .map(letter => {
+          if (specialChars.includes(letter)) return letter;
+          return guessed.has(letter.toLowerCase()) ? letter : '_';
+        })
+        .join('');
+  const speechBubbleText = failed
+    ? 'NOOOO!'
+    : success
+    ? 'THANK YOU!'
+    : 'HELP ME!';
 
   // REFS - useFitText, useSplit2Rows, etc..
-  const isFirstRun = useFirstRun();
-  const [[ref]] = useFitText(answer);
+  const [[answerRef]] = useFitText(textToShow);
+  const [[speechBubbleRef]] = useFitText(speechBubbleText);
+
+  const playAgainShowAnswerTransition = useTransition(success || failed, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  });
 
   // HANDLE GAME
   const handleGame = useCallback(() => {
@@ -70,11 +90,21 @@ export default function WordShark({
   // GAME SPECIFIC KEY EVENTS
   const keysCB = useCallback(
     ({ key }: KeyboardEvent) => {
-      // can remove the following if there's only one data source
+      // change isVocab
       if (key === 'ArrowLeft')
         return dispatch({ type: 'Change_isVocab', isVocab: true });
       if (key === 'ArrowRight')
         return dispatch({ type: 'Change_isVocab', isVocab: false });
+      // change maxWrong
+      if (key === 'ArrowUp') return dispatch({ type: 'Increase_Max_Wrong' });
+      if (key === 'ArrowDown') return dispatch({ type: 'Decrease_Max_Wrong' });
+      if (numbers.includes(key)) {
+        return dispatch({ type: 'Set_Max_Wrong', maxWrong: Number(key) });
+      }
+      if (letters.includes(key.toLowerCase())) {
+        // check if letter was pushed, if it was previously guessed and dispatch it
+        return dispatch({ type: 'Handle_Guess', letter: key });
+      }
     },
     [dispatch]
   );
@@ -89,48 +119,152 @@ export default function WordShark({
   );
   useScroll(scrollCB);
 
-  // GAME EFFECTS - you can use multiple effects just comment what each means
-  useEffect(() => {
-    //
-  }, []);
-
-  // GAME FUNCTIONS - start with an underscore ex) _handleClick
-
   return (
     <GameWrapper title={title} description={description} keyCuts={keyCuts}>
       <div className={ContainerCSS.className}>
-        <div className="Hangman-imgContainer">
-          <div className="Hangman-imgs">
-            <img
-              className="Hangman-WordSharkBackgroundImg"
-              src={background}
-              alt="background for Word Shark, showing stickman and shark"
+        {/* ALPHABET BOXES */}
+        <div className={Styles.AlphabetButtonContainerCSS.className}>
+          {letters.split('').map(letter => {
+            const isClicked = guessed.has(letter);
+            return (
+              <Button
+                key={letter}
+                size="xl"
+                color="white"
+                bgColor="darkgray"
+                text={isClicked ? '' : `${letter.toUpperCase()}${letter}`}
+                className={Styles.AlphabetButtonCSS.className}
+                disabled={isClicked}
+                onClick={() =>
+                  dispatch({ type: 'Handle_Guess', letter: letter })
+                }
+              />
+            );
+          })}
+        </div>
+
+        {/* CONTENT CONTAINER*/}
+        <div className={Styles.ContentOuterContainerCSS.className}>
+          <div className={Styles.ContentInnerContainerCSS.className}>
+            {/* PLATFORM */}
+            <div
+              className={Styles.PlatformCSS.className}
+              style={{
+                transform: `scale(${1 - Math.min(numWrong / maxWrong, 0.8)})`,
+                opacity: failed ? 0 : 1,
+              }}
             />
+            <div
+              className={Styles.StickmanContainerCSS.className}
+              style={{ transform: `translateY(${failed ? '15vh' : '0vh'})` }}
+            >
+              {/* SPEECH BUBBLE */}
+              <div className={Styles.SpeechBubbleCSS.className}>
+                <FitText
+                  ref={speechBubbleRef}
+                  text={speechBubbleText}
+                  cx={Styles.SpeechBubbleTextCSS.className}
+                />
+              </div>
+              {/* STICKMEN */}
+              {failed ? (
+                <img
+                  src={StickmanNoURL}
+                  alt="stickman saying no"
+                  className={Styles.StickmanCSS.className}
+                />
+              ) : success ? (
+                <img
+                  src={StickmanThanksURL}
+                  alt="stickman saying thanks"
+                  className={Styles.StickmanCSS.className}
+                  style={{ marginLeft: 6 }}
+                />
+              ) : (
+                <img
+                  src={StickmanHelpURL}
+                  alt="stickman saying help"
+                  className={Styles.StickmanCSS.className}
+                />
+              )}
+            </div>
+
+            {/* HELICOPTER */}
             <img
-              className="Hangman-WordSharkOverlayImgs"
-              src={images[nWrong]}
-              alt={altText}
+              src={HelicopterURL}
+              alt="helicopter"
+              className={Styles.HelicopterCSS.className}
+            />
+
+            {/* SHARKS */}
+            <WordSharkSharks />
+          </div>
+        </div>
+
+        {/* BLANK CONTAINER */}
+        <div className={Styles.OuterBlankContainerCSS.className}>
+          <div className={Styles.InnerBlankContainerCSS.className}>
+            <FitText
+              ref={answerRef}
+              text={textToShow}
+              cx={Styles.AnswerTextCSS.className}
             />
           </div>
         </div>
-        <div className="Hangman-guessContainer">
-          <p className="Hangman-guessesLeft">{`${maxWrong - nWrong} guess${
-            nWrong === maxWrong - 1 ? '' : 'es'
-          } left`}</p>
-          <p className="Hangman-word-holder">
-            <FitText text={_guessedWord()} ref={ref} cx="Hangman-word" />
-          </p>
+
+        {/* NUM/MAX WRONG CONTAINER */}
+        <div className={Styles.WrongContainerCSS.className}>
+          {numWrong}
+          <br />
+          /
+          <br />
+          {maxWrong}
         </div>
-        <div className="letter-buttons">
-          {gameState}
-          <button className="Hangman-restartBtn" onClick={_handleNewRound}>
-            New Round
-          </button>
-        </div>
+
+        {/* PLAY AGAIN / SHOW ANSWER BUTTONS */}
+        {playAgainShowAnswerTransition(
+          (style, item) =>
+            item && (
+              <animated.div
+                style={style}
+                className={Styles.ButtonsContainerCSS.className}
+              >
+                <Button
+                  color="white"
+                  bgColor="#178a09"
+                  text="New Round"
+                  onClick={handleGame}
+                  style={{ flex: 1, marginRight: 8 }}
+                />
+                <Button
+                  color="white"
+                  bgColor="#629e12"
+                  text="Show Answer"
+                  onClick={() => dispatch({ type: 'Show_Answer' })}
+                  style={{ flex: 1 }}
+                  disabled={showAnswer}
+                />
+              </animated.div>
+            )
+        )}
 
         {/* STYLES */}
         {ContainerCSS.styles}
-        {/* Add any other style elements here */}
+        {Styles.ContentOuterContainerCSS.styles}
+        {Styles.ContentInnerContainerCSS.styles}
+        {Styles.StickmanContainerCSS.styles}
+        {Styles.StickmanCSS.styles}
+        {Styles.PlatformCSS.styles}
+        {Styles.SpeechBubbleCSS.styles}
+        {Styles.SpeechBubbleTextCSS.styles}
+        {Styles.HelicopterCSS.styles}
+        {Styles.AlphabetButtonContainerCSS.styles}
+        {Styles.AlphabetButtonCSS.styles}
+        {Styles.OuterBlankContainerCSS.styles}
+        {Styles.InnerBlankContainerCSS.styles}
+        {Styles.ButtonsContainerCSS.styles}
+        {Styles.WrongContainerCSS.styles}
+        {Styles.AnswerTextCSS.styles}
       </div>
     </GameWrapper>
   );
