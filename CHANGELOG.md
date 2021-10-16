@@ -7,6 +7,8 @@ All notable changes, updated and additions to this site will be documented below
 **Added**
 
 - New Game - [First and Last Letter](https://www.eslintherok.com/game/first_and_last_letter)
+- New Game - [Word Shark](https://www.eslintherok.com/game/word_shark)
+  - Special thanks to [@MattDClarke](https://github.com/MattDClarke) for first recreating this game for the site
 - An animated dot on the nav changelog link to indicate an update has occured and hasn't been reviewed
 - The date a game is published, so we can show a _New_ badge on the games page
 
