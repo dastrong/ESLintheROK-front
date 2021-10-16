@@ -22,9 +22,8 @@ export default function GameWrapper({
     <SeoWrapper title={title} description={description}>
       <FontLoader />
       <GameWrapperFullscreen />
-      <GameWrapperTips title={title} keyCuts={keyCuts} />
-
       {children}
+      <GameWrapperTips title={title} keyCuts={keyCuts} />
     </SeoWrapper>
   );
 }
