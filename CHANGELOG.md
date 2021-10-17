@@ -2,7 +2,7 @@
 
 All notable changes, updated and additions to this site will be documented below.
 
-## [2.1.0] - 2021-10-13
+## [2.1.0] - 2021-10-17
 
 **Added**
 
@@ -17,6 +17,10 @@ All notable changes, updated and additions to this site will be documented below
 - Updated [Privacy Policy](https://www.eslintherok.com/privacy)
 - Updated Game - [Sparkle Die](https://www.eslintherok.com/game/sparkle_die)
   - Sparkle Die now uses both vocabulary and expressions per user request
+- Updated Games - [Chase the Vocab](https://www.eslintherok.com/game/chase_the_vocab) / [Eliminination](https://www.eslintherok.com/game/elimination) / [Letter Bowling](https://www.eslintherok.com/game/letter_bowling) / [Stars](https://www.eslintherok.com/game/stars) / [What's Behind?](https://www.eslintherok.com/game/whats_behind) / [What's Missing?](https://www.eslintherok.com/game/whats_missing) / [Word Lotto](https://www.eslintherok.com/game/word_lotto)
+  - previously these games used the same 9 colors, but now they use a new 66 color array
+    - we either lightened or darken these new colors too, depending on the use case
+  - changed some styling in these games to improve and freshen the experience for long time users
 
 **Fixed**
 
