@@ -25,6 +25,7 @@ All notable changes, updated and additions to this site will be documented below
 **Fixed**
 
 - [Nunchi](https://www.eslintherok.com/game/nunchi) background image url
+- The game fullscreen popup won't appear now, if you're already in fullscreen mode
 
 ## [2.0.0] - 2021-10-04
 
