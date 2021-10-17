@@ -8,10 +8,22 @@ export default function GameWrapperFullscreen() {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const hideModal = !!Number(Cookies.get('hide_fullscreen_popup'));
+  React.useEffect(() => {
+    const userDeclined = !!Number(Cookies.get('hide_fullscreen_popup'));
+    const alreadyFull = !!fscreen.fullscreenElement;
+    // need to check the width and height of the window because if a ...
+    // ... user is already in fullscreen mode from using F11, we can't tell
+    const sameWidth = window.screen.width === window.innerWidth;
+    const sameHeight = window.screen.height === window.innerHeight;
+
+    // if any of these three conditions are true, we don't need to show this modal
+    const hideModal = userDeclined || alreadyFull || (sameWidth && sameHeight);
+
+    if (!hideModal) setIsModalOpen(!hideModal);
+  }, []);
 
   return (
-    <Modal isOpen={isModalOpen && !hideModal} closeModal={closeModal}>
+    <Modal isOpen={isModalOpen} closeModal={closeModal}>
       <Modal.Header closeModal={closeModal}>Fullscreen?</Modal.Header>
       <Modal.Content style={{ marginInline: 16 }}>
         <p>
@@ -38,7 +50,7 @@ export default function GameWrapperFullscreen() {
         }}
       >
         <Switch
-          defaultChecked={hideModal}
+          defaultChecked={false}
           onChange={e => {
             Cookies.set(
               'hide_fullscreen_popup',
