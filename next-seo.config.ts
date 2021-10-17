@@ -40,4 +40,10 @@ export const SEO: DefaultSeoProps = {
       href: '/manifest.json',
     },
   ],
+  additionalMetaTags: [
+    {
+      name: 'google-site-verification',
+      content: 'YRKaNvmRdbIllLvLGXBEdpv3JjkC_fn7G43CW20RsgA',
+    },
+  ],
 };
