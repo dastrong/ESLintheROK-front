@@ -1,9 +1,12 @@
 import shuffle from 'lodash.shuffle';
 import type { State, Action } from './Stars.types';
+import { lightenedColors, darkenedColors } from 'lib/colors';
 
 export const init = (data: string[]): State => ({
   data: shuffle(data),
   isVocab: true,
+  colors: shuffle(lightenedColors),
+  starColors: shuffle(darkenedColors),
   gameData: [],
   clickedIDs: [],
   stars: [],
@@ -20,6 +23,8 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         data: action.data,
+        colors: shuffle(state.colors),
+        starColors: shuffle(state.starColors),
         gameData: action.gameData,
         stars: action.stars,
         clickedIDs: [],

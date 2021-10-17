@@ -3,6 +3,7 @@ import { Dispatch } from 'react';
 export type State = {
   data: string[];
   isVocab: boolean;
+  colors: string[];
   gameData: string[];
   Xs: number[];
   xCount: number;

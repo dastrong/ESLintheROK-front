@@ -1,15 +1,16 @@
 import shuffle from 'lodash.shuffle';
 import type { State, Action } from './LetterBowling.types';
+import { darkenedColors } from 'lib/colors';
 
 const maxRounds = 5;
 const minRounds = 1;
 
 export const init = (data: string[]): State => ({
   data: shuffle(data),
+  colors: shuffle(darkenedColors),
   text: '',
   splitText: [],
   left: [],
-  bowlColors: [],
   showAnswer: false,
   isGameOver: false,
   isBowling: false,
@@ -24,6 +25,7 @@ export const reducer = (state: State, action: Action): State => {
     case 'New_Round':
       return {
         ...state,
+        colors: shuffle(state.colors),
         showAnswer: false,
         isGameOver: false,
         isBowling: false,
@@ -31,7 +33,6 @@ export const reducer = (state: State, action: Action): State => {
         data: action.data,
         text: action.text,
         left: action.left,
-        bowlColors: action.bowlColors,
         splitText: action.splitText,
       };
     case 'Bowl_Start':

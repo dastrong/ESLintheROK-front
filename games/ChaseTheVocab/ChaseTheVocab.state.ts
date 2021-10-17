@@ -1,11 +1,13 @@
 import shuffle from 'lodash.shuffle';
 import type { State, Action } from './ChaseTheVocab.types';
+import { darkenedColors } from 'lib/colors';
 
 export const init = (data: string[]): State => ({
   data: shuffle(data),
+  colors: shuffle(darkenedColors),
   gameData: [],
   round: 0,
-  color: 2,
+  colorIndex: 0,
   clickedIDs: [],
   shuffDuration: 2000,
   shuffBuffer: 500,
@@ -18,7 +20,8 @@ export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'Set_Data':
       return { ...state, data: shuffle(action.data) };
-    case 'New_Round':
+    case 'New_Round': {
+      const { colors, colorIndex } = state;
       return {
         ...state,
         data: action.data,
@@ -27,7 +30,9 @@ export const reducer = (state: State, action: Action): State => {
         isAnimating: false,
         isShuffleDone: false,
         round: 0,
+        colorIndex: colorIndex < colors.length - 1 ? colorIndex + 1 : 0,
       };
+    }
     case 'Add_Click_ID':
       // bail out of dispatch if already clicked
       if (!state.isShuffleDone) return state;
@@ -40,8 +45,13 @@ export const reducer = (state: State, action: Action): State => {
         shuffDuration: action.shuffDuration,
         shuffRounds: action.shuffRounds,
       };
-    case 'Change_Color':
-      return { ...state, color: action.color };
+    case 'Change_Color': {
+      const { colors, colorIndex } = state;
+      return {
+        ...state,
+        colorIndex: colorIndex < colors.length - 1 ? colorIndex + 1 : 0,
+      };
+    }
     case 'Start_Animating':
       return { ...state, isAnimating: true };
     case 'Shuffle':

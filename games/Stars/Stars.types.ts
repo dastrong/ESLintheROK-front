@@ -5,6 +5,8 @@ export type MinimumStars = 0 | 1 | 2 | 3 | 4 | 5;
 export type State = {
   data: string[];
   isVocab: boolean;
+  colors: string[];
+  starColors: string[];
   gameData: string[];
   clickedIDs: number[];
   stars: number[];

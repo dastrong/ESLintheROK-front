@@ -22,17 +22,6 @@ import FitText from 'components/FitText';
 const minDelay = 500; // in ms
 const maxDelay = 4000; // in ms
 const newRoundDelayReset = 4000; // in ms
-const colors = [
-  'chocolate',
-  'purple',
-  'darkslateblue',
-  'aqua',
-  'teal',
-  'fuchsia',
-  'plum',
-  'olive',
-  'violet',
-];
 
 export default function WordLotto({
   title,
@@ -48,7 +37,15 @@ export default function WordLotto({
   const secondary = store.expressions;
   const gameStore: GameStore = useData(reducer, init, primary, secondary);
   const [state, dispatch, didUpdate] = gameStore;
-  const { data, isVocab, gameData, isAnimating, isDone, maxCardDelay } = state;
+  const {
+    data,
+    isVocab,
+    colors,
+    gameData,
+    isAnimating,
+    isDone,
+    maxCardDelay,
+  } = state;
 
   // REFS - useFitText, useSplit2Rows, etc..
   const [refs] = useFitText(gameData);

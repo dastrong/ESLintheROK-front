@@ -20,19 +20,6 @@ import { nextRoundData } from 'games/_utils';
 import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 
-// CONSTANTS - img, audio, function, etc.
-const colors = [
-  'chocolate',
-  'purple',
-  'darkslateblue',
-  'aqua',
-  'teal',
-  'fuchsia',
-  'plum',
-  'olive',
-  'violet',
-];
-
 export default function ChaseTheVocab({
   title,
   description,
@@ -49,9 +36,10 @@ export default function ChaseTheVocab({
   const [state, dispatch, didUpdate] = gameStore;
   const {
     data,
+    colors,
     gameData,
     clickedIDs,
-    color,
+    colorIndex,
     round,
     isAnimating,
     isShuffleDone,
@@ -89,10 +77,7 @@ export default function ChaseTheVocab({
   const keysCB = useCallback(
     ({ key }: KeyboardEvent) => {
       // c was clicked; change the cards background color
-      if (key === 'c' || key === 'C') {
-        const colorIdx = color < colors.length - 1 ? color + 1 : 0;
-        return dispatch({ type: 'Change_Color', color: colorIdx });
-      }
+      if (key.toLowerCase() === 'c') return dispatch({ type: 'Change_Color' });
       // a number key was clicked; change difficulty
       const keyNum = Number(key);
       if (!keyNum) return;
@@ -106,7 +91,7 @@ export default function ChaseTheVocab({
         shuffRounds,
       });
     },
-    [dispatch, color]
+    [dispatch]
   );
   useKeys(handleGame, keysCB);
 
@@ -175,7 +160,7 @@ export default function ChaseTheVocab({
                 onClick={_handleBoxClick}
               >
                 <animated.div
-                  style={{ ...cardStyles, backgroundColor: colors[color] }}
+                  style={{ ...cardStyles, backgroundColor: colors[colorIndex] }}
                   className={classNames(
                     Styles.CardHolderCSS.className,
                     Styles.CardCSS.className

@@ -1,9 +1,11 @@
 import shuffle from 'lodash.shuffle';
 import type { State, Action } from './WordLotto.types';
+import { lightenedColors } from 'lib/colors';
 
 export const init = (data: string[]): State => ({
   data: shuffle(data),
   isVocab: true,
+  colors: shuffle(lightenedColors),
   gameData: [],
   isDone: false,
   isAnimating: false,
@@ -20,6 +22,7 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         data: action.data,
+        colors: shuffle(state.colors),
         gameData: action.gameData,
         maxCardDelay: action.maxCardDelay,
         isDone: false,

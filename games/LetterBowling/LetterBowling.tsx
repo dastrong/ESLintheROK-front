@@ -22,17 +22,6 @@ import Button from 'components/Button';
 // CONSTANTS - img, audio, function, etc.
 const letterBuffer = 3000; // in ms - time between each letter's animation
 const animDuration = 5000; // in ms - time it takes from the letter appearing to disappearing
-const colors = [
-  'chocolate',
-  'purple',
-  'darkslateblue',
-  'aqua',
-  'teal',
-  'fuchsia',
-  'plum',
-  'olive',
-  'violet',
-];
 
 export default function LetterBowling({
   title,
@@ -50,11 +39,11 @@ export default function LetterBowling({
   const [state, dispatch, didUpdate] = gameStore;
   const {
     data,
+    colors,
     text,
     left,
     round,
     rounds,
-    bowlColors,
     splitText,
     showAnswer,
     isGameOver,
@@ -87,14 +76,12 @@ export default function LetterBowling({
     // GOOGLE EVENTS ARE SENT WHEN USER STARTS A ROUND, NOT HERE
     const [[cur], nex] = nextRoundData(1, data, store.vocabulary);
     const splitText = shuffle(cur.split(''));
-    const bowlColors = shuffle(colors).slice(0, splitText.length - 1);
     const left = splitText.map(() => getRandoNum(window.innerWidth));
     dispatch({
       type: 'New_Round',
       text: cur,
       data: nex,
       splitText,
-      bowlColors,
       left,
     });
   }, [data]);
@@ -206,11 +193,7 @@ export default function LetterBowling({
           <animated.span
             key={`bowling-letter-${text}-${i}-${splitText[i]}`}
             className={Styles.LetterCSS.className}
-            style={{
-              ...style,
-              backgroundColor:
-                bowlColors[i] || bowlColors[i - bowlColors.length],
-            }}
+            style={{ ...style, backgroundColor: colors[i] }}
           >
             {splitText[i]}
           </animated.span>

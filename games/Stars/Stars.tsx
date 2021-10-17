@@ -24,27 +24,6 @@ import { nextRoundData, arrOfRandoNum } from 'games/_utils';
 import GameWrapper from 'components/GameWrapper';
 
 // CONSTANTS - img, audio, function, etc.
-const colors = [
-  'chocolate',
-  'purple',
-  'darkslateblue',
-  'aqua',
-  'teal',
-  'fuchsia',
-  'plum',
-  'olive',
-  'violet',
-];
-const starColors = [
-  'red',
-  'orange',
-  'yellow',
-  'green',
-  'teal',
-  'blue',
-  'purple',
-  'pink',
-];
 const getBoxCount = (isVocab: boolean) => (isVocab ? 8 : 6);
 const maximumStars = 6;
 
@@ -58,7 +37,16 @@ export default function Stars({ title, description, keyCuts }: GameSEOProps) {
   const secondary = store.expressions;
   const gameStore: GameStore = useData(reducer, init, primary, secondary);
   const [state, dispatch, didUpdate] = gameStore;
-  const { data, isVocab, gameData, clickedIDs, stars, minimumStars } = state;
+  const {
+    data,
+    isVocab,
+    colors,
+    starColors,
+    gameData,
+    clickedIDs,
+    stars,
+    minimumStars,
+  } = state;
 
   // REFS - useFitText, useSplit2Rows, etc..
   const isFirstRun = useFirstRun();

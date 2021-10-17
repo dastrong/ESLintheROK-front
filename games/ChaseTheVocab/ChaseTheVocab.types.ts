@@ -7,9 +7,10 @@ export type GameData = {
 
 export type State = {
   data: string[];
+  colors: string[];
   gameData: GameData;
   round: number;
-  color: number;
+  colorIndex: number;
   clickedIDs: number[];
   shuffDuration: number;
   shuffBuffer: number;
@@ -28,7 +29,7 @@ export type Action =
       shuffDuration: number;
       shuffRounds: number;
     }
-  | { type: 'Change_Color'; color: number }
+  | { type: 'Change_Color' }
   | { type: 'Start_Animating' }
   | { type: 'Shuffle'; gameData: GameData }
   | { type: 'Shuffle_Stop' };

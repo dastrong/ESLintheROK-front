@@ -39,17 +39,6 @@ const stages: StageNames[] = [
 ];
 const widthsAndHeights = [95, 45, 28];
 const maxAngle = 5;
-const colors = [
-  'chocolate',
-  'purple',
-  'darkslateblue',
-  'aqua',
-  'teal',
-  'fuchsia',
-  'plum',
-  'olive',
-  'violet',
-];
 
 export default function WhatsMissing({
   title,
@@ -67,6 +56,7 @@ export default function WhatsMissing({
   const [state, dispatch, didUpdate] = gameStore;
   const {
     data,
+    colors,
     allText,
     missingText,
     otherText,
@@ -173,7 +163,6 @@ export default function WhatsMissing({
   }
 
   const [widths, heightVal] = getWandH(words.length);
-  const shuffledColors = shuffle(colors);
   const transforms = arrOfRandoNum(maxAngle, -maxAngle, words.length, false);
 
   return (
@@ -199,7 +188,7 @@ export default function WhatsMissing({
           className={Styles.CardContainerCSS.className}
         >
           {words.map((word, i) => {
-            const color = shuffledColors[i];
+            const color = colors[i];
             const height = `${heightVal}vh`;
             const width = `${widths[i]}vw`;
             const transform = `rotate(${transforms[i]}deg)`;

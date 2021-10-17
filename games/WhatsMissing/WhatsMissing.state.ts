@@ -1,10 +1,12 @@
 import shuffle from 'lodash.shuffle';
 import type { State, Action, Stages, StageNames } from './WhatsMissing.types';
+import { darkenedColors } from 'lib/colors';
 
 const numOfStages: StageNames['length'] = 4;
 
 export const init = (data: string[]): State => ({
   data: shuffle(data),
+  colors: shuffle(darkenedColors),
   allText: [],
   missingText: [],
   otherText: [],
@@ -21,6 +23,7 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         data: action.data,
+        colors: shuffle(state.colors),
         allText: action.allText,
         missingText: action.missingText,
         otherText: action.otherText,

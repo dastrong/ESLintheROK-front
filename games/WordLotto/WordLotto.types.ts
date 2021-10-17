@@ -9,6 +9,7 @@ type GameData = {
 export type State = {
   data: string[];
   isVocab: boolean;
+  colors: string[];
   gameData: GameData;
   isDone: boolean;
   isAnimating: boolean;

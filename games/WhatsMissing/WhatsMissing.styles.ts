@@ -20,11 +20,12 @@ export const InfoCSS = css.resolve`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 60vh;
-    top: 20vh;
+    height: 70vh;
+    top: 15vh;
     width: 75vw;
     left: 12.5vw;
-    border-radius: 35%;
+    border-radius: 50% 50% 0 0;
+    padding: 1rem;
     color: #fff;
     background-color: rgb(21, 255, 0);
     box-shadow: 0 0 12px 4px rgb(9, 115, 0);
@@ -33,7 +34,8 @@ export const InfoCSS = css.resolve`
 
 export const InfoFitTextCSS = css.resolve`
    {
-    text-shadow: 1px 1px 5px rgb(9, 115, 0);
+    text-shadow: 0px 0px 1px #333, 0px 0px 4px #555, 0px 0px 7px #777,
+      0px 0px 10px #777777b4, 0px 0px 14px #7777772f;
   }
 `;
 

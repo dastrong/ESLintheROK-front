@@ -11,6 +11,7 @@ export type StageNames =
 
 export type State = {
   data: string[];
+  colors: string[];
   allText: string[];
   missingText: string[];
   otherText: string[];

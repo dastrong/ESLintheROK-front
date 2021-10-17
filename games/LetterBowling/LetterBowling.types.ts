@@ -2,10 +2,10 @@ import { Dispatch } from 'react';
 
 export type State = {
   data: string[];
+  colors: string[];
   text: string;
   splitText: string[];
   left: number[];
-  bowlColors: string[];
   showAnswer: boolean;
   isGameOver: boolean;
   isBowling: boolean;
@@ -20,7 +20,6 @@ export type Action =
       data: string[];
       text: string;
       left: number[];
-      bowlColors: string[];
       splitText: string[];
     }
   | { type: 'Bowl_Start' }

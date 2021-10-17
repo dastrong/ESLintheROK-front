@@ -33,17 +33,6 @@ const getBackCard = (isTarget: boolean) =>
     ? [<FaTrophy style={{ height: '80%', width: 'auto' }} />, 'gold']
     : ['', 'white'];
 const getBoxCount = (isVocab: boolean) => (isVocab ? 8 : 6);
-const colors = [
-  'chocolate',
-  'purple',
-  'darkslateblue',
-  'aqua',
-  'teal',
-  'fuchsia',
-  'plum',
-  'olive',
-  'violet',
-];
 
 export default function WhatsBehind({
   title,
@@ -60,7 +49,15 @@ export default function WhatsBehind({
   const secondary = store.expressions;
   const gameStore: GameStore = useData(reducer, init, primary, secondary);
   const [state, dispatch, didUpdate] = gameStore;
-  const { data, gameData, isVocab, clickedIDs, clickedID, target } = state;
+  const {
+    data,
+    colors,
+    gameData,
+    isVocab,
+    clickedIDs,
+    clickedID,
+    target,
+  } = state;
   const foundTarget = target.includes(clickedID);
 
   // REFS

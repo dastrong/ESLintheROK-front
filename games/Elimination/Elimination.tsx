@@ -19,29 +19,17 @@ import * as Styles from './Elimination.styles';
 
 // IMPORT COMPONENTS/UTILITIES HERE
 import { track } from 'utils/analytics';
+import { getGameFileUrl } from 'utils/getCloudUrls';
 import type { GameSEOProps } from 'games/types';
+import { nextRoundData, arrOfRandoNum } from 'games/_utils';
 import { RowOfTwoSidedCards } from 'games/_components';
 import GameWrapper from 'components/GameWrapper';
-import { nextRoundData, arrOfRandoNum } from 'games/_utils';
-import { getGameFileUrl } from 'utils/getCloudUrls';
-// import { googleEvent } from 'helpers/ga';
 
 // CONSTANTS
 const gameOverAudioURL = getGameFileUrl('Elimination/game-over.wav');
 const ohYeahAudioURL = getGameFileUrl('Elimination/oh-yeah.mp3');
 const getBackCard = (isX: boolean) => (isX ? ['X', 'red'] : ['O', 'lime']);
 const getBoxCount = (isVocab: boolean) => (isVocab ? 8 : 6);
-const colors = [
-  'chocolate',
-  'purple',
-  'darkslateblue',
-  'aqua',
-  'teal',
-  'fuchsia',
-  'plum',
-  'olive',
-  'violet',
-];
 
 export default function Elimination({
   title,
@@ -61,7 +49,16 @@ export default function Elimination({
   const secondary = store.expressions;
   const gameStore: GameStore = useData(reducer, init, primary, secondary);
   const [state, dispatch, didUpdate] = gameStore;
-  const { data, gameData, isVocab, Xs, xCount, clickedIDs, clickedID } = state;
+  const {
+    data,
+    gameData,
+    isVocab,
+    colors,
+    Xs,
+    xCount,
+    clickedIDs,
+    clickedID,
+  } = state;
 
   // REFS
   const isFirstRun = useFirstRun();
