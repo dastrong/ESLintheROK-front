@@ -119,7 +119,7 @@ export const FontProvider = ({ children }) => {
         const selection = session.defaultFont || 'random';
         fontDispatch({ type: 'Set_User_Fonts', fonts, selection });
       } catch (err) {
-        console.log(err);
+        console.log(err.message);
       }
     };
 
