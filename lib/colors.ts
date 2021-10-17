@@ -1,3 +1,5 @@
+import { lighten, darken, readableColorIsBlack } from 'color2k';
+
 export const colors = [
   'IndianRed',
   'LightCoral',
@@ -66,3 +68,15 @@ export const colors = [
   'Brown',
   'Maroon',
 ];
+
+export const lightenedColors = colors.map(color => {
+  return readableColorIsBlack(color)
+    ? color
+    : lighten(color, Math.random() * 0.1 + 0.2);
+});
+
+export const darkenedColors = colors.map(color => {
+  return readableColorIsBlack(color)
+    ? darken(color, Math.random() * 0.2 + 0.1)
+    : color;
+});
