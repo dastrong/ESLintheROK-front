@@ -17,6 +17,9 @@ export default function SeoWrapper({ children, ...seoProps }: Props) {
     <>
       <NextSeo
         {...rest}
+        robotsProps={{
+          nosnippet: true,
+        }}
         openGraph={{
           url: baseUrl + asPath,
           ...openGraph,
