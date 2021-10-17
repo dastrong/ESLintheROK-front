@@ -178,7 +178,7 @@ export default function WordShark({
                   src={StickmanThanksURL}
                   alt="stickman saying thanks"
                   className={Styles.StickmanCSS.className}
-                  style={{ marginLeft: 6 }}
+                  style={{ marginLeft: -16, width: 'auto' }}
                 />
               ) : (
                 <img

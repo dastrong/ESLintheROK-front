@@ -1,10 +1,11 @@
 import css from 'styled-jsx/css';
+import { getGameFileUrl } from 'utils/getCloudUrls';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
    {
     font-family: ${fontFamily};
     background-color: #fff;
-    background-image: url('/WordShark.svg');
+    background-image: url(${getGameFileUrl('WordShark/Background.svg')});
     background-size: cover;
     background-attachment: fixed;
     background-position: bottom right;
@@ -40,7 +41,7 @@ export const ContentInnerContainerCSS = css.resolve`
 export const StickmanContainerCSS = css.resolve`
    {
     position: absolute;
-    left: calc(50% - 3rem);
+    left: calc(50% - 11vh / 2);
     bottom: 7.5vh;
     transition: transform 250ms;
     transform: translateY(15vh);
@@ -68,7 +69,7 @@ export const SpeechBubbleCSS = css.resolve`
     content: '';
     position: absolute;
     bottom: 0;
-    left: 3rem;
+    left: calc(11vh / 2);
     width: 0;
     height: 0;
     border: 1rem solid transparent;
@@ -95,9 +96,9 @@ export const AnswerTextCSS = css.resolve`
 
 export const StickmanCSS = css.resolve`
    {
-    height: 24vh;
-    width: auto;
-    margin: 1rem 0 0 1rem;
+    height: 25vh;
+    width: 11vh;
+    margin-top: 1.1rem;
     display: flex;
   }
 `;
@@ -144,6 +145,7 @@ export const AlphabetButtonCSS = css.resolve`
     height: var(--buttonSize);
     margin: 0.125rem;
     padding: 0;
+    font-size: calc(var(--buttonSize) / 2);
   }
 `;
 
@@ -192,7 +194,7 @@ export const WrongContainerCSS = css.resolve`
     width: calc((var(--buttonSize) + 0.125rem) * 2 - 82px);
     height: 82px;
     color: white;
-    font-size: 22px
+    font-size: 22px;
     line-height: 1;
     text-align: center;
     overflow: hidden;
