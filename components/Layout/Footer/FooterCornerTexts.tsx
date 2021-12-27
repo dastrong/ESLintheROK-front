@@ -1,24 +1,33 @@
 import React from 'react';
 import Link from 'next/link';
-import { SiAircanada } from 'react-icons/si';
+import { SiAircanada, SiBuymeacoffee } from 'react-icons/si';
 import { GiSouthKorea } from 'react-icons/gi';
 import { FaHeart, FaCoffee, FaRegCopyright } from 'react-icons/fa';
+import Button from 'components/Button';
 
 export default function FooterCornerTexts() {
   return (
     <>
       <div className="corner corner_left">
-        <p className="support_me">
-          Feeling supportive?{' '}
-          <a href="https://www.buymeacoffee.com/ycqPbFl" target="_blank">
-            Buy me a coffee!
-          </a>
+        <p>
+          <Button
+            as="a"
+            target="_blank"
+            href="https://www.buymeacoffee.com/ycqPbFl"
+            color="#732f00"
+            bgColor="#fbbd08"
+            text="Feeling supportive? Buy me a coffee"
+            iconPosition="right"
+            Icon={SiBuymeacoffee}
+            size="sm"
+            style={{ boxShadow: '0px 0px 5px 0px #9c00b5' }}
+          />
         </p>
 
         <p className="made_by">
           Made with <FaCoffee style={{ color: '#6f4e37' }} /> and{' '}
           <FaHeart style={{ color: 'red' }} /> by a{' '}
-          <SiAircanada style={{ color: 'red' }} /> living in
+          <SiAircanada style={{ color: 'red' }} /> living in{' '}
           <GiSouthKorea style={{ color: '#0047A0' }} />
         </p>
       </div>
@@ -38,7 +47,7 @@ export default function FooterCornerTexts() {
 
         <p className="copyright">
           <FaRegCopyright /> 2021{' '}
-          <a href="https://www.danielstrong.tech" target="_blank">
+          <a href="https://danielstrong.tech" target="_blank">
             Daniel Strong
           </a>
         </p>
@@ -49,7 +58,7 @@ export default function FooterCornerTexts() {
           position: absolute;
           margin: 0;
           bottom: 2.5rem;
-          font-size: min(1.5vw, 1.25rem);
+          font-size: min(1.75vw, 1.35rem);
         }
 
         .corner_left {
@@ -64,22 +73,11 @@ export default function FooterCornerTexts() {
 
         .corner p {
           margin: 0;
-          margin-bottom: 1.25rem;
+          margin-bottom: 1.2rem;
         }
 
         .corner p:last-child {
           margin-bottom: 0;
-        }
-
-        .support_me a {
-          color: white;
-          text-decoration: underline;
-          text-shadow: 1px 1px 5px #000, -1px -1px 5px #9c00b5;
-          transition: text-shadow 150ms;
-        }
-
-        .support_me a:hover {
-          text-shadow: 1px 1px 7px #000, -1px -1px 7px #9c00b5;
         }
 
         a {

@@ -89,6 +89,7 @@ export default function NavLinks() {
                 text="Buy me a coffee"
                 Icon={SiBuymeacoffee}
                 size="xs"
+                style={{ boxShadow: '0px 0px 5px 0px #732f00' }}
               />
             </li>
           </ul>
@@ -152,7 +153,6 @@ export default function NavLinks() {
           position: absolute;
           display: flex;
           align-items: center;
-          text-transform: uppercase;
           bottom: 13%;
           height: 87%;
         }
@@ -201,12 +201,12 @@ export default function NavLinks() {
         }
 
         .links_primary li {
-          font-size: 2vw;
+          font-size: 2.25vw;
           font-weight: bold;
         }
 
         .links_secondary li {
-          font-size: 1.5vw;
+          font-size: 1.75vw;
           font-weight: 400;
         }
       `}</style>

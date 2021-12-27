@@ -48,16 +48,15 @@ export default function FooterLinks() {
           align-items: center;
           left: calc(${maxLeftBlobWidth} / ${maxWidth} * 100%);
           right: calc(${maxRightBlobWidth} / ${maxWidth} * 100%);
-          bottom: 2rem;
-          font-size: min(1.5vw, 1.35rem);
+          bottom: 2.5rem;
+          font-size: min(1.75vw, 1.35rem);
           margin: 0 0.5rem;
         }
 
         a:not(.logo_link) {
           color: inherit;
           text-decoration: none;
-          text-transform: uppercase;
-          padding: 0.5rem 0.25rem;
+          padding: 1.2rem 0.25rem 0rem;
         }
 
         .logo_link {
@@ -74,29 +73,33 @@ export default function FooterLinks() {
           }
 
           a:not(.logo_link) {
-            padding: 0.5rem 0.6rem;
+            padding: 1.2rem 0.6rem 0rem;
           }
         }
 
         @media screen and (min-width: 1440px) {
           a:not(.logo_link) {
-            padding: 0.5rem 1.25rem;
+            padding: 1.2rem 1.25rem 0rem;
           }
         }
 
         @media screen and (min-width: 1700px) {
           .links {
-            bottom: 2rem;
+            bottom: 2.5rem;
             justify-content: space-evenly;
+            align-items: baseline;
+            max-width: 1200px;
+            margin-inline: auto;
           }
 
           a:not(.logo_link) {
-            padding: 0.5rem 0.5rem;
+            padding: 1.2rem 0.5rem 0rem;
           }
 
           .logo_link {
             position: relative;
-            top: 0;
+            line-height: 0;
+            top: calc(min(1.75vw, 1.35rem) / 2);
           }
         }
       `}</style>
