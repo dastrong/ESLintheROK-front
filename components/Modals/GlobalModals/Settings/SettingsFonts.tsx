@@ -109,7 +109,7 @@ export default function SettingsFonts() {
       fontDispatch({ type: 'Select_Font', fontName });
     } catch (err) {
       console.log(err);
-      toast.error('Unexpected Error Occured');
+      toast.error('Unexpected Error Occurred');
     }
   };
 
@@ -124,7 +124,7 @@ export default function SettingsFonts() {
       fontDispatch({ type: 'Remove_Font', _id });
     } catch (err) {
       console.log(err);
-      toast.error('Unexpected Error Occured');
+      toast.error('Unexpected Error Occurred');
     }
   };
 

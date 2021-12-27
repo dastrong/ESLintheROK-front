@@ -119,7 +119,7 @@ export default function AuthErrorPage() {
   return (
     <SeoWrapper
       title="Verification Failed"
-      description="An error occured somewhere. Read the errors, determine if it was something you did and contact us if you need to."
+      description="An error occurred somewhere. Read the errors, determine if it was something you did and contact us if you need to."
     >
       <div>
         <PageHeading>{heading}</PageHeading>
