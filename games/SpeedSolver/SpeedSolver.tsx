@@ -195,13 +195,14 @@ export default function SpeedSolver({
           cx={Styles.InfoCSS.className}
         />
 
-        <SpeedSolverLetters
-          showLetters={curStage === 'ACTION'}
-          gameData={gameData}
-          level={level}
-          isVocab={isVocab}
-          cx={Styles.LettersCSS.className}
-        />
+        {curStage === 'ACTION' && (
+          <SpeedSolverLetters
+            gameData={gameData}
+            level={level}
+            isVocab={isVocab}
+            cx={Styles.LettersCSS.className}
+          />
+        )}
 
         <AnswerBox
           answer={answer}
