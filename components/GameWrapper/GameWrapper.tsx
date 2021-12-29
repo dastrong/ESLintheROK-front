@@ -19,7 +19,7 @@ export default function GameWrapper({
   keyCuts,
 }: Props) {
   return (
-    <SeoWrapper title={title} description={description}>
+    <SeoWrapper noindex title={title} description={description}>
       <FontLoader />
       <GameWrapperFullscreen />
       {children}

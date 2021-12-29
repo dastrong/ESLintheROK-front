@@ -9,6 +9,7 @@ import PositiveAttitudeSVG from 'components/Svgs/positive_attitude.svg';
 export default function NewUserPage() {
   return (
     <SeoWrapper
+      noindex
       title="Welcome Aboard"
       description="Thanks for joining. I hope you enjoy and take full advantage of all the benefits."
     >
