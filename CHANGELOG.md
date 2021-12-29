@@ -2,6 +2,20 @@
 
 All notable changes, updated and additions to this site will be documented below.
 
+## [2.2.0] - 2021-12-27
+
+**Changed**
+
+- Matched navigation and footer text styles, so they are consistent
+
+**Fixed**
+
+- Fixed Game - [Speed Solver](https://www.eslintherok.com/game/speed_solver)
+  - letters would stop animating randomly
+  - hasn't happened during testing after this update
+- Fixed a broken link to contribute page while choosing a grade
+- Corrected spelling of occured to occurred
+
 ## [2.1.0] - 2021-10-17
 
 **Added**
