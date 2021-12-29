@@ -1,6 +1,7 @@
 {
   "name": "eslintherok",
   "version": "3.0.0",
+  "private": "true",
   "scripts": {
     "dev": "next dev",
     "dev:seed": "cross-env NEXT_PUBLIC_SEED=true next dev",
