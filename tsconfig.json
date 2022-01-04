@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -13,8 +17,16 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "incremental": true
   },
-  "include": ["types/**/*.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "games/_utils/generate/*"]
+  "include": [
+    "types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "games/_utils/generate/*"
+  ]
 }
