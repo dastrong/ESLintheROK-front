@@ -27,24 +27,31 @@ const oldGameReRouting = [
 module.exports = withPlugins(
   [[withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' })]],
   {
-    swcMinify: true,
     webpack: config => {
       config.module.rules.push(
         {
-          test: /\.svg$/,
+          test: /\.svg$/i,
+          issuer: /\.[jt]sx?$/,
           use: [
             {
               loader: '@svgr/webpack',
               options: {
                 svgo: true,
                 svgoConfig: {
-                  plugins: {
-                    removeViewBox: false,
-                    removeDimensions: true,
-                    cleanupNumericValues: {
-                      floatPrecision: 2,
+                  plugins: [
+                    {
+                      name: 'removeViewBox',
+                      active: false,
                     },
-                  },
+                    {
+                      name: 'removeDimensions',
+                      active: true,
+                    },
+                    {
+                      name: 'cleanupNumericValues',
+                      active: true,
+                    },
+                  ],
                 },
               },
             },
