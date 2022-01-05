@@ -2,7 +2,7 @@ import css from 'styled-jsx/css';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
-   {
+  div {
     font-family: ${fontFamily};
     background-color: #fff;
     background-image: url(${getGameFileUrl(
@@ -20,7 +20,7 @@ export const getContainerCSS = (fontFamily: string) => css.resolve`
 `;
 
 export const CardsContainerCSS = css.resolve`
-   {
+  div {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -32,7 +32,7 @@ export const CardsContainerCSS = css.resolve`
 `;
 
 export const CardCSS = css.resolve`
-   {
+  div {
     height: 47vh;
     width: 47vw;
     margin: 1vh 1vw;
@@ -43,7 +43,7 @@ export const CardCSS = css.resolve`
 `;
 
 export const CardSharedCSS = css.resolve`
-   {
+  div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,7 +51,7 @@ export const CardSharedCSS = css.resolve`
 `;
 
 export const CardContentCSS = css.resolve`
-   {
+  div {
     position: absolute;
     height: inherit;
     width: inherit;
@@ -60,7 +60,7 @@ export const CardContentCSS = css.resolve`
 `;
 
 export const CardExpanded = css.resolve`
-   {
+  div {
     width: 96.5vw;
   }
 `;

@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
-   {
+  div {
     font-family: ${fontFamily};
     overflow: hidden;
     height: 100vh;
@@ -13,7 +13,7 @@ export const getContainerCSS = (fontFamily: string) => css.resolve`
 `;
 
 export const TextContainerCSS = css.resolve`
-   {
+  div {
     height: 85vh;
     width: 100%;
     background-color: violet;
@@ -26,7 +26,7 @@ export const TextContainerCSS = css.resolve`
 `;
 
 export const TimerContainerCSS = css.resolve`
-   {
+  div {
     background: linear-gradient(
       90deg,
       rgba(39, 255, 0, 1) 0%,
@@ -50,7 +50,7 @@ export const TimerContainerCSS = css.resolve`
 `;
 
 export const TimerBarCSS = css.resolve`
-   {
+  div {
     background-color: rgb(235, 235, 235);
     border-top: 1px solid #763aad;
     height: inherit;
@@ -63,7 +63,7 @@ export const TimerBarCSS = css.resolve`
 `;
 
 export const TimerTextCSS = css.resolve`
-   {
+  div {
     z-index: 3;
     color: #000;
     font-weight: bold;

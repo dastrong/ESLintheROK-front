@@ -49,15 +49,8 @@ export default function WhatsBehind({
   const secondary = store.expressions;
   const gameStore: GameStore = useData(reducer, init, primary, secondary);
   const [state, dispatch, didUpdate] = gameStore;
-  const {
-    data,
-    colors,
-    gameData,
-    isVocab,
-    clickedIDs,
-    clickedID,
-    target,
-  } = state;
+  const { data, colors, gameData, isVocab, clickedIDs, clickedID, target } =
+    state;
   const foundTarget = target.includes(clickedID);
 
   // REFS

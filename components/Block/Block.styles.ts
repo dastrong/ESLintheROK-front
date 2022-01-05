@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 
 export const BlockCSS = css.resolve`
-   {
+  div {
     position: relative;
     margin: 1rem auto;
     width: 50%;
@@ -16,7 +16,7 @@ export const BlockCSS = css.resolve`
     --padding: 0.75rem;
   }
 
-  :before {
+  div:before {
     content: '';
     position: absolute;
     top: 0;
@@ -29,7 +29,7 @@ export const BlockCSS = css.resolve`
   }
 
   @media screen and (min-width: 1500px) {
-     {
+    div {
       max-width: 1000px;
       margin: 1.5rem auto;
     }
@@ -37,7 +37,7 @@ export const BlockCSS = css.resolve`
 `;
 
 export const BlockHeaderCSS = css.resolve`
-   {
+  div {
     display: flex;
     align-items: center;
     user-select: none;
@@ -46,34 +46,34 @@ export const BlockHeaderCSS = css.resolve`
   }
 
   @media screen and (min-width: 1000px) {
-     {
+    div {
       font-size: 1.75vw;
     }
   }
 
   @media screen and (min-width: 1500px) {
-     {
+    div {
       font-size: 1.5vw;
     }
   }
 `;
 
 export const BlockHeaderIconCSS = css.resolve`
-   {
+  svg {
     transition: transform 0.15s;
     font-size: 0.7em;
   }
 `;
 
 export const BlockHeaderTitleCSS = css.resolve`
-   {
+  h3 {
     margin: 1rem 0 1rem var(--padding);
     font-weight: bold;
   }
 `;
 
 export const BlockContentCSS = css.resolve`
-   {
+  div {
     padding-left: calc(1.2rem * 0.7 + var(--padding));
     font-size: 1rem;
     line-height: 1.5;
@@ -82,14 +82,14 @@ export const BlockContentCSS = css.resolve`
   }
 
   @media screen and (min-width: 1000px) {
-     {
+    div {
       padding-left: calc(1.75vw * 0.7 + var(--padding));
       font-size: 1.5vw;
     }
   }
 
   @media screen and (min-width: 1500px) {
-     {
+    div {
       padding-left: calc(1.5vw * 0.7 + var(--padding));
       font-size: 1.25vw;
     }

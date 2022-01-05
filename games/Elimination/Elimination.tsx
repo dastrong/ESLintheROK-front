@@ -49,16 +49,8 @@ export default function Elimination({
   const secondary = store.expressions;
   const gameStore: GameStore = useData(reducer, init, primary, secondary);
   const [state, dispatch, didUpdate] = gameStore;
-  const {
-    data,
-    gameData,
-    isVocab,
-    colors,
-    Xs,
-    xCount,
-    clickedIDs,
-    clickedID,
-  } = state;
+  const { data, gameData, isVocab, colors, Xs, xCount, clickedIDs, clickedID } =
+    state;
 
   // REFS
   const isFirstRun = useFirstRun();

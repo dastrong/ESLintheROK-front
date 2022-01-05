@@ -37,15 +37,8 @@ export default function WordLotto({
   const secondary = store.expressions;
   const gameStore: GameStore = useData(reducer, init, primary, secondary);
   const [state, dispatch, didUpdate] = gameStore;
-  const {
-    data,
-    isVocab,
-    colors,
-    gameData,
-    isAnimating,
-    isDone,
-    maxCardDelay,
-  } = state;
+  const { data, isVocab, colors, gameData, isAnimating, isDone, maxCardDelay } =
+    state;
 
   // REFS - useFitText, useSplit2Rows, etc..
   const [refs] = useFitText(gameData);

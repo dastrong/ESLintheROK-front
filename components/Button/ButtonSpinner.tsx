@@ -3,7 +3,7 @@ import { FaSpinner } from 'react-icons/fa';
 import css from 'styled-jsx/css';
 
 const ButtonSpinnerCSS = css.resolve`
-   {
+  svg {
     animation: 1.5s spinner infinite linear;
   }
 

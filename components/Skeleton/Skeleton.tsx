@@ -4,7 +4,7 @@ import React, { CSSProperties, FunctionComponent } from 'react';
 import css from 'styled-jsx/css';
 
 const SkeletonCSS = css.resolve`
-   {
+  span {
     background-color: var(--baseColor);
     background-image: linear-gradient(
       90deg,

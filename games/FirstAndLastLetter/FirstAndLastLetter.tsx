@@ -41,15 +41,8 @@ export default function FirstAndLastLetter({
   const primary = store.vocabulary;
   const gameStore: GameStore = useData(reducer, init, primary);
   const [state, dispatch, didUpdate] = gameStore;
-  const {
-    oldWord,
-    newWord,
-    startingLetter,
-    error,
-    stage,
-    colors,
-    words,
-  } = state;
+  const { oldWord, newWord, startingLetter, error, stage, colors, words } =
+    state;
 
   // REFS - useFitText, useSplit2Rows, etc..
   const isFirstRun = useFirstRun();

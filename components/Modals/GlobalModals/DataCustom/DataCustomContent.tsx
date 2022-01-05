@@ -9,12 +9,8 @@ export default function DataCustomContent() {
   const { session } = useUserSession();
 
   const { storeDispatch } = useStore();
-  const {
-    vocabulary,
-    expressions,
-    sufficientData,
-    setterDispatch,
-  } = useSetter();
+  const { vocabulary, expressions, sufficientData, setterDispatch } =
+    useSetter();
 
   const [showSubmissionScreen, setShowSubmissionScreen] = useState(false);
 

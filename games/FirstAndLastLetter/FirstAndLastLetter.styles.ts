@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
-   {
+  div {
     font-family: ${fontFamily};
     background-color: #fff;
     position: relative;
@@ -15,7 +15,7 @@ export const getContainerCSS = (fontFamily: string) => css.resolve`
 `;
 
 export const GradientCSS = css.resolve`
-   {
+  div {
     position: absolute;
     height: 200vh;
     width: 100vw;
@@ -24,14 +24,14 @@ export const GradientCSS = css.resolve`
 `;
 
 export const TextContainerCSS = css.resolve`
-   {
+  div {
     width: 100%;
     height: 100%;
   }
 `;
 
 export const OuterTextContainerCSS = css.resolve`
-   {
+  div {
     height: 50vh;
     width: 100vw;
     margin: 0;
@@ -41,7 +41,7 @@ export const OuterTextContainerCSS = css.resolve`
 `;
 
 export const InnerTextContainerCSS = css.resolve`
-   {
+  div {
     position: relative;
     width: 100%;
     height: 100%;
@@ -54,19 +54,19 @@ export const InnerTextContainerCSS = css.resolve`
 `;
 
 export const TopTextContainerCSS = css.resolve`
-   {
+  div {
     top: 0;
   }
 `;
 
 export const BottomTextContainerCSS = css.resolve`
-   {
+  div {
     bottom: 0;
   }
 `;
 
 export const BlinkingCursorCSS = css.resolve`
-   {
+  span {
     animation: blink 1s infinite;
   }
 

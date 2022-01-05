@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 
 export const CarouselListCSS = css.resolve`
-   {
+  div {
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -11,7 +11,7 @@ export const CarouselListCSS = css.resolve`
 `;
 
 export const CarouselTrackCSS = css.resolve`
-   {
+  ul {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -26,17 +26,16 @@ export const CarouselTrackCSS = css.resolve`
 `;
 
 export const CarouselItemCSS = css.resolve`
-   {
+  li {
     transform-style: preserve-3d;
     backface-visibility: hidden;
     padding: 0.25rem;
   }
-
-  :first-child {
+  li:first-child {
     margin-left: 0;
   }
 
-  :last-child {
+  li:last-child {
     margin-right: 0;
   }
 `;

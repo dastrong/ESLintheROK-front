@@ -2,7 +2,7 @@ import css from 'styled-jsx/css';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
-   {
+  div {
     font-family: ${fontFamily};
     background-color: #fff;
     background-image: url(${getGameFileUrl(
@@ -23,7 +23,7 @@ export const getContainerCSS = (fontFamily: string) => css.resolve`
 `;
 
 export const ControlsCSS = css.resolve`
-   {
+  div {
     position: absolute;
     top: 0;
     z-index: 111;
@@ -31,7 +31,7 @@ export const ControlsCSS = css.resolve`
 `;
 
 export const RoundCounterCSS = css.resolve`
-   {
+  p {
     position: absolute;
     right: 5px;
     bottom: 0px;
@@ -44,7 +44,7 @@ export const RoundCounterCSS = css.resolve`
 `;
 
 export const TextCSS = css.resolve`
-   {
+  p {
     color: #fff;
     font-size: 1.25em;
     text-align: center;
@@ -56,7 +56,7 @@ export const TextCSS = css.resolve`
 `;
 
 export const LetterCSS = css.resolve`
-   {
+  span {
     box-sizing: border-box;
     position: absolute;
     padding: 20px;

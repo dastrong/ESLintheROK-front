@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
-   {
+  div {
     font-family: ${fontFamily};
     background-color: #eee;
     overflow: hidden;
@@ -16,7 +16,7 @@ export const getContainerCSS = (fontFamily: string) => css.resolve`
 `;
 
 export const StageContainerCSS = css.resolve`
-   {
+  div {
     display: flex;
     justify-content: center;
     position: absolute;
@@ -26,13 +26,13 @@ export const StageContainerCSS = css.resolve`
 `;
 
 export const ImgCSS = css.resolve`
-   {
+  img {
     height: 100vh;
   }
 `;
 
 export const CountdownTimerCSS = css.resolve`
-   {
+  span {
     position: absolute;
     bottom: 30px;
     right: 45px;
@@ -46,7 +46,7 @@ export const CountdownTimerCSS = css.resolve`
 `;
 
 export const TextContainer = css.resolve`
-   {
+  div {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -61,7 +61,7 @@ export const TextContainer = css.resolve`
 `;
 
 export const TextWrapper = css.resolve`
-   {
+  div {
     display: flex;
     justify-content: center;
     align-items: center;

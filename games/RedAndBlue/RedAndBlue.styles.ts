@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
-   {
+  div {
     font-family: ${fontFamily};
     background-color: #fff;
     overflow: hidden;

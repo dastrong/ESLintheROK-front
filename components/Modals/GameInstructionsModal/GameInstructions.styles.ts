@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 
 export const ModalOverlayCSS = css.resolve`
-   {
+  div {
     height: 90vh;
     width: 90vw;
     display: flex;
@@ -10,7 +10,7 @@ export const ModalOverlayCSS = css.resolve`
 `;
 
 export const ModalHeaderCSS = css.resolve`
-   {
+  .modal_header {
     padding: 1rem;
   }
 `;
