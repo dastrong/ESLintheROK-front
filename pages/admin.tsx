@@ -24,7 +24,7 @@ export default function AdminPage() {
   // const bookName = `${grade}_${publisher}_${author}`;
 
   return (
-    <SeoWrapper title="Admin">
+    <SeoWrapper noindex title="Admin">
       {/* <Toaster /> */}
 
       <PageHeading>Admin Page</PageHeading>
