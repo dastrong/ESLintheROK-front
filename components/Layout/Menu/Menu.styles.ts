@@ -13,7 +13,7 @@ export const MenuContainerCSS = css.resolve`
 `;
 
 export const MenuTogglerCSS = css.resolve`
-  button {
+  button.styled-button {
     height: var(--btnHeight);
     width: var(--btnHeight);
     font-size: 1.85vw;
@@ -25,7 +25,7 @@ export const MenuTogglerCSS = css.resolve`
 `;
 
 export const MenuTogglerHideCSS = css.resolve`
-  button {
+  button.styled-button {
     opacity: 0;
   }
 `;
