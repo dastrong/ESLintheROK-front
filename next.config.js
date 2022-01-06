@@ -27,6 +27,7 @@ const oldGameReRouting = [
 module.exports = withPlugins(
   [[withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' })]],
   {
+    swcMinify: true,
     webpack: config => {
       config.module.rules.push(
         {
