@@ -50,7 +50,7 @@ export default function GamesPage({
     setGames(
       games.map(game => ({
         ...game,
-        isNew: checkIfNew(game.publishedDate, 200),
+        isNew: checkIfNew(game.publishedDate, 30),
       }))
     );
   }, []);
