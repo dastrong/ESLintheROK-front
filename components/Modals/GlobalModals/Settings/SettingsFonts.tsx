@@ -14,7 +14,6 @@ import PageContent from 'components/PageContent';
 import InlineForm from 'components/InlineForm';
 import Button from 'components/Button';
 import Popup from 'components/Popup';
-import { InputCSS } from 'components/Styles';
 
 export default function SettingsFonts() {
   const { session, updateSession } = useUserSession();
@@ -254,7 +253,6 @@ export default function SettingsFonts() {
         onBlur={() => setExampleTextValue(state => state.trim() || defaultText)}
       />
 
-      {InputCSS.styles}
       <style jsx>{`
         button {
           background: none;
