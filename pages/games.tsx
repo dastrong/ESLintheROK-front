@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 import { FaMusic, FaPaperclip } from 'react-icons/fa';
@@ -39,10 +39,21 @@ const filterTabs: { text: Filter; id: Filter; position: number }[] = [
 ];
 
 export default function GamesPage({
-  games,
+  publishedGames,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const [games, setGames] = useState(publishedGames);
   const [order, setOrder] = useState<Order>('Ascending');
   const [filters, setFilters] = useState<Filter[]>(['All']);
+
+  // add a NEW badge to recently created games
+  useEffect(() => {
+    setGames(
+      games.map(game => ({
+        ...game,
+        isNew: checkIfNew(game.publishedDate, 200),
+      }))
+    );
+  }, []);
 
   const handleCarouselClick = (id: Filter | Order) => {
     // check if a sort button was clicked, if not it was a filter button
@@ -111,7 +122,6 @@ export default function GamesPage({
               gameDetails.includes(filter as Exclude<Filter, 'All'>)
             );
           })
-          .map(game => ({ ...game, isNew: checkIfNew(game.publishedDate, 30) }))
           // sort the games according to the title
           .sort((a, b) => {
             // if the game is new we'll show it first
@@ -367,11 +377,17 @@ export default function GamesPage({
 export const getStaticProps = async () => {
   const gameConfigs = await getAllGameConfigs();
 
-  const publishedGames = gameConfigs.filter(({ publish }) => publish);
+  const publishedGames = gameConfigs
+    .filter(({ publish }) => publish)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    .map(({ instructions, keyCuts, publish, warnings, ...rest }) => ({
+      ...rest,
+      isNew: false,
+    }));
 
   return {
     props: {
-      games: publishedGames,
+      publishedGames,
     },
   };
 };
