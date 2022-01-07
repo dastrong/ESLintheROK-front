@@ -122,7 +122,11 @@ export default function NavLinks() {
           delayHide={100}
           hideTooltip={loading}
           trigger={['hover', 'focus']}
-          owner={<li>{loading ? <Skeleton width="7ch" /> : 'Account'}</li>}
+          owner={
+            <li style={{ width: '6ch' }}>
+              {loading ? <Skeleton width="6ch" /> : 'Account'}
+            </li>
+          }
         >
           <ul className="nav_dropdown">
             {!session ? (
