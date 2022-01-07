@@ -142,7 +142,7 @@ export default function LessonsBooks({
             .book:hover {
               filter: grayscale(75%);
             }
-            .book:hover :after {
+            .book:hover:after {
               opacity: 1;
               transform: translateY(16px);
             }
