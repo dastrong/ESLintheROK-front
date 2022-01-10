@@ -15,14 +15,12 @@ type Direction = 'prev' | 'next';
 type Props = {
   isOpen: boolean;
   instructions: GameInstructions;
-  gameImgUrl: string;
   seoTitle: string;
 };
 
 export default function GameInstructionsModal({
   isOpen,
   instructions,
-  gameImgUrl,
   seoTitle,
 }: Props) {
   const isFirstRun = useFirstRun();
@@ -134,12 +132,7 @@ export default function GameInstructionsModal({
           {capitalizedVersion} Instructions
         </Modal.Header>
 
-        <Modal.Content
-          className={Styles.ContentContainerCSS.className}
-          style={{
-            background: `url(${gameImgUrl}) no-repeat center / contain`,
-          }}
-        >
+        <Modal.Content className={Styles.ContentContainerCSS.className}>
           {transitions(
             (styles, index) =>
               activeIndex === index && (

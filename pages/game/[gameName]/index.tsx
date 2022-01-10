@@ -43,8 +43,6 @@ export default function GameHomePage({
   const { asPath, query, push } = useRouter();
   const { isDataReady, storeDispatch } = useStore();
 
-  const imgUrl = getGameImgUrl(title);
-
   // SEO
   const seoTitle = `${title} Game`;
   const ogImgUrl = getGameOgImgUrl(title, `/c_scale,w_1200`);
@@ -121,7 +119,7 @@ export default function GameHomePage({
 
         <div className="image">
           <Image
-            src={imgUrl}
+            src={getGameImgUrl(title)}
             loader={cloudinaryLoader}
             alt={title}
             height={1080}
@@ -181,7 +179,6 @@ export default function GameHomePage({
         {['teacher', 'student'].includes(query.instructions as string) && (
           <GameInstructionsModal
             isOpen
-            gameImgUrl={imgUrl}
             instructions={
               query.instructions === 'student'
                 ? instructions.forStudents
