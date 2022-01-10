@@ -1,104 +1,74 @@
-import React, { useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
+import React, { CSSProperties, useState } from 'react';
+import { default as NextImage } from 'next/image';
+import type { ImageProps } from 'next/image';
 import { FaExclamationCircle } from 'react-icons/fa';
-import Skeleton from 'components/Skeleton';
-
-type Props = {
-  delay?: number;
-  height?: number;
-  width?: number;
-  isTransparent?: boolean;
-};
+import { getShimmerDataURL } from 'utils/getShimmerUrl';
 
 export default function Image({
-  src,
-  alt,
-  height,
-  width,
-  delay = 200,
-  isTransparent = false,
-  ...rest
-}: Props & React.ImgHTMLAttributes<HTMLImageElement>) {
-  const [loading, setLoading] = useState(!delay);
-  const [loaded, setLoaded] = useState(false);
+  style,
+  ...props
+}: ImageProps & { style?: CSSProperties }) {
   const [error, setError] = useState(false);
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0 });
 
-  useEffect(() => {
-    let id: NodeJS.Timeout;
-    if (delay && !loading && !loaded) {
-      id = setTimeout(() => setLoading(true), delay);
-    }
-    return () => clearTimeout(id);
-  }, [loaded]);
-
-  const srcProp = inView && src ? { src } : {};
+  let shimmerDataUrl: string;
+  if (props.placeholder === 'blur') {
+    shimmerDataUrl = getShimmerDataURL(
+      Number(props.width),
+      Number(props.height)
+    );
+  }
 
   return (
-    <div ref={ref}>
-      {(!inView || !src || (loading && !loaded)) && (
-        <Skeleton
-          addStyle={{
-            height: '100%',
-            width: '100%',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            zIndex: 1111,
-          }}
-        />
-      )}
-
-      <img
-        {...rest}
-        {...srcProp}
-        alt={alt}
-        width={width}
-        height={height}
-        onLoad={() => {
-          setLoaded(true);
-        }}
-        onError={() => {
-          setLoading(false);
-          setError(true);
-        }}
+    <div className="next_img_container" style={style}>
+      <NextImage
+        {...props}
+        blurDataURL={shimmerDataUrl}
+        onError={() => setError(true)}
       />
 
-      {error && !loaded && (
-        <div>
+      {error && (
+        <div className="error_container">
           <FaExclamationCircle fill="red" size={16} />
-          <p>{alt}</p>
+          <p>{props.alt}</p>
         </div>
       )}
 
+      <style jsx global>{`
+        .next_img_container span {
+          border-radius: inherit;
+          line-height: 1;
+          display: block !important;
+        }
+      `}</style>
+
       <style jsx>{`
-        div {
+        .next_img_container {
           position: relative;
-          background-color: ${isTransparent ? 'transparent' : '#eee'};
+          display: block;
+          border-radius: inherit;
+          line-height: 1;
+        }
+
+        .error_container {
+          position: absolute;
+          top: 0;
+          left: 0;
+          text-align: center;
+          background: #eee;
+          height: 100%;
+          width: 100%;
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          overflow: hidden;
+          border-radius: inherit;
+          line-height: 1;
         }
 
-        img {
-          opacity: ${loaded ? 1 : 0};
-          transition: opacity 250ms ease-in-out;
-          color: transparent;
-          height: auto;
-          max-width: 100%;
-          max-height: 100%;
-        }
-
-        p {
+        .error_container p {
           margin: 0.5rem 0 0;
           text-align: center;
           font-size: 0.9rem;
-        }
-
-        div div {
-          position: absolute;
         }
       `}</style>
     </div>

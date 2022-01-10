@@ -6,7 +6,7 @@ import Skeleton from 'components/Skeleton';
 import Image from 'components/Image';
 import LessonsGradeCarousel from './LessonsGradeCarousel';
 import type { Book, LessonsBooksProps } from './Lessons.types';
-import { getBookCoverUrl } from 'utils/getCloudUrls';
+import { cloudinaryLoader, getBookCoverUrl } from 'utils/getCloudUrls';
 import { swrFetch } from 'utils/fetchers';
 
 export default function LessonsBooks({
@@ -71,14 +71,26 @@ export default function LessonsBooks({
                   role="button"
                   tabIndex={0}
                 >
-                  <Image
-                    key={bookId}
-                    src={bookImgUrl}
-                    alt={`Book Cover ${bookTitle}`}
-                    height={168}
-                    width={126}
-                    style={{ borderRadius: '0.5rem' }}
-                  />
+                  {bookImgUrl ? (
+                    <Image
+                      src={bookImgUrl}
+                      loader={cloudinaryLoader}
+                      alt={`Book Cover ${bookTitle}`}
+                      height={168}
+                      width={126}
+                      layout="fixed"
+                      placeholder="blur"
+                      style={{ borderRadius: '0.5rem' }}
+                    />
+                  ) : (
+                    <Skeleton
+                      addStyle={{
+                        height: '168px',
+                        width: '126px',
+                        borderRadius: '0.5rem',
+                      }}
+                    />
+                  )}
                   <h4>
                     {bookTitle || (
                       <Skeleton addStyle={{ width: '90%', marginLeft: '5%' }} />

@@ -1,3 +1,5 @@
+import type { ImageLoaderProps } from 'next/image';
+
 type FileType = 'image' | 'video';
 
 const imageExtensions = ['svg', 'png', 'jpg', 'webp', 'gif'];
@@ -22,10 +24,9 @@ export const getCloudImgBase = (
   );
 };
 
-export const getGameImgUrl = (gameTitle: string) => {
-  const baseUrl = getCloudImgBase();
+export const getGameImgUrl = (gameTitle: string): string => {
   const noSpacesTitle = gameTitle.replace(/\s/g, '');
-  return `${baseUrl}/Games/${noSpacesTitle}/GameCover.svg`;
+  return `ESLintheROK/Games/${noSpacesTitle}/GameCover.png`;
 };
 
 export const getGameOgImgUrl = (gameTitle: string, transformations: string) => {
@@ -45,7 +46,18 @@ export const getBookCoverUrl = (
   publisher: string,
   author: string
 ) => {
-  const baseUrl = getCloudImgBase('/c_scale,f_auto,h_308,q_70,w_231');
   const bookFileName = `${grade}_${publisher.toUpperCase()}_${author.toUpperCase()}`;
-  return `${baseUrl}/Books/${bookFileName}.jpg`;
+  return `ESLintheROK/Books/${bookFileName}.jpg`;
+};
+
+export const cloudinaryLoader = ({ src, width, quality }: ImageLoaderProps) => {
+  // https://github.com/vercel/next.js/blob/canary/packages/next/client/image.tsx
+  const params = [
+    'f_auto',
+    'c_limit',
+    'w_' + width,
+    'q_' + (quality || 'auto'),
+  ];
+  const paramsString = params.join(',') + '/';
+  return `${process.env.NEXT_PUBLIC_CLOUDINARY_URL}/image/upload/${paramsString}${src}`;
 };

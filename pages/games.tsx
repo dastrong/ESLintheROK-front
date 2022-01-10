@@ -10,7 +10,7 @@ import Image from 'components/Image';
 import Button from 'components/Button';
 import Carousel from 'components/Carousel';
 import { getAllGameConfigs } from 'utils/getAllGameConfigs';
-import { getGameImgUrl } from 'utils/getCloudUrls';
+import { cloudinaryLoader, getGameImgUrl } from 'utils/getCloudUrls';
 import { checkIfNew } from 'utils/checkIfNew';
 
 type Order = 'Ascending' | 'Descending';
@@ -162,12 +162,14 @@ export default function GamesPage({
               {/* Image */}
               <div className="image">
                 <Image
-                  isTransparent
                   src={getGameImgUrl(game.title)}
+                  loader={cloudinaryLoader}
                   alt={game.title}
-                  height={game.image.height}
-                  width={game.image.width}
-                  style={{ padding: '1rem' }}
+                  height={1080}
+                  width={1920}
+                  placeholder="blur"
+                  layout="responsive"
+                  sizes="(max-width: 1500px) 400px, (max-width: 2000px) 450px, 500px"
                 />
               </div>
 
@@ -207,7 +209,7 @@ export default function GamesPage({
             font-size: var(--container-text);
 
             --container-text: 1rem;
-            --card-height: 195px;
+            --card-width: 400px;
             --card-radius: 1rem;
             --card-margin: 1rem;
             --banner-height: 3rem;
@@ -217,9 +219,9 @@ export default function GamesPage({
           @media screen and (min-width: 1500px) {
             .container {
               --container-text: 1.1rem;
-              --card-height: 220px;
+              --card-width: 450px;
               --card-radius: 1rem;
-              --card-margin: 1.25rem;
+              --card-margin: 1.5rem;
               --banner-height: 3.25rem;
               --banner-text: 0.9em;
             }
@@ -228,22 +230,22 @@ export default function GamesPage({
           @media screen and (min-width: 2000px) {
             .container {
               --container-text: 1.2rem;
-              --card-height: 250px;
+              --card-width: 500px;
               --card-radius: 1rem;
-              --card-margin: 1.5rem;
+              --card-margin: 2rem;
               --banner-height: 3.5rem;
               --banner-text: 1em;
             }
           }
 
           .card {
-            height: calc(var(--card-height) + var(--card-radius) * 2);
+            width: var(--card-width);
             margin: var(--card-margin);
             position: relative;
             border-radius: var(--card-radius);
             overflow: hidden;
             box-shadow: 0 0 5px #a1a1a1;
-            aspect-ratio: 1.8;
+            aspect-ratio: 16 / 9;
           }
 
           .badge {
@@ -304,8 +306,7 @@ export default function GamesPage({
           }
 
           .image {
-            display: flex;
-            justify-content: center;
+            position: relative;
             width: 100%;
             height: 100%;
             background-color: #eee;
