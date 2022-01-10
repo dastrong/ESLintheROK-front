@@ -56,6 +56,7 @@ NEXT_PUBLIC_SEED = 'boolean'; // set this if you want seed the database or use t
 COFFEE_TOKEN = 'string'; // used to grab supporters from buymeacoffee
 
 NEXTAUTH_URL = 'http://localhost:3000'; // frontend url
+NEXT_PUBLIC_NEXTAUTH_URL = 'http://localhost:3000'; // frontend url
 NEXTAUTH_SECRET = 'string';
 DATABASE_URL = 'string'; // MongoDB connection url
 

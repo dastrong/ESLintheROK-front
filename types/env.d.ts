@@ -15,6 +15,9 @@ declare namespace NodeJS {
     COFFEE_TOKEN: string;
 
     NEXTAUTH_URL: 'http://localhost:3000' | 'https://www.eslintherok.com';
+    NEXT_PUBLIC_NEXTAUTH_URL:
+      | 'http://localhost:3000'
+      | 'https://www.eslintherok.com';
     NEXTAUTH_SECRET: string;
     DATABASE_URL: string;
 
