@@ -18,14 +18,8 @@ import GifGridCarousel from './GifGridCarousel';
 export default function GifGrid() {
   const { width } = useWindowSize();
 
-  const {
-    gifs,
-    removedGifIds,
-    usedGifIds,
-    gifDispatch,
-    fetchGif,
-    searchTerm,
-  } = useGifs();
+  const { gifs, removedGifIds, usedGifIds, gifDispatch, fetchGif, searchTerm } =
+    useGifs();
   const closeModal = () => gifDispatch({ type: 'Close_Gif' });
 
   // users can update the search term  we want ...

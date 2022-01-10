@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
-   {
+  div {
     font-family: ${fontFamily};
     background-color: #fff;
     background-position: bottom;
@@ -14,7 +14,7 @@ export const getContainerCSS = (fontFamily: string) => css.resolve`
     cursor: pointer;
   }
 
-  :after {
+  div:after {
     content: '';
     position: absolute;
     height: 100vh;
@@ -25,7 +25,7 @@ export const getContainerCSS = (fontFamily: string) => css.resolve`
 `;
 
 export const InfoCSS = css.resolve`
-   {
+  div {
     position: absolute;
     width: 100%;
     top: 37.5vh;
@@ -38,7 +38,7 @@ export const InfoCSS = css.resolve`
 `;
 
 export const LettersCSS = css.resolve`
-   {
+  div {
     position: absolute;
     /* if sizes are changed, update the value in getSideValues  */
     height: 20vh;

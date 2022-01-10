@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
-   {
+  div {
     font-family: ${fontFamily};
     background-color: #fff;
     height: 100vh;
@@ -15,7 +15,7 @@ export const getContainerCSS = (fontFamily: string) => css.resolve`
 `;
 
 export const SlideCSS = css.resolve`
-   {
+  div {
     height: 100%;
     width: 100%;
     position: absolute;
@@ -30,7 +30,8 @@ export const SlideCSS = css.resolve`
 `;
 
 export const KimchiCSS = css.resolve`
-   {
+  img,
+  span {
     width: 50%;
     min-width: 500px;
     max-width: 800px;
@@ -39,7 +40,7 @@ export const KimchiCSS = css.resolve`
 `;
 
 export const PooCSS = css.resolve`
-   {
+  span {
     line-height: 100%;
     height: 350px;
     font-size: 300px;
@@ -48,7 +49,7 @@ export const PooCSS = css.resolve`
 `;
 
 export const FrequencyCSS = css.resolve`
-   {
+  div {
     position: absolute;
     bottom: 3vh;
     left: 3vw;

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { animated, useSpring, config } from 'react-spring';
 
 import { useStore } from 'contexts/store';
@@ -17,6 +17,7 @@ export default function LessonsGrades({
 }: LessonsGradesProps) {
   const isLoading = currentStep === 'LOADING';
 
+  const { push } = useRouter();
   const { storeDispatch } = useStore();
 
   // animations that run once the grades have been loaded
@@ -82,9 +83,15 @@ export default function LessonsGrades({
                   </p>
                   <p>
                     Otherwise, please read{' '}
-                    <Link href="/contribute/teacher">
-                      <a className="text_button">this</a>
-                    </Link>
+                    <button
+                      className="text_button"
+                      onClick={() => {
+                        push('/contribute#teacher');
+                        storeDispatch({ type: 'Close_Data_Modal' });
+                      }}
+                    >
+                      this
+                    </button>
                     .
                   </p>
                 </div>

@@ -33,7 +33,11 @@ export default function SignOutPage() {
   }
 
   return (
-    <SeoWrapper title="Account Signout" description="Sign out of your account.">
+    <SeoWrapper
+      noindex
+      title="Account Signout"
+      description="Sign out of your account."
+    >
       <div>
         <PageHeading>Account Signout</PageHeading>
         <PageSubHeading>

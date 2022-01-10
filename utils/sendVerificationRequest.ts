@@ -1,7 +1,13 @@
 import nodemailer from 'nodemailer';
 import { SendVerificationRequest } from 'next-auth/providers';
-import logger from 'next-auth/dist/lib/logger';
 import { getVerifyEmail } from 'components/EmailTemplates';
+
+const logger = (code: string, ...message: any[]) =>
+  console.error(
+    `[next-auth][error][${code.toLowerCase()}]`,
+    `\nhttps://next-auth.js.org/errors#${code.toLowerCase()}`,
+    ...message
+  );
 
 export const sendVerificationRequest: SendVerificationRequest = ({
   identifier: email,
@@ -25,12 +31,8 @@ export const sendVerificationRequest: SendVerificationRequest = ({
       },
       error => {
         if (error) {
-          logger.error('SEND_VERIFICATION_EMAIL_ERROR', email, error);
-          return reject(
-            new Error(
-              logger.error('SEND_VERIFICATION_EMAIL_ERROR', email, error)
-            )
-          );
+          logger('SEND_VERIFICATION_EMAIL_ERROR', email, error);
+          return reject(new Error('SEND_VERIFICATION_EMAIL_ERROR'));
         }
         return resolve();
       }

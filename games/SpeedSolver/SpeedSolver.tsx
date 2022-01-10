@@ -25,7 +25,6 @@ import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData, resetAllAudio } from 'games/_utils';
 import { AnswerBox } from 'games/_components';
-import GameWrapper from 'components/GameWrapper';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 
 // CONSTANTS - img, audio, function, etc.
@@ -57,11 +56,7 @@ const stages: StageNames[] = [
   'SHOW_ANSWER_TEXT',
 ];
 
-export default function SpeedSolver({
-  title,
-  description,
-  keyCuts,
-}: GameSEOProps) {
+export default function SpeedSolver({ title }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -178,43 +173,42 @@ export default function SpeedSolver({
   }
 
   return (
-    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <div
-        className={ContainerCSS.className}
-        style={{ backgroundImage }}
-        onClick={_handleClick}
-      >
-        <SpeedSolverInfo
-          show={curStage === 'SHOW_LEVEL'}
-          text={`Level ${level}`}
-          cx={Styles.InfoCSS.className}
-        />
-        <SpeedSolverInfo
-          show={curStage === 'SHOW_READY'}
-          text="Ready?"
-          cx={Styles.InfoCSS.className}
-        />
+    <div
+      className={ContainerCSS.className}
+      style={{ backgroundImage }}
+      onClick={_handleClick}
+    >
+      <SpeedSolverInfo
+        show={curStage === 'SHOW_LEVEL'}
+        text={`Level ${level}`}
+        cx={Styles.InfoCSS.className}
+      />
+      <SpeedSolverInfo
+        show={curStage === 'SHOW_READY'}
+        text="Ready?"
+        cx={Styles.InfoCSS.className}
+      />
 
+      {curStage === 'ACTION' && (
         <SpeedSolverLetters
-          showLetters={curStage === 'ACTION'}
           gameData={gameData}
           level={level}
           isVocab={isVocab}
           cx={Styles.LettersCSS.className}
         />
+      )}
 
-        <AnswerBox
-          answer={answer}
-          showBox={curStage === 'SHOW_ANSWER_BOX'}
-          showText={curStage === 'SHOW_ANSWER_TEXT'}
-        />
+      <AnswerBox
+        answer={answer}
+        showBox={curStage === 'SHOW_ANSWER_BOX'}
+        showText={curStage === 'SHOW_ANSWER_TEXT'}
+      />
 
-        {/* STYLES */}
-        {ContainerCSS.styles}
-        {Styles.InfoCSS.styles}
-        {Styles.LettersCSS.styles}
-      </div>
-    </GameWrapper>
+      {/* STYLES */}
+      {ContainerCSS.styles}
+      {Styles.InfoCSS.styles}
+      {Styles.LettersCSS.styles}
+    </div>
   );
 }
 

@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
-   {
+  div {
     font-family: ${fontFamily};
     background-color: #fff;
     overflow: hidden;
@@ -16,7 +16,7 @@ export const getContainerCSS = (fontFamily: string) => css.resolve`
 `;
 
 export const CardCSS = css.resolve`
-   {
+  div {
     display: flex;
     align-items: center;
     justify-content: center;

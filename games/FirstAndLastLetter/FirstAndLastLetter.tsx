@@ -21,18 +21,13 @@ import FirstAndLastLetterNotice from './FirstAndLastLetterNotice';
 import { track } from 'utils/analytics';
 import { getRandoNum } from 'games/_utils';
 import type { GameSEOProps } from 'games/types';
-import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 
 // CONSTANTS - img, audio, function, etc.
 const letters = 'abcdefghijklmnopqrstuvwxyz';
 const duration = 500;
 
-export default function FirstAndLastLetter({
-  title,
-  description,
-  keyCuts,
-}: GameSEOProps) {
+export default function FirstAndLastLetter({ title }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -41,15 +36,8 @@ export default function FirstAndLastLetter({
   const primary = store.vocabulary;
   const gameStore: GameStore = useData(reducer, init, primary);
   const [state, dispatch, didUpdate] = gameStore;
-  const {
-    oldWord,
-    newWord,
-    startingLetter,
-    error,
-    stage,
-    colors,
-    words,
-  } = state;
+  const { oldWord, newWord, startingLetter, error, stage, colors, words } =
+    state;
 
   // REFS - useFitText, useSplit2Rows, etc..
   const isFirstRun = useFirstRun();
@@ -139,106 +127,104 @@ export default function FirstAndLastLetter({
   }, [stage]);
 
   return (
-    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <div className={ContainerCSS.className}>
-        <animated.div
-          className={Styles.GradientCSS.className}
-          style={{
-            ...gradientSpring,
-            background: `linear-gradient(to bottom, ${colors[0]}, ${colors[1]}, ${colors[2]})`,
-          }}
-        />
+    <div className={ContainerCSS.className}>
+      <animated.div
+        className={Styles.GradientCSS.className}
+        style={{
+          ...gradientSpring,
+          background: `linear-gradient(to bottom, ${colors[0]}, ${colors[1]}, ${colors[2]})`,
+        }}
+      />
 
-        <animated.div
-          className={Styles.TextContainerCSS.className}
-          style={containerSpring}
+      <animated.div
+        className={Styles.TextContainerCSS.className}
+        style={containerSpring}
+      >
+        <div
+          className={classNames(
+            Styles.OuterTextContainerCSS.className,
+            Styles.TopTextContainerCSS.className
+          )}
         >
-          <div
-            className={classNames(
-              Styles.OuterTextContainerCSS.className,
-              Styles.TopTextContainerCSS.className
-            )}
-          >
-            <div className={Styles.InnerTextContainerCSS.className}>
-              <FitText ref={topTextTop}>
-                {(oldWord || startingLetter).split('').map((letter, i, arr) => (
-                  <animated.span
-                    key={letter + i}
-                    style={{
-                      ...oldTextContainerSpring,
-                      color: i !== arr.length - 1 ? 'inherit' : 'red',
-                    }}
-                  >
-                    {letter}
-                  </animated.span>
-                ))}
-                <span
-                  className={Styles.BlinkingCursorCSS.className}
-                  style={{ visibility: 'hidden' }}
+          <div className={Styles.InnerTextContainerCSS.className}>
+            <FitText ref={topTextTop}>
+              {(oldWord || startingLetter).split('').map((letter, i, arr) => (
+                <animated.span
+                  key={letter + i}
+                  style={{
+                    ...oldTextContainerSpring,
+                    color: i !== arr.length - 1 ? 'inherit' : 'red',
+                  }}
                 >
-                  |
-                </span>
-              </FitText>
-            </div>
+                  {letter}
+                </animated.span>
+              ))}
+              <span
+                className={Styles.BlinkingCursorCSS.className}
+                style={{ visibility: 'hidden' }}
+              >
+                |
+              </span>
+            </FitText>
           </div>
-
-          <div
-            className={classNames(
-              Styles.OuterTextContainerCSS.className,
-              Styles.BottomTextContainerCSS.className
-            )}
-          >
-            <div className={Styles.InnerTextContainerCSS.className}>
-              <FitText ref={bottomTextTop}>
-                {newWord.split('').map((letter, i) => (
-                  <animated.span key={letter + i} style={newTextSprings[i]}>
-                    {letter}
-                  </animated.span>
-                ))}
-                <span
-                  className={Styles.BlinkingCursorCSS.className}
-                  style={{ visibility: stage !== 0 ? 'hidden' : 'visible' }}
-                >
-                  |
-                </span>
-              </FitText>
-            </div>
-          </div>
-        </animated.div>
-
-        <div className={Styles.TotalWordsCSS.className}>
-          TOTAL WORDS{' '}
-          <span className={Styles.TotalWordsNumberCSS.className}>
-            {words.length}
-          </span>
         </div>
 
-        <input
-          type="text"
-          ref={hiddenInput}
-          className={Styles.HiddenInputCSS.className}
-          value={newWord}
-          onChange={e => {
-            if (stage !== 0 || error) return;
-            dispatch({ type: 'Update_Word', newWord: e.target.value });
-          }}
-        />
+        <div
+          className={classNames(
+            Styles.OuterTextContainerCSS.className,
+            Styles.BottomTextContainerCSS.className
+          )}
+        >
+          <div className={Styles.InnerTextContainerCSS.className}>
+            <FitText ref={bottomTextTop}>
+              {newWord.split('').map((letter, i) => (
+                <animated.span key={letter + i} style={newTextSprings[i]}>
+                  {letter}
+                </animated.span>
+              ))}
+              <span
+                className={Styles.BlinkingCursorCSS.className}
+                style={{ visibility: stage !== 0 ? 'hidden' : 'visible' }}
+              >
+                |
+              </span>
+            </FitText>
+          </div>
+        </div>
+      </animated.div>
 
-        <FirstAndLastLetterNotice error={error} />
-
-        {/* STYLES */}
-        {ContainerCSS.styles}
-        {Styles.GradientCSS.styles}
-        {Styles.TextContainerCSS.styles}
-        {Styles.OuterTextContainerCSS.styles}
-        {Styles.InnerTextContainerCSS.styles}
-        {Styles.TopTextContainerCSS.styles}
-        {Styles.BottomTextContainerCSS.styles}
-        {Styles.BlinkingCursorCSS.styles}
-        {Styles.HiddenInputCSS.styles}
-        {Styles.TotalWordsCSS.styles}
-        {Styles.TotalWordsNumberCSS.styles}
+      <div className={Styles.TotalWordsCSS.className}>
+        TOTAL WORDS{' '}
+        <span className={Styles.TotalWordsNumberCSS.className}>
+          {words.length}
+        </span>
       </div>
-    </GameWrapper>
+
+      <input
+        type="text"
+        ref={hiddenInput}
+        className={Styles.HiddenInputCSS.className}
+        value={newWord}
+        onChange={e => {
+          if (stage !== 0 || error) return;
+          dispatch({ type: 'Update_Word', newWord: e.target.value });
+        }}
+      />
+
+      <FirstAndLastLetterNotice error={error} />
+
+      {/* STYLES */}
+      {ContainerCSS.styles}
+      {Styles.GradientCSS.styles}
+      {Styles.TextContainerCSS.styles}
+      {Styles.OuterTextContainerCSS.styles}
+      {Styles.InnerTextContainerCSS.styles}
+      {Styles.TopTextContainerCSS.styles}
+      {Styles.BottomTextContainerCSS.styles}
+      {Styles.BlinkingCursorCSS.styles}
+      {Styles.HiddenInputCSS.styles}
+      {Styles.TotalWordsCSS.styles}
+      {Styles.TotalWordsNumberCSS.styles}
+    </div>
   );
 }

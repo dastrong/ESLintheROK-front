@@ -11,7 +11,7 @@ const SvgCSS = css.resolve`
     position: absolute;
     bottom: 0;
     right: 5%;
-    width: 40%;
+    width: 35%;
     max-height: 75%;
     z-index: 1;
   }
@@ -77,13 +77,13 @@ export default function IndexPage() {
 
           h1 {
             margin: 0 0 1rem;
-            font-size: min(8vw, 7rem);
+            font-size: min(6.5vw, 10rem);
             color: #2c2c2c;
           }
 
           p {
             margin: 0 0 2rem;
-            font-size: min(4vw, 3.5rem);
+            font-size: min(2.5vw, 4rem);
             line-height: 130%;
             color: #565656;
             width: 65%;

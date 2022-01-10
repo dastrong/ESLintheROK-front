@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
-   {
+  div {
     font-family: ${fontFamily};
     background-color: #fff;
     height: 100vh;
@@ -12,7 +12,7 @@ export const getContainerCSS = (fontFamily: string) => css.resolve`
 `;
 
 export const NotebookHeadCSS = css.resolve`
-   {
+  div {
     position: absolute;
     left: 14vw;
     height: 13vw;
@@ -25,14 +25,14 @@ export const NotebookHeadCSS = css.resolve`
 `;
 
 export const NotebookHeadFitTextCSS = css.resolve`
-   {
+  span {
     position: default;
     text-decoration: underline #28a8d4;
   }
 `;
 
 export const NotebookBodyCSS = css.resolve`
-   {
+  div {
     background-image: linear-gradient(
         0deg,
         transparent 5em,
@@ -49,7 +49,7 @@ export const NotebookBodyCSS = css.resolve`
 `;
 
 export const NotebookSideCSS = css.resolve`
-   {
+  div {
     height: 100vh;
     margin-top: -13vw;
     width: 13vw;
@@ -61,7 +61,7 @@ export const NotebookSideCSS = css.resolve`
 `;
 
 export const NotebookSideHoleCSS = css.resolve`
-   {
+  div {
     border-radius: 50%;
     background-color: #fff;
     height: 3vw;
@@ -73,7 +73,7 @@ export const NotebookSideHoleCSS = css.resolve`
 `;
 
 export const NotebookSideHoleActiveCSS = css.resolve`
-   {
+  div {
     border: 1px solid #e5e6e5;
     background-color: #e6e6e6;
     box-shadow: 1px 1px 4px 0px #aab1aa inset;
@@ -82,7 +82,7 @@ export const NotebookSideHoleActiveCSS = css.resolve`
 `;
 
 export const NotebookTextCSS = css.resolve`
-   {
+  div {
     height: calc(100vh - 13vw);
     width: 86vw;
     display: flex;
@@ -93,13 +93,13 @@ export const NotebookTextCSS = css.resolve`
 `;
 
 export const NotebookTextFitTextCSS = css.resolve`
-   {
+  span {
     overflow: hidden;
   }
 `;
 
 export const NotebookVertLineCSS = css.resolve`
-   {
+  div {
     position: absolute;
     top: 0;
     left: 13vw;

@@ -6,10 +6,7 @@ type Props = {
   code: string;
 };
 
-export default function getVerifyEmail({
-  url,
-  code,
-}: Props): {
+export default function getVerifyEmail({ url, code }: Props): {
   html: string;
   text: string;
 } {

@@ -15,10 +15,9 @@ import * as Styles from './Nunchi.styles';
 import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
-import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 
-export default function Nunchi({ title, description, keyCuts }: GameSEOProps) {
+export default function Nunchi({ title }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -59,32 +58,30 @@ export default function Nunchi({ title, description, keyCuts }: GameSEOProps) {
   useKeys(handleGame); // no specific in game events
 
   return (
-    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <div className={ContainerCSS.className} onClick={handleGame}>
-        <div className={Styles.TextContainerCSS.className}>
-          {readyTransition(
-            (style, item) =>
-              item && (
-                <animated.p
-                  style={style}
-                  className={Styles.ReadyTextCSS.className}
-                >
-                  Ready?
-                </animated.p>
-              )
-          )}
+    <div className={ContainerCSS.className} onClick={handleGame}>
+      <div className={Styles.TextContainerCSS.className}>
+        {readyTransition(
+          (style, item) =>
+            item && (
+              <animated.p
+                style={style}
+                className={Styles.ReadyTextCSS.className}
+              >
+                Ready?
+              </animated.p>
+            )
+        )}
 
-          <animated.div style={textStyles} className={Styles.TextCSS.className}>
-            <FitText text={text} ref={ref} />
-          </animated.div>
-        </div>
-
-        {/* STYLES */}
-        {ContainerCSS.styles}
-        {Styles.TextContainerCSS.styles}
-        {Styles.ReadyTextCSS.styles}
-        {Styles.TextCSS.styles}
+        <animated.div style={textStyles} className={Styles.TextCSS.className}>
+          <FitText text={text} ref={ref} />
+        </animated.div>
       </div>
-    </GameWrapper>
+
+      {/* STYLES */}
+      {ContainerCSS.styles}
+      {Styles.TextContainerCSS.styles}
+      {Styles.ReadyTextCSS.styles}
+      {Styles.TextCSS.styles}
+    </div>
   );
 }

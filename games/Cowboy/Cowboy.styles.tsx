@@ -2,7 +2,7 @@ import css from 'styled-jsx/css';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
-   {
+  div {
     font-family: ${fontFamily};
     background-color: #fff;
     height: 100vh;
@@ -20,7 +20,7 @@ export const getContainerCSS = (fontFamily: string) => css.resolve`
 `;
 
 export const TextHolderCSS = css.resolve`
-   {
+  div {
     width: 70%;
     height: 90vh;
     background-color: rgba(255, 210, 177, 0.43);
@@ -33,7 +33,7 @@ export const TextHolderCSS = css.resolve`
 `;
 
 export const TextCSS = css.resolve`
-   {
+  div {
     position: absolute;
     width: 100%;
     height: 100%;

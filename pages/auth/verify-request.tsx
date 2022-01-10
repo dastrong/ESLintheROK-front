@@ -132,6 +132,7 @@ export default function VerifyRequestPage() {
 
   return (
     <SeoWrapper
+      noindex
       title="Verify Email"
       description="Check your email to verify that you are who you say you are."
     >

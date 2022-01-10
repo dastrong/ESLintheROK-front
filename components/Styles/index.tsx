@@ -1,7 +1,8 @@
 import css from 'styled-jsx/css';
 
 export const InputCSS = css.resolve`
-   {
+  input,
+  textarea {
     margin: 0;
     outline: 0;
     line-height: 1.25rem;
@@ -16,7 +17,8 @@ export const InputCSS = css.resolve`
     width: inherit;
   }
 
-  :focus {
+  input:focus,
+  textarea:focus {
     color: rgba(0, 0, 0, 0.95);
     border-color: #85b7d9;
   }

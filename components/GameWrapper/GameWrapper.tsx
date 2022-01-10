@@ -1,7 +1,10 @@
 import React from 'react';
+import { useStore } from 'contexts/store';
+import { GameSEOProps, GameKeyCut } from 'games/types';
+
 import SeoWrapper from 'components/SeoWrapper';
 import FontLoader from 'components/FontLoader';
-import { GameSEOProps, GameKeyCut } from 'games/types';
+import GameWrapperDataNotice from './GameWrapperDataNotice';
 
 import dynamic from 'next/dynamic';
 const GameWrapperFullscreen = dynamic(() => import('./GameWrapperFullscreen'));
@@ -18,11 +21,21 @@ export default function GameWrapper({
   description,
   keyCuts,
 }: Props) {
+  const { isDataReady } = useStore();
+
+  // if there's no data set then we'll set a loading to true...
+  // ... so we can wait and see if localStorage has a pastLesson
+  const [loading, setLoading] = React.useState(!isDataReady);
+
+  React.useEffect(() => {
+    if (isDataReady) setLoading(false);
+  }, [isDataReady]);
+
   return (
-    <SeoWrapper title={title} description={description}>
+    <SeoWrapper noindex title={title} description={description}>
       <FontLoader />
       <GameWrapperFullscreen />
-      {children}
+      {!isDataReady || loading ? <GameWrapperDataNotice /> : children}
       <GameWrapperTips title={title} keyCuts={keyCuts} />
     </SeoWrapper>
   );

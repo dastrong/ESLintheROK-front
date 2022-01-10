@@ -27,12 +27,8 @@ export default function LessonsData({
   const { session } = useUserSession();
 
   const { storeDispatch } = useStore();
-  const {
-    setterDispatch,
-    vocabulary,
-    expressions,
-    sufficientData,
-  } = useSetter();
+  const { setterDispatch, vocabulary, expressions, sufficientData } =
+    useSetter();
 
   const [initialData, setInitialData] = useState(null);
   const [showSubmissionScreen, setShowSubmissionScreen] = useState(false);

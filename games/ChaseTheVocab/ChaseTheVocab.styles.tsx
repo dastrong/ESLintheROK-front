@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
-   {
+  div {
     font-family: ${fontFamily};
     background-color: #fff;
     overflow: hidden;
@@ -10,7 +10,7 @@ export const getContainerCSS = (fontFamily: string) => css.resolve`
 `;
 
 export const FlipperContainerCSS = css.resolve`
-   {
+  div {
     display: flex;
     flex-wrap: wrap;
     cursor: pointer;
@@ -18,7 +18,7 @@ export const FlipperContainerCSS = css.resolve`
 `;
 
 export const CardHolderCSS = css.resolve`
-   {
+  div {
     box-sizing: border-box;
     height: 32.33vh;
     width: 32.33vw;
@@ -31,7 +31,7 @@ export const CardHolderCSS = css.resolve`
 `;
 
 export const CardCSS = css.resolve`
-   {
+  div {
     box-sizing: border-box;
     position: relative;
     display: flex;
@@ -42,7 +42,7 @@ export const CardCSS = css.resolve`
 `;
 
 export const CardNumCSS = css.resolve`
-   {
+  div {
     position: absolute;
     font-size: 9vw;
     width: 100%;
@@ -52,7 +52,7 @@ export const CardNumCSS = css.resolve`
 `;
 
 export const CardTextCSS = css.resolve`
-   {
+  div {
     width: 100%;
     height: 100%;
     background-color: #676767;

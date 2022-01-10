@@ -2,7 +2,7 @@ import css from 'styled-jsx/css';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
-   {
+  div {
     font-family: ${fontFamily};
     background-color: #fff;
     background-image: url(${getGameFileUrl('WordShark/Background.svg')});
@@ -18,7 +18,7 @@ export const getContainerCSS = (fontFamily: string) => css.resolve`
 `;
 
 export const ContentOuterContainerCSS = css.resolve`
-   {
+  div {
     position: absolute;
     top: 0;
     left: calc(((var(--buttonSize) + 0.25rem) * 3) + 0.125rem);
@@ -30,7 +30,7 @@ export const ContentOuterContainerCSS = css.resolve`
 `;
 
 export const ContentInnerContainerCSS = css.resolve`
-   {
+  div {
     position: relative;
     height: 100%;
     width: 100%;
@@ -39,7 +39,7 @@ export const ContentInnerContainerCSS = css.resolve`
 `;
 
 export const StickmanContainerCSS = css.resolve`
-   {
+  div {
     position: absolute;
     left: calc(50% - 11vh / 2);
     bottom: 7.5vh;
@@ -51,7 +51,7 @@ export const StickmanContainerCSS = css.resolve`
 `;
 
 export const SpeechBubbleCSS = css.resolve`
-   {
+  div {
     position: relative;
     height: 12vh;
     width: 24vw;
@@ -65,7 +65,7 @@ export const SpeechBubbleCSS = css.resolve`
     font-size: 2rem;
   }
 
-  :after {
+  div:after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -95,7 +95,7 @@ export const AnswerTextCSS = css.resolve`
 `;
 
 export const StickmanCSS = css.resolve`
-   {
+  img {
     height: 25vh;
     width: 11vh;
     margin-top: 1.1rem;
@@ -104,7 +104,7 @@ export const StickmanCSS = css.resolve`
 `;
 
 export const HelicopterCSS = css.resolve`
-   {
+  img {
     width: 5vh;
     position: absolute;
     transform: translate(10vw, 15vh) scale(1);
@@ -112,7 +112,7 @@ export const HelicopterCSS = css.resolve`
 `;
 
 export const PlatformCSS = css.resolve`
-   {
+  div {
     position: absolute;
     bottom: 2.5vh;
     left: calc(50% - 15vw);
@@ -126,7 +126,7 @@ export const PlatformCSS = css.resolve`
 `;
 
 export const AlphabetButtonContainerCSS = css.resolve`
-   {
+  div {
     position: absolute;
     left: 0;
     top: 0;
@@ -150,7 +150,7 @@ export const AlphabetButtonCSS = css.resolve`
 `;
 
 export const OuterBlankContainerCSS = css.resolve`
-   {
+  div {
     position: absolute;
     bottom: 0;
     left: calc(((var(--buttonSize) + 0.25rem) * 2) + 0.125rem);
@@ -164,7 +164,7 @@ export const OuterBlankContainerCSS = css.resolve`
 `;
 
 export const InnerBlankContainerCSS = css.resolve`
-   {
+  div {
     position: relative;
     height: 100%;
     width: 100%;
@@ -175,7 +175,7 @@ export const InnerBlankContainerCSS = css.resolve`
 `;
 
 export const ButtonsContainerCSS = css.resolve`
-   {
+  div {
     position: absolute;
     bottom: calc((var(--buttonSize) + 0.25rem) + 82px + 0.125rem);
     left: calc(
@@ -187,7 +187,7 @@ export const ButtonsContainerCSS = css.resolve`
 `;
 
 export const WrongContainerCSS = css.resolve`
-   {
+  div {
     position: absolute;
     left: 82px;
     bottom: 0;

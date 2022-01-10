@@ -22,7 +22,6 @@ import * as Styles from './Cowboy.styles';
 import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
-import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 
@@ -30,7 +29,7 @@ import { getGameFileUrl } from 'utils/getCloudUrls';
 const ReloadAudioURL = getGameFileUrl('Cowboy/GunReload.mp3');
 const ShotAudioURL = getGameFileUrl('Cowboy/GunShot.mp3');
 
-export default function Cowboy({ title, description, keyCuts }: GameSEOProps) {
+export default function Cowboy({ title }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -97,31 +96,29 @@ export default function Cowboy({ title, description, keyCuts }: GameSEOProps) {
   useScroll(scrollCB);
 
   return (
-    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <div className={ContainerCSS.className} onClick={handleGame}>
-        <div className={Styles.TextHolderCSS.className}>
-          {transition(
-            (style, item) =>
-              item && (
-                <animated.div
-                  style={{ ...style, fontSize: '12vw' }}
-                  className={Styles.TextCSS.className}
-                >
-                  <span>On your marks...</span>
-                </animated.div>
-              )
-          )}
+    <div className={ContainerCSS.className} onClick={handleGame}>
+      <div className={Styles.TextHolderCSS.className}>
+        {transition(
+          (style, item) =>
+            item && (
+              <animated.div
+                style={{ ...style, fontSize: '12vw' }}
+                className={Styles.TextCSS.className}
+              >
+                <span>On your marks...</span>
+              </animated.div>
+            )
+        )}
 
-          <animated.div style={textStyles} className={Styles.TextCSS.className}>
-            <FitText text={text} ref={ref} />
-          </animated.div>
-        </div>
-
-        {/* STYLES */}
-        {ContainerCSS.styles}
-        {Styles.TextHolderCSS.styles}
-        {Styles.TextCSS.styles}
+        <animated.div style={textStyles} className={Styles.TextCSS.className}>
+          <FitText text={text} ref={ref} />
+        </animated.div>
       </div>
-    </GameWrapper>
+
+      {/* STYLES */}
+      {ContainerCSS.styles}
+      {Styles.TextHolderCSS.styles}
+      {Styles.TextCSS.styles}
+    </div>
   );
 }

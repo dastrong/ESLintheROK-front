@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
-   {
+  div {
     font-family: ${fontFamily};
     background-color: #fff;
     height: 100vh;
@@ -16,7 +16,7 @@ export const getContainerCSS = (fontFamily: string) => css.resolve`
 `;
 
 export const CardHolderCSS = css.resolve`
-   {
+  div {
     text-align: center;
     overflow: hidden;
     position: absolute;
@@ -28,7 +28,7 @@ export const CardHolderCSS = css.resolve`
 `;
 
 export const CardCSS = css.resolve`
-   {
+  div {
     height: 50vh;
     width: 50vw;
     z-index: 4;

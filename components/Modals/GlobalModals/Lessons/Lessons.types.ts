@@ -41,6 +41,7 @@ export type State = {
   lessons: LessonGroup;
   chosenGrade: string;
   chosenBook: string;
+  chosenBookImg: string;
   chosenLessons: string[];
 };
 
@@ -76,6 +77,7 @@ export type LessonsLessonsProps = Props & {
   chosenGrade: string;
   books: BookGroup;
   chosenBook: string;
+  chosenBookImg: string;
   lessons: LessonGroup;
 };
 

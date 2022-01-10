@@ -18,12 +18,8 @@ export default function PastLessonsEdit({
 }) {
   const { session } = useUserSession();
 
-  const {
-    setterDispatch,
-    vocabulary,
-    expressions,
-    sufficientData,
-  } = useSetter();
+  const { setterDispatch, vocabulary, expressions, sufficientData } =
+    useSetter();
 
   // fetch the details of the past lesson for the given id prop
   const { data, isValidating, mutate } = useSWR<PastLesson>(

@@ -5,7 +5,7 @@ import useFitText from 'hooks/useFitText';
 import FitText from 'components/FitText';
 
 const HeaderCSS = css.resolve`
-   {
+  div {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -18,7 +18,7 @@ const HeaderCSS = css.resolve`
 `;
 
 const TextContainerCSS = css.resolve`
-   {
+  div {
     position: absolute;
     border: 7px solid rgb(239, 239, 239);
     border-radius: 30px;
@@ -33,7 +33,7 @@ const TextContainerCSS = css.resolve`
 `;
 
 const TextHolderCSS = css.resolve`
-   {
+  div {
     display: flex;
     justify-content: center;
     align-items: center;

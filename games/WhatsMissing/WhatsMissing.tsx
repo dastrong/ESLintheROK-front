@@ -27,7 +27,6 @@ import * as Styles from './WhatsMissing.styles';
 import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { arrOfRandoNum, nextRoundData } from 'games/_utils';
-import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 
 // CONSTANTS - img, audio, function, etc.
@@ -40,11 +39,7 @@ const stages: StageNames[] = [
 const widthsAndHeights = [95, 45, 28];
 const maxAngle = 5;
 
-export default function WhatsMissing({
-  title,
-  description,
-  keyCuts,
-}: GameSEOProps) {
+export default function WhatsMissing({ title }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -166,51 +161,46 @@ export default function WhatsMissing({
   const transforms = arrOfRandoNum(maxAngle, -maxAngle, words.length, false);
 
   return (
-    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <div className={ContainerCSS.className} onClick={_handleClick}>
-        {/* TELLS THE USER HOW MANY WORDS WILL BE MISSING */}
-        <animated.div
-          style={infoTextStyles}
-          className={Styles.InfoCSS.className}
-        >
-          <FitText
-            ref={infoTextRef}
-            text={`${numOfMissing} Missing!`}
-            cx={Styles.InfoFitTextCSS.className}
-          />
-        </animated.div>
+    <div className={ContainerCSS.className} onClick={_handleClick}>
+      {/* TELLS THE USER HOW MANY WORDS WILL BE MISSING */}
+      <animated.div style={infoTextStyles} className={Styles.InfoCSS.className}>
+        <FitText
+          ref={infoTextRef}
+          text={`${numOfMissing} Missing!`}
+          cx={Styles.InfoFitTextCSS.className}
+        />
+      </animated.div>
 
-        {/* SHOW ALL THE WORDS, SO THE USER CAN QUICKLY MEMORIZE THEM */}
-        {/* THEN ... SHOW ONLY THE REMAINING WORDS, USER MUST GUESS WHAT'S MISSING */}
-        {/* THEN ... SHOW THE MISSING WORDS */}
-        <animated.div
-          style={wordsContainerStyles}
-          className={Styles.CardContainerCSS.className}
-        >
-          {words.map((word, i) => {
-            const color = colors[i];
-            const height = `${heightVal}vh`;
-            const width = `${widths[i]}vw`;
-            const transform = `rotate(${transforms[i]}deg)`;
-            return (
-              <div
-                className={Styles.CardCSS.className}
-                style={{ color, transform, height, width }}
-              >
-                <FitText text={word} ref={wordRefs[i]} />
-              </div>
-            );
-          })}
-        </animated.div>
+      {/* SHOW ALL THE WORDS, SO THE USER CAN QUICKLY MEMORIZE THEM */}
+      {/* THEN ... SHOW ONLY THE REMAINING WORDS, USER MUST GUESS WHAT'S MISSING */}
+      {/* THEN ... SHOW THE MISSING WORDS */}
+      <animated.div
+        style={wordsContainerStyles}
+        className={Styles.CardContainerCSS.className}
+      >
+        {words.map((word, i) => {
+          const color = colors[i];
+          const height = `${heightVal}vh`;
+          const width = `${widths[i]}vw`;
+          const transform = `rotate(${transforms[i]}deg)`;
+          return (
+            <div
+              className={Styles.CardCSS.className}
+              style={{ color, transform, height, width }}
+            >
+              <FitText text={word} ref={wordRefs[i]} />
+            </div>
+          );
+        })}
+      </animated.div>
 
-        {/* STYLES */}
-        {ContainerCSS.styles}
-        {Styles.InfoCSS.styles}
-        {Styles.InfoFitTextCSS.styles}
-        {Styles.CardContainerCSS.styles}
-        {Styles.CardCSS.styles}
-      </div>
-    </GameWrapper>
+      {/* STYLES */}
+      {ContainerCSS.styles}
+      {Styles.InfoCSS.styles}
+      {Styles.InfoFitTextCSS.styles}
+      {Styles.CardContainerCSS.styles}
+      {Styles.CardCSS.styles}
+    </div>
   );
 }
 

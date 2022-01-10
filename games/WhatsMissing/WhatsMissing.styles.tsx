@@ -1,7 +1,7 @@
 import css from 'styled-jsx/css';
 
 export const getContainerCSS = (fontFamily: string) => css.resolve`
-   {
+  div {
     font-family: ${fontFamily};
     background-color: #fff;
     height: 100vh;
@@ -15,7 +15,7 @@ export const getContainerCSS = (fontFamily: string) => css.resolve`
 `;
 
 export const InfoCSS = css.resolve`
-   {
+  div {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -33,21 +33,21 @@ export const InfoCSS = css.resolve`
 `;
 
 export const InfoFitTextCSS = css.resolve`
-   {
+  span {
     text-shadow: 0px 0px 1px #333, 0px 0px 4px #555, 0px 0px 7px #777,
       0px 0px 10px #777777b4, 0px 0px 14px #7777772f;
   }
 `;
 
 export const CardContainerCSS = css.resolve`
-   {
+  div {
     display: flex;
     flex-wrap: wrap;
   }
 `;
 
 export const CardCSS = css.resolve`
-   {
+  div {
     height: 25vh;
     width: 25vw;
     margin: 2.5vh 2.5vw;

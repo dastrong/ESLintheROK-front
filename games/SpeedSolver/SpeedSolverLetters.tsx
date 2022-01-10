@@ -1,16 +1,14 @@
 import React, { useMemo, useState } from 'react';
 import shuffle from 'lodash.shuffle';
-import { animated, useSprings, to, useSpring } from 'react-spring';
+import { animated, useSprings, to } from 'react-spring';
 import { arrOfRandoNum, getRandoNum } from 'games/_utils';
 
 export default function SpeedSolverLetters({
-  showLetters,
   gameData,
   level,
   isVocab,
   cx,
 }: {
-  showLetters: boolean;
   gameData: string[];
   level: number;
   isVocab: boolean;
@@ -26,11 +24,6 @@ export default function SpeedSolverLetters({
     return [durations, largestDur, styles];
   }, [gameData, level, isVocab]);
 
-  const containerStyles = useSpring({
-    opacity: showLetters ? 1 : 0,
-    immediate: true,
-  });
-
   const letterSprings = useSprings(
     gameData.length,
     durations.map(dur => ({
@@ -44,7 +37,7 @@ export default function SpeedSolverLetters({
   );
 
   return (
-    <animated.div style={containerStyles}>
+    <div>
       {letterSprings.map((spring, i) => {
         const text = gameData[i];
         const { x, y, r } = styles[i];
@@ -62,7 +55,7 @@ export default function SpeedSolverLetters({
           />
         );
       })}
-    </animated.div>
+    </div>
   );
 }
 

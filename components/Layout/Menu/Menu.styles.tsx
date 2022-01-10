@@ -13,7 +13,7 @@ export const MenuContainerCSS = css.resolve`
 `;
 
 export const MenuTogglerCSS = css.resolve`
-  .menu_toggler {
+  button.styled-button {
     height: var(--btnHeight);
     width: var(--btnHeight);
     font-size: 1.85vw;
@@ -25,13 +25,13 @@ export const MenuTogglerCSS = css.resolve`
 `;
 
 export const MenuTogglerHideCSS = css.resolve`
-  .menu_toggler {
+  button.styled-button {
     opacity: 0;
   }
 `;
 
 export const MenuItemCSS = css.resolve`
-  .menu_item {
+  div.menu_item {
     position: absolute;
     z-index: -1;
     top: calc(var(--btnHeight) - 60px);
@@ -41,13 +41,13 @@ export const MenuItemCSS = css.resolve`
 `;
 
 export const MenuItemHideCSS = css.resolve`
-  .menu_item {
+  div.menu_item {
     pointer-events: none;
   }
 `;
 
 export const MenuItemPopupCSS = css.resolve`
-  .tooltip-container {
+  div.tooltip-container {
     width: max-content;
     box-shadow: none;
     border: none;
@@ -58,7 +58,7 @@ export const MenuItemPopupCSS = css.resolve`
 `;
 
 export const MenuOverlayCSS = css.resolve`
-   {
+  div {
     height: 100vh;
     width: 100vw;
     position: fixed;

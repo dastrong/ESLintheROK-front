@@ -9,10 +9,12 @@ import Skeleton from 'components/Skeleton';
 import Button from 'components/Button';
 import type { LessonsLessonsProps, LessonMini } from './Lessons.types';
 import { swrFetch } from 'utils/fetchers';
+import { cloudinaryLoader } from 'utils/getCloudUrls';
 
 export default function LessonsLessons({
   closeModal,
   chosenBook,
+  chosenBookImg,
   dispatch,
   books,
   lessons,
@@ -46,10 +48,13 @@ export default function LessonsLessons({
         <div className="content_container">
           <div className="left_container">
             <Image
-              src={bookData.imageURL}
+              src={chosenBookImg}
+              loader={cloudinaryLoader}
               alt="Chosen Book Cover"
               height={300}
               width={230}
+              layout="fixed"
+              placeholder="blur"
               style={{ borderRadius: '0.5rem' }}
             />
             <div>

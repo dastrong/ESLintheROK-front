@@ -23,7 +23,6 @@ import { getGameFileUrl } from 'utils/getCloudUrls';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData, arrOfRandoNum } from 'games/_utils';
 import { RowOfTwoSidedCards } from 'games/_components';
-import GameWrapper from 'components/GameWrapper';
 
 // CONSTANTS
 const gameOverAudioURL = getGameFileUrl('Elimination/game-over.wav');
@@ -31,11 +30,7 @@ const ohYeahAudioURL = getGameFileUrl('Elimination/oh-yeah.mp3');
 const getBackCard = (isX: boolean) => (isX ? ['X', 'red'] : ['O', 'lime']);
 const getBoxCount = (isVocab: boolean) => (isVocab ? 8 : 6);
 
-export default function Elimination({
-  title,
-  description,
-  keyCuts,
-}: GameSEOProps) {
+export default function Elimination({ title }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -49,16 +44,8 @@ export default function Elimination({
   const secondary = store.expressions;
   const gameStore: GameStore = useData(reducer, init, primary, secondary);
   const [state, dispatch, didUpdate] = gameStore;
-  const {
-    data,
-    gameData,
-    isVocab,
-    colors,
-    Xs,
-    xCount,
-    clickedIDs,
-    clickedID,
-  } = state;
+  const { data, gameData, isVocab, colors, Xs, xCount, clickedIDs, clickedID } =
+    state;
 
   // REFS
   const isFirstRun = useFirstRun();
@@ -147,30 +134,28 @@ export default function Elimination({
   );
 
   return (
-    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <div className={ContainerCSS.className}>
-        {splitRows.map((row, i) => (
-          <RowOfTwoSidedCards
-            flipY
-            key={'row' + i}
-            rowIdx={i * 2}
-            rowArr={row}
-            targets={Xs}
-            colors={colors}
-            clickedID={clickedID}
-            clickedIDs={clickedIDs}
-            handleClick={_handleClick}
-            getBackCard={getBackCard}
-            cardClass={Styles.CardCSS.className}
-            fitTextClass={Styles.FitTextCSS.className}
-          />
-        ))}
+    <div className={ContainerCSS.className}>
+      {splitRows.map((row, i) => (
+        <RowOfTwoSidedCards
+          flipY
+          key={'row' + i}
+          rowIdx={i * 2}
+          rowArr={row}
+          targets={Xs}
+          colors={colors}
+          clickedID={clickedID}
+          clickedIDs={clickedIDs}
+          handleClick={_handleClick}
+          getBackCard={getBackCard}
+          cardClass={Styles.CardCSS.className}
+          fitTextClass={Styles.FitTextCSS.className}
+        />
+      ))}
 
-        {/* STYLES */}
-        {ContainerCSS.styles}
-        {Styles.FitTextCSS.styles}
-        {Styles.CardCSS.styles}
-      </div>
-    </GameWrapper>
+      {/* STYLES */}
+      {ContainerCSS.styles}
+      {Styles.FitTextCSS.styles}
+      {Styles.CardCSS.styles}
+    </div>
   );
 }

@@ -24,90 +24,111 @@ const oldGameReRouting = [
   { old: '/game/lotto', new: '/game/word_lotto' },
 ];
 
-module.exports = withPlugins(
-  [[withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' })]],
-  {
-    webpack5: false,
-    webpack: config => {
-      config.module.rules.push(
-        {
-          test: /\.svg$/,
-          use: [
-            {
-              loader: '@svgr/webpack',
-              options: {
-                svgo: true,
-                svgoConfig: {
-                  plugins: {
-                    removeViewBox: false,
-                    removeDimensions: true,
-                    cleanupNumericValues: {
-                      floatPrecision: 2,
-                    },
+// @ts-check
+/**
+ * @type {import('next').NextConfig}
+ **/
+const nextConfig = {
+  swcMinify: true,
+  webpack: config => {
+    config.module.rules.push(
+      {
+        test: /\.svg$/i,
+        issuer: /\.[jt]sx?$/,
+        use: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              svgo: true,
+              svgoConfig: {
+                plugins: [
+                  {
+                    name: 'removeViewBox',
+                    active: false,
                   },
-                },
+                  {
+                    name: 'removeDimensions',
+                    active: true,
+                  },
+                  {
+                    name: 'cleanupNumericValues',
+                    active: true,
+                  },
+                ],
               },
             },
-          ],
-        },
-        {
-          test: /\.(mp3|wav)$/,
-          use: {
-            loader: 'file-loader',
-            options: {
-              publicPath: '/_next/static/sounds/',
-              outputPath: 'static/sounds/',
-              name: '[path][name].[ext]',
-              esModule: false,
-            },
+          },
+        ],
+      },
+      {
+        test: /\.(mp3|wav)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            publicPath: '/_next/static/sounds/',
+            outputPath: 'static/sounds/',
+            name: '[path][name].[ext]',
+            esModule: false,
           },
         },
-        {
-          test: /\.(jpe?g|png|webp|gif)$/,
-          use: {
-            loader: 'file-loader',
-            options: {
-              publicPath: '/_next/static/sounds/',
-              outputPath: 'static/sounds/',
-              name: '[path][name].[ext]',
-              esModule: false,
-            },
+      },
+      {
+        test: /\.(jpe?g|png|webp|gif)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            publicPath: '/_next/static/sounds/',
+            outputPath: 'static/sounds/',
+            name: '[path][name].[ext]',
+            esModule: false,
           },
-        }
-      );
-      return config;
-    },
-    async redirects() {
-      return [
-        // game home pages
-        ...oldGameReRouting
-          .filter(route => route.old !== route.new)
-          .map(route => ({
-            source: route.old,
-            destination: route.new,
-            permanent: false,
-          })),
-        // game play pages
-        ...oldGameReRouting
-          .filter(route => route.old !== route.new)
-          .map(route => ({
-            source: `${route.old}/play`,
-            destination: `${route.new}/play`,
-            permanent: false,
-          })),
-        // game teacher instruction pages
-        ...oldGameReRouting.map(route => ({
-          source: `${route.old}/teacher`,
-          destination: `${route.new}/?instructions=teacher&language=english`,
+        },
+      }
+    );
+    return config;
+  },
+  async redirects() {
+    return [
+      // game home pages
+      ...oldGameReRouting
+        .filter(route => route.old !== route.new)
+        .map(route => ({
+          source: route.old,
+          destination: route.new,
           permanent: false,
         })),
-        // game student instruction pages
-        ...oldGameReRouting.map(route => ({
-          source: `${route.old}/teacher`,
-          destination: `${route.new}/?instructions=student&language=english`,
+      // game play pages
+      ...oldGameReRouting
+        .filter(route => route.old !== route.new)
+        .map(route => ({
+          source: `${route.old}/play`,
+          destination: `${route.new}/play`,
           permanent: false,
         })),
-      ];
-    },
-  }
+      // game teacher instruction pages
+      ...oldGameReRouting.map(route => ({
+        source: `${route.old}/teacher`,
+        destination: `${route.new}/?instructions=teacher&language=english`,
+        permanent: false,
+      })),
+      // game student instruction pages
+      ...oldGameReRouting.map(route => ({
+        source: `${route.old}/teacher`,
+        destination: `${route.new}/?instructions=student&language=english`,
+        permanent: false,
+      })),
+    ];
+  },
+  images: {
+    loader: 'cloudinary',
+    path: process.env.NEXT_PUBLIC_CLOUDINARY_URL + '/image/upload',
+    domains: ['res.cloudinary.com'],
+    deviceSizes: [320, 475, 640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256],
+  },
+};
+
+module.exports = withPlugins(
+  [[withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' })]],
+  nextConfig
 );

@@ -31,14 +31,14 @@ export const ListItemCSS = css.resolve`
 `;
 
 export const LeftSideCSS = css.resolve`
-   {
+  div {
     display: flex;
     align-items: center;
   }
 `;
 
 export const ActionDivCSS = css.resolve`
-   {
+  div {
     position: absolute;
     display: flex;
     opacity: 1;

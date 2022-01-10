@@ -77,7 +77,12 @@ export default function Menu() {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           version="1.1"
-          style={{ position: 'absolute', pointerEvents: 'none' }}
+          style={{
+            position: 'absolute',
+            pointerEvents: 'none',
+            width: '100%',
+            height: '100%',
+          }}
         >
           <defs>
             <filter id="goo">

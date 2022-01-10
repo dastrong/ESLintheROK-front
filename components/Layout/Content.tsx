@@ -22,13 +22,6 @@ export default function Content({ children }: { children: React.ReactNode }) {
   const transition = useTransition(router.pathname, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
-    // leave: {
-    //   position: 'absolute',
-    //   opacity: 0,
-    //   top: 'calc(var(--navHeight) - 1)',
-    //   height: 'calc(100vh - var(--navHeight) - var(--footerHeight))',
-    //   left: 0,
-    // },
     config: { duration: 500 },
   });
 

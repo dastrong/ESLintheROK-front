@@ -15,7 +15,6 @@ import * as Styles from './WordLotto.styles';
 import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { arrOfRandoNum, nextRoundData } from 'games/_utils';
-import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 
 // CONSTANTS - img, audio, function, etc.
@@ -23,11 +22,7 @@ const minDelay = 500; // in ms
 const maxDelay = 4000; // in ms
 const newRoundDelayReset = 4000; // in ms
 
-export default function WordLotto({
-  title,
-  description,
-  keyCuts,
-}: GameSEOProps) {
+export default function WordLotto({ title }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -37,15 +32,8 @@ export default function WordLotto({
   const secondary = store.expressions;
   const gameStore: GameStore = useData(reducer, init, primary, secondary);
   const [state, dispatch, didUpdate] = gameStore;
-  const {
-    data,
-    isVocab,
-    colors,
-    gameData,
-    isAnimating,
-    isDone,
-    maxCardDelay,
-  } = state;
+  const { data, isVocab, colors, gameData, isAnimating, isDone, maxCardDelay } =
+    state;
 
   // REFS - useFitText, useSplit2Rows, etc..
   const [refs] = useFitText(gameData);
@@ -129,27 +117,25 @@ export default function WordLotto({
   }, [isDone, isAnimating, dispatch, handleGame]);
 
   return (
-    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <div className={ContainerCSS.className} onClick={_handleClick}>
-        {lottoCardStyles.map((cardStyles, i) => (
-          <animated.div
-            key={`lotto-card-${i}-${gameData[i].text}`}
-            style={{
-              ...cardStyles,
-              width: isVocab ? '32vw' : '99vw',
-              height: isVocab ? '32vh' : '24vh',
-              backgroundColor: colors[i],
-            }}
-            className={Styles.CardCSS.className}
-          >
-            <FitText text={gameData[i].text} ref={refs[i]} />
-          </animated.div>
-        ))}
+    <div className={ContainerCSS.className} onClick={_handleClick}>
+      {lottoCardStyles.map((cardStyles, i) => (
+        <animated.div
+          key={`lotto-card-${i}-${gameData[i].text}`}
+          style={{
+            ...cardStyles,
+            width: isVocab ? '32vw' : '99vw',
+            height: isVocab ? '32vh' : '24vh',
+            backgroundColor: colors[i],
+          }}
+          className={Styles.CardCSS.className}
+        >
+          <FitText text={gameData[i].text} ref={refs[i]} />
+        </animated.div>
+      ))}
 
-        {/* STYLES */}
-        {ContainerCSS.styles}
-        {Styles.CardCSS.styles}
-      </div>
-    </GameWrapper>
+      {/* STYLES */}
+      {ContainerCSS.styles}
+      {Styles.CardCSS.styles}
+    </div>
   );
 }

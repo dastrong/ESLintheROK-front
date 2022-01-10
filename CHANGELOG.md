@@ -2,6 +2,26 @@
 
 All notable changes, updated and additions to this site will be documented below.
 
+## [2.2.0] - 2022-01-10
+
+**Changed**
+
+- New Game Images - [Games](https://www.eslintherok.com/games)
+  - special thanks to [JacquiJoy](https://www.instagram.com/jacquijoy) for making these
+- Matched navigation and footer text styles, so they are consistent
+
+**Fixed**
+
+- Fixed App Crashing
+  - it would happen if a user reloaded while on certain _/play_ pages where the game would load before the data was
+    - now we wait for that data before loading the game
+    - if there isn't any data, we notify the user to choose some
+- Fixed Game - [Speed Solver](https://www.eslintherok.com/game/speed_solver)
+  - letters would stop animating randomly
+  - hasn't happened during testing after this update
+- Fixed a broken link to contribute page while choosing a grade
+- Corrected spelling of occured to occurred
+
 ## [2.1.0] - 2021-10-17
 
 **Added**
@@ -9,7 +29,7 @@ All notable changes, updated and additions to this site will be documented below
 - New Game - [First and Last Letter](https://www.eslintherok.com/game/first_and_last_letter)
 - New Game - [Word Shark](https://www.eslintherok.com/game/word_shark)
   - Special thanks to [@MattDClarke](https://github.com/MattDClarke) for first recreating this game for the site
-- An animated dot on the nav changelog link to indicate an update has occured and hasn't been reviewed
+- An animated dot on the nav changelog link to indicate an update has occurred and hasn't been reviewed
 - The date a game is published, so we can show a _New_ badge on the games page
 
 **Changed**

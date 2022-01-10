@@ -79,7 +79,7 @@ Let's say you have an image or sound effect that you want to include in your gam
 
     // you can import and use the url in a *styles* file
     export const CoolBackgroundCSS = css.resolve`
-       {
+      div {
         background-image: url(${BackgroundURL});
       }
     `;

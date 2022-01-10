@@ -13,11 +13,19 @@ const panels = [
     content: (
       <div>
         <p>
-          English public school teachers in South Korea will benefit the most.
+          English teachers in South Korea will benefit the most because we
+          already have the common books that they use.
         </p>
         <p>
-          Although anyone can enter their own material and modify the gameplay
-          rules to accommodate classes.
+          We can add your books to the site too.{' '}
+          <Link href="/contact">
+            <a>Contact us</a>
+          </Link>{' '}
+          to make that happen.
+        </p>
+        <p>
+          Anyone can set their vocabulary and start playing quickly, so it's
+          perfect for anyone to use!
         </p>
       </div>
     ),
@@ -28,13 +36,13 @@ const panels = [
       <div>
         <p>Unlike other websites, this one is completely free to use.</p>
         <p>
-          However, if you would like to support me, you can buy me a coffee{' '}
+          However, if you would like to support me, you can{' '}
           <a
             href="https://www.buymeacoffee.com/ycqPbFl"
             target="_blank"
             rel="noopener noreferrer"
           >
-            here.
+            buy me a coffee.
           </a>
         </p>
       </div>
@@ -45,14 +53,21 @@ const panels = [
     content: (
       <div>
         <p>
-          Each game has a teacher and student instructions page with English and
-          Korean languages.
+          Unlike PowerPoint games, our games can leverage mouse and keyboard
+          shortcuts to adjust settings in-game.
         </p>
         <p>
-          To view helpful shortcuts: hover your mouse over the top-right (while
-          in the game) and an icon will appear. Click it.
+          Even though each game is different from the next we've tried to
+          maintain consistency among shortcuts where we can.
         </p>
-        <p>Each games plays differently, but most tricks work across games.</p>
+        <p>
+          Shortcuts for changings between vocabulary/expressions or game
+          difficulties are the same throughout all games, if available.
+        </p>
+        <p>
+          In addition to these shortcuts, you can find the teacher/student game
+          instructions (in English and Korean) on each game page.
+        </p>
       </div>
     ),
   },
@@ -73,8 +88,11 @@ const panels = [
       <div>
         <p>Yes!</p>
         <p>
-          There are a couple other games that I'd like to add finding free time
-          is hard.
+          I have many more game ideas. If you have any ideas that you think
+          would work well on the site,{' '}
+          <Link href="/contact">
+            <a>contact me to discuss.</a>
+          </Link>
         </p>
       </div>
     ),
@@ -95,14 +113,12 @@ const panels = [
         <p>It depends.</p>
         <p>
           <Link href="/contact">
-            <a>Contact</a>
-          </Link>{' '}
-          me to discuss.
+            <a>Contact me to discuss.</a>
+          </Link>
         </p>
       </div>
     ),
   },
-
   {
     header: 'Why is the lessons data slow to load?',
     content: (
@@ -115,63 +131,6 @@ const panels = [
         <p>
           In my tests, if it's awake it'll load under 2 seconds. The wake up
           process should take under 10 seconds.
-        </p>
-      </div>
-    ),
-  },
-  {
-    header: 'I lost my data, where did my data go?',
-    content: (
-      <div>
-        <p>
-          This site is build differently than other's you might use and that was
-          on purpose.
-        </p>
-        <p>
-          If your browser tab refreshed the data you were using will be reset.
-        </p>
-        <p>
-          However, if you click the past lessons button on the{' '}
-          <Link href="/">
-            <a>home page</a>
-          </Link>{' '}
-          you can use your data again.
-        </p>
-      </div>
-    ),
-  },
-  {
-    header: "What's that past lessons button for?",
-    content: (
-      <div>
-        <p>By popular request, I've added a way to use your past lessons.</p>
-        <p>Whenever you set data, it will save your data to your browser.</p>
-        <p>
-          If you want to edit one of your lessons, check it, set it, edit it (by
-          opening the left side menu and clicking 'Edit Data'), and set it
-          again.
-        </p>
-        <p>
-          FYI: you can select two or more past lessons to review different
-          lessons too!
-        </p>
-      </div>
-    ),
-  },
-  {
-    header: "Why can't I click the past lessons button?",
-    content: (
-      <div>
-        <p>
-          Simply put, there's no data for this site on the browser you're using.
-        </p>
-        <p>Clearing your browser cache will erase all past lessons.</p>
-        <p>
-          You can{' '}
-          <Link href="/contact">
-            <a>contact</a>
-          </Link>{' '}
-          me, if needed.
         </p>
       </div>
     ),
@@ -191,13 +150,12 @@ const panels = [
         </p>
         <p>Any amount is appreciated.</p>
         <p>
-          You can donate{' '}
           <a
             href="https://www.buymeacoffee.com/ycqPbFl"
             target="_blank"
             rel="noopener noreferrer"
           >
-            here.
+            Buy me a coffee (Donate)
           </a>
         </p>
       </div>

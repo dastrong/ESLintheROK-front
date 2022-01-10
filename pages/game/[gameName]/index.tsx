@@ -15,7 +15,11 @@ import Popup from 'components/Popup';
 import { convertCaseSnakeToPascal } from 'utils/convertCaseSnakeToPascal';
 import { getSingleGameConfig } from 'utils/getSingleGameConfig';
 import { getAllGameConfigs } from 'utils/getAllGameConfigs';
-import { getGameImgUrl, getGameOgImgUrl } from 'utils/getCloudUrls';
+import {
+  cloudinaryLoader,
+  getGameImgUrl,
+  getGameOgImgUrl,
+} from 'utils/getCloudUrls';
 import { useStore } from 'contexts/store';
 
 const GameInstructionsModal = dynamic(
@@ -31,7 +35,6 @@ const gameNotes = [
 export default function GameHomePage({
   title,
   description,
-  image,
   instructions,
   warnings,
   usesGifs,
@@ -40,12 +43,9 @@ export default function GameHomePage({
   const { asPath, query, push } = useRouter();
   const { isDataReady, storeDispatch } = useStore();
 
-  const imgUrl = getGameImgUrl(title);
-
   // SEO
   const seoTitle = `${title} Game`;
-  const imgWidth = 1200;
-  const ogImgUrl = getGameOgImgUrl(title, `/c_scale,w_${imgWidth}`);
+  const ogImgUrl = getGameOgImgUrl(title, `/c_scale,w_1200`);
 
   const openInstructionModal = (version: 'teacher' | 'student') => {
     push(
@@ -65,16 +65,7 @@ export default function GameHomePage({
     <SeoWrapper
       title={seoTitle}
       description={description}
-      openGraph={{
-        images: [
-          {
-            url: ogImgUrl,
-            width: imgWidth,
-            height: Math.floor((imgWidth / image.width) * image.height),
-            alt: title,
-          },
-        ],
-      }}
+      openGraph={{ images: [{ url: ogImgUrl, alt: title }] }}
       twitter={{ cardType: 'summary_large_image' }}
     >
       <div className="container">
@@ -128,11 +119,13 @@ export default function GameHomePage({
 
         <div className="image">
           <Image
-            isTransparent
-            src={imgUrl}
+            src={getGameImgUrl(title)}
+            loader={cloudinaryLoader}
             alt={title}
-            height={image.height * 3}
-            width={image.width * 3}
+            height={1080}
+            width={1920}
+            layout="responsive"
+            sizes="(max-width: 1200px) 650px, (max-width: 2000px) 50vw, 1000px"
           />
         </div>
 
@@ -186,7 +179,6 @@ export default function GameHomePage({
         {['teacher', 'student'].includes(query.instructions as string) && (
           <GameInstructionsModal
             isOpen
-            gameImgUrl={imgUrl}
             instructions={
               query.instructions === 'student'
                 ? instructions.forStudents
@@ -214,7 +206,7 @@ export default function GameHomePage({
           .image {
             width: 50%;
             min-width: 650px;
-            max-width: 850px;
+            max-width: 1000px;
             padding: 1.25rem 1rem 2rem;
           }
 

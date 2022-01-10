@@ -52,6 +52,56 @@ export default function AcknowledgementsPage({
         </Block>
 
         <PageContent>
+          <PageContent.Header id="lesson_material_contributors">
+            Lesson Material Contributors
+          </PageContent.Header>
+          <PageContent.Text>
+            A big perk of this site is being able to provide users with their
+            desired lesson's vocabulary and expressions. Entering this data is
+            tedious work that the following individuals have helped contribute.
+          </PageContent.Text>
+          <PageContent.List isHorizontal>
+            {lessonContributors.map((name, i) => (
+              <Fragment key={name + i}>
+                {!!i && <span style={{ marginInline: '0.5rem' }}>·</span>}
+                <li>{name}</li>
+              </Fragment>
+            ))}
+          </PageContent.List>
+
+          <PageContent.Header id="other_contributors">
+            Other Contributors
+          </PageContent.Header>
+          <PageContent.Text>
+            I'm always looking for ways to improve the site or add something new
+            for its users. The following are people that have taken the time to
+            contribute something to ESL in the ROK.
+          </PageContent.Text>
+          <PageContent.List>
+            <li>
+              Thank you to{' '}
+              <a href="https://github.com/MattDClarke" target="_blank">
+                Matt Clarke
+              </a>{' '}
+              for his work on the{' '}
+              <Link href="/game/word_shark">
+                <a>Word Shark</a>
+              </Link>{' '}
+              game.
+            </li>
+            <li>
+              The fantastic, new game images were created by{' '}
+              <a href="https://www.instagram.com/jacquijoy" target="_blank">
+                JacquiJoy
+              </a>
+              . Go check out her{' '}
+              <a href="https://www.instagram.com/jacquijoy" target="_blank">
+                Instagram
+              </a>{' '}
+              and give her a follow!
+            </li>
+          </PageContent.List>
+
           <PageContent.Header id="site_design">Site Design</PageContent.Header>
           <PageContent.Text>
             Even though the majority of the current design (2021) is custom, the
@@ -88,24 +138,6 @@ export default function AcknowledgementsPage({
                 GIPHY.com
               </a>
             </li>
-          </PageContent.List>
-
-          <PageContent.Header id="lesson_materials">
-            Lesson Materials
-          </PageContent.Header>
-          <PageContent.Text>
-            A big perk of this site is being able to provide users with their
-            desired lesson's vocabulary and expressions. Entering this data is
-            tedious work that the following individuals have helped contribute
-            to.
-          </PageContent.Text>
-          <PageContent.List isHorizontal>
-            {lessonContributors.map((name, i) => (
-              <Fragment key={name + i}>
-                {!!i && <span style={{ marginInline: '0.5rem' }}>·</span>}
-                <li>{name}</li>
-              </Fragment>
-            ))}
           </PageContent.List>
 
           <PageContent.Header id="donations">Donations</PageContent.Header>

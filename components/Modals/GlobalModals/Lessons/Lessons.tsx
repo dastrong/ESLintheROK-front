@@ -24,6 +24,7 @@ const initialState: State = {
   lessons: {},
   chosenGrade: '',
   chosenBook: '',
+  chosenBookImg: '',
   chosenLessons: [],
 };
 
@@ -61,6 +62,7 @@ const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         chosenBook: action.chosenBook,
+        chosenBookImg: action.chosenBookImg,
         step: 3,
       };
     case 'Choose_Lessons':
@@ -110,6 +112,7 @@ export default function Lessons() {
             books={state.books}
             chosenGrade={state.chosenGrade}
             chosenBook={state.chosenBook}
+            chosenBookImg={state.chosenBookImg}
           />
         ) : currentStep === 'CHOOSE_BOOK' ? (
           <LessonsBooks
