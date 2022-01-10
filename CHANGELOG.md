@@ -2,10 +2,12 @@
 
 All notable changes, updated and additions to this site will be documented below.
 
-## [2.2.0] - 2021-12-27
+## [2.2.0] - 2022-01-10
 
 **Changed**
 
+- New Game Images - [Games](https://www.eslintherok.com/games)
+  - Special thanks to [JacquiJoy](https://www.instagram.com/jacquijoy) for making these
 - Matched navigation and footer text styles, so they are consistent
 
 **Fixed**
