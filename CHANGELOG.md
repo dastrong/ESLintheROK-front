@@ -7,11 +7,15 @@ All notable changes, updated and additions to this site will be documented below
 **Changed**
 
 - New Game Images - [Games](https://www.eslintherok.com/games)
-  - Special thanks to [JacquiJoy](https://www.instagram.com/jacquijoy) for making these
+  - special thanks to [JacquiJoy](https://www.instagram.com/jacquijoy) for making these
 - Matched navigation and footer text styles, so they are consistent
 
 **Fixed**
 
+- Fixed App Crashing
+  - it would happen if a user reloaded while on certain _/play_ pages where the game would load before the data was
+    - now we wait for that data before loading the game
+    - if there isn't any data, we notify the user to choose some
 - Fixed Game - [Speed Solver](https://www.eslintherok.com/game/speed_solver)
   - letters would stop animating randomly
   - hasn't happened during testing after this update
