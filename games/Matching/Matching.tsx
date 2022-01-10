@@ -24,7 +24,6 @@ import * as Styles from './Matching.styles';
 import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { getRandoGrad, nextRoundData } from 'games/_utils';
-import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 
 // CONSTANTS - img, audio, function, etc.
@@ -36,11 +35,7 @@ const boxSettings = [
   { height: '24vh', width: '24vw', poo: 0, words: 16 },
 ];
 
-export default function Matching({
-  title,
-  description,
-  keyCuts,
-}: GameSEOProps) {
+export default function Matching({ title }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -149,45 +144,43 @@ export default function Matching({
   );
 
   return (
-    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <div className={ContainerCSS.className} style={{ background }}>
-        {gameData.map((text, i) => (
-          <div
-            key={i}
-            className={Styles.CardHolderCSS.className}
-            style={{ ...boxDimensions }}
+    <div className={ContainerCSS.className} style={{ background }}>
+      {gameData.map((text, i) => (
+        <div
+          key={i}
+          className={Styles.CardHolderCSS.className}
+          style={{ ...boxDimensions }}
+        >
+          <animated.div
+            id={String(i)}
+            onClick={_handleClick}
+            style={frontBoxStyles[i]}
+            className={classNames(
+              Styles.CardCSS.className,
+              Styles.CardFrontCSS.className
+            )}
           >
-            <animated.div
-              id={String(i)}
-              onClick={_handleClick}
-              style={frontBoxStyles[i]}
-              className={classNames(
-                Styles.CardCSS.className,
-                Styles.CardFrontCSS.className
-              )}
-            >
-              {i + 1}
-            </animated.div>
+            {i + 1}
+          </animated.div>
 
-            <animated.div
-              style={backBoxStyles[i]}
-              className={classNames(
-                Styles.CardCSS.className,
-                Styles.CardBackCSS.className
-              )}
-            >
-              <FitText text={text !== 'poo' ? text : '💩'} ref={refs[i]} />
-            </animated.div>
-          </div>
-        ))}
+          <animated.div
+            style={backBoxStyles[i]}
+            className={classNames(
+              Styles.CardCSS.className,
+              Styles.CardBackCSS.className
+            )}
+          >
+            <FitText text={text !== 'poo' ? text : '💩'} ref={refs[i]} />
+          </animated.div>
+        </div>
+      ))}
 
-        {/* STYLES */}
-        {ContainerCSS.styles}
-        {Styles.CardHolderCSS.styles}
-        {Styles.CardCSS.styles}
-        {Styles.CardFrontCSS.styles}
-        {Styles.CardBackCSS.styles}
-      </div>
-    </GameWrapper>
+      {/* STYLES */}
+      {ContainerCSS.styles}
+      {Styles.CardHolderCSS.styles}
+      {Styles.CardCSS.styles}
+      {Styles.CardFrontCSS.styles}
+      {Styles.CardBackCSS.styles}
+    </div>
   );
 }

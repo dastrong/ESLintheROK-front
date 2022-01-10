@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import fscreen from 'fscreen';
 import Cookies from 'js-cookie';
+
+import { useStore } from 'contexts/store';
 import Modal from 'components/Modals';
 import Switch from 'components/Switch';
 
 export default function GameWrapperFullscreen() {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const { isDataReady } = useStore();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const closeModal = () => setIsModalOpen(false);
 
   React.useEffect(() => {
@@ -19,8 +22,9 @@ export default function GameWrapperFullscreen() {
     // if any of these three conditions are true, we don't need to show this modal
     const hideModal = userDeclined || alreadyFull || (sameWidth && sameHeight);
 
-    if (!hideModal) setIsModalOpen(!hideModal);
-  }, []);
+    // if there's no data set, we shouldn't show this
+    if (!hideModal && isDataReady) setIsModalOpen(true);
+  }, [isDataReady]);
 
   return (
     <Modal isOpen={isModalOpen} closeModal={closeModal}>

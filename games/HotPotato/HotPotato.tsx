@@ -24,7 +24,6 @@ import HotPotatoStage from './HotPotatoStage';
 import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData, resetAllAudio } from 'games/_utils';
-import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 
@@ -37,11 +36,7 @@ const BoilingGifURL = getGameFileUrl('HotPotato/Boiling.gif', '/f_auto,q_50');
 const DancingGifURL = getGameFileUrl('HotPotato/Dancing.gif', '/f_auto,q_50');
 const CoolingGifURL = getGameFileUrl('HotPotato/Cooling.gif', '/f_auto,q_50');
 
-export default function HotPotato({
-  title,
-  description,
-  keyCuts,
-}: GameSEOProps) {
+export default function HotPotato({ title }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -164,63 +159,59 @@ export default function HotPotato({
   }
 
   return (
-    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <div className={ContainerCSS.className} onClick={_handleClick}>
-        <HotPotatoStage
-          isIn={stage === 1}
-          bgColor="#ffcb04"
-          cxDiv={Styles.StageContainerCSS.className}
-          cxImg={Styles.ImgCSS.className}
-          src={BoilingGifURL}
-          alt="potatoes-boiling"
-        />
-        <HotPotatoStage
-          isIn={stage === 2}
-          bgColor="#fffbde"
-          cxDiv={Styles.StageContainerCSS.className}
-          cxImg={Styles.ImgCSS.className}
-          src={DancingGifURL}
-          alt="potato-dancing"
-        />
-        <HotPotatoStage
-          isIn={stage === 3}
-          bgColor="#a77c52"
-          cxDiv={Styles.StageContainerCSS.className}
-          cxImg={Styles.ImgCSS.className}
-          src={CoolingGifURL}
-          alt="potato-finished"
-        >
-          <div className={Styles.TextContainer.className}>
-            {textSprings.map((styles, i) => (
-              <animated.div
-                key={`${gameData[i]}-text`}
-                className={Styles.TextWrapper.className}
-                style={{
-                  ...styles,
-                  height: isVocab ? `${96 / numOfText}vh` : '100vh',
-                }}
-              >
-                <FitText text={gameData[i]} ref={refs[i]} />
-              </animated.div>
-            ))}
-          </div>
-        </HotPotatoStage>
+    <div className={ContainerCSS.className} onClick={_handleClick}>
+      <HotPotatoStage
+        isIn={stage === 1}
+        bgColor="#ffcb04"
+        cxDiv={Styles.StageContainerCSS.className}
+        cxImg={Styles.ImgCSS.className}
+        src={BoilingGifURL}
+        alt="potatoes-boiling"
+      />
+      <HotPotatoStage
+        isIn={stage === 2}
+        bgColor="#fffbde"
+        cxDiv={Styles.StageContainerCSS.className}
+        cxImg={Styles.ImgCSS.className}
+        src={DancingGifURL}
+        alt="potato-dancing"
+      />
+      <HotPotatoStage
+        isIn={stage === 3}
+        bgColor="#a77c52"
+        cxDiv={Styles.StageContainerCSS.className}
+        cxImg={Styles.ImgCSS.className}
+        src={CoolingGifURL}
+        alt="potato-finished"
+      >
+        <div className={Styles.TextContainer.className}>
+          {textSprings.map((styles, i) => (
+            <animated.div
+              key={`${gameData[i]}-text`}
+              className={Styles.TextWrapper.className}
+              style={{
+                ...styles,
+                height: isVocab ? `${96 / numOfText}vh` : '100vh',
+              }}
+            >
+              <FitText text={gameData[i]} ref={refs[i]} />
+            </animated.div>
+          ))}
+        </div>
+      </HotPotatoStage>
 
-        {!countdown ? null : (
-          <span className={Styles.CountdownTimerCSS.className}>
-            {countdown}
-          </span>
-        )}
+      {!countdown ? null : (
+        <span className={Styles.CountdownTimerCSS.className}>{countdown}</span>
+      )}
 
-        {/* STYLES */}
-        {ContainerCSS.styles}
-        {Styles.StageContainerCSS.styles}
-        {Styles.ImgCSS.styles}
-        {Styles.CountdownTimerCSS.styles}
-        {Styles.TextContainer.styles}
-        {Styles.TextWrapper.styles}
-      </div>
-    </GameWrapper>
+      {/* STYLES */}
+      {ContainerCSS.styles}
+      {Styles.StageContainerCSS.styles}
+      {Styles.ImgCSS.styles}
+      {Styles.CountdownTimerCSS.styles}
+      {Styles.TextContainer.styles}
+      {Styles.TextWrapper.styles}
+    </div>
   );
 }
 

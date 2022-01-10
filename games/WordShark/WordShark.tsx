@@ -15,7 +15,6 @@ import { track } from 'utils/analytics';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
-import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 import Button from 'components/Button';
 
@@ -28,11 +27,7 @@ const StickmanThanksURL = getGameFileUrl('WordShark/Stickman-Thanks.svg');
 const StickmanNoURL = getGameFileUrl('WordShark/Stickman-No.svg');
 const HelicopterURL = getGameFileUrl('WordShark/Helicopter.svg');
 
-export default function WordShark({
-  title,
-  description,
-  keyCuts,
-}: GameSEOProps) {
+export default function WordShark({ title }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -120,152 +115,148 @@ export default function WordShark({
   useScroll(scrollCB);
 
   return (
-    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <div className={ContainerCSS.className}>
-        {/* ALPHABET BOXES */}
-        <div className={Styles.AlphabetButtonContainerCSS.className}>
-          {letters.split('').map(letter => {
-            const isClicked = guessed.has(letter);
-            return (
-              <Button
-                key={letter}
-                size="xl"
-                color="white"
-                bgColor="darkgray"
-                text={isClicked ? '' : `${letter.toUpperCase()}${letter}`}
-                className={Styles.AlphabetButtonCSS.className}
-                disabled={isClicked}
-                onClick={() =>
-                  dispatch({ type: 'Handle_Guess', letter: letter })
-                }
-              />
-            );
-          })}
-        </div>
-
-        {/* CONTENT CONTAINER*/}
-        <div className={Styles.ContentOuterContainerCSS.className}>
-          <div className={Styles.ContentInnerContainerCSS.className}>
-            {/* PLATFORM */}
-            <div
-              className={Styles.PlatformCSS.className}
-              style={{
-                transform: `scale(${1 - Math.min(numWrong / maxWrong, 0.8)})`,
-                opacity: failed ? 0 : 1,
-              }}
+    <div className={ContainerCSS.className}>
+      {/* ALPHABET BOXES */}
+      <div className={Styles.AlphabetButtonContainerCSS.className}>
+        {letters.split('').map(letter => {
+          const isClicked = guessed.has(letter);
+          return (
+            <Button
+              key={letter}
+              size="xl"
+              color="white"
+              bgColor="darkgray"
+              text={isClicked ? '' : `${letter.toUpperCase()}${letter}`}
+              className={Styles.AlphabetButtonCSS.className}
+              disabled={isClicked}
+              onClick={() => dispatch({ type: 'Handle_Guess', letter: letter })}
             />
-            <div
-              className={Styles.StickmanContainerCSS.className}
-              style={{ transform: `translateY(${failed ? '15vh' : '0vh'})` }}
-            >
-              {/* SPEECH BUBBLE */}
-              <div className={Styles.SpeechBubbleCSS.className}>
-                <FitText
-                  ref={speechBubbleRef}
-                  text={speechBubbleText}
-                  cx={Styles.SpeechBubbleTextCSS.className}
-                />
-              </div>
-              {/* STICKMEN */}
-              {failed ? (
-                <img
-                  src={StickmanNoURL}
-                  alt="stickman saying no"
-                  className={Styles.StickmanCSS.className}
-                />
-              ) : success ? (
-                <img
-                  src={StickmanThanksURL}
-                  alt="stickman saying thanks"
-                  className={Styles.StickmanCSS.className}
-                  style={{ marginLeft: -16, width: 'auto' }}
-                />
-              ) : (
-                <img
-                  src={StickmanHelpURL}
-                  alt="stickman saying help"
-                  className={Styles.StickmanCSS.className}
-                />
-              )}
-            </div>
-
-            {/* HELICOPTER */}
-            <img
-              src={HelicopterURL}
-              alt="helicopter"
-              className={Styles.HelicopterCSS.className}
-            />
-
-            {/* SHARKS */}
-            <WordSharkSharks />
-          </div>
-        </div>
-
-        {/* BLANK CONTAINER */}
-        <div className={Styles.OuterBlankContainerCSS.className}>
-          <div className={Styles.InnerBlankContainerCSS.className}>
-            <FitText
-              ref={answerRef}
-              text={textToShow}
-              cx={Styles.AnswerTextCSS.className}
-            />
-          </div>
-        </div>
-
-        {/* NUM/MAX WRONG CONTAINER */}
-        <div className={Styles.WrongContainerCSS.className}>
-          {numWrong}
-          <br />
-          /
-          <br />
-          {maxWrong}
-        </div>
-
-        {/* PLAY AGAIN / SHOW ANSWER BUTTONS */}
-        {playAgainShowAnswerTransition(
-          (style, item) =>
-            item && (
-              <animated.div
-                style={style}
-                className={Styles.ButtonsContainerCSS.className}
-              >
-                <Button
-                  color="white"
-                  bgColor="#178a09"
-                  text="New Round"
-                  onClick={handleGame}
-                  style={{ flex: 1, marginRight: 8 }}
-                />
-                <Button
-                  color="white"
-                  bgColor="#629e12"
-                  text="Show Answer"
-                  onClick={() => dispatch({ type: 'Show_Answer' })}
-                  style={{ flex: 1 }}
-                  disabled={showAnswer}
-                />
-              </animated.div>
-            )
-        )}
-
-        {/* STYLES */}
-        {ContainerCSS.styles}
-        {Styles.ContentOuterContainerCSS.styles}
-        {Styles.ContentInnerContainerCSS.styles}
-        {Styles.StickmanContainerCSS.styles}
-        {Styles.StickmanCSS.styles}
-        {Styles.PlatformCSS.styles}
-        {Styles.SpeechBubbleCSS.styles}
-        {Styles.SpeechBubbleTextCSS.styles}
-        {Styles.HelicopterCSS.styles}
-        {Styles.AlphabetButtonContainerCSS.styles}
-        {Styles.AlphabetButtonCSS.styles}
-        {Styles.OuterBlankContainerCSS.styles}
-        {Styles.InnerBlankContainerCSS.styles}
-        {Styles.ButtonsContainerCSS.styles}
-        {Styles.WrongContainerCSS.styles}
-        {Styles.AnswerTextCSS.styles}
+          );
+        })}
       </div>
-    </GameWrapper>
+
+      {/* CONTENT CONTAINER*/}
+      <div className={Styles.ContentOuterContainerCSS.className}>
+        <div className={Styles.ContentInnerContainerCSS.className}>
+          {/* PLATFORM */}
+          <div
+            className={Styles.PlatformCSS.className}
+            style={{
+              transform: `scale(${1 - Math.min(numWrong / maxWrong, 0.8)})`,
+              opacity: failed ? 0 : 1,
+            }}
+          />
+          <div
+            className={Styles.StickmanContainerCSS.className}
+            style={{ transform: `translateY(${failed ? '15vh' : '0vh'})` }}
+          >
+            {/* SPEECH BUBBLE */}
+            <div className={Styles.SpeechBubbleCSS.className}>
+              <FitText
+                ref={speechBubbleRef}
+                text={speechBubbleText}
+                cx={Styles.SpeechBubbleTextCSS.className}
+              />
+            </div>
+            {/* STICKMEN */}
+            {failed ? (
+              <img
+                src={StickmanNoURL}
+                alt="stickman saying no"
+                className={Styles.StickmanCSS.className}
+              />
+            ) : success ? (
+              <img
+                src={StickmanThanksURL}
+                alt="stickman saying thanks"
+                className={Styles.StickmanCSS.className}
+                style={{ marginLeft: -16, width: 'auto' }}
+              />
+            ) : (
+              <img
+                src={StickmanHelpURL}
+                alt="stickman saying help"
+                className={Styles.StickmanCSS.className}
+              />
+            )}
+          </div>
+
+          {/* HELICOPTER */}
+          <img
+            src={HelicopterURL}
+            alt="helicopter"
+            className={Styles.HelicopterCSS.className}
+          />
+
+          {/* SHARKS */}
+          <WordSharkSharks />
+        </div>
+      </div>
+
+      {/* BLANK CONTAINER */}
+      <div className={Styles.OuterBlankContainerCSS.className}>
+        <div className={Styles.InnerBlankContainerCSS.className}>
+          <FitText
+            ref={answerRef}
+            text={textToShow}
+            cx={Styles.AnswerTextCSS.className}
+          />
+        </div>
+      </div>
+
+      {/* NUM/MAX WRONG CONTAINER */}
+      <div className={Styles.WrongContainerCSS.className}>
+        {numWrong}
+        <br />
+        /
+        <br />
+        {maxWrong}
+      </div>
+
+      {/* PLAY AGAIN / SHOW ANSWER BUTTONS */}
+      {playAgainShowAnswerTransition(
+        (style, item) =>
+          item && (
+            <animated.div
+              style={style}
+              className={Styles.ButtonsContainerCSS.className}
+            >
+              <Button
+                color="white"
+                bgColor="#178a09"
+                text="New Round"
+                onClick={handleGame}
+                style={{ flex: 1, marginRight: 8 }}
+              />
+              <Button
+                color="white"
+                bgColor="#629e12"
+                text="Show Answer"
+                onClick={() => dispatch({ type: 'Show_Answer' })}
+                style={{ flex: 1 }}
+                disabled={showAnswer}
+              />
+            </animated.div>
+          )
+      )}
+
+      {/* STYLES */}
+      {ContainerCSS.styles}
+      {Styles.ContentOuterContainerCSS.styles}
+      {Styles.ContentInnerContainerCSS.styles}
+      {Styles.StickmanContainerCSS.styles}
+      {Styles.StickmanCSS.styles}
+      {Styles.PlatformCSS.styles}
+      {Styles.SpeechBubbleCSS.styles}
+      {Styles.SpeechBubbleTextCSS.styles}
+      {Styles.HelicopterCSS.styles}
+      {Styles.AlphabetButtonContainerCSS.styles}
+      {Styles.AlphabetButtonCSS.styles}
+      {Styles.OuterBlankContainerCSS.styles}
+      {Styles.InnerBlankContainerCSS.styles}
+      {Styles.ButtonsContainerCSS.styles}
+      {Styles.WrongContainerCSS.styles}
+      {Styles.AnswerTextCSS.styles}
+    </div>
   );
 }

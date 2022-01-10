@@ -21,13 +21,12 @@ import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { TwoSidedCard } from 'games/_components';
 import { nextRoundData, arrOfRandoNum } from 'games/_utils';
-import GameWrapper from 'components/GameWrapper';
 
 // CONSTANTS - img, audio, function, etc.
 const getBoxCount = (isVocab: boolean) => (isVocab ? 8 : 6);
 const maximumStars = 6;
 
-export default function Stars({ title, description, keyCuts }: GameSEOProps) {
+export default function Stars({ title }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -112,46 +111,44 @@ export default function Stars({ title, description, keyCuts }: GameSEOProps) {
   );
 
   return (
-    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <div className={ContainerCSS.className}>
-        {gameData.map((text, i) => {
-          // generate an array of our stars icons
-          const starIcons = [...Array(stars[i])].map((x, j) => (
-            <FaStar
-              key={starColors[i] + j}
-              color={starColors[i]}
-              style={{
-                height: 'auto',
-                width: '15%',
-                transform: 'rotate(180deg)',
-              }}
-            />
-          ));
+    <div className={ContainerCSS.className}>
+      {gameData.map((text, i) => {
+        // generate an array of our stars icons
+        const starIcons = [...Array(stars[i])].map((x, j) => (
+          <FaStar
+            key={starColors[i] + j}
+            color={starColors[i]}
+            style={{
+              height: 'auto',
+              width: '15%',
+              transform: 'rotate(180deg)',
+            }}
+          />
+        ));
 
-          return (
-            <TwoSidedCard
-              id={i}
-              key={text + i}
-              ref={refs[i]}
-              textFront={text}
-              textBack={starIcons}
-              colorFront={colors[i]}
-              colorBack="white"
-              width="50vw"
-              height={isVocab ? '25vh' : '33.4vh'}
-              handleClick={_handleClick}
-              flipX={clickedIDs.includes(i)}
-              cardClass={Styles.CardCSS.className}
-              fitTextClass={Styles.FitTextCSS.className}
-            />
-          );
-        })}
+        return (
+          <TwoSidedCard
+            id={i}
+            key={text + i}
+            ref={refs[i]}
+            textFront={text}
+            textBack={starIcons}
+            colorFront={colors[i]}
+            colorBack="white"
+            width="50vw"
+            height={isVocab ? '25vh' : '33.4vh'}
+            handleClick={_handleClick}
+            flipX={clickedIDs.includes(i)}
+            cardClass={Styles.CardCSS.className}
+            fitTextClass={Styles.FitTextCSS.className}
+          />
+        );
+      })}
 
-        {/* STYLES */}
-        {ContainerCSS.styles}
-        {Styles.CardCSS.styles}
-        {Styles.FitTextCSS.styles}
-      </div>
-    </GameWrapper>
+      {/* STYLES */}
+      {ContainerCSS.styles}
+      {Styles.CardCSS.styles}
+      {Styles.FitTextCSS.styles}
+    </div>
   );
 }

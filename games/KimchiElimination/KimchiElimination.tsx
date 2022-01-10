@@ -16,18 +16,13 @@ import * as Styles from './KimchiElimination.styles';
 import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { getRandoNum, nextRoundData } from 'games/_utils';
-import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 
 // CONSTANTS - img, audio, function, etc.
 const KimchiURL = getGameFileUrl('KimchiElimination/GameCover.svg');
 
-export default function KimchiElimination({
-  title,
-  description,
-  keyCuts,
-}: GameSEOProps) {
+export default function KimchiElimination({ title }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -111,56 +106,54 @@ export default function KimchiElimination({
   }, [dispatch, showPic]);
 
   return (
-    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <div className={ContainerCSS.className} onClick={handleGame}>
-        {transitions((style, item) =>
-          item ? (
-            <animated.div className={Styles.SlideCSS.className} style={style}>
-              {isKimchi ? (
-                <animated.img
-                  style={imgStyles}
-                  className={Styles.KimchiCSS.className}
-                  alt="kimchi; disable your adblock?"
-                  src={KimchiURL}
-                />
-              ) : (
-                // eslint-disable-next-line jsx-a11y/accessible-emoji
-                <animated.span
-                  style={imgStyles}
-                  className={classNames(
-                    Styles.KimchiCSS.className,
-                    Styles.PooCSS.className
-                  )}
-                  aria-label="poo emoji"
-                >
-                  💩
-                </animated.span>
-              )}
-            </animated.div>
-          ) : (
-            <animated.div
-              className={Styles.SlideCSS.className}
-              style={{ ...style, backgroundColor: 'violet' }}
-            >
-              <FitText text={text} ref={ref} />
-            </animated.div>
-          )
-        )}
+    <div className={ContainerCSS.className} onClick={handleGame}>
+      {transitions((style, item) =>
+        item ? (
+          <animated.div className={Styles.SlideCSS.className} style={style}>
+            {isKimchi ? (
+              <animated.img
+                style={imgStyles}
+                className={Styles.KimchiCSS.className}
+                alt="kimchi; disable your adblock?"
+                src={KimchiURL}
+              />
+            ) : (
+              // eslint-disable-next-line jsx-a11y/accessible-emoji
+              <animated.span
+                style={imgStyles}
+                className={classNames(
+                  Styles.KimchiCSS.className,
+                  Styles.PooCSS.className
+                )}
+                aria-label="poo emoji"
+              >
+                💩
+              </animated.span>
+            )}
+          </animated.div>
+        ) : (
+          <animated.div
+            className={Styles.SlideCSS.className}
+            style={{ ...style, backgroundColor: 'violet' }}
+          >
+            <FitText text={text} ref={ref} />
+          </animated.div>
+        )
+      )}
 
-        <animated.div
-          style={kimchiFrequencyStyles}
-          className={Styles.FrequencyCSS.className}
-        >
-          {kimchiFrequency}%
-        </animated.div>
+      <animated.div
+        style={kimchiFrequencyStyles}
+        className={Styles.FrequencyCSS.className}
+      >
+        {kimchiFrequency}%
+      </animated.div>
 
-        {/* STYLES */}
-        {ContainerCSS.styles}
-        {Styles.SlideCSS.styles}
-        {Styles.KimchiCSS.styles}
-        {Styles.PooCSS.styles}
-        {Styles.FrequencyCSS.styles}
-      </div>
-    </GameWrapper>
+      {/* STYLES */}
+      {ContainerCSS.styles}
+      {Styles.SlideCSS.styles}
+      {Styles.KimchiCSS.styles}
+      {Styles.PooCSS.styles}
+      {Styles.FrequencyCSS.styles}
+    </div>
   );
 }

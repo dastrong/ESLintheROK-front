@@ -15,7 +15,6 @@ import * as Styles from './LetterBowling.styles';
 import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { getRandoNum, nextRoundData } from 'games/_utils';
-import GameWrapper from 'components/GameWrapper';
 import Popup from 'components/Popup';
 import Button from 'components/Button';
 
@@ -23,11 +22,7 @@ import Button from 'components/Button';
 const letterBuffer = 3000; // in ms - time between each letter's animation
 const animDuration = 5000; // in ms - time it takes from the letter appearing to disappearing
 
-export default function LetterBowling({
-  title,
-  description,
-  keyCuts,
-}: GameSEOProps) {
+export default function LetterBowling({ title }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -111,101 +106,99 @@ export default function LetterBowling({
   const disablePlay = isBowling || isGameOver || showAnswer;
 
   return (
-    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <div className={ContainerCSS.className}>
-        {/* CONTROLS */}
-        <div className={Styles.ControlsCSS.className}>
-          <Popup
-            owner={
-              <Button
-                rounded
-                size="xl"
-                Icon={FaRandom}
-                color="rgba(0, 0, 0, 0.6)"
-                bgColor="#e0e1e2"
-                style={{ margin: '5px' }}
-                onClick={() => dispatch({ type: 'Shuffle_Letters' })}
-                disabled={disableShuffle}
-              />
-            }
-            placement="left"
-            content="Shuffle the letters"
-            hideTooltip={disableShuffle}
-          />
+    <div className={ContainerCSS.className}>
+      {/* CONTROLS */}
+      <div className={Styles.ControlsCSS.className}>
+        <Popup
+          owner={
+            <Button
+              rounded
+              size="xl"
+              Icon={FaRandom}
+              color="rgba(0, 0, 0, 0.6)"
+              bgColor="#e0e1e2"
+              style={{ margin: '5px' }}
+              onClick={() => dispatch({ type: 'Shuffle_Letters' })}
+              disabled={disableShuffle}
+            />
+          }
+          placement="left"
+          content="Shuffle the letters"
+          hideTooltip={disableShuffle}
+        />
 
-          <Popup
-            owner={
-              <Button
-                rounded
-                size="xl"
-                Icon={FaPlay}
-                color={!disablePlay ? 'white' : 'rgba(0, 0, 0, 0.6)'}
-                bgColor={!disablePlay ? '#2185d0' : '#e0e1e2'}
-                style={{ margin: '5px' }}
-                onClick={() => {
-                  if (round === 1) track.newRound(title);
-                  dispatch({ type: 'Bowl_Start' });
-                }}
-                disabled={disablePlay}
-              />
-            }
-            placement="bottom"
-            content="Start the round"
-            hideTooltip={disablePlay}
-          />
+        <Popup
+          owner={
+            <Button
+              rounded
+              size="xl"
+              Icon={FaPlay}
+              color={!disablePlay ? 'white' : 'rgba(0, 0, 0, 0.6)'}
+              bgColor={!disablePlay ? '#2185d0' : '#e0e1e2'}
+              style={{ margin: '5px' }}
+              onClick={() => {
+                if (round === 1) track.newRound(title);
+                dispatch({ type: 'Bowl_Start' });
+              }}
+              disabled={disablePlay}
+            />
+          }
+          placement="bottom"
+          content="Start the round"
+          hideTooltip={disablePlay}
+        />
 
-          <Popup
-            owner={
-              <Button
-                rounded
-                size="xl"
-                Icon={FaSyncAlt}
-                color={showAnswer ? 'white' : 'rgba(0, 0, 0, 0.6)'}
-                bgColor={showAnswer ? '#2185d0' : '#e0e1e2'}
-                style={{ margin: '5px' }}
-                onClick={handleGame}
-              />
-            }
-            placement="right"
-            content="Get a new word and reset"
-          />
-        </div>
-
-        {/* ROUND COUNTER */}
-        <p className={Styles.RoundCounterCSS.className}>
-          {round}/{rounds}
-        </p>
-
-        {/* INFO TEXT */}
-        <animated.p
-          style={{ ...textStyles, cursor: isGameOver ? 'pointer' : 'default' }}
-          className={Styles.TextCSS.className}
-          onClick={() => {
-            if (!isGameOver) return;
-            dispatch({ type: 'Show_Answer' });
-          }}
-        >
-          {showAnswer ? text : isGameOver ? '?????' : 'Ready?'}
-        </animated.p>
-
-        {/* LETTERS */}
-        {letterSprings.map((style, i) => (
-          <animated.span
-            key={`bowling-letter-${text}-${i}-${splitText[i]}`}
-            className={Styles.LetterCSS.className}
-            style={{ ...style, backgroundColor: colors[i] }}
-          >
-            {splitText[i]}
-          </animated.span>
-        ))}
-
-        {/* STYLES */}
-        {ContainerCSS.styles}
-        {Styles.ControlsCSS.styles}
-        {Styles.RoundCounterCSS.styles}
-        {Styles.TextCSS.styles}
-        {Styles.LetterCSS.styles}
+        <Popup
+          owner={
+            <Button
+              rounded
+              size="xl"
+              Icon={FaSyncAlt}
+              color={showAnswer ? 'white' : 'rgba(0, 0, 0, 0.6)'}
+              bgColor={showAnswer ? '#2185d0' : '#e0e1e2'}
+              style={{ margin: '5px' }}
+              onClick={handleGame}
+            />
+          }
+          placement="right"
+          content="Get a new word and reset"
+        />
       </div>
-    </GameWrapper>
+
+      {/* ROUND COUNTER */}
+      <p className={Styles.RoundCounterCSS.className}>
+        {round}/{rounds}
+      </p>
+
+      {/* INFO TEXT */}
+      <animated.p
+        style={{ ...textStyles, cursor: isGameOver ? 'pointer' : 'default' }}
+        className={Styles.TextCSS.className}
+        onClick={() => {
+          if (!isGameOver) return;
+          dispatch({ type: 'Show_Answer' });
+        }}
+      >
+        {showAnswer ? text : isGameOver ? '?????' : 'Ready?'}
+      </animated.p>
+
+      {/* LETTERS */}
+      {letterSprings.map((style, i) => (
+        <animated.span
+          key={`bowling-letter-${text}-${i}-${splitText[i]}`}
+          className={Styles.LetterCSS.className}
+          style={{ ...style, backgroundColor: colors[i] }}
+        >
+          {splitText[i]}
+        </animated.span>
+      ))}
+
+      {/* STYLES */}
+      {ContainerCSS.styles}
+      {Styles.ControlsCSS.styles}
+      {Styles.RoundCounterCSS.styles}
+      {Styles.TextCSS.styles}
+      {Styles.LetterCSS.styles}
+    </div>
   );
 }

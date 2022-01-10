@@ -24,7 +24,6 @@ import { PubgBattlegroundItems } from './PubgBattlegroundItems';
 import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { getRandoNum, nextRoundData } from 'games/_utils';
-import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 
@@ -33,11 +32,7 @@ const CountdownAudioURL = getGameFileUrl('PubgBattleground/countdown.mp3');
 const BackgroundURL = getGameFileUrl('PubgBattleground/pubgMap.jpg', '/f_auto');
 const numOfText = 4;
 
-export default function PubgBattleground({
-  title,
-  description,
-  keyCuts,
-}: GameSEOProps) {
+export default function PubgBattleground({ title }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -132,95 +127,93 @@ export default function PubgBattleground({
   }, [stage, handleGame, CountAudio, dispatch]);
 
   return (
-    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <div className={ContainerCSS.className} onClick={_handleClick}>
-        <div className="blue-zone" />
-        <img className="map" src={BackgroundURL} alt="pubg map background" />
-        <div className="countdown-timer">{countdown}</div>
+    <div className={ContainerCSS.className} onClick={_handleClick}>
+      <div className="blue-zone" />
+      <img className="map" src={BackgroundURL} alt="pubg map background" />
+      <div className="countdown-timer">{countdown}</div>
 
-        {/* TEXT CARDS */}
-        <div className={Styles.CardHolderCSS.className}>
-          {textSprings.map((style, i) => (
+      {/* TEXT CARDS */}
+      <div className={Styles.CardHolderCSS.className}>
+        {textSprings.map((style, i) => (
+          <animated.div
+            key={`pubg-card-text-${i}`}
+            style={style}
+            className={Styles.CardCSS.className}
+          >
+            <FitText text={gameData[i]} ref={refs[i]} />
+          </animated.div>
+        ))}
+      </div>
+
+      {/* ITEM CARDS */}
+      <div className={Styles.CardHolderCSS.className}>
+        {itemSprings.map((style, i) => {
+          const { points, name } = items[i];
+          return (
             <animated.div
-              key={`pubg-card-text-${i}`}
-              style={style}
+              key={`pubg-card-item-${i}`}
+              style={{
+                ...style,
+                backgroundImage: `url(${getGameFileUrl(
+                  `PubgBattleground/gameItems/${name}.png`,
+                  '/f_auto'
+                )})`,
+                color: points.startsWith('-') ? 'red' : 'green',
+              }}
               className={Styles.CardCSS.className}
             >
-              <FitText text={gameData[i]} ref={refs[i]} />
+              {points}
             </animated.div>
-          ))}
-        </div>
-
-        {/* ITEM CARDS */}
-        <div className={Styles.CardHolderCSS.className}>
-          {itemSprings.map((style, i) => {
-            const { points, name } = items[i];
-            return (
-              <animated.div
-                key={`pubg-card-item-${i}`}
-                style={{
-                  ...style,
-                  backgroundImage: `url(${getGameFileUrl(
-                    `PubgBattleground/gameItems/${name}.png`,
-                    '/f_auto'
-                  )})`,
-                  color: points.startsWith('-') ? 'red' : 'green',
-                }}
-                className={Styles.CardCSS.className}
-              >
-                {points}
-              </animated.div>
-            );
-          })}
-        </div>
-
-        {/* STYLES */}
-        {ContainerCSS.styles}
-        {Styles.CardHolderCSS.styles}
-        {Styles.CardCSS.styles}
-        <style jsx>{`
-          div.blue-zone {
-            position: fixed;
-            height: 103vh;
-            width: 103vw;
-            z-index: 5;
-            transform: scale(1);
-            transition: transform 6s;
-            border-width: 1.5vh 1.5vw;
-            border-color: blue;
-            border-style: solid;
-            box-shadow: inset 0 0 3px 3px blue;
-            top: -2.5vh;
-            left: -2.5vw;
-            transform: scale(${stage === 1 ? 0.97 : 1});
-            transition-delay: ${stage === 1 ? 8 : 0}s;
-          }
-
-          img.map {
-            position: fixed;
-            height: 100%;
-            width: 100%;
-            transition: all 6s;
-            transform: scale(${1 + scaled})
-              translate(-${scaled * 12}vw, ${scaled}vh);
-          }
-
-          div.countdown-timer {
-            color: #fff;
-            z-index: 5;
-            position: absolute;
-            font-size: 150px;
-            height: 200px;
-            width: 200px;
-            line-height: 200px;
-            text-align: center;
-            background-color: rgb(0, 0, 0);
-            border-radius: 50%;
-            opacity: ${countdown ? 1 : 0};
-            transition: opacity 0.5s;
-          }
-        `}</style>
+          );
+        })}
       </div>
-    </GameWrapper>
+
+      {/* STYLES */}
+      {ContainerCSS.styles}
+      {Styles.CardHolderCSS.styles}
+      {Styles.CardCSS.styles}
+      <style jsx>{`
+        div.blue-zone {
+          position: fixed;
+          height: 103vh;
+          width: 103vw;
+          z-index: 5;
+          transform: scale(1);
+          transition: transform 6s;
+          border-width: 1.5vh 1.5vw;
+          border-color: blue;
+          border-style: solid;
+          box-shadow: inset 0 0 3px 3px blue;
+          top: -2.5vh;
+          left: -2.5vw;
+          transform: scale(${stage === 1 ? 0.97 : 1});
+          transition-delay: ${stage === 1 ? 8 : 0}s;
+        }
+
+        img.map {
+          position: fixed;
+          height: 100%;
+          width: 100%;
+          transition: all 6s;
+          transform: scale(${1 + scaled})
+            translate(-${scaled * 12}vw, ${scaled}vh);
+        }
+
+        div.countdown-timer {
+          color: #fff;
+          z-index: 5;
+          position: absolute;
+          font-size: 150px;
+          height: 200px;
+          width: 200px;
+          line-height: 200px;
+          text-align: center;
+          background-color: rgb(0, 0, 0);
+          border-radius: 50%;
+          opacity: ${countdown ? 1 : 0};
+          transition: opacity 0.5s;
+        }
+      `}</style>
+    </div>
   );
 }

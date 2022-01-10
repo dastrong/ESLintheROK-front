@@ -25,7 +25,6 @@ import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { RowOfTwoSidedCards } from 'games/_components';
 import { nextRoundData, getRandoNum } from 'games/_utils';
-import GameWrapper from 'components/GameWrapper';
 
 // DECLARE CONSTANT VARIABLES HERE - img, audio, function, etc.
 const getBackCard = (isTarget: boolean) =>
@@ -34,11 +33,7 @@ const getBackCard = (isTarget: boolean) =>
     : ['', 'white'];
 const getBoxCount = (isVocab: boolean) => (isVocab ? 8 : 6);
 
-export default function WhatsBehind({
-  title,
-  description,
-  keyCuts,
-}: GameSEOProps) {
+export default function WhatsBehind({ title }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const { show: showGif, gifDispatch } = useGifs();
@@ -132,33 +127,31 @@ export default function WhatsBehind({
   );
 
   return (
-    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <div className={ContainerCSS.className}>
-        {splitRows.map((row, i) => (
-          <RowOfTwoSidedCards
-            flipY
-            key={'row' + i}
-            rowIdx={i * 2}
-            rowArr={row}
-            targets={target}
-            colors={colors}
-            clickedID={clickedID}
-            clickedIDs={clickedIDs}
-            handleClick={_handleClick}
-            getBackCard={getBackCard}
-            cardClass={Styles.CardCSS.className}
-            fitTextClass={Styles.FitTextCSS.className}
-          />
-        ))}
+    <div className={ContainerCSS.className}>
+      {splitRows.map((row, i) => (
+        <RowOfTwoSidedCards
+          flipY
+          key={'row' + i}
+          rowIdx={i * 2}
+          rowArr={row}
+          targets={target}
+          colors={colors}
+          clickedID={clickedID}
+          clickedIDs={clickedIDs}
+          handleClick={_handleClick}
+          getBackCard={getBackCard}
+          cardClass={Styles.CardCSS.className}
+          fitTextClass={Styles.FitTextCSS.className}
+        />
+      ))}
 
-        {/* Found the targeted card; rain down the confetti */}
-        {foundTarget && <WhatsBehindConfetti />}
+      {/* Found the targeted card; rain down the confetti */}
+      {foundTarget && <WhatsBehindConfetti />}
 
-        {/* STYLES */}
-        {ContainerCSS.styles}
-        {Styles.FitTextCSS.styles}
-        {Styles.CardCSS.styles}
-      </div>
-    </GameWrapper>
+      {/* STYLES */}
+      {ContainerCSS.styles}
+      {Styles.FitTextCSS.styles}
+      {Styles.CardCSS.styles}
+    </div>
   );
 }

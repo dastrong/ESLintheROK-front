@@ -15,14 +15,9 @@ import * as Styles from './SparkleDie.styles';
 import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
-import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 
-export default function SparkleDie({
-  title,
-  description,
-  keyCuts,
-}: GameSEOProps) {
+export default function SparkleDie({ title }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -87,34 +82,32 @@ export default function SparkleDie({
   }, [dispatch, isTimerRunning]);
 
   return (
-    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <div className={ContainerCSS.className}>
+    <div className={ContainerCSS.className}>
+      <animated.div
+        style={springStyles}
+        className={Styles.TextContainerCSS.className}
+        onClick={handleGame}
+      >
+        <FitText text={text} ref={ref} />
+      </animated.div>
+
+      <div
+        className={Styles.TimerContainerCSS.className}
+        onClick={() => dispatch({ type: 'Timer_Pause' })}
+      >
         <animated.div
-          style={springStyles}
-          className={Styles.TextContainerCSS.className}
-          onClick={handleGame}
-        >
-          <FitText text={text} ref={ref} />
-        </animated.div>
-
-        <div
-          className={Styles.TimerContainerCSS.className}
-          onClick={() => dispatch({ type: 'Timer_Pause' })}
-        >
-          <animated.div
-            className={Styles.TimerBarCSS.className}
-            style={timerStyles}
-          />
-          <div className={Styles.TimerTextCSS.className}>{timeRemaining}</div>
-        </div>
-
-        {/* STYLES */}
-        {ContainerCSS.styles}
-        {Styles.TextContainerCSS.styles}
-        {Styles.TimerContainerCSS.styles}
-        {Styles.TimerBarCSS.styles}
-        {Styles.TimerTextCSS.styles}
+          className={Styles.TimerBarCSS.className}
+          style={timerStyles}
+        />
+        <div className={Styles.TimerTextCSS.className}>{timeRemaining}</div>
       </div>
-    </GameWrapper>
+
+      {/* STYLES */}
+      {ContainerCSS.styles}
+      {Styles.TextContainerCSS.styles}
+      {Styles.TimerContainerCSS.styles}
+      {Styles.TimerBarCSS.styles}
+      {Styles.TimerTextCSS.styles}
+    </div>
   );
 }

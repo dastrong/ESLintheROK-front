@@ -26,7 +26,6 @@ import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData, splitString } from 'games/_utils';
 import { AnswerBox } from 'games/_components';
-import GameWrapper from 'components/GameWrapper';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 
 // CONSTANTS - img, audio, function, etc.
@@ -36,11 +35,7 @@ const Bear3URL = getGameFileUrl('SleepingBears/Bear-3.png');
 const Bear4URL = getGameFileUrl('SleepingBears/Bear-4.png');
 const bearImgs = [Bear1URL, Bear2URL, Bear3URL, Bear4URL];
 
-export default function SleepingBears({
-  title,
-  description,
-  keyCuts,
-}: GameSEOProps) {
+export default function SleepingBears({ title }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -115,47 +110,45 @@ export default function SleepingBears({
   }
 
   return (
-    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <div className={ContainerCSS.className} onClick={_handleClick}>
-        <AnswerBox
-          showBox={gameData.length * 2 + 2 === stage}
-          showText={gameData.length * 2 + 3 === stage}
-          answer={answer}
-        />
+    <div className={ContainerCSS.className} onClick={_handleClick}>
+      <AnswerBox
+        showBox={gameData.length * 2 + 2 === stage}
+        showText={gameData.length * 2 + 3 === stage}
+        answer={answer}
+      />
 
-        <animated.div
-          style={containerStyles}
-          className={Styles.CardsContainerCSS.className}
-        >
-          {gameData.map((text, i) => (
-            <SleepingBearsCard
-              key={i + text}
-              src={bearImgs[i]}
-              text={text}
-              ref={refs[i]}
-              showText={(i + 1) * 2 === stage}
-              cxCard={classNames(
-                Styles.CardCSS.className,
-                Styles.CardSharedCSS.className,
-                { [Styles.CardExpanded.className]: numOfBoxes === 2 },
-                { [Styles.CardExpanded.className]: numOfBoxes === 3 && i === 2 }
-              )}
-              cxContent={classNames(
-                Styles.CardSharedCSS.className,
-                Styles.CardContentCSS.className
-              )}
-            />
-          ))}
-        </animated.div>
+      <animated.div
+        style={containerStyles}
+        className={Styles.CardsContainerCSS.className}
+      >
+        {gameData.map((text, i) => (
+          <SleepingBearsCard
+            key={i + text}
+            src={bearImgs[i]}
+            text={text}
+            ref={refs[i]}
+            showText={(i + 1) * 2 === stage}
+            cxCard={classNames(
+              Styles.CardCSS.className,
+              Styles.CardSharedCSS.className,
+              { [Styles.CardExpanded.className]: numOfBoxes === 2 },
+              { [Styles.CardExpanded.className]: numOfBoxes === 3 && i === 2 }
+            )}
+            cxContent={classNames(
+              Styles.CardSharedCSS.className,
+              Styles.CardContentCSS.className
+            )}
+          />
+        ))}
+      </animated.div>
 
-        {/* STYLES */}
-        {ContainerCSS.styles}
-        {Styles.CardsContainerCSS.styles}
-        {Styles.CardCSS.styles}
-        {Styles.CardSharedCSS.styles}
-        {Styles.CardContentCSS.styles}
-        {Styles.CardExpanded.styles}
-      </div>
-    </GameWrapper>
+      {/* STYLES */}
+      {ContainerCSS.styles}
+      {Styles.CardsContainerCSS.styles}
+      {Styles.CardCSS.styles}
+      {Styles.CardSharedCSS.styles}
+      {Styles.CardContentCSS.styles}
+      {Styles.CardExpanded.styles}
+    </div>
   );
 }

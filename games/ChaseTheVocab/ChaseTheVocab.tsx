@@ -17,14 +17,9 @@ import * as Styles from './ChaseTheVocab.styles';
 import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
 import { nextRoundData } from 'games/_utils';
-import GameWrapper from 'components/GameWrapper';
 import FitText from 'components/FitText';
 
-export default function ChaseTheVocab({
-  title,
-  description,
-  keyCuts,
-}: GameSEOProps) {
+export default function ChaseTheVocab({ title }: GameSEOProps) {
   const store = useStore();
   const { selectedFont } = useFont();
   const ContainerCSS = Styles.getContainerCSS(selectedFont.fontFamily);
@@ -141,64 +136,62 @@ export default function ChaseTheVocab({
   );
 
   return (
-    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <div
-        className={ContainerCSS.className}
-        onClick={!isAnimating && !isShuffleDone ? _handleClick : null}
+    <div
+      className={ContainerCSS.className}
+      onClick={!isAnimating && !isShuffleDone ? _handleClick : null}
+    >
+      <FlipMove
+        className={Styles.FlipperContainerCSS.className}
+        duration={!isAnimating && !isShuffleDone ? 500 : shuffDuration}
       >
-        <FlipMove
-          className={Styles.FlipperContainerCSS.className}
-          duration={!isAnimating && !isShuffleDone ? 500 : shuffDuration}
-        >
-          {gameData.map(({ text, id }, i) => {
-            return (
-              // we double wrap our divs here because FlipMove will animate using a CSS ...
-              // ... transform which will interfere with our CSS transform springs
-              <div
-                key={`chase-card-${id}`}
-                id={String(i)}
-                onClick={_handleBoxClick}
+        {gameData.map(({ text, id }, i) => {
+          return (
+            // we double wrap our divs here because FlipMove will animate using a CSS ...
+            // ... transform which will interfere with our CSS transform springs
+            <div
+              key={`chase-card-${id}`}
+              id={String(i)}
+              onClick={_handleBoxClick}
+            >
+              <animated.div
+                style={{ ...cardStyles, backgroundColor: colors[colorIndex] }}
+                className={classNames(
+                  Styles.CardHolderCSS.className,
+                  Styles.CardCSS.className
+                )}
               >
                 <animated.div
-                  style={{ ...cardStyles, backgroundColor: colors[colorIndex] }}
+                  style={numSprings[i]}
                   className={classNames(
-                    Styles.CardHolderCSS.className,
-                    Styles.CardCSS.className
+                    Styles.CardCSS.className,
+                    Styles.CardNumCSS.className
                   )}
                 >
-                  <animated.div
-                    style={numSprings[i]}
-                    className={classNames(
-                      Styles.CardCSS.className,
-                      Styles.CardNumCSS.className
-                    )}
-                  >
-                    {i + 1}
-                  </animated.div>
-                  <animated.div
-                    style={textSprings[i]}
-                    className={classNames(
-                      Styles.CardCSS.className,
-                      Styles.CardTextCSS.className
-                    )}
-                  >
-                    <FitText text={text} ref={refs[id]} />
-                  </animated.div>
+                  {i + 1}
                 </animated.div>
-              </div>
-            );
-          })}
-        </FlipMove>
+                <animated.div
+                  style={textSprings[i]}
+                  className={classNames(
+                    Styles.CardCSS.className,
+                    Styles.CardTextCSS.className
+                  )}
+                >
+                  <FitText text={text} ref={refs[id]} />
+                </animated.div>
+              </animated.div>
+            </div>
+          );
+        })}
+      </FlipMove>
 
-        {/* STYLES */}
-        {ContainerCSS.styles}
-        {Styles.FlipperContainerCSS.styles}
-        {Styles.CardHolderCSS.styles}
-        {Styles.CardCSS.styles}
-        {Styles.CardNumCSS.styles}
-        {Styles.CardTextCSS.styles}
-      </div>
-    </GameWrapper>
+      {/* STYLES */}
+      {ContainerCSS.styles}
+      {Styles.FlipperContainerCSS.styles}
+      {Styles.CardHolderCSS.styles}
+      {Styles.CardCSS.styles}
+      {Styles.CardNumCSS.styles}
+      {Styles.CardTextCSS.styles}
+    </div>
   );
 }
 
