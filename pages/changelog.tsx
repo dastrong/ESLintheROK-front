@@ -32,7 +32,7 @@ export default function ChangelogPage({
       sameSite: 'strict',
     });
     storeDispatch({ type: 'Set_Changelog_Notification', show: false });
-  }, []);
+  }, [storeDispatch]);
 
   return (
     <SeoWrapper

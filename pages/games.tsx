@@ -47,8 +47,8 @@ export default function GamesPage({
 
   // add a NEW badge to recently created games
   useEffect(() => {
-    setGames(
-      games.map(game => ({
+    setGames(state =>
+      state.map(game => ({
         ...game,
         isNew: checkIfNew(game.publishedDate, 30),
       }))
@@ -144,6 +144,7 @@ export default function GamesPage({
                   className="badge badge_attach"
                   href={game.attachURL}
                   target="_blank"
+                  rel="noreferrer"
                 >
                   <FaPaperclip />
                 </a>
@@ -380,11 +381,30 @@ export const getStaticProps = async () => {
 
   const publishedGames = gameConfigs
     .filter(({ publish }) => publish)
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    .map(({ instructions, keyCuts, publish, warnings, ...rest }) => ({
-      ...rest,
-      isNew: false,
-    }));
+    .map(
+      ({
+        attachURL,
+        dataUsed,
+        description,
+        hasAudio,
+        path,
+        skills,
+        title,
+        usesGifs,
+        publishedDate,
+      }) => ({
+        attachURL,
+        dataUsed,
+        description,
+        hasAudio,
+        path,
+        skills,
+        title,
+        usesGifs,
+        publishedDate,
+        isNew: false,
+      })
+    );
 
   return {
     props: {
