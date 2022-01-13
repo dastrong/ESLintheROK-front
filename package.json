@@ -9,15 +9,14 @@
     "postbuild": "next-sitemap --config next-sitemap.config.js",
     "export": "next export",
     "analyze": "cross-env ANALYZE=true next build",
+    "prepare": "husky install",
     "lint": "next lint",
-    "check-format": "prettier -c components/**/* pages/**/* utils/**/* hooks/**/*",
-    "check-lint": "eslint . --ext ts --ext tsx --ext js",
-    "check-types": "tsc --pretty --noEmit",
-    "lint:fix": "eslint . --ext .ts,.tsx --fix && yarn format",
-    "format": "prettier -w .",
-    "format:check": "prettier -c .",
-    "createGame": "node ./games/_utils/generate/createGame.js",
-    "prepare": "husky install"
+    "lint:check": "eslint {components,contexts,games,hooks,lib,pages,utils}/**/*.{ts,tsx}",
+    "lint:fix": "eslint {components,contexts,games,hooks,lib,pages,utils}/**/*.{ts,tsx} --fix",
+    "format:check": "prettier -c {components,contexts,games,hooks,lib,pages,utils}/**/*.{ts,tsx}",
+    "format:fix": "prettier -w {components,contexts,games,hooks,lib,pages,utils}/**/*.{ts,tsx}",
+    "types:check": "tsc --pretty --noEmit",
+    "createGame": "node ./games/_utils/generate/createGame.js"
   },
   "dependencies": {
     "@giphy/js-fetch-api": "^4.1.2",
@@ -91,11 +90,8 @@
     "typescript": "^4.5.4"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": [
+    "{components,contexts,games,hooks,lib,pages,utils}/**/*.{ts,tsx}": [
       "eslint --max-warnings=0",
-      "prettier -w"
-    ],
-    "src/**/*.{json,md}": [
       "prettier -w"
     ]
   }
