@@ -401,7 +401,7 @@ export const getStaticProps = async () => {
         skills,
         title,
         usesGifs,
-        publishedDate,
+        publishedDate: publishedDate || '',
         isNew: false,
       })
     );
