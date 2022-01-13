@@ -8,6 +8,5 @@
 /public/sitemap.xml
 
 package-lock.json
-yarn.lock
 
 tsconfig.tsbuildinfo
