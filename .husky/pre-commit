@@ -1,0 +1,29 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Check Prettier standards
+echo 'Checking for format errors...'
+yarn check-format ||
+(
+	echo 'Formatting errors found. Run yarn format and try committing again.';
+	false;
+)
+
+# Check ESLint Standards
+echo 'Checking for lint errors...'
+yarn check-lint || yarn lint-staged ||
+(
+	echo 'Linting errors found. Please fix the highlighted errors and try committing again.'
+	false; 
+)
+
+# Check tsc standards
+echo 'Checking for type errors...'
+yarn check-types ||
+(
+	echo 'Type errors found. Please fix the errors found and try committing again.'
+	false;
+)
+
+# If everything passes... Now we can commit
+echo '✅ Successful Commit ✅'
