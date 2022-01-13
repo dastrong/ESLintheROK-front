@@ -1,4 +1,4 @@
-name: PR Source Code Check
+name: Source Code Checks
 
 on:
   - push
@@ -26,7 +26,7 @@ jobs:
           node-version: '16'
           cache: 'yarn'
       - run: yarn
-      - run: yarn types-check
+      - run: yarn types:check
 
   prettier:
     name: Run Prettier Check
