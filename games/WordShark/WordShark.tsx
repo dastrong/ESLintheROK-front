@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback } from 'react';
 import { animated, useTransition } from 'react-spring';
 

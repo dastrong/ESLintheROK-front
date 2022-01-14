@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect } from 'react';
 import shuffle from 'lodash.shuffle';
 import { FaPlay, FaRandom, FaSyncAlt } from 'react-icons/fa';

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { CSSProperties } from 'react';
 import { getGameFileUrl } from 'utils/getCloudUrls';
 

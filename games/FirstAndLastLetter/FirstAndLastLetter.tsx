@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { animated, useSprings, useSpring } from 'react-spring';

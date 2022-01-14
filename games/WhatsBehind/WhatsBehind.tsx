@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect } from 'react';
 import { FaTrophy } from 'react-icons/fa';
 
@@ -29,7 +30,10 @@ import { nextRoundData, getRandoNum } from 'games/_utils';
 // DECLARE CONSTANT VARIABLES HERE - img, audio, function, etc.
 const getBackCard = (isTarget: boolean) =>
   isTarget
-    ? [<FaTrophy style={{ height: '80%', width: 'auto' }} />, 'gold']
+    ? [
+        <FaTrophy key="trophy-icon" style={{ height: '80%', width: 'auto' }} />,
+        'gold',
+      ]
     : ['', 'white'];
 const getBoxCount = (isVocab: boolean) => (isVocab ? 8 : 6);
 
