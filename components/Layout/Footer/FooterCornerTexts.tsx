@@ -47,7 +47,7 @@ export default function FooterCornerTexts() {
 
         <p className="copyright">
           <FaRegCopyright /> 2021{' '}
-          <a href="https://danielstrong.tech" target="_blank">
+          <a href="https://danielstrong.tech" target="_blank" rel="noreferrer">
             Daniel Strong
           </a>
         </p>

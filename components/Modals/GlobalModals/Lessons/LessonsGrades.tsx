@@ -37,6 +37,7 @@ export default function LessonsGrades({
     };
 
     if (!grades.length) getGrades();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

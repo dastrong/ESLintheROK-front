@@ -21,6 +21,7 @@ export default function useData(
     const newData =
       isVocab || isVocab === undefined ? primaryData : secondaryData;
     dispatch({ type: 'Set_Data', data: newData });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, primaryData, secondaryData]);
 
   // RUNS WHEN USER SWITCHES FROM VOCABULARY TO EXPRESSIONS
@@ -30,11 +31,13 @@ export default function useData(
     didUpdate.current = true;
     const newData = isVocab ? primaryData : secondaryData;
     dispatch({ type: 'Set_Data', data: newData });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, isVocab]);
 
   // SWITCHES THE FLAG VARIABLE BACK TO IF IT'S BEEN CHANGED
   useEffect(() => {
     didUpdate.current = false;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [didUpdate.current]);
 
   return [state, dispatch, didUpdate.current];

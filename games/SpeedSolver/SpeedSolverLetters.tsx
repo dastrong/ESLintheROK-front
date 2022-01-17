@@ -44,7 +44,6 @@ export default function SpeedSolverLetters({
         return (
           <animated.div
             key={i + text}
-            children={text}
             className={cx}
             style={{
               transform: to(
@@ -52,7 +51,9 @@ export default function SpeedSolverLetters({
                 (x, y, r) => `translate(${x}px, ${y}px) rotate(${r}deg)`
               ),
             }}
-          />
+          >
+            {text}
+          </animated.div>
         );
       })}
     </div>

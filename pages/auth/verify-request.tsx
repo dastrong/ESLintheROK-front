@@ -60,6 +60,7 @@ export default function VerifyRequestPage() {
 
   const [state, dispatch] = useReducer(reducer, ['', '', '', '', '', '']);
   const isCodeEntered = state.every(x => Number.isInteger(parseInt(x)));
+  const [num1, num2, num3, num4, num5, num6] = state;
 
   // grab refs for each of the inputs
   const input0Ref = useRef<HTMLInputElement>();
@@ -72,37 +73,37 @@ export default function VerifyRequestPage() {
 
   useEffect(() => {
     if (isCodeEntered) buttonRef.current.focus();
-  }, [state]);
+  }, [isCodeEntered]);
 
   // once the value is updated run the onBlur event
   useEffect(() => {
     input1Ref.current.focus();
     input1Ref.current.select();
-  }, [state[0]]);
+  }, [num1]);
 
   useEffect(() => {
     input2Ref.current.focus();
     input2Ref.current.select();
-  }, [state[1]]);
+  }, [num2]);
 
   useEffect(() => {
     input3Ref.current.focus();
     input3Ref.current.select();
-  }, [state[2]]);
+  }, [num3]);
 
   useEffect(() => {
     input4Ref.current.focus();
     input4Ref.current.select();
-  }, [state[3]]);
+  }, [num4]);
 
   useEffect(() => {
     input5Ref.current.focus();
     input5Ref.current.select();
-  }, [state[4]]);
+  }, [num5]);
 
   useEffect(() => {
     input5Ref.current.blur();
-  }, [state[5]]);
+  }, [num6]);
 
   // verify the code given
   const onSubmit = async (e: FormEvent) => {

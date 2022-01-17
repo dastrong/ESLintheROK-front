@@ -137,7 +137,7 @@ export default function SettingsFonts() {
         Did you know you can change the font used in any game at any point
         through this menu? Furthermore, you can add to our default fonts below
         after signing in. Browse{' '}
-        <a href="https://fonts.google.com/" target="_blank">
+        <a href="https://fonts.google.com/" target="_blank" rel="noreferrer">
           Google Fonts
         </a>{' '}
         until you find some you like and add it to your list below!

@@ -51,7 +51,7 @@ export default function SettingsGifs() {
       <PageContent.List>
         <li>
           GIFs are randomly pulled from{' '}
-          <a href="https://www.giphy.com" target="_blank">
+          <a href="https://www.giphy.com" target="_blank" rel="noreferrer">
             GIPHY
           </a>
         </li>
@@ -110,6 +110,7 @@ export default function SettingsGifs() {
           <a
             href="https://support.giphy.com/hc/en-us/articles/360058840971-Content-Rating"
             target="_blank"
+            rel="noreferrer"
           >
             G rating
           </a>{' '}

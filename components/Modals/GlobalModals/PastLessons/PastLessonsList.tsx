@@ -1,7 +1,10 @@
-import React from 'react';
+import Button from 'components/Button';
+import Modal from 'components/Modals';
+import { useStore } from 'contexts/store';
+import useUserSession from 'hooks/useUserSession';
 import { useRouter } from 'next/router';
-import useSWR from 'swr';
-import { animated, useSpring } from 'react-spring';
+import React from 'react';
+import { toast } from 'react-hot-toast';
 import {
   FaCheck,
   FaPlus,
@@ -10,15 +13,12 @@ import {
   FaShareAlt,
   FaTrash,
 } from 'react-icons/fa';
-import { toast } from 'react-hot-toast';
+import { animated, useSpring } from 'react-spring';
 import { useCopyToClipboard } from 'react-use';
-
-import useUserSession from 'hooks/useUserSession';
-import { useStore } from 'contexts/store';
+import useSWR from 'swr';
 import { apiFetch, apiFetchToken, swrFetchToken } from 'utils/fetchers';
-import Button from 'components/Button';
-import Modal from 'components/Modals';
-import { PastLesson, State, PastLessonDispatch } from './PastLessons.types';
+
+import { PastLesson, PastLessonDispatch, State } from './PastLessons.types';
 import * as Styles from './PastLessonsList.styles';
 
 export default function PastLessonsList({

@@ -26,6 +26,7 @@ export default function PrivacyPage() {
         <a
           href="https://www.termsfeed.com/privacy-policy-generator/"
           target="_blank"
+          rel="noreferrer"
         >
           Privacy Policy Generator
         </a>{' '}
@@ -128,7 +129,7 @@ export default function PrivacyPage() {
               <strong>Website</strong> refers to ESL in the ROK, accessible from{' '}
               <a
                 href="https://www.eslintherok.com"
-                rel="external nofollow noopener"
+                rel="external nofollow noopener noreferrer"
                 target="_blank"
               >
                 https://www.eslintherok.com
@@ -248,7 +249,7 @@ export default function PrivacyPage() {
             disabling, or deleting local shared objects?&quot; available at{' '}
             <a
               href="https://helpx.adobe.com/flash-player/kb/disable-local-shared-objects-flash.html#main_Where_can_I_change_the_settings_for_disabling__or_deleting_local_shared_objects_"
-              rel="external nofollow noopener"
+              rel="external nofollow noopener noreferrer"
               target="_blank"
             >
               https://helpx.adobe.com/flash-player/kb/disable-local-shared-objects-flash.html#main_Where_can_I_change_the_settings_for_disabling__or_deleting_local_shared_objects_
@@ -269,7 +270,11 @@ export default function PrivacyPage() {
           Persistent Cookies remain on Your personal computer or mobile device
           when You go offline, while Session Cookies are deleted as soon as You
           close Your web browser. You can learn more about cookies here:{' '}
-          <a href="https://www.termsfeed.com/blog/cookies/" target="_blank">
+          <a
+            href="https://www.termsfeed.com/blog/cookies/"
+            target="_blank"
+            rel="noreferrer"
+          >
             All About Cookies by TermsFeed
           </a>
           .
@@ -335,6 +340,7 @@ export default function PrivacyPage() {
               <a
                 href="https://www.google.com/policies/privacy/partners/"
                 target="_blank"
+                rel="noreferrer"
               >
                 www.google.com/policies/privacy/partners/
               </a>
@@ -343,6 +349,7 @@ export default function PrivacyPage() {
               <a
                 href="https://tools.google.com/dlpage/gaoptout"
                 target="_blank"
+                rel="noreferrer"
               >
                 https://tools.google.com/dlpage/gaoptout
               </a>
@@ -741,7 +748,7 @@ export default function PrivacyPage() {
             By visiting this page on our website:{' '}
             <a
               href="https://www.eslintherok.com/contact"
-              rel="external nofollow noopener"
+              rel="external nofollow noopener noreferrer"
               target="_blank"
             >
               https://www.eslintherok.com/contact

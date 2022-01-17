@@ -40,6 +40,7 @@ export default function PastLessonsEdit({
 
   useEffect(() => {
     if (data?.title) setTitle(data.title);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isValidating]);
 
   // function to send the new data to our API to update it

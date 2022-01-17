@@ -46,7 +46,7 @@ export default function SignInPage() {
       const resp = await signIn('email', {
         email,
         redirect: false,
-        callbackUrl: 'http://localhost:3000',
+        callbackUrl: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
       });
       // when it's finished clear the toast
       toast.dismiss();
