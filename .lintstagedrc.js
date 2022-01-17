@@ -14,11 +14,11 @@ const removeIgnoredFiles = async files => {
 module.exports = {
   '{components,contexts,games,hooks,lib,pages,utils}/**/*.{ts,tsx}':
     async files => {
-      console.log(files);
       const filesToLint = await removeIgnoredFiles(files);
+      if (!filesToLint) return [];
       return [
         `eslint --max-warnings=0 ${filesToLint}`,
-        'prettier -w'
+        `prettier -w ${filesToLint}`,
       ];
     },
 };
