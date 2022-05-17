@@ -64,6 +64,7 @@ export default function LessonsData({
     };
 
     getLessonData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   let numOfChanges = 0;

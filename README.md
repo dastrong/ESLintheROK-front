@@ -56,6 +56,7 @@ NEXT_PUBLIC_SEED = 'boolean'; // set this if you want seed the database or use t
 COFFEE_TOKEN = 'string'; // used to grab supporters from buymeacoffee
 
 NEXTAUTH_URL = 'http://localhost:3000'; // frontend url
+NEXT_PUBLIC_NEXTAUTH_URL = 'http://localhost:3000'; // frontend url
 NEXTAUTH_SECRET = 'string';
 DATABASE_URL = 'string'; // MongoDB connection url
 
@@ -68,3 +69,25 @@ EMAIL_FROM = 'string'; // what address automated emails come from
 EMAIL_INBOX = 'string'; // where the email will end up going
 SENDGRID_API_KEY = 'string';
 ```
+
+## Getting Started
+
+- Install the dependencies
+
+```bash
+$ yarn install
+```
+
+- To start the development server with dummy data for the games, run the following:
+
+```bash
+$ yarn dev:seed
+```
+
+- If you want to contribute, create a pull request (PR) against my dev branch and I'll review it. If you'd like to ask me some questions first, feel free to open an issue in the repo to discuss.
+- If you want to contribute by adding a game, read the [games readme](https://github.com/dastrong/ESLintheROK-front/tree/master/games#getting-started-new-game).
+
+### Note
+
+- If you get TypeScript errors after installing the dependencies, try close and then open your code editor.
+- If the website images do not display when you run the development server, make sure that the `.env` file is correctly formatted.

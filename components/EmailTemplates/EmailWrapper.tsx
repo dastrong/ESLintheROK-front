@@ -34,7 +34,7 @@ export default function EmailWrapper({ title, notice, children }: EmailProps) {
             <MjmlImage
               width="75px"
               height="76px"
-              href="http://localhost:3000"
+              href={process.env.NEXT_PUBLIC_NEXTAUTH_URL}
               src="https://res.cloudinary.com/dastrong/image/upload/c_scale,q_80,w_75/ESLintheROK/logo.png"
             />
 

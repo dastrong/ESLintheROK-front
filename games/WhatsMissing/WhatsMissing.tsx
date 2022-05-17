@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useCallback, useEffect } from 'react';
@@ -185,6 +186,7 @@ export default function WhatsMissing({ title }: GameSEOProps) {
           const transform = `rotate(${transforms[i]}deg)`;
           return (
             <div
+              key={word + i}
               className={Styles.CardCSS.className}
               style={{ color, transform, height, width }}
             >

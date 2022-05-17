@@ -30,6 +30,7 @@ export default function GifView() {
     };
 
     if (!gifs.length) getAndSetGif();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const usedOrDeletedGifIds = [...removedGifIds, ...usedGifIds];

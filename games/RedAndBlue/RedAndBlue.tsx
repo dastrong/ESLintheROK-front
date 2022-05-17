@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useCallback } from 'react';
@@ -62,17 +63,20 @@ export default function RedAndBlue({ title }: GameSEOProps) {
 
   return (
     <div className={ContainerCSS.className} onClick={handleGame}>
-      {refs.map((ref, i) => (
-        <div className={`outer-color ${!i ? 'red' : 'blue'}`}>
-          <hr className="st-line" />
-          <hr className="nd-line" />
-          <hr className="rd-line" />
-          <hr className="th-line" />
-          <div className={`inner-color ${!i ? 'red' : 'blue'}`}>
-            <FitText text={!i ? red : blue} ref={ref} />
+      {refs.map((ref, i) => {
+        const color = !i ? 'red' : 'blue';
+        return (
+          <div key={`${color}-container`} className={`outer-color ${color}`}>
+            <hr className="st-line" />
+            <hr className="nd-line" />
+            <hr className="rd-line" />
+            <hr className="th-line" />
+            <div className={`inner-color ${color}`}>
+              <FitText text={!i ? red : blue} ref={ref} />
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
 
       {/* STYLES */}
       {ContainerCSS.styles}

@@ -38,28 +38,29 @@ export default function Carousel({
 
   useEffect(() => {
     if (!activeItem || typeof activeItem !== 'string') return;
+
+    const getOptimalSlide = (activeItem: string): number => {
+      // get the index of the currently clicked item
+      const activeIndex = items.findIndex(({ id }) => id === activeItem);
+
+      const lastItemIndex = items.length - 1;
+      const midPoint = numOfItemsToShow / 2;
+      const midPointFloored = Math.floor(midPoint);
+      const midPointRounded = Math.round(midPoint);
+
+      // override the slide index for the items before the midway point
+      if (activeIndex < midPointRounded) return 0;
+      // override the slide index for the last couple items
+      if (activeIndex > lastItemIndex - midPointRounded) {
+        return lastItemIndex - midPointRounded - midPointFloored + 1;
+      }
+      // center the rest of the items
+      return activeIndex - midPointRounded + 1;
+    };
+
     const optimalSlide = getOptimalSlide(activeItem);
     carouselRef.current.goToSlide(optimalSlide);
-  }, [activeItem]);
-
-  const getOptimalSlide = (activeItem: string): number => {
-    // get the index of the currently clicked item
-    const activeIndex = items.findIndex(({ id }) => id === activeItem);
-
-    const lastItemIndex = items.length - 1;
-    const midPoint = numOfItemsToShow / 2;
-    const midPointFloored = Math.floor(midPoint);
-    const midPointRounded = Math.round(midPoint);
-
-    // override the slide index for the items before the midway point
-    if (activeIndex < midPointRounded) return 0;
-    // override the slide index for the last couple items
-    if (activeIndex > lastItemIndex - midPointRounded) {
-      return lastItemIndex - midPointRounded - midPointFloored + 1;
-    }
-    // center the rest of the items
-    return activeIndex - midPointRounded + 1;
-  };
+  }, [activeItem, items, numOfItemsToShow]);
 
   return (
     <div style={{ width, lineHeight: 1, fontSize: '1rem' }}>

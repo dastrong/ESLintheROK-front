@@ -99,7 +99,11 @@ export default function ContactPage() {
                   Join our chat room to get a short, quick question answered.
                 </p>
               </div>
-              <a href="https://open.kakao.com/o/giDzG30?rt=Q" target="_blank">
+              <a
+                href="https://open.kakao.com/o/giDzG30?rt=Q"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <QrKakao
                   style={{ fill: 'purple', height: 110, display: 'block' }}
                 />
@@ -117,6 +121,7 @@ export default function ContactPage() {
               <a
                 href="http://korshare.org/index.php?showtopic=2261"
                 target="_blank"
+                rel="noreferrer"
               >
                 <QrKorshare
                   style={{ fill: '#1060e2', height: 110, display: 'block' }}
@@ -133,6 +138,7 @@ export default function ContactPage() {
               <a
                 href="https://www.waygook.org/index.php?topic=114421.0"
                 target="_blank"
+                rel="noreferrer"
               >
                 <QrWaygook
                   style={{ fill: 'green', height: 110, display: 'block' }}

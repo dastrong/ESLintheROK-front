@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { forwardRef } from 'react';
 import { animated, useSpring } from 'react-spring';
 import FitText from 'components/FitText';

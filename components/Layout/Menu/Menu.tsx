@@ -60,7 +60,7 @@ export default function Menu() {
   // close the menu on route change
   useEffect(() => {
     storeDispatch({ type: 'Close_Menu' });
-  }, [asPath]);
+  }, [asPath, storeDispatch]);
 
   // className that's reused for event item
   const menuItemCX = classNames('menu_item', Styles.MenuItemCSS.className, {

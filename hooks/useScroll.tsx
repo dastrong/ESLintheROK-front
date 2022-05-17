@@ -17,6 +17,7 @@ export default function useScroll(
       const wheelClicked = buttons === 4;
       cb(scrolledUp, wheelClicked);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [isMenuOpen, cb]
   );
 

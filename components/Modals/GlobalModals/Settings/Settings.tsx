@@ -17,6 +17,7 @@ export default function Settings() {
 
   useEffect(() => {
     if (showSettings) closeModal();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);
 
   return (

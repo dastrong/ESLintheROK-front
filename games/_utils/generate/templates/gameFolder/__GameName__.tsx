@@ -20,7 +20,6 @@ import * as Styles from './__GameName__.styles';
 // IMPORT COMPONENTS/UTILITIES HERE
 import { track } from 'utils/analytics';
 import type { GameSEOProps } from 'games/types';
-import GameWrapper from 'components/GameWrapper';
 
 // CONSTANTS - img, audio, function, etc.
 //
@@ -84,14 +83,12 @@ export default function __GameName__({
   // GAME FUNCTIONS - start with an underscore ex) _handleClick
 
   return (
-    <GameWrapper title={title} description={description} keyCuts={keyCuts}>
-      <div className={ContainerCSS.className}>
-        {/* ADD YOUR ELEMENTS/COMPONENTS HERE */}
+    <div className={ContainerCSS.className}>
+      {/* ADD YOUR ELEMENTS/COMPONENTS HERE */}
 
-        {/* STYLES */}
-        {ContainerCSS.styles}
-        {/* Add any other style elements here */}
-      </div>
-    </GameWrapper>
+      {/* STYLES */}
+      {ContainerCSS.styles}
+      {/* Add any other style elements here */}
+    </div>
   );
 }

@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 
-import SeoWrapper from 'components/SeoWrapper';
 import Block from 'components/Block';
+import SeoWrapper from 'components/SeoWrapper';
 import Popup from 'components/Popup';
 import { PageHeading, PageSubHeading } from 'components/PageHeadings';
 import PageContent from 'components/PageContent';
@@ -80,7 +80,11 @@ export default function AcknowledgementsPage({
           <PageContent.List>
             <li>
               Thank you to{' '}
-              <a href="https://github.com/MattDClarke" target="_blank">
+              <a
+                href="https://github.com/MattDClarke"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Matt Clarke
               </a>{' '}
               for his work on the{' '}
@@ -91,11 +95,19 @@ export default function AcknowledgementsPage({
             </li>
             <li>
               The fantastic, new game images were created by{' '}
-              <a href="https://www.instagram.com/jacquijoy" target="_blank">
+              <a
+                href="https://www.instagram.com/jacquijoy"
+                target="_blank"
+                rel="noreferrer"
+              >
                 JacquiJoy
               </a>
               . Go check out her{' '}
-              <a href="https://www.instagram.com/jacquijoy" target="_blank">
+              <a
+                href="https://www.instagram.com/jacquijoy"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Instagram
               </a>{' '}
               and give her a follow!
@@ -113,6 +125,7 @@ export default function AcknowledgementsPage({
               <a
                 href="https://www.vecteezy.com/free-vector/world-logo"
                 target="_blank"
+                rel="noreferrer"
               >
                 Vecteezy
               </a>
@@ -120,21 +133,21 @@ export default function AcknowledgementsPage({
             <li>
               The wavey top navigation bar and the blobs in the footer were
               built and downloaded from{' '}
-              <a href="https://haikei.app" target="_blank">
+              <a href="https://haikei.app" target="_blank" rel="noreferrer">
                 Haikei
               </a>
             </li>
             <li>
               The animations on the homepage, in the handmade lesson modal and
               the icons below were downloaded from{' '}
-              <a href="https://undraw.co" target="_blank">
+              <a href="https://undraw.co" target="_blank" rel="noreferrer">
                 unDraw
               </a>
             </li>
 
             <li>
               GIF's used on the site are randomly fetched from{' '}
-              <a href="https://giphy.com" target="_blank">
+              <a href="https://giphy.com" target="_blank" rel="noreferrer">
                 GIPHY.com
               </a>
             </li>

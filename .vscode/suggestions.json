@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "irongeek.vscode-env",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "blanu.vscode-styled-jsx",
+    "divlo.vscode-styled-jsx-languageserver"
+  ]
+}

@@ -23,6 +23,7 @@ export default function useKeys(
       if (!cb) return;
       cb(e);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [isMenuOpen, dataModalName, showSettings, show, handleGame, cb]
   );
 
