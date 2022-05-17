@@ -4,12 +4,12 @@ Want to add a game or customize one I've already created? Wonderful. Simply open
 
 ## Getting Started (New Game)
 
-- Follow the _Getting Started_ instructions on the **main readme**.
+- Follow the [_Getting Started_](https://github.com/dastrong/ESLintheROK-front#getting-started) instructions on the **main readme**.
 
 - Make your own working branch
 
 ```bash
-$ git checkout -b 'New Game: {GameName}'
+$ git checkout -b 'NewGame-{GameName}'
 ```
 
 - In your branch, run the following:

@@ -11,7 +11,7 @@ inquirer
     {
       type: 'input',
       name: 'game_name',
-      message: 'Type your game name',
+      message: 'Type your game name. For example: word lotto',
     },
   ])
   .then(({ game_name }) => {
@@ -86,8 +86,8 @@ async function addToGamesList(newGame) {
 }
 
 const successMsg = (gameFolder, gameRoute) => `
-  Your files are all set up to start working. 
-    
+  Your files are all set up to start working.
+
   Please take a moment to make an initial commit.
 
   Please read through the Game guide to get started
@@ -101,7 +101,7 @@ const successMsg = (gameFolder, gameRoute) => `
     gameRoute
   )} *${chalk.italic('server must be on')}*
 
-  If you have any questions, please open an issue  
+  If you have any questions, please open an issue
     ${chalk.blue.underline(
       'https://github.com/dastrong/ESLintheROK-front/issues'
     )}
