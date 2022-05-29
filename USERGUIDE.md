@@ -61,7 +61,7 @@ You can contact us to get it added or create a custom lesson to get started quic
 - head to the games page
 - choose a game to play
 
-## Master User
+## Professional User
 
 **Helpful Suggestions**
 
