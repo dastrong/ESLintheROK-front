@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useReducer } from 'react';
 import useSWR from 'swr';
 import Cookies from 'js-cookie';
 
-import { seed } from 'lib/seed';
+import { data } from 'lib/seed';
 import { checkIfNew } from 'utils/checkIfNew';
 import { regFetch } from 'utils/fetchers';
 
@@ -48,7 +48,7 @@ const initialState: StoreTypes = {
   vocabulary: [],
   expressions: [],
   showChangelogNotification: false,
-  ...(Boolean(process.env.NEXT_PUBLIC_SEED) && seed),
+  ...(Boolean(process.env.NEXT_PUBLIC_SEED) && data),
 };
 
 type ActionTypes =

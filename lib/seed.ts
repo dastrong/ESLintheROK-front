@@ -1,4 +1,4 @@
-export const seed = {
+export const data = {
   isDataReady: true,
   vocabulary: [
     'apple',
