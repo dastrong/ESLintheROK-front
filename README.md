@@ -85,7 +85,7 @@ $ yarn dev:seed
 ```
 
 - If you want to contribute, create a pull request (PR) against my dev branch and I'll review it. If you'd like to ask me some questions first, feel free to open an issue in the repo to discuss.
-- If you want to contribute by adding a game, read the [games readme](https://github.com/dastrong/ESLintheROK-front/tree/master/games#getting-started-new-game).
+- If you want to contribute by adding a game, read the [games readme](https://github.com/dastrong/ESLintheROK-front/tree/main/games#getting-started-new-game).
 
 ### Note
 
