@@ -2,6 +2,13 @@
 
 All notable changes, updated and additions to this site will be documented below.
 
+## [2.3.0] - 2022-05-29
+
+**Added**
+
+- New Game - [Human Zero](https://www.eslintherok.com/game/human_zero_game)
+  - Special thanks to [@MattDClarke](https://github.com/MattDClarke) for creating this game
+
 ## [2.2.0] - 2022-01-10
 
 **Changed**

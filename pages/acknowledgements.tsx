@@ -91,7 +91,11 @@ export default function AcknowledgementsPage({
               <Link href="/game/word_shark">
                 <a>Word Shark</a>
               </Link>{' '}
-              game.
+              and{' '}
+              <Link href="/game/human_zero_game">
+                <a>Human Zero</a>
+              </Link>{' '}
+              games.
             </li>
             <li>
               The fantastic, new game images were created by{' '}
