@@ -18,6 +18,8 @@ $ git checkout -b 'NewGame-{GameName}'
 $ npm run createGame
 ```
 
+> You can ignore the DeprecatedWarning, if you receive it. Enter your game name to continue.
+
 - Follow all the prompts
 
 - Make an initial game commit in your branch

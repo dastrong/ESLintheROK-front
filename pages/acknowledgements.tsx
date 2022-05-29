@@ -9,6 +9,7 @@ import { PageHeading, PageSubHeading } from 'components/PageHeadings';
 import PageContent from 'components/PageContent';
 import UserCharacter from 'components/Svgs/UserCharacter';
 import { getDonations } from 'utils/getDonations';
+import { donations } from 'lib/seed';
 
 type Donation = {
   name: string;
@@ -91,7 +92,11 @@ export default function AcknowledgementsPage({
               <Link href="/game/word_shark">
                 <a>Word Shark</a>
               </Link>{' '}
-              game.
+              and{' '}
+              <Link href="/game/human_zero_game">
+                <a>Human Zero</a>
+              </Link>{' '}
+              games.
             </li>
             <li>
               The fantastic, new game images were created by{' '}
@@ -318,6 +323,9 @@ export const getStaticProps = async () => {
     })
   );
 
+  const totalDonations =
+    supporterDonations.length + subscriptionDonations.length;
+
   // combined supporters/subscriptions and duplicates and remove emails
   const combinedDonations = [...supporterDonations, ...subscriptionDonations]
     .reduce((acc, cVal) => {
@@ -346,7 +354,7 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      tieredDonations: combinedDonations,
+      tieredDonations: totalDonations ? combinedDonations : donations,
       lessonContributors,
     },
     revalidate: 300, // 5 minutes
