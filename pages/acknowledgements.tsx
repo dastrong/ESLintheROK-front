@@ -9,6 +9,7 @@ import { PageHeading, PageSubHeading } from 'components/PageHeadings';
 import PageContent from 'components/PageContent';
 import UserCharacter from 'components/Svgs/UserCharacter';
 import { getDonations } from 'utils/getDonations';
+import { donations } from 'lib/seed';
 
 type Donation = {
   name: string;
@@ -322,6 +323,9 @@ export const getStaticProps = async () => {
     })
   );
 
+  const totalDonations =
+    supporterDonations.length + subscriptionDonations.length;
+
   // combined supporters/subscriptions and duplicates and remove emails
   const combinedDonations = [...supporterDonations, ...subscriptionDonations]
     .reduce((acc, cVal) => {
@@ -350,7 +354,7 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      tieredDonations: combinedDonations,
+      tieredDonations: totalDonations ? combinedDonations : donations,
       lessonContributors,
     },
     revalidate: 300, // 5 minutes
