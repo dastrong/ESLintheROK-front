@@ -132,7 +132,7 @@ export default function HumanZeroGame({ title }: GameSEOProps) {
         <Modal.Actions
           cancelColor="white"
           cancelBgColor="orangered"
-          cancelText="cancel"
+          cancelText="Cancel"
           cancelClick={closeModal}
           confirmColor="white"
           confirmBgColor="#2185d0"
