@@ -1,8 +1,8 @@
 import type { GameConfig } from '../types';
 
 export const config: GameConfig = {
-  publish: false,
-  publishedDate: '', // enter the value returned from - new Date().toIsoString()
+  publish: true,
+  publishedDate: '2022-05-29T16:45:52.613Z', // enter the value returned from - new Date().toIsoString()
 
   // MAIN INFO
   path: '/game/human_zero_game', // you probably don't wanna edit this
