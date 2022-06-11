@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { animated, useSpring, useTransition, config } from 'react-spring';
+import { animated, useSpring, useTransition } from 'react-spring';
 import { useStore } from 'contexts/store';
 import { useFont } from 'contexts/fonts';
 import { useData, useHandleGame, useFitText, useKeys, useScroll } from 'hooks';
@@ -40,10 +40,10 @@ export default function HumanZeroGame({ title }: GameSEOProps) {
     immediate: true,
   });
   const transition = useTransition(stage === 1, {
-    from: { opacity: 0, translateY: '-400px' },
+    from: { opacity: 0, translateY: '-200px' },
     enter: { opacity: 1, translateY: '0px' },
-    leave: { opacity: 0, translateY: '200px' },
-    config: config.wobbly,
+    leave: { opacity: 0, translateY: '100px' },
+    config: { mass: 1, tension: 280, friction: 20 },
   });
 
   // HANDLE GAME
